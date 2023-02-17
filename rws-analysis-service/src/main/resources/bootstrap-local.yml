@@ -1,0 +1,22 @@
+spring:
+   datasource:
+      url: jdbc:h2:mem:analysis
+      username: ${db.user}
+      password: ${db.password}
+      driverClassName: org.h2.Driver
+   jpa:
+      show-sql: true
+      hibernate:
+         ddl-auto: update
+      properties:
+         hibernate:
+            dialect: org.hibernate.dialect.H2Dialect
+   h2:
+      console:
+         enabled: true
+         path: /h2-ui
+   liquibase:
+      change-log: classpath:/db/changelog/h2/changelogMaster.xml
+      contexts: ${spring.profiles.active}
+      dropFirst: true
+         

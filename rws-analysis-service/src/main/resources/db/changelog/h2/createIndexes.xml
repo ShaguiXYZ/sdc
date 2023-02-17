@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="initial" id="100220230020">
+		<sql dbms="h2">
+			CREATE INDEX metrics_metric_name_idx ON
+			metrics
+			USING btree (metric_name, metric_type);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="100220230021">
+		<sql dbms="h2">
+			CREATE INDEX component_type_architectures_component_type_architecture_uk
+			ON component_type_architectures USING btree (component_type_id,
+			architecture_id);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="100220230022">
+		<sql dbms="h2">
+			CREATE INDEX component_analysis_component_id_idx ON
+			component_analysis USING btree (component_id, metric_id);
+		</sql>
+	</changeSet>
+</databaseChangeLog>

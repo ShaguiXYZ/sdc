@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="initial" id="10022023_20001">
+		<sql dbms="postgresql">
+			CREATE UNIQUE INDEX metrics_metric_name_metric_type_uk
+			ON
+			metrics
+			USING btree (metric_name, metric_type);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="10022023_20002">
+		<sql dbms="postgresql">
+			CREATE UNIQUE INDEX
+			component_type_architectures_component_type_architecture_uk
+			ON
+			component_type_architectures USING btree (component_type_id,
+			architecture_id);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_20003">
+		<sql dbms="postgresql">
+			CREATE UNIQUE INDEX components_squad_component_name_uk
+			ON components USING btree
+			(component_name,squad_id);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="10022023_20004">
+		<sql dbms="postgresql">
+			CREATE INDEX component_analysis_component_id_idx ON
+			component_analysis USING btree (component_id, metric_id);
+		</sql>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,16 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+#######JAVA#######
+
+# Build Files #
+bin
+target/
+build/
+.gradle
+
+# Eclipse Project Files #
+.classpath
+.project
+.settings
+.factorypath
+.apt_generated

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="initial" id="060220231002">
+		<sql dbms="mariadb,mysql">			
+			CREATE TABLE companies (
+			company_id int NOT NULL,
+			company_name varchar(250) NOT NULL,
+			company_codes varchar(100) NOT NULL,
+			CONSTRAINT companies_PK PRIMARY KEY (company_id)
+			);
+
+			CREATE TABLE metrics (
+			metric_id int auto_increment NOT NULL,
+			metric_name varchar(100) NOT NULL,
+			metric_type varchar(50) NOT NULL,
+			metric_value_type varchar(50) NULL,
+			metric_validation varchar(50) NULL,
+			CONSTRAINT metrics_pk PRIMARY KEY (metric_id)
+			);
+
+			CREATE TABLE project_types (
+			project_type_id int auto_increment NOT NULL,
+			project_type_name varchar(100) NULL,
+			CONSTRAINT project_types_pk	PRIMARY KEY (project_type_id)
+			);
+
+			CREATE TABLE uris (
+			uri_id int auto_increment NOT NULL,
+			uri_name varchar(100) NULL,
+			uri_value varchar(250) NULL,
+			uri_token varchar(200) NULL,
+			uri_type varchar(10) NULL,
+			CONSTRAINT uris_pk PRIMARY KEY (uri_id)
+			);
+
+			CREATE TABLE departments (
+			department_id int NOT NULL,
+			department_name varchar(100) NOT NULL,
+			company_id int NOT NULL,
+			CONSTRAINT departments_pk PRIMARY KEY (department_id),
+			CONSTRAINT department_company_fk FOREIGN KEY (company_id) REFERENCES companies(company_id)
+			);
+
+			CREATE TABLE project_type_metrics (
+			project_type_id int NOT NULL,
+			metric_id int NOT NULL,
+			CONSTRAINT project_type_metrics_pk PRIMARY KEY (project_type_id, metric_id),
+			CONSTRAINT project_type_metric_metric_fk FOREIGN KEY (metric_id)
+			REFERENCES metrics(metric_id) ON DELETE	CASCADE ON UPDATE CASCADE,
+			CONSTRAINT project_type_metric_project_type_fk FOREIGN KEY (project_type_id)
+			REFERENCES project_types(project_type_id) ON DELETE	CASCADE ON UPDATE CASCADE
+			);
+
+			CREATE TABLE squads (
+			squad_id int NOT NULL,
+			squad_name varchar(100) NOT NULL,
+			department_id int NOT NULL,
+			CONSTRAINT squads_pk PRIMARY KEY (squad_id),
+			CONSTRAINT squads_department_fk FOREIGN KEY	(department_id) REFERENCES departments(department_id)
+			);
+
+			CREATE TABLE metric_values (
+			metric_value_id int auto_increment NOT NULL,
+			metric_id int NOT NULL,
+			project_type_id int NOT NULL,
+			metric_value_date timestamp NOT NULL DEFAULT now(),
+			metric_value_weight int NOT NULL DEFAULT 0,
+			metric_expected_value varchar(50) NOT NULL,
+			metric_good_value varchar(50) NULL,
+			metric_perfect_value varchar(50) NULL,
+			CONSTRAINT metric_values_pk	PRIMARY KEY (metric_value_id),
+			CONSTRAINT metric_value_project_type_metric_fk FOREIGN KEY (project_type_id,metric_id)
+			REFERENCES project_type_metrics(project_type_id,metric_id) ON DELETE CASCADE ON	UPDATE CASCADE
+			);
+
+			CREATE TABLE projects (
+			project_id int auto_increment NOT NULL,
+			project_name varchar(100) NOT NULL,
+			project_private bool NULL DEFAULT false,
+			project_type_id int NOT NULL,
+			squad_id int NOT NULL,
+			CONSTRAINT projects_pk PRIMARY KEY (project_id),
+			CONSTRAINT project_project_type_fk FOREIGN KEY (project_type_id) REFERENCES	project_types(project_type_id),
+			CONSTRAINT project_squad_fk FOREIGN	KEY (squad_id) REFERENCES squads(squad_id)
+			);
+
+			CREATE TABLE project_uris (
+			project_id int NOT NULL,
+			uri_id int NOT NULL,
+			CONSTRAINT project_uris_pk PRIMARY KEY (project_id,uri_id),
+			CONSTRAINT project_uris_project_fk FOREIGN KEY (project_id) REFERENCES
+			projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
+			CONSTRAINT project_uris_uri_fk FOREIGN KEY (uri_id) REFERENCES uris(uri_id)
+			);
+
+			CREATE TABLE project_analysis (
+			project_id int NOT NULL,
+			project_analysis_date timestamp NOT NULL DEFAULT now(),
+			metric_id int NOT NULL,
+			project_analysis_value varchar(50) NULL,
+			project_type_id int NOT	NULL,
+			CONSTRAINT project_analysis_pk PRIMARY KEY (project_id,project_analysis_date,metric_id),
+			CONSTRAINT project_analysis_project_fk FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
+			CONSTRAINT project_analysis_project_type_metric_fk FOREIGN KEY (project_type_id,metric_id) 
+			REFERENCES project_type_metrics(project_type_id,metric_id) ON DELETE CASCADE ON UPDATE CASCADE
+			);
+
+			CREATE TABLE project_properties (
+			project_property_id	int auto_increment NOT NULL,
+			project_property_name varchar(100) NOT NULL,
+			project_property_value varchar(50) NOT NULL,
+			project_id int NOT NULL,
+			CONSTRAINT poject_properties_pk PRIMARY KEY (project_property_id),
+			CONSTRAINT poject_properties_un UNIQUE (project_property_name,project_id),
+			CONSTRAINT poject_property_project_fk FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE
+			);
+		</sql>
+	</changeSet>
+</databaseChangeLog>

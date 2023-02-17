@@ -1,0 +1,82 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+#######ANGULAR#######
+
+# compiled output
+dist/
+collection/
+tmp/
+out-tsc/
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+yarn.lock
+package-lock.json
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#######JAVA#######
+
+# Build Files #
+bin
+target/
+build/
+.gradle
+
+# Eclipse Project Files #
+.classpath
+.project
+.settings
+.factorypath
+.apt_generated
+
+
+# IntelliJ IDEA Files #
+*.iml
+*.ipr
+*.iws
+*.idea
+
+# Spring Bootstrap artifacts
+dependency-reduced-pom.xml
+
+mem*.db
+*.class
+README.html
+
+# System Files
+.DS_Store
+Thumbs.db
+*~
+.#*
+#*
+*#

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="initial" id="18022023_10001">
+		<sql dbms="postgresql">
+			CREATE TABLE architectures (
+				architecture_id serial4 NOT NULL,
+				architecture_name varchar NOT NULL,
+				CONSTRAINT architectures_pk PRIMARY KEY (architecture_id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10002">
+		<sql dbms="postgresql">
+			CREATE TABLE companies (
+				company_id int4 NOT NULL,
+				company_name varchar NOT NULL,
+				company_codes varchar NOT NULL,
+				CONSTRAINT companies_pk PRIMARY KEY (company_id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10003">
+		<sql dbms="postgresql">
+			CREATE TABLE metrics (
+				metric_id serial4 NOT NULL,
+				metric_name varchar NOT NULL,
+				metric_type varchar NOT NULL,
+				metric_value_type varchar NULL,
+				metric_validation varchar NULL,
+				CONSTRAINT metrics_pk PRIMARY KEY (metric_id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10004">
+		<sql dbms="postgresql">
+			CREATE TABLE component_types (
+				component_type_id serial4 NOT NULL,
+				component_type_name varchar NOT NULL,
+				CONSTRAINT component_types_pk PRIMARY KEY (component_type_id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10005">
+		<sql dbms="postgresql">
+			CREATE TABLE uris (
+				uri_id serial4 NOT NULL,
+				uri_name varchar NULL,
+				uri_value varchar NULL,
+				uri_type varchar NULL,
+				CONSTRAINT uris_pk PRIMARY KEY (uri_id)
+			);
+		</sql>
+	</changeSet>
+			
+	<changeSet author="initial" id="18022023_10006">
+		<sql dbms="postgresql">
+			CREATE TABLE departments (
+				department_id int4 NOT NULL,
+				department_name varchar NOT NULL,
+				company_id int4 NOT NULL,
+				CONSTRAINT departments_pk PRIMARY KEY (department_id),
+				CONSTRAINT department_company_fk FOREIGN KEY (company_id) REFERENCES companies(company_id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10007">
+		<sql dbms="postgresql">
+			CREATE TABLE component_type_architectures (
+				component_type_architecture_id serial4 NOT NULL,
+				component_type_id int4 NOT NULL,
+				architecture_id int4 NOT NULL,
+				CONSTRAINT component_type_architectures_pk PRIMARY KEY (component_type_architecture_id),
+				CONSTRAINT component_type_architecture_architecture_fk FOREIGN KEY (architecture_id) REFERENCES architectures(architecture_id) ON DELETE CASCADE,
+				CONSTRAINT component_type_architecture_component_type_fk FOREIGN KEY (component_type_id) REFERENCES component_types(component_type_id) ON DELETE CASCADE
+			);
+		</sql>
+	</changeSet>
+			
+	<changeSet author="initial" id="18022023_10008">
+		<sql dbms="postgresql">
+			CREATE TABLE squads (
+				squad_id int4 NOT NULL,
+				squad_name varchar NOT NULL,
+				department_id int4 NOT NULL,
+				CONSTRAINT squads_pk PRIMARY KEY (squad_id),
+				CONSTRAINT squads_department_fk FOREIGN KEY (department_id) REFERENCES departments(department_id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10009">
+		<sql dbms="postgresql">
+			CREATE TABLE component_type_architecture_metrics (
+				component_type_architecture_id int4 NOT NULL,
+				metric_id int4 NOT NULL,
+				CONSTRAINT component_type_architecture_metrics_pk PRIMARY KEY (metric_id, component_type_architecture_id),
+				CONSTRAINT component_type_architecture_metric_metric_fk FOREIGN KEY (metric_id) REFERENCES metrics(metric_id),
+				CONSTRAINT component_type_architecture_metric_component_type_architecture_fk FOREIGN KEY (component_type_architecture_id) REFERENCES component_type_architectures(component_type_architecture_id) ON DELETE CASCADE
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10010">
+		<sql dbms="postgresql">
+			CREATE TABLE components (
+				component_id serial4 NOT NULL,
+				component_name varchar NOT NULL,
+				component_path varchar,
+				component_private bool NULL DEFAULT false,
+				component_type_architecture_id int4 NOT NULL,
+				squad_id int4 NOT NULL,
+				CONSTRAINT components_pk PRIMARY KEY (component_id),
+				CONSTRAINT component_component_type_architecture_fk FOREIGN KEY (component_type_architecture_id) REFERENCES component_type_architectures(component_type_architecture_id),
+				CONSTRAINT component_squad_fk FOREIGN KEY (squad_id) REFERENCES squads(squad_id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10011">
+		<sql dbms="postgresql">
+			CREATE TABLE metric_values (
+				metric_value_id serial4 NOT NULL,
+				metric_id int4 NOT NULL,
+				component_type_architecture_id int4 NOT NULL,
+				metric_value_date timestamp NOT NULL DEFAULT now(),
+				metric_value_weight int4 NOT NULL DEFAULT 0,
+				metric_expected_value varchar NOT NULL,
+				metric_good_value varchar NULL,
+				metric_perfect_value varchar NULL,
+				CONSTRAINT metric_values_pk PRIMARY KEY (metric_value_id),
+				CONSTRAINT metric_value_component_type_architecture_metrics_fk FOREIGN KEY (metric_id,component_type_architecture_id) REFERENCES component_type_architecture_metrics(metric_id,component_type_architecture_id) ON DELETE CASCADE ON UPDATE CASCADE
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10012">
+		<sql dbms="postgresql">
+			CREATE TABLE component_analysis (
+				component_id int4 NOT NULL,
+				component_analysis_date timestamp NOT NULL DEFAULT now(),
+				metric_id int4 NOT NULL,
+				component_type_architecture_id int4 NOT NULL,
+				component_analysis_value varchar NULL,
+				CONSTRAINT component_analysis_pk PRIMARY KEY (component_id, component_analysis_date, metric_id),
+				CONSTRAINT component_analysis_component_fk FOREIGN KEY (component_id) REFERENCES components(component_id) ON DELETE CASCADE ON UPDATE CASCADE,
+				CONSTRAINT component_analysis_component_type_architecture_metrics_fk FOREIGN KEY (metric_id,component_type_architecture_id) REFERENCES component_type_architecture_metrics(metric_id,component_type_architecture_id) ON DELETE CASCADE ON UPDATE CASCADE
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10013">
+		<sql dbms="postgresql">
+			CREATE TABLE component_properties (
+				component_property_id serial4 NOT NULL,
+				component_property_name varchar NOT NULL,
+				component_property_value varchar NOT NULL,
+				component_id int4 NOT NULL,
+				CONSTRAINT poject_properties_pk PRIMARY KEY (component_property_id),
+				CONSTRAINT poject_properties_uk UNIQUE (component_property_name, component_id),
+				CONSTRAINT poject_property_component_fk FOREIGN KEY (component_id) REFERENCES components(component_id) ON DELETE CASCADE
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10014">
+		<sql dbms="postgresql">
+			CREATE TABLE component_uris (
+				component_id int4 NOT NULL,
+				uri_id int4 NOT NULL,
+				CONSTRAINT component_uris_pk PRIMARY KEY (component_id, uri_id),
+				CONSTRAINT component_uris_component_fk FOREIGN KEY (component_id) REFERENCES components(component_id) ON DELETE CASCADE ON UPDATE CASCADE,
+				CONSTRAINT component_uris_uri_fk FOREIGN KEY (uri_id) REFERENCES uris(uri_id)
+			);
+		</sql>
+	</changeSet>		
+	<changeSet author="initial" id="18022023_10015">
+		<sql dbms="postgresql">
+			CREATE TABLE request_properies (
+				request_property_id serial4 NOT NULL,
+				request_property_key varchar NOT NULL,
+				request_property_value varchar NULL,
+				CONSTRAINT request_properies_pk PRIMARY KEY (request_property_id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="18022023_10016">
+		<sql dbms="postgresql">
+			CREATE TABLE uri_request_properties (
+				uri_id int4 NOT NULL,
+				request_property_id int4 NOT NULL,
+				CONSTRAINT uri_request_properties_pk PRIMARY KEY (uri_id, request_property_id),
+				CONSTRAINT uri_request_property_request_property_fk FOREIGN KEY (request_property_id) REFERENCES request_properies(request_property_id) ON DELETE CASCADE ON UPDATE CASCADE,
+				CONSTRAINT uri_request_property_uri_fk FOREIGN KEY (uri_id) REFERENCES uris(uri_id) ON DELETE CASCADE ON UPDATE CASCADE
+			);
+		</sql>
+	</changeSet>
+</databaseChangeLog>

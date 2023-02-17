@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "application.info.app.name",
+    "type": "java.lang.String",
+    "description": "A description for 'application.info.app.name'"
+  },
+  {
+    "name": "application.info.app.version",
+    "type": "java.lang.String",
+    "description": "A description for 'application.info.app.version'"
+  },
+  {
+    "name": "application.info.app.description",
+    "type": "java.lang.String",
+    "description": "A description for 'application.info.app.description'"
+  },
+  {
+    "name": "services.sonar.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'services.sonar.uri'"
+  }
+]}

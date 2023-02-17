@@ -1,0 +1,13 @@
+package com.shagui.analysis.api.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class AnalysisValuesDTO {
+	private String metricValue;
+	private String expectedValue;
+	private String goodValue;
+	private String perfectValue;
+}

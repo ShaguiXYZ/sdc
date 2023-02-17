@@ -1,0 +1,11 @@
+spring:
+   application:
+      name: bff-analysis
+   cloud:
+      config:
+         uri:
+      
+server:
+   port: 8080
+   servlet:
+      context-path: /bff-analysis
