@@ -1,5 +1,6 @@
-package com.shagui.analysis.api.dto.sonar;
+package com.shagui.analysis.api.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 
@@ -9,7 +10,8 @@ import lombok.Data;
  *
  */
 @Data
-public class PagingSonarDTO {
+@AllArgsConstructor
+public class PagingDTO {
 	private int pageIndex;
 	private int pageSize;
 	private int total;

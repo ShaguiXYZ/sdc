@@ -14,7 +14,6 @@ import com.shagui.analysis.api.dto.sonar.ComponentSonarDTO;
 import com.shagui.analysis.api.dto.sonar.ComponentsSonarDTO;
 import com.shagui.analysis.api.dto.sonar.MeasureSonarDTO;
 import com.shagui.analysis.api.dto.sonar.MeasuresSonarDTO;
-import com.shagui.analysis.api.dto.sonar.PagingSonarDTO;
 
 
 class PojoTest {
@@ -28,7 +27,7 @@ class PojoTest {
 		assertPojoMethodsFor(MetricDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING).areWellImplemented();
 		assertPojoMethodsFor(SquadDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
-		
+		assertPojoMethodsFor(PagingDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();		
 	}
 	
 	@Test
@@ -37,7 +36,6 @@ class PojoTest {
 		assertPojoMethodsFor(ComponentsSonarDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 		assertPojoMethodsFor(MeasureSonarDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 		assertPojoMethodsFor(MeasuresSonarDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
-		assertPojoMethodsFor(PagingSonarDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 	}
 
 }

@@ -37,10 +37,10 @@ import io.swagger.v3.oas.annotations.info.Info;
 @Configuration
 @EnableFeignClients(basePackages = { "com.shagui.analysis.api.client" })
 @ComponentScan(basePackages = "com.shagui.analysis")
-public class UiAnalysisApplication {
+public class RwsAnalysisApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UiAnalysisApplication.class, args);
+		SpringApplication.run(RwsAnalysisApplication.class, args);
 	}
 
 	@Bean

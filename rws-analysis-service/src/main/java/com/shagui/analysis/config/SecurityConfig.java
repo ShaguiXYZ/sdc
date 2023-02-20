@@ -26,7 +26,7 @@ public class SecurityConfig {
 	    http.headers().frameOptions().disable();
 	    
 		// Set permissions on endpoints
-		http.authorizeHttpRequests().antMatchers("/**").permitAll();
+		http.authorizeHttpRequests().requestMatchers("/**").permitAll();
 
         return http.build();
     }
