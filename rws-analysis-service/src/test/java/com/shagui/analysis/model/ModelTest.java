@@ -31,8 +31,9 @@ class ModelTest {
 		assertPojoMethodsFor(MetricValuesModel.class).testing(GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 		assertPojoMethodsFor(SquadModel.class).testing(GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 		assertPojoMethodsFor(UriModel.class).testing(GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
+		assertPojoMethodsFor(RequestProperiesModel.class).testing(GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 		assertPojoMethodsFor(ComponentAnalysisPk.class).testing(GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
-		
+
 	}
 
 	@Test
