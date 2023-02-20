@@ -11,5 +11,9 @@ public class Ctes {
 		public static final String XML_PATH = "xml_path"; 	// path to the pom.xml file from the git uri
 															// of the squad the project is associated with
 	}
+	
+	public static interface JPA {
+		public static final int ELEMENTS_BY_PAGE = 2;
+	}
 
 }
