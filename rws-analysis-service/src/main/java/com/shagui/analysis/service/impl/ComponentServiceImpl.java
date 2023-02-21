@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shagui.analysis.api.dto.ComponentDTO;
-import com.shagui.analysis.api.dto.ComponentsDTO;
+import com.shagui.analysis.api.dto.PaginatedDTO;
 import com.shagui.analysis.api.dto.PagingDTO;
 import com.shagui.analysis.exception.JpaNotFoundException;
 import com.shagui.analysis.model.ComponentModel;
@@ -43,11 +43,11 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public ComponentsDTO findBySquad(int squadId, int page) {
+	public PaginatedDTO<ComponentDTO> findBySquad(int squadId, int page) {
 		Pageable pageable = PageRequest.of(page, Ctes.JPA.ELEMENTS_BY_PAGE);
 		Page<ComponentModel> models = componentRepository.repository().findBySquad(new SquadModel(squadId), pageable);
 
-		ComponentsDTO components = new ComponentsDTO(
+		PaginatedDTO<ComponentDTO> components = new PaginatedDTO<ComponentDTO>(
 				new PagingDTO(models.getNumber(), models.getNumberOfElements(), models.getTotalPages()),
 				models.getContent().stream().map(Mapper::parse).collect(Collectors.toList()));
 

@@ -1,10 +1,10 @@
 package com.shagui.analysis.service;
 
 import com.shagui.analysis.api.dto.ComponentDTO;
-import com.shagui.analysis.api.dto.ComponentsDTO;
+import com.shagui.analysis.api.dto.PaginatedDTO;
 
 public interface ComponentService {
 	ComponentDTO create(ComponentDTO component);
 	ComponentDTO update(Integer id, ComponentDTO component);
-	ComponentsDTO findBySquad(int squadId, int page);
+	PaginatedDTO<ComponentDTO> findBySquad(int squadId, int page);
 }

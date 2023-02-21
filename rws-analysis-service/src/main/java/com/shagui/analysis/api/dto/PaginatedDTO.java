@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ComponentsDTO {	
+public class PaginatedDTO<T> {	
 	private PagingDTO paging;
-	private List<ComponentDTO> components;
+	private List<T> data;
 }
