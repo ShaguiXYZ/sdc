@@ -18,5 +18,5 @@ public interface SquadRestApi {
 	@Operation(summary = "Retrieve squad components")
 	@GetMapping("{sqadId}/components")
 	ComponentsDTO squadComponents(@PathVariable @Parameter(description = "Squad identifier") int sqadId,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
+			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") int page);
 }
