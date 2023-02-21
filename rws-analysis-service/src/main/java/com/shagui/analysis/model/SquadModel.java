@@ -12,11 +12,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "squads")
+@NoArgsConstructor
 public class SquadModel implements ModelInterface<Integer> {
+	
+	public SquadModel(Integer id) {
+		this.id = id;
+	}
+	
 	@Id
 	@Column(name = "squad_id")
 	private Integer id;
