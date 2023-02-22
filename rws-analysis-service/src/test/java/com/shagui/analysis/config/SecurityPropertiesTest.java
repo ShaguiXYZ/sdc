@@ -16,7 +16,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.cors.CorsConfiguration;
 
-import com.shagui.analysis.config.SecurityProperties.Cors;
+import com.shagui.analysis.core.configuration.SecurityProperties;
+import com.shagui.analysis.core.configuration.SecurityProperties.Cors;
 
 class SecurityPropertiesTest {
 	

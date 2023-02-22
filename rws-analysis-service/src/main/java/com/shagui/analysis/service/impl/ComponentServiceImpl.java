@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.shagui.analysis.api.dto.ComponentDTO;
 import com.shagui.analysis.api.dto.PaginatedDTO;
 import com.shagui.analysis.api.dto.PagingDTO;
-import com.shagui.analysis.exception.JpaNotFoundException;
+import com.shagui.analysis.core.exception.JpaNotFoundException;
 import com.shagui.analysis.model.ComponentModel;
 import com.shagui.analysis.model.ComponentTypeArchitectureModel;
 import com.shagui.analysis.model.SquadModel;

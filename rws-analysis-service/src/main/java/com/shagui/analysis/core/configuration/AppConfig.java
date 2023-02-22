@@ -1,4 +1,4 @@
-package com.shagui.analysis.config;
+package com.shagui.analysis.core.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 

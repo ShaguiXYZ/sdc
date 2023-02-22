@@ -11,7 +11,7 @@ import com.shagui.analysis.api.dto.ComponentTypeDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.MetricDTO;
 import com.shagui.analysis.api.dto.SquadDTO;
-import com.shagui.analysis.exception.ApiError;
+import com.shagui.analysis.core.exception.ApiError;
 import com.shagui.analysis.model.ArchitectureModel;
 import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.ComponentModel;

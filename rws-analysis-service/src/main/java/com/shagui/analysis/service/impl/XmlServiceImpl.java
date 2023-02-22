@@ -16,7 +16,7 @@ import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
 
 import com.shagui.analysis.api.client.XmlClient;
-import com.shagui.analysis.config.AppConfig;
+import com.shagui.analysis.core.configuration.AppConfig;
 import com.shagui.analysis.enums.MetricType;
 import com.shagui.analysis.enums.UriType;
 import com.shagui.analysis.model.ComponentAnalysisModel;

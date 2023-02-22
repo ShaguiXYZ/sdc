@@ -1,4 +1,4 @@
-package com.shagui.analysis.exception;
+package com.shagui.analysis.core.exception;
 
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.HttpHeaders;

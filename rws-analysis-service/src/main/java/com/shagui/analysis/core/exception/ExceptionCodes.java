@@ -1,4 +1,4 @@
-package com.shagui.analysis.exception;
+package com.shagui.analysis.core.exception;
 
 public class ExceptionCodes {
 	
