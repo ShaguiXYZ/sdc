@@ -40,6 +40,9 @@ public class DBConfig {
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String ddlAuto;
 
+	@Value("${spring.jpa.show-sql}")
+	private String showSql;
+
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -62,17 +65,17 @@ public class DBConfig {
 		entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		entityManagerFactory.setPackagesToScan("com.allianz.sdc.model");
 		entityManagerFactory.setPersistenceUnitName("sdc-database");
-		log.info("DBConfig - entityManagerFactory angelegt");
+		log.info("DBConfig - entityManagerFactory");
 
 		jpaProperties.setProperty("hibernate.dialect", dialect);
 		jpaProperties.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
 //		jpaProperties.setProperty("hibernate.archive.autodetection", "class");
 		jpaProperties.setProperty("hibernate.hbm2ddl.auto", ddlAuto);
 		jpaProperties.setProperty("hibernate.flushMode", "FLUSH_AUTO");
-		jpaProperties.setProperty("hibernate.show_sql", "false");
+		jpaProperties.setProperty("hibernate.show_sql", showSql);
 		jpaProperties.setProperty("javax.persistence.lock.timeout", "0");
 		entityManagerFactory.setJpaProperties(jpaProperties);
-		log.info("DBConfig - entityManagerFactory Properties gesetzt");
+		log.info("DBConfig - entityManagerFactory Properties");
 
 		return entityManagerFactory;
 	}

@@ -10,6 +10,7 @@ public class Ctes {
 	public static interface COMPONENT_PROPERTIES {
 		public static final String XML_PATH = "xml_path"; 	// path to the pom.xml file from the git uri
 															// of the squad the project is associated with
+		public static final String PATH = "component_path"; // path to the project root
 	}
 	
 	public static interface JPA {

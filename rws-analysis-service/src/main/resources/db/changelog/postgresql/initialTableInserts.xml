@@ -10,7 +10,8 @@
 				 ('MICROSERVICES'),
 				 ('LEGACY'),
 				 ('ANGULAR'),
-				 ('SEA');
+				 ('SEA'),
+				 ('UNI_REPO');
 		</sql>
 	</changeSet>
 				 
@@ -229,7 +230,8 @@
 		<sql dbms="postgresql">
 			INSERT INTO component_types (component_type_name) VALUES
 				 ('BACKEND'),
-				 ('FRONTEND');
+				 ('FRONTEND'),
+				 ('CONTAINER');
 		</sql>
 	</changeSet>
 				 
@@ -264,17 +266,19 @@
 				 (1,2),
 				 (2,3),
 				 (2,4),
-				 (2,1);
+				 (2,1),
+				 (3,5);
 		</sql>
 	</changeSet>
 
 	<changeSet author="initial" id="10022023_50011">
 		<sql dbms="postgresql">
-			INSERT INTO components (component_name,component_path,component_private,component_type_architecture_id,squad_id) VALUES
-				 ('rws-empty','empty/main/rws-empty',false,1,0),
-				 ('bff-empty','empty/main/bff-empty',false,3,0),
-				 ('storm:aff3ct:gitlab:master',null,false,3,0),
-				 ('cardamom:mmg:github:master',null,false,3,0);
+			INSERT INTO components (component_name,component_private,component_type_architecture_id,squad_id) VALUES
+				 ('rws-empty',false,1,0),
+				 ('bff-empty',false,1,0),
+				 ('storm:aff3ct:gitlab:master',false,3,0),
+				 ('cardamom:mmg:github:master',false,3,0),
+				 ('empty',false,6,0);
 		</sql>
 	</changeSet>
 				 
@@ -282,6 +286,7 @@
 		<sql dbms="postgresql">
 			INSERT INTO component_uris (component_id,uri_id) VALUES
 				 (1,1),
+				 (2,1),
 				 (3,2),
 				 (4,2);
 		</sql>
@@ -330,7 +335,9 @@
 		<sql dbms="postgresql">
 			INSERT INTO public.component_properties (component_property_name,component_property_value,component_id) VALUES
 				 ('xml_path','pom.xml',1),
-				 ('xml_path','pom.xml',2);
+				 ('component_path','empty/main/rws-empty',1),
+				 ('xml_path','pom.xml',2),
+				 ('component_path','empty/main/bff-empty',2);
 		</sql>
 	</changeSet>
 </databaseChangeLog>

@@ -12,7 +12,6 @@ import javax.xml.xpath.XPathExpressionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
 
 import com.shagui.analysis.api.client.XmlClient;
@@ -47,7 +46,8 @@ public class XmlServiceImpl implements XmlService {
 				Optional<UriModel> uri;
 
 				if ((uri = getUri(component.getUris(), UriType.FILE)).isPresent()) {
-					String xmlPath = getXmlPath(component.getProperties());
+					String xmlPath = propertyValue(component.getProperties(), Ctes.COMPONENT_PROPERTIES.XML_PATH,
+							appConfig.getDefaultXmlPath());
 					XmlDocument docuemnt = xmlDocument(component, uri.get(), xmlPath);
 					return getResponse(component, xmlMetrics, docuemnt);
 				}
@@ -81,8 +81,8 @@ public class XmlServiceImpl implements XmlService {
 
 	private XmlDocument xmlDocument(ComponentModel component, UriModel uriModel, String xmlPath)
 			throws IOException, ParserConfigurationException, SAXException {
-		String uri = new StringBuffer(uriModel.getUri()).append("/")
-				.append(StringUtils.hasText(component.getPath()) ? component.getPath() : component.getName())
+		String uri = new StringBuffer(uriModel.getUri()).append("/").append(
+				propertyValue(component.getProperties(), Ctes.COMPONENT_PROPERTIES.PATH, component.getName()))
 				.append("/").append(xmlPath).toString();
 
 		URL url = UrlUtils.url(uri, uriModel.getProperties());
@@ -91,9 +91,9 @@ public class XmlServiceImpl implements XmlService {
 		return client.getXmlDocument();
 	}
 
-	private String getXmlPath(List<ComponentPropertyModel> properties) {
-		Optional<ComponentPropertyModel> model = properties.stream()
-				.filter(property -> Ctes.COMPONENT_PROPERTIES.XML_PATH.equals(property.getName())).findFirst();
-		return model.isPresent() ? model.get().getValue() : appConfig.getDefaultXmlPath();
+	private String propertyValue(List<ComponentPropertyModel> properties, String key, String defaultValue) {
+		Optional<ComponentPropertyModel> model = properties.stream().filter(property -> key.equals(property.getName()))
+				.findFirst();
+		return model.isPresent() ? model.get().getValue() : defaultValue;
 	}
 }

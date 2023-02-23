@@ -30,9 +30,6 @@ public class ComponentModel implements ModelInterface<Integer> {
 
 	@Column(name = "component_name", nullable = false)
 	private String name;
-	
-	@Column(name = "component_path")
-	private String path;
 
 	@Column(name = "component_private")
 	private boolean nonPublic;
