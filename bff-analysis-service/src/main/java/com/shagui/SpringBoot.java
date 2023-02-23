@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.shagui.analysis;
+package com.shagui;
 
 import java.net.URI;
 

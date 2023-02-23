@@ -1,11 +1,11 @@
-package com.shagui.analysis.api.dto;
+package com.shagui.analysis.api.view;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SquadDTO {
+public class ArchitectureView {
 	private Integer id;
 	private String name;
 }

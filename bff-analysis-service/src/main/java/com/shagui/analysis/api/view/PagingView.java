@@ -1,12 +1,11 @@
-package com.shagui.analysis.api.dto;
+package com.shagui.analysis.api.view;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PagingDTO {
+public class PagingView {
 	private int pageIndex;
-	private int pageSize;
 	private int total;
 }

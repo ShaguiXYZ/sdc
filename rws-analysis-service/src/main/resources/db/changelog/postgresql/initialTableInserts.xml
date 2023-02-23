@@ -271,8 +271,8 @@
 	<changeSet author="initial" id="10022023_50011">
 		<sql dbms="postgresql">
 			INSERT INTO components (component_name,component_path,component_private,component_type_architecture_id,squad_id) VALUES
-				 ('rws-analysis-service','sdc/main/rws-analysis-service',false,1,0),
-				 ('bff-analysis-service','sdc/main/bff-analysis-service',false,3,0),
+				 ('rws-empty','empty/main/rws-empty',false,1,0),
+				 ('bff-empty','empty/main/bff-empty',false,3,0),
 				 ('storm:aff3ct:gitlab:master',null,false,3,0),
 				 ('cardamom:mmg:github:master',null,false,3,0);
 		</sql>

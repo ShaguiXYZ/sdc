@@ -231,8 +231,8 @@
 				 (5,2,1);
 
 			INSERT INTO components (component_id,component_name,component_path,component_private,component_type_architecture_id,squad_id) VALUES
-				 (1,'rws-analysis-service','sdc/main/rws-analysis-service',false,1,0),
-				 (2,'bff-analysis-dervice','sdc/main/bff-analysis-service',false,5,0),
+				 (1,'rws-empty','empty/main/rws-empty',false,1,0),
+				 (2,'bff-empty','empty/main/bff-empty',false,5,0),
 				 (3,'storm:aff3ct:gitlab:master',null,false,3,0),
 				 (4,'cardamom:mmg:github:master',null,false,3,0);
 				 

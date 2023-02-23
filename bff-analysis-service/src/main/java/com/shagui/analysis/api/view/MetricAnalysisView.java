@@ -1,4 +1,4 @@
-package com.shagui.analysis.api.dto;
+package com.shagui.analysis.api.view;
 
 import java.util.Date;
 
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MetricAnalysisDTO {
+public class MetricAnalysisView {
 	private Date analysisDate;
-	private MetricDTO metric;
-	private AnalysisValuesDTO analysisValues;
+	private MetricView metric;
+	private AnalysisValuesView analysisValues;
 	private MetricState state;
 }

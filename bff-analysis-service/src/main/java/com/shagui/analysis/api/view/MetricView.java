@@ -1,4 +1,4 @@
-package com.shagui.analysis.api.dto;
+package com.shagui.analysis.api.view;
 
 import com.shagui.analysis.enums.MetricType;
 
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MetricDTO {
+public class MetricView {
 	private Integer id;
 	private String name;
 	private MetricType type;
