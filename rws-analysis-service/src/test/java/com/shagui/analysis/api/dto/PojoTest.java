@@ -16,7 +16,6 @@ import com.shagui.analysis.api.dto.sonar.ComponentSonarDTO;
 import com.shagui.analysis.api.dto.sonar.ComponentsSonarDTO;
 import com.shagui.analysis.api.dto.sonar.MeasureSonarDTO;
 import com.shagui.analysis.api.dto.sonar.MeasuresSonarDTO;
-import com.shagui.analysis.api.dto.sonar.PagingSonarDTO;
 
 import pl.pojo.tester.api.PackageFilter;
 import pl.pojo.tester.api.DefaultPackageFilter;
@@ -27,17 +26,14 @@ class PojoTest {
 	@Test
 	@DisplayName("Tests for DTOs to ensure POJO methods are well implemented")
 	void testDTO() {
-		
-		//PackageFilter packageDTO = DefaultPackageFilter.forPackage("com.shagui.analysis.api.dto");
-		
-		assertPojoMethodsFor(AnalysisValuesDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(ArchitectureDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(ComponentDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(ComponentTypeDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(MetricDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(SquadDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		
+		assertPojoMethodsFor(AnalysisValuesDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
+		assertPojoMethodsFor(ArchitectureDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
+		assertPojoMethodsFor(ComponentDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
+		assertPojoMethodsFor(ComponentTypeDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
+		assertPojoMethodsFor(MetricDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
+		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING).areWellImplemented();
+		assertPojoMethodsFor(SquadDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
+		assertPojoMethodsFor(PagingDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();		
 	}
 	
 	@Test

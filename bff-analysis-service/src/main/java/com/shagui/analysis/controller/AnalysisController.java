@@ -1,13 +1,15 @@
 package com.shagui.analysis.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.analysis.api.AnalysisRestApi;
-import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.view.MetricAnalysisView;
 import com.shagui.analysis.service.AnalysisService;
+import com.shagui.analysis.util.Mapper;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -18,12 +20,13 @@ public class AnalysisController implements AnalysisRestApi {
 	private AnalysisService analysisService;
 
 	@Override
-	public List<MetricAnalysisDTO> metricHistory(int componentId, int metricId) {
-		return analysisService.metricHistory(componentId, metricId);
+	public List<MetricAnalysisView> metricHistory(int componentId, int metricId) {
+		return analysisService.metricHistory(componentId, metricId).stream().map(Mapper::parse)
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<MetricAnalysisDTO> componentState(int componentId) {
-		return analysisService.componentState(componentId);
+	public List<MetricAnalysisView> componentState(int componentId) {
+		return analysisService.componentState(componentId).stream().map(Mapper::parse).collect(Collectors.toList());
 	}
 }

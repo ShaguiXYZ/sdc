@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.shagui.analysis.exception.JpaNotFoundException;
+import com.shagui.analysis.core.exception.JpaNotFoundException;
 import com.shagui.analysis.model.ModelInterface;
 
 @FunctionalInterface

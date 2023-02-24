@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shagui.analysis.api.dto.ComponentDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.dto.PaginatedDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,6 +26,7 @@ public interface RwsSdcClient {
 			@PathVariable @Parameter(description = "Component identifier") int componentId);
 	
 	@Operation(summary = "Retrieve squad components")
-	@GetMapping("squads/{sqadId}/components")
-	List<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int sqadId);
+	@GetMapping("squad/{sqadId}/components")
+	PaginatedDTO<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int sqadId,
+			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 }

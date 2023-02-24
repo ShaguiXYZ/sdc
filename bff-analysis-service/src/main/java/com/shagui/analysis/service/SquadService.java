@@ -1,9 +1,8 @@
 package com.shagui.analysis.service;
 
-import java.util.List;
-
 import com.shagui.analysis.api.dto.ComponentDTO;
+import com.shagui.analysis.api.dto.PaginatedDTO;
 
 public interface SquadService {
-	List<ComponentDTO> squadComponents(int id);	
+	PaginatedDTO<ComponentDTO> squadComponents(int id, int page);	
 }

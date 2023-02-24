@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComponentsSonarDTO {
-	private PagingSonarDTO paging;
+	private PagingDTO paging;
 	private List<ComponentSonarDTO> components;
 }

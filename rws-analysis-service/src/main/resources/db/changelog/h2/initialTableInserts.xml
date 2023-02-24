@@ -10,7 +10,8 @@
 				 (1,'MICROSERVICES'),
 				 (2,'LEGACY'),
 				 (3,'ANGULAR'),
-				 (4,'SEA');
+				 (4,'SEA'),
+				 (5,'UNI_REPO');
 				 
 			INSERT INTO companies (company_id,company_name,company_codes) VALUES
 				 (2,'Allianz','ALZ,AZS'),
@@ -209,7 +210,8 @@
 				 
 			INSERT INTO component_types (component_type_id,component_type_name) VALUES
 				 (1,'BACKEND'),
-				 (2,'FRONTEND');
+				 (2,'FRONTEND'),
+				 (3'CONTAINER');
 				 
 			INSERT INTO uris (uri_id,uri_name,uri_value,uri_type) VALUES
 				 (1,'analysis-repo','https://raw.githubusercontent.com/ShaguiXYZ','FILE'),
@@ -228,16 +230,19 @@
 				 (2,1,2),
 				 (3,2,3),
 				 (4,2,4),
-				 (5,2,1);
+				 (5,2,1),
+				 (6,3,5);
 
-			INSERT INTO components (component_id,component_name,component_path,component_private,component_type_architecture_id,squad_id) VALUES
-				 (1,'rws-analysis-service','sdc/main/rws-analysis-service',false,1,0),
-				 (2,'bff-analysis-dervice','sdc/main/bff-analysis-service',false,5,0),
-				 (3,'storm:aff3ct:gitlab:master',null,false,3,0),
-				 (4,'cardamom:mmg:github:master',null,false,3,0);
+			INSERT INTO components (component_id,component_name,component_private,component_type_architecture_id,squad_id) VALUES
+				 (1,'rws-empty',false,1,0),
+				 (2,'bff-empty',false,1,0),
+				 (3,'storm:aff3ct:gitlab:master',false,3,0),
+				 (4,'cardamom:mmg:github:master',false,3,0),
+				 (5,'empty',false,6,0);
 				 
 			INSERT INTO component_uris (component_id,uri_id) VALUES
 				 (1,1),
+				 (2,1),
 				 (3,2),
 				 (4,2);
 
@@ -278,7 +283,9 @@
 				 
 			INSERT INTO public.component_properties (component_property_id,component_property_name,component_property_value,component_id) VALUES
 				 (1,'xml_path','pom.xml',1),
-				 (2,'xml_path','pom.xml',2);
+				 (2,'component_path','empty/main/rws-empty',1),
+				 (3,'xml_path','pom.xml',2),
+				 (4,'component_path','empty/main/bff-empty',2);
 		</sql>
 	</changeSet>
 </databaseChangeLog>
