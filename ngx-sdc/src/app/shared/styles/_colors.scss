@@ -1,0 +1,57 @@
+$grey-darker-color: #414141;
+$grey-dark-color: #767676;
+$grey-base-color: #999999;
+$grey-light-color: #d9d9d9;
+$grey-lighter-color: #f5f5f5;
+
+$primary-darker-color: #007d8c;
+$primary-dark-color: #006192;
+$primary-message-color: #0e6296;
+$primary-base-color: #007ab3;
+$primary-light-color: #b1dadd;
+$primary-lighter-color: #cfe7e6;
+
+$success-color: #1e8927;
+$error-color: #dc3149;
+$warn-color: #dc3149;
+
+$backdrop-color: rgba(0, 0, 0, 0.35);
+$backdrop-return-color: rgba(0, 122, 179, 0.5);
+
+$background-color: white;
+$background-color-1: aliceblue;
+$background-color-2: aliceblue;
+
+$state-red: #d0021b;
+$state-green: #7ed321;
+$state-orange: #f5a623;
+
+$arrow-colors: (
+    default: $primary-light-color,
+    color1: HotPink,
+    color2: DarkOrchid,
+    color3: DarkViolet,
+    color4: DarkMagenta,
+    color5: DarkSlateBlue,
+    color6: Red,
+    color7: Coral,
+    color8: Gold,
+    color9: Lime,
+    color10: Green,
+    color11: DarkOliveGreen,
+    color12: DarkSeaGreen,
+    color13: DarkCyan,
+    color14: DarkTurquoise,
+    color15: SteelBlue,
+    color16: Blue,
+    color17: MidnightBlue,
+    color18: DarkBlue,
+    color19: Maroon
+);
+
+$prefix-arrow-color: 'color--';
+
+//Merges a variable name with $prefix-arrow-color
+@function custom-property-color($name) {
+    @return '.' + $prefix-arrow-color + $name;
+}

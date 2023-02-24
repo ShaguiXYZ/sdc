@@ -1,0 +1,14 @@
+@import '../../../shared/styles/colors';
+
+button {
+  min-width: 120px;
+}
+
+h3[nxheadline='subsection-large'] {
+  margin-bottom: 24px;
+  white-space: pre-line;
+}
+
+nx-icon {
+  color: $primary-dark-color;
+}

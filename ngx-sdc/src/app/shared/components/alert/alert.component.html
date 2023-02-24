@@ -1,0 +1,28 @@
+<ng-template #alertBody>
+  <div nxModalContent nxLayout="grid">
+    <div nxRow>
+      <div nxCol="12">
+        <h3 nxHeadline="subsection-large">{{ alert?.title }}</h3>
+      </div>
+    </div>
+
+    <div nxRow class="nx-margin-bottom-2m">
+      <div nxCol="12">
+        <span nxCopytext>{{ alert?.description }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" nxModalActions>
+    <button
+      *ngFor="let button of alert?.buttons; first as isFirst; last as isLast; index as index"
+      class="nx-margin-bottom-0"
+      [ngClass]="{ 'nx-margin-right-m': !isLast }"
+      type="button"
+      nxButton="{{ button.type }} small-medium"
+      (click)="actionAndClose(button.action)"
+    >
+      {{ button.text }}
+    </button>
+  </div>
+</ng-template>
