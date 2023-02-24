@@ -1,6 +1,7 @@
 package com.shagui.analysis.api.dto.sonar;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
@@ -8,7 +9,8 @@ import lombok.Data;
  * @author Shagui
  *
  */
-@Data
+@Getter
+@Setter
 public class PagingSonarDTO {
 	private int pageIndex;
 	private int pageSize;

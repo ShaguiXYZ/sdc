@@ -1,8 +1,10 @@
 package com.shagui.analysis.api.dto.sonar;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class MeasureSonarDTO {
 	private String metric;
 	private String value;

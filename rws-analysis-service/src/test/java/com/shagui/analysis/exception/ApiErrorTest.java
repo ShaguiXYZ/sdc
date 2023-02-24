@@ -8,12 +8,14 @@ import static pl.pojo.tester.api.assertion.Method.HASH_CODE;
 import static pl.pojo.tester.api.assertion.Method.SETTER;
 import static pl.pojo.tester.api.assertion.Method.TO_STRING;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
+@DisplayName("Test for ApiError class")
 class ApiErrorTest {
 	
 	@Test
+	@DisplayName("Test for ApiError class to ensure POJO methods are well implemented")
 	void Pojotest() {
 		assertPojoMethodsFor(ApiError.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 	}
