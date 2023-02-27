@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { APP_NAME } from 'src/app/shared/config/app.constants';
 import { AppConfig, ContextDataNames, ContextInfo } from 'src/app/shared/config/contextInfo';
@@ -21,7 +20,7 @@ export class UiAppContextData {
   private subject$: Subject<string>;
   private contextStorage: ContextInfo;
 
-  constructor(private router: Router) {
+  constructor() {
     this.subject$ = new Subject<string>();
 
     this.contextStorage = {

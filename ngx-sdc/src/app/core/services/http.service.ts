@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { DEFAULT_TIMEOUT_NOTIFICATIONS } from 'src/app/shared/config/app.constants';
+import { DEFAULT_TIMEOUT_NOTIFICATIONS, HttpStatus } from 'src/app/shared/config/app.constants';
 import { GenericDataInfo } from 'src/app/shared/interfaces/dataInfo';
 import { MessageModal } from 'src/app/shared/interfaces/modal';
 import { UiLoadingService, UiNotificationService } from '.';
@@ -145,11 +145,11 @@ export class UiHttpHelper {
     );
   }
 
-  private success(message: MessageModal) {
+  private success(message?: MessageModal) {
     if (message) {
       this.notificationService.success(
         this.translateService.instant(message.title || 'Notifications.Success'),
-        this.translateService.instant(message.message),
+        this.translateService.instant(message.message || ''),
         DEFAULT_TIMEOUT_NOTIFICATIONS
       );
     }
@@ -157,8 +157,8 @@ export class UiHttpHelper {
 
   private error(err: HttpErrorResponse, responseStatusMessage?: GenericDataInfo<MessageModal>) {
     if (responseStatusMessage) {
-      let title: string;
-      let message: string;
+      let title;
+      let message;
 
       switch (err.status) {
         case HttpStatus.notFound:
@@ -172,7 +172,7 @@ export class UiHttpHelper {
 
       this.notificationService.error(
         this.translateService.instant(title || 'Notifications.Error'),
-        this.translateService.instant(message),
+        this.translateService.instant(message || ''),
         DEFAULT_TIMEOUT_NOTIFICATIONS,
         true
       );

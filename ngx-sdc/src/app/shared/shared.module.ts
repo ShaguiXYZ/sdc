@@ -1,37 +1,32 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NxAccordionModule } from '@aposin/ng-aquila/accordion';
-import { NxErrorModule } from '@aposin/ng-aquila/base';
 import { NxButtonModule } from '@aposin/ng-aquila/button';
-import { NxCardModule } from '@aposin/ng-aquila/card';
-import { NxCheckboxModule } from '@aposin/ng-aquila/checkbox';
 import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
-import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxIconModule } from '@aposin/ng-aquila/icon';
-import { NxInputModule } from '@aposin/ng-aquila/input';
-import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { NxMessageModule } from '@aposin/ng-aquila/message';
+import { NxModalModule } from '@aposin/ng-aquila/modal';
+import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { TranslateModule } from '@ngx-translate/core';
+import { UiAlertComponent, UiLoadingComponent, UiNotificationComponent } from './components';
 
 @NgModule({
-  declarations: [],
+  declarations: [UiAlertComponent, UiLoadingComponent, UiNotificationComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    NxAccordionModule,
     NxButtonModule,
-    NxCardModule,
-    NxCheckboxModule,
     NxCopytextModule,
-    NxErrorModule,
-    NxFormfieldModule,
     NxGridModule,
+    NxHeadlineModule,
     NxIconModule,
-    NxInputModule,
-    NxLinkModule
+    NxMessageModule,
+    NxModalModule.forRoot(),
+    NxSpinnerModule
   ],
   exports: [],
   providers: []
