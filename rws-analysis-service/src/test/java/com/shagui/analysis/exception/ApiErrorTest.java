@@ -11,6 +11,8 @@ import static pl.pojo.tester.api.assertion.Method.TO_STRING;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.shagui.analysis.core.exception.ApiError;
+
 @DisplayName("Test for ApiError class")
 class ApiErrorTest {
 	
