@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.shagui.analysis.api.view.MetricAnalysisView;
 import com.shagui.analysis.api.view.ParseableTo;
-import com.shagui.analysis.enums.MetricState;
 import com.shagui.analysis.util.Mapper;
 
 import lombok.Data;
@@ -16,7 +15,7 @@ public class MetricAnalysisDTO  implements ParseableTo<MetricAnalysisView> {
 	private Date analysisDate;
 	private MetricDTO metric;
 	private AnalysisValuesDTO analysisValues;
-	private MetricState state;
+	private Float coverage;
 	
 	@Override
 	public MetricAnalysisView parse() {

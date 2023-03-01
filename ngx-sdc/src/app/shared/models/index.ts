@@ -1,3 +1,3 @@
-export * from './alertModel';
-export * from './buttonModel';
-export * from './notificationModel';
+export * from './alert.model';
+export * from './button.model';
+export * from './notification.model';

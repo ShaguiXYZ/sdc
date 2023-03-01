@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class AnalysisValuesDTO {
+	private int weight;
 	private String metricValue;
 	private String expectedValue;
 	private String goodValue;

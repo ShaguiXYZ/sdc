@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UiNotificationService } from 'src/app/core/services/notification.service';
-import { NotificationModel } from '../../models/notificationModel';
+import { NotificationModel } from '../../models/notification.model';
 
 @Component({
   selector: 'ui-notification',

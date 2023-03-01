@@ -26,18 +26,16 @@ class MetricValidationsTest {
 	void validateStateTest() {
 		MetricDTO metric = new MetricDTO();
 		metric.setValueType(MetricValueType.NUMERIC);
-		AnalysisValuesDTO analysisvalues = new AnalysisValuesDTO("test", "test", "test", "test");
-		MetricState metricState = null;
-		MetricAnalysisDTO source = new MetricAnalysisDTO(new Date(), metric , analysisvalues , metricState);
+		AnalysisValuesDTO analysisvalues = new AnalysisValuesDTO(50, "test", "test", "test", "test");
+		MetricAnalysisDTO source = new MetricAnalysisDTO(new Date(), metric , analysisvalues , 50f);
 		MetricValidations.validateState(source);
 	}
 
 	@Test
 	void validateStateTestNull() {
 		MetricDTO metric = new MetricDTO();
-		AnalysisValuesDTO analysisvalues = new AnalysisValuesDTO("test", "test", "test", "test");
-		MetricState metricState = null;
-		MetricAnalysisDTO source = new MetricAnalysisDTO(new Date(), metric , analysisvalues , metricState);
+		AnalysisValuesDTO analysisvalues = new AnalysisValuesDTO(50, "test", "test", "test", "test");
+		MetricAnalysisDTO source = new MetricAnalysisDTO(new Date(), metric , analysisvalues , 50f);
 		MetricState state = MetricValidations.validateState(source);
 		assertNull(state);
 	}

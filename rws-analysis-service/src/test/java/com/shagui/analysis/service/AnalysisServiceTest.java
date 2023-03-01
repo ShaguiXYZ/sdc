@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.shagui.analysis.api.dto.ComponentStateDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.model.ComponentModel;
@@ -83,7 +84,7 @@ class AnalysisServiceTest {
 
 	@Test
 	void componentState() {
-		PageableDTO<MetricAnalysisDTO> componentState = service.componentState(1, new Date());
+		ComponentStateDTO componentState = service.componentState(1, new Date());
 		assertNotNull(componentState);
 	}
 

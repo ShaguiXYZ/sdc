@@ -3,7 +3,15 @@ import { firstValueFrom, map } from 'rxjs';
 import { HttpStatus } from 'src/app/shared/config/app.constants';
 import { environment } from 'src/environments/environment';
 import { UiHttpHelper } from '.';
-import { IMetricAnalysisDTO, IMetricAnalysisModel, IPageableDTO, IPageableModel, IPagingModel } from '../models';
+import {
+  IComponentStateDTO,
+  IComponentStateModel,
+  IMetricAnalysisDTO,
+  IMetricAnalysisModel,
+  IPageableDTO,
+  IPageableModel,
+  IPagingModel
+} from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {
@@ -11,23 +19,17 @@ export class AnalysisService {
 
   constructor(private http: UiHttpHelper) {}
 
-  public componentState(componentId: number): Promise<IPageableModel<IMetricAnalysisModel>> {
+  public componentState(componentId: number): Promise<IComponentStateModel> {
     return firstValueFrom(
       this.http
-        .get<IPageableDTO<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}`, {
+        .get<IComponentStateDTO>(`${this._urlAnalysis}/${componentId}`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { message: 'Notifications.ComonentNotFound' }
           }
         })
         .pipe(
-          map(res => {
-            const dto = res as IPageableDTO<IMetricAnalysisDTO>;
-            let result: IPageableModel<IMetricAnalysisModel> = {
-              paging: IPagingModel.toModel(dto.paging),
-              page: dto.page.map(IMetricAnalysisModel.toModel)
-            };
-
-            return result;
+          map(state => {
+            return IComponentStateModel.toModel(state as IComponentStateDTO);
           })
         )
     );

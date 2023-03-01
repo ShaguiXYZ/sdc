@@ -11,9 +11,10 @@ import { NxModalModule } from '@aposin/ng-aquila/modal';
 import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiAlertComponent, UiLoadingComponent, UiNotificationComponent } from './components';
+import { UiStateComponent } from './components/state/state.component';
 
 @NgModule({
-  declarations: [UiAlertComponent, UiLoadingComponent, UiNotificationComponent],
+  declarations: [UiAlertComponent, UiLoadingComponent, UiNotificationComponent, UiStateComponent],
   imports: [
     CommonModule,
     FormsModule,

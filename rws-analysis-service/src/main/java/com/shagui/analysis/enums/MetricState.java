@@ -1,5 +1,15 @@
 package com.shagui.analysis.enums;
 
 public enum MetricState {
-	CRITICAL, WITH_RISK, ACCEPTABLE, PERFECT
+	CRITICAL(10f), WITH_RISK(50f), ACCEPTABLE(75f), PERFECT(100f);
+	
+	private Float coverage;
+	
+	MetricState(Float coverage) {
+		this.coverage = coverage;
+	}
+	
+	public Float coverage() {
+		return coverage;
+	}
 }

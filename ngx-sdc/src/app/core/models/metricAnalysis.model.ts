@@ -1,5 +1,5 @@
-import { IAnalysisValuesDTO, IAnalysisValuesModel } from './analysisValuesModel';
-import { IMetricDTO, IMetricModel } from './metricModel';
+import { IAnalysisValuesDTO, IAnalysisValuesModel } from './analysisValues.model';
+import { IMetricDTO, IMetricModel } from './metric.model';
 
 export interface IMetricAnalysisDTO {
   analysisDate: Date;

@@ -1,7 +1,7 @@
 import { CONTEXT } from '@aposin/ng-aquila/message';
 import { UniqueIds } from 'src/app/core/lib/keys';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS } from '../config/app.constants';
-import { ButtonModel } from './buttonModel';
+import { ButtonModel } from './button.model';
 
 export class NotificationModel {
   public id: string;

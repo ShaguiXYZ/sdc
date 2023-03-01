@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shagui.analysis.api.client.RwsSdcClient;
+import com.shagui.analysis.api.dto.ComponentStateDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.service.AnalysisService;
@@ -20,7 +21,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public PageableDTO<MetricAnalysisDTO> componentState(int componentId) {
+	public ComponentStateDTO componentState(int componentId) {
 		return rwsSdcClient.componentState(componentId);
 	}
 }

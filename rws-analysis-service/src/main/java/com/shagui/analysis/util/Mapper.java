@@ -12,6 +12,7 @@ import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.MetricDTO;
 import com.shagui.analysis.api.dto.SquadDTO;
 import com.shagui.analysis.core.exception.ApiError;
+import com.shagui.analysis.enums.MetricState;
 import com.shagui.analysis.model.ArchitectureModel;
 import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.ComponentModel;
@@ -39,12 +40,13 @@ public class Mapper {
 
 	public static MetricAnalysisDTO parse(ComponentAnalysisModel source) {
 		MetricDTO metric = parse(source.getMetric());
-		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(source.getValue(), source.getExpectedValue(),
-				source.getGoodValue(), source.getPerfectValue());
+		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(source.getWeight(), source.getValue(),
+				source.getExpectedValue(), source.getGoodValue(), source.getPerfectValue());
 
 		MetricAnalysisDTO target = new MetricAnalysisDTO(source.getId().getComponentAnalysisDate(), metric,
 				analysisValues, null);
-		target.setState(MetricValidations.validateState(target));
+		MetricState state = MetricValidations.validateState(target);
+		target.setCoverage(state == null ? null : state.coverage());
 
 		return target;
 	}

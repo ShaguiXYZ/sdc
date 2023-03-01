@@ -49,7 +49,10 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 
 	@Transient
 	private String perfectValue;
-
+	
+	@Transient
+	private int weight;
+	
 	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value) {
 		this.id = new ComponentAnalysisPk(component.getId(), metric.getId());
 

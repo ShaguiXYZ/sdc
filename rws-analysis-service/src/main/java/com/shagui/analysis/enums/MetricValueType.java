@@ -10,6 +10,7 @@ public enum MetricValueType {
 	VERSION(MetricValidations.validateVersion);
 	
 	private Function<MetricAnalysisDTO, MetricState> fn;
+	
 	private MetricValueType(Function<MetricAnalysisDTO, MetricState> fn) {
 		this.fn = fn;
 	}

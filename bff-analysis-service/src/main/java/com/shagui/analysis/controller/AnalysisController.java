@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.analysis.api.AnalysisRestApi;
+import com.shagui.analysis.api.view.ComponentStateView;
 import com.shagui.analysis.api.view.MetricAnalysisView;
 import com.shagui.analysis.api.view.PageableView;
 import com.shagui.analysis.service.AnalysisService;
@@ -23,7 +24,7 @@ public class AnalysisController implements AnalysisRestApi {
 	}
 
 	@Override
-	public PageableView<MetricAnalysisView> componentState(int componentId) {
+	public ComponentStateView componentState(int componentId) {
 		return Mapper.parse(analysisService.componentState(componentId));
 	}
 }

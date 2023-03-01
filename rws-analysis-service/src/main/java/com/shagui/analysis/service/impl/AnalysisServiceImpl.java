@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shagui.analysis.api.dto.ComponentStateDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.enums.MetricType;
@@ -74,9 +75,16 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public PageableDTO<MetricAnalysisDTO> componentState(int componentId, Date date) {
-		return componentAnalysisRepository.repository().componentState(componentId, new Timestamp(date.getTime()))
-				.stream().map(transformToMetricAnalysis).collect(SdcCollectors.toPageable());
+	public ComponentStateDTO componentState(int componentId, Date date) {
+		List<MetricAnalysisDTO> metricAnalysis = componentAnalysisRepository.repository()
+				.componentState(componentId, new Timestamp(date.getTime())).stream().map(transformToMetricAnalysis)
+				.collect(Collectors.toList());
+
+		ComponentStateDTO state = new ComponentStateDTO();
+		state.setMetricAnalysis(metricAnalysis);
+		state.setCoverage(calculateComponentCoverage(metricAnalysis));
+
+		return state;
 	}
 
 	private Function<ComponentAnalysisModel, MetricAnalysisDTO> transformToMetricAnalysis = (analysis) -> {
@@ -86,6 +94,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 		if (!metricValues.isEmpty()) {
 			MetricValuesModel value = metricValues.get(0);
+			analysis.setWeight(value.getWeight());
 			analysis.setExpectedValue(value.getValue());
 			analysis.setGoodValue(value.getGoodValue());
 			analysis.setPerfectValue(value.getPerfectValue());
@@ -139,4 +148,25 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 		return toSave;
 	};
+
+	private float calculateComponentCoverage(List<MetricAnalysisDTO> metricAnalysis) {
+		List<MetricAnalysisDTO> analysisWithCoverage = metricAnalysis.stream()
+				.filter(data -> data.getCoverage() != null).collect(Collectors.toList());
+		int totalWeight = analysisWithCoverage.stream().map(data -> data.getAnalysisValues().getWeight()).reduce(0,
+				(a, b) -> a + b);
+		float sumOfAllMetricCoverages = analysisWithCoverage.stream().map(metricAnalysisRelativeCoverage(totalWeight))
+				.reduce(0f, (a, b) -> a + b);
+
+		return sumOfAllMetricCoverages;
+
+//		return ThreadLocalRandom.current().nextInt(0, 100);
+	}
+
+	private Function<MetricAnalysisDTO, Float> metricAnalysisRelativeCoverage(int totalWeight) {
+		return (MetricAnalysisDTO metricAnalysis) -> {
+			float relativeWeight = (float) metricAnalysis.getAnalysisValues().getWeight() / totalWeight;
+
+			return metricAnalysis.getCoverage() * relativeWeight;
+		};
+	}
 }
