@@ -1,13 +1,12 @@
 package com.shagui.analysis.api;
 
-import java.util.List;
-
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shagui.analysis.api.view.MetricAnalysisView;
+import com.shagui.analysis.api.view.PageableView;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -16,11 +15,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api/analysis" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface AnalysisRestApi {
 	@GetMapping("{componentId}/{metricId}")
-	List<MetricAnalysisView> metricHistory(
+	PageableView<MetricAnalysisView> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
 
 	@GetMapping("{componentId}")
-	List<MetricAnalysisView> componentState(
+	PageableView<MetricAnalysisView> componentState(
 			@PathVariable @Parameter(description = "Component identifier") int componentId);
 }

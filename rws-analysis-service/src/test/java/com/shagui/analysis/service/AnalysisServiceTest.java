@@ -1,6 +1,6 @@
 package com.shagui.analysis.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.model.ComponentModel;
 import com.shagui.analysis.model.ComponentTypeArchitectureModel;
 import com.shagui.analysis.model.MetricModel;
@@ -25,33 +26,33 @@ import com.shagui.analysis.repository.MetricValueRepository;
 import com.shagui.analysis.service.impl.AnalysisServiceImpl;
 
 class AnalysisServiceTest {
-	
+
 	@InjectMocks
 	AnalysisServiceImpl service;
-	
+
 	@Mock
 	ComponentRepository componentsRepository;
-	
+
 	@Mock
 	ComponentAnalysisRepository componentAnalysisRepository;
-	
+
 	@Mock
 	MetricValueRepository metricValuesRepository;
-	
+
 	@BeforeEach
-	void init(){
-	    MockitoAnnotations.openMocks(this);
+	void init() {
+		MockitoAnnotations.openMocks(this);
 	}
 
 	@Test
 	void analysisServiceConstructorTest() {
-		
-		AnalysisServiceImpl service = new AnalysisServiceImpl(componentsRepository,
-				componentAnalysisRepository, metricValuesRepository);
-		
+
+		AnalysisServiceImpl service = new AnalysisServiceImpl(componentsRepository, componentAnalysisRepository,
+				metricValuesRepository);
+
 		assertNotNull(service);
 	}
-	
+
 	@Test
 	void analyzeTest() {
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
@@ -63,26 +64,26 @@ class AnalysisServiceTest {
 		metrics.add(metricModel1);
 		metrics.add(metricModel2);
 		componentTypeArchitecture.setMetrics(metrics);
-		
+
 		ComponentModel componentModel = new ComponentModel();
 		componentModel.setId(1);
 		componentModel.setComponentTypeArchitecture(componentTypeArchitecture);
 		Optional<ComponentModel> opComponentModel = Optional.of(componentModel);
-		
+
 		when(componentsRepository.findById(any())).thenReturn(opComponentModel);
-		List<MetricAnalysisDTO> analyze = service.analyze(1);
+		PageableDTO<MetricAnalysisDTO> analyze = service.analyze(1);
 		assertNotNull(analyze);
 	}
-	
+
 	@Test
 	void metricHistoryTest() {
-		List<MetricAnalysisDTO> metricHistory = service.metricHistory(1, 1, new Date());
+		PageableDTO<MetricAnalysisDTO> metricHistory = service.metricHistory(1, 1, new Date());
 		assertNotNull(metricHistory);
 	}
-	
+
 	@Test
 	void componentState() {
-		List<MetricAnalysisDTO> componentState = service.componentState(1, new Date());
+		PageableDTO<MetricAnalysisDTO> componentState = service.componentState(1, new Date());
 		assertNotNull(componentState);
 	}
 

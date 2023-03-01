@@ -9,6 +9,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/sdc-home/sdc-home.module').then(m => m.SdcHomePageModule),
     canDeactivate: [],
     canActivate: []
+  },
+  {
+    path: AppUrls.test,
+    loadChildren: () => import('./modules/sdc-test/sdc-test.module').then(m => m.SdcTestPageModule),
+    canDeactivate: [],
+    canActivate: []
   }
 ];
 

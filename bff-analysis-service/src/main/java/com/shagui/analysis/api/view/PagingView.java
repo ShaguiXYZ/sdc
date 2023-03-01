@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PagingView {
 	private int pageIndex;
+	private int pageSize;
 	private int total;
 }

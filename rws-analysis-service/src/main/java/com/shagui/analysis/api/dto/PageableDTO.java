@@ -7,7 +7,12 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class PaginatedDTO<T> {	
+public class PageableDTO<T> {	
 	private PagingDTO paging;
-	private List<T> data;
+	private List<T> page;
+	
+	public PageableDTO(List<T> page) {
+		this.page = page;
+		this.paging = new PagingDTO(0, this.page.size(), 1);
+	}
 }

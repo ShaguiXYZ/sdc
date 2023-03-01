@@ -1,7 +1,6 @@
 package com.shagui.analysis.api;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.dto.PageableDTO;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,17 +23,17 @@ import io.swagger.v3.oas.annotations.Parameter;
 public interface AnalysisRestApi {
 	@PostMapping("{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	List<MetricAnalysisDTO> analyzeComponent(
+	PageableDTO<MetricAnalysisDTO> analyzeComponent(
 			@PathVariable @Parameter(description = "component identifier") int componentId);
 
 	@GetMapping("{componentId}/{metricId}")
-	List<MetricAnalysisDTO> metricHistory(
+	PageableDTO<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId,
 			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date date);
 
 	@GetMapping("{componentId}")
-	List<MetricAnalysisDTO> componentState(
+	PageableDTO<MetricAnalysisDTO> componentState(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date date);
 }

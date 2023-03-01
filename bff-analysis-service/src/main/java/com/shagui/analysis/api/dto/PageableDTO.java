@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PaginatedDTO<T> {	
+public class PageableDTO<T> {	
 	private PagingDTO paging;
-	protected List<T> data;
+	private List<T> page;
 }

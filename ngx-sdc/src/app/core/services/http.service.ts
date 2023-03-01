@@ -10,6 +10,7 @@ import { UiLoadingService, UiNotificationService } from '.';
 
 export interface RequestOptions {
   // params?: any;
+  showLoading?: boolean;
   successMessage?: MessageModal;
   responseStatusMessage?: GenericDataInfo<MessageModal>;
   clientOptions?: any;
@@ -33,15 +34,15 @@ export class UiHttpHelper {
     private http: HttpClient
   ) {}
 
-  public get<T>(url: string, showLoading?: boolean, requestOptions?: RequestOptions): Observable<T | HttpEvent<T> | ArrayBuffer> {
-    if (showLoading) {
+  public get<T>(url: string, requestOptions?: RequestOptions): Observable<T | HttpEvent<T>> {
+    if (requestOptions?.showLoading) {
       this.loadingService.showLoading = true;
     }
 
     return this.http.get<T>(url, requestOptions?.clientOptions).pipe(
       tap(this.tabControl(requestOptions)),
       finalize(() => {
-        if (showLoading) {
+        if (requestOptions?.showLoading) {
           this.loadingService.showLoading = false;
         }
       })
@@ -92,36 +93,26 @@ export class UiHttpHelper {
     );
   }
 
-  public _patch<T>(
-    url: string,
-    body: Partial<T>,
-    showLoading: boolean = true,
-    requestOptions?: RequestOptions
-  ): Observable<T | HttpEvent<T>> {
-    return this.patch<T, T>(url, body, showLoading, requestOptions);
+  public _patch<T>(url: string, body: Partial<T>, requestOptions?: RequestOptions): Observable<T | HttpEvent<T>> {
+    return this.patch<T, T>(url, body, requestOptions);
   }
 
-  public patch<OUT, IN>(
-    url: string,
-    body: Partial<IN>,
-    showLoading: boolean = true,
-    requestOptions?: RequestOptions
-  ): Observable<OUT | HttpEvent<OUT>> {
-    if (showLoading) {
+  public patch<OUT, IN>(url: string, body: Partial<IN>, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
+    if (requestOptions?.showLoading) {
       this.loadingService.showLoading = true;
     }
 
     return this.http.patch<OUT>(url, body, requestOptions?.clientOptions).pipe(
       tap(this.tabControl(requestOptions)),
       finalize(() => {
-        if (showLoading) {
+        if (requestOptions?.showLoading) {
           this.loadingService.showLoading = false;
         }
       })
     );
   }
 
-  public delete<T>(url: string, showLoading: boolean = true, requestOptions?: RequestOptions): Observable<any> {
+  public delete<T>(url: string, requestOptions?: RequestOptions): Observable<any> {
     const notificationId = this.notificationService.info(
       this.translateService.instant('Notifications.Deleting'),
       this.translateService.instant('Notifications.SavingDetail'),
@@ -129,7 +120,7 @@ export class UiHttpHelper {
       false
     );
 
-    if (showLoading) {
+    if (requestOptions?.showLoading) {
       this.loadingService.showLoading = true;
     }
 
@@ -138,7 +129,7 @@ export class UiHttpHelper {
       finalize(() => {
         this.notificationService.closeNotification(notificationId);
 
-        if (showLoading) {
+        if (requestOptions?.showLoading) {
           this.loadingService.showLoading = false;
         }
       })

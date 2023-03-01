@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ComponentView  {
+public class ComponentView {
 	private Integer id;
 	private String name;
 	private boolean nonPublic;

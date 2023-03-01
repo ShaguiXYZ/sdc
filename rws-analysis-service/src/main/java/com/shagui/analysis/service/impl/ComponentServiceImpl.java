@@ -1,15 +1,10 @@
 package com.shagui.analysis.service.impl;
 
-import java.util.stream.Collectors;
-
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shagui.analysis.api.dto.ComponentDTO;
-import com.shagui.analysis.api.dto.PaginatedDTO;
-import com.shagui.analysis.api.dto.PagingDTO;
+import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.core.exception.JpaNotFoundException;
 import com.shagui.analysis.model.ComponentModel;
 import com.shagui.analysis.model.ComponentTypeArchitectureModel;
@@ -18,8 +13,8 @@ import com.shagui.analysis.repository.ComponentRepository;
 import com.shagui.analysis.repository.ComponentTypeArchitectureRepository;
 import com.shagui.analysis.repository.JpaCommonRepository;
 import com.shagui.analysis.service.ComponentService;
-import com.shagui.analysis.util.Ctes;
 import com.shagui.analysis.util.Mapper;
+import com.shagui.analysis.util.collector.SdcCollectors;
 
 @Service
 public class ComponentServiceImpl implements ComponentService {
@@ -43,13 +38,12 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public PaginatedDTO<ComponentDTO> findBySquad(int squadId, int page) {
-		Pageable pageable = PageRequest.of(page, Ctes.JPA.ELEMENTS_BY_PAGE);
-		Page<ComponentModel> models = componentRepository.repository().findBySquad(new SquadModel(squadId), pageable);
+	public PageableDTO<ComponentDTO> findBySquad(int squadId, int page) {
+		Page<ComponentModel> models = componentRepository.repository().findBySquad(new SquadModel(squadId),
+				JpaCommonRepository.getPageable(page));
 
-		PaginatedDTO<ComponentDTO> components = new PaginatedDTO<ComponentDTO>(
-				new PagingDTO(models.getNumber(), models.getNumberOfElements(), models.getTotalPages()),
-				models.getContent().stream().map(Mapper::parse).collect(Collectors.toList()));
+		PageableDTO<ComponentDTO> components = models.stream().map(Mapper::parse)
+				.collect(SdcCollectors.toPageable(models));
 
 		return components;
 	}

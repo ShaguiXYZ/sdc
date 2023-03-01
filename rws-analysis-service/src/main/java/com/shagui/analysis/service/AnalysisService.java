@@ -1,12 +1,12 @@
 package com.shagui.analysis.service;
 
 import java.util.Date;
-import java.util.List;
 
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.dto.PageableDTO;
 
 public interface AnalysisService {
-	List<MetricAnalysisDTO> analyze(int componentId);
-	List<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date);
-	List<MetricAnalysisDTO> componentState(int componentId, Date date);
+	PageableDTO<MetricAnalysisDTO> analyze(int componentId);
+	PageableDTO<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date);
+	PageableDTO<MetricAnalysisDTO> componentState(int componentId, Date date);
 }

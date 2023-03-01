@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { APP_NAME } from 'src/app/shared/config/app.constants';
 import { AppConfig, ContextDataNames, ContextInfo } from 'src/app/shared/config/contextInfo';
-import { DataInfo } from 'src/app/shared/interfaces/dataInfo';
+import { routerData, UrlInfo } from 'src/app/shared/config/routing';
+import { DataInfo, GenericDataInfo } from 'src/app/shared/interfaces/dataInfo';
 
 const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
 
 interface ContextDataInfo {
   hasPersistence: boolean;
+}
+
+class UiContextDataDefinition {
+  public static readonly dataProperties: GenericDataInfo<ContextDataInfo> = {
+    [ContextDataNames.appConfig]: { hasPersistence: true }
+  };
 }
 
 /**
@@ -20,7 +29,7 @@ export class UiAppContextData {
   private subject$: Subject<string>;
   private contextStorage: ContextInfo;
 
-  constructor() {
+  constructor(private router: Router) {
     this.subject$ = new Subject<string>();
 
     this.contextStorage = {
@@ -103,4 +112,27 @@ export class UiAppContextData {
       sessionStorage.removeItem(contextStorageID);
     }
   };
+
+  /**
+   * Control the persistence of the data in the storage
+   */
+  private controlData() {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+      const urlInfo: UrlInfo = routerData(this.router).urlInfo;
+
+      if (urlInfo?.resetContext) {
+        const values = Object.values(ContextDataNames);
+
+        values.forEach((value: ContextDataNames) => {
+          if (UiContextDataDefinition.dataProperties[value] && !UiContextDataDefinition.dataProperties[value].hasPersistence) {
+            this.delete(value);
+          }
+        });
+      } else {
+        urlInfo.resetData?.forEach((data: ContextDataNames) => {
+          this.delete(data);
+        });
+      }
+    });
+  }
 }

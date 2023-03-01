@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.enums.MetricType;
 import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.ComponentModel;
@@ -32,6 +33,7 @@ import com.shagui.analysis.repository.MetricValueRepository;
 import com.shagui.analysis.service.AnalysisInterface;
 import com.shagui.analysis.service.AnalysisService;
 import com.shagui.analysis.util.Mapper;
+import com.shagui.analysis.util.collector.SdcCollectors;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,7 +55,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public List<MetricAnalysisDTO> analyze(int componentId) {
+	public PageableDTO<MetricAnalysisDTO> analyze(int componentId) {
 		ComponentModel component = componentsRepository.findById(componentId);
 
 		List<ComponentAnalysisModel> analysis = executeAsyncMetricServicesAndWait(component);
@@ -61,20 +63,20 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 
-		return savedData.stream().map(transformToMetricAnalysis).collect(Collectors.toList());
+		return savedData.stream().map(transformToMetricAnalysis).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
-	public List<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date) {
+	public PageableDTO<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date) {
 		return componentAnalysisRepository.repository()
 				.metricHistory(componentId, metricId, new Timestamp(date.getTime())).stream()
-				.map(transformToMetricAnalysis).collect(Collectors.toList());
+				.map(transformToMetricAnalysis).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
-	public List<MetricAnalysisDTO> componentState(int componentId, Date date) {
+	public PageableDTO<MetricAnalysisDTO> componentState(int componentId, Date date) {
 		return componentAnalysisRepository.repository().componentState(componentId, new Timestamp(date.getTime()))
-				.stream().map(transformToMetricAnalysis).collect(Collectors.toList());
+				.stream().map(transformToMetricAnalysis).collect(SdcCollectors.toPageable());
 	}
 
 	private Function<ComponentAnalysisModel, MetricAnalysisDTO> transformToMetricAnalysis = (analysis) -> {

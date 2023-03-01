@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.analysis.api.SquadRestApi;
-import com.shagui.analysis.api.view.ComponentsView;
+import com.shagui.analysis.api.view.ComponentView;
+import com.shagui.analysis.api.view.PageableView;
+import com.shagui.analysis.api.view.SquadView;
 import com.shagui.analysis.service.SquadService;
 import com.shagui.analysis.util.Mapper;
 
@@ -18,7 +20,12 @@ public class SquadController implements SquadRestApi {
 	private SquadService squadService;
 
 	@Override
-	public ComponentsView squadComponents(int sqadId, int page) {
+	public PageableView<SquadView> squads(Integer page) {
+		return Mapper.parse(squadService.squads(page));
+	}
+
+	@Override
+	public PageableView<ComponentView> squadComponents(int sqadId, Integer page) {
 		return Mapper.parse(squadService.squadComponents(sqadId, page));
 	}
 }

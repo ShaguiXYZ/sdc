@@ -2,7 +2,6 @@ package com.shagui.analysis.api.dto.sonar;
 
 import java.util.List;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -14,7 +14,7 @@ public class Ctes {
 	}
 	
 	public static interface JPA {
-		public static final int ELEMENTS_BY_PAGE = 2;
+		public static final int ELEMENTS_BY_PAGE = 15;
 	}
 
 }

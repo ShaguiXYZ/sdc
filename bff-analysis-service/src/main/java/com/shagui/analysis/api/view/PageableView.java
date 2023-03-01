@@ -2,12 +2,14 @@ package com.shagui.analysis.api.view;
 
 import java.util.List;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-public class ComponentsView {
+public class PageableView<T> {	
 	private PagingView paging;
-	private List<ComponentView> components;
+	private List<T> page;
 }

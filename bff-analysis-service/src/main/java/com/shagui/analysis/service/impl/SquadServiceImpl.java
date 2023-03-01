@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.shagui.analysis.api.client.RwsSdcClient;
 import com.shagui.analysis.api.dto.ComponentDTO;
-import com.shagui.analysis.api.dto.PaginatedDTO;
+import com.shagui.analysis.api.dto.PageableDTO;
+import com.shagui.analysis.api.dto.SquadDTO;
 import com.shagui.analysis.service.SquadService;
 
 @Service
@@ -15,7 +16,12 @@ public class SquadServiceImpl implements SquadService {
 	private RwsSdcClient rwsSdcClient;
 
 	@Override
-	public PaginatedDTO<ComponentDTO> squadComponents(int squadId, int page) {
+	public PageableDTO<SquadDTO> squads(Integer page) {
+		return rwsSdcClient.squads(page);
+	}
+
+	@Override
+	public PageableDTO<ComponentDTO> squadComponents(int squadId, Integer page) {
 		return rwsSdcClient.squadComponents(squadId, page);
 	}
 

@@ -63,7 +63,7 @@ public class DBConfig {
 		Properties jpaProperties = new Properties();
 
 		entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		entityManagerFactory.setPackagesToScan("com.allianz.sdc.model");
+		entityManagerFactory.setPackagesToScan("com.shagui.analysis.model");
 		entityManagerFactory.setPersistenceUnitName("sdc-database");
 		log.info("DBConfig - entityManagerFactory");
 

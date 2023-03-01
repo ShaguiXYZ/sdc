@@ -16,12 +16,11 @@ import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule,
-    AppRoutingModule,
     HttpClientModule,
-
+    RouterModule,
     TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG),
 
     NxGridModule,

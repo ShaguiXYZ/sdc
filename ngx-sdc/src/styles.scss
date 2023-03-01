@@ -1,1 +1,25 @@
+@import '@angular/cdk/overlay-prebuilt.css';
+@import '@angular/cdk/a11y-prebuilt.css';
+@import '../src/app/shared/styles/colors';
+
 /* You can add global styles to this file, and also import other style files */
+
+// FIXME: To solve bug https://github.developer.allianz.io/ilt/ngx-ndbx/issues/2173
+// The solution they applied doesn't work when you have components on the page with
+// a z-index superior to 1. We change it to 1000 in our code to play safe
+// nx-modal {
+//   z-index: 1000 !important;
+// }
+
+// body {
+//   color: $grey-darker-color !important;
+//   background: $background-color !important;
+// }
+
+// body {
+//     overflow: hidden;
+// }
+
+.warn-icon {
+  color: $warn-color;
+}

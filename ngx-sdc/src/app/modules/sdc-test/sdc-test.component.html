@@ -1,0 +1,23 @@
+<div nxModalContent class="form-data">
+  <form [formGroup]="form">
+    <div nxLayout="grid">
+      <div nxRow>
+        <div nxCol="12">
+          <h1>Sdc Test Page</h1>
+        </div>
+      </div>
+
+      <div nxRow>
+        <div nxCol="6">
+          <nx-formfield [nxLabel]="'Data.Squads' | translate">
+            <nx-dropdown name="allLobs" formControlName="squadId">
+              <nx-dropdown-item *ngFor="let item of squads" [nxValue]="item.id">
+                {{ item.name }}
+              </nx-dropdown-item>
+            </nx-dropdown>
+          </nx-formfield>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
