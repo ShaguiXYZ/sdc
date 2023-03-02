@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ISquadModel } from 'src/app/core/models';
+import { IComponentModel, IPageableModel, ISquadModel } from 'src/app/core/models';
 import { SdcTestService } from './sdc-test.service';
 
 @Component({
@@ -14,6 +14,8 @@ export class SdcTestPageComponent implements OnInit, OnDestroy {
   public selectOptionValue = 'Select';
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
+  public components?: IPageableModel<IComponentModel>;
+  public coverage?: number;
 
   private pattern = '^((?!' + this.selectOptionValue + ').)*$';
   private valueChanges$!: Subscription;
@@ -26,7 +28,7 @@ export class SdcTestPageComponent implements OnInit, OnDestroy {
 
     this.valueChanges$ = this.form.valueChanges.subscribe(event => {
       this.componentsBySquad(event.squadId);
-      console.log(event);
+      this.componentService.coverageSquad(event.squadId).then(coverage => (this.coverage = coverage));
     });
   }
 
@@ -41,7 +43,7 @@ export class SdcTestPageComponent implements OnInit, OnDestroy {
   }
 
   private componentsBySquad(squadId: number) {
-    this.componentService.componentsBySquad(squadId).then(data => console.log(data));
+    this.componentService.componentsBySquad(squadId).then(data => (this.components = data));
   }
 
   private createForm(): void {

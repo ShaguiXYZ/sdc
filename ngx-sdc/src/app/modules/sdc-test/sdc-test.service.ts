@@ -10,6 +10,11 @@ export class SdcTestService {
     return this.squadService.availableSquads();
   }
 
+  async coverageSquad(squadId: number): Promise<number> {
+    const squadState = await this.squadService.squadState(squadId);
+    return squadState.coverage;
+  }
+
   componentsBySquad(squadId: number): Promise<IPageableModel<IComponentModel>> {
     return this.squadService.squadComponents(squadId);
   }

@@ -29,7 +29,7 @@ import { UiStateComponent } from './components/state/state.component';
     NxModalModule.forRoot(),
     NxSpinnerModule
   ],
-  exports: [],
+  exports: [UiStateComponent],
   providers: []
 })
 export class AppSharedModule {}
