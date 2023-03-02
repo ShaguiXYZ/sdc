@@ -3,7 +3,17 @@ import { firstValueFrom, map } from 'rxjs';
 import { HttpStatus } from 'src/app/shared/config/app.constants';
 import { environment } from 'src/environments/environment';
 import { UiHttpHelper } from '.';
-import { IComponentDTO, IComponentModel, IPageableDTO, IPageableModel, IPagingModel, ISquadDTO, ISquadModel } from '../models';
+import {
+  IComponentDTO,
+  IComponentModel,
+  IMetricAnalysisStateDTO,
+  IMetricAnalysisStateModel,
+  IPageableDTO,
+  IPageableModel,
+  IPagingModel,
+  ISquadDTO,
+  ISquadModel
+} from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class SquadService {
@@ -28,6 +38,22 @@ export class SquadService {
             };
 
             return result;
+          })
+        )
+    );
+  }
+
+  public squadState(squadId: number): Promise<IMetricAnalysisStateModel> {
+    return firstValueFrom(
+      this.http
+        .get<IMetricAnalysisStateDTO>(`${this._urlSquads}/${squadId}/state`, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { message: 'Notifications.SquadNotFound' }
+          }
+        })
+        .pipe(
+          map(state => {
+            return IMetricAnalysisStateModel.toModel(state as IMetricAnalysisStateDTO);
           })
         )
     );

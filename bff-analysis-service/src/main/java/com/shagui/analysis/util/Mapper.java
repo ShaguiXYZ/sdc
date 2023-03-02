@@ -8,14 +8,14 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.analysis.api.dto.AnalysisValuesDTO;
 import com.shagui.analysis.api.dto.ComponentDTO;
-import com.shagui.analysis.api.dto.ComponentStateDTO;
+import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.MetricDTO;
 import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.api.dto.PagingDTO;
 import com.shagui.analysis.api.dto.SquadDTO;
 import com.shagui.analysis.api.view.AnalysisValuesView;
-import com.shagui.analysis.api.view.ComponentStateView;
+import com.shagui.analysis.api.view.MetricAnalysisStateView;
 import com.shagui.analysis.api.view.ComponentView;
 import com.shagui.analysis.api.view.MetricAnalysisView;
 import com.shagui.analysis.api.view.MetricView;
@@ -87,8 +87,8 @@ public class Mapper {
 		return config.getObjectMapper().convertValue(source, MetricAnalysisView.class);
 	}
 
-	public static ComponentStateView parse(ComponentStateDTO source) {
-		return config.getObjectMapper().convertValue(source, ComponentStateView.class);
+	public static MetricAnalysisStateView parse(MetricAnalysisStateDTO source) {
+		return config.getObjectMapper().convertValue(source, MetricAnalysisStateView.class);
 	}
 
 	public static <V, D extends ParseableTo<V>> PageableView<V> parse(PageableDTO<D> source) {

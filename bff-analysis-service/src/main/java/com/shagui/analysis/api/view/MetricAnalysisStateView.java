@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ComponentStateView {
+public class MetricAnalysisStateView {
 	private List<MetricAnalysisView> metricAnalysis;
 	private float coverage;
 }

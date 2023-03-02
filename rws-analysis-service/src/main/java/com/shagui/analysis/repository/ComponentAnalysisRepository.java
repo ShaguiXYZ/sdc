@@ -28,5 +28,15 @@ public interface ComponentAnalysisRepository extends JpaRepository<ComponentAnal
 			+ "	WHERE ca2.id.componentId = ca.id.componentId AND ca2.id.metricId = ca.id.metricId"
 			+ "	AND ca2.id.componentAnalysisDate <= :date"
 			+ "	)")
-	List<ComponentAnalysisModel> componentState(int componentId, Timestamp date);
+	List<ComponentAnalysisModel> componentAnalysis(int componentId, Timestamp date);
+
+	@Query("SELECT ca FROM ComponentAnalysisModel ca "
+			+ "INNER JOIN ca.component c ON c.squad.id = :squadId "
+			+ "WHERE ca.id.componentAnalysisDate = ("
+			+ "	SELECT MAX(ca2.id.componentAnalysisDate) "
+			+ "	FROM ComponentAnalysisModel ca2 "
+			+ "	WHERE ca2.id.componentId = ca.id.componentId AND ca2.id.metricId = ca.id.metricId"
+			+ "	AND ca2.id.componentAnalysisDate <= :date"
+			+ "	)")
+	List<ComponentAnalysisModel> squadComponentAnalysis(int squadId, Timestamp date);
 }

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.shagui.analysis.api.dto.ComponentDTO;
-import com.shagui.analysis.api.dto.ComponentStateDTO;
+import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.core.exception.JpaNotFoundException;
 import com.shagui.analysis.model.ComponentAnalysisModel;
@@ -40,11 +40,11 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public ComponentStateDTO componentState(int componentId, Date date) {
+	public MetricAnalysisStateDTO componentState(int componentId, Date date) {
 		List<ComponentAnalysisModel> metricAnalysis = componentAnalysisRepository.repository()
-				.componentState(componentId, new Timestamp(date.getTime()));
+				.componentAnalysis(componentId, new Timestamp(date.getTime()));
 
-		return AnalysisUtils.calculateComponentState(metricAnalysis);
+		return AnalysisUtils.metricCoverage(metricAnalysis);
 	}
 
 	@Override

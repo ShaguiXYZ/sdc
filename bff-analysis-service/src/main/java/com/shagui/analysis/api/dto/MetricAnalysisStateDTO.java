@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ComponentStateDTO {
+public class MetricAnalysisStateDTO {
 	private List<MetricAnalysisDTO> metricAnalysis;
 	private float coverage;
 }

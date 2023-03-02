@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.analysis.api.ComponentRestApi;
-import com.shagui.analysis.api.view.ComponentStateView;
+import com.shagui.analysis.api.view.MetricAnalysisStateView;
 import com.shagui.analysis.service.ComponentService;
 import com.shagui.analysis.util.Mapper;
 
@@ -17,7 +17,7 @@ public class ComponentController implements ComponentRestApi {
 	private ComponentService componentService;
 
 	@Override
-	public ComponentStateView componentState(int componentId) {
+	public MetricAnalysisStateView componentState(int componentId) {
 		return Mapper.parse(componentService.componentState(componentId));
 	}
 }

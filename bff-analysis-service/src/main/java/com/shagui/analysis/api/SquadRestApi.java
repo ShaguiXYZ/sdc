@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shagui.analysis.api.view.ComponentView;
+import com.shagui.analysis.api.view.MetricAnalysisStateView;
 import com.shagui.analysis.api.view.PageableView;
 import com.shagui.analysis.api.view.SquadView;
 
@@ -21,8 +22,11 @@ public interface SquadRestApi {
 	@GetMapping
 	PageableView<SquadView> squads(@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 
+	@GetMapping("{squadId}/state")
+	MetricAnalysisStateView squadState(@PathVariable @Parameter(description = "Squad identifier") int squadId);
+
 	@Operation(summary = "Retrieve squad components")
-	@GetMapping("{sqadId}/components")
-	PageableView<ComponentView> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int sqadId,
+	@GetMapping("{squadId}/components")
+	PageableView<ComponentView> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 }

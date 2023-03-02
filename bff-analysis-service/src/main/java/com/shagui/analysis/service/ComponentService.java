@@ -1,7 +1,7 @@
 package com.shagui.analysis.service;
 
-import com.shagui.analysis.api.dto.ComponentStateDTO;
+import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 
 public interface ComponentService {
-	ComponentStateDTO componentState(int componentId);
+	MetricAnalysisStateDTO componentState(int componentId);
 }

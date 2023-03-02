@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.shagui.analysis.api.dto.ComponentStateDTO;
+import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.repository.ComponentAnalysisRepository;
 import com.shagui.analysis.repository.ComponentRepository;
 import com.shagui.analysis.repository.ComponentTypeArchitectureRepository;
@@ -46,7 +46,7 @@ class ComponentServiceTest {
 
 	@Test
 	void componentState() {
-		ComponentStateDTO componentState = service.componentState(1, new Date());
+		MetricAnalysisStateDTO componentState = service.componentState(1, new Date());
 		assertNotNull(componentState);
 	}
 
