@@ -15,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.shagui.analysis.api.dto.ComponentStateDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.model.ComponentModel;
@@ -48,8 +47,7 @@ class AnalysisServiceTest {
 	@Test
 	void analysisServiceConstructorTest() {
 
-		AnalysisServiceImpl service = new AnalysisServiceImpl(componentsRepository, componentAnalysisRepository,
-				metricValuesRepository);
+		AnalysisServiceImpl service = new AnalysisServiceImpl(componentsRepository, componentAnalysisRepository);
 
 		assertNotNull(service);
 	}
@@ -80,12 +78,6 @@ class AnalysisServiceTest {
 	void metricHistoryTest() {
 		PageableDTO<MetricAnalysisDTO> metricHistory = service.metricHistory(1, 1, new Date());
 		assertNotNull(metricHistory);
-	}
-
-	@Test
-	void componentState() {
-		ComponentStateDTO componentState = service.componentState(1, new Date());
-		assertNotNull(componentState);
 	}
 
 }

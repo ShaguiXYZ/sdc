@@ -19,7 +19,7 @@ export class UiAlertComponent implements OnInit, OnDestroy {
 
   constructor(private dialogService: NxDialogService, private alertService: UiAlertService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.alertSubscription = this.alertService.onAlert().subscribe((alert?: AlertModel) => {
       if (alert) {
         this.alert = alert;
@@ -32,16 +32,16 @@ export class UiAlertComponent implements OnInit, OnDestroy {
     this.alertSubscription.unsubscribe();
   }
 
-  public actionAndClose(action: () => void) {
+  public actionAndClose(action: () => void): void {
     this.closeDetailsModal();
     action();
   }
 
-  public openDetailsModal() {
+  public openDetailsModal(): void {
     this.templateAlertDialogRef = this.dialogService.open(this.templateAlertRef);
   }
 
-  public closeDetailsModal() {
+  public closeDetailsModal(): void {
     this.templateAlertDialogRef.close();
     this.alertService.closeAlert();
   }

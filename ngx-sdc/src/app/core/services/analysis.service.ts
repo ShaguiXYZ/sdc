@@ -4,8 +4,6 @@ import { HttpStatus } from 'src/app/shared/config/app.constants';
 import { environment } from 'src/environments/environment';
 import { UiHttpHelper } from '.';
 import {
-  IComponentStateDTO,
-  IComponentStateModel,
   IMetricAnalysisDTO,
   IMetricAnalysisModel,
   IPageableDTO,
@@ -18,22 +16,6 @@ export class AnalysisService {
   private _urlAnalysis = `${environment.baseUrl}/analysis`;
 
   constructor(private http: UiHttpHelper) {}
-
-  public componentState(componentId: number): Promise<IComponentStateModel> {
-    return firstValueFrom(
-      this.http
-        .get<IComponentStateDTO>(`${this._urlAnalysis}/${componentId}`, {
-          responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.ComonentNotFound' }
-          }
-        })
-        .pipe(
-          map(state => {
-            return IComponentStateModel.toModel(state as IComponentStateDTO);
-          })
-        )
-    );
-  }
 
   public metricHistory(componentId: number, metricId: number): Promise<IPageableModel<IMetricAnalysisModel>> {
     return firstValueFrom(

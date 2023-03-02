@@ -1,4 +1,4 @@
-import { IAnalysisValuesDTO, IAnalysisValuesModel } from './analysisValues.model';
+import { IAnalysisValuesDTO, IAnalysisValuesModel } from './analysis-values.model';
 import { IMetricDTO, IMetricModel } from './metric.model';
 
 export interface IMetricAnalysisDTO {

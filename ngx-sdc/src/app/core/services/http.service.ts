@@ -136,7 +136,7 @@ export class UiHttpHelper {
     );
   }
 
-  private success(message?: MessageModal) {
+  private success(message?: MessageModal): void {
     if (message) {
       this.notificationService.success(
         this.translateService.instant(message.title || 'Notifications.Success'),
@@ -146,7 +146,7 @@ export class UiHttpHelper {
     }
   }
 
-  private error(err: HttpErrorResponse, responseStatusMessage?: GenericDataInfo<MessageModal>) {
+  private error(err: HttpErrorResponse, responseStatusMessage?: GenericDataInfo<MessageModal>): void {
     if (responseStatusMessage) {
       let title;
       let message;

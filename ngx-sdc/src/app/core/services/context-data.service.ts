@@ -77,7 +77,7 @@ export class UiAppContextData {
    * @param key Key of the variable in context
    * @param data data to save in the storage
    */
-  public setContextData(key: ContextDataNames, data: any) {
+  public setContextData(key: ContextDataNames, data: any): void {
     this.contextStorage.contextData[key] = data;
     this.subject$.next(key);
   }
@@ -87,24 +87,28 @@ export class UiAppContextData {
    *
    * @param key Key of the variable in context
    */
-  public delete(key: ContextDataNames) {
+  public delete(key: ContextDataNames): void {
     delete this.contextStorage.contextData[key];
   }
 
   private sessionControl(): void {
     this.refreshPageControl();
     this.sessionDataControl();
+
+    if (this.router) {
+      this.controlData();
+    }
   }
 
   // Load session storage (F5)
-  private refreshPageControl = () => {
+  private refreshPageControl = (): void => {
     window.addEventListener('beforeunload', (event: Event) => {
       sessionStorage.setItem(contextStorageID, JSON.stringify(this.contextStorage.contextData));
     });
   };
 
   // Recover data form storage
-  private sessionDataControl = () => {
+  private sessionDataControl = (): void => {
     const sessionData = sessionStorage.getItem(contextStorageID);
 
     if (sessionData) {
@@ -116,7 +120,7 @@ export class UiAppContextData {
   /**
    * Control the persistence of the data in the storage
    */
-  private controlData() {
+  private controlData(): void {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       const urlInfo: UrlInfo = routerData(this.router).urlInfo;
 

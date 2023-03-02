@@ -11,7 +11,7 @@ export class UiLanguageService {
 
   constructor(private contextData: UiAppContextData) {}
 
-  public i18n(language: Languages) {
+  public i18n(language: Languages): void {
     this.contextData.appConfig = { ...this.contextData.appConfig, lang: language };
     this.languageChange$.emit(this.contextData.appConfig.lang);
   }

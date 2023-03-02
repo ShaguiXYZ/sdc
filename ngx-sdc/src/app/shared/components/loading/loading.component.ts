@@ -16,7 +16,7 @@ export class UiLoadingComponent implements OnInit, OnDestroy {
 
   constructor(private dialogService: NxDialogService, private loadingService: UiLoadingService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadingObs = this.loadingService.uiShowLoading.subscribe((show: boolean) => {
       if (show) {
         this.openLoadingModal();
@@ -30,14 +30,14 @@ export class UiLoadingComponent implements OnInit, OnDestroy {
     this.loadingObs.unsubscribe();
   }
 
-  private openLoadingModal() {
+  private openLoadingModal(): void {
     this.templateLoadingDialogRef = this.dialogService.open(this.templateLoadingRef, {
       width: '200px',
       disableClose: true
     });
   }
 
-  private closeLoadingModal() {
+  private closeLoadingModal(): void {
     this.templateLoadingDialogRef?.close();
   }
 }

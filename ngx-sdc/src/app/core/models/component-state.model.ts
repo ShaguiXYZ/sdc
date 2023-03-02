@@ -1,4 +1,4 @@
-import { IMetricAnalysisDTO, IMetricAnalysisModel } from './metricAnalysis.model';
+import { IMetricAnalysisDTO, IMetricAnalysisModel } from './metric-analysis.model';
 
 export interface IComponentStateDTO {
   metricAnalysis: IMetricAnalysisDTO[];

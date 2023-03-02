@@ -8,7 +8,7 @@ export class UiLoadingService {
 
     private numLoadings = 0;
 
-    public get showLoading() {
+    public get showLoading(): boolean {
         return this.numLoadings > 0;
     }
     public set showLoading(value: boolean) {

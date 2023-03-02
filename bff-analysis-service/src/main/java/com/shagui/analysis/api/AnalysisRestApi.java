@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.shagui.analysis.api.view.ComponentStateView;
 import com.shagui.analysis.api.view.MetricAnalysisView;
 import com.shagui.analysis.api.view.PageableView;
 
@@ -19,7 +18,4 @@ public interface AnalysisRestApi {
 	PageableView<MetricAnalysisView> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
-
-	@GetMapping("{componentId}")
-	ComponentStateView componentState(@PathVariable @Parameter(description = "Component identifier") int componentId);
 }

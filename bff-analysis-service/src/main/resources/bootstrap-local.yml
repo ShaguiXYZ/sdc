@@ -1,2 +1,2 @@
 services:
-   rws-sdc: http://localhost:8081/rws-analysis/api
+   rws-sdc: http://localhost:9090/rws-analysis/api

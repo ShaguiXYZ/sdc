@@ -21,7 +21,7 @@ public interface RwsSdcClient {
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
 
-	@GetMapping("analysis/{componentId}")
+	@GetMapping("component/{componentId}/state")
 	ComponentStateDTO componentState(
 			@PathVariable @Parameter(description = "Component identifier") int componentId);
 	

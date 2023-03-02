@@ -18,15 +18,15 @@ export class UiAlertService {
     return this.alert$.asObservable();
   }
 
-  public alert(alert: AlertModel) {
+  public alert(alert: AlertModel): void {
     this.alert$.next(alert);
   }
 
-  public closeAlert() {
+  public closeAlert(): void {
     this.alert$.next(undefined);
   }
 
-  public confirm(message: MessageModal, callback?: () => void, okText: string = 'Continue', cancelText: string = 'Cancel') {
+  public confirm(message: MessageModal, callback?: () => void, okText: string = 'Continue', cancelText: string = 'Cancel'): void {
     const buttons: ButtonModel[] = [];
     buttons.push(new ButtonModel(TypeButton.primary, this.translateService.instant(cancelText), () => {}));
 

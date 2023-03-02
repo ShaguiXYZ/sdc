@@ -1,10 +1,13 @@
 package com.shagui.analysis.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.analysis.api.ComponentRestApi;
 import com.shagui.analysis.api.dto.ComponentDTO;
+import com.shagui.analysis.api.dto.ComponentStateDTO;
 import com.shagui.analysis.service.ComponentService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,6 +18,11 @@ public class ComponentController implements ComponentRestApi {
 	
 	@Autowired
 	private ComponentService componentService;
+
+	@Override
+	public ComponentStateDTO componentState(int componentId, Date date) {
+		return componentService.componentState(componentId, date == null ? new Date() : date);
+	}
 
 	@Override
 	public ComponentDTO create(ComponentDTO component) {

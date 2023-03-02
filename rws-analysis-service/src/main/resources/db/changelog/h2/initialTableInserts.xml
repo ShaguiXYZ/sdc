@@ -211,7 +211,7 @@
 			INSERT INTO component_types (component_type_id,component_type_name) VALUES
 				 (1,'BACKEND'),
 				 (2,'FRONTEND'),
-				 (3'CONTAINER');
+				 (3,'CONTAINER');
 				 
 			INSERT INTO uris (uri_id,uri_name,uri_value,uri_type) VALUES
 				 (1,'analysis-repo','https://raw.githubusercontent.com/ShaguiXYZ','FILE'),

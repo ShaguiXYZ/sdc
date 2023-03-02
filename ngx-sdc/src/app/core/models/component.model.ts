@@ -1,5 +1,5 @@
 import { IArchitectureDTO, IArchitectureModel } from './architecture.model';
-import { IComponentTypeDTO, IComponentTypeModel } from './componentType.model';
+import { IComponentTypeDTO, IComponentTypeModel } from './component-type.model';
 
 export interface IComponentDTO {
   id: number;
