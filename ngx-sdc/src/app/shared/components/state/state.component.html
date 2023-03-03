@@ -2,6 +2,9 @@
 <h2>
   Squad: {{ component.squad.name }}
 </h2>
-<h2>
-  Coverage: {{ coverage }}
+<h2 *ngIf="component.coverage">
+  Coverage: {{ component.coverage }}
+</h2>
+<h2 *ngIf="component.analysisDate">
+  Analysis date: {{ component.analysisDate | date }}
 </h2>

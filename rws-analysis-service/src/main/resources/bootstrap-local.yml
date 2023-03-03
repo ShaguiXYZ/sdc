@@ -19,4 +19,6 @@ spring:
       change-log: classpath:/db/changelog/h2/changelogMaster.xml
       contexts: ${spring.profiles.active}
       dropFirst: true
-         
+server:
+   port: 9090
+      

@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 public interface ComponentRestApi {
 	@GetMapping("{componentId}/state")
 	MetricAnalysisStateDTO componentState(@PathVariable @Parameter(description = "Component identifier") int componentId,
-			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date date);
+			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
 
 	@Operation(summary = "Create new component")
 	@PostMapping

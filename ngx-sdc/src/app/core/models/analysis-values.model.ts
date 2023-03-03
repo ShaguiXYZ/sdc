@@ -1,15 +1,15 @@
 export interface IAnalysisValuesDTO {
   metricValue: string;
-  expectedValue: string;
-  goodValue: string;
-  perfectValue: string;
+  expectedValue?: string;
+  goodValue?: string;
+  perfectValue?: string;
 }
 
 export interface IAnalysisValuesModel {
   metricValue: string;
-  expectedValue: string;
-  goodValue: string;
-  perfectValue: string;
+  expectedValue?: string;
+  goodValue?: string;
+  perfectValue?: string;
 }
 
 export namespace IAnalysisValuesModel {
@@ -19,5 +19,5 @@ export namespace IAnalysisValuesModel {
 }
 
 export class AnalysisValuesModel implements IAnalysisValuesModel {
-  constructor(public metricValue: string, public expectedValue: string, public goodValue: string, public perfectValue: string) {}
+  constructor(public metricValue: string, public expectedValue?: string, public goodValue?: string, public perfectValue?: string) {}
 }

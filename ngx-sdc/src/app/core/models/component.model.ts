@@ -8,6 +8,8 @@ export interface IComponentDTO {
   componentType: IComponentTypeDTO;
   architecture: IArchitectureDTO;
   squad: ISquadDTO;
+  analysisDate?: number;
+  coverage?: number;
 }
 
 export interface IComponentModel {
@@ -16,6 +18,8 @@ export interface IComponentModel {
   componentType: IComponentTypeModel;
   architecture: IArchitectureModel;
   squad: ISquadModel;
+  analysisDate?: number;
+  coverage?: number;
 }
 
 export namespace IComponentModel {
@@ -25,7 +29,9 @@ export namespace IComponentModel {
       dto.name,
       IComponentTypeModel.toModel(dto.componentType),
       IArchitectureModel.toModel(dto.architecture),
-      ISquadModel.toModel(dto.squad)
+      ISquadModel.toModel(dto.squad),
+      dto.analysisDate,
+      dto.coverage
     );
   export const toDTO = (model: IComponentModel): IComponentDTO => ({
     ...model,
@@ -41,6 +47,8 @@ export class ComponentModel implements IComponentModel {
     public name: string,
     public componentType: IComponentTypeModel,
     public architecture: IArchitectureModel,
-    public squad: ISquadModel
-  ) {}
+    public squad: ISquadModel,
+    public analysisDate?: number,
+    public coverage?: number
+) {}
 }

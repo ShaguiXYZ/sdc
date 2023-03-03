@@ -6,6 +6,5 @@ spring:
          uri:
       
 server:
-   port: 9090
    servlet:
-      context-path: /rws-analysis
+      context-path: /rws-analysis   

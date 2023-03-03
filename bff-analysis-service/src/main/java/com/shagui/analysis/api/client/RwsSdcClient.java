@@ -1,16 +1,13 @@
 package com.shagui.analysis.api.client;
 
-import java.util.Date;
-
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shagui.analysis.api.dto.ComponentDTO;
-import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.api.dto.SquadDTO;
 
@@ -23,14 +20,6 @@ public interface RwsSdcClient {
 	PageableDTO<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
-
-	@GetMapping("component/{componentId}/state")
-	MetricAnalysisStateDTO componentState(
-			@PathVariable @Parameter(description = "Component identifier") int componentId);
-	
-	@GetMapping("component/{componentId}/state")
-	MetricAnalysisStateDTO componentState(@PathVariable @Parameter(description = "Component identifier") int componentId,
-			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date date);
 	
 	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads")

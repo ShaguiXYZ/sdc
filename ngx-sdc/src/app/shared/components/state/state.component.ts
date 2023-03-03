@@ -11,16 +11,8 @@ import { StateService } from './state.service';
 export class UiStateComponent {
   public coverage?: number;
 
-  private _component!: IComponentModel;
+  @Input()
+  public component!: IComponentModel;
 
   constructor(private stateService: StateService) {}
-
-  @Input()
-  set component(component: IComponentModel) {
-    this._component = component;
-    this.stateService.componetCoverage(component.id).then(coverage => (this.coverage = coverage));
-  }
-  get component(): IComponentModel {
-    return this._component;
-  }
 }

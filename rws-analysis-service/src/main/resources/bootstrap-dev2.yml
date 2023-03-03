@@ -1,7 +1,3 @@
-server:
-   port: 8080
-   servlet:
-
 spring:
    datasource:
       url: jdbc:mysql://${db.domain}/analysis
@@ -18,3 +14,5 @@ spring:
       change-log: classpath:/db/changelog/mysql/changelogMaster.xml
       contexts: ${spring.profiles.active}
       dropFirst: true
+server:
+   port: 9090

@@ -57,6 +57,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<ComponentAnalysisModel> analysis = executeAsyncMetricServicesAndWait(component);
 		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(analysis);
 
+		// Update component values
+		component.setAnalysisDate(new Date());
+		component.setCoverage(AnalysisUtils.metricCoverage(savedData).getCoverage());
+		componentsRepository.update(component.getId(), component);
+
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 
 		return savedData.stream().map(AnalysisUtils.transformToMetricAnalysis).collect(SdcCollectors.toPageable());
@@ -67,17 +72,6 @@ public class AnalysisServiceImpl implements AnalysisService {
 		return componentAnalysisRepository.repository()
 				.metricHistory(componentId, metricId, new Timestamp(date.getTime())).stream()
 				.map(AnalysisUtils.transformToMetricAnalysis).collect(SdcCollectors.toPageable());
-	}
-
-	@Transactional
-	private List<ComponentAnalysisModel> saveReturnAnalysis(List<ComponentAnalysisModel> toSave) {
-		List<ComponentAnalysisModel> saved = new ArrayList<>();
-
-		if (toSave.size() > 0) {
-			saved.addAll(componentAnalysisRepository.repository().saveAll(toSave));
-		}
-
-		return saved;
 	}
 
 	private List<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {
@@ -102,6 +96,17 @@ public class AnalysisServiceImpl implements AnalysisService {
 		});
 
 		return toSave;
+	}
+
+	@Transactional
+	private List<ComponentAnalysisModel> saveReturnAnalysis(List<ComponentAnalysisModel> toSave) {
+		List<ComponentAnalysisModel> saved = new ArrayList<>();
+
+		if (toSave.size() > 0) {
+			saved.addAll(componentAnalysisRepository.repository().saveAll(toSave));
+		}
+
+		return saved;
 	}
 
 	private Function<List<ComponentAnalysisModel>, List<ComponentAnalysisModel>> saveChangesInMetrics = (

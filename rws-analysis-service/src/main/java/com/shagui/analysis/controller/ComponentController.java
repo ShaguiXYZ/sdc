@@ -20,8 +20,8 @@ public class ComponentController implements ComponentRestApi {
 	private ComponentService componentService;
 
 	@Override
-	public MetricAnalysisStateDTO componentState(int componentId, Date date) {
-		return componentService.componentState(componentId, date == null ? new Date() : date);
+	public MetricAnalysisStateDTO componentState(int componentId, Date from) {
+		return componentService.componentState(componentId, from == null ? new Date() : from);
 	}
 
 	@Override

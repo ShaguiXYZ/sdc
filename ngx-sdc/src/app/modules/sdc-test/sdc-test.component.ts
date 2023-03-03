@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { IComponentModel, IPageableModel, ISquadModel } from 'src/app/core/models';
-import { SdcTestService } from './sdc-test.service';
+import { ISquadModel } from 'src/app/core/models';
+import { ISquadInfo, SdcTestService } from './sdc-test.service';
 
 @Component({
   selector: 'sdc-test',
@@ -14,36 +14,38 @@ export class SdcTestPageComponent implements OnInit, OnDestroy {
   public selectOptionValue = 'Select';
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
-  public components?: IPageableModel<IComponentModel>;
-  public coverage?: number;
+  public squadInfo!: ISquadInfo;
 
   private pattern = '^((?!' + this.selectOptionValue + ').)*$';
-  private valueChanges$!: Subscription;
+  private subscription$: Array<Subscription> = [];
 
-  constructor(private fb: FormBuilder, private componentService: SdcTestService) {}
+  constructor(private fb: FormBuilder, private sdcTestService: SdcTestService) {}
 
   ngOnInit(): void {
     this.createForm();
     this.loadData();
 
-    this.valueChanges$ = this.form.valueChanges.subscribe(event => {
+    this.subscription$.push(this.form.valueChanges.subscribe(event => {
       this.componentsBySquad(event.squadId);
-      this.componentService.coverageSquad(event.squadId).then(coverage => (this.coverage = coverage));
-    });
+    }));
+
+    this.subscription$.push(this.sdcTestService.onDataChange().subscribe(info => {
+      this.squadInfo = info;
+    }));
   }
 
   ngOnDestroy(): void {
-    this.valueChanges$.unsubscribe();
+    this.subscription$.forEach(subscription => subscription.unsubscribe());
   }
 
   private loadData(): void {
-    this.componentService.availableSquads().then(data => {
+    this.sdcTestService.availableSquads().then(data => {
       this.squads = data.page;
     });
   }
 
   private componentsBySquad(squadId: number) {
-    this.componentService.componentsBySquad(squadId).then(data => (this.components = data));
+    this.sdcTestService.squadInfo(squadId);
   }
 
   private createForm(): void {

@@ -16,12 +16,12 @@
               </nx-dropdown-item>
             </nx-dropdown>
           </nx-formfield>
-          <h2 *ngIf="coverage">
-            Coverage: {{ coverage }}
+          <h2 *ngIf="squadInfo?.coverage">
+            Coverage: {{ squadInfo.coverage }}
           </h2>
         </div>
         <div nxCol="6">
-          <ui-state *ngFor="let component of components?.page" [component]="component"></ui-state>
+          <ui-state *ngFor="let component of squadInfo?.components" [component]="component"></ui-state>
         </div>
       </div>
     </div>

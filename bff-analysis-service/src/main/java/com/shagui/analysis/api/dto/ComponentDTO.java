@@ -1,5 +1,7 @@
 package com.shagui.analysis.api.dto;
 
+import java.util.Date;
+
 import com.shagui.analysis.api.view.ComponentView;
 import com.shagui.analysis.api.view.ParseableTo;
 import com.shagui.analysis.util.Mapper;
@@ -13,6 +15,8 @@ public class ComponentDTO implements ParseableTo<ComponentView> {
 	private Integer id;
 	private String name;
 	private boolean nonPublic;
+	private Date analysisDate;
+	private Float coverage;
 	private ComponentTypeDTO componentType;
 	private ArchitectureDTO architecture;
 	private SquadDTO squad;

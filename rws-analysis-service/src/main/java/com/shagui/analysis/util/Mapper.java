@@ -68,6 +68,7 @@ public class Mapper {
 
 	public static ComponentDTO parse(ComponentModel source) {
 		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), source.isNonPublic(),
+				source.getAnalysisDate(), source.getCoverage(),
 				parse(source.getComponentTypeArchitecture().getComponentType()),
 				parse(source.getComponentTypeArchitecture().getArchitecture()), parse(source.getSquad()));
 

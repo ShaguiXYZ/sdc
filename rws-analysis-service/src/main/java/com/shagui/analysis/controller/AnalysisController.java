@@ -24,7 +24,7 @@ public class AnalysisController implements AnalysisRestApi {
 	}
 
 	@Override
-	public PageableDTO<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date) {
-		return analysisService.metricHistory(componentId, metricId, date == null ? new Date() : date);
+	public PageableDTO<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date from) {
+		return analysisService.metricHistory(componentId, metricId, from == null ? new Date() : from);
 	}
 }

@@ -30,5 +30,5 @@ public interface AnalysisRestApi {
 	PageableDTO<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId,
-			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date date);
+			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
 }
