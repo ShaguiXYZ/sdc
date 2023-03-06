@@ -17,12 +17,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "component_properties", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "component_property_name", "component_id" }) })
-public class ComponentPropertyModel {
+		@UniqueConstraint(columnNames = { "component_id", "component_property_name" }) })
+public class ComponentPropertyModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "component_property_id")
-	private int id;
+	private Integer id;
 	
 	@Column(name = "component_property_name")
 	private String name;

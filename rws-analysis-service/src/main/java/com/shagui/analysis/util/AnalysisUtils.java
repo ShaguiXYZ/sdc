@@ -2,10 +2,11 @@ package com.shagui.analysis.util;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
-import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.MetricValuesModel;
 
@@ -19,24 +20,27 @@ public class AnalysisUtils {
 		AnalysisUtils.config = config;
 	}
 
-	public static Function<ComponentAnalysisModel, MetricAnalysisDTO> transformToMetricAnalysis = (analysis) -> {
+	public static UnaryOperator<ComponentAnalysisModel> setMetricValues = (analysis) -> {
 		List<MetricValuesModel> metricValues = config.metricValuesRepository().repository().metricValueByDate(
 				analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),
 				analysis.getId().getComponentAnalysisDate());
 
+		ComponentAnalysisModel updatedModel = new ComponentAnalysisModel(analysis.getComponent(), analysis.getMetric(),
+				analysis.getValue());
+
 		if (!metricValues.isEmpty()) {
 			MetricValuesModel value = metricValues.get(0);
-			analysis.setWeight(value.getWeight());
-			analysis.setExpectedValue(value.getValue());
-			analysis.setGoodValue(value.getGoodValue());
-			analysis.setPerfectValue(value.getPerfectValue());
+			updatedModel.setWeight(value.getWeight());
+			updatedModel.setExpectedValue(value.getValue());
+			updatedModel.setGoodValue(value.getGoodValue());
+			updatedModel.setPerfectValue(value.getPerfectValue());
 		}
 
-		return Mapper.parse(analysis);
+		return updatedModel;
 	};
 
 	public static MetricAnalysisStateDTO metricCoverage(List<ComponentAnalysisModel> metricAnalysis) {
-		List<MetricAnalysisDTO> dtos = metricAnalysis.stream().map(transformToMetricAnalysis)
+		List<MetricAnalysisDTO> dtos = metricAnalysis.stream().map(setMetricValues).map(Mapper::parse)
 				.collect(Collectors.toList());
 
 		MetricAnalysisStateDTO state = new MetricAnalysisStateDTO();

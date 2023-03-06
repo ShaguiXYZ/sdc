@@ -1,6 +1,5 @@
 package com.shagui.analysis.model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,8 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import lombok.Data;
@@ -36,13 +33,6 @@ public class ComponentModel implements ModelInterface<Integer> {
 
 	@Column(name = "component_private")
 	private boolean nonPublic;
-	
-	@Column(name = "component_analysis_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date analysisDate;
-
-	@Column(name = "component_coverage")
-	private Float coverage;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "component_type_architecture_id", nullable = false)

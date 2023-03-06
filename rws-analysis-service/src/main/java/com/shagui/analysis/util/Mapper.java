@@ -1,5 +1,7 @@
 package com.shagui.analysis.util;
 
+import java.util.Date;
+
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 
@@ -67,9 +69,14 @@ public class Mapper {
 	}
 
 	public static ComponentDTO parse(ComponentModel source) {
-		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), source.isNonPublic(),
-				source.getAnalysisDate(), source.getCoverage(),
-				parse(source.getComponentTypeArchitecture().getComponentType()),
+		String coverageStr = ComponentUtils.propertyValue(source, Ctes.COMPONENT_PROPERTIES.COMPONENT_COVERAGE);
+		Float coverage = coverageStr == null ? null : Float.valueOf(coverageStr);
+		String analysisTimestampStr = ComponentUtils.propertyValue(source,
+				Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE);
+		Date analysisDate = analysisTimestampStr == null ? null : new Date(Long.valueOf(analysisTimestampStr));
+
+		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), source.isNonPublic(), analysisDate,
+				coverage, parse(source.getComponentTypeArchitecture().getComponentType()),
 				parse(source.getComponentTypeArchitecture().getArchitecture()), parse(source.getSquad()));
 
 		return target;

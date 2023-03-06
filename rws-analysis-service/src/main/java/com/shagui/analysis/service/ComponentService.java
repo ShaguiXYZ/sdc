@@ -10,5 +10,5 @@ public interface ComponentService {
 	MetricAnalysisStateDTO componentState(int componentId, Date date);
 	ComponentDTO create(ComponentDTO component);
 	ComponentDTO update(Integer id, ComponentDTO component);
-	PageableDTO<ComponentDTO> findBySquad(int squadId, int page);
+	PageableDTO<ComponentDTO> findBySquad(int squadId, Integer page);
 }

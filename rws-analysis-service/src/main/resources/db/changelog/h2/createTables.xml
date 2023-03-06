@@ -8,7 +8,7 @@
 	<changeSet author="initial" id="020220231011">
 		<sql dbms="h2">
 			CREATE TABLE architectures (
-				architecture_id int4 NOT NULL,
+				architecture_id int4 auto_increment NOT NULL,
 				architecture_name varchar NOT NULL,
 				CONSTRAINT architectures_pk PRIMARY KEY (architecture_id)
 			);
@@ -21,7 +21,7 @@
 			);
 			
 			CREATE TABLE metrics (
-				metric_id int4 NOT NULL,
+				metric_id int4 auto_increment NOT NULL,
 				metric_name varchar NOT NULL,
 				metric_type varchar NOT NULL,
 				metric_value_type varchar NULL,
@@ -30,13 +30,13 @@
 			);
 			
 			CREATE TABLE component_types (
-				component_type_id int4 NOT NULL,
+				component_type_id int4 auto_increment NOT NULL,
 				component_type_name varchar NOT NULL,
 				CONSTRAINT component_types_pk PRIMARY KEY (component_type_id)
 			);
 			
 			CREATE TABLE uris (
-				uri_id int4 NOT NULL,
+				uri_id int4 auto_increment NOT NULL,
 				uri_name varchar NULL,
 				uri_value varchar NULL,
 				uri_type varchar NULL,
@@ -52,7 +52,7 @@
 			);
 			
 			CREATE TABLE component_type_architectures (
-				component_type_architecture_id int4 NOT NULL,
+				component_type_architecture_id int4 auto_increment NOT NULL,
 				component_type_id int4 NOT NULL,
 				architecture_id int4 NOT NULL,
 				CONSTRAINT component_type_architectures_pk PRIMARY KEY (component_type_architecture_id),
@@ -77,11 +77,9 @@
 			);
 			
 			CREATE TABLE components (
-				component_id int4 NOT NULL,
+				component_id int4 auto_increment NOT NULL,
 				component_name varchar NOT NULL,
 				component_private bool NULL DEFAULT false,
-				component_analysis_date timestamp,
-				component_coverage real,
 				component_type_architecture_id int4 NOT NULL,
 				squad_id int4 NOT NULL,
 				CONSTRAINT components_pk PRIMARY KEY (component_id),
@@ -90,7 +88,7 @@
 			);
 			
 			CREATE TABLE metric_values (
-				metric_value_id int4 NOT NULL,
+				metric_value_id int4 auto_increment NOT NULL,
 				metric_value_date timestamp NOT NULL DEFAULT now(),
 				metric_value_weight int4 NOT NULL DEFAULT 0,
 				metric_expected_value varchar NOT NULL,
@@ -114,7 +112,7 @@
 			);
 			
 			CREATE TABLE component_properties (
-				component_property_id int4 NOT NULL,
+				component_property_id int4 auto_increment NOT NULL,
 				component_property_name varchar NOT NULL,
 				component_property_value varchar NOT NULL,
 				component_id int4 NOT NULL,
@@ -132,7 +130,7 @@
 			);
 			
 			CREATE TABLE request_properies (
-				request_property_id int4 NOT NULL,
+				request_property_id int4 auto_increment NOT NULL,
 				request_property_key varchar NOT NULL,
 				request_property_value varchar NULL,
 				CONSTRAINT request_properies_pk PRIMARY KEY (request_property_id)

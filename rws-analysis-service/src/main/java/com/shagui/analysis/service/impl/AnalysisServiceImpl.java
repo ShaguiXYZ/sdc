@@ -31,6 +31,8 @@ import com.shagui.analysis.repository.JpaCommonRepository;
 import com.shagui.analysis.service.AnalysisInterface;
 import com.shagui.analysis.service.AnalysisService;
 import com.shagui.analysis.util.AnalysisUtils;
+import com.shagui.analysis.util.ComponentUtils;
+import com.shagui.analysis.util.Mapper;
 import com.shagui.analysis.util.collector.SdcCollectors;
 
 import lombok.extern.slf4j.Slf4j;
@@ -57,21 +59,19 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<ComponentAnalysisModel> analysis = executeAsyncMetricServicesAndWait(component);
 		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(analysis);
 
-		// Update component values
-		component.setAnalysisDate(new Date());
-		component.setCoverage(AnalysisUtils.metricCoverage(savedData).getCoverage());
-		componentsRepository.update(component.getId(), component);
+		ComponentUtils.addOrUpdateComponentPorperties(component);
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 
-		return savedData.stream().map(AnalysisUtils.transformToMetricAnalysis).collect(SdcCollectors.toPageable());
+		return savedData.stream().map(AnalysisUtils.setMetricValues).map(Mapper::parse)
+				.collect(SdcCollectors.toPageable());
 	}
 
 	@Override
 	public PageableDTO<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date) {
 		return componentAnalysisRepository.repository()
 				.metricHistory(componentId, metricId, new Timestamp(date.getTime())).stream()
-				.map(AnalysisUtils.transformToMetricAnalysis).collect(SdcCollectors.toPageable());
+				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	private List<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {

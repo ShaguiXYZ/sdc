@@ -20,10 +20,10 @@ import com.shagui.analysis.enums.MetricType;
 import com.shagui.analysis.enums.UriType;
 import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.ComponentModel;
-import com.shagui.analysis.model.ComponentPropertyModel;
 import com.shagui.analysis.model.MetricModel;
 import com.shagui.analysis.model.UriModel;
 import com.shagui.analysis.service.XmlService;
+import com.shagui.analysis.util.ComponentUtils;
 import com.shagui.analysis.util.Ctes;
 import com.shagui.analysis.util.UrlUtils;
 import com.shagui.analysis.util.XmlDocument;
@@ -46,7 +46,7 @@ public class XmlServiceImpl implements XmlService {
 				Optional<UriModel> uri;
 
 				if ((uri = getUri(component.getUris(), UriType.FILE)).isPresent()) {
-					String xmlPath = propertyValue(component.getProperties(), Ctes.COMPONENT_PROPERTIES.XML_PATH,
+					String xmlPath = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.XML_PATH,
 							appConfig.getDefaultXmlPath());
 					XmlDocument docuemnt = xmlDocument(component, uri.get(), xmlPath);
 					return getResponse(component, xmlMetrics, docuemnt);
@@ -81,19 +81,13 @@ public class XmlServiceImpl implements XmlService {
 
 	private XmlDocument xmlDocument(ComponentModel component, UriModel uriModel, String xmlPath)
 			throws IOException, ParserConfigurationException, SAXException {
-		String uri = new StringBuffer(uriModel.getUri()).append("/").append(
-				propertyValue(component.getProperties(), Ctes.COMPONENT_PROPERTIES.PATH, component.getName()))
+		String uri = new StringBuffer(uriModel.getUri()).append("/")
+				.append(ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.PATH, component.getName()))
 				.append("/").append(xmlPath).toString();
 
 		URL url = UrlUtils.url(uri, uriModel.getProperties());
 
 		XmlClient client = () -> url;
 		return client.getXmlDocument();
-	}
-
-	private String propertyValue(List<ComponentPropertyModel> properties, String key, String defaultValue) {
-		Optional<ComponentPropertyModel> model = properties.stream().filter(property -> key.equals(property.getName()))
-				.findFirst();
-		return model.isPresent() ? model.get().getValue() : defaultValue;
 	}
 }

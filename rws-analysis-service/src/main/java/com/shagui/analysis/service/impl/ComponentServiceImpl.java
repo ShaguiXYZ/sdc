@@ -58,7 +58,7 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public PageableDTO<ComponentDTO> findBySquad(int squadId, int page) {
+	public PageableDTO<ComponentDTO> findBySquad(int squadId, Integer page) {
 		Page<ComponentModel> models = componentRepository.repository().findBySquad(new SquadModel(squadId),
 				JpaCommonRepository.getPageable(page));
 
