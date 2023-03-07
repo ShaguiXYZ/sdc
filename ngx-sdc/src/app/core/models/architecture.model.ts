@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable no-redeclare */
 export interface IArchitectureDTO {
   id: number;
   name: string;

@@ -28,7 +28,7 @@ export class AnalysisService {
         .pipe(
           map(res => {
             const dto = res as IPageableDTO<IMetricAnalysisDTO>;
-            let result: IPageableModel<IMetricAnalysisModel> = {
+            const result: IPageableModel<IMetricAnalysisModel> = {
               paging: IPagingModel.toModel(dto.paging),
               page: dto.page.map(IMetricAnalysisModel.toModel)
             };

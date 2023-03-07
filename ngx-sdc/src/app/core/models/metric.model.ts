@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable no-redeclare */
 export interface IMetricDTO {
   id: number;
   name: string;

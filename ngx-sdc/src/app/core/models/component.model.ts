@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable no-redeclare */
 import { IArchitectureDTO, IArchitectureModel } from './architecture.model';
 import { IComponentTypeDTO, IComponentTypeModel } from './component-type.model';
 import { ISquadDTO, ISquadModel } from './squad.model';

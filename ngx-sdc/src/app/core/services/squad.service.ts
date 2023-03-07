@@ -32,7 +32,7 @@ export class SquadService {
         .pipe(
           map(res => {
             const dto = res as IPageableDTO<ISquadDTO>;
-            let result: IPageableModel<ISquadModel> = {
+            const result: IPageableModel<ISquadModel> = {
               paging: IPagingModel.toModel(dto.paging),
               page: dto.page.map(ISquadModel.toModel)
             };

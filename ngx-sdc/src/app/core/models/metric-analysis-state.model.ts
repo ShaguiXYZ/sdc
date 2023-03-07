@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable no-redeclare */
 import { IMetricAnalysisDTO, IMetricAnalysisModel } from './metric-analysis.model';
 
 export interface IMetricAnalysisStateDTO {

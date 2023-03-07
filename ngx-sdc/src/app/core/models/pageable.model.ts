@@ -1,3 +1,6 @@
+/* eslint-disable max-classes-per-file */
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable no-redeclare */
 export interface IPagingDTO {
   pageIndex: number;
   pageSize: number;

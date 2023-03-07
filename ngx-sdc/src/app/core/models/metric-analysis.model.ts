@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable no-redeclare */
 import { IAnalysisValuesDTO, IAnalysisValuesModel } from './analysis-values.model';
 import { IMetricDTO, IMetricModel } from './metric.model';
 

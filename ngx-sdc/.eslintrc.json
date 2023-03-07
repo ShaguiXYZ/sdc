@@ -1,0 +1,160 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/ng-cli-compat",
+        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/component-class-suffix": [
+          "error",
+          {
+            "suffixes": [
+              "Component",
+              "Page"
+            ]
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": [
+              "app",
+              "ui",
+              "cr",
+              "sc-nx",
+              "nx-ibl",
+              "sdc"
+            ],
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-class-suffix": [
+          "error",
+          {
+            "suffixes": [
+              "Directive"
+            ]
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": [
+              "app",
+              "ati",
+              "dir",
+              "cr",
+              "nx"
+            ],
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/no-forward-ref": "error",
+        "@angular-eslint/no-input-rename": "warn",
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/no-empty-function": "error",
+        "@typescript-eslint/no-require-imports": "error",
+        "@typescript-eslint/no-this-alias": "off",
+        "@typescript-eslint/no-unused-expressions": [
+          "error",
+          {
+            "allowShortCircuit": true
+          }
+        ],
+        "@typescript-eslint/no-var-requires": "error",
+        "brace-style": [
+          "error",
+          "1tbs"
+        ],
+        "default-case": "error",
+        "eqeqeq": [
+          "error",
+          "always"
+        ],
+        "import/no-default-export": "off",
+        "import/order": "off",
+        "max-classes-per-file": [
+          "warn",
+          1
+        ],
+        "max-len": [
+          "error",
+          {
+            "code": 150
+          }
+        ],
+        "max-lines": [
+          "error",
+          600
+        ],
+        "no-duplicate-imports": "warn",
+        "no-empty": [
+          "error",
+          {
+            "allowEmptyCatch": true
+          }
+        ],
+        "no-invalid-this": "off",
+        "no-irregular-whitespace": "error",
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 2
+          }
+        ],
+        "no-redeclare": "error",
+        "padding-line-between-statements": [
+          "off",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+          }
+        ],
+        "prefer-template": "warn",
+        "yoda": "error",
+        "@typescript-eslint/member-ordering": "off",
+        "no-underscore-dangle": "off",
+        "arrow-body-style": "warn",
+        "prefer-arrow/prefer-arrow-functions": "warn",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "enumMember",
+            "format": [
+              "camelCase",
+              "UPPER_CASE",
+              "PascalCase"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    }
+  ]
+}

@@ -16,7 +16,7 @@ export class SdcTestPageComponent implements OnInit, OnDestroy {
   public squads: ISquadModel[] = [];
   public squadInfo!: ISquadInfo;
 
-  private pattern = '^((?!' + this.selectOptionValue + ').)*$';
+  private pattern = `^((?!${  this.selectOptionValue  }).)*$`;
   private subscription$: Array<Subscription> = [];
 
   constructor(private fb: FormBuilder, private sdcTestService: SdcTestService) {}

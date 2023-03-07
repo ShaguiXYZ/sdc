@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 export enum TypeButton {
   primary = 'primary',
   secondary = 'secondary',
@@ -5,7 +6,8 @@ export enum TypeButton {
 }
 
 export class ButtonModel {
-  constructor(public type: TypeButton, public text: string, public action: () => void) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  constructor(public type: TypeButton, public text: string, public action: () => void = (): void => {}) {}
 }
 
 export class ButtonConfig {

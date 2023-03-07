@@ -28,12 +28,12 @@ export class SdcTestService {
     this.squadService.squadComponents(squadId).then(pageable => {
       const components = pageable.page;
       const compoentsWithCovetage = components.filter(item => item.coverage);
-      const coverage = compoentsWithCovetage.reduce((sum, current) => sum + current.coverage!, 0) / compoentsWithCovetage.length;
+      const coverage = compoentsWithCovetage.reduce((sum, current) => sum + (current.coverage || 0), 0) / compoentsWithCovetage.length;
 
       this.subject$.next({
-        components: components,
-        coverage: coverage
-      })
+        components,
+        coverage
+      });
     });
   }
 }
