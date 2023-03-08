@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
@@ -102,7 +103,7 @@ export class UiAppContextData {
 
   // Load session storage (F5)
   private refreshPageControl = (): void => {
-    window.addEventListener('beforeunload', (event: Event) => {
+    window.addEventListener('beforeunload', () => {
       sessionStorage.setItem(contextStorageID, JSON.stringify(this.contextStorage.contextData));
     });
   };

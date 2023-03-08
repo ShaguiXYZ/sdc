@@ -23,11 +23,11 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "uris")
-public class UriModel {
+public class UriModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "uri_id")
-	private int id;
+	private Integer id;
 	@Column(name = "uri_name")
 	private String name;
 	@Column(name = "uri_value")

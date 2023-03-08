@@ -43,40 +43,40 @@ public class DBConfig {
 	@Value("${spring.jpa.show-sql}")
 	private String showSql;
 
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(dbDriver);
-		dataSource.setUrl(dbUrl);
-		dataSource.setUsername(dbUser);
-		dataSource.setPassword(dbPassword);
-		log.info("DBConfig - DataSource properties => URL: " + dbUrl + ", User: " + dbUser);
-		return dataSource;
-	}
+    @Bean
+    DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(dbDriver);
+        dataSource.setUrl(dbUrl);
+        dataSource.setUsername(dbUser);
+        dataSource.setPassword(dbPassword);
+        log.info("DBConfig - DataSource properties => URL: " + dbUrl + ", User: " + dbUser);
+        return dataSource;
+    }
 
-	@Bean(name = "entityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
-		log.info("DBConfig - try to create LocalContainerEntityManagerFactoryBean");
-		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-		log.info("DBConfig - LocalContainerEntityManagerFactoryBean created");
-		entityManagerFactory.setDataSource(dataSource);
-		Properties jpaProperties = new Properties();
+    @Bean(name = "entityManagerFactory")
+    LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+        log.info("DBConfig - try to create LocalContainerEntityManagerFactoryBean");
+        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+        log.info("DBConfig - LocalContainerEntityManagerFactoryBean created");
+        entityManagerFactory.setDataSource(dataSource);
+        Properties jpaProperties = new Properties();
 
-		entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		entityManagerFactory.setPackagesToScan("com.shagui.analysis.model");
-		entityManagerFactory.setPersistenceUnitName("sdc-database");
-		log.info("DBConfig - entityManagerFactory");
+        entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManagerFactory.setPackagesToScan("com.shagui.analysis.model");
+        entityManagerFactory.setPersistenceUnitName("sdc-database");
+        log.info("DBConfig - entityManagerFactory");
 
-		jpaProperties.setProperty("hibernate.dialect", dialect);
-		jpaProperties.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
+        jpaProperties.setProperty("hibernate.dialect", dialect);
+        jpaProperties.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
 //		jpaProperties.setProperty("hibernate.archive.autodetection", "class");
-		jpaProperties.setProperty("hibernate.hbm2ddl.auto", ddlAuto);
-		jpaProperties.setProperty("hibernate.flushMode", "FLUSH_AUTO");
-		jpaProperties.setProperty("hibernate.show_sql", showSql);
-		jpaProperties.setProperty("javax.persistence.lock.timeout", "0");
-		entityManagerFactory.setJpaProperties(jpaProperties);
-		log.info("DBConfig - entityManagerFactory Properties");
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", ddlAuto);
+        jpaProperties.setProperty("hibernate.flushMode", "FLUSH_AUTO");
+        jpaProperties.setProperty("hibernate.show_sql", showSql);
+        jpaProperties.setProperty("javax.persistence.lock.timeout", "0");
+        entityManagerFactory.setJpaProperties(jpaProperties);
+        log.info("DBConfig - entityManagerFactory Properties");
 
-		return entityManagerFactory;
-	}
+        return entityManagerFactory;
+    }
 }

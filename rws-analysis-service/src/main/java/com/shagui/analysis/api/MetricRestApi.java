@@ -26,6 +26,6 @@ public interface MetricRestApi {
 	@Operation(summary = "Update an specific Metric", description = "Field metricId should match the metricId from url")
 	@PutMapping("{metricId}")
 	@ResponseStatus(HttpStatus.OK)
-	MetricDTO update(@PathVariable(value = "metricId") @Parameter(description = "metric identifier") int id,
+	MetricDTO update(@PathVariable(value = "metricId") @Parameter(description = "metric identifier") int metricId,
 			@RequestBody MetricDTO metric);
 }

@@ -13,7 +13,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {
-  private _urlAnalysis = `${environment.baseUrl}/analysis`;
+  private _urlAnalysis = `${environment.baseUrl}/api/analysis`;
 
   constructor(private http: UiHttpHelper) {}
 

@@ -49,4 +49,7 @@ public class ComponentModel implements ModelInterface<Integer> {
 	@JoinTable(name = "component_uris", joinColumns = @JoinColumn(name = "component_id", referencedColumnName = "component_id"), inverseJoinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "uri_id"))
 	private List<UriModel> uris;
 
+	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ComponentHistoricalCoverageModel> historicalCoverage;
+
 }

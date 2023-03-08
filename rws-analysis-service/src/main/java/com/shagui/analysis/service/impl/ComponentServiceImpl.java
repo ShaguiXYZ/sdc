@@ -8,17 +8,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.shagui.analysis.api.dto.ComponentDTO;
+import com.shagui.analysis.api.dto.ComponentHistoricalCoverageDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.api.dto.PageableDTO;
 import com.shagui.analysis.core.exception.JpaNotFoundException;
 import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.ComponentModel;
 import com.shagui.analysis.model.ComponentTypeArchitectureModel;
+import com.shagui.analysis.model.ComponentHistoricalCoverageModel;
 import com.shagui.analysis.model.SquadModel;
 import com.shagui.analysis.model.pk.ComponentAnalysisPk;
+import com.shagui.analysis.model.pk.ComponentHistoricalCoveragePk;
 import com.shagui.analysis.repository.ComponentAnalysisRepository;
 import com.shagui.analysis.repository.ComponentRepository;
 import com.shagui.analysis.repository.ComponentTypeArchitectureRepository;
+import com.shagui.analysis.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.analysis.repository.JpaCommonRepository;
 import com.shagui.analysis.service.ComponentService;
 import com.shagui.analysis.util.AnalysisUtils;
@@ -30,13 +34,16 @@ public class ComponentServiceImpl implements ComponentService {
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 	private JpaCommonRepository<ComponentAnalysisRepository, ComponentAnalysisModel, ComponentAnalysisPk> componentAnalysisRepository;
+	private JpaCommonRepository<ComponentHistoricalCoverageRepository, ComponentHistoricalCoverageModel, ComponentHistoricalCoveragePk> historicalCoverageComponentRepository;
 
 	public ComponentServiceImpl(ComponentRepository componentRepository,
 			ComponentTypeArchitectureRepository componentTypeArchitectureRepository,
-			ComponentAnalysisRepository componentAnalysisRepository) {
+			ComponentAnalysisRepository componentAnalysisRepository,
+			ComponentHistoricalCoverageRepository historicalCoverageComponentRepository) {
 		this.componentRepository = () -> componentRepository;
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
 		this.componentAnalysisRepository = () -> componentAnalysisRepository;
+		this.historicalCoverageComponentRepository = () -> historicalCoverageComponentRepository;
 	}
 
 	@Override
@@ -82,5 +89,11 @@ public class ComponentServiceImpl implements ComponentService {
 		return componentTypeArchitectureRepository.repository()
 				.findByComponentType_IdAndArchitecture_Id(componentTypeId, architectureId)
 				.orElseThrow(() -> new JpaNotFoundException());
+	}
+
+	@Override
+	public PageableDTO<ComponentHistoricalCoverageDTO> historicalCoverage(int componentId) {
+		return historicalCoverageComponentRepository.repository().findById_ComponentId(componentId).stream()
+				.map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 }

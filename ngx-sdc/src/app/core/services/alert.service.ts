@@ -28,6 +28,7 @@ export class UiAlertService {
 
   public confirm(message: MessageModal, callback?: () => void, okText: string = 'Continue', cancelText: string = 'Cancel'): void {
     const buttons: ButtonModel[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     buttons.push(new ButtonModel(TypeButton.primary, this.translateService.instant(cancelText), () => {}));
 
     if (callback) {

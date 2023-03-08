@@ -14,6 +14,7 @@ import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.repository.ComponentAnalysisRepository;
 import com.shagui.analysis.repository.ComponentRepository;
 import com.shagui.analysis.repository.ComponentTypeArchitectureRepository;
+import com.shagui.analysis.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.analysis.service.impl.ComponentServiceImpl;
 
 class ComponentServiceTest {
@@ -30,6 +31,9 @@ class ComponentServiceTest {
 	@Mock
 	ComponentAnalysisRepository componentAnalysisRepository;
 
+	@Mock
+	ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
+
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
@@ -39,7 +43,8 @@ class ComponentServiceTest {
 	void componentServiceConstructorTest() {
 
 		ComponentServiceImpl service = new ComponentServiceImpl(componentsRepository,
-				componentTypeArchitectureRepository, componentAnalysisRepository);
+				componentTypeArchitectureRepository, componentAnalysisRepository,
+				historicalCoverageComponentRepository);
 
 		assertNotNull(service);
 	}

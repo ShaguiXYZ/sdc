@@ -22,8 +22,8 @@ public class MetricController implements MetricRestApi {
 	}
 
 	@Override
-	public MetricDTO update(int id, MetricDTO metric) {
-		return metricService.update(id, metric);
+	public MetricDTO update(int metricId, MetricDTO metric) {
+		return metricService.update(metricId, metric);
 	}
 
 }

@@ -10,7 +10,7 @@ import lombok.Data;
 public class PagingDTO {
 	private int pageIndex;
 	private int pageSize;
-	private int total;
+	private Integer total;
 	
 	public PagingDTO(Page<?> page) {
 		this.pageIndex = page.getNumber();

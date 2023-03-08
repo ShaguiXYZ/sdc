@@ -10,6 +10,7 @@ import com.shagui.analysis.api.dto.AnalysisValuesDTO;
 import com.shagui.analysis.api.dto.ArchitectureDTO;
 import com.shagui.analysis.api.dto.ComponentDTO;
 import com.shagui.analysis.api.dto.ComponentTypeDTO;
+import com.shagui.analysis.api.dto.ComponentHistoricalCoverageDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.MetricDTO;
 import com.shagui.analysis.api.dto.SquadDTO;
@@ -19,6 +20,7 @@ import com.shagui.analysis.model.ArchitectureModel;
 import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.ComponentModel;
 import com.shagui.analysis.model.ComponentTypeModel;
+import com.shagui.analysis.model.ComponentHistoricalCoverageModel;
 import com.shagui.analysis.model.MetricModel;
 import com.shagui.analysis.model.SquadModel;
 
@@ -108,6 +110,13 @@ public class Mapper {
 
 	public static SquadDTO parse(SquadModel source) {
 		SquadDTO target = new SquadDTO(source.getId(), source.getName());
+
+		return target;
+	}
+
+	public static ComponentHistoricalCoverageDTO parse(ComponentHistoricalCoverageModel source) {
+		ComponentHistoricalCoverageDTO target = new ComponentHistoricalCoverageDTO(source.getId().getComponentAnalysisDate(),
+				source.getCoverage());
 
 		return target;
 	}

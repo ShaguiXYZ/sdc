@@ -10,19 +10,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class BeansConfig {
-	@Bean
-	@Primary
-	public ObjectMapper getObjectMapper() {
-		ObjectMapper objectMapper = new ObjectMapper();
+    @Bean
+    @Primary
+    ObjectMapper getObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		objectMapper.setSerializationInclusion(Include.NON_NULL);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setSerializationInclusion(Include.NON_NULL);
 
-		return objectMapper;
-	}
-	
-	@Bean
-	public AppConfig appConfig() {
-		return new AppConfig();
-	}
+        return objectMapper;
+    }
+
+    @Bean
+    AppConfig appConfig() {
+        return new AppConfig();
+    }
 }

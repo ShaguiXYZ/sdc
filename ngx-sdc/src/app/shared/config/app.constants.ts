@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable @typescript-eslint/no-namespace */
 import packageJson from '../../../../package.json';
 
 export const APP_NAME = packageJson.name;
@@ -22,7 +24,6 @@ export namespace Languages {
 }
 
 export class HttpStatus {
-  public static readonly undefined = 0;
   public static readonly success = 200;
   public static readonly created = 201;
   public static readonly noContent = 204;

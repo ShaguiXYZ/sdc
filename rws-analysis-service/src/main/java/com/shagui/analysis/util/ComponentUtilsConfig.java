@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.shagui.analysis.model.ComponentAnalysisModel;
-import com.shagui.analysis.model.ComponentModel;
 import com.shagui.analysis.model.ComponentPropertyModel;
+import com.shagui.analysis.model.ComponentHistoricalCoverageModel;
 import com.shagui.analysis.model.pk.ComponentAnalysisPk;
+import com.shagui.analysis.model.pk.ComponentHistoricalCoveragePk;
 import com.shagui.analysis.repository.ComponentAnalysisRepository;
 import com.shagui.analysis.repository.ComponentPropertyRepository;
-import com.shagui.analysis.repository.ComponentRepository;
+import com.shagui.analysis.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.analysis.repository.JpaCommonRepository;
 
 import lombok.AllArgsConstructor;
@@ -20,17 +21,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ComponentUtilsConfig {
 	@Autowired
-	private ComponentRepository componentRepository;
-
-	@Autowired
 	private ComponentAnalysisRepository componentAnalysisRepository;
 
 	@Autowired
 	private ComponentPropertyRepository componentPropertyRepository;
 
-	public JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository() {
-		return () -> componentRepository;
-	}
+	@Autowired
+	private ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
 
 	public JpaCommonRepository<ComponentAnalysisRepository, ComponentAnalysisModel, ComponentAnalysisPk> componentAnalysisRepository() {
 		return () -> componentAnalysisRepository;
@@ -38,6 +35,10 @@ public class ComponentUtilsConfig {
 
 	public JpaCommonRepository<ComponentPropertyRepository, ComponentPropertyModel, Integer> componentPropertyRepository() {
 		return () -> componentPropertyRepository;
+	}
+
+	public JpaCommonRepository<ComponentHistoricalCoverageRepository, ComponentHistoricalCoverageModel, ComponentHistoricalCoveragePk> historicalCoverageComponentRepository() {
+		return () -> historicalCoverageComponentRepository;
 	}
 
 	@PostConstruct

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.shagui.analysis.api.dto.ComponentDTO;
+import com.shagui.analysis.api.dto.ComponentHistoricalCoverageDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
+import com.shagui.analysis.api.dto.PageableDTO;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,8 +27,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api/component", "/api/components" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface ComponentRestApi {
 	@GetMapping("{componentId}/state")
-	MetricAnalysisStateDTO componentState(@PathVariable @Parameter(description = "Component identifier") int componentId,
+	MetricAnalysisStateDTO componentState(
+			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
+
+	@GetMapping("{componentId}/historicalCoverage")
+	PageableDTO<ComponentHistoricalCoverageDTO> historicalCoverage(
+			@PathVariable @Parameter(description = "Component identifier") int componentId);
 
 	@Operation(summary = "Create new component")
 	@PostMapping

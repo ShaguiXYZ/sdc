@@ -39,7 +39,11 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 
 	default T create(T model) {
 		if (model.getId() != null) {
-			throw new RuntimeException();
+			Optional<T> data = repository().findById(model.getId());
+
+			if (data.isPresent()) {
+				throw new RuntimeException();
+			}
 		}
 
 		return repository().save(model);
@@ -56,7 +60,11 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 	}
 
 	public static Pageable getPageable(int page) {
-		return PageRequest.of(page, Ctes.JPA.ELEMENTS_BY_PAGE);
+		return getPageable(page, Ctes.JPA.ELEMENTS_BY_PAGE);
+	}
+
+	public static Pageable getPageable(int page, int size) {
+		return PageRequest.of(page, size);
 	}
 
 }
