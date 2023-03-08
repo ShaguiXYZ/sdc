@@ -115,7 +115,7 @@ public class Mapper {
 	}
 
 	public static ComponentHistoricalCoverageDTO parse(ComponentHistoricalCoverageModel source) {
-		ComponentHistoricalCoverageDTO target = new ComponentHistoricalCoverageDTO(source.getId().getComponentAnalysisDate(),
+		ComponentHistoricalCoverageDTO target = new ComponentHistoricalCoverageDTO(source.getId().getAnalysisDate(),
 				source.getCoverage());
 
 		return target;

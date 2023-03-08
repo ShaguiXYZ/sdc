@@ -17,7 +17,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class SquadService {
-  private _urlSquads = `${environment.baseUrl}/squads`;
+  private _urlSquads = `${environment.baseUrl}/api/squads`;
 
   constructor(private http: UiHttpHelper) {}
 
@@ -70,7 +70,7 @@ export class SquadService {
         .pipe(
           map(res => {
             const dto = res as IPageableDTO<IComponentDTO>;
-            let result: IPageableModel<IComponentModel> = {
+            const result: IPageableModel<IComponentModel> = {
               paging: IPagingModel.toModel(dto.paging),
               page: dto.page.map(IComponentModel.toModel)
             };

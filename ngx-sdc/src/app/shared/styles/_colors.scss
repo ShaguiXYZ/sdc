@@ -25,33 +25,19 @@ $background-color-2: aliceblue;
 $state-red: #d0021b;
 $state-green: #7ed321;
 $state-orange: #f5a623;
+$state-blue: #0e6296;
 
-$arrow-colors: (
-    default: $primary-light-color,
-    color1: HotPink,
-    color2: DarkOrchid,
-    color3: DarkViolet,
-    color4: DarkMagenta,
-    color5: DarkSlateBlue,
-    color6: Red,
-    color7: Coral,
-    color8: Gold,
-    color9: Lime,
-    color10: Green,
-    color11: DarkOliveGreen,
-    color12: DarkSeaGreen,
-    color13: DarkCyan,
-    color14: DarkTurquoise,
-    color15: SteelBlue,
-    color16: Blue,
-    color17: MidnightBlue,
-    color18: DarkBlue,
-    color19: Maroon
+$coverage-colors: (
+  default: $primary-light-color,
+  critical: $state-red,
+  with_risk: $state-orange,
+  acceptable: $state-green,
+  perfect: $state-blue
 );
 
-$prefix-arrow-color: 'color--';
+$prefix-color: 'color--';
 
 //Merges a variable name with $prefix-arrow-color
 @function custom-property-color($name) {
-    @return '.' + $prefix-arrow-color + $name;
+  @return '.' + $prefix-color + $name;
 }

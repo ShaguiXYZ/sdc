@@ -1,0 +1,28 @@
+<nx-card class="card-content nx-margin-bottom-s nx-margin-left-0">
+  <div nxLayout="grid nopadding" nogutters>
+    <div nxRow class="{{ styleByCoverage(coverage) }}">
+      <div nxCol="11" class="center">
+        <nx-progressbar [value]="barCoverage"></nx-progressbar>
+      </div>
+      <div nxCol="1">
+        <h3 class="center">{{ coverage }}%</h3>
+      </div>
+    </div>
+    <div nxRow>
+      <div nxCol="9">
+        <h3 class="nx-font-weight-bold">{{ component.name }}</h3>
+      </div>
+      <div nxCol="3">
+        <h3 class="nx-font-weight-semibold">Fecha de Proceso: {{ component.analysisDate | date }}</h3>
+      </div>
+    </div>
+    <div nxRow>
+      <div nxCol="11">
+        <nx-badge type="active">SQUAD {{ component.squad.name }}</nx-badge>
+      </div>
+      <div nxCol="1">
+        <a href="."><h4>Ver más</h4></a>
+      </div>
+    </div>
+  </div>
+</nx-card>

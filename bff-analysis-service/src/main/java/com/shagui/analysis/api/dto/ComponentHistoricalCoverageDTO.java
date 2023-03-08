@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 public class ComponentHistoricalCoverageDTO implements ParseableTo<ComponentHistoricalCoverageView> {
-	private Date componentAnalysisDate;
+	private Date analysisDate;
 	private float coverage;
 	
 	@Override

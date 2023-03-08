@@ -8,7 +8,7 @@
       </div>
 
       <div nxRow>
-        <div nxCol="6">
+        <div nxCol="12">
           <nx-formfield [nxLabel]="'Data.Squads' | translate">
             <nx-dropdown name="allLobs" formControlName="squadId">
               <nx-dropdown-item *ngFor="let item of squads" [nxValue]="item.id">
@@ -16,12 +16,10 @@
               </nx-dropdown-item>
             </nx-dropdown>
           </nx-formfield>
-          <h2 *ngIf="squadInfo?.coverage">
-            Coverage: {{ squadInfo.coverage }}
-          </h2>
+          <h2 *ngIf="squadInfo?.coverage">Coverage: {{ squadInfo.coverage }}</h2>
         </div>
-        <div nxCol="6">
-          <ui-state *ngFor="let component of squadInfo?.components" [component]="component"></ui-state>
+        <div nxCol="12">
+          <ui-compliance-bar-card *ngFor="let component of squadInfo?.components" [component]="component"></ui-compliance-bar-card>
         </div>
       </div>
     </div>

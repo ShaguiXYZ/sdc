@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ComponentHistoricalCoverageDTO {
-	private Date componentAnalysisDate;
+	private Date analysisDate;
 	private float coverage;
 }

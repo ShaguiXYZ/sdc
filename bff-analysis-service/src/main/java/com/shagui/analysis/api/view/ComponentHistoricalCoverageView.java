@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 public class ComponentHistoricalCoverageView {
-	private Date componentAnalysisDate;
+	private Date analysisDate;
 	private float coverage;
 }

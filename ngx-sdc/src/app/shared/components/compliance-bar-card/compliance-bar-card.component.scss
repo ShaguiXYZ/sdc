@@ -1,0 +1,28 @@
+@import '../../../shared/styles/colors';
+
+// Defines a custom property
+@mixin define-custom-property($name, $value) {
+  #{custom-property-color($name)} {
+    h3 {
+      color: $value;
+    }
+
+    &::ng-deep nx-progressbar .nx-progress__indicator::after {
+      background-color: $value;
+    }
+  }
+}
+
+@each $name, $value in $coverage-colors {
+  @include define-custom-property($name, $value);
+}
+
+nx-badge {
+  font-size: 12px;
+}
+
+.card-content {
+  border-radius: 4px;
+  position: relative;
+  width: -webkit-fill-available;
+}

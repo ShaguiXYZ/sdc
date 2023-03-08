@@ -75,6 +75,12 @@ public class ComponentServiceImpl implements ComponentService {
 		return components;
 	}
 
+	@Override
+	public PageableDTO<ComponentHistoricalCoverageDTO> historicalCoverage(int componentId) {
+		return historicalCoverageComponentRepository.repository().findById_ComponentId(componentId).stream()
+				.map(Mapper::parse).collect(SdcCollectors.toPageable());
+	}
+
 	private ComponentModel componentModel(ComponentDTO component) {
 		ComponentTypeArchitectureModel componentTypeArchitecture = componentTypeArchitecture(
 				component.getComponentType().getId(), component.getArchitecture().getId());
@@ -89,11 +95,5 @@ public class ComponentServiceImpl implements ComponentService {
 		return componentTypeArchitectureRepository.repository()
 				.findByComponentType_IdAndArchitecture_Id(componentTypeId, architectureId)
 				.orElseThrow(() -> new JpaNotFoundException());
-	}
-
-	@Override
-	public PageableDTO<ComponentHistoricalCoverageDTO> historicalCoverage(int componentId) {
-		return historicalCoverageComponentRepository.repository().findById_ComponentId(componentId).stream()
-				.map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 }
