@@ -1,21 +1,20 @@
 package com.shagui.analysis.enums;
 
-import java.util.function.Function;
-
-import com.shagui.analysis.api.dto.MetricAnalysisDTO;
-import com.shagui.analysis.util.MetricValidations;
+import com.shagui.analysis.util.validations.Numeric;
+import com.shagui.analysis.util.validations.Version;
 
 public enum MetricValueType {
-	NUMERIC(MetricValidations.validateNumeric), 
-	VERSION(MetricValidations.validateVersion);
-	
-	private Function<MetricAnalysisDTO, MetricState> fn;
-	
-	private MetricValueType(Function<MetricAnalysisDTO, MetricState> fn) {
-		this.fn = fn;
+	NUMERIC(Numeric.class), VERSION(Version.class);
+
+	@SuppressWarnings("rawtypes")
+	private Class clazz;
+
+	private <T extends Comparable<T>> MetricValueType(Class<T> clazz) {
+		this.clazz = clazz;
 	}
-	
-	public MetricState validate(MetricAnalysisDTO value) {
-		return value.getMetric().getValueType().fn.apply(value);
+
+	@SuppressWarnings("rawtypes")
+	public Class clazz() {
+		return clazz;
 	}
 }

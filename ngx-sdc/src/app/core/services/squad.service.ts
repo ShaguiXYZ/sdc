@@ -52,9 +52,7 @@ export class SquadService {
           }
         })
         .pipe(
-          map(state => {
-            return IMetricAnalysisStateModel.toModel(state as IMetricAnalysisStateDTO);
-          })
+          map(state => IMetricAnalysisStateModel.toModel(state as IMetricAnalysisStateDTO))
         )
     );
   }

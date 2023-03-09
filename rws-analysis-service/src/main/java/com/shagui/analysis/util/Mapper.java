@@ -9,20 +9,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.analysis.api.dto.AnalysisValuesDTO;
 import com.shagui.analysis.api.dto.ArchitectureDTO;
 import com.shagui.analysis.api.dto.ComponentDTO;
-import com.shagui.analysis.api.dto.ComponentTypeDTO;
 import com.shagui.analysis.api.dto.ComponentHistoricalCoverageDTO;
+import com.shagui.analysis.api.dto.ComponentTypeDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.MetricDTO;
 import com.shagui.analysis.api.dto.SquadDTO;
 import com.shagui.analysis.core.exception.ApiError;
-import com.shagui.analysis.enums.MetricState;
 import com.shagui.analysis.model.ArchitectureModel;
 import com.shagui.analysis.model.ComponentAnalysisModel;
+import com.shagui.analysis.model.ComponentHistoricalCoverageModel;
 import com.shagui.analysis.model.ComponentModel;
 import com.shagui.analysis.model.ComponentTypeModel;
-import com.shagui.analysis.model.ComponentHistoricalCoverageModel;
 import com.shagui.analysis.model.MetricModel;
 import com.shagui.analysis.model.SquadModel;
+import com.shagui.analysis.util.validations.MetricValidations;
 
 import feign.FeignException;
 
@@ -49,8 +49,8 @@ public class Mapper {
 
 		MetricAnalysisDTO target = new MetricAnalysisDTO(source.getId().getComponentAnalysisDate(), metric,
 				analysisValues, null);
-		MetricState state = MetricValidations.validateState(target);
-		target.setCoverage(state == null ? null : state.coverage());
+
+		target.setCoverage(MetricValidations.validate(target));
 
 		return target;
 	}

@@ -65,7 +65,8 @@ public class AnalysisUtils {
 
 	private static Function<MetricAnalysisDTO, Float> metricAnalysisRelativeCoverage(int totalWeight) {
 		return (MetricAnalysisDTO metricAnalysis) -> {
-			float relativeWeight = (float) metricAnalysis.getAnalysisValues().getWeight() / totalWeight;
+			float relativeWeight = totalWeight == 0 ? 0
+					: (float) metricAnalysis.getAnalysisValues().getWeight() / totalWeight;
 
 			return metricAnalysis.getCoverage() * relativeWeight;
 		};

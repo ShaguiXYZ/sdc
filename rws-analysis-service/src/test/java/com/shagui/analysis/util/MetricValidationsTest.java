@@ -1,19 +1,18 @@
 package com.shagui.analysis.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
 import com.shagui.analysis.api.dto.AnalysisValuesDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.MetricDTO;
-import com.shagui.analysis.enums.MetricState;
 import com.shagui.analysis.enums.MetricValueType;
+import com.shagui.analysis.util.validations.MetricValidations;
 
 class MetricValidationsTest {
 	
@@ -28,7 +27,7 @@ class MetricValidationsTest {
 		metric.setValueType(MetricValueType.NUMERIC);
 		AnalysisValuesDTO analysisvalues = new AnalysisValuesDTO(50, "test", "test", "test", "test");
 		MetricAnalysisDTO source = new MetricAnalysisDTO(new Date(), metric , analysisvalues , 50f);
-		MetricValidations.validateState(source);
+		MetricValidations.validate(source);
 	}
 
 	@Test
@@ -36,7 +35,7 @@ class MetricValidationsTest {
 		MetricDTO metric = new MetricDTO();
 		AnalysisValuesDTO analysisvalues = new AnalysisValuesDTO(50, "test", "test", "test", "test");
 		MetricAnalysisDTO source = new MetricAnalysisDTO(new Date(), metric , analysisvalues , 50f);
-		MetricState state = MetricValidations.validateState(source);
+		Float state = MetricValidations.validate(source);
 		assertNull(state);
 	}
 
