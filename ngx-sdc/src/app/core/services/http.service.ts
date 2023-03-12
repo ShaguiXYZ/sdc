@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
+import { UiLoadingService, UiNotificationService } from 'src/app/shared/components';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS, HttpStatus } from 'src/app/shared/config/app.constants';
 import { GenericDataInfo } from 'src/app/shared/interfaces/dataInfo';
 import { MessageModal } from 'src/app/shared/interfaces/modal';
-import { UiLoadingService, UiNotificationService } from '.';
 
 export interface RequestOptions {
   // params?: any;
@@ -49,11 +49,11 @@ export class UiHttpHelper {
     );
   }
 
-  public _post<T>(url: string, body: T, requestOptions?: RequestOptions): Observable<T | HttpEvent<T>> {
+  public _post<T>(url: string, body?: T, requestOptions?: RequestOptions): Observable<T | HttpEvent<T>> {
     return this.post<T, T>(url, body, requestOptions);
   }
 
-  public post<OUT, IN>(url: string, body: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
+  public post<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
     const notificationId = this.notificationService.info(
       this.translateService.instant('Notifications.Saving'),
       this.translateService.instant('Notifications.SavingDetail'),
@@ -71,11 +71,11 @@ export class UiHttpHelper {
     );
   }
 
-  public _put<T>(url: string, body: T, requestOptions?: RequestOptions): Observable<T | HttpEvent<T>> {
+  public _put<T>(url: string, body?: T, requestOptions?: RequestOptions): Observable<T | HttpEvent<T>> {
     return this.put<T, T>(url, body, requestOptions);
   }
 
-  public put<OUT, IN>(url: string, body: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
+  public put<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
     const notificationId = this.notificationService.info(
       this.translateService.instant('Notifications.Saving'),
       this.translateService.instant('Notifications.SavingDetail'),
@@ -172,7 +172,6 @@ export class UiHttpHelper {
 
   private tabControl = (requestOptions?: RequestOptions) => ({
     next: () => this.success(requestOptions?.successMessage),
-    error: (err: HttpErrorResponse) => this.error(err, requestOptions?.responseStatusMessage),
-    complete: () => {}
+    error: (err: HttpErrorResponse) => this.error(err, requestOptions?.responseStatusMessage)
   });
 }

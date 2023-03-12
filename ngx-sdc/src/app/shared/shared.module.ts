@@ -13,8 +13,7 @@ import { NxModalModule } from '@aposin/ng-aquila/modal';
 import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
 import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { TranslateModule } from '@ngx-translate/core';
-import { UiAlertComponent, UiLoadingComponent, UiNotificationComponent } from './components';
-import { UiComplianceBarCardComponent } from './components/compliance-bar-card/compliance-bar-card.component';
+import { UiAlertComponent, UiComplianceBarCardComponent, UiLoadingComponent, UiNotificationComponent } from './components';
 
 @NgModule({
   declarations: [UiAlertComponent, UiComplianceBarCardComponent, UiLoadingComponent, UiNotificationComponent],

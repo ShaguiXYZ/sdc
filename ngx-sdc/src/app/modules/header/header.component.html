@@ -1,0 +1,149 @@
+<header nx-header (mouseleave)="mouseLeaveEvent('0')">
+  <nx-header-brand>
+    <nx-link>
+      <a routerLink="home">
+        <figure nxFigure>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 500.00001 500.00001">
+            <g transform="translate(0 -552.36)">
+              <path
+                d="m250 571.78 199.69 115.29-1e-5 230.58-199.69 115.29-199.69-115.29 7e-6 -230.58z"
+                fill="none"
+                stroke="#003781"
+                stroke-linecap="round"
+                stroke-width="18.446"
+              ></path>
+              <g transform="translate(0 .020371)" fill="#003781" fill-rule="evenodd" shape-rendering="auto">
+                <path
+                  d="m185.61 740.19a9.9393 9.9393 0 0 0 -6.832 3.0059l-51.805 51.805a9.9393 9.9393 0 0 0 0 14.055l51.805 51.805a9.9393 9.9393 0 1 0 14.055 -14.055l-44.775-44.777 44.775-44.777a9.9393 9.9393 0 0 0 -7.2226 -17.061z"
+                  color="#000000"
+                  color-rendering="auto"
+                  image-rendering="auto"
+                  style="
+                    isolation: auto;
+                    mix-blend-mode: normal;
+                    text-decoration-color: #000000;
+                    text-decoration-line: none;
+                    text-decoration-style: solid;
+                    text-indent: 0;
+                    text-transform: none;
+                    white-space: normal;
+                  "
+                ></path>
+                <path
+                  d="m314.09 740.19a9.9393 9.9393 0 0 0 -6.9238 17.066l44.775 44.777-44.775 44.777a9.9393 9.9393 0 1 0 14.055 14.055l51.805-51.805a9.9393 9.9393 0 0 0 0 -14.055l-51.805-51.805a9.9393 9.9393 0 0 0 -7.1309 -3.0117z"
+                  color="#000000"
+                  color-rendering="auto"
+                  image-rendering="auto"
+                  style="
+                    isolation: auto;
+                    mix-blend-mode: normal;
+                    text-decoration-color: #000000;
+                    text-decoration-line: none;
+                    text-decoration-style: solid;
+                    text-indent: 0;
+                    text-transform: none;
+                    white-space: normal;
+                  "
+                ></path>
+                <path
+                  d="m262.01 724.5a9.9393 9.9393 0 0 0 -9.6406 8.0742l-27.861 135.57a9.9393 9.9393 0 1 0 19.471 4.002l27.861-135.57a9.9393 9.9393 0 0 0 -9.8301 -12.076z"
+                  color="#000000"
+                  color-rendering="auto"
+                  image-rendering="auto"
+                  style="
+                    isolation: auto;
+                    mix-blend-mode: normal;
+                    text-decoration-color: #000000;
+                    text-decoration-line: none;
+                    text-decoration-style: solid;
+                    text-indent: 0;
+                    text-transform: none;
+                    white-space: normal;
+                  "
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </figure>
+      </a>
+    </nx-link>
+
+    <nx-header-app-title>{{ 'Header.Title' | translate }}</nx-header-app-title>
+  </nx-header-brand>
+
+  <ng-container>
+    <nx-header-navigation *ngIf="isUserLogged && navigation.routes.length > 0">
+      <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
+        <!-- Parent menu -->
+        <div *ngIf="parent.routerLink" class="menu-item-root">
+          <a [id]="parent.id" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink>{{ parent.name | translate }}</a>
+        </div>
+        <div *ngIf="!parent.routerLink" class="menu-item-root menu-item-with-children">
+          <a [id]="parent.id" nxHeaderLink>{{ parent.name | translate }}</a>
+          <nx-icon class="icon-menu" [name]="getImatgeNavParent(parent.collapsed)"></nx-icon>
+        </div>
+
+        <!-- Child menu -->
+        <nx-header-row
+          (mouseleave)="mouseLeaveEvent(parent.id)"
+          class="child-row"
+          *ngIf="parent.children?.length && parent.id === navigation.activeParent"
+        >
+          <nx-header-navigation>
+            <nx-header-navigation-item>
+              <div *ngFor="let child of parent.children" class="menu-item-children">
+                <a
+                  *ngIf="child.routerLink"
+                  [id]="child.id"
+                  [routerLink]="child.routerLink"
+                  routerLinkActive="is-active"
+                  nxHeaderLink
+                  class="nx-margin-0"
+                  >{{ child.name | translate }}</a
+                >
+                <a *ngIf="!child.routerLink" [id]="child.id" routerLinkActive="is-active" nxHeaderLink class="nx-margin-0">{{
+                  child.name | translate
+                }}</a>
+              </div>
+            </nx-header-navigation-item>
+          </nx-header-navigation>
+        </nx-header-row>
+      </nx-header-navigation-item>
+    </nx-header-navigation>
+
+    <nx-header-actions>
+      <nx-link *ngIf="isUserLogged" class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
+        <nx-icon name="user-business-o"></nx-icon>{{ securityInfo.currentUser?.userName }}
+      </nx-link>
+      <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="language">
+        <nx-icon name="product-world-globe"></nx-icon>{{ currentLanguage }}
+      </nx-link>
+    </nx-header-actions>
+  </ng-container>
+</header>
+
+<nx-context-menu #language="nxContextMenu">
+  <ng-template nxContextMenuContent>
+    <ng-container *ngFor="let lang of languageButtons">
+      <button
+        *ngIf="lang.isVisible() && lang.icon && lang.text"
+        nxContextMenuItem
+        type="button"
+        [disabled]="!lang.isEnabled()"
+        (click)="lang.onClick(lang.options)"
+      >
+        <nx-icon aria-hidden="true" [name]="lang.icon()"></nx-icon>
+        {{ lang.text() | translate }}
+      </button>
+    </ng-container>
+  </ng-template>
+</nx-context-menu>
+
+<nx-context-menu #user="nxContextMenu">
+  <ng-template nxContextMenuContent>
+    <button nxContextMenuItem type="button" (click)="signout()">
+      <nx-icon aria-hidden="true" name="product-door"></nx-icon>
+      {{ 'Security.logout' | translate }}
+    </button>
+  </ng-template>
+</nx-context-menu>

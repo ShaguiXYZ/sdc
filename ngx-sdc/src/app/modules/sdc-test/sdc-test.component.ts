@@ -7,8 +7,7 @@ import { ISquadInfo, SdcTestService } from './sdc-test.service';
 @Component({
   selector: 'sdc-test',
   templateUrl: './sdc-test.component.html',
-  styleUrls: ['./sdc-test.component.scss'],
-  providers: [SdcTestService]
+  styleUrls: ['./sdc-test.component.scss']
 })
 export class SdcTestPageComponent implements OnInit, OnDestroy {
   public selectOptionValue = 'Select';

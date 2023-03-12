@@ -7,7 +7,8 @@ export interface ContextInfo {
 }
 
 export enum ContextDataNames {
-  appConfig = 'app_Config'
+  appConfig = 'app_Config',
+  securityInfo = 'security_info'
 }
 
 export class AppConfig {
