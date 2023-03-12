@@ -6,7 +6,7 @@ export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoad
 
 export class CustomMissingTranslationHandler implements MissingTranslationHandler {
   public handle(params: MissingTranslationHandlerParams): string {
-    return `!${  params.key  }!`;
+    return `!${params.key}!`;
   }
 }
 

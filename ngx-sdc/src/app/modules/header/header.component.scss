@@ -1,0 +1,63 @@
+@import '../../shared/styles/globals';
+@import '../../shared/styles/colors';
+
+header {
+  left: 0;
+  position: sticky;
+  top: 0;
+  z-index: $z-index-over;
+}
+
+nx-link {
+  display: flex;
+}
+
+.child-row {
+  border: 1px solid $grey-light-color;
+  border-color: transparent;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 $backdrop-color;
+  height: auto;
+  position: absolute;
+  z-index: $z-index-over;
+}
+
+.nx-header__app-title {
+  color: $state-red;
+}
+
+.nx-header__link:hover {
+  border-color: transparent;
+}
+
+.icon-menu {
+  padding-top: 16px;
+}
+
+.menu-item-root {
+  color: var(--link-color);
+  cursor: pointer;
+  font-size: var(--link-small-font-size);
+  font-weight: var(--link-small-font-weight);
+  letter-spacing: var(--link-small-letter-spacing);
+  line-height: var(--link-small-line-height);
+  max-width: 128px;
+
+  :hover {
+    color: var(--link-hover-color);
+  }
+}
+
+.menu-item-with-children {
+  display: flex;
+}
+
+.menu-item-children {
+  color: var(--link-color);
+  height: 40px;
+  padding-top: 4px;
+
+  :hover {
+    color: var(--hover-primary);
+  }
+}

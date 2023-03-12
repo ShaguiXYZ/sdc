@@ -7,8 +7,9 @@ import { APP_NAME } from 'src/app/shared/config/app.constants';
 import { AppConfig, ContextDataNames, ContextInfo } from 'src/app/shared/config/contextInfo';
 import { routerData, UrlInfo } from 'src/app/shared/config/routing';
 import { DataInfo, GenericDataInfo } from 'src/app/shared/interfaces/dataInfo';
+import { UiSecurityInfo } from '../models/security/security.model';
 
-const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
+export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
 
 interface ContextDataInfo {
   hasPersistence: boolean;
@@ -53,6 +54,13 @@ export class UiAppContextData {
   }
   public set appConfig(value: AppConfig) {
     this.setContextData(ContextDataNames.appConfig, value);
+  }
+
+  public get securityInfo(): UiSecurityInfo {
+    return this.getContextData(ContextDataNames.securityInfo);
+  }
+  public set securityInfo(value: Partial<UiSecurityInfo>) {
+    this.setContextData(ContextDataNames.securityInfo, value);
   }
 
   public onDataChange(): Observable<string> {

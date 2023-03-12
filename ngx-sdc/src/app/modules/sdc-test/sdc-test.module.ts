@@ -7,8 +7,7 @@ import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { NxIconModule } from '@aposin/ng-aquila/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppSharedModule } from 'src/app/shared/shared.module';
-import { SdcTestPageRoutingModule } from './sdc-test-routing.module';
-import { SdcTestPageComponent } from './sdc-test.component';
+import { SdcTestPageComponent, SdcTestPageRoutingModule, SdcTestService } from '.';
 
 @NgModule({
   declarations: [SdcTestPageComponent],
@@ -23,6 +22,7 @@ import { SdcTestPageComponent } from './sdc-test.component';
     ReactiveFormsModule,
     SdcTestPageRoutingModule,
     TranslateModule
-  ]
+  ],
+  providers: [SdcTestService]
 })
 export class SdcTestPageModule {}

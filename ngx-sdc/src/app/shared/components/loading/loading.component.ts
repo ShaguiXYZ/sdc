@@ -1,7 +1,7 @@
-import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
 import { Subscription } from 'rxjs';
-import { UiLoadingService } from 'src/app/core/services/loading.service';
+import { UiLoadingService } from '.';
 
 @Component({
   selector: 'ui-loading',
