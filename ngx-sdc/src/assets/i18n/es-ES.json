@@ -1,6 +1,21 @@
 {
+  "ComplianceCard": {
+    "ProcessDate": "Fecha de proceso",
+    "ShowMore": "Ver mas"
+  },
   "Header": {
-    "Title": "Título Aplicación",
-    "Help": "Ayuda"
-  }
+    "Help": "Ayuda",
+    "Menu": {
+      "Applications": "Aplicaciones",
+      "Summary": "Resumen"
+    },
+    "Title": "Software Development Console"
+  },
+  "language": {
+    "en-GB": "Inglés (en-GB)",
+    "es-ES": "Castellano (es-ES)",
+    "es-CO": "Castellano (es-CO)",
+    "pt-BR": "Portugués (pt-BR)",
+    "pt-PT": "Portugués (pt-PT)"
+}
 }

@@ -7,6 +7,7 @@ export const APP_NAME = packageJson.name;
 export const APP_VERSION = packageJson.version;
 export const DEFAULT_TIMEOUT_NOTIFICATIONS = 6000;
 export const COLOR_PREFIX = 'color--';
+
 export const SDC_HEADER_MENU = {
   routes: [
     {
@@ -29,22 +30,6 @@ export const SDC_HEADER_MENU = {
   ],
   activeParent: ''
 };
-
-export enum Languages {
-  enGB = 'en-GB',
-  esCO = 'es-CO',
-  esES = 'es-ES',
-  esBR = 'pt-BR',
-  esPT = 'pt-PT'
-}
-
-export namespace Languages {
-  export const keys = (): string[] => {
-    const optionsLanguages = Object.keys(Languages);
-    optionsLanguages.splice(optionsLanguages.length - 1, 1); // Removes keys function
-    return optionsLanguages;
-  };
-}
 
 export class HttpStatus {
   public static readonly success = 200;

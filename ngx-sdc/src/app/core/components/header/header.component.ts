@@ -5,8 +5,8 @@ import { UiSecurityInfo } from 'src/app/core/models/security/security.model';
 import { UiAppContextData } from 'src/app/core/services/context-data.service';
 import { UiLanguageService } from 'src/app/core/services/language.service';
 import { UiSecurityService } from 'src/app/core/services/security.service';
-import { Languages } from 'src/app/shared/config/app.constants';
 import { ContextDataNames } from 'src/app/shared/config/contextInfo';
+import { Languages } from 'src/app/shared/config/languages';
 import { ButtonConfig } from 'src/app/shared/models';
 import { IHeaderConfig, NX_HEADER_CONFIG } from './header.model';
 import INavigation, { DEFAULT_HEADER_MENU, INavHeaderItem } from './navigation.model';
@@ -126,17 +126,18 @@ export class UiHeaderComponent implements OnInit, OnDestroy {
   }
 
   private languageOptions(currentLanguage: Languages) {
-    // this.languageButtons = [];
-    // const languageKeys = Languages.keys();
-    // languageKeys
-    //     .filter(lang => Languages[lang] !== currentLanguage)
-    //     .forEach(key => {
-    //         const languageButton = new ButtonConfig(`language.${Languages[key]}`);
-    //         languageButton.options = {
-    //             language: Languages[key]
-    //         };
-    //         languageButton.callback = (options: any) => this.languageService.i18n(options.language);
-    //         this.languageButtons = this.languageButtons.concat(languageButton);
-    //     });
+    this.languageButtons = [];
+    const languageKeys = Languages.keys();
+
+    languageKeys
+      .filter(lang => Languages.valueOf(lang) !== currentLanguage)
+      .forEach(key => {
+        const languageButton = new ButtonConfig(`language.${Languages.valueOf(key)}`);
+        languageButton.options = {
+          language: Languages.valueOf(key)
+        };
+        languageButton.callback = (options: any) => this.languageService.i18n(options.language);
+        this.languageButtons = this.languageButtons.concat(languageButton);
+      });
   }
 }

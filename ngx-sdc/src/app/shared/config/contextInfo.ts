@@ -1,5 +1,5 @@
 import { DataInfo } from '../interfaces/dataInfo';
-import { Languages } from './app.constants';
+import { Languages } from './languages';
 
 export interface ContextInfo {
   contextData: DataInfo;

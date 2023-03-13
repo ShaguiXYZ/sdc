@@ -9,6 +9,13 @@
       "Applications": "Applications",
       "Summary": "Summary"
     },
-    "Title": "Application title"
+    "Title": "Software Development Console"
+  },
+  "language": {
+    "en-GB": "English (en-GB)",
+    "es-ES": "Spanish (es-ES)",
+    "es-CO": "Spanish (es-CO)",
+    "pt-BR": "Portuguese (pt-BR)",
+    "pt-PT": "Portuguese (pt-PT)"
   }
 }

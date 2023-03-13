@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Languages } from 'src/app/shared/config/app.constants';
+import { Languages } from 'src/app/shared/config/languages';
 import { UiAppContextData } from './context-data.service';
 
 @Injectable({
