@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NxButtonModule } from '@aposin/ng-aquila/button';
 import { NxContextMenuModule } from '@aposin/ng-aquila/context-menu';
@@ -10,15 +9,13 @@ import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { NxRadioToggleModule } from '@aposin/ng-aquila/radio-toggle';
 import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { NX_HEADER_CONFIG, UiHeaderComponent } from '.';
-import { routes } from '../sdc-home/sdc-home-routing.module';
-import { DEFAULT_HEADER_MENU } from './navigation.model';
+import { UiHeaderComponent } from '.';
+import { routes } from '../../../modules/sdc-home/sdc-home-routing.module';
 
 @NgModule({
   declarations: [UiHeaderComponent],
   imports: [
     CommonModule,
-    FormsModule,
     NxButtonModule,
     NxContextMenuModule,
     NxHeaderModule,
@@ -29,7 +26,6 @@ import { DEFAULT_HEADER_MENU } from './navigation.model';
     RouterModule.forChild(routes),
     TranslateModule
   ],
-  exports: [UiHeaderComponent],
-  providers: [{ provide: NX_HEADER_CONFIG, useValue: { navigation: DEFAULT_HEADER_MENU } }]
+  exports: [UiHeaderComponent]
 })
 export class UiHeaderModule {}

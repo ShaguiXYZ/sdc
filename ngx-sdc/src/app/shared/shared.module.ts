@@ -8,15 +8,16 @@ import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxIconModule } from '@aposin/ng-aquila/icon';
+import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { NxMessageModule } from '@aposin/ng-aquila/message';
 import { NxModalModule } from '@aposin/ng-aquila/modal';
 import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
 import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { TranslateModule } from '@ngx-translate/core';
-import { UiAlertComponent, UiComplianceBarCardComponent, UiLoadingComponent, UiNotificationComponent } from './components';
+import { UiComplianceBarCardComponent } from './components';
 
 @NgModule({
-  declarations: [UiAlertComponent, UiComplianceBarCardComponent, UiLoadingComponent, UiNotificationComponent],
+  declarations: [UiComplianceBarCardComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -29,6 +30,7 @@ import { UiAlertComponent, UiComplianceBarCardComponent, UiLoadingComponent, UiN
     NxGridModule,
     NxHeadlineModule,
     NxIconModule,
+    NxLinkModule,
     NxMessageModule,
     NxModalModule.forRoot(),
     NxProgressbarModule,

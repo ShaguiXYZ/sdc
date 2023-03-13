@@ -3,7 +3,7 @@
 // Defines a custom property
 @mixin define-custom-property($name, $value) {
   #{custom-property-color($name)} {
-    h3 {
+    .coverage {
       color: $value;
     }
 
@@ -23,6 +23,20 @@ nx-badge {
 
 .card-content {
   border-radius: 4px;
+  height: 125px;
   position: relative;
   width: -webkit-fill-available;
+
+  span {
+    font-size: 15px;
+  }
+}
+
+.colum-right {
+  text-align: end;
+  padding-right: 20px !important;
+}
+
+.nx-grid__row {
+  margin-bottom: 10px;
 }

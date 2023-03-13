@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { UiLoadingService, UiNotificationService } from 'src/app/shared/components';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS, HttpStatus } from 'src/app/shared/config/app.constants';
 import { GenericDataInfo } from 'src/app/shared/interfaces/dataInfo';
 import { MessageModal } from 'src/app/shared/interfaces/modal';
+import { UiLoadingService } from '../components/loading';
+import { UiNotificationService } from '../components/notification';
 
 export interface RequestOptions {
   // params?: any;

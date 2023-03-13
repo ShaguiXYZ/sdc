@@ -4,18 +4,18 @@ export const DEFAULT_HEADER_MENU: INavigation = {
   routes: []
 };
 
-export interface INavItem {
+export interface INavigationItem {
   id: string;
   name: string;
   routerLink?: AppUrls;
 }
 
-export interface INavHeaderItem extends INavItem {
+export interface INavHeaderItem extends INavigationItem {
+  children?: INavigationItem[];
   collapsed?: boolean;
-  children?: INavItem[];
 }
 
 export default interface INavigation {
-  routes: INavHeaderItem[];
   activeParent?: string; // Id of the parent menu with the focus.
+  routes: INavHeaderItem[];
 }

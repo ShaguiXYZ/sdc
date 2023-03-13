@@ -11,12 +11,12 @@ export const SDC_HEADER_MENU = {
   routes: [
     {
       id: 'sdc_home',
-      name: 'Header.Home',
+      name: 'Header.Menu.Summary',
       routerLink: AppUrls.home
     },
     {
       id: 'sdc_home',
-      name: 'Header.Test',
+      name: 'Header.Menu.Applications',
       collapsed: true,
       children: [
         {

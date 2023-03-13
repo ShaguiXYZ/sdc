@@ -9,7 +9,7 @@ import { Languages } from 'src/app/shared/config/app.constants';
 import { ContextDataNames } from 'src/app/shared/config/contextInfo';
 import { ButtonConfig } from 'src/app/shared/models';
 import { IHeaderConfig, NX_HEADER_CONFIG } from './header.model';
-import INavigation, { INavHeaderItem } from './navigation.model';
+import INavigation, { DEFAULT_HEADER_MENU, INavHeaderItem } from './navigation.model';
 
 /**
  * Component for a header with two levels menu.
@@ -42,7 +42,7 @@ export class UiHeaderComponent implements OnInit, OnDestroy {
   private language$!: Subscription;
 
   constructor(
-    @Inject(NX_HEADER_CONFIG) private config: IHeaderConfig,
+    @Inject(NX_HEADER_CONFIG) private config: IHeaderConfig = { navigation: DEFAULT_HEADER_MENU },
     private appContextData: UiAppContextData,
     private languageService: UiLanguageService,
     private securityService: UiSecurityService

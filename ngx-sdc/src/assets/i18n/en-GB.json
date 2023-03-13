@@ -1,6 +1,14 @@
 {
+  "ComplianceCard": {
+    "ProcessDate": "Date of process",
+    "ShowMore": "Show more"
+  },
   "Header": {
-    "Title": "Application title",
-    "Help": "Help"
+    "Help": "Help",
+    "Menu": {
+      "Applications": "Applications",
+      "Summary": "Summary"
+    },
+    "Title": "Application title"
   }
 }
