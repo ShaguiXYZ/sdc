@@ -62,6 +62,8 @@ management:
 services:
    sonar:
       uri: https://sonarqube.inria.fr/sonarqube/api
+   git:
+      uri: https://api.github.com/
    xml:
       default-xml-path: master/pom.xml
    

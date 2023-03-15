@@ -1,10 +1,7 @@
 package com.shagui.analysis.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,17 +12,15 @@ import com.shagui.analysis.enums.MetricType;
 import com.shagui.analysis.enums.UriType;
 import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.ComponentModel;
-import com.shagui.analysis.model.ComponentPropertyModel;
 import com.shagui.analysis.model.ComponentTypeArchitectureModel;
 import com.shagui.analysis.model.MetricModel;
 import com.shagui.analysis.model.UriModel;
-import com.shagui.analysis.service.impl.AnalysisServiceImpl;
-import com.shagui.analysis.service.impl.XmlServiceImpl;
+import com.shagui.analysis.service.impl.GitServiceImpl;
 
-class XmlServiceTest {
+class GitServiceTest {
 	
 	@InjectMocks
-	XmlServiceImpl service;
+	GitServiceImpl service;
 	
 	@BeforeEach
 	void init(){
@@ -40,9 +35,9 @@ class XmlServiceTest {
 		MetricModel metricModel1 = new MetricModel();
 		MetricModel metricModel2 = new MetricModel();
 		metricModel1.setId(1);
-		metricModel1.setType(MetricType.XML);
+		metricModel1.setType(MetricType.GIT);
 		metricModel2.setId(2);
-		metricModel2.setType(MetricType.XML);
+		metricModel2.setType(MetricType.GIT);
 		metrics.add(metricModel1);
 		metrics.add(metricModel2);
 		
@@ -55,7 +50,7 @@ class XmlServiceTest {
 		UriModel uriModel = new UriModel();
 		uriModel.setId(1);
 		uriModel.setUri("test");
-		uriModel.setType(UriType.FILE);
+		uriModel.setType(UriType.GIT);
 		component.setUris(uris);
 		
 		List<ComponentAnalysisModel> analize = service.analyze(component);

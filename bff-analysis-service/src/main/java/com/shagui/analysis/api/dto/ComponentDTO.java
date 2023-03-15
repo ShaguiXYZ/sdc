@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class ComponentDTO implements ParseableTo<ComponentView> {
 	private Integer id;
 	private String name;
-	private boolean nonPublic;
 	private Date analysisDate;
 	private Float coverage;
 	private ComponentTypeDTO componentType;

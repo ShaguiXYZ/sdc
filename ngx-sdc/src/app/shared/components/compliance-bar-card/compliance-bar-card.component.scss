@@ -5,6 +5,7 @@
   #{custom-property-color($name)} {
     .coverage {
       color: $value;
+      margin-left: 10px;
     }
 
     &::ng-deep nx-progressbar .nx-progress__indicator::after {
@@ -34,7 +35,6 @@ nx-badge {
 
 .colum-right {
   text-align: end;
-  padding-right: 20px !important;
 }
 
 .nx-grid__row {

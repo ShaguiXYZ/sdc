@@ -77,7 +77,7 @@ public class Mapper {
 				Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE);
 		Date analysisDate = analysisTimestampStr == null ? null : new Date(Long.valueOf(analysisTimestampStr));
 
-		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), source.isNonPublic(), analysisDate,
+		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), analysisDate,
 				coverage, parse(source.getComponentTypeArchitecture().getComponentType()),
 				parse(source.getComponentTypeArchitecture().getArchitecture()), parse(source.getSquad()));
 

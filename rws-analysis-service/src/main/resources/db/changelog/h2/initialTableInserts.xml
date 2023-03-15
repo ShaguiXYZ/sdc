@@ -221,8 +221,8 @@
 				 ('ncloc','SONAR',NULL,NULL),
 				 ('ncloc_language_distribution','SONAR',NULL,NULL),
 				 ('projects','SONAR',NULL,NULL),
-				 ('parent/version','XML','VERSION','MINORorEQUAL'),
-				 ('properties/java.version','XML','NUMERIC','MINORorEQUAL');
+				 ('parent/version','GIT','VERSION','MINORorEQUAL'),
+				 ('properties/java.version','GIT','NUMERIC','MINORorEQUAL');
 		</sql>
 	</changeSet>
 				 
@@ -238,7 +238,8 @@
 	<changeSet author="initial" id="10022023_50007">
 		<sql dbms="h2">
 			INSERT INTO uris (uri_name,uri_value,uri_type) VALUES
-				 ('analysis-repo','https://raw.githubusercontent.com/ShaguiXYZ','FILE'),
+				 ('public-repo','https://api.github.com/repos','GIT'),
+				 ('private-repo','https://api.github.com/repos', 'GIT'),
 				 ('sonar-repo-example','https://sonarqube.inria.fr/sonarqube/api','SONAR');
 		</sql>
 	</changeSet>
@@ -246,15 +247,15 @@
 	<changeSet author="initial" id="10022023_50008">
 		<sql dbms="h2">
 			INSERT INTO request_properies (request_property_key,request_property_value) VALUES
-				 ('Authorization','token RB34bVGqrVdvV_fdVpZjEvVXHvYIvPYYaC3yp_22elw8__erT'),
-				 ('Authorization','token KK45bVGqrVdvV_fdVpZjEvVXHvYIvPYYaC3yp_22elw8__erT');
+				 ('Accept','application/vnd.github.v4.raw'),
+				 ('Authorization','token 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');
 		</sql>
 	</changeSet>
 				 
 	<changeSet author="initial" id="10022023_50009">
 		<sql dbms="h2">
 			INSERT INTO uri_request_properties (uri_id,request_property_id) VALUES
-				 (1,1),
+				 (2,1),
 				 (2,2);
 		</sql>
 	</changeSet>
@@ -273,12 +274,12 @@
 
 	<changeSet author="initial" id="10022023_50011">
 		<sql dbms="h2">
-			INSERT INTO components (component_name,component_private,component_type_architecture_id,squad_id) VALUES
-				 ('rws-empty',false,1,0),
-				 ('bff-empty',false,1,0),
-				 ('storm:aff3ct:gitlab:master',false,3,0),
-				 ('cardamom:mmg:github:master',false,3,0),
-				 ('empty',false,6,0);
+			INSERT INTO components (component_name,component_type_architecture_id,squad_id) VALUES
+				 ('rws-empty',1,0),
+				 ('bff-empty',1,0),
+				 ('storm:aff3ct:gitlab:master',3,0),
+				 ('cardamom:mmg:github:master',3,0),
+				 ('bff-analysis-service',1,0);		
 		</sql>
 	</changeSet>
 				 
@@ -287,8 +288,9 @@
 			INSERT INTO component_uris (component_id,uri_id) VALUES
 				 (1,1),
 				 (2,1),
-				 (3,2),
-				 (4,2);
+				 (3,3),
+				 (4,3),
+				 (5,2);
 		</sql>
 	</changeSet>
 
@@ -334,10 +336,18 @@
 	<changeSet author="initial" id="10022023_50014">
 		<sql dbms="h2">
 			INSERT INTO component_properties (component_property_name,component_property_value,component_id) VALUES
+				 ('component_owner','shaguixyz',1),
+				 ('component_repository','empty',1),
 				 ('xml_path','pom.xml',1),
-				 ('component_path','empty/main/rws-empty',1),
+				 ('component_path','rws-empty',1),
+				 ('component_owner','shaguixyz',2),
+				 ('component_repository','empty',2),
 				 ('xml_path','pom.xml',2),
-				 ('component_path','empty/main/bff-empty',2);
+				 ('component_path','bff-empty',2),
+				 ('component_owner','shaguixyz',5),
+				 ('component_repository','sdc',5),
+				 ('component_path','bff-analysis-service',5),
+				 ('xml_path','pom.xml',5);
 		</sql>
 	</changeSet>
 	

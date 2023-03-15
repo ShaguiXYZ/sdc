@@ -31,9 +31,6 @@ public class ComponentModel implements ModelInterface<Integer> {
 	@Column(name = "component_name", nullable = false)
 	private String name;
 
-	@Column(name = "component_private")
-	private boolean nonPublic;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "component_type_architecture_id", nullable = false)
 	private ComponentTypeArchitectureModel componentTypeArchitecture;

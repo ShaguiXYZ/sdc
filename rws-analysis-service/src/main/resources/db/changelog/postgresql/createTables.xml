@@ -108,7 +108,6 @@
 			CREATE TABLE components (
 				component_id serial4 NOT NULL,
 				component_name varchar NOT NULL,
-				component_private bool NULL DEFAULT false,
 				component_type_architecture_id int4 NOT NULL,
 				squad_id int4 NOT NULL,
 				CONSTRAINT components_pk PRIMARY KEY (component_id),

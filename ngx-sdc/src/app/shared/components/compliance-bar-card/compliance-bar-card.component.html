@@ -1,10 +1,8 @@
 <nx-card class="card-content nx-margin-bottom-s nx-margin-left-0">
-  <div nxLayout="grid nopadding" nogutters>
+  <div nxLayout="grid nopadding" class="nx-margin-x-2xs">
     <div nxRow class="{{ styleByCoverage(coverage) }}">
-      <div nxCol="11" class="center">
+      <div nxCol="12" class="sdc-center colum-right">
         <nx-progressbar [value]="barCoverage"></nx-progressbar>
-      </div>
-      <div nxCol="1" class="colum-right">
         <span class="coverage">{{ coverage }}%</span>
       </div>
     </div>
