@@ -26,7 +26,7 @@ public class AnalysisUtils {
 				analysis.getId().getComponentAnalysisDate());
 
 		ComponentAnalysisModel updatedModel = new ComponentAnalysisModel(analysis.getComponent(), analysis.getMetric(),
-				analysis.getValue());
+				analysis.getValue(), analysis.getId().getComponentAnalysisDate());
 
 		if (!metricValues.isEmpty()) {
 			MetricValuesModel value = metricValues.get(0);

@@ -1,5 +1,7 @@
 package com.shagui.analysis.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -54,7 +56,11 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 	private int weight;
 	
 	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value) {
-		this.id = new ComponentAnalysisPk(component.getId(), metric.getId());
+		this(component, metric, value, new Date());
+	}
+	
+	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value, Date componentAnalysisDate) {
+		this.id = new ComponentAnalysisPk(component.getId(), metric.getId(), componentAnalysisDate);
 
 		this.component = component;
 		this.componentTypeArchitecture = component.getComponentTypeArchitecture();

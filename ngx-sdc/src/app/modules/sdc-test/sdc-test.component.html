@@ -9,7 +9,7 @@
 
       <div nxRow>
         <div nxCol="12">
-          <nx-formfield [nxLabel]="'Data.Squads' | translate">
+          <nx-formfield [nxLabel]="'Label.Squads' | translate">
             <nx-dropdown name="allLobs" formControlName="squadId">
               <nx-dropdown-item *ngFor="let item of squads" [nxValue]="item.id">
                 {{ item.name }}

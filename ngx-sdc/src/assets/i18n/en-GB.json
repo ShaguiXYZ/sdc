@@ -11,7 +11,10 @@
     },
     "Title": "Software Development Console"
   },
-  "language": {
+  "Label": {
+    "Squads": "Squads"
+  },
+  "Language": {
     "en-GB": "English (en-GB)",
     "es-ES": "Spanish (es-ES)",
     "es-CO": "Spanish (es-CO)",

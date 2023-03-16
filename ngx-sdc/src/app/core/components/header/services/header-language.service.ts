@@ -47,7 +47,7 @@ export class HeaderLanguageService implements OnDestroy {
     languageKeys
       .filter(lang => Languages.valueOf(lang) !== currentLanguage)
       .forEach(key => {
-        const languageButton = new ButtonConfig(`language.${Languages.valueOf(key)}`);
+        const languageButton = new ButtonConfig(`Language.${Languages.valueOf(key)}`);
         languageButton.options = {
           language: Languages.valueOf(key)
         };

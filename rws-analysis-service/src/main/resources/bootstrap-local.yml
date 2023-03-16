@@ -1,6 +1,7 @@
 spring:
    datasource:
-      url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+#      url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+      url: jdbc:h2:file:~/db/h2/sdc;DB_CLOSE_ON_EXIT=FALSE
       username: ${db.user}
       password: ${db.password}
       driverClassName: org.h2.Driver
@@ -18,7 +19,7 @@ spring:
    liquibase:
       change-log: classpath:/db/changelog/h2/changelogMaster.xml
       contexts: ${spring.profiles.active}
-      dropFirst: true
+      dropFirst: false
 server:
    port: 9090
       
