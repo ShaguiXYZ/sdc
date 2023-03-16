@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { UiAlertModule } from './alert/alert.module';
-import { UiHeaderModule } from './header/header.module';
-import { UiLoadingModule } from './loading/loading.module';
-import { UiNotificationModule } from './notification/notification.module';
+import { UiAlertModule } from './alert';
+import { UiHeaderModule } from './header';
+import { UiLoadingModule } from './loading';
+import { UiNotificationModule } from './notification';
 
 @NgModule({
   declarations: [],

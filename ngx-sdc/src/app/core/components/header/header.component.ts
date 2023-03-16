@@ -8,8 +8,16 @@ import { UiSecurityService } from 'src/app/core/services/security.service';
 import { ContextDataNames } from 'src/app/shared/config/contextInfo';
 import { Languages } from 'src/app/shared/config/languages';
 import { ButtonConfig } from 'src/app/shared/models';
-import { IHeaderConfig, NX_HEADER_CONFIG } from './header.model';
-import INavigation, { DEFAULT_HEADER_MENU, INavHeaderItem } from './navigation.model';
+import {
+  DEFAULT_HEADER_MENU,
+  IHeaderConfig,
+  ILanguageHeader,
+  INavHeaderItem,
+  INavigation,
+  ISecurityHeader,
+  NX_HEADER_CONFIG
+} from './models';
+import { HeaderLanguageService, HeaderSecurityService } from './services';
 
 /**
  * Component for a header with two levels menu.
@@ -25,45 +33,34 @@ const imagesIconMenu = {
 @Component({
   selector: 'ui-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  providers: [HeaderLanguageService, HeaderSecurityService]
 })
 export class UiHeaderComponent implements OnInit, OnDestroy {
   public navigation!: INavigation;
-  public languageButtons: ButtonConfig[] = [];
-  public currentLanguage!: Languages;
-  public isUserLogged = false;
+  public securityInfo!: ISecurityHeader;
+  public languageInfo!: ILanguageHeader;
 
-  public securityInfo: {
-    currentUser?: IUserModel;
-    isItUser?: boolean;
-  } = {};
-
-  private security$!: Subscription;
   private language$!: Subscription;
 
   constructor(
     @Inject(NX_HEADER_CONFIG) private config: IHeaderConfig = { navigation: DEFAULT_HEADER_MENU },
-    private appContextData: UiAppContextData,
-    private languageService: UiLanguageService,
-    private securityService: UiSecurityService
+    private languageService: HeaderLanguageService,
+    private securityService: HeaderSecurityService
   ) {}
 
   ngOnInit() {
     this.initNavigation();
-    this.initLanguages();
 
-    this.updateSecurityData();
+    this.securityInfo = this.securityService.info;
+    this.languageInfo = this.languageService.info;
 
-    this.security$ = this.appContextData
-      .onDataChange()
-      .pipe(filter(key => key === ContextDataNames.securityInfo))
-      .subscribe(() => {
-        this.updateSecurityData();
-      });
+    this.language$ = this.languageService.onLanguageChange().subscribe(info => {
+      this.languageInfo = info;
+    });
   }
 
   ngOnDestroy() {
-    this.security$.unsubscribe();
     this.language$.unsubscribe();
   }
 
@@ -96,48 +93,10 @@ export class UiHeaderComponent implements OnInit, OnDestroy {
   }
 
   public signout() {
-    this.securityService.logout();
+    this.securityService.signout();
   }
-
-  private updateSecurityData = () => {
-    this.isUserLogged = UiSecurityInfo.isLogged(this.appContextData.securityInfo);
-
-    this.securityInfo = {
-      currentUser: UiSecurityInfo.getUser(this.appContextData.securityInfo),
-      isItUser: this.securityService.isItUser()
-    };
-  };
 
   private initNavigation(): void {
     this.navigation = this.config.navigation;
-  }
-
-  private initLanguages() {
-    this.currentLanguage = this.appContextData.appConfig.lang;
-    this.languageOptions(this.currentLanguage);
-
-    this.language$ = this.appContextData
-      .onDataChange()
-      .pipe(filter(key => key === ContextDataNames.appConfig))
-      .subscribe(() => {
-        this.currentLanguage = this.appContextData.appConfig.lang;
-        this.languageOptions(this.currentLanguage);
-      });
-  }
-
-  private languageOptions(currentLanguage: Languages) {
-    this.languageButtons = [];
-    const languageKeys = Languages.keys();
-
-    languageKeys
-      .filter(lang => Languages.valueOf(lang) !== currentLanguage)
-      .forEach(key => {
-        const languageButton = new ButtonConfig(`language.${Languages.valueOf(key)}`);
-        languageButton.options = {
-          language: Languages.valueOf(key)
-        };
-        languageButton.callback = (options: any) => this.languageService.i18n(options.language);
-        this.languageButtons = this.languageButtons.concat(languageButton);
-      });
   }
 }

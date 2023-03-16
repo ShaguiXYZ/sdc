@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IComponentModel, IPageableModel, ISquadModel } from 'src/app/core/models';
 import { SquadService } from 'src/app/core/services';
@@ -9,7 +9,7 @@ export interface ISquadInfo {
 }
 
 @Injectable()
-export class SdcTestService {
+export class SdcTestService implements OnDestroy {
   private subject$: Subject<ISquadInfo>;
 
   constructor(private squadService: SquadService) {
@@ -35,5 +35,9 @@ export class SdcTestService {
         coverage
       });
     });
+  }
+
+  public ngOnDestroy() {
+    console.log('...Destroy test service...');
   }
 }

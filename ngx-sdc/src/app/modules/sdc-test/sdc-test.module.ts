@@ -22,7 +22,7 @@ import { SdcTestPageComponent, SdcTestPageRoutingModule, SdcTestService } from '
     ReactiveFormsModule,
     SdcTestPageRoutingModule,
     TranslateModule
-  ],
-  providers: [SdcTestService]
+  ]
+  // providers: [SdcTestService]
 })
 export class SdcTestPageModule {}

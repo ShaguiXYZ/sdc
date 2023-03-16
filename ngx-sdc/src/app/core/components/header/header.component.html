@@ -72,7 +72,7 @@
   </nx-header-brand>
 
   <ng-container>
-    <nx-header-navigation *ngIf="isUserLogged && navigation.routes.length > 0">
+    <nx-header-navigation *ngIf="securityInfo.isUserLogged && navigation.routes.length > 0">
       <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
         <!-- Parent menu -->
         <div *ngIf="parent.routerLink" class="menu-item-root">
@@ -112,11 +112,11 @@
     </nx-header-navigation>
 
     <nx-header-actions>
-      <nx-link *ngIf="isUserLogged" class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
+      <nx-link *ngIf="securityInfo.isUserLogged" class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
         <nx-icon name="user-business-o"></nx-icon>{{ securityInfo.currentUser?.userName }}
       </nx-link>
       <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="language">
-        <nx-icon name="product-world-globe"></nx-icon>{{ currentLanguage }}
+        <nx-icon name="product-world-globe"></nx-icon>{{ languageInfo.currentLanguage }}
       </nx-link>
     </nx-header-actions>
   </ng-container>
@@ -124,7 +124,7 @@
 
 <nx-context-menu #language="nxContextMenu">
   <ng-template nxContextMenuContent>
-    <ng-container *ngFor="let lang of languageButtons">
+    <ng-container *ngFor="let lang of languageInfo.languageButtons">
       <button
         *ngIf="lang.isVisible() && lang.icon && lang.text"
         nxContextMenuItem

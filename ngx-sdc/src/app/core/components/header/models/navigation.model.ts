@@ -15,7 +15,7 @@ export interface INavHeaderItem extends INavigationItem {
   collapsed?: boolean;
 }
 
-export default interface INavigation {
+export interface INavigation {
   activeParent?: string; // Id of the parent menu with the focus.
   routes: INavHeaderItem[];
 }

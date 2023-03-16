@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import INavigation from './navigation.model';
+import { INavigation } from '.';
 
 export interface IHeaderConfig {
   navigation: INavigation;

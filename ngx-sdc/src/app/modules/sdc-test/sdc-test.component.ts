@@ -2,12 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ISquadModel } from 'src/app/core/models';
-import { ISquadInfo, SdcTestService } from './sdc-test.service';
+import { ISquadInfo, SdcTestService } from './services/sdc-test.service';
 
 @Component({
   selector: 'sdc-test',
   templateUrl: './sdc-test.component.html',
-  styleUrls: ['./sdc-test.component.scss']
+  styleUrls: ['./sdc-test.component.scss'],
+  providers: [SdcTestService]
 })
 export class SdcTestPageComponent implements OnInit, OnDestroy {
   public selectOptionValue = 'Select';
@@ -15,7 +16,7 @@ export class SdcTestPageComponent implements OnInit, OnDestroy {
   public squads: ISquadModel[] = [];
   public squadInfo!: ISquadInfo;
 
-  private pattern = `^((?!${  this.selectOptionValue  }).)*$`;
+  private pattern = `^((?!${this.selectOptionValue}).)*$`;
   private subscription$: Array<Subscription> = [];
 
   constructor(private fb: FormBuilder, private sdcTestService: SdcTestService) {}
@@ -24,13 +25,17 @@ export class SdcTestPageComponent implements OnInit, OnDestroy {
     this.createForm();
     this.loadData();
 
-    this.subscription$.push(this.form.valueChanges.subscribe(event => {
-      this.componentsBySquad(event.squadId);
-    }));
+    this.subscription$.push(
+      this.form.valueChanges.subscribe(event => {
+        this.componentsBySquad(event.squadId);
+      })
+    );
 
-    this.subscription$.push(this.sdcTestService.onDataChange().subscribe(info => {
-      this.squadInfo = info;
-    }));
+    this.subscription$.push(
+      this.sdcTestService.onDataChange().subscribe(info => {
+        this.squadInfo = info;
+      })
+    );
   }
 
   ngOnDestroy(): void {
