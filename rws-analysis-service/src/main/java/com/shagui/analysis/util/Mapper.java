@@ -11,6 +11,7 @@ import com.shagui.analysis.api.dto.ArchitectureDTO;
 import com.shagui.analysis.api.dto.ComponentDTO;
 import com.shagui.analysis.api.dto.ComponentHistoricalCoverageDTO;
 import com.shagui.analysis.api.dto.ComponentTypeDTO;
+import com.shagui.analysis.api.dto.DepartmentDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
 import com.shagui.analysis.api.dto.MetricDTO;
 import com.shagui.analysis.api.dto.SquadDTO;
@@ -20,6 +21,7 @@ import com.shagui.analysis.model.ComponentAnalysisModel;
 import com.shagui.analysis.model.ComponentHistoricalCoverageModel;
 import com.shagui.analysis.model.ComponentModel;
 import com.shagui.analysis.model.ComponentTypeModel;
+import com.shagui.analysis.model.DepartmentModel;
 import com.shagui.analysis.model.MetricModel;
 import com.shagui.analysis.model.SquadModel;
 import com.shagui.analysis.util.validations.MetricValidations;
@@ -77,8 +79,8 @@ public class Mapper {
 				Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE);
 		Date analysisDate = analysisTimestampStr == null ? null : new Date(Long.valueOf(analysisTimestampStr));
 
-		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), analysisDate,
-				coverage, parse(source.getComponentTypeArchitecture().getComponentType()),
+		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), analysisDate, coverage,
+				parse(source.getComponentTypeArchitecture().getComponentType()),
 				parse(source.getComponentTypeArchitecture().getArchitecture()), parse(source.getSquad()));
 
 		return target;
@@ -108,8 +110,14 @@ public class Mapper {
 		return config.getObjectMapper().convertValue(source, SquadModel.class);
 	}
 
+	public static DepartmentDTO parse(DepartmentModel source) {
+		DepartmentDTO target = new DepartmentDTO(source.getId(), source.getName());
+
+		return target;
+	}
+
 	public static SquadDTO parse(SquadModel source) {
-		SquadDTO target = new SquadDTO(source.getId(), source.getName());
+		SquadDTO target = new SquadDTO(source.getId(), source.getName(), Mapper.parse(source.getDepartment()));
 
 		return target;
 	}

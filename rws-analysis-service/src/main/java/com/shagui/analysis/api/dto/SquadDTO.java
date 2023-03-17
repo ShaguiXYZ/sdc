@@ -12,4 +12,5 @@ import lombok.Setter;
 public class SquadDTO {
 	private Integer id;
 	private String name;
+	private DepartmentDTO department;
 }

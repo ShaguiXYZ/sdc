@@ -15,7 +15,7 @@ import com.shagui.analysis.api.dto.SquadDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
-@FeignClient(name = "security-service", url = "${services.rws-sdc}", primary = false)
+@FeignClient(name = "rws-sdc-service", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
 	@GetMapping("analysis/{componentId}/{metricId}")
 	PageableDTO<MetricAnalysisDTO> metricHistory(
@@ -25,6 +25,10 @@ public interface RwsSdcClient {
 	@GetMapping("component/{componentId}/historicalCoverage")
 	PageableDTO<ComponentHistoricalCoverageDTO> historicalCoverage(
 			@PathVariable @Parameter(description = "Component identifier") int componentId);
+
+	@Operation(summary = "Retrieve squad by id")
+	@GetMapping("squad/{squadId}")
+	SquadDTO squad(@PathVariable @Parameter(description = "Squad identifier") int squadId);
 
 	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads")

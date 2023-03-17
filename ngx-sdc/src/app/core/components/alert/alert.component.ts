@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
 import { Subscription } from 'rxjs';
-import { UiAlertService } from '.';
-import { AlertModel } from '../../../shared/models/alert.model';
+import { AlertModel } from './models';
+import { UiAlertService } from './services';
 
 @Component({
   selector: 'ui-alert',

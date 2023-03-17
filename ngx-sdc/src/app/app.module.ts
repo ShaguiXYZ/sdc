@@ -13,9 +13,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UiCoreComponentsModule } from './core/components/core-components.module';
-import { NX_HEADER_CONFIG } from './core/components/header';
-import { SDC_HEADER_MENU } from './shared/config/app.constants';
 import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
+import { NX_HEADER_CONFIG } from './core/components/header/models';
+import { SDC_HEADER_MENU } from './shared/config/menu';
 
 @NgModule({
   declarations: [AppComponent],

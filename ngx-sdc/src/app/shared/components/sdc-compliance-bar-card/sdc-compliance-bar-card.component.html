@@ -1,0 +1,28 @@
+<nx-card class="card-content nx-margin-bottom-s nx-margin-left-0">
+  <div nxLayout="grid nopadding nogutters" class="nx-margin-x-2xs">
+    <div nxRow class="{{ styleByCoverage(coverage) }}">
+      <div nxCol="12" class="sdc-center colum-right">
+        <nx-progressbar [value]="barCoverage"></nx-progressbar>
+        <span class="coverage">{{ coverage }}%</span>
+      </div>
+    </div>
+    <div nxRow>
+      <div nxCol="8">
+        <span class="nx-font-weight-bold">{{ component.name }}</span>
+      </div>
+      <div nxCol="4" class="colum-right">
+        <span class="nx-font-weight-semibold">{{ 'ComplianceCard.ProcessDate' | translate }}: {{ component.analysisDate | date }}</span>
+      </div>
+    </div>
+    <div nxRow>
+      <div nxCol="9">
+        <nx-badge type="active">SQUAD {{ component.squad.name }}</nx-badge>
+      </div>
+      <div nxCol="3" class="colum-right">
+        <nx-link>
+          <a routerLink=".">{{ 'ComplianceCard.ShowMore' | translate }}</a>
+        </nx-link>
+      </div>
+    </div>
+  </div>
+</nx-card>

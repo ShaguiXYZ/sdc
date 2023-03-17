@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { filter, Observable, Subject, Subscription } from 'rxjs';
-import { ContextDataNames } from 'src/app/shared/config/contextInfo';
+import { ContextDataNames } from 'src/app/shared/config/context-info';
 import { UiSecurityInfo } from '../../../models/security/security.model';
-import { UiAppContextData, UiSecurityService } from '../../../services';
+import { UiAppContextDataService, UiSecurityService } from '../../../services';
 import { ISecurityHeader } from '../models';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class HeaderSecurityService implements OnDestroy {
   private securityChange$: Subject<ISecurityHeader>;
   private security$: Subscription;
 
-  constructor(private appContextData: UiAppContextData, private securityService: UiSecurityService) {
+  constructor(private appContextData: UiAppContextDataService, private securityService: UiSecurityService) {
     this.securityChange$ = new Subject<ISecurityHeader>();
     this.updateSecurityData();
 

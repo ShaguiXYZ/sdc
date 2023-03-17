@@ -1,13 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { filter, Subscription } from 'rxjs';
-import { IUserModel } from 'src/app/core/models/security';
-import { UiSecurityInfo } from 'src/app/core/models/security/security.model';
-import { UiAppContextData } from 'src/app/core/services/context-data.service';
-import { UiLanguageService } from 'src/app/core/services/language.service';
-import { UiSecurityService } from 'src/app/core/services/security.service';
-import { ContextDataNames } from 'src/app/shared/config/contextInfo';
-import { Languages } from 'src/app/shared/config/languages';
-import { ButtonConfig } from 'src/app/shared/models';
+import { Subscription } from 'rxjs';
 import {
   DEFAULT_HEADER_MENU,
   IHeaderConfig,

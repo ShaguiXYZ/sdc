@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class SquadView {
 	private Integer id;
 	private String name;
+	private DepartmentView department;
 }

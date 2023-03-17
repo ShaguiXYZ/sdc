@@ -14,15 +14,15 @@ import { NxModalModule } from '@aposin/ng-aquila/modal';
 import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
 import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { TranslateModule } from '@ngx-translate/core';
-import { UiComplianceBarCardComponent } from './components';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { SdcComplianceBarCardComponent, SdcComplianceBarCardsComponent, SdcCoverageChartComponent } from './components';
 
 @NgModule({
-  declarations: [UiComplianceBarCardComponent],
+  declarations: [SdcComplianceBarCardComponent, SdcComplianceBarCardsComponent, SdcCoverageChartComponent],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    TranslateModule,
+    NgxChartsModule,
     NxBadgeModule,
     NxButtonModule,
     NxCardModule,
@@ -34,9 +34,10 @@ import { UiComplianceBarCardComponent } from './components';
     NxMessageModule,
     NxModalModule.forRoot(),
     NxProgressbarModule,
-    NxSpinnerModule
+    NxSpinnerModule,
+    ReactiveFormsModule,
+    TranslateModule
   ],
-  exports: [UiComplianceBarCardComponent],
-  providers: []
+  exports: [SdcComplianceBarCardComponent, SdcComplianceBarCardsComponent, SdcCoverageChartComponent]
 })
 export class AppSharedModule {}

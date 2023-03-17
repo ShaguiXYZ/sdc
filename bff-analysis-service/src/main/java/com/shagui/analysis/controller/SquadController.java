@@ -16,9 +16,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @Tag(name = "squads", description = "API to maintain Squads")
 public class SquadController implements SquadRestApi {
-	
+
 	@Autowired
 	private SquadService squadService;
+
+	@Override
+	public SquadView squad(int squadId) {
+		return Mapper.parse(squadService.squad(squadId));
+	}
 
 	@Override
 	public PageableView<SquadView> squads(Integer page) {

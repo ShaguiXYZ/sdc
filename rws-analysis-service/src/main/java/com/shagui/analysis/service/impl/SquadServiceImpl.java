@@ -27,6 +27,11 @@ public class SquadServiceImpl implements SquadService {
 	private JpaCommonRepository<SquadRepository, SquadModel, Integer> squadRepository;
 	private JpaCommonRepository<ComponentAnalysisRepository, ComponentAnalysisModel, ComponentAnalysisPk> componentAnalysisRepository;
 
+	@Override
+	public SquadDTO findById(int squadId) {
+		return Mapper.parse(squadRepository.findById(squadId));
+	}
+
 	public SquadServiceImpl(SquadRepository squadRepository, ComponentAnalysisRepository componentAnalysisRepository) {
 		this.squadRepository = () -> squadRepository;
 		this.componentAnalysisRepository = () -> componentAnalysisRepository;

@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { filter, Observable, Subject, Subscription } from 'rxjs';
+import { ButtonConfig } from 'src/app/core/models';
 import { UiLanguageService } from 'src/app/core/services/language.service';
-import { ContextDataNames } from 'src/app/shared/config/contextInfo';
+import { ContextDataNames } from 'src/app/shared/config/context-info';
 import { Languages } from 'src/app/shared/config/languages';
-import { ButtonConfig } from 'src/app/shared/models';
-import { UiAppContextData } from '../../../services';
+import { UiAppContextDataService } from '../../../services';
 import { ILanguageHeader } from '../models';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class HeaderLanguageService implements OnDestroy {
   private languageChange$: Subject<ILanguageHeader>;
   private language$: Subscription;
 
-  constructor(private appContextData: UiAppContextData, private languageService: UiLanguageService) {
+  constructor(private appContextData: UiAppContextDataService, private languageService: UiLanguageService) {
     this.languageChange$ = new Subject<ILanguageHeader>();
 
     this._info.currentLanguage = this.appContextData.appConfig?.lang;

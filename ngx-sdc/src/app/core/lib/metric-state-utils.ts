@@ -1,5 +1,5 @@
-import { COLOR_PREFIX } from 'src/app/shared/config/app.constants';
-import { GenericDataInfo } from '../../shared/interfaces/dataInfo';
+import { COLOR_PREFIX } from 'src/app/core/constants/app.constants';
+import { GenericDataInfo } from '../interfaces/dataInfo';
 
 export interface MetricConfig {
   value: number;

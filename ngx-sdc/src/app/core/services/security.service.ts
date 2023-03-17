@@ -2,13 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpStatus } from 'src/app/shared/config/app.constants';
-import { ContextDataNames } from 'src/app/shared/config/contextInfo';
+import { HttpStatus } from 'src/app/core/constants/app.constants';
+import { ContextDataNames } from 'src/app/shared/config/context-info';
 import { environment } from 'src/environments/environment';
 import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISessionModel, IUserDTO, IUserModel } from '../models/security';
 import { UiSecurityInfo } from '../models/security/security.model';
-import { contextStorageID, UiAppContextData } from './context-data.service';
-import { UiHttpHelper } from './http.service';
+import { contextStorageID, UiAppContextDataService } from './context-data.service';
+import { UiHttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class UiSecurityService {
   private _urlSecurity = `${environment.securityUrl}/bff-security/api`;
   private signIn$: Subject<ISessionModel> = new Subject();
 
-  constructor(private contextData: UiAppContextData, private http: UiHttpHelper) {}
+  constructor(private contextData: UiAppContextDataService, private http: UiHttpService) {}
 
   public get session(): ISessionModel {
     return this.contextData.securityInfo?.session;

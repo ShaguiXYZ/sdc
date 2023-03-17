@@ -1,0 +1,25 @@
+<div>
+  <form [formGroup]="form">
+    <div nxLayout="grid nopadding nogutters" nog>
+      <div nxRow>
+        <div nxCol="12">
+          <h1>Sdc Test Page</h1>
+        </div>
+      </div>
+
+      <div nxRow>
+        <div nxCol="12">
+          <nx-formfield [nxLabel]="'Label.Squads' | translate">
+            <nx-dropdown name="allLobs" formControlName="squadId">
+              <nx-dropdown-item *ngFor="let item of squads" [nxValue]="item.id">
+                {{ item.name }}
+              </nx-dropdown-item>
+            </nx-dropdown>
+          </nx-formfield>
+          <h2 *ngIf="applicationsInfo">Coverage: {{ applicationsInfo.coverage }}</h2>
+        </div>
+      </div>
+    </div>
+  </form>
+  <sdc-compliance-bar-cards *ngIf="applicationsInfo" [squad]="applicationsInfo.squadId"></sdc-compliance-bar-cards>
+</div>

@@ -17,6 +17,11 @@ public class SquadServiceImpl implements SquadService {
 	private RwsSdcClient rwsSdcClient;
 
 	@Override
+	public SquadDTO squad(int squadId) {
+		return rwsSdcClient.squad(squadId);
+	}
+
+	@Override
 	public PageableDTO<SquadDTO> squads(Integer page) {
 		return rwsSdcClient.squads(page);
 	}

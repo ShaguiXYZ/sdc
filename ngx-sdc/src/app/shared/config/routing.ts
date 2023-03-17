@@ -1,12 +1,12 @@
 import { Params, PRIMARY_OUTLET, Router, UrlSegment, UrlTree } from '@angular/router';
 import { deepCopy } from 'src/app/core/lib/object-utils';
-import { ContextDataNames } from './contextInfo';
+import { ContextDataNames } from './context-info';
 
 // eslint-disable-next-line no-shadow
 export enum AppUrls {
   root = '',
-  home = 'home',
-  test = 'test'
+  summary = 'summary',
+  applications = 'applications'
 }
 
 type RouteConfig<T> = {
@@ -21,8 +21,8 @@ export interface UrlInfo {
 export class UrlsDefinition {
   public static readonly urls: RouteConfig<UrlInfo> = {
     [AppUrls.root]: { resetContext: true },
-    [AppUrls.home]: { resetContext: true },
-    [AppUrls.test]: { resetContext: false, resetData: [] }
+    [AppUrls.summary]: { resetContext: true },
+    [AppUrls.applications]: { resetContext: false, resetData: [] }
   };
 }
 
@@ -36,7 +36,7 @@ export interface RouterInfo {
   segments: UrlSegment[];
 }
 
-const initialUrl = AppUrls.home;
+const initialUrl = AppUrls.summary;
 
 export const routerData = (router: Router): RouterInfo => {
   const tree: UrlTree = router.parseUrl(router.url);

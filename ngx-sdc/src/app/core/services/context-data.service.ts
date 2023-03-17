@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { APP_NAME } from 'src/app/shared/config/app.constants';
-import { AppConfig, ContextDataNames, ContextInfo } from 'src/app/shared/config/contextInfo';
+import { APP_NAME } from 'src/app/core/constants/app.constants';
+import { AppConfig, ContextDataNames, ContextInfo } from 'src/app/shared/config/context-info';
 import { routerData, UrlInfo } from 'src/app/shared/config/routing';
-import { DataInfo, GenericDataInfo } from 'src/app/shared/interfaces/dataInfo';
+import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { UiSecurityInfo } from '../models/security/security.model';
 
 export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
@@ -27,7 +27,7 @@ class UiContextDataDefinition {
 @Injectable({
   providedIn: 'root'
 })
-export class UiAppContextData {
+export class UiAppContextDataService {
   private subject$: Subject<string>;
   private contextStorage: ContextInfo;
 

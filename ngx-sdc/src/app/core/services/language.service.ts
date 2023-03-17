@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Languages } from 'src/app/shared/config/languages';
-import { UiAppContextData } from './context-data.service';
+import { UiAppContextDataService } from './context-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { UiAppContextData } from './context-data.service';
 export class UiLanguageService {
   private languageChange$: EventEmitter<Languages> = new EventEmitter();
 
-  constructor(private contextData: UiAppContextData) {}
+  constructor(private contextData: UiAppContextDataService) {}
 
   public i18n(language: Languages): void {
     this.contextData.appConfig = { ...this.contextData.appConfig, lang: language };

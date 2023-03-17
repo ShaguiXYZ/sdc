@@ -3,16 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppUrls } from './shared/config/routing';
 
 const routes: Routes = [
-  { path: AppUrls.root, redirectTo: AppUrls.home, pathMatch: 'full' },
+  { path: AppUrls.root, redirectTo: AppUrls.summary, pathMatch: 'full' },
   {
-    path: AppUrls.home,
-    loadChildren: () => import('./modules/sdc-home/sdc-home.module').then(m => m.SdcHomePageModule),
+    path: AppUrls.summary,
+    loadChildren: () => import('./modules/sdc-summary/sdc-summary.module').then(m => m.SdcSummaryModule),
     canDeactivate: [],
     canActivate: []
   },
   {
-    path: AppUrls.test,
-    loadChildren: () => import('./modules/sdc-test/sdc-test.module').then(m => m.SdcTestPageModule),
+    path: AppUrls.applications,
+    loadChildren: () => import('./modules/sdc-applications/sdc-applications.module').then(m => m.SdcApplicationsModule),
     canDeactivate: [],
     canActivate: []
   }

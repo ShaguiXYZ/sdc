@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class SquadDTO implements ParseableTo<SquadView> {
 	private Integer id;
 	private String name;
+	private DepartmentDTO department;
 
 	@Override
 	public SquadView parse() {

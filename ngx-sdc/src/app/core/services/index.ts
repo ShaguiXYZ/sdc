@@ -1,6 +1,8 @@
 export * from './context-data.service';
 export * from './http.service';
+export * from './language.service';
 export * from './security.service';
+export * from './session.service';
 
-export * from './analysis.service';
-export * from './squad.service';
+export * from './sdc/analysis.service';
+export * from './sdc/squad.service';

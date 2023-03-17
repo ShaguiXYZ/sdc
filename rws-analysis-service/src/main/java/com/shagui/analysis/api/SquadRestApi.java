@@ -19,19 +19,23 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = { "/api/squad", "/api/squads" }, produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface SquadRestApi {
+	@Operation(summary = "Retrieve squad by id")
+	@GetMapping("squad/{squadId}")
+	SquadDTO squad(@PathVariable @Parameter(description = "Squad identifier") int squadId);
+
 	@Operation(summary = "Retrieve available squads")
-	@GetMapping
+	@GetMapping("squads")
 	PageableDTO<SquadDTO> squads(
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 
-	@GetMapping("{squadId}/state")
+	@GetMapping("squad/{squadId}/state")
 	MetricAnalysisStateDTO squadState(@PathVariable @Parameter(description = "Squad identifier") int squadId,
 			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date date);
 
 	@Operation(summary = "Retrieve squad components")
-	@GetMapping("{squadId}/components")
+	@GetMapping("squad/{squadId}/components")
 	PageableDTO<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 }
