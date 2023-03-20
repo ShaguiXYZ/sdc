@@ -3,6 +3,7 @@ import { firstValueFrom, map } from 'rxjs';
 import { HttpStatus } from 'src/app/core/constants/app.constants';
 import { environment } from 'src/environments/environment';
 import { UiHttpService } from '..';
+import { UniqueIds } from '../../lib';
 import {
   IComponentDTO,
   IComponentModel,
@@ -14,6 +15,8 @@ import {
   ISquadDTO,
   ISquadModel
 } from '../../models/sdc';
+
+const _SQUADS_CACHE_ID_ = `_${UniqueIds.next()}_`;
 
 @Injectable({ providedIn: 'root' })
 export class SquadService {
@@ -34,13 +37,14 @@ export class SquadService {
     );
   }
 
-  public availableSquads(): Promise<IPageableModel<ISquadModel>> {
+  public squads(): Promise<IPageableModel<ISquadModel>> {
     return firstValueFrom(
       this.http
         .get<IPageableDTO<ISquadDTO>>(`${this._urlSquads}/squads`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
-          }
+            [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' },
+          },
+          cache: _SQUADS_CACHE_ID_
         })
         .pipe(
           map(res => {

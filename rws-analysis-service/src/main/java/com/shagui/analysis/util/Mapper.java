@@ -106,14 +106,14 @@ public class Mapper {
 		return target;
 	}
 
-	public static SquadModel parse(SquadDTO source) {
-		return config.getObjectMapper().convertValue(source, SquadModel.class);
-	}
-
 	public static DepartmentDTO parse(DepartmentModel source) {
 		DepartmentDTO target = new DepartmentDTO(source.getId(), source.getName());
 
 		return target;
+	}
+
+	public static SquadModel parse(SquadDTO source) {
+		return config.getObjectMapper().convertValue(source, SquadModel.class);
 	}
 
 	public static SquadDTO parse(SquadModel source) {

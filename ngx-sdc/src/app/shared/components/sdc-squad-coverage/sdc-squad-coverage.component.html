@@ -1,0 +1,12 @@
+<div *ngIf="squad" nxLayout="grid nopadding nogutters" class="coverage-content">
+  <div nxRow>
+    <div nxCol="12" class="sdc-center">
+      <div>
+        <sdc-coverage-chart [coverage]="{ name: '', value: squad.coverage || 0 }" [size]="[100, 120]"></sdc-coverage-chart>
+      </div>
+      <div>
+        <span>{{ squad.name }}</span>
+      </div>
+    </div>
+  </div>
+</div>

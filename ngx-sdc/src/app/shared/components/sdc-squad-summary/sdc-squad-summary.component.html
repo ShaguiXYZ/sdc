@@ -1,0 +1,8 @@
+<div *ngIf="squad" nxLayout="grid nopadding nogutters">
+  <div nxRow>
+    <div nxCol="6">
+      <sdc-coverage-chart [coverage]="{ name: squad.name, value: squad.coverage || 0 }"></sdc-coverage-chart>
+    </div>
+    <div nxCol="6"></div>
+  </div>
+</div>

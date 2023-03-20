@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SdcSummaryModel } from './models';
+import { DataInfo } from 'src/app/core/interfaces/dataInfo';
 import { SdcSummaryService } from './services';
 
 @Component({
@@ -10,17 +10,17 @@ import { SdcSummaryService } from './services';
   providers: [SdcSummaryService]
 })
 export class SdcSummaryComponent implements OnInit, OnDestroy {
-  public summary?: SdcSummaryModel;
+  public summary?: DataInfo;
 
-  private summaryChange$!: Subscription;
+  private summary$!: Subscription;
 
   constructor(private sdcSummaryService: SdcSummaryService) {}
 
   ngOnInit(): void {
-    this.summaryChange$ = this.sdcSummaryService.onDataChange().subscribe(summary => (this.summary = summary));
+    this.summary$ = this.sdcSummaryService.onSummaryChange().subscribe(summary => (this.summary = summary));
   }
 
   ngOnDestroy(): void {
-    this.summaryChange$.unsubscribe();
+    this.summary$.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
 export interface ICoverageChartModel {
-  name: string;
+  name?: string;
   value: number;
 }

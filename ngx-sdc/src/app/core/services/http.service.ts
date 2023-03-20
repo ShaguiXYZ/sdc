@@ -1,13 +1,14 @@
 import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { Observable, of, take } from 'rxjs';
+import { finalize, map, tap } from 'rxjs/operators';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS, HttpStatus } from 'src/app/core/constants/app.constants';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { MessageModal } from 'src/app/core/interfaces/modal';
 import { UiLoadingService } from '../components/loading/services';
 import { UiNotificationService } from '../components/notification/services';
+import { UiCache } from './cache.service';
 
 export interface RequestOptions {
   // params?: any;
@@ -15,6 +16,10 @@ export interface RequestOptions {
   successMessage?: MessageModal;
   responseStatusMessage?: GenericDataInfo<MessageModal>;
   clientOptions?: any;
+}
+
+export interface CacheRequestOptions extends RequestOptions {
+  cache?: string;
 }
 
 export interface PageHttp<T> {
@@ -29,25 +34,45 @@ export interface PageHttp<T> {
 })
 export class UiHttpService {
   constructor(
-    private loadingService: UiLoadingService,
-    private notificationService: UiNotificationService,
+    private http: HttpClient,
     private translateService: TranslateService,
-    private http: HttpClient
+    private cache: UiCache,
+    private loadingService: UiLoadingService,
+    private notificationService: UiNotificationService
   ) {}
 
-  public get<T>(url: string, requestOptions?: RequestOptions): Observable<T | HttpEvent<T>> {
-    if (requestOptions?.showLoading) {
-      this.loadingService.showLoading = true;
+  public get<T>(url: string, requestOptions?: CacheRequestOptions): Observable<T | HttpEvent<T>> {
+    const cacheId = requestOptions?.cache;
+    let cachedData: T | undefined;
+
+    if (cacheId) {
+      cachedData = this.cache.get(cacheId) as T;
     }
 
-    return this.http.get<T>(url, requestOptions?.clientOptions).pipe(
-      tap(this.tabControl(requestOptions)),
-      finalize(() => {
-        if (requestOptions?.showLoading) {
-          this.loadingService.showLoading = false;
-        }
-      })
-    );
+    if (cachedData) {
+      console.log(`Retrieve cached data ${requestOptions?.cache}`, cachedData);
+      return of(cachedData).pipe(take(1));
+    } else {
+      if (requestOptions?.showLoading) {
+        this.loadingService.showLoading = true;
+      }
+
+      return this.http.get<T>(url, requestOptions?.clientOptions).pipe(
+        tap(data => {
+          if (cacheId) {
+            console.log(`Add cache data ${cacheId}`, data);
+
+            this.cache.add(cacheId, data);
+          }
+        }),
+        tap(this.tabControl(requestOptions)),
+        finalize(() => {
+          if (requestOptions?.showLoading) {
+            this.loadingService.showLoading = false;
+          }
+        })
+      );
+    }
   }
 
   public _post<T>(url: string, body?: T, requestOptions?: RequestOptions): Observable<T | HttpEvent<T>> {
@@ -137,6 +162,11 @@ export class UiHttpService {
     );
   }
 
+  private tabControl = (requestOptions?: RequestOptions) => ({
+    next: () => this.success(requestOptions?.successMessage),
+    error: (err: HttpErrorResponse) => this.error(err, requestOptions?.responseStatusMessage)
+  });
+
   private success(message?: MessageModal): void {
     if (message) {
       this.notificationService.success(
@@ -170,9 +200,4 @@ export class UiHttpService {
       );
     }
   }
-
-  private tabControl = (requestOptions?: RequestOptions) => ({
-    next: () => this.success(requestOptions?.successMessage),
-    error: (err: HttpErrorResponse) => this.error(err, requestOptions?.responseStatusMessage)
-  });
 }

@@ -1,6 +1,11 @@
 <ngx-charts-pie-grid
-  [results]="[coverage]"
+  *ngIf="size"
+  [animations]="false"
   [designatedTotal]="100"
+  [results]="[coverage]"
   [tooltipDisabled]="true"
+  [view]="size"
 >
+</ngx-charts-pie-grid>
+<ngx-charts-pie-grid *ngIf="!size" [animations]="false" [designatedTotal]="100" [results]="[coverage]" [tooltipDisabled]="true">
 </ngx-charts-pie-grid>

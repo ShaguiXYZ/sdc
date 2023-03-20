@@ -1,0 +1,7 @@
+<div nxLayout="grid nopadding nogutters">
+  <div *ngIf="squads" nxRow>
+    <div *ngFor="let squad of squads" nxCol="12" class="nx-margin-bottom-s">
+      <sdc-squad-coverage [squad]="squad"></sdc-squad-coverage>
+    </div>
+  </div>
+</div>

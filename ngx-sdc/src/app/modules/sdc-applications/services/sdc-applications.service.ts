@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { componentsCoverage } from 'src/app/core/lib/sdc.utils';
 import { IPageableModel, ISquadModel } from 'src/app/core/models/sdc';
 import { SquadService } from 'src/app/core/services';
 import { SdcApplicationsModel } from '../models';
@@ -17,16 +18,15 @@ export class SdcApplicationsService implements OnDestroy {
   }
 
   availableSquads(): Promise<IPageableModel<ISquadModel>> {
-    return this.squadService.availableSquads();
+    return this.squadService.squads();
   }
 
-  squadInfo(squadId: number): void {
-    this.squadService.squadState(squadId).then(state => {
-      const coverage = state.coverage;
-
+  squadData(squadId: number): void {
+    this.squadService.squadComponents(squadId).then(pageable => {
       this.subject$.next({
         squadId,
-        coverage
+        coverage: componentsCoverage(pageable.page),
+        components: pageable.page
       });
     });
   }

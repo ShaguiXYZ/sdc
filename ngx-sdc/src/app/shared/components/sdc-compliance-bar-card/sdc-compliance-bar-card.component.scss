@@ -18,18 +18,20 @@
   @include define-custom-property($name, $value);
 }
 
-nx-badge {
-  font-size: 12px;
-}
-
 .card-content {
-  border-radius: 4px;
-  height: 125px;
-  position: relative;
-  width: -webkit-fill-available;
+  nx-card {
+    border-radius: 4px;
+    height: 125px;
+    position: relative;
+    width: -webkit-fill-available;
 
-  span {
-    font-size: 15px;
+    nx-badge {
+      font-size: 12px;
+    }
+
+    span {
+      font-size: 15px;
+    }
   }
 }
 

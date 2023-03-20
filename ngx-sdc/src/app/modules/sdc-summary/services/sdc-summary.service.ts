@@ -1,31 +1,48 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { DataInfo } from 'src/app/core/interfaces/dataInfo';
+import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ISdcSessionData } from 'src/app/core/models/session/session.model';
 import { SquadService, UiAppContextDataService } from 'src/app/core/services';
 import { ContextDataNames } from 'src/app/shared/config/context-info';
-import { SdcSummaryModel } from '../models/sdc-summary.model';
 
 @Injectable()
 export class SdcSummaryService {
-  private sdcSummary!: SdcSummaryModel;
-  private subject$: Subject<SdcSummaryModel>;
+  private summary$: Subject<DataInfo>;
+  private data!: DataInfo;
 
   constructor(private contextData: UiAppContextDataService, private squadService: SquadService) {
-    this.subject$ = new Subject();
     const sessionData: ISdcSessionData = this.contextData.getContextData(ContextDataNames.sdcSessionData);
 
-    this.sdcSummary = { squad: sessionData.squad };
+    this.summary$ = new Subject();
+    this.summary(sessionData.squad.id);
+  }
 
-    this.squadService.squadState(sessionData.squad.id).then(analysis => {
-      this.sdcSummary.squadCoverage = analysis.coverage;
+  public onSummaryChange(): Observable<DataInfo> {
+    return this.summary$.asObservable();
+  }
 
-      console.log(this.sdcSummary);
+  private summary(squadId: number): void {
+    this.data = {};
 
-      this.subject$.next(this.sdcSummary);
+    this.squadService.squad(squadId).then(squad => {
+      this.data['squad'] = squad;
+      this.components(squad);
+      this.squads(squad.department);
     });
   }
 
-  public onDataChange(): Observable<SdcSummaryModel> {
-    return this.subject$.asObservable();
+  private components(squad: ISquadModel): void {
+    this.squadService.squadComponents(squad.id).then(pageable => {
+      this.data['components'] = pageable.page;
+      this.summary$.next(this.data);
+    });
+  }
+
+  private squads(department: IDepartmentModel): void {
+    this.squadService.squads().then(pageable => {
+      this.data['squads'] = pageable.page;
+      this.summary$.next(this.data);
+    });
   }
 }

@@ -1,13 +1,19 @@
 <div *ngIf="summary" nxLayout="grid nopadding nogutters">
   <div nxRow>
     <div nxCol="6">
-      <sdc-coverage-chart
-        *ngIf="summary.squadCoverage"
-        [coverage]="{ name: summary.squad.name, value: summary.squadCoverage }"
-      ></sdc-coverage-chart>
+      <div nxLayout="grid nopadding nogutters">
+        <div nxRow>
+          <div nxCol="12">
+            <sdc-squad-summary [squad]="summary['squad']"></sdc-squad-summary>
+          </div>
+          <div nxCol="12">
+            <sdc-compliance-bar-cards [components]="summary['components']"></sdc-compliance-bar-cards>
+          </div>
+        </div>
+      </div>
     </div>
     <div nxCol="6">
-      <sdc-compliance-bar-cards [squad]="summary.squad.id"></sdc-compliance-bar-cards>
+      <sdc-squads-coverage [squads]="summary['squads']"></sdc-squads-coverage>
     </div>
   </div>
 </div>

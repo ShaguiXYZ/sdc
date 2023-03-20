@@ -1,3 +1,4 @@
+export * from './cache.service';
 export * from './context-data.service';
 export * from './http.service';
 export * from './language.service';

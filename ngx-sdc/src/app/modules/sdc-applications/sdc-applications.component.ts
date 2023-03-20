@@ -28,7 +28,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
 
     this.subscription$.push(
       this.form.valueChanges.subscribe(event => {
-        this.squadInfo(event.squadId);
+        this.sdcApplicationsService.squadData(event.squadId);
       })
     );
 
@@ -47,10 +47,6 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     this.sdcApplicationsService.availableSquads().then(data => {
       this.squads = data.page;
     });
-  }
-
-  private squadInfo(squadId: number) {
-    this.sdcApplicationsService.squadInfo(squadId);
   }
 
   private createForm(): void {

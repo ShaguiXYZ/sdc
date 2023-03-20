@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Color } from '@swimlane/ngx-charts';
 import { ICoverageChartModel } from './models';
 
 @Component({
@@ -10,12 +9,6 @@ import { ICoverageChartModel } from './models';
 export class SdcCoverageChartComponent {
   @Input()
   public coverage!: ICoverageChartModel;
-
-  colorScheme: string | Partial<Color> = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
-
-  constructor() {
-    Object.assign(this, { single: this.coverage });
-  }
+  @Input()
+  public size?: [number, number];
 }
