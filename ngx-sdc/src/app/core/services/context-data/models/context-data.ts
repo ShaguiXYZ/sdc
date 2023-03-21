@@ -27,4 +27,8 @@ export class ContextData implements IContextData {
   get configuration() {
     return this._configuration;
   }
+
+  public protected(): boolean {
+    return this.isCore || this.configuration?.persistent || false;
+  }
 }

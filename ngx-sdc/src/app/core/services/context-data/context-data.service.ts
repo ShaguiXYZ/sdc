@@ -3,15 +3,15 @@ import { Inject, Injectable } from '@angular/core';
 import { NavigationEnd, PRIMARY_OUTLET, Router, UrlTree } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { APP_NAME } from 'src/app/core/constants/app.constants';
+import { APP_NAME, DEFAULT_LANGUAGE } from 'src/app/core/constants/app.constants';
 import { DataInfo } from 'src/app/core/interfaces/dataInfo';
-import { deepCopy } from '../../lib';
+import { deepCopy, UniqueIds } from '../../lib';
 import {
   ContextConfig,
   ContextData,
   ContextInfo,
-  CoreContextDataNames,
   IContextDataConfigurtion,
+  ICoreConfig,
   NX_CONTEX_CONFIG,
   RouterInfo,
   UrlInfo
@@ -27,22 +27,28 @@ export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data
 })
 export class UiAppContextDataService {
   private _contextConfig: ContextConfig;
+  private _configKey = `_${UniqueIds.next()}_`;
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
-  constructor(@Inject(NX_CONTEX_CONFIG) private contextConfig: ContextConfig = { home: '', urls: {} }, private router: Router) {
+  constructor(
+    @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig = { lang: DEFAULT_LANGUAGE, home: '', urls: {} },
+    private router: Router
+  ) {
     this.contextStorage = {
       contextData: {},
       cache: {}
     };
 
     this.subject$ = new Subject<string>();
+    this._contextConfig = { ...{ lang: DEFAULT_LANGUAGE, home: '', urls: {} }, ...contextConfig };
 
-    this._contextConfig = { ...{ home: '', urls: {}, coreData: {} }, ...contextConfig };
-    console.log('Context config', this._contextConfig);
-
-    this.addCoreData();
     this.sessionControl();
+    this.contextStorage.cache[this._configKey] = { lang: this._contextConfig.lang };
+  }
+
+  public contextDataServiceConfiguration(): ICoreConfig {
+    return deepCopy(this.contextStorage.cache[this._configKey]);
   }
 
   /**
@@ -63,7 +69,7 @@ export class UiAppContextDataService {
    */
   public getContextData(key?: string): any {
     if (key) {
-      return this.contextStorage.contextData[key]?.data;
+      return deepCopy(this.contextStorage.contextData[key]?.data);
     } else {
       const contextDataValues: DataInfo = {};
       Object.keys(this.contextStorage.contextData).forEach(
@@ -91,14 +97,6 @@ export class UiAppContextDataService {
    */
   public delete(key: string): void {
     delete this.contextStorage.contextData[key];
-  }
-
-  private addCoreData() {
-    const coreData = this._contextConfig.coreData || {};
-
-    Object.keys(coreData).forEach(coreKey => {
-      this.addContextData(coreKey, coreData[coreKey].data, coreData[coreKey].configuration, true);
-    });
   }
 
   private addContextData(key: string, data: any, configuration: IContextDataConfigurtion = {}, isCore: boolean = false): ContextData {
@@ -141,15 +139,18 @@ export class UiAppContextDataService {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       const urlInfo: UrlInfo = this.routerData(this.router).urlInfo;
 
-      console.log(urlInfo);
-
       if (urlInfo?.resetContext) {
-        const coreValues = Object.values(CoreContextDataNames) as string[];
-        const values = Object.keys(this.contextStorage.contextData);
-        values.filter(value => coreValues.indexOf(value) === 0).forEach(value => this.delete(value));
+        const keys = Object.keys(this.contextStorage.contextData);
+
+        keys
+          .filter(key => !this.contextStorage.contextData[key].protected())
+          .forEach(key => this.delete(key));
       } else {
         urlInfo.resetData?.forEach(value => this.delete(value));
       }
+
+      console.log('Context Storage', this.contextStorage);
+
     });
   }
 

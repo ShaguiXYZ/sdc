@@ -2,7 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, LOCALE_ID, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { AppConfig } from './core/services/context-data/models/app-config.model';
 import { UiAppContextDataService, UiLanguageService, UiSessionService } from './core/services';
 import { ContextDataNames } from './shared/config/context-info';
 import { CoreContextDataNames } from './core/services/context-data';
@@ -27,14 +26,10 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (!this.contextData.getContextData(CoreContextDataNames.appConfig)) {
-      this.contextData.setContextData(CoreContextDataNames.appConfig, new AppConfig());
-    }
-
-    const appConfig = this.contextData.getContextData(CoreContextDataNames.appConfig) as AppConfig;
+    const appConfig = this.contextData.contextDataServiceConfiguration();
 
     this.sessionService.sdcSession().then(session => {
-      this.contextData.setContextData(ContextDataNames.sdcSessionData, session);
+      this.contextData.setContextData(ContextDataNames.sdcSessionData, session, { persistent: true });
       this.sessionLoaded = true;
     });
 

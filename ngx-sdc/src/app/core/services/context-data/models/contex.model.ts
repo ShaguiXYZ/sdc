@@ -1,7 +1,11 @@
 import { InjectionToken } from '@angular/core';
 import { Params, UrlSegment, UrlTree } from '@angular/router';
 import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ContextData, IContextData } from './context-data';
+import { ContextData } from './context-data';
+
+export interface ICoreConfig {
+  lang: string;
+}
 
 export interface ContextInfo {
   contextData: GenericDataInfo<ContextData>;
@@ -16,9 +20,9 @@ export enum CoreContextDataNames {
 export const NX_CONTEX_CONFIG = new InjectionToken<ContextConfig>('NX_CONTEX_CONFIG');
 
 export interface ContextConfig {
+  lang: string;
   home: string;
   urls: RouteConfig;
-  coreData?: GenericDataInfo<ContextData>;
 }
 
 export type RouteConfig = {

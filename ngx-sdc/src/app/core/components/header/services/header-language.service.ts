@@ -1,12 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { filter, Observable, Subject, Subscription } from 'rxjs';
-import { Languages } from 'src/app/core/constants/languages';
 import { ButtonConfig } from 'src/app/core/models';
+import { UiAppContextDataService, UiLanguageService } from 'src/app/core/services';
 import { CoreContextDataNames } from 'src/app/core/services/context-data';
-import { AppConfig } from 'src/app/core/services/context-data/models/app-config.model';
-import { UiLanguageService } from 'src/app/core/services/language.service';
-import { UiAppContextDataService } from '../../../services';
-import { ILanguageHeader } from '../models';
+import { ILanguageHeader, Languages } from '../models';
 
 @Injectable()
 export class HeaderLanguageService implements OnDestroy {
@@ -15,18 +12,18 @@ export class HeaderLanguageService implements OnDestroy {
   private language$: Subscription;
 
   constructor(private contextData: UiAppContextDataService, private languageService: UiLanguageService) {
-    const appConfig = this.contextData.getContextData(CoreContextDataNames.appConfig) as AppConfig;
+    const appConfig = this.contextData.contextDataServiceConfiguration();
     this.languageChange$ = new Subject<ILanguageHeader>();
 
-    this._info.currentLanguage = appConfig?.lang;
-    this.languageOptions(this._info.currentLanguage);
+    this._info.currentLanguage = appConfig.lang;
+    this.languageOptions(this._info.currentLanguage as Languages);
 
     this.language$ = this.contextData
       .onDataChange()
       .pipe(filter(key => key === CoreContextDataNames.appConfig))
       .subscribe(() => {
         this._info.currentLanguage = appConfig.lang;
-        this.languageOptions(this._info.currentLanguage);
+        this.languageOptions(this._info.currentLanguage as Languages);
       });
   }
 
@@ -57,6 +54,6 @@ export class HeaderLanguageService implements OnDestroy {
         this._info.languageButtons = this._info.languageButtons.concat(languageButton);
       });
 
-      this.languageChange$.next(this._info);
+    this.languageChange$.next(this._info);
   }
 }
