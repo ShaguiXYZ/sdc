@@ -2,10 +2,10 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, LOCALE_ID, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { AppConfig } from './core/models/context/app-config.model';
-import { CoreContextDataNames } from './core/models/context/contex.model';
+import { AppConfig } from './core/services/context-data/models/app-config.model';
 import { UiAppContextDataService, UiLanguageService, UiSessionService } from './core/services';
 import { ContextDataNames } from './shared/config/context-info';
+import { CoreContextDataNames } from './core/services/context-data';
 
 @Component({
   selector: 'app-root',

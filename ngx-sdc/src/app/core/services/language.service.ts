@@ -1,9 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Languages } from 'src/app/core/constants/languages';
-import { AppConfig } from '../models/context/app-config.model';
-import { CoreContextDataNames } from '../models/context/contex.model';
-import { UiAppContextDataService } from './context-data.service';
+import { AppConfig } from './context-data/models/app-config.model';
+import { UiAppContextDataService } from './context-data/context-data.service';
+import { CoreContextDataNames } from './context-data/models';
 
 @Injectable({
   providedIn: 'root'

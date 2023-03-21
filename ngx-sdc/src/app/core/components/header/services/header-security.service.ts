@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { filter, Observable, Subject, Subscription } from 'rxjs';
-import { CoreContextDataNames } from 'src/app/core/models/context/contex.model';
+import { CoreContextDataNames } from 'src/app/core/services/context-data';
 import { UiSecurityInfo } from '../../../models/security/security.model';
 import { UiAppContextDataService, UiSecurityService } from '../../../services';
 import { ISecurityHeader } from '../models';

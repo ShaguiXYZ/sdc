@@ -15,9 +15,9 @@ import { AppComponent } from './app.component';
 import { UiCoreComponentsModule } from './core/components/core-components.module';
 import { NX_HEADER_CONFIG } from './core/components/header/models';
 import { SDC_HEADER_MENU } from './shared/config/menu';
+import { urls } from './shared/config/routing';
 import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
-import { NX_CONTEX_CONFIG } from './core/models/context/contex.model';
-import { AppUrls, urls } from './shared/config/routing';
+import { NX_CONTEX_CONFIG } from './core/services/context-data';
 
 @NgModule({
   declarations: [AppComponent],

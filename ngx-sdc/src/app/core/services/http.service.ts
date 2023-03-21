@@ -2,13 +2,13 @@ import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of, take } from 'rxjs';
-import { finalize, map, tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS, HttpStatus } from 'src/app/core/constants/app.constants';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { MessageModal } from 'src/app/core/interfaces/modal';
 import { UiLoadingService } from '../components/loading/services';
 import { UiNotificationService } from '../components/notification/services';
-import { UiCache } from './cache.service';
+import { UiCache } from './context-data';
 
 export interface RequestOptions {
   // params?: any;

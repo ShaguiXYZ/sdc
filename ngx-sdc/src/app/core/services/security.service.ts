@@ -3,10 +3,10 @@ import { firstValueFrom, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpStatus } from 'src/app/core/constants/app.constants';
 import { environment } from 'src/environments/environment';
-import { CoreContextDataNames } from '../models/context/contex.model';
 import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISessionModel, IUserDTO, IUserModel } from '../models/security';
 import { UiSecurityInfo } from '../models/security/security.model';
-import { contextStorageID, UiAppContextDataService } from './context-data.service';
+import { contextStorageID, UiAppContextDataService } from './context-data/context-data.service';
+import { CoreContextDataNames } from './context-data/models';
 import { UiHttpService } from './http.service';
 
 @Injectable({

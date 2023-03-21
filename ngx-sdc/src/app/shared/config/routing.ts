@@ -1,4 +1,4 @@
-import { RouteConfig } from 'src/app/core/models/context/contex.model';
+import { RouteConfig } from 'src/app/core/services/context-data/models';
 
 // eslint-disable-next-line no-shadow
 export enum AppUrls {

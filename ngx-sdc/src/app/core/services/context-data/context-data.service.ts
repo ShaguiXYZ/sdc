@@ -5,8 +5,17 @@ import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { APP_NAME } from 'src/app/core/constants/app.constants';
 import { DataInfo } from 'src/app/core/interfaces/dataInfo';
-import { deepCopy } from '../lib';
-import { ContextConfig, ContextInfo, CoreContextDataNames, NX_CONTEX_CONFIG, RouterInfo, UrlInfo } from '../models/context/contex.model';
+import { deepCopy } from '../../lib';
+import {
+  ContextConfig,
+  ContextData,
+  ContextInfo,
+  CoreContextDataNames,
+  IContextDataConfigurtion,
+  NX_CONTEX_CONFIG,
+  RouterInfo,
+  UrlInfo
+} from './models';
 
 export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
 
@@ -17,17 +26,22 @@ export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data
   providedIn: 'root'
 })
 export class UiAppContextDataService {
+  private _contextConfig: ContextConfig;
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
-  constructor(@Inject(NX_CONTEX_CONFIG) private config: ContextConfig = { home: '', urls: {} }, private router: Router) {
-    this.subject$ = new Subject<string>();
-
+  constructor(@Inject(NX_CONTEX_CONFIG) private contextConfig: ContextConfig = { home: '', urls: {} }, private router: Router) {
     this.contextStorage = {
       contextData: {},
       cache: {}
     };
 
+    this.subject$ = new Subject<string>();
+
+    this._contextConfig = { ...{ home: '', urls: {}, coreData: {} }, ...contextConfig };
+    console.log('Context config', this._contextConfig);
+
+    this.addCoreData();
     this.sessionControl();
   }
 
@@ -49,9 +63,13 @@ export class UiAppContextDataService {
    */
   public getContextData(key?: string): any {
     if (key) {
-      return this.contextStorage.contextData[key];
+      return this.contextStorage.contextData[key]?.data;
     } else {
-      return this.contextStorage.contextData;
+      const contextDataValues: DataInfo = {};
+      Object.keys(this.contextStorage.contextData).forEach(
+        contextKey => (contextDataValues[contextKey] = this.contextStorage.contextData[contextKey].data)
+      );
+      return contextDataValues;
     }
   }
 
@@ -61,8 +79,8 @@ export class UiAppContextDataService {
    * @param key Key of the variable in context
    * @param data data to save in the storage
    */
-  public setContextData(key: string, data: any): void {
-    this.contextStorage.contextData[key] = data;
+  public setContextData(key: string, data: any, configuration: IContextDataConfigurtion = {}): void {
+    this.addContextData(key, data, configuration);
     this.subject$.next(key);
   }
 
@@ -73,6 +91,21 @@ export class UiAppContextDataService {
    */
   public delete(key: string): void {
     delete this.contextStorage.contextData[key];
+  }
+
+  private addCoreData() {
+    const coreData = this._contextConfig.coreData || {};
+
+    Object.keys(coreData).forEach(coreKey => {
+      this.addContextData(coreKey, coreData[coreKey].data, coreData[coreKey].configuration, true);
+    });
+  }
+
+  private addContextData(key: string, data: any, configuration: IContextDataConfigurtion = {}, isCore: boolean = false): ContextData {
+    const contextData = new ContextData(data, configuration || {}, isCore);
+    this.contextStorage.contextData[key] = contextData;
+
+    return contextData;
   }
 
   private sessionControl(): void {
@@ -120,12 +153,12 @@ export class UiAppContextDataService {
     });
   }
 
-  private urlInfoBykey = (key: string): UrlInfo => this.config.urls[key];
+  private urlInfoBykey = (key: string): UrlInfo => this._contextConfig.urls[key];
 
   private routerData(router: Router): RouterInfo {
     const tree: UrlTree = router.parseUrl(router.url);
     const urlSegments = tree.root.children[PRIMARY_OUTLET] ? tree.root.children[PRIMARY_OUTLET].segments || [] : [];
-    const key = tree.root.children.hasOwnProperty(PRIMARY_OUTLET) ? urlSegments[0].path : this.config.home;
+    const key = tree.root.children.hasOwnProperty(PRIMARY_OUTLET) ? urlSegments[0].path : this._contextConfig.home;
 
     return {
       key,
