@@ -1,5 +1,5 @@
 import { ButtonConfig } from 'src/app/core/models';
-import { Languages } from 'src/app/shared/config/languages';
+import { Languages } from 'src/app/core/constants/languages';
 
 export interface ILanguageHeader {
   languageButtons: ButtonConfig[];

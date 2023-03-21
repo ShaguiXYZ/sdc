@@ -1,9 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { filter, Observable, Subject, Subscription } from 'rxjs';
+import { Languages } from 'src/app/core/constants/languages';
 import { ButtonConfig } from 'src/app/core/models';
+import { AppConfig } from 'src/app/core/models/context/app-config.model';
+import { CoreContextDataNames } from 'src/app/core/models/context/contex.model';
 import { UiLanguageService } from 'src/app/core/services/language.service';
-import { ContextDataNames } from 'src/app/shared/config/context-info';
-import { Languages } from 'src/app/shared/config/languages';
 import { UiAppContextDataService } from '../../../services';
 import { ILanguageHeader } from '../models';
 
@@ -13,17 +14,18 @@ export class HeaderLanguageService implements OnDestroy {
   private languageChange$: Subject<ILanguageHeader>;
   private language$: Subscription;
 
-  constructor(private appContextData: UiAppContextDataService, private languageService: UiLanguageService) {
+  constructor(private contextData: UiAppContextDataService, private languageService: UiLanguageService) {
+    const appConfig = this.contextData.getContextData(CoreContextDataNames.appConfig) as AppConfig;
     this.languageChange$ = new Subject<ILanguageHeader>();
 
-    this._info.currentLanguage = this.appContextData.appConfig?.lang;
+    this._info.currentLanguage = appConfig?.lang;
     this.languageOptions(this._info.currentLanguage);
 
-    this.language$ = this.appContextData
+    this.language$ = this.contextData
       .onDataChange()
-      .pipe(filter(key => key === ContextDataNames.appConfig))
+      .pipe(filter(key => key === CoreContextDataNames.appConfig))
       .subscribe(() => {
-        this._info.currentLanguage = this.appContextData.appConfig.lang;
+        this._info.currentLanguage = appConfig.lang;
         this.languageOptions(this._info.currentLanguage);
       });
   }

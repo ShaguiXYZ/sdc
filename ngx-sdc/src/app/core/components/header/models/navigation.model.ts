@@ -1,5 +1,3 @@
-import { AppUrls } from 'src/app/shared/config/routing';
-
 export const DEFAULT_HEADER_MENU: INavigation = {
   routes: []
 };
@@ -7,7 +5,7 @@ export const DEFAULT_HEADER_MENU: INavigation = {
 export interface INavigationItem {
   id: string;
   name: string;
-  routerLink?: AppUrls;
+  routerLink?: string;
 }
 
 export interface INavHeaderItem extends INavigationItem {

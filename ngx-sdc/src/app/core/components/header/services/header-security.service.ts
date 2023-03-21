@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { filter, Observable, Subject, Subscription } from 'rxjs';
-import { ContextDataNames } from 'src/app/shared/config/context-info';
+import { CoreContextDataNames } from 'src/app/core/models/context/contex.model';
 import { UiSecurityInfo } from '../../../models/security/security.model';
 import { UiAppContextDataService, UiSecurityService } from '../../../services';
 import { ISecurityHeader } from '../models';
@@ -17,7 +17,7 @@ export class HeaderSecurityService implements OnDestroy {
 
     this.security$ = this.appContextData
       .onDataChange()
-      .pipe(filter(key => key === ContextDataNames.securityInfo))
+      .pipe(filter(key => key === CoreContextDataNames.securityInfo))
       .subscribe(() => {
         this.updateSecurityData();
       });
@@ -40,10 +40,12 @@ export class HeaderSecurityService implements OnDestroy {
   }
 
   private updateSecurityData = () => {
+    const securityInfo = this.appContextData.getContextData(CoreContextDataNames.securityInfo) as UiSecurityInfo;
+
     this._info = {
-      currentUser: UiSecurityInfo.getUser(this.appContextData.securityInfo),
+      currentUser: UiSecurityInfo.getUser(securityInfo),
       isItUser: this.securityService.isItUser(),
-      isUserLogged: UiSecurityInfo.isLogged(this.appContextData.securityInfo)
+      isUserLogged: UiSecurityInfo.isLogged(securityInfo)
     };
 
     this.securityChange$.next(this._info);

@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpStatus } from 'src/app/core/constants/app.constants';
-import { ContextDataNames } from 'src/app/shared/config/context-info';
 import { environment } from 'src/environments/environment';
+import { CoreContextDataNames } from '../models/context/contex.model';
 import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISessionModel, IUserDTO, IUserModel } from '../models/security';
 import { UiSecurityInfo } from '../models/security/security.model';
 import { contextStorageID, UiAppContextDataService } from './context-data.service';
@@ -20,23 +19,27 @@ export class UiSecurityService {
   constructor(private contextData: UiAppContextDataService, private http: UiHttpService) {}
 
   public get session(): ISessionModel {
-    return this.contextData.securityInfo?.session;
+    return this.securityInfo()?.session;
   }
   public set session(session: ISessionModel) {
-    if (this.contextData.securityInfo) {
-      this.contextData.securityInfo = { ...this.contextData.securityInfo, session };
+    const securityInfo = this.securityInfo();
+
+    if (securityInfo) {
+      this.contextData.setContextData(CoreContextDataNames.securityInfo, { ...securityInfo, session });
     } else {
-      this.contextData.securityInfo = { session };
+      this.contextData.setContextData(CoreContextDataNames.securityInfo, { session });
     }
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   public get user(): IUserModel {
-    return this.contextData.securityInfo?.user;
+    return this.securityInfo()?.user;
   }
   public set user(user: IUserModel) {
-    if (this.contextData.securityInfo) {
-      this.contextData.securityInfo = { ...this.contextData.securityInfo, user };
+    const securityInfo = this.securityInfo();
+
+    if (securityInfo) {
+      this.contextData.setContextData(CoreContextDataNames.securityInfo, { ...securityInfo, user });
     } else {
       throw new Error('Valid token not returned');
     }
@@ -45,10 +48,10 @@ export class UiSecurityService {
   public logout() {
     sessionStorage.removeItem(contextStorageID);
 
-    if (!this.contextData.securityInfo) {
+    if (!this.securityInfo()) {
       this.http.put<ISessionModel, ISessionModel>(`${this._urlSecurity}/logout`).subscribe({
         next: event => {
-          this.contextData.delete(ContextDataNames.securityInfo);
+          this.contextData.delete(CoreContextDataNames.securityInfo);
           window.location.href = environment.baseAuth;
         },
         error: err => {
@@ -69,10 +72,12 @@ export class UiSecurityService {
   }
 
   public isBusinessUser = (): boolean =>
-    this.contextData.securityInfo?.user?.authorities?.map(auth => auth.authority).includes(AppAuthorities.business);
+    this.securityInfo()
+      ?.user?.authorities?.map(auth => auth.authority)
+      .includes(AppAuthorities.business);
 
   public isItUser = (): boolean =>
-    UiSecurityInfo.getUser(this.contextData.securityInfo)
+    UiSecurityInfo.getUser(this.securityInfo())
       ?.authorities?.map(auth => auth.authority)
       .includes(AppAuthorities.it);
 
@@ -82,10 +87,14 @@ export class UiSecurityService {
     );
 
   public uidSameProfile = (authority: string): boolean =>
-    UiSecurityInfo.getUser(this.contextData.securityInfo).authorities?.some(auth => auth.authority === authority);
+    UiSecurityInfo.getUser(this.securityInfo()).authorities?.some(auth => auth.authority === authority);
 
   public onSignIn(): Observable<ISessionModel> {
     return this.signIn$.asObservable();
+  }
+
+  private securityInfo(): UiSecurityInfo {
+    return this.contextData.getContextData(CoreContextDataNames.securityInfo) as UiSecurityInfo;
   }
 
   private getAuthoritiesByUID(uid: string): Observable<IAuthorityModel[]> {

@@ -1,25 +1,14 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { Inject, Injectable } from '@angular/core';
+import { NavigationEnd, PRIMARY_OUTLET, Router, UrlTree } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { APP_NAME } from 'src/app/core/constants/app.constants';
-import { AppConfig, ContextDataNames, ContextInfo } from 'src/app/shared/config/context-info';
-import { routerData, UrlInfo } from 'src/app/shared/config/routing';
-import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { UiSecurityInfo } from '../models/security/security.model';
+import { DataInfo } from 'src/app/core/interfaces/dataInfo';
+import { deepCopy } from '../lib';
+import { ContextConfig, ContextInfo, CoreContextDataNames, NX_CONTEX_CONFIG, RouterInfo, UrlInfo } from '../models/context/contex.model';
 
 export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
-
-interface ContextDataInfo {
-  hasPersistence: boolean;
-}
-
-class UiContextDataDefinition {
-  public static readonly dataProperties: GenericDataInfo<ContextDataInfo> = {
-    [ContextDataNames.appConfig]: { hasPersistence: true }
-  };
-}
 
 /**
  * Data persistence service between screens
@@ -28,10 +17,10 @@ class UiContextDataDefinition {
   providedIn: 'root'
 })
 export class UiAppContextDataService {
-  private subject$: Subject<string>;
   private contextStorage: ContextInfo;
+  private subject$: Subject<string>;
 
-  constructor(private router: Router) {
+  constructor(@Inject(NX_CONTEX_CONFIG) private config: ContextConfig = { home: '', urls: {} }, private router: Router) {
     this.subject$ = new Subject<string>();
 
     this.contextStorage = {
@@ -49,20 +38,6 @@ export class UiAppContextDataService {
     return this.contextStorage.cache;
   }
 
-  public get appConfig(): AppConfig {
-    return this.getContextData(ContextDataNames.appConfig);
-  }
-  public set appConfig(value: AppConfig) {
-    this.setContextData(ContextDataNames.appConfig, value);
-  }
-
-  public get securityInfo(): UiSecurityInfo {
-    return this.getContextData(ContextDataNames.securityInfo);
-  }
-  public set securityInfo(value: Partial<UiSecurityInfo>) {
-    this.setContextData(ContextDataNames.securityInfo, value);
-  }
-
   public onDataChange(): Observable<string> {
     return this.subject$.asObservable();
   }
@@ -72,7 +47,7 @@ export class UiAppContextDataService {
    *
    * @param key Key of the variable in context
    */
-  public getContextData(key?: ContextDataNames): any {
+  public getContextData(key?: string): any {
     if (key) {
       return this.contextStorage.contextData[key];
     } else {
@@ -86,7 +61,7 @@ export class UiAppContextDataService {
    * @param key Key of the variable in context
    * @param data data to save in the storage
    */
-  public setContextData(key: ContextDataNames, data: any): void {
+  public setContextData(key: string, data: any): void {
     this.contextStorage.contextData[key] = data;
     this.subject$.next(key);
   }
@@ -96,7 +71,7 @@ export class UiAppContextDataService {
    *
    * @param key Key of the variable in context
    */
-  public delete(key: ContextDataNames): void {
+  public delete(key: string): void {
     delete this.contextStorage.contextData[key];
   }
 
@@ -131,21 +106,33 @@ export class UiAppContextDataService {
    */
   private controlData(): void {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      const urlInfo: UrlInfo = routerData(this.router).urlInfo;
+      const urlInfo: UrlInfo = this.routerData(this.router).urlInfo;
+
+      console.log(urlInfo);
 
       if (urlInfo?.resetContext) {
-        const values = Object.values(ContextDataNames);
-
-        values.forEach((value: ContextDataNames) => {
-          if (UiContextDataDefinition.dataProperties[value] && !UiContextDataDefinition.dataProperties[value].hasPersistence) {
-            this.delete(value);
-          }
-        });
+        const coreValues = Object.values(CoreContextDataNames) as string[];
+        const values = Object.keys(this.contextStorage.contextData);
+        values.filter(value => coreValues.indexOf(value) === 0).forEach(value => this.delete(value));
       } else {
-        urlInfo.resetData?.forEach((data: ContextDataNames) => {
-          this.delete(data);
-        });
+        urlInfo.resetData?.forEach(value => this.delete(value));
       }
     });
+  }
+
+  private urlInfoBykey = (key: string): UrlInfo => this.config.urls[key];
+
+  private routerData(router: Router): RouterInfo {
+    const tree: UrlTree = router.parseUrl(router.url);
+    const urlSegments = tree.root.children[PRIMARY_OUTLET] ? tree.root.children[PRIMARY_OUTLET].segments || [] : [];
+    const key = tree.root.children.hasOwnProperty(PRIMARY_OUTLET) ? urlSegments[0].path : this.config.home;
+
+    return {
+      key,
+      urlInfo: this.urlInfoBykey(key),
+      tree,
+      queryParams: deepCopy(tree.queryParams),
+      segments: urlSegments
+    };
   }
 }
