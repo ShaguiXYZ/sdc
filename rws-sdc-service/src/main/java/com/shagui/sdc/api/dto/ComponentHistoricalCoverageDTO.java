@@ -1,0 +1,13 @@
+package com.shagui.sdc.api.dto;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class ComponentHistoricalCoverageDTO {
+	private Date analysisDate;
+	private float coverage;
+}

@@ -1,0 +1,10 @@
+spring:
+   application:
+      name: rws-sdc
+   cloud:
+      config:
+         uri:
+      
+server:
+   servlet:
+      context-path: /rws-sdc   

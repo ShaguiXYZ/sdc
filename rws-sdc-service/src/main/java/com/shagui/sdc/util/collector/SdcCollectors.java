@@ -1,0 +1,22 @@
+package com.shagui.sdc.util.collector;
+
+import java.util.stream.Collector;
+
+import org.springframework.data.domain.Page;
+
+import com.shagui.sdc.api.dto.PageableDTO;
+import com.shagui.sdc.util.collector.pageable.PageableCollector;
+
+public final class SdcCollectors {
+
+	private SdcCollectors() {}
+	
+	public static <T> Collector<T, ?, PageableDTO<T>> toPageable() {
+		return new PageableCollector<>();
+	}
+
+	
+	public static <T> Collector<T, ?, PageableDTO<T>> toPageable(Page<?> page) {
+		return new PageableCollector<>(page);
+	}
+}

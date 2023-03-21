@@ -1,0 +1,12 @@
+package com.shagui.sdc.api.view;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class PagingView {
+	private int pageIndex;
+	private int pageSize;
+	private int total;
+}

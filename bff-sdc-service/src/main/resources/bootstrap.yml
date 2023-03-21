@@ -1,0 +1,10 @@
+spring:
+   application:
+      name: bff-sdc
+   cloud:
+      config:
+         uri:
+      
+server:
+   servlet:
+      context-path: /bff-sdc

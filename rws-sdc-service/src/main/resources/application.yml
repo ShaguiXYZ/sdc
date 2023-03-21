@@ -1,0 +1,76 @@
+application:
+   info:
+      app:
+         name: '@project.artifactId@'
+         version: '@project.version@'
+         description: '@project.description@'
+         
+logging:
+   pattern:
+      console: '%d %-5level %logger : %msg%n'
+   level:
+      com.shagui.analysis: DEBUG
+      io.swagger.models.parameters.AbstractSerializableParameter: TRACE
+      
+spring:
+   application:
+      name: '@project.artifactId@'
+   banner:
+      location: classpath:/banner/spring-boot-banner.txt
+   output:
+      ansi:
+         enabled: ALWAYS
+   sql:
+      init:
+         mode: embedded
+springdoc:
+   swagger-ui:
+      enabled: true
+      csrf:
+         enabled: true
+      operationsSorter: alpha
+      tags-sorter: alpha
+   packagesToScan: com.shagui.sdc.controller
+   pathsToMatch: /api/**
+   
+rest:
+   security:
+      enabled: true
+      api-matcher: /api/**
+      cors:
+         allowed-origins: '*'
+         allowed-headers: '*'
+         allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+         max-age: 3600
+      
+management:
+   endpoints:
+      jmx:
+         exposure:
+            include: health,info,metrics,prometheus
+      web:
+         exposure:
+            include: health,info,metrics,prometheus
+   endpoint:
+      health:
+         show-details: always
+      promoetheus:
+         show-details: always
+      shutdown:
+         enabled: false
+         
+services:
+   sonar:
+      uri: https://sonarqube.inria.fr/sonarqube/api
+   git:
+      uri: https://api.github.com/
+   xml:
+      default-xml-path: master/pom.xml
+   
+feign:
+   client:
+      config:
+         default:
+            connectTimeout: 60000
+            readTimeout: 10000
+            loggerLevel: basic
