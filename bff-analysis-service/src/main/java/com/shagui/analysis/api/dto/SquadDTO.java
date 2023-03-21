@@ -13,6 +13,7 @@ public class SquadDTO implements ParseableTo<SquadView> {
 	private Integer id;
 	private String name;
 	private DepartmentDTO department;
+	private Float coverage;
 
 	@Override
 	public SquadView parse() {

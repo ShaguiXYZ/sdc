@@ -13,4 +13,5 @@ public class SquadDTO {
 	private Integer id;
 	private String name;
 	private DepartmentDTO department;
+	private Float coverage;
 }

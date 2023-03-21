@@ -9,4 +9,5 @@ public class SquadView {
 	private Integer id;
 	private String name;
 	private DepartmentView department;
+	private Float coverage;
 }

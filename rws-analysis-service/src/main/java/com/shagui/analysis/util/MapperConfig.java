@@ -2,9 +2,11 @@ package com.shagui.analysis.util;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shagui.analysis.service.SquadService;
 
 import lombok.AllArgsConstructor;
 
@@ -12,6 +14,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MapperConfig {
 	private ObjectMapper objectMapper;
+	
+	@Autowired
+	public SquadService squadService;
 
 	@PostConstruct
 	public void init() {

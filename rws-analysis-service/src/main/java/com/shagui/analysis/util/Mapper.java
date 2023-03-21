@@ -13,6 +13,7 @@ import com.shagui.analysis.api.dto.ComponentHistoricalCoverageDTO;
 import com.shagui.analysis.api.dto.ComponentTypeDTO;
 import com.shagui.analysis.api.dto.DepartmentDTO;
 import com.shagui.analysis.api.dto.MetricAnalysisDTO;
+import com.shagui.analysis.api.dto.MetricAnalysisStateDTO;
 import com.shagui.analysis.api.dto.MetricDTO;
 import com.shagui.analysis.api.dto.SquadDTO;
 import com.shagui.analysis.core.exception.ApiError;
@@ -117,7 +118,10 @@ public class Mapper {
 	}
 
 	public static SquadDTO parse(SquadModel source) {
-		SquadDTO target = new SquadDTO(source.getId(), source.getName(), Mapper.parse(source.getDepartment()));
+		MetricAnalysisStateDTO metricState = config.squadService.squadState(source.getId(), new Date());
+
+		SquadDTO target = new SquadDTO(source.getId(), source.getName(), Mapper.parse(source.getDepartment()),
+				metricState.getCoverage());
 
 		return target;
 	}
