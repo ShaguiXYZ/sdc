@@ -7,6 +7,7 @@ import { UniqueIds } from '../../lib';
 import {
   IComponentDTO,
   IComponentModel,
+  IDepartmentModel,
   IMetricAnalysisStateDTO,
   IMetricAnalysisStateModel,
   IPageableDTO,
@@ -37,10 +38,10 @@ export class SquadService {
     );
   }
 
-  public squads(): Promise<IPageableModel<ISquadModel>> {
+  public squads(department: IDepartmentModel): Promise<IPageableModel<ISquadModel>> {
     return firstValueFrom(
       this.http
-        .get<IPageableDTO<ISquadDTO>>(`${this._urlSquads}/squads`, {
+        .get<IPageableDTO<ISquadDTO>>(`${this._urlSquads}/squads/${department.id}`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' },
           },

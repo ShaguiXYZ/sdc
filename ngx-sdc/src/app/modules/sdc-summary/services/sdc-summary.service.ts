@@ -40,7 +40,7 @@ export class SdcSummaryService {
   }
 
   private squads(department: IDepartmentModel): void {
-    this.squadService.squads().then(pageable => {
+    this.squadService.squads(department).then(pageable => {
       this.data['squads'] = pageable.page;
       this.summary$.next(this.data);
     });

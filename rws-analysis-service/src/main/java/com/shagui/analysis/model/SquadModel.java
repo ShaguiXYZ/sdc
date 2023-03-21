@@ -19,22 +19,21 @@ import lombok.NoArgsConstructor;
 @Table(name = "squads")
 @NoArgsConstructor
 public class SquadModel implements ModelInterface<Integer> {
-	
-	public SquadModel(Integer id) {
-		this.id = id;
-	}
-	
 	@Id
 	@Column(name = "squad_id")
 	private Integer id;
 
 	@Column(name = "squad_name", nullable = false)
 	private String name;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department_id")
 	private DepartmentModel department;
-		
+
 	@OneToMany(mappedBy = "squad", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<ComponentModel> components;
+
+	public SquadModel(Integer id) {
+		this.id = id;
+	}
 }

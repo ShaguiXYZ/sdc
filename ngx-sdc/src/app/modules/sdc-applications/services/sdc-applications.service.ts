@@ -2,14 +2,21 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { componentsCoverage } from 'src/app/core/lib/sdc.utils';
 import { IPageableModel, ISquadModel } from 'src/app/core/models/sdc';
-import { SquadService } from 'src/app/core/services';
+import { ISdcSessionData } from 'src/app/core/models/session/session.model';
+import { SquadService, UiAppContextDataService } from 'src/app/core/services';
+import { ContextDataNames } from 'src/app/shared/config/context-info';
 import { SdcApplicationsModel } from '../models';
 
 @Injectable()
 export class SdcApplicationsService implements OnDestroy {
   private subject$: Subject<SdcApplicationsModel>;
+  private sessionData!: ISdcSessionData;
 
-  constructor(private squadService: SquadService) {
+  constructor(private contextData: UiAppContextDataService, private squadService: SquadService) {
+    this.sessionData = this.contextData.getContextData(ContextDataNames.sdcSessionData);
+
+    console.log('sessionData', this.sessionData);
+
     this.subject$ = new Subject();
   }
 
@@ -18,7 +25,7 @@ export class SdcApplicationsService implements OnDestroy {
   }
 
   availableSquads(): Promise<IPageableModel<ISquadModel>> {
-    return this.squadService.squads();
+    return this.squadService.squads(this.sessionData.squad.department);
   }
 
   squadData(squadId: number): void {

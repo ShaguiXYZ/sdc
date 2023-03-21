@@ -12,14 +12,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "departments")
-public class DepartmentModel {
+@NoArgsConstructor
+public class DepartmentModel implements ModelInterface<Integer> {
 	@Id
 	@Column(name = "department_id")
-	private int id;	
+	private Integer id;	
 	@Column(name = "department_name")
 	private String name;
 
@@ -29,4 +31,8 @@ public class DepartmentModel {
 	
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<SquadModel> squads;
+	
+	public DepartmentModel(Integer id) {
+		this.id = id;
+	}
 }

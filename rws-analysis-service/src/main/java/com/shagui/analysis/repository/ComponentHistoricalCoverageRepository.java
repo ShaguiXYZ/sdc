@@ -9,5 +9,4 @@ import com.shagui.analysis.model.pk.ComponentHistoricalCoveragePk;
 
 public interface ComponentHistoricalCoverageRepository extends JpaRepository<ComponentHistoricalCoverageModel, ComponentHistoricalCoveragePk> {
 	public List<ComponentHistoricalCoverageModel> findById_ComponentId(int componentId);
-
 }

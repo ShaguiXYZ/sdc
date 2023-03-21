@@ -11,5 +11,6 @@ import com.shagui.analysis.model.SquadModel;
 
 public interface ComponentRepository extends JpaRepository<ComponentModel, Integer> {
 	List<ComponentModel> findBySquad(SquadModel squad);
+
 	Page<ComponentModel> findBySquad(SquadModel squad, Pageable pageable);
 }

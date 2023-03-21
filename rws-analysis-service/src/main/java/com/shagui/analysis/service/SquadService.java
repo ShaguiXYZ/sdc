@@ -9,9 +9,9 @@ import com.shagui.analysis.api.dto.SquadDTO;
 public interface SquadService {
 	SquadDTO findById(int squadId);
 
-	PageableDTO<SquadDTO> findAll();
+	PageableDTO<SquadDTO> findByDepartment(int department);
 
-	PageableDTO<SquadDTO> findAll(int page);
+	PageableDTO<SquadDTO> findByDepartment(int departmentId, int page);
 
 	MetricAnalysisStateDTO squadState(int squadId, Date date);
 }
