@@ -6,10 +6,10 @@
         <div nxLayout="grid">
           <div nxRow>
             <div nxCol="12">
-              <span>{{ "Component.State." + metricConfig.style | translate}}</span>
+              <span>{{ 'Component.State.' + metricConfig.style | translate }}</span>
             </div>
-            <div nxCol="6" class="bold">
-              <span>{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
+            <div nxCol="6" class="application-count">
+              <span class="nx-margin-right-3xs">{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
             </div>
             <div nxCol="6">
               <a routerLink=".">{{ 'Label.ShowMore' | translate }}</a>

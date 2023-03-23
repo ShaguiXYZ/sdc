@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Optional } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   DEFAULT_HEADER_MENU,
@@ -36,12 +36,16 @@ export class UiHeaderComponent implements OnInit, OnDestroy {
   private language$!: Subscription;
 
   constructor(
-    @Inject(NX_HEADER_CONFIG) private config: IHeaderConfig = { navigation: DEFAULT_HEADER_MENU },
+    @Optional() @Inject(NX_HEADER_CONFIG) private config: IHeaderConfig,
     private languageService: HeaderLanguageService,
     private securityService: HeaderSecurityService
   ) {}
 
   ngOnInit() {
+    if (!this.config) {
+      this.config = { navigation: DEFAULT_HEADER_MENU };
+    }
+
     this.initNavigation();
 
     this.securityInfo = this.securityService.info;

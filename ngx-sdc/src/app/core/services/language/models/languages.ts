@@ -1,5 +1,7 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable @typescript-eslint/no-namespace */
+export const DEFAULT_LANGUAGE = 'en-GB';
+
 export enum Languages {
   enGB = 'en-GB',
   esCO = 'es-CO',

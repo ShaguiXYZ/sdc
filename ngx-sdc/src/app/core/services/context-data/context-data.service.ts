@@ -1,11 +1,11 @@
-/* eslint-disable max-classes-per-file */
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { NavigationEnd, PRIMARY_OUTLET, Router, UrlTree } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { APP_NAME, DEFAULT_LANGUAGE } from 'src/app/core/constants/app.constants';
+import { APP_NAME } from 'src/app/core/constants/app.constants';
 import { DataInfo } from 'src/app/core/interfaces/dataInfo';
 import { deepCopy, UniqueIds } from '../../lib';
+import { DEFAULT_LANGUAGE } from '../language';
 import {
   ContextConfig,
   ContextData,
@@ -31,10 +31,11 @@ export class UiAppContextDataService {
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
-  constructor(
-    @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig = { lang: DEFAULT_LANGUAGE, home: '', urls: {} },
-    private router: Router
-  ) {
+  constructor(@Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig, private router: Router) {
+    if (!contextConfig) {
+      contextConfig = { lang: DEFAULT_LANGUAGE, home: '', urls: {} };
+    }
+
     this.contextStorage = {
       contextData: {},
       cache: {}
@@ -143,14 +144,16 @@ export class UiAppContextDataService {
         const keys = Object.keys(this.contextStorage.contextData);
 
         keys
-          .filter(key => !this.contextStorage.contextData[key].protected())
+          .filter(key => {
+            console.log(key, this.contextStorage.contextData[key]);
+            return !this.contextStorage.contextData[key].protected();
+          })
           .forEach(key => this.delete(key));
       } else {
-        urlInfo.resetData?.forEach(value => this.delete(value));
+        urlInfo?.resetData?.forEach(value => this.delete(value));
       }
 
       console.log('Context Storage', this.contextStorage);
-
     });
   }
 

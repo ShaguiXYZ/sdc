@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
-import { HttpStatus } from 'src/app/core/constants/app.constants';
 import { environment } from 'src/environments/environment';
 import { UiHttpService } from '..';
 import { UniqueIds } from '../../lib';
@@ -16,6 +15,7 @@ import {
   ISquadDTO,
   ISquadModel
 } from '../../models/sdc';
+import { HttpStatus } from '../http';
 
 const _SQUADS_CACHE_ID_ = `_${UniqueIds.next()}_`;
 
@@ -43,7 +43,7 @@ export class SquadService {
       this.http
         .get<IPageableDTO<ISquadDTO>>(`${this._urlSquads}/squads/${department.id}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' },
+            [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
           },
           cache: _SQUADS_CACHE_ID_
         })

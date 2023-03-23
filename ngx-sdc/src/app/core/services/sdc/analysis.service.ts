@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
-import { HttpStatus } from 'src/app/core/constants/app.constants';
 import { environment } from 'src/environments/environment';
 import { UiHttpService } from '..';
-import {
-  IMetricAnalysisDTO,
-  IMetricAnalysisModel,
-  IPageableDTO,
-  IPageableModel,
-  IPagingModel
-} from '../../models/sdc';
+import { IMetricAnalysisDTO, IMetricAnalysisModel, IPageableDTO, IPageableModel, IPagingModel } from '../../models/sdc';
+import { HttpStatus } from '../http';
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {

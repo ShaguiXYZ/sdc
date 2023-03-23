@@ -18,15 +18,17 @@ import { SDC_HEADER_MENU } from './shared/config/menu';
 import { urls } from './shared/config/routing';
 import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
 import { NX_CONTEX_CONFIG } from './core/services/context-data';
+import { AppCoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AppCoreModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    NxGridModule,
     NdbxIconModule,
+    NxGridModule,
     HttpClientModule,
     RouterModule,
     TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG),

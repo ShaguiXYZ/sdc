@@ -3,7 +3,8 @@ import { filter, Observable, Subject, Subscription } from 'rxjs';
 import { ButtonConfig } from 'src/app/core/models';
 import { UiAppContextDataService, UiLanguageService } from 'src/app/core/services';
 import { CoreContextDataNames } from 'src/app/core/services/context-data';
-import { ILanguageHeader, Languages } from '../models';
+import { Languages } from 'src/app/core/services/language';
+import { ILanguageHeader } from '../models';
 
 @Injectable()
 export class HeaderLanguageService implements OnDestroy {

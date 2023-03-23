@@ -12,7 +12,8 @@
   @include define-custom-property($name, $value);
 }
 
-.bold {
+.application-count {
+  display: contents;
   font-weight: bold;
 }
 
@@ -23,6 +24,5 @@
 
 .state {
   height: 25px;
-  margin-left: 10px;
   width: 25px;
 }
