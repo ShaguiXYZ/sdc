@@ -19,6 +19,12 @@ import { urls } from './shared/config/routing';
 import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
 import { NX_CONTEX_CONFIG } from './core/services/context-data';
 import { AppCoreModule } from './core/core.module';
+import { NX_LANGUAGE_CONFIG } from './core/services/language';
+
+const SdcLanguages = {
+  ['enGB']: 'en-GB',
+  ['esES']: 'es-ES'
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,8 +41,9 @@ import { AppCoreModule } from './core/core.module';
     UiCoreComponentsModule
   ],
   providers: [
+    { provide: NX_CONTEX_CONFIG, useValue: { urls } },
+    { provide: NX_LANGUAGE_CONFIG, useValue: { languages: SdcLanguages } },
     { provide: NX_HEADER_CONFIG, useValue: { navigation: SDC_HEADER_MENU } },
-    { provide: NX_CONTEX_CONFIG, useValue: { urls } }
   ],
   bootstrap: [AppComponent]
 })

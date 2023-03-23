@@ -1,4 +1,4 @@
-<div nxLayout="grid">
+<div nxLayout="grid nopadding nogutters">
   <div nxRow>
     <div nxCol="12" class="flex-row">
       <div class="state {{ styleByMetricState(stateCount.state) }}"></div>
@@ -8,11 +8,13 @@
             <div nxCol="12">
               <span>{{ 'Component.State.' + metricConfig.style | translate }}</span>
             </div>
-            <div nxCol="6" class="application-count">
-              <span class="nx-margin-right-3xs">{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
-            </div>
-            <div nxCol="6">
-              <a routerLink=".">{{ 'Label.ShowMore' | translate }}</a>
+            <div nxCol="12" class="flex-row">
+              <div class="application-count">
+                <span class="nx-margin-right-3xs">{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
+              </div>
+              <div class="show-more">
+                <a routerLink=".">{{ 'Label.ShowMore' | translate }}</a>
+              </div>
             </div>
           </div>
         </div>

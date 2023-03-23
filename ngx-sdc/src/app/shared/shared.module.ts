@@ -18,8 +18,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {
   SdcComplianceBarCardComponent,
   SdcComplianceBarCardsComponent,
-  SdcCoverageChartComponent,
   SdcComponentsStateCountComponent,
+  SdcCoverageChartComponent,
   SdcSquadCoverageComponent,
   SdcSquadsCoverageComponent,
   SdcSquadSummaryComponent,

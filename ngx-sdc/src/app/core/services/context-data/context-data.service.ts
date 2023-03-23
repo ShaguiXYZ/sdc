@@ -4,18 +4,8 @@ import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { APP_NAME } from 'src/app/core/constants/app.constants';
 import { DataInfo } from 'src/app/core/interfaces/dataInfo';
-import { deepCopy, UniqueIds } from '../../lib';
-import { DEFAULT_LANGUAGE } from '../language';
-import {
-  ContextConfig,
-  ContextData,
-  ContextInfo,
-  IContextDataConfigurtion,
-  ICoreConfig,
-  NX_CONTEX_CONFIG,
-  RouterInfo,
-  UrlInfo
-} from './models';
+import { deepCopy } from '../../lib';
+import { ContextConfig, ContextData, ContextInfo, IContextDataConfigurtion, NX_CONTEX_CONFIG, RouterInfo, UrlInfo } from './models';
 
 export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
 
@@ -27,14 +17,11 @@ export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data
 })
 export class UiAppContextDataService {
   private _contextConfig: ContextConfig;
-  private _configKey = `_${UniqueIds.next()}_`;
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
   constructor(@Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig, private router: Router) {
-    if (!contextConfig) {
-      contextConfig = { lang: DEFAULT_LANGUAGE, home: '', urls: {} };
-    }
+    contextConfig = contextConfig || { home: '', urls: {} };
 
     this.contextStorage = {
       contextData: {},
@@ -42,14 +29,9 @@ export class UiAppContextDataService {
     };
 
     this.subject$ = new Subject<string>();
-    this._contextConfig = { ...{ lang: DEFAULT_LANGUAGE, home: '', urls: {} }, ...contextConfig };
+    this._contextConfig = { ...{ home: '', urls: {} }, ...contextConfig };
 
     this.sessionControl();
-    this.contextStorage.cache[this._configKey] = { lang: this._contextConfig.lang };
-  }
-
-  public contextDataServiceConfiguration(): ICoreConfig {
-    return deepCopy(this.contextStorage.cache[this._configKey]);
   }
 
   /**

@@ -24,10 +24,10 @@
     "Squads": "Squads"
   },
   "Language": {
-    "en-GB": "Inglés (en-GB)",
-    "es-ES": "Castellano (es-ES)",
-    "es-CO": "Castellano (es-CO)",
-    "pt-BR": "Portugués (pt-BR)",
-    "pt-PT": "Portugués (pt-PT)"
+    "enGB": "Inglés (en-GB)",
+    "esES": "Castellano (es-ES)",
+    "esCO": "Castellano (es-CO)",
+    "ptBR": "Portugués (pt-BR)",
+    "ptPT": "Portugués (pt-PT)"
   }
 }

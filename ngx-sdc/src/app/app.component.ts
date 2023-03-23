@@ -1,10 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, LOCALE_ID, OnDestroy, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { UiAppContextDataService, UiLanguageService, UiSessionService } from './core/services';
 import { ContextDataNames } from './shared/config/context-info';
-import { CoreContextDataNames } from './core/services/context-data';
 
 @Component({
   selector: 'app-root',
@@ -21,23 +19,18 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(LOCALE_ID) private locale: string,
     private contextData: UiAppContextDataService,
     private languageService: UiLanguageService,
-    private translate: TranslateService,
     private sessionService: UiSessionService
   ) {}
 
   ngOnInit(): void {
-    const appConfig = this.contextData.contextDataServiceConfiguration();
-
     this.sessionService.sdcSession().then(session => {
       this.contextData.setContextData(ContextDataNames.sdcSessionData, session, { persistent: true });
       this.sessionLoaded = true;
     });
 
-    this.translate.setDefaultLang(appConfig.lang);
-    this.document.documentElement.lang = this.translate.getDefaultLang() || this.locale || appConfig.lang;
+   this.document.documentElement.lang = this.languageService.getLang() || this.locale;
 
     this.language$ = this.languageService.asObservable().subscribe((lang: string) => {
-      this.translate.setDefaultLang(lang);
       this.document.documentElement.lang = lang;
     });
   }

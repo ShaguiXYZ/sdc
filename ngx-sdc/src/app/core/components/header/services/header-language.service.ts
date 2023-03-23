@@ -1,9 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { filter, Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { ButtonConfig } from 'src/app/core/models';
-import { UiAppContextDataService, UiLanguageService } from 'src/app/core/services';
-import { CoreContextDataNames } from 'src/app/core/services/context-data';
-import { Languages } from 'src/app/core/services/language';
+import { UiLanguageService } from 'src/app/core/services';
 import { ILanguageHeader } from '../models';
 
 @Injectable()
@@ -12,20 +10,16 @@ export class HeaderLanguageService implements OnDestroy {
   private languageChange$: Subject<ILanguageHeader>;
   private language$: Subscription;
 
-  constructor(private contextData: UiAppContextDataService, private languageService: UiLanguageService) {
-    const appConfig = this.contextData.contextDataServiceConfiguration();
+  constructor(private languageService: UiLanguageService) {
     this.languageChange$ = new Subject<ILanguageHeader>();
 
-    this._info.currentLanguage = appConfig.lang;
-    this.languageOptions(this._info.currentLanguage as Languages);
+    this._info.currentLanguage = this.languageService.getLang();
+    this.languageOptions();
 
-    this.language$ = this.contextData
-      .onDataChange()
-      .pipe(filter(key => key === CoreContextDataNames.appConfig))
-      .subscribe(() => {
-        this._info.currentLanguage = appConfig.lang;
-        this.languageOptions(this._info.currentLanguage as Languages);
-      });
+    this.language$ = this.languageService.asObservable().subscribe(key => {
+      this._info.currentLanguage = key;
+      this.languageOptions();
+    });
   }
 
   public ngOnDestroy() {
@@ -40,17 +34,19 @@ export class HeaderLanguageService implements OnDestroy {
     return this.languageChange$.asObservable();
   }
 
-  private languageOptions(currentLanguage: Languages) {
+  private languageOptions() {
     this._info.languageButtons = [];
-    const languageKeys = Languages.keys();
+    const languageKeys = Object.keys(this.languageService.getLanguages());
 
     languageKeys
-      .filter(lang => Languages.valueOf(lang) !== currentLanguage)
+      .filter(lang => lang !== this._info.currentLanguage)
       .forEach(key => {
-        const languageButton = new ButtonConfig(`Language.${Languages.valueOf(key)}`);
+        const languageButton = new ButtonConfig(`Language.${key}`);
+
         languageButton.options = {
-          language: Languages.valueOf(key)
+          language: key
         };
+
         languageButton.callback = (options: any) => this.languageService.i18n(options.language);
         this._info.languageButtons = this._info.languageButtons.concat(languageButton);
       });

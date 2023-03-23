@@ -13,14 +13,12 @@ export interface ContextInfo {
 }
 
 export enum CoreContextDataNames {
-  appConfig = 'app_Config',
   securityInfo = 'security_info'
 }
 
 export const NX_CONTEX_CONFIG = new InjectionToken<ContextConfig>('NX_CONTEX_CONFIG');
 
 export interface ContextConfig {
-  lang: string;
   home: string;
   urls: RouteConfig;
 }
