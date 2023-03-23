@@ -1,0 +1,28 @@
+@import '../../../shared/styles/colors';
+
+// Defines a custom property
+@mixin define-custom-property($name, $value) {
+  .state#{custom-property-color($name)} {
+    background-color: $value;
+    border-radius: 50%;
+  }
+}
+
+@each $name, $value in $coverage-colors {
+  @include define-custom-property($name, $value);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.flex-row {
+  align-items: center;
+  display: flex;
+}
+
+.state {
+  height: 25px;
+  margin-left: 10px;
+  width: 25px;
+}

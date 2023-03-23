@@ -1,3 +1,26 @@
 .coverage-content {
   height: 50px;
+
+  .coverage-row {
+    align-items: center;
+    display: flex;
+
+    .coverage-chart {
+      height: 100px;
+    }
+
+    .coverage-text {
+      width: inherit;
+    }
+  }
+
+  &::ng-deep .pie-grid {
+    .percent-label {
+      font-size: 10px;
+    }
+
+    .label:last-of-type {
+      display: none;
+    }
+  }
 }

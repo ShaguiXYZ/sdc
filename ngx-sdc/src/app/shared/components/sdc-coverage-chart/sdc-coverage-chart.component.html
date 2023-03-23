@@ -3,9 +3,17 @@
   [animations]="false"
   [designatedTotal]="100"
   [results]="[coverage]"
+  [scheme]="scheme"
   [tooltipDisabled]="true"
   [view]="size"
 >
 </ngx-charts-pie-grid>
-<ngx-charts-pie-grid *ngIf="!size" [animations]="false" [designatedTotal]="100" [results]="[coverage]" [tooltipDisabled]="true">
+<ngx-charts-pie-grid
+  *ngIf="!size"
+  [animations]="false"
+  [designatedTotal]="100"
+  [results]="[coverage]"
+  [scheme]="scheme"
+  [tooltipDisabled]="true"
+>
 </ngx-charts-pie-grid>

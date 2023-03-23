@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { ICoverageChartModel } from './models';
 
 @Component({
@@ -11,4 +12,13 @@ export class SdcCoverageChartComponent {
   public coverage!: ICoverageChartModel;
   @Input()
   public size?: [number, number];
+  @Input()
+  public color!: any;
+
+  public scheme: Color = {
+    name: 'coverage',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: [this.color]
+  };
 }

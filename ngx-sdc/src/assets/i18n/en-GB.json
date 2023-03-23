@@ -1,7 +1,14 @@
 {
   "ComplianceCard": {
-    "ProcessDate": "Date of process",
-    "ShowMore": "Show more"
+    "ProcessDate": "Date of process"
+  },
+  "Component": {
+    "State": {
+      "critical": "critical",
+      "with_risk": "with risk",
+      "acceptable": "acceptable",
+      "perfect": "perfect"
+    }
   },
   "Header": {
     "Help": "Help",
@@ -12,6 +19,8 @@
     "Title": "Software Development Console"
   },
   "Label": {
+    "Applications": "Applications",
+    "ShowMore": "Show more",
     "Squads": "Squads"
   },
   "Language": {

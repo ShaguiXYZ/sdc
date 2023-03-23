@@ -19,9 +19,11 @@ import {
   SdcComplianceBarCardComponent,
   SdcComplianceBarCardsComponent,
   SdcCoverageChartComponent,
+  SdcComponentsStateCountComponent,
   SdcSquadCoverageComponent,
   SdcSquadsCoverageComponent,
-  SdcSquadSummaryComponent
+  SdcSquadSummaryComponent,
+  SdcStateCountComponent
 } from './components';
 
 @NgModule({
@@ -29,9 +31,11 @@ import {
     SdcComplianceBarCardComponent,
     SdcComplianceBarCardsComponent,
     SdcCoverageChartComponent,
+    SdcComponentsStateCountComponent,
     SdcSquadCoverageComponent,
+    SdcSquadSummaryComponent,
     SdcSquadsCoverageComponent,
-    SdcSquadSummaryComponent
+    SdcStateCountComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +56,6 @@ import {
     ReactiveFormsModule,
     TranslateModule
   ],
-  exports: [SdcComplianceBarCardsComponent, SdcSquadsCoverageComponent, SdcSquadSummaryComponent]
+  exports: [SdcComplianceBarCardsComponent, SdcSquadSummaryComponent, SdcSquadsCoverageComponent]
 })
 export class AppSharedModule {}

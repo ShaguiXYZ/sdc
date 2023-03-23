@@ -1,16 +1,10 @@
 <div *ngIf="summary" nxLayout="grid nopadding nogutters">
   <div nxRow>
     <div nxCol="6">
-      <div nxLayout="grid nopadding nogutters">
-        <div nxRow>
-          <div nxCol="12">
-            <sdc-squad-summary [squad]="summary['squad']"></sdc-squad-summary>
-          </div>
-          <div nxCol="12">
-            <sdc-compliance-bar-cards [components]="summary['components']"></sdc-compliance-bar-cards>
-          </div>
-        </div>
+      <div class="summary nx-margin-s">
+        <sdc-squad-summary [components]="summary['components']" [squad]="summary['squad']"></sdc-squad-summary>
       </div>
+      <sdc-compliance-bar-cards [components]="summary['components']"></sdc-compliance-bar-cards>
     </div>
     <div nxCol="6">
       <sdc-squads-coverage [squads]="summary['squads']"></sdc-squads-coverage>

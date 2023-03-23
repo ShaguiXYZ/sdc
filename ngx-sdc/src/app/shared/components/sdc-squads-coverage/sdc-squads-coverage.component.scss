@@ -1,0 +1,14 @@
+.card-content {
+  height: 100%;
+  position: relative;
+
+  nx-card {
+    border-radius: 4px;
+    bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    position: absolute;
+    top: 0;
+    width: -webkit-fill-available;
+  }
+}

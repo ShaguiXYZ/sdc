@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ISquadModel } from 'src/app/core/models/sdc';
+import { Color } from '../../constants/colors';
 
 @Component({
   selector: 'sdc-squad-coverage',
@@ -9,4 +10,6 @@ import { ISquadModel } from 'src/app/core/models/sdc';
 export class SdcSquadCoverageComponent {
   @Input()
   public squad!: ISquadModel;
+
+  public chartColor = Color.COVERAGE_CHART;
 }
