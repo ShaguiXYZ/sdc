@@ -1,7 +1,3 @@
-<div nxLayout="grid">
-  <div nxRow>
-    <div *ngFor="let count of counts" nxCol="12" class="nx-margin-y-2xs">
-      <sdc-state-count [stateCount]="count"></sdc-state-count>
-    </div>
-  </div>
+<div *ngFor="let count of counts; last as isLast" [ngClass]="{ 'nx-margin-bottom-2xs': !isLast }">
+  <sdc-state-count [stateCount]="count"></sdc-state-count>
 </div>

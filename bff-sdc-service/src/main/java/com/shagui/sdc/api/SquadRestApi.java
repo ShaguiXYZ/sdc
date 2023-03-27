@@ -24,6 +24,11 @@ public interface SquadRestApi {
 	SquadView squad(@PathVariable @Parameter(description = "Squad identifier") int squadId);
 
 	@Operation(summary = "Retrieve available squads")
+	@GetMapping("squads")
+	PageableView<SquadView> squads(
+			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
+
+	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads/{departmentId}")
 	PageableView<SquadView> squads(@PathVariable @Parameter(description = "Department identifier") int departmentId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);

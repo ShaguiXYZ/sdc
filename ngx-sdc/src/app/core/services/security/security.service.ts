@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISessionModel, IUserDTO, IUserModel } from '../../models/security';
 import { UiSecurityInfo } from '../../models/security/security.model';
-import { contextStorageID, UiAppContextDataService } from '../context-data/context-data.service';
+import { contextStorageID, UiContextDataService } from '../context-data/context-data.service';
 import { CoreContextDataNames } from '../context-data/models';
 import { HttpStatus, UiHttpService } from '../http';
 
@@ -15,7 +15,7 @@ export class UiSecurityService {
   private _urlSecurity = `${environment.securityUrl}/bff-security/api`;
   private signIn$: Subject<ISessionModel> = new Subject();
 
-  constructor(private contextData: UiAppContextDataService, private http: UiHttpService) {}
+  constructor(private contextData: UiContextDataService, private http: UiHttpService) {}
 
   public get session(): ISessionModel {
     return this.securityInfo()?.session;
@@ -30,7 +30,6 @@ export class UiSecurityService {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
   public get user(): IUserModel {
     return this.securityInfo()?.user;
   }

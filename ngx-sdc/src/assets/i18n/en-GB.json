@@ -10,6 +10,11 @@
       "perfect": "perfect"
     }
   },
+  "Dropdown": {
+    "Filter": {
+      "Squad": "Type to search squad"
+    }
+  },
   "Header": {
     "Help": "Help",
     "Menu": {

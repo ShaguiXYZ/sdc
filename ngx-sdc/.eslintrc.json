@@ -35,10 +35,8 @@
             "type": "element",
             "prefix": [
               "app",
-              "ui",
               "cr",
-              "sc-nx",
-              "nx-ibl",
+              "nx",
               "sdc"
             ],
             "style": "kebab-case"

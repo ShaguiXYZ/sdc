@@ -23,7 +23,7 @@ const imagesIconMenu = {
 };
 
 @Component({
-  selector: 'ui-header',
+  selector: 'nx-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   providers: [HeaderLanguageService, HeaderSecurityService]
@@ -51,9 +51,7 @@ export class UiHeaderComponent implements OnInit, OnDestroy {
     this.securityInfo = this.securityService.info;
     this.languageInfo = this.languageService.info;
 
-    this.language$ = this.languageService.onLanguageChange().subscribe(info => {
-      this.languageInfo = info;
-    });
+    this.language$ = this.languageService.onLanguageChange().subscribe(info => (this.languageInfo = info));
   }
 
   ngOnDestroy() {

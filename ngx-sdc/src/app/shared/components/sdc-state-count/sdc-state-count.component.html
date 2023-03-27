@@ -1,23 +1,13 @@
-<div nxLayout="grid nopadding nogutters">
-  <div nxRow>
-    <div nxCol="12" class="flex-row">
-      <div class="state {{ styleByMetricState(stateCount.state) }}"></div>
-      <div>
-        <div nxLayout="grid">
-          <div nxRow>
-            <div nxCol="12">
-              <span>{{ 'Component.State.' + metricConfig.style | translate }}</span>
-            </div>
-            <div nxCol="12" class="flex-row">
-              <div class="application-count">
-                <span class="nx-margin-right-3xs">{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
-              </div>
-              <div class="show-more">
-                <a routerLink=".">{{ 'Label.ShowMore' | translate }}</a>
-              </div>
-            </div>
-          </div>
-        </div>
+<div class="state-content">
+  <div class="state-color {{ styleByMetricState(stateCount.state) }}"></div>
+  <div class="state-info">
+    <span>{{ 'Component.State.' + metricConfig.style | translate | titlecase }}</span>
+    <div class="flex-row">
+      <div class="application-count">
+        <span class="nx-margin-right-m">{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
+      </div>
+      <div class="show-more align-right">
+        <a routerLink=".">{{ 'Label.ShowMore' | translate }}</a>
       </div>
     </div>
   </div>

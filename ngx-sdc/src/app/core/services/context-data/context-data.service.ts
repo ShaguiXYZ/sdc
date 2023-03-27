@@ -3,9 +3,18 @@ import { NavigationEnd, PRIMARY_OUTLET, Router, UrlTree } from '@angular/router'
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { APP_NAME } from 'src/app/core/constants/app.constants';
-import { DataInfo } from 'src/app/core/interfaces/dataInfo';
+import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { deepCopy } from '../../lib';
-import { ContextConfig, ContextData, ContextInfo, IContextDataConfigurtion, NX_CONTEX_CONFIG, RouterInfo, UrlInfo } from './models';
+import {
+  ContextConfig,
+  ContextData,
+  ContextInfo,
+  IContextData,
+  IContextDataConfigurtion,
+  NX_CONTEX_CONFIG,
+  RouterInfo,
+  UrlInfo
+} from './models';
 
 export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
 
@@ -15,7 +24,7 @@ export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data
 @Injectable({
   providedIn: 'root'
 })
-export class UiAppContextDataService {
+export class UiContextDataService {
   private _contextConfig: ContextConfig;
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
@@ -52,11 +61,16 @@ export class UiAppContextDataService {
    */
   public getContextData(key?: string): any {
     if (key) {
-      return deepCopy(this.contextStorage.contextData[key]?.data);
+      const contextData = this.contextStorage.contextData[key];
+      if (contextData?.configuration.referenced) {
+        return this.contextStorage.contextData[key]?.data;
+      } else {
+        return deepCopy(this.contextStorage.contextData[key]?.data);
+      }
     } else {
       const contextDataValues: DataInfo = {};
       Object.keys(this.contextStorage.contextData).forEach(
-        contextKey => (contextDataValues[contextKey] = this.contextStorage.contextData[contextKey].data)
+        contextKey => (contextDataValues[contextKey] = deepCopy(this.contextStorage.contextData[contextKey].data))
       );
       return contextDataValues;
     }
@@ -68,7 +82,13 @@ export class UiAppContextDataService {
    * @param key Key of the variable in context
    * @param data data to save in the storage
    */
-  public setContextData(key: string, data: any, configuration: IContextDataConfigurtion = {}): void {
+  public setContextData(key: string, data: any, configuration: IContextDataConfigurtion = { persistent: true }): void {
+    const contextDataValue = this.contextStorage.contextData[key];
+
+    if (contextDataValue && contextDataValue.configuration.readonly) {
+      throw new Error(`${key} is read only`);
+    }
+
     this.addContextData(key, data, configuration);
     this.subject$.next(key);
   }
@@ -82,8 +102,8 @@ export class UiAppContextDataService {
     delete this.contextStorage.contextData[key];
   }
 
-  private addContextData(key: string, data: any, configuration: IContextDataConfigurtion = {}, isCore: boolean = false): ContextData {
-    const contextData = new ContextData(data, configuration || {}, isCore);
+  private addContextData(key: string, data: any, configuration: IContextDataConfigurtion = {}): ContextData {
+    const contextData = new ContextData(data, configuration || {});
     this.contextStorage.contextData[key] = contextData;
 
     return contextData;
@@ -110,7 +130,14 @@ export class UiAppContextDataService {
     const sessionData = sessionStorage.getItem(contextStorageID);
 
     if (sessionData) {
-      this.contextStorage.contextData = JSON.parse(sessionData);
+      const data: GenericDataInfo<IContextData> = JSON.parse(sessionData);
+
+      console.log('Recovering:', data);
+
+      Object.keys(data).forEach(key => {
+        this.addContextData(key, data[key]);
+      });
+
       sessionStorage.removeItem(contextStorageID);
     }
   };

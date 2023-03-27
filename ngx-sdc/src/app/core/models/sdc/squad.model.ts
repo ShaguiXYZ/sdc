@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-redeclare */
+/* eslint-disable @typescript-eslint/no-namespace */
 import { IDepartmentDTO, IDepartmentModel } from './department.model';
 
 export interface ISquadDTO {

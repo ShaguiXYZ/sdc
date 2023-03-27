@@ -1,6 +1,6 @@
-<div *ngIf="components" nxLayout="grid">
+<div *ngIf="components" nxLayout="grid nogutters">
   <div nxRow>
-    <div *ngFor="let component of components" class="nx-margin-bottom-s" nxCol="12">
+    <div nxCol="12" *ngFor="let component of components; first as isFirst; last as isLast; index as index" [ngClass]="{ 'nx-margin-bottom-3xs': !isLast }">
       <sdc-compliance-bar-card [component]="component"></sdc-compliance-bar-card>
     </div>
   </div>

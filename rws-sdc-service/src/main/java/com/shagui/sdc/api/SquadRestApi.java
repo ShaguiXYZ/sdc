@@ -26,8 +26,14 @@ public interface SquadRestApi {
 	SquadDTO squad(@PathVariable @Parameter(description = "Squad identifier") int squadId);
 
 	@Operation(summary = "Retrieve available squads")
+	@GetMapping("squads")
+	PageableDTO<SquadDTO> squads(
+			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
+
+	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads/{departmentId}")
-	PageableDTO<SquadDTO> squads(@PathVariable @Parameter(description = "Department identifier") int departmentId,
+	PageableDTO<SquadDTO> squadsByDepartment(
+			@PathVariable @Parameter(description = "Department identifier") int departmentId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 
 	@GetMapping("squad/{squadId}/state")

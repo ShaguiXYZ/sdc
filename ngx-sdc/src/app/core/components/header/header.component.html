@@ -116,7 +116,7 @@
         <nx-icon name="user-business-o"></nx-icon>{{ securityInfo.currentUser?.userName }}
       </nx-link>
       <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="language">
-        <nx-icon name="product-world-globe"></nx-icon>{{ languageInfo.currentLanguage }}
+        <nx-icon name="product-world-globe"></nx-icon>{{ 'Language.' + languageInfo.currentLanguage | translate }}
       </nx-link>
     </nx-header-actions>
   </ng-container>

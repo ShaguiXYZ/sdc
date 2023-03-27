@@ -6,13 +6,14 @@ export interface IContextData {
 export interface IContextDataConfigurtion {
   readonly?: boolean;
   persistent?: boolean;
+  referenced?: boolean;
 }
 
 export class ContextData implements IContextData {
   private _data: any;
   private _configuration: IContextDataConfigurtion;
 
-  constructor(data: any, configuration: IContextDataConfigurtion = {}, public isCore: boolean = false) {
+  constructor(data: any, configuration: IContextDataConfigurtion = {}) {
     this._data = data;
     this._configuration = configuration;
   }
@@ -29,6 +30,6 @@ export class ContextData implements IContextData {
   }
 
   public protected(): boolean {
-    return this.isCore || this.configuration?.persistent || false;
+    return this.configuration?.persistent || false;
   }
 }

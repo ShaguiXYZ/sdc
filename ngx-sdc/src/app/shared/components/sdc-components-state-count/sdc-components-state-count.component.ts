@@ -18,8 +18,6 @@ export class SdcComponentsStateCountComponent {
   set components(value: IComponentModel[]) {
     this._components = value;
     this.counts = this.stateCounts();
-
-    console.log(this.counts);
   }
 
   private stateCounts(): IStateCount[] {

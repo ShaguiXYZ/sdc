@@ -26,6 +26,11 @@ public class SquadController implements SquadRestApi {
 	}
 
 	@Override
+	public PageableView<SquadView> squads(Integer page) {
+		return Mapper.parse(squadService.squads(page));
+	}
+
+	@Override
 	public PageableView<SquadView> squads(int departmentId, Integer page) {
 		return Mapper.parse(squadService.squads(departmentId, page));
 	}

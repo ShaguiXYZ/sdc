@@ -6,18 +6,18 @@ import { ILanguageHeader } from '../models';
 
 @Injectable()
 export class HeaderLanguageService implements OnDestroy {
-  private _info: ILanguageHeader = { languageButtons: [] };
+  private _languageInfo: ILanguageHeader = { languageButtons: [] };
   private languageChange$: Subject<ILanguageHeader>;
   private language$: Subscription;
 
   constructor(private languageService: UiLanguageService) {
     this.languageChange$ = new Subject<ILanguageHeader>();
 
-    this._info.currentLanguage = this.languageService.getLang();
+    this._languageInfo.currentLanguage = this.languageService.getLang();
     this.languageOptions();
 
     this.language$ = this.languageService.asObservable().subscribe(key => {
-      this._info.currentLanguage = key;
+      this._languageInfo.currentLanguage = key;
       this.languageOptions();
     });
   }
@@ -27,7 +27,7 @@ export class HeaderLanguageService implements OnDestroy {
   }
 
   get info(): ILanguageHeader {
-    return this._info;
+    return this._languageInfo;
   }
 
   public onLanguageChange(): Observable<ILanguageHeader> {
@@ -35,11 +35,11 @@ export class HeaderLanguageService implements OnDestroy {
   }
 
   private languageOptions() {
-    this._info.languageButtons = [];
+    this._languageInfo.languageButtons = [];
     const languageKeys = Object.keys(this.languageService.getLanguages());
 
     languageKeys
-      .filter(lang => lang !== this._info.currentLanguage)
+      .filter(lang => lang !== this._languageInfo.currentLanguage)
       .forEach(key => {
         const languageButton = new ButtonConfig(`Language.${key}`);
 
@@ -48,9 +48,9 @@ export class HeaderLanguageService implements OnDestroy {
         };
 
         languageButton.callback = (options: any) => this.languageService.i18n(options.language);
-        this._info.languageButtons = this._info.languageButtons.concat(languageButton);
+        this._languageInfo.languageButtons = this._languageInfo.languageButtons.concat(languageButton);
       });
 
-    this.languageChange$.next(this._info);
+    this.languageChange$.next(this._languageInfo);
   }
 }

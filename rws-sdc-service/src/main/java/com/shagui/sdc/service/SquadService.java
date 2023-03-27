@@ -9,6 +9,10 @@ import com.shagui.sdc.api.dto.SquadDTO;
 public interface SquadService {
 	SquadDTO findById(int squadId);
 
+	PageableDTO<SquadDTO> findAll();
+
+	PageableDTO<SquadDTO> findAll(int page);
+	
 	PageableDTO<SquadDTO> findByDepartment(int department);
 
 	PageableDTO<SquadDTO> findByDepartment(int departmentId, int page);

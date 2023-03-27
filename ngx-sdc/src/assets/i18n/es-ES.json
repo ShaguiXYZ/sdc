@@ -5,9 +5,14 @@
   "Component": {
     "State": {
       "critical": "critica",
-      "with_risk": "con riesgo risk",
+      "with_risk": "con riesgo",
       "acceptable": "aceptable",
       "perfect": "perfecto"
+    }
+  },
+  "Dropdown": {
+    "Filter": {
+      "Squad": "Filtra Squads"
     }
   },
   "Header": {

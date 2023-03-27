@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { DataInfo } from 'src/app/core/interfaces/dataInfo';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ISdcSessionData } from 'src/app/core/models/session/session.model';
-import { SquadService, UiAppContextDataService } from 'src/app/core/services';
+import { SquadService, UiContextDataService } from 'src/app/core/services';
 import { ContextDataNames } from 'src/app/shared/config/context-info';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class SdcSummaryService {
   private summary$: Subject<DataInfo>;
   private data!: DataInfo;
 
-  constructor(private contextData: UiAppContextDataService, private squadService: SquadService) {
+  constructor(private contextData: UiContextDataService, private squadService: SquadService) {
     const sessionData: ISdcSessionData = this.contextData.getContextData(ContextDataNames.sdcSessionData);
 
     this.summary$ = new Subject();
@@ -28,7 +28,7 @@ export class SdcSummaryService {
     this.squadService.squad(squadId).then(squad => {
       this.data['squad'] = squad;
       this.components(squad);
-      this.squads(squad.department);
+      this.squads();
     });
   }
 
@@ -39,8 +39,8 @@ export class SdcSummaryService {
     });
   }
 
-  private squads(department: IDepartmentModel): void {
-    this.squadService.squads(department).then(pageable => {
+  private squads(): void {
+    this.squadService.squads().then(pageable => {
       this.data['squads'] = pageable.page;
       this.summary$.next(this.data);
     });

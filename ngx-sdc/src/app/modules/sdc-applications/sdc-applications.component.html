@@ -1,25 +1,28 @@
-<div>
-  <form [formGroup]="form">
-    <div nxLayout="grid nopadding nogutters" nog>
-      <div nxRow>
-        <div nxCol="12">
-          <h1>Sdc Test Page</h1>
-        </div>
-      </div>
-
-      <div nxRow>
-        <div nxCol="12">
-          <nx-formfield [nxLabel]="'Label.Squads' | translate">
-            <nx-dropdown name="allLobs" formControlName="squadId">
-              <nx-dropdown-item *ngFor="let item of squads" [nxValue]="item.id">
-                {{ item.name }}
-              </nx-dropdown-item>
-            </nx-dropdown>
-          </nx-formfield>
-          <h2 *ngIf="applicationsInfo">Coverage: {{ applicationsInfo.coverage }}</h2>
-        </div>
+<form [formGroup]="form">
+  <div nxLayout="grid nogutters">
+    <div nxRow>
+      <div nxCol="12">
+        <nx-formfield [nxLabel]="'Label.Squads' | translate">
+          <nx-dropdown
+            name="allLobs"
+            formControlName="squadId"
+            [nxShowFilter]="true"
+            [nxFilterPlaceholder]="'Dropdown.Filter.Squad' | translate"
+          >
+            <nx-dropdown-item *ngFor="let item of squads" [nxValue]="item.id">
+              {{ item.name }}
+            </nx-dropdown-item>
+          </nx-dropdown>
+        </nx-formfield>
+        <h2 *ngIf="applicationsInfo">Coverage: {{ applicationsInfo.coverage }}</h2>
       </div>
     </div>
-  </form>
-  <sdc-compliance-bar-cards *ngIf="applicationsInfo" [components]="applicationsInfo.components"></sdc-compliance-bar-cards>
+  </div>
+</form>
+<div nxLayout="grid nogutters">
+  <div nxRow>
+    <div nxCol="12">
+      <sdc-compliance-bar-cards *ngIf="applicationsInfo" [components]="applicationsInfo.components"></sdc-compliance-bar-cards>
+    </div>
+  </div>
 </div>

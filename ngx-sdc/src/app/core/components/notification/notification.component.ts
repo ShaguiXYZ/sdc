@@ -4,7 +4,7 @@ import { NotificationModel } from './models';
 import { UiNotificationService } from './services';
 
 @Component({
-  selector: 'ui-notification',
+  selector: 'nx-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })

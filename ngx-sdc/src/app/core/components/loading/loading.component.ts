@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { UiLoadingService } from './services';
 
 @Component({
-  selector: 'ui-loading',
+  selector: 'nx-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss']
 })

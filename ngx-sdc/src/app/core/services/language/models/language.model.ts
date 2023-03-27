@@ -1,7 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { APP_NAME } from 'src/app/core/constants/app.constants';
 
-export const DEFAULT_LANGUAGE = 'en-GB';
 export const SESSION_LANGUAGE_KEY = `${APP_NAME.toUpperCase()}_LANGUAGE_CONFIG`;
 
 export const Languages = {

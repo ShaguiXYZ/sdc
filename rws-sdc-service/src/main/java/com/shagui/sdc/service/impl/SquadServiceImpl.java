@@ -39,9 +39,21 @@ public class SquadServiceImpl implements SquadService {
 	}
 
 	@Override
+	public PageableDTO<SquadDTO> findAll() {
+		return squadRepository.findAll().stream().map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getName))
+				.collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public PageableDTO<SquadDTO> findAll(int page) {
+		return squadRepository.findAll(page).stream().map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getName))
+				.collect(SdcCollectors.toPageable());
+	}
+
+	@Override
 	public PageableDTO<SquadDTO> findByDepartment(int departmentId) {
 		return squadRepository.repository().findByDepartment(new DepartmentModel(departmentId)).stream()
-				.map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getId)).collect(SdcCollectors.toPageable());
+				.map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getName)).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
@@ -49,7 +61,7 @@ public class SquadServiceImpl implements SquadService {
 		Page<SquadModel> squads = squadRepository.repository().findByDepartment(new DepartmentModel(departmentId),
 				JpaCommonRepository.getPageable(page));
 
-		return squads.stream().map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getId))
+		return squads.stream().map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getName))
 				.collect(SdcCollectors.toPageable(squads));
 	}
 

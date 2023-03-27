@@ -3,8 +3,23 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 @import '@angular/cdk/a11y-prebuilt.css';
 
+@import '../src/app/shared/styles/colors';
+
 .sdc-center {
   align-items: center;
   display: flex;
   justify-content: center;
 }
+
+
+.sdc-scrollable {
+  &::-webkit-scrollbar {
+    width: 2px;
+    background-color: $grey-lighter-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $grey-base-color;
+  }
+}
+

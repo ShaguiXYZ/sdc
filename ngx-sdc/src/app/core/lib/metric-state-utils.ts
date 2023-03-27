@@ -1,17 +1,17 @@
-import { COLOR_PREFIX } from 'src/app/core/constants/app.constants';
+const COLOR_PREFIX = 'color--';
 
 export enum StateColors {
   CRITICAL = '#EE4266',
   RISK = '#EFBE25',
   ACCEPTABLE = '#1E8927',
-  PERFECT = '#F2EFF5'
+  PERFECT = '#006192'
 }
 
 export enum AvailableMetricStates {
-  CRITICAL,
-  WITH_RISK,
+  PERFECT,
   ACCEPTABLE,
-  PERFECT
+  WITH_RISK,
+  CRITICAL
 }
 
 const DEFAULT_METRIC_STATE = AvailableMetricStates.CRITICAL;
@@ -31,12 +31,14 @@ export const MetricState: { [key in AvailableMetricStates]: MetricConfig } = {
 export const stateByCoverage = (coverage: number): AvailableMetricStates => {
   let _class = DEFAULT_METRIC_STATE;
 
-  if (coverage < MetricState[AvailableMetricStates.CRITICAL].value) {
+  if (coverage <= MetricState[AvailableMetricStates.CRITICAL].value) {
     _class = AvailableMetricStates.CRITICAL;
-  } else if (coverage < MetricState[AvailableMetricStates.WITH_RISK].value) {
+  } else if (coverage <= MetricState[AvailableMetricStates.WITH_RISK].value) {
     _class = AvailableMetricStates.WITH_RISK;
-  } else if (coverage < MetricState[AvailableMetricStates.ACCEPTABLE].value) {
+  } else if (coverage <= MetricState[AvailableMetricStates.ACCEPTABLE].value) {
     _class = AvailableMetricStates.ACCEPTABLE;
+  } else if (coverage <= MetricState[AvailableMetricStates.PERFECT].value) {
+    _class = AvailableMetricStates.PERFECT;
   }
 
   return _class;

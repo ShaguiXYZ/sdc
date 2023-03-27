@@ -2,4 +2,15 @@
 
 .squad-summary {
   background-color: $background-color-1;
+  display: flex;
+
+  .summary-content {
+    width: 100%;
+
+    >.summary-count {
+      align-items: center;
+      display: grid;
+      height: 100%;
+    }
+  }
 }

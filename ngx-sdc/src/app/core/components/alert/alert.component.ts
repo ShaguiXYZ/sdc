@@ -5,7 +5,7 @@ import { AlertModel } from './models';
 import { UiAlertService } from './services';
 
 @Component({
-  selector: 'ui-alert',
+  selector: 'nx-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss']
 })

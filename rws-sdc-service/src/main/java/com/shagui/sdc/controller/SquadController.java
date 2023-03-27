@@ -31,7 +31,16 @@ public class SquadController implements SquadRestApi {
 	}
 
 	@Override
-	public PageableDTO<SquadDTO> squads(int departmentId, Integer page) {
+	public PageableDTO<SquadDTO> squads(Integer page) {
+		if (page != null) {
+			return squadService.findAll(page);
+		} else {
+			return squadService.findAll();
+		}
+	}
+
+	@Override
+	public PageableDTO<SquadDTO> squadsByDepartment(int departmentId, Integer page) {
 		if (page != null) {
 			return squadService.findByDepartment(departmentId, page);
 		} else {

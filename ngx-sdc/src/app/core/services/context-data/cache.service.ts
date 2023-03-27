@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable, of, take } from 'rxjs';
-import { UiAppContextDataService } from './context-data.service';
+import { UiContextDataService } from './context-data.service';
 
 /**
  * Cache
@@ -9,7 +9,7 @@ import { UiAppContextDataService } from './context-data.service';
   providedIn: 'root'
 })
 export class UiCache {
-  constructor(private contextData: UiAppContextDataService) {}
+  constructor(private contextData: UiContextDataService) {}
 
   public add(key: string, data: any) {
     this.contextData.cache[key] = data;
