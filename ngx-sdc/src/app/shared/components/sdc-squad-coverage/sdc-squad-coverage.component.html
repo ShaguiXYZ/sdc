@@ -1,16 +1,8 @@
-<div *ngIf="squad" nxLayout="grid nogutters" class="coverage-content">
-  <div nxRow>
-    <div nxCol="12" class="coverage-row">
-      <div class="coverage-chart">
-        <sdc-coverage-chart
-          [coverage]="{ name: '', value: squad.coverage || 0 }"
-          [color]="chartColor"
-          [size]="[120, 120]"
-        ></sdc-coverage-chart>
-      </div>
-      <div class="coverage-text">
-        <span>{{ squad.name }}</span>
-      </div>
-    </div>
+<div *ngIf="squad" class="coverage-content">
+  <div class="coverage-chart">
+    <sdc-coverage-chart [color]="chartColor" [coverage]="{ name: '', value: squad.coverage || 0 }" [size]="55"></sdc-coverage-chart>
+  </div>
+  <div class="coverage-text">
+    <span>{{ squad.name }}</span>
   </div>
 </div>

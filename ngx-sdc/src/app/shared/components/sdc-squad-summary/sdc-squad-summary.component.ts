@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { Color } from '../../constants/colors';
+import { COVERAGE_CHART } from '../../constants/colors';
 
 @Component({
   selector: 'sdc-squad-summary',
@@ -14,5 +14,5 @@ export class SdcSquadSummaryComponent {
   @Input()
   public components!: IComponentModel[];
 
-  public chartColor = Color.COVERAGE_CHART;
+  public chartColor = COVERAGE_CHART;
 }

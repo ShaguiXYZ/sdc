@@ -14,7 +14,7 @@ import { NxModalModule } from '@aposin/ng-aquila/modal';
 import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
 import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { EchartsxModule } from 'echarts-for-angular';
 import {
   SdcComplianceBarCardComponent,
   SdcComplianceBarCardsComponent,
@@ -40,7 +40,7 @@ import {
   imports: [
     CommonModule,
     FormsModule,
-    NgxChartsModule,
+    EchartsxModule,
     NxBadgeModule,
     NxButtonModule,
     NxCardModule,

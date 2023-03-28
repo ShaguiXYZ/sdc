@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { DataInfo } from 'src/app/core/interfaces/dataInfo';
-import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { ISquadModel } from 'src/app/core/models/sdc';
 import { ISdcSessionData } from 'src/app/core/models/session/session.model';
 import { SquadService, UiContextDataService } from 'src/app/core/services';
 import { ContextDataNames } from 'src/app/shared/config/context-info';

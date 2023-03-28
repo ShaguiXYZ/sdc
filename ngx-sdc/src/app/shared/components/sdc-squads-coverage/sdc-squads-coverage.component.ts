@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { ISquadModel } from 'src/app/core/models/sdc';
 
 @Component({
   selector: 'sdc-squads-coverage',
