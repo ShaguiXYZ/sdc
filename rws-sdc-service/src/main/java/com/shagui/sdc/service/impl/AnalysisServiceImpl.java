@@ -14,13 +14,12 @@ import java.util.concurrent.Future;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
-import com.shagui.sdc.api.dto.PageableDTO;
 import com.shagui.sdc.enums.MetricType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -53,13 +52,14 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public PageableDTO<MetricAnalysisDTO> analyze(int componentId) {
+	@Transactional
+	public PageData<MetricAnalysisDTO> analyze(int componentId) {
 		ComponentModel component = componentsRepository.findById(componentId);
 
 		List<ComponentAnalysisModel> analysis = executeAsyncMetricServicesAndWait(component);
 		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(analysis);
 
-		ComponentUtils.addOrUpdateComponentPorperties(component);
+		ComponentUtils.addOrUpdateComponentPorperties(component);		
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 
@@ -68,7 +68,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public PageableDTO<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date) {
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date) {
 		return componentAnalysisRepository.repository()
 				.metricHistory(componentId, metricId, new Timestamp(date.getTime())).stream()
 				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable());

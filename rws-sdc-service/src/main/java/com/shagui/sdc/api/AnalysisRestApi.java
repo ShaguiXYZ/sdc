@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
-import com.shagui.sdc.api.dto.PageableDTO;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,11 +23,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 public interface AnalysisRestApi {
 	@PostMapping("{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	PageableDTO<MetricAnalysisDTO> analyzeComponent(
+	PageData<MetricAnalysisDTO> analyzeComponent(
 			@PathVariable @Parameter(description = "component identifier") int componentId);
 
 	@GetMapping("{componentId}/{metricId}")
-	PageableDTO<MetricAnalysisDTO> metricHistory(
+	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId,
 			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);

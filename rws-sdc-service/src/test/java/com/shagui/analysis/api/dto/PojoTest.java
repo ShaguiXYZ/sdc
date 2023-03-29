@@ -12,13 +12,13 @@ import static pl.pojo.tester.api.assertion.Method.TO_STRING;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.shagui.sdc.api.domain.PageInfo;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.api.dto.ArchitectureDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.ComponentTypeDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
-import com.shagui.sdc.api.dto.PagingDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.api.dto.sonar.ComponentSonarDTO;
 import com.shagui.sdc.api.dto.sonar.ComponentsSonarDTO;
@@ -41,7 +41,7 @@ class PojoTest {
 		assertPojoMethodsFor(MetricDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
 		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING).areWellImplemented();
 		assertPojoMethodsFor(SquadDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
-		assertPojoMethodsFor(PagingDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();		
+		assertPojoMethodsFor(PageInfo.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();		
 	}
 	
 	@Test

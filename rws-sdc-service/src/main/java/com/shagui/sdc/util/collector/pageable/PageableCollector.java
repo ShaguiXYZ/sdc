@@ -10,17 +10,17 @@ import java.util.stream.Collector;
 
 import org.springframework.data.domain.Page;
 
-import com.shagui.sdc.api.dto.PageableDTO;
-import com.shagui.sdc.api.dto.PagingDTO;
+import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.PageInfo;
 
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class PageableCollector<T> implements Collector<T, PageableAccumulator<T>, PageableDTO<T>> {
-	private PagingDTO paging;
+public class PageableCollector<T> implements Collector<T, PageableAccumulator<T>, PageData<T>> {
+	private PageInfo paging;
 	
 	public PageableCollector(Page<?> page) {
-		this.paging = new PagingDTO(page);
+		this.paging = new PageInfo(page);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class PageableCollector<T> implements Collector<T, PageableAccumulator<T>
 	}
 
 	@Override
-	public Function<PageableAccumulator<T>, PageableDTO<T>> finisher() {
+	public Function<PageableAccumulator<T>, PageData<T>> finisher() {
 		return PageableAccumulator::finish;
 	}
 

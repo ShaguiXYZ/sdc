@@ -3,14 +3,14 @@ package com.shagui.sdc.util.collector.pageable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shagui.sdc.api.dto.PageableDTO;
-import com.shagui.sdc.api.dto.PagingDTO;
+import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.PageInfo;
 
 public class PageableAccumulator<T> {
-	private PagingDTO paging;
+	private PageInfo paging;
 	private List<T> paginated = new ArrayList<>();
 	
-	public PageableAccumulator(PagingDTO paging) {
+	public PageableAccumulator(PageInfo paging) {
 		this.paging = paging;
 	}
 
@@ -19,16 +19,16 @@ public class PageableAccumulator<T> {
 	}
 	
 	public PageableAccumulator<T> combine(PageableAccumulator<T> other) {
-		PageableDTO<T> dto = other.finish();
+		PageData<T> dto = other.finish();
 		this.paginated.addAll(dto.getPage());
 		return this;
 	}
 	
-	public PageableDTO<T> finish() {
+	public PageData<T> finish() {
 		if (paging == null) {
-			paging = new PagingDTO(0, paginated.size(), 1);
+			paging = new PageInfo(0, paginated.size(), 1);
 		}
 		
-		return new PageableDTO<>(paging, paginated);
+		return new PageData<>(paging, paginated);
 	}
 }

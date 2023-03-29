@@ -9,17 +9,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.api.dto.ArchitectureDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
-import com.shagui.sdc.api.dto.ComponentHistoricalCoverageDTO;
 import com.shagui.sdc.api.dto.ComponentTypeDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
-import com.shagui.sdc.api.dto.MetricAnalysisStateDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.core.exception.ApiError;
 import com.shagui.sdc.model.ArchitectureModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
-import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTypeModel;
 import com.shagui.sdc.model.DepartmentModel;
@@ -113,21 +110,8 @@ public class Mapper {
 		return target;
 	}
 
-	public static SquadModel parse(SquadDTO source) {
-		return config.getObjectMapper().convertValue(source, SquadModel.class);
-	}
-
 	public static SquadDTO parse(SquadModel source) {
-		MetricAnalysisStateDTO metricState = config.squadService.squadState(source.getId(), new Date());
-
 		SquadDTO target = new SquadDTO(source.getId(), source.getName(), Mapper.parse(source.getDepartment()),
-				metricState.getCoverage());
-
-		return target;
-	}
-
-	public static ComponentHistoricalCoverageDTO parse(ComponentHistoricalCoverageModel source) {
-		ComponentHistoricalCoverageDTO target = new ComponentHistoricalCoverageDTO(source.getId().getAnalysisDate(),
 				source.getCoverage());
 
 		return target;

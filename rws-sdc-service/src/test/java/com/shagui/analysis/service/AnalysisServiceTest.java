@@ -15,8 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
-import com.shagui.sdc.api.dto.PageableDTO;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.MetricModel;
@@ -70,13 +70,13 @@ class AnalysisServiceTest {
 		Optional<ComponentModel> opComponentModel = Optional.of(componentModel);
 
 		when(componentsRepository.findById(any())).thenReturn(opComponentModel);
-		PageableDTO<MetricAnalysisDTO> analyze = service.analyze(1);
+		PageData<MetricAnalysisDTO> analyze = service.analyze(1);
 		assertNotNull(analyze);
 	}
 
 	@Test
 	void metricHistoryTest() {
-		PageableDTO<MetricAnalysisDTO> metricHistory = service.metricHistory(1, 1, new Date());
+		PageData<MetricAnalysisDTO> metricHistory = service.metricHistory(1, 1, new Date());
 		assertNotNull(metricHistory);
 	}
 

@@ -1,4 +1,4 @@
-package com.shagui.sdc.api.dto;
+package com.shagui.sdc.api.domain;
 
 import org.springframework.data.domain.Page;
 
@@ -7,12 +7,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class PagingDTO {
+public class PageInfo {
 	private int pageIndex;
 	private int pageSize;
 	private Integer total;
 	
-	public PagingDTO(Page<?> page) {
+	public PageInfo(Page<?> page) {
 		this.pageIndex = page.getNumber();
 		this.pageSize = page.getNumberOfElements();
 		this.total = page.getTotalPages();

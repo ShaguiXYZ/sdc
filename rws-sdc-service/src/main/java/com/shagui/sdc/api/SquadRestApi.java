@@ -1,17 +1,13 @@
 package com.shagui.sdc.api;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentDTO;
-import com.shagui.sdc.api.dto.MetricAnalysisStateDTO;
-import com.shagui.sdc.api.dto.PageableDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 
 import feign.Headers;
@@ -27,21 +23,17 @@ public interface SquadRestApi {
 
 	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads")
-	PageableDTO<SquadDTO> squads(
+	PageData<SquadDTO> squads(
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 
 	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads/{departmentId}")
-	PageableDTO<SquadDTO> squadsByDepartment(
+	PageData<SquadDTO> squadsByDepartment(
 			@PathVariable @Parameter(description = "Department identifier") int departmentId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 
-	@GetMapping("squad/{squadId}/state")
-	MetricAnalysisStateDTO squadState(@PathVariable @Parameter(description = "Squad identifier") int squadId,
-			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date date);
-
 	@Operation(summary = "Retrieve squad components")
 	@GetMapping("squad/{squadId}/components")
-	PageableDTO<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
+	PageData<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 }

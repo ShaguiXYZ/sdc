@@ -26,6 +26,9 @@ public class SquadModel implements ModelInterface<Integer> {
 	@Column(name = "squad_name", nullable = false)
 	private String name;
 
+	@Column(name = "squad_coverage")
+	private Float coverage;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department_id")
 	private DepartmentModel department;

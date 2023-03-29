@@ -1,21 +1,16 @@
 package com.shagui.sdc.service;
 
-import java.util.Date;
-
-import com.shagui.sdc.api.dto.MetricAnalysisStateDTO;
-import com.shagui.sdc.api.dto.PageableDTO;
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.SquadDTO;
 
 public interface SquadService {
 	SquadDTO findById(int squadId);
 
-	PageableDTO<SquadDTO> findAll();
+	PageData<SquadDTO> findAll();
 
-	PageableDTO<SquadDTO> findAll(int page);
-	
-	PageableDTO<SquadDTO> findByDepartment(int department);
+	PageData<SquadDTO> findAll(int page);
 
-	PageableDTO<SquadDTO> findByDepartment(int departmentId, int page);
+	PageData<SquadDTO> findByDepartment(int department);
 
-	MetricAnalysisStateDTO squadState(int squadId, Date date);
+	PageData<SquadDTO> findByDepartment(int departmentId, int page);
 }

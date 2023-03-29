@@ -63,6 +63,7 @@
 			CREATE TABLE squads (
 				squad_id int4 NOT NULL,
 				squad_name varchar NOT NULL,
+				squad_coverage real,
 				department_id int4 NOT NULL,
 				CONSTRAINT squads_pk PRIMARY KEY (squad_id),
 				CONSTRAINT squads_department_fk FOREIGN KEY (department_id) REFERENCES departments(department_id)
