@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.AnalysisRestApi;
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.view.MetricAnalysisView;
-import com.shagui.sdc.api.view.PageableView;
 import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.util.Mapper;
 
@@ -18,7 +18,7 @@ public class AnalysisController implements AnalysisRestApi {
 	private AnalysisService analysisService;
 
 	@Override
-	public PageableView<MetricAnalysisView> metricHistory(int componentId, int metricId) {
-		return Mapper.parse(analysisService.metricHistory(componentId, metricId));
+	public PageData<MetricAnalysisView> metricHistory(int componentId, int metricId) {
+		return Mapper.parse(analysisService.metricHistory(componentId, metricId), MetricAnalysisView.class);
 	}
 }

@@ -1,22 +1,24 @@
 package com.shagui.sdc.api.dto;
 
-import com.shagui.sdc.api.view.ParseableTo;
+import org.springframework.beans.BeanUtils;
+
+import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.view.SquadView;
-import com.shagui.sdc.util.Mapper;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SquadDTO implements ParseableTo<SquadView> {
+public class SquadDTO {
 	private Integer id;
 	private String name;
 	private DepartmentDTO department;
 	private Float coverage;
 
-	@Override
-	public SquadView parse() {
-		return Mapper.parse(this);
+	public SquadDTO(SquadView source) {
+		BeanUtils.copyProperties(source, this);
+
+		this.department = CastFactory.getInstance(DepartmentDTO.class).parse(source.getDepartment());
 	}
 }

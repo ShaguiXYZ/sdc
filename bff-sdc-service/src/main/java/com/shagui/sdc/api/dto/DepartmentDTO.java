@@ -1,5 +1,9 @@
 package com.shagui.sdc.api.dto;
 
+import org.springframework.beans.BeanUtils;
+
+import com.shagui.sdc.api.view.DepartmentView;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,4 +12,8 @@ import lombok.NoArgsConstructor;
 public class DepartmentDTO {
 	private int id;
 	private String name;
+
+	public DepartmentDTO(DepartmentView source) {
+		BeanUtils.copyProperties(source, this);
+	}
 }

@@ -2,23 +2,27 @@ package com.shagui.sdc.api.dto;
 
 import java.util.Date;
 
+import org.springframework.beans.BeanUtils;
+
+import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.view.MetricAnalysisView;
-import com.shagui.sdc.api.view.ParseableTo;
-import com.shagui.sdc.util.Mapper;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MetricAnalysisDTO  implements ParseableTo<MetricAnalysisView> {
+public class MetricAnalysisDTO {
 	private Date analysisDate;
 	private MetricDTO metric;
 	private AnalysisValuesDTO analysisValues;
 	private Float coverage;
-	
-	@Override
-	public MetricAnalysisView parse() {
-		return Mapper.parse(this);
+
+	public MetricAnalysisDTO(MetricAnalysisView source) {
+		BeanUtils.copyProperties(source, this);
+
+		this.metric = CastFactory.getInstance(MetricDTO.class).parse(source.getMetric());
+		this.analysisValues = CastFactory.getInstance(AnalysisValuesDTO.class).parse(source.getAnalysisValues());
 	}
+
 }

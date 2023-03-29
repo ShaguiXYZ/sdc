@@ -1,4 +1,4 @@
-package com.shagui.sdc.api.dto;
+package com.shagui.sdc.api.domain;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PageableDTO<T> {	
-	private PagingDTO paging;
+public class PageData<T> {	
+	private PageInfo paging;
 	private List<T> page;
 }

@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.view.MetricAnalysisView;
-import com.shagui.sdc.api.view.PageableView;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = "/api/analysis", produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface AnalysisRestApi {
 	@GetMapping("{componentId}/{metricId}")
-	PageableView<MetricAnalysisView> metricHistory(
+	PageData<MetricAnalysisView> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
 }
