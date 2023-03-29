@@ -7,7 +7,7 @@ import { UiNotificationComponent } from './notification.component';
 
 @NgModule({
   declarations: [UiNotificationComponent],
-  imports: [CommonModule, NxButtonModule, NxMessageModule,NxIconModule],
+  imports: [CommonModule, NxButtonModule, NxMessageModule, NxIconModule],
   exports: [UiNotificationComponent]
 })
 export class UiNotificationModule {}

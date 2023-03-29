@@ -7,8 +7,6 @@ import {
   IComponentDTO,
   IComponentModel,
   IDepartmentModel,
-  IMetricAnalysisStateDTO,
-  IMetricAnalysisStateModel,
   IPageableDTO,
   IPageableModel,
   IPagingModel,
@@ -63,22 +61,10 @@ export class SquadService {
     );
   }
 
-  public squadState(squadId: number): Promise<IMetricAnalysisStateModel> {
-    return firstValueFrom(
-      this.http
-        .get<IMetricAnalysisStateDTO>(`${this._urlSquads}/squad/${squadId}/state`, {
-          responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.SquadNotFound' }
-          }
-        })
-        .pipe(map(state => IMetricAnalysisStateModel.toModel(state as IMetricAnalysisStateDTO)))
-    );
-  }
-
   public squadComponents(squadId: number, page: number = 0): Promise<IPageableModel<IComponentModel>> {
     return firstValueFrom(
       this.http
-        .get<IPageableDTO<IComponentDTO>>(`${this._urlSquads}/squads/${squadId}/components?page=${page}`, {
+        .get<IPageableDTO<IComponentDTO>>(`${this._urlSquads}/squad/${squadId}/components?page=${page}`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
           }
@@ -86,7 +72,7 @@ export class SquadService {
         .pipe(
           tap(res => {
             const dto = res as IPageableDTO<IComponentDTO>;
-            dto.page.sort((a, b) =>  (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+            dto.page.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
           }),
           map(res => {
             const dto = res as IPageableDTO<IComponentDTO>;

@@ -3,7 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { DataInfo } from 'src/app/core/interfaces/dataInfo';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { ISdcSessionData } from 'src/app/core/models/session/session.model';
-import { SquadService, UiContextDataService } from 'src/app/core/services';
+import { UiContextDataService } from 'src/app/core/services';
+import { SquadService } from 'src/app/core/services/sdc';
 import { ContextDataNames } from 'src/app/shared/config/context-info';
 
 @Injectable()
