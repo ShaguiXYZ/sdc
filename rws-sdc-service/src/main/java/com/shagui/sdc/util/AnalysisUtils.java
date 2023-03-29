@@ -1,6 +1,7 @@
 package com.shagui.sdc.util;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
@@ -20,15 +21,16 @@ public class AnalysisUtils {
 	}
 
 	public static UnaryOperator<ComponentAnalysisModel> setMetricValues = (analysis) -> {
-		List<MetricValuesModel> metricValues = config.metricValuesRepository().repository().metricValueByDate(
-				analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),
-				analysis.getId().getComponentAnalysisDate());
+		Optional<MetricValuesModel> metricValues = config
+				.metricValuesRepository().repository().metricValueByDate(analysis.getMetric().getId(),
+						analysis.getComponentTypeArchitecture().getId(), analysis.getId().getComponentAnalysisDate())
+				.stream().findFirst();
 
 		ComponentAnalysisModel updatedModel = new ComponentAnalysisModel(analysis.getComponent(), analysis.getMetric(),
 				analysis.getValue(), analysis.getId().getComponentAnalysisDate());
 
-		if (!metricValues.isEmpty()) {
-			MetricValuesModel value = metricValues.get(0);
+		if (metricValues.isPresent()) {
+			MetricValuesModel value = metricValues.get();
 			updatedModel.setWeight(value.getWeight());
 			updatedModel.setExpectedValue(value.getValue());
 			updatedModel.setGoodValue(value.getGoodValue());

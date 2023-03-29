@@ -7,9 +7,9 @@ import org.springframework.beans.BeanUtils;
 
 @FunctionalInterface
 public interface CastTo<T> {
-	
+
 	public Class<T> targetClass();
-	
+
 	default T parse(Object source) {
 		try {
 			Constructor<T> constructor = targetClass().getConstructor(source.getClass());
@@ -29,7 +29,8 @@ public interface CastTo<T> {
 			return target;
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException(String.format("An empty constructor or a {} constructor in needed",
+					source.getClass().getSimpleName()), e);
 		}
 	}
 }

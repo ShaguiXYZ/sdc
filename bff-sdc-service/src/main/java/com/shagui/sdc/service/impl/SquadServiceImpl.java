@@ -31,8 +31,8 @@ public class SquadServiceImpl implements SquadService {
 	}
 
 	@Override
-	public PageData<ComponentDTO> squadComponents(int squadId, Integer page) {
-		return rwsSdcClient.squadComponents(squadId, page);
+	public PageData<ComponentDTO> squadComponents(int squadId, Integer page, Integer ps) {
+		return rwsSdcClient.squadComponents(squadId, page, ps);
 	}
 
 }

@@ -38,6 +38,7 @@ public interface RwsSdcClient {
 	@Operation(summary = "Retrieve squad components")
 	@GetMapping("squad/{squadId}/components")
 	PageData<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
+			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
 
 }

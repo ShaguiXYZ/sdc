@@ -7,5 +7,6 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 
 public interface AnalysisService {
 	PageData<MetricAnalysisDTO> analyze(int componentId);
+
 	PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date);
 }

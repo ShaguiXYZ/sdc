@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class PageInfo {
 	private int pageIndex;
 	private int pageSize;
-	private int total;
+	private int pages;
+	private long elelments;
 	
 	public PageInfo(PageInfo source) {
 		BeanUtils.copyProperties(source, this);

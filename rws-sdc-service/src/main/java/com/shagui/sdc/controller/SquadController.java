@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.SquadRestApi;
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.service.ComponentService;
@@ -28,25 +29,29 @@ public class SquadController implements SquadRestApi {
 	}
 
 	@Override
-	public PageData<SquadDTO> squads(Integer page) {
-		if (page != null) {
-			return squadService.findAll(page);
-		} else {
+	public PageData<SquadDTO> squads(Integer page, Integer ps) {
+		if (page == null) {
 			return squadService.findAll();
-		}
-	}
-
-	@Override
-	public PageData<SquadDTO> squadsByDepartment(int departmentId, Integer page) {
-		if (page != null) {
-			return squadService.findByDepartment(departmentId, page);
 		} else {
-			return squadService.findByDepartment(departmentId);
+			return squadService.findAll(new RequestPageInfo(page, ps));
 		}
 	}
 
 	@Override
-	public PageData<ComponentDTO> squadComponents(int squadId, Integer page) {
-		return componentService.findBySquad(squadId, page == null ? 0 : page);
+	public PageData<SquadDTO> squadsByDepartment(int departmentId, Integer page, Integer ps) {
+		if (page == null) {
+			return squadService.findByDepartment(departmentId);
+		} else {
+			return squadService.findByDepartment(departmentId, new RequestPageInfo(page, ps));
+		}
+	}
+
+	@Override
+	public PageData<ComponentDTO> squadComponents(int squadId, Integer page, Integer ps) {
+		if (page == null) {
+			return componentService.findBySquad(squadId);
+		} else {
+			return componentService.findBySquad(squadId, new RequestPageInfo(page, ps));
+		}
 	}
 }

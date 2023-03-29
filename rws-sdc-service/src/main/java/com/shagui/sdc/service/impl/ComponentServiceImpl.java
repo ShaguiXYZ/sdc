@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.model.ComponentModel;
@@ -38,9 +39,15 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public PageData<ComponentDTO> findBySquad(int squadId, Integer page) {
+	public PageData<ComponentDTO> findBySquad(int squadId) {
+		return componentRepository.repository().findBySquad(new SquadModel(squadId)).stream().map(Mapper::parse)
+				.collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public PageData<ComponentDTO> findBySquad(int squadId, RequestPageInfo pageInfo) {
 		Page<ComponentModel> models = componentRepository.repository().findBySquad(new SquadModel(squadId),
-				JpaCommonRepository.getPageable(page));
+				pageInfo.getPageable());
 
 		PageData<ComponentDTO> components = models.stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable(models));

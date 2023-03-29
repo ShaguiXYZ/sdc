@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.SquadModel;
@@ -35,9 +36,9 @@ public class SquadServiceImpl implements SquadService {
 	}
 
 	@Override
-	public PageData<SquadDTO> findAll(int page) {
-		return squadRepository.findAll(page).stream().map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getName))
-				.collect(SdcCollectors.toPageable());
+	public PageData<SquadDTO> findAll(RequestPageInfo pageInfo) {
+		return squadRepository.findAll(pageInfo).stream().map(Mapper::parse)
+				.sorted(Comparator.comparing(SquadDTO::getName)).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
@@ -47,9 +48,9 @@ public class SquadServiceImpl implements SquadService {
 	}
 
 	@Override
-	public PageData<SquadDTO> findByDepartment(int departmentId, int page) {
+	public PageData<SquadDTO> findByDepartment(int departmentId, RequestPageInfo pageInfo) {
 		Page<SquadModel> squads = squadRepository.repository().findByDepartment(new DepartmentModel(departmentId),
-				JpaCommonRepository.getPageable(page));
+				pageInfo.getPageable());
 
 		return squads.stream().map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getName))
 				.collect(SdcCollectors.toPageable(squads));

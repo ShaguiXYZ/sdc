@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UiHttpService } from '..';
+import { ELEMENTS_BY_PAGE } from '../../constants/app.constants';
 import { UniqueIds } from '../../lib';
 import {
   IComponentDTO,
@@ -61,10 +62,16 @@ export class SquadService {
     );
   }
 
-  public squadComponents(squadId: number, page: number = 0): Promise<IPageableModel<IComponentModel>> {
+  public squadComponents(squadId: number, page?: number, ps: number = ELEMENTS_BY_PAGE): Promise<IPageableModel<IComponentModel>> {
+    let requestParms = '';
+
+    if (page) {
+      requestParms = `?page=${page}&ps=${ps}`;
+    }
+
     return firstValueFrom(
       this.http
-        .get<IPageableDTO<IComponentDTO>>(`${this._urlSquads}/squad/${squadId}/components?page=${page}`, {
+        .get<IPageableDTO<IComponentDTO>>(`${this._urlSquads}/squad/${squadId}/components${requestParms}`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
           }

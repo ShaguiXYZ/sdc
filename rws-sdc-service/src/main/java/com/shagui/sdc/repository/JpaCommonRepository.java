@@ -7,13 +7,11 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.model.ModelInterface;
-import com.shagui.sdc.util.Ctes;
 
 @FunctionalInterface
 public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends ModelInterface<K>, K> {
@@ -33,8 +31,8 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 				.filter(Objects::nonNull).collect(Collectors.toList());
 	}
 
-	default Page<T> findAll(int page) {
-		return repository().findAll(getPageable(page));
+	default Page<T> findAll(RequestPageInfo pageInfo) {
+		return repository().findAll(pageInfo.getPageable());
 	}
 
 	default T create(T model) {
@@ -58,13 +56,4 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 
 		return repository().save(model);
 	}
-
-	public static Pageable getPageable(int page) {
-		return getPageable(page, Ctes.JPA.ELEMENTS_BY_PAGE);
-	}
-
-	public static Pageable getPageable(int page, int size) {
-		return PageRequest.of(page, size);
-	}
-
 }

@@ -6,7 +6,7 @@ import { SdcApplicationsModel } from './models';
 import { SdcApplicationsService } from './services';
 
 @Component({
-  selector: 'sdc-test',
+  selector: 'sdc-applications',
   templateUrl: './sdc-applications.component.html',
   styleUrls: ['./sdc-applications.component.scss'],
   providers: [SdcApplicationsService]
@@ -16,6 +16,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
   public applicationsInfo?: SdcApplicationsModel;
+  public page = 0;
 
   private pattern = `^((?!${this.selectOptionValue}).)*$`;
   private subscription$: Array<Subscription> = [];
@@ -28,13 +29,13 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
 
     this.subscription$.push(
       this.form.valueChanges.subscribe(event => {
-        this.sdcApplicationsService.squadData(event.squadId);
+        this.sdcApplicationsService.squadData(event.squadId, this.page);
       })
     );
 
     this.subscription$.push(
       this.sdcApplicationsService.onDataChange().subscribe(info => {
-        this.applicationsInfo = info;
+         this.applicationsInfo = info;
       })
     );
   }
