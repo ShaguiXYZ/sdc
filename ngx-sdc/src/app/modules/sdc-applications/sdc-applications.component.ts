@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ISquadModel } from 'src/app/core/models/sdc';
-import { UiContextDataService } from 'src/app/core/services';
-import { ApplicationsContextData, ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { SdcApplicationsModel } from './models';
 import { SdcApplicationsService } from './services';
 
@@ -22,28 +20,16 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
 
   private pattern = `^((?!${this.selectOptionValue}).)*$`;
   private subscription$: Array<Subscription> = [];
-  private contextData?: ApplicationsContextData;
 
-  constructor(
-    private fb: FormBuilder,
-    private sdcApplicationsService: SdcApplicationsService,
-    private contextDataService: UiContextDataService
-  ) {}
+  constructor(private fb: FormBuilder, private sdcApplicationsService: SdcApplicationsService) {}
 
   ngOnInit(): void {
-    this.contextData = this.contextDataService.getContextData(ContextDataInfo.APPLICATIONS_DATA);
-
     this.createForm();
     this.loadData();
 
     this.subscription$.push(
       this.form.valueChanges.subscribe(event => {
         this.sdcApplicationsService.squadData(event.squadId, this.page);
-        this.contextDataService.setContextData(
-          ContextDataInfo.APPLICATIONS_DATA,
-          { ...this.contextData, squad: event.squadId },
-          { persistent: true, referenced: true }
-        );
       })
     );
 
@@ -62,15 +48,11 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     this.sdcApplicationsService.availableSquads().then(data => {
       this.squads = data.page;
     });
-
-    if (this.contextData?.squad!== null && this.contextData?.squad !== undefined) {
-      this.sdcApplicationsService.squadData(this.contextData?.squad, this.page);
-    }
   }
 
   private createForm(): void {
     this.form = this.fb.group({
-      squadId: [this.contextData?.squad, [Validators.required, Validators.pattern(this.pattern)]]
+      squadId: [this.sdcApplicationsService.contextData?.squad, [Validators.required, Validators.pattern(this.pattern)]]
     });
   }
 }
