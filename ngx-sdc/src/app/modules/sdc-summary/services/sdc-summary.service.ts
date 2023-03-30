@@ -36,6 +36,7 @@ export class SdcSummaryService {
   private components(squad: ISquadModel): void {
     this.squadService.squadComponents(squad.id).then(pageable => {
       this.data['components'] = pageable.page;
+      this.data['components-in-view'] = pageable.page.slice(0,3);
       this.summary$.next(this.data);
     });
   }

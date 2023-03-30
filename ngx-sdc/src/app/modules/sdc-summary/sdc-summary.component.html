@@ -3,7 +3,7 @@
     <div class="nx-margin-bottom-2xs">
       <sdc-squad-summary [components]="summary['components']" [squad]="summary['squad']"></sdc-squad-summary>
     </div>
-    <sdc-compliance-bar-cards [components]="summary['components'].slice(0, 3)"></sdc-compliance-bar-cards>
+    <sdc-compliance-bar-cards [components]="summary['components-in-view']"></sdc-compliance-bar-cards>
   </div>
   <div class="coverages nx-margin-left-3xs">
     <sdc-squads-coverage [squads]="summary['squads']"></sdc-squads-coverage>

@@ -82,7 +82,7 @@ export class UiContextDataService {
    * @param key Key of the variable in context
    * @param data data to save in the storage
    */
-  public setContextData(key: string, data: any, configuration: IContextDataConfigurtion = { persistent: true }): void {
+  public setContextData(key: string, data: any, configuration: IContextDataConfigurtion = { persistent: false }): void {
     const contextDataValue = this.contextStorage.contextData[key];
 
     if (contextDataValue && contextDataValue.configuration.readonly) {
