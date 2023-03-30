@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UiContextDataService, UiSessionService } from './core/services';
-import { ContextDataNames } from './shared/config/context-info';
+import { ContextDataInfo } from './shared/constants/context-data';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sessionService.sdcSession().then(session => {
-      this.contextData.setContextData(ContextDataNames.sdcSessionData, session, { persistent: true });
+      this.contextData.setContextData(ContextDataInfo.SDC_SESSION_DATA, session, { persistent: true });
       this.sessionLoaded = true;
     });
   }

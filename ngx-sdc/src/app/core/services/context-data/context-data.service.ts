@@ -121,7 +121,16 @@ export class UiContextDataService {
   // Load session storage (F5)
   private refreshPageControl = (): void => {
     window.addEventListener('beforeunload', () => {
-      sessionStorage.setItem(contextStorageID, JSON.stringify(this.contextStorage.contextData));
+      const sessionData: GenericDataInfo<IContextData> = {};
+
+      Object.keys(this.contextStorage.contextData).forEach(key => {
+        sessionData[key] = {
+          data: this.contextStorage.contextData[key].data,
+          configuration: this.contextStorage.contextData[key].configuration
+        };
+      });
+
+      sessionStorage.setItem(contextStorageID, JSON.stringify(sessionData));
     });
   };
 
@@ -135,7 +144,7 @@ export class UiContextDataService {
       console.log('Recovering:', data);
 
       Object.keys(data).forEach(key => {
-        this.addContextData(key, data[key]);
+        this.addContextData(key, data[key].data, data[key].configuration);
       });
 
       sessionStorage.removeItem(contextStorageID);

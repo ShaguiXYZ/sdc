@@ -62,6 +62,10 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     this.sdcApplicationsService.availableSquads().then(data => {
       this.squads = data.page;
     });
+
+    if (this.contextData?.squad!== null && this.contextData?.squad !== undefined) {
+      this.sdcApplicationsService.squadData(this.contextData?.squad, this.page);
+    }
   }
 
   private createForm(): void {

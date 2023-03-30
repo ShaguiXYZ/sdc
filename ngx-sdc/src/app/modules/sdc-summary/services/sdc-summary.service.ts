@@ -5,7 +5,7 @@ import { ISquadModel } from 'src/app/core/models/sdc';
 import { ISdcSessionData } from 'src/app/core/models/session/session.model';
 import { UiContextDataService } from 'src/app/core/services';
 import { SquadService } from 'src/app/core/services/sdc';
-import { ContextDataNames } from 'src/app/shared/config/context-info';
+import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 
 @Injectable()
 export class SdcSummaryService {
@@ -13,7 +13,7 @@ export class SdcSummaryService {
   private data!: DataInfo;
 
   constructor(private contextData: UiContextDataService, private squadService: SquadService) {
-    const sessionData: ISdcSessionData = this.contextData.getContextData(ContextDataNames.sdcSessionData);
+    const sessionData: ISdcSessionData = this.contextData.getContextData(ContextDataInfo.SDC_SESSION_DATA);
 
     this.summary$ = new Subject();
     this.summary(sessionData.squad.id);
