@@ -3,7 +3,7 @@ import { firstValueFrom, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UiHttpService } from '..';
 import { ELEMENTS_BY_PAGE } from '../../constants/app.constants';
-import { UniqueIds } from '../../lib';
+import { UniqueIds, hasValue } from '../../lib';
 import {
   IComponentDTO,
   IComponentModel,
@@ -65,7 +65,7 @@ export class SquadService {
   public squadComponents(squadId: number, page?: number, ps: number = ELEMENTS_BY_PAGE): Promise<IPageableModel<IComponentModel>> {
     let requestParms = '';
 
-    if (page) {
+    if (hasValue(page)) {
       requestParms = `?page=${page}&ps=${ps}`;
     }
 

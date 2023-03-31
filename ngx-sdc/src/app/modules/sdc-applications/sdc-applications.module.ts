@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NxPaginationModule } from '@aposin/ng-aquila/pagination';
 import { NxDropdownModule } from '@aposin/ng-aquila/dropdown';
 import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
@@ -19,6 +20,7 @@ import { SdcApplicationsComponent } from './sdc-applications.component';
     NxFormfieldModule,
     NxGridModule,
     NxIconModule,
+    NxPaginationModule,
     ReactiveFormsModule,
     SdcApplicationsRoutingModule,
     SdcComplianceBarCardsModule,

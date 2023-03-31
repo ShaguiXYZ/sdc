@@ -22,13 +22,24 @@
     </div>
   </form>
   <div nxLayout="grid nogutters">
-    <div nxRow>
+    <div *ngIf="applicationsInfo" nxRow>
       <div nxCol="12">
         <sdc-compliance-bar-cards
-          *ngIf="applicationsInfo"
           [compliances]="applicationsInfo.compliances"
           (clickLink)="complianceClicked($event)"
         ></sdc-compliance-bar-cards>
+      </div>
+      <div *ngIf="applicationsInfo.paging.pages > 1" nxCol="12" class="pagination nx-margin-top-2xs">
+        <nx-pagination
+          [nxCount]="applicationsInfo.paging.elelments"
+          [nxPage]="applicationsInfo.paging.pageIndex + 1"
+          [nxPerPage]="ELEMENTS_BY_PAGE"
+          nxType="advanced"
+          (nxGoPrev)="prevPage()"
+          (nxGoNext)="nextPage()"
+          (nxGoPage)="goToPage($event)"
+        >
+        </nx-pagination>
       </div>
     </div>
   </div>

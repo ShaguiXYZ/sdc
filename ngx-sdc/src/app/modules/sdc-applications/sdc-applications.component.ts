@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ELEMENTS_BY_PAGE } from 'src/app/core/constants/app.constants';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { IComplianceModel } from 'src/app/shared/components';
+import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { SdcApplicationsModel } from './models';
 import { SdcApplicationsService } from './services';
-import { Router } from '@angular/router';
-import { AppUrls } from 'src/app/shared/config/routing';
 
 @Component({
   selector: 'sdc-applications',
@@ -17,11 +18,11 @@ import { AppUrls } from 'src/app/shared/config/routing';
   providers: [SdcApplicationsService]
 })
 export class SdcApplicationsComponent implements OnInit, OnDestroy {
+  public ELEMENTS_BY_PAGE = ELEMENTS_BY_PAGE;
   public selectOptionValue = 'Select';
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
   public applicationsInfo?: SdcApplicationsModel;
-  public page = 0;
 
   private pattern = `^((?!${this.selectOptionValue}).)*$`;
   private subscription$: Array<Subscription> = [];
@@ -39,7 +40,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
 
     this.subscription$.push(
       this.form.valueChanges.subscribe(event => {
-        this.sdcApplicationsService.squadData(event.squadId, this.page);
+        this.sdcApplicationsService.squadData(event.squadId, 0, ELEMENTS_BY_PAGE);
       })
     );
 
@@ -57,6 +58,27 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   public complianceClicked(compliance: IComplianceModel) {
     this.contextDataService.setContextData(ContextDataInfo.METRICS_DATA, { compliance });
     this.router.navigate([AppUrls.metrics]);
+  }
+
+  public prevPage() {
+    if (this.applicationsInfo) {
+      this.applicationsInfo.paging.pageIndex--;
+      this.sdcApplicationsService.squadData(this.applicationsInfo.squadId, this.applicationsInfo.paging.pageIndex, ELEMENTS_BY_PAGE);
+    }
+  }
+
+  public nextPage() {
+    if (this.applicationsInfo) {
+      this.applicationsInfo.paging.pageIndex++;
+      this.sdcApplicationsService.squadData(this.applicationsInfo.squadId, this.applicationsInfo.paging.pageIndex, ELEMENTS_BY_PAGE);
+    }
+  }
+
+  public goToPage(n: number) {
+    if (this.applicationsInfo) {
+      this.applicationsInfo.paging.pageIndex = n - 1;
+      this.sdcApplicationsService.squadData(this.applicationsInfo.squadId, this.applicationsInfo.paging.pageIndex, ELEMENTS_BY_PAGE);
+    }
   }
 
   private loadData(): void {

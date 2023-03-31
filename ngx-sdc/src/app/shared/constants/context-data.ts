@@ -8,6 +8,7 @@ export enum ContextDataInfo {
 
 export interface ApplicationsContextData {
   squad: number;
+  page: number;
 }
 
 export interface MetricsContextData {
