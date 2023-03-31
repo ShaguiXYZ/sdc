@@ -141,8 +141,6 @@ export class UiContextDataService {
     if (sessionData) {
       const data: GenericDataInfo<IContextData> = JSON.parse(sessionData);
 
-      console.log('Recovering:', data);
-
       Object.keys(data).forEach(key => {
         this.addContextData(key, data[key].data, data[key].configuration);
       });

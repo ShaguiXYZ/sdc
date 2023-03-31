@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { IComponentModel } from 'src/app/core/models/sdc';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IComplianceModel } from '../sdc-compliance-bar-card/models';
 
 @Component({
   selector: 'sdc-compliance-bar-cards',
@@ -8,5 +8,12 @@ import { IComponentModel } from 'src/app/core/models/sdc';
 })
 export class SdcComplianceBarCardsComponent {
   @Input()
-  public components?: IComponentModel[];
+  public compliances?: IComplianceModel[];
+
+  @Output()
+  public clickLink: EventEmitter<IComplianceModel> = new EventEmitter();
+
+  public onClick(event: IComplianceModel) {
+    this.clickLink.emit(event);
+  }
 }

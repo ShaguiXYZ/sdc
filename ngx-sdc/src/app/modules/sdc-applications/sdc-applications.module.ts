@@ -6,14 +6,13 @@ import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { NxIconModule } from '@aposin/ng-aquila/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { AppSharedModule } from 'src/app/shared/shared.module';
+import { SdcComplianceBarCardsModule } from 'src/app/shared/components/sdc-compliance-bar-cards/sdc-compliance-bar-cards.module';
 import { SdcApplicationsRoutingModule } from './sdc-applications-routing.module';
 import { SdcApplicationsComponent } from './sdc-applications.component';
 
 @NgModule({
   declarations: [SdcApplicationsComponent],
   imports: [
-    AppSharedModule,
     CommonModule,
     FormsModule,
     NxDropdownModule,
@@ -22,6 +21,7 @@ import { SdcApplicationsComponent } from './sdc-applications.component';
     NxIconModule,
     ReactiveFormsModule,
     SdcApplicationsRoutingModule,
+    SdcComplianceBarCardsModule,
     TranslateModule
   ]
 })

@@ -6,6 +6,7 @@ import { UiNotificationModule } from './notification/notification.module';
 
 @NgModule({
   declarations: [],
+  imports: [],
   exports: [
     UiAlertModule,
     UiHeaderModule,

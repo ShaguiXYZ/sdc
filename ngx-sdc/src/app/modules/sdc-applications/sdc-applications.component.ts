@@ -2,8 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ISquadModel } from 'src/app/core/models/sdc';
+import { UiContextDataService } from 'src/app/core/services';
+import { IComplianceModel } from 'src/app/shared/components';
+import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { SdcApplicationsModel } from './models';
 import { SdcApplicationsService } from './services';
+import { Router } from '@angular/router';
+import { AppUrls } from 'src/app/shared/config/routing';
 
 @Component({
   selector: 'sdc-applications',
@@ -21,7 +26,12 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   private pattern = `^((?!${this.selectOptionValue}).)*$`;
   private subscription$: Array<Subscription> = [];
 
-  constructor(private fb: FormBuilder, private sdcApplicationsService: SdcApplicationsService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private contextDataService: UiContextDataService,
+    private sdcApplicationsService: SdcApplicationsService
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -42,6 +52,11 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription$.forEach(subscription => subscription.unsubscribe());
+  }
+
+  public complianceClicked(compliance: IComplianceModel) {
+    this.contextDataService.setContextData(ContextDataInfo.METRICS_DATA, { compliance });
+    this.router.navigate([AppUrls.metrics]);
   }
 
   private loadData(): void {

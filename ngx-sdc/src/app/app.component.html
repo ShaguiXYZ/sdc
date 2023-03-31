@@ -1,6 +1,11 @@
 <div *ngIf="sessionLoaded">
   <nx-header></nx-header>
+
   <div nxLayout="grid maxwidth nogutters">
+    <nx-loading></nx-loading>
+    <nx-alert></nx-alert>
+    <nx-notification></nx-notification>
+
     <router-outlet></router-outlet>
   </div>
 </div>

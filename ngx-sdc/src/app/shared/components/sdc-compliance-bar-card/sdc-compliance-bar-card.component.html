@@ -1,6 +1,6 @@
 <div class="card-content">
   <nx-card>
-    <div nxLayout="grid nogutters" class=" nx-margin-y-2xs">
+    <div nxLayout="grid nogutters" class="nx-margin-y-2xs">
       <div nxRow class="{{ styleByCoverage(coverage) }}">
         <div nxCol="12" class="sdc-center colum-right">
           <nx-progressbar [value]="barCoverage"></nx-progressbar>
@@ -9,19 +9,19 @@
       </div>
       <div nxRow>
         <div nxCol="8">
-          <span class="nx-font-weight-bold">{{ component.name }}</span>
+          <span class="nx-font-weight-bold">{{ compliance.name }}</span>
         </div>
         <div nxCol="4" class="colum-right">
-          <span class="nx-font-weight-semibold">{{ 'ComplianceCard.ProcessDate' | translate }}: {{ component.analysisDate | date }}</span>
+          <span class="nx-font-weight-semibold">{{ 'ComplianceCard.ProcessDate' | translate }}: {{ compliance.analysisDate | date }}</span>
         </div>
       </div>
       <div nxRow>
         <div nxCol="9">
-          <nx-badge type="active">SQUAD {{ component.squad.name }}</nx-badge>
+          <nx-badge type="active">SQUAD {{ compliance.parentName }}</nx-badge>
         </div>
-        <div nxCol="3" class="colum-right">
+        <div *ngIf="showMore" nxCol="3" class="colum-right">
           <nx-link>
-            <a routerLink=".">{{ 'Label.ShowMore' | translate }}</a>
+            <a (click)="onClick()">{{ 'Label.ShowMore' | translate }}</a>
           </nx-link>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { UiContextDataService } from 'src/app/core/services';
 import { SquadService } from 'src/app/core/services/sdc';
 import { ApplicationsContextData, ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { SdcApplicationsModel } from '../models';
+import { IComplianceModel } from 'src/app/shared/components';
 
 @Injectable()
 export class SdcApplicationsService implements OnDestroy {
@@ -44,7 +45,7 @@ export class SdcApplicationsService implements OnDestroy {
       this.subject$.next({
         squadId,
         coverage: componentsCoverage(pageable.page),
-        components: pageable.page
+        compliances: pageable.page.map(IComplianceModel.fromComponentModel)
       });
     });
   }

@@ -15,6 +15,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/sdc-applications/sdc-applications.module').then(m => m.SdcApplicationsModule),
     canDeactivate: [],
     canActivate: []
+  },
+  {
+    path: AppUrls.metrics,
+    loadChildren: () => import('./modules/sdc-metrics/sdc-metrics.module').then(m => m.SdcMetricsModule),
+    canDeactivate: [],
+    canActivate: []
   }
 ];
 
