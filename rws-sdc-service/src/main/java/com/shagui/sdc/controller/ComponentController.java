@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.ComponentRestApi;
+import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
+import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.service.ComponentService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,5 +27,19 @@ public class ComponentController implements ComponentRestApi {
 	@Override
 	public ComponentDTO update(int id, ComponentDTO component) {
 		return componentService.update(id, component);
+	}
+
+	@Override
+	public PageData<ComponentDTO> filter(String name, Integer squadId, Integer page, Integer ps) {
+		if (page == null) {
+			return componentService.filter(name, squadId);
+		} else {
+			return componentService.filter(name, squadId, new RequestPageInfo(page, ps));
+		}
+	}
+
+	@Override
+	public PageData<MetricDTO> componentMetrics(int componentId) {
+		return componentService.componentMetrics(componentId);
 	}
 }

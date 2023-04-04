@@ -10,6 +10,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SdcComplianceBarCardsModule } from 'src/app/shared/components/sdc-compliance-bar-cards/sdc-compliance-bar-cards.module';
 import { SdcApplicationsRoutingModule } from './sdc-applications-routing.module';
 import { SdcApplicationsComponent } from './sdc-applications.component';
+import { NxInputModule } from '@aposin/ng-aquila/input';
+import { NxRadioToggleModule } from '@aposin/ng-aquila/radio-toggle';
 
 @NgModule({
   declarations: [SdcApplicationsComponent],
@@ -20,7 +22,9 @@ import { SdcApplicationsComponent } from './sdc-applications.component';
     NxFormfieldModule,
     NxGridModule,
     NxIconModule,
+    NxInputModule,
     NxPaginationModule,
+    NxRadioToggleModule,
     ReactiveFormsModule,
     SdcApplicationsRoutingModule,
     SdcComplianceBarCardsModule,

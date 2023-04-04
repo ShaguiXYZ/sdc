@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shagui.sdc.api.domain.PageData;
-import com.shagui.sdc.api.dto.SquadDTO;
+import com.shagui.sdc.api.view.ComponentView;
+import com.shagui.sdc.api.view.MetricView;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,21 +16,16 @@ import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
-public interface SquadRestApi {
-	@Operation(summary = "Retrieve squad by id")
-	@GetMapping("squad/{squadId}")
-	SquadDTO squad(@PathVariable @Parameter(description = "Squad identifier") int squadId);
+public interface ComponentRestApi {
+	@Operation(summary = "Retrieve component metrics")
+	@GetMapping("component/{componentId}/metrics")
+	PageData<MetricView> componentMetrics(
+			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
 
-	@Operation(summary = "Retrieve available squads")
-	@GetMapping("squads")
-	PageData<SquadDTO> squads(
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
-
-	@Operation(summary = "Retrieve available squads")
-	@GetMapping("squads/{departmentId}")
-	PageData<SquadDTO> squadsByDepartment(
-			@PathVariable @Parameter(description = "Department identifier") int departmentId,
+	@GetMapping("components/filter")
+	PageData<ComponentView> filter(
+			@RequestParam(name = "name", required = false) @Parameter(description = "Component name") String name,
+			@RequestParam(name = "squadId", required = false) @Parameter(description = "Squad identifier") Integer squadId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
 }

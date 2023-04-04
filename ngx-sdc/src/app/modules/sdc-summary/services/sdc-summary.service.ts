@@ -5,6 +5,7 @@ import { ISquadModel } from 'src/app/core/models/sdc';
 import { ISdcSessionData } from 'src/app/core/models/session/session.model';
 import { UiContextDataService } from 'src/app/core/services';
 import { SquadService } from 'src/app/core/services/sdc';
+import { ComponentService } from 'src/app/core/services/sdc/component.services';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 
 @Injectable()
@@ -12,7 +13,7 @@ export class SdcSummaryService {
   private summary$: Subject<DataInfo>;
   private data!: DataInfo;
 
-  constructor(private contextData: UiContextDataService, private squadService: SquadService) {
+  constructor(private contextData: UiContextDataService, private componetService: ComponentService, private squadService: SquadService) {
     const sessionData: ISdcSessionData = this.contextData.getContextData(ContextDataInfo.SDC_SESSION_DATA);
 
     this.summary$ = new Subject();
@@ -34,9 +35,9 @@ export class SdcSummaryService {
   }
 
   private components(squad: ISquadModel): void {
-    this.squadService.squadComponents(squad.id).then(pageable => {
+    this.componetService.filter(undefined, squad.id).then(pageable => {
       this.data['components'] = pageable.page;
-      this.data['components-in-view'] = pageable.page.slice(0,3);
+      this.data['components-in-view'] = pageable.page.slice(0, 3);
       this.summary$.next(this.data);
     });
   }

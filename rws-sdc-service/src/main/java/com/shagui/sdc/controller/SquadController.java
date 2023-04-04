@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shagui.sdc.api.SquadRestApi;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.RequestPageInfo;
-import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
-import com.shagui.sdc.service.ComponentService;
 import com.shagui.sdc.service.SquadService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,9 +17,6 @@ public class SquadController implements SquadRestApi {
 
 	@Autowired
 	private SquadService squadService;
-
-	@Autowired
-	private ComponentService componentService;
 
 	@Override
 	public SquadDTO squad(int squadId) {
@@ -43,15 +38,6 @@ public class SquadController implements SquadRestApi {
 			return squadService.findByDepartment(departmentId);
 		} else {
 			return squadService.findByDepartment(departmentId, new RequestPageInfo(page, ps));
-		}
-	}
-
-	@Override
-	public PageData<ComponentDTO> squadComponents(int squadId, Integer page, Integer ps) {
-		if (page == null) {
-			return componentService.findBySquad(squadId);
-		} else {
-			return componentService.findBySquad(squadId, new RequestPageInfo(page, ps));
 		}
 	}
 }

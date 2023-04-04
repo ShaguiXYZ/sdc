@@ -1,8 +1,43 @@
+
+
+.align-right {
+  position: absolute;
+  right: 0;
+}
+
 .pagination {
   position: relative;
 
   nx-pagination {
     position: absolute;
     right: 0;
+  }
+}
+
+.search-options {
+  div {
+      display: flex;
+      flex-wrap: wrap;
+  }
+
+  #component-name {
+      width: 305px;
+  }
+
+  #squad {
+      width: 305px;
+  }
+
+  nx-formfield {
+      .clear-box {
+          display: none;
+          // color: $primary-dark-color;
+      }
+  }
+
+  nx-formfield:hover {
+      .clear-box {
+          display: block;
+      }
   }
 }

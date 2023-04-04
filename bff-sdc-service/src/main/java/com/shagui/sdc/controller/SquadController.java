@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shagui.sdc.api.SquadRestApi;
 import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.domain.PageData;
-import com.shagui.sdc.api.view.ComponentView;
 import com.shagui.sdc.api.view.SquadView;
 import com.shagui.sdc.service.SquadService;
 import com.shagui.sdc.util.Mapper;
@@ -33,10 +32,5 @@ public class SquadController implements SquadRestApi {
 	@Override
 	public PageData<SquadView> squads(int departmentId, Integer page) {
 		return Mapper.parse(squadService.squads(departmentId, page), SquadView.class);
-	}
-
-	@Override
-	public PageData<ComponentView> squadComponents(int squadId, Integer page, Integer ps) {
-		return Mapper.parse(squadService.squadComponents(squadId, page, ps), ComponentView.class);
 	}
 }

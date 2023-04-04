@@ -23,7 +23,7 @@ export class SdcCoverageChartComponent implements OnInit {
   public echartsOptions: EChartsOption = {};
 
   constructor() {
-    this.echartsExtentions = [PieChart, TooltipComponent, GridComponent, LegendComponent];
+    this.echartsExtentions = [PieChart];
   }
 
   ngOnInit(): void {
@@ -38,9 +38,6 @@ export class SdcCoverageChartComponent implements OnInit {
 
     return {
       animation: false,
-      legend: {
-        show: false
-      },
       series: [
         {
           type: 'pie',
@@ -78,10 +75,7 @@ export class SdcCoverageChartComponent implements OnInit {
             }
           ]
         }
-      ],
-      tooltip: {
-        trigger: 'none'
-      }
+      ]
     };
   }
 }

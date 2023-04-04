@@ -1,11 +1,15 @@
 package com.shagui.sdc.service.impl;
 
+import javax.persistence.EntityManager;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
+import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
@@ -19,6 +23,9 @@ import com.shagui.sdc.util.collector.SdcCollectors;
 
 @Service
 public class ComponentServiceImpl implements ComponentService {
+	@Autowired
+	private EntityManager em;
+
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 
@@ -39,20 +46,28 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public PageData<ComponentDTO> findBySquad(int squadId) {
-		return componentRepository.repository().findBySquad(new SquadModel(squadId)).stream().map(Mapper::parse)
-				.collect(SdcCollectors.toPageable());
+	public PageData<ComponentDTO> filter(String name, Integer squadId) {
+		return componentRepository.repository().findBy(em, name, squadId == null ? null : new SquadModel(squadId))
+				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
-	public PageData<ComponentDTO> findBySquad(int squadId, RequestPageInfo pageInfo) {
-		Page<ComponentModel> models = componentRepository.repository().findBySquad(new SquadModel(squadId),
-				pageInfo.getPageable());
+	public PageData<ComponentDTO> filter(String name, Integer squadId, RequestPageInfo pageInfo) {
+		Page<ComponentModel> models = componentRepository.repository().findBy(em, name,
+				squadId == null ? null : new SquadModel(squadId), pageInfo.getPageable());
 
 		PageData<ComponentDTO> components = models.stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable(models));
 
 		return components;
+	}
+
+	@Override
+	public PageData<MetricDTO> componentMetrics(int componentId) {
+		ComponentModel model = componentRepository.findById(componentId);
+
+		return model.getComponentTypeArchitecture().getMetrics().stream().map(Mapper::parse)
+				.collect(SdcCollectors.toPageable());
 	}
 
 	private ComponentModel componentModel(ComponentDTO component) {

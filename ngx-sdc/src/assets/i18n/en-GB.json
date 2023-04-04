@@ -25,6 +25,8 @@
   },
   "Label": {
     "Applications": "Applications",
+    "FindByApplicationName": "Find by application",
+    "Name": "Name",
     "ShowMore": "Show more",
     "Squads": "Squads"
   },

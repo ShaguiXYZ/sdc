@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.client.RwsSdcClient;
 import com.shagui.sdc.api.domain.PageData;
-import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.service.SquadService;
 
@@ -28,11 +27,6 @@ public class SquadServiceImpl implements SquadService {
 	@Override
 	public PageData<SquadDTO> squads(int departmentId, Integer page) {
 		return rwsSdcClient.squadsByDepartment(departmentId, page);
-	}
-
-	@Override
-	public PageData<ComponentDTO> squadComponents(int squadId, Integer page, Integer ps) {
-		return rwsSdcClient.squadComponents(squadId, page, ps);
 	}
 
 }

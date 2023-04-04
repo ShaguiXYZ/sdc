@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shagui.sdc.api.domain.PageData;
-import com.shagui.sdc.api.view.ComponentView;
 import com.shagui.sdc.api.view.SquadView;
 
 import feign.Headers;
@@ -31,10 +30,4 @@ public interface SquadRestApi {
 	@GetMapping("squads/{departmentId}")
 	PageData<SquadView> squads(@PathVariable @Parameter(description = "Department identifier") int departmentId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
-
-	@Operation(summary = "Retrieve squad components")
-	@GetMapping("squad/{squadId}/components")
-	PageData<ComponentView> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
 }

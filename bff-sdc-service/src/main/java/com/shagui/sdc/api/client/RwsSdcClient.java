@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,10 +36,15 @@ public interface RwsSdcClient {
 			@PathVariable @Parameter(description = "Department identifier") int departmentId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 
-	@Operation(summary = "Retrieve squad components")
-	@GetMapping("squad/{squadId}/components")
-	PageData<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
+	@GetMapping("components/filter")
+	PageData<ComponentDTO> filter(
+			@RequestParam(name = "name", required = false) @Parameter(description = "Component name") String name,
+			@RequestParam(name = "squadId", required = false) @Parameter(description = "Squad identifier") Integer squadId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
 
+	@Operation(summary = "Retrieve squad components")
+	@GetMapping("component/{componentId}/metrics")
+	PageData<MetricDTO> componentMetrics(
+			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
 }
