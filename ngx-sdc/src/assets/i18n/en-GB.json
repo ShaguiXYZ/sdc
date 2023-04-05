@@ -12,6 +12,7 @@
   },
   "Dropdown": {
     "Filter": {
+      "Coverage": "Degree of compliance",
       "Squad": "Type to search squad"
     }
   },
@@ -25,8 +26,10 @@
   },
   "Label": {
     "Applications": "Applications",
+    "Coverage": "Coverage",
     "FindByApplicationName": "Find by application",
     "Name": "Name",
+    "Of": "of",
     "ShowMore": "Show more",
     "Squads": "Squads"
   },

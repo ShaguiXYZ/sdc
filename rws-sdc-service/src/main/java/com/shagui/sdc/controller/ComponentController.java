@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.ComponentRestApi;
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
@@ -30,11 +31,13 @@ public class ComponentController implements ComponentRestApi {
 	}
 
 	@Override
-	public PageData<ComponentDTO> filter(String name, Integer squadId, Integer page, Integer ps) {
+	public PageData<ComponentDTO> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
+			Integer page, Integer ps) {
 		if (page == null) {
-			return componentService.filter(name, squadId);
+			return componentService.filter(name, squadId, new Range(coverageMin, coverageMax));
 		} else {
-			return componentService.filter(name, squadId, new RequestPageInfo(page, ps));
+			return componentService.filter(name, squadId, new Range(coverageMin, coverageMax),
+					new RequestPageInfo(page, ps));
 		}
 	}
 

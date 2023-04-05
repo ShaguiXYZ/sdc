@@ -3,7 +3,7 @@
     <div nxLayout="grid nogutters">
       <div nxRow class="search-options">
         <div nxCol="12">
-          <div>
+          <div class="nx-margin-right-2xs">
             <nx-formfield id="squad" [nxLabel]="'Label.Squads' | translate">
               <nx-dropdown
                 autocomplete="disabled"
@@ -13,13 +13,29 @@
                 [nxFilterPlaceholder]="'Dropdown.Filter.Squad' | translate"
                 (nxValueChange)="squadChange($event)"
               >
-                <nx-dropdown-item [nxValue]=""> </nx-dropdown-item>
+                <nx-dropdown-item></nx-dropdown-item>
                 <nx-dropdown-item *ngFor="let item of squads" [nxValue]="item.id">
-                  {{ item.name }}
+                  {{ item.name | titlecase }}
                 </nx-dropdown-item>
               </nx-dropdown>
             </nx-formfield>
           </div>
+          <nx-formfield id="coverage" [nxLabel]="'Label.Coverage' | translate">
+            <nx-dropdown
+              autocomplete="disabled"
+              formControlName="coverage"
+              name="coverages"
+              [nxFilterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
+              (nxValueChange)="coverageChange($event)"
+            >
+              <nx-dropdown-item></nx-dropdown-item>
+              <nx-dropdown-item *ngFor="let item of coverages" [nxValue]="item.key">
+                <nx-icon [name]="'dot'" size="s" class="nx-margin-right-2xs {{ item.style }}"></nx-icon>
+                {{ item.label | translate | titlecase }}
+              </nx-dropdown-item>
+            </nx-dropdown>
+          </nx-formfield>
+
           <div class="align-right">
             <nx-formfield id="component-name" [nxLabel]="'Label.FindByApplicationName' | translate">
               <input #searchInput nxInput type="text" formControlName="name" autocomplete="off" />

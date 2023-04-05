@@ -1,4 +1,5 @@
 export interface ApplicationsFilter {
+  coverage?: string;
   squad?: number;
   name?: string;
 }

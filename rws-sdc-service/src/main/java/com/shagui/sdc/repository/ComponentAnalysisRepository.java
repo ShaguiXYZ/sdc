@@ -38,5 +38,5 @@ public interface ComponentAnalysisRepository extends JpaRepository<ComponentAnal
 			+ "	WHERE ca2.id.componentId = ca.id.componentId AND ca2.id.metricId = ca.id.metricId"
 			+ "	AND ca2.id.componentAnalysisDate <= :date"
 			+ "	)")
-	List<ComponentAnalysisModel> squadComponentAnalysis(int squadId, Timestamp date);
+	List<ComponentAnalysisModel> squadAnalysis(int squadId, Timestamp date);
 }

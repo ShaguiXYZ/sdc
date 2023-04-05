@@ -30,6 +30,9 @@ public class ComponentModel implements ModelInterface<Integer> {
 
 	@Column(name = "component_name", nullable = false)
 	private String name;
+	
+	@Column(name = "component_coverage")
+	private Float coverage;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "component_type_architecture_id", nullable = false)

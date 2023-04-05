@@ -21,7 +21,7 @@ export interface MetricConfig {
   style: string;
 }
 
-export const MetricState: { [key in AvailableMetricStates]: MetricConfig } = {
+export const MetricState: { [key: string]: MetricConfig } = {
   [AvailableMetricStates.CRITICAL]: { value: 50, style: 'critical' },
   [AvailableMetricStates.WITH_RISK]: { value: 75, style: 'with_risk' },
   [AvailableMetricStates.ACCEPTABLE]: { value: 99, style: 'acceptable' },
@@ -44,5 +44,6 @@ export const stateByCoverage = (coverage: number): AvailableMetricStates => {
   return _class;
 };
 
-export const styleByMetricState = (state: AvailableMetricStates): string => `${COLOR_PREFIX}${MetricState[state].style}`;
+export const styleByName = (name: string): string => `${COLOR_PREFIX}${name}`;
+export const styleByMetricState = (state: AvailableMetricStates): string => styleByName(MetricState[state].style);
 export const styleByCoverage = (coverage: number): string => styleByMetricState(stateByCoverage(coverage));

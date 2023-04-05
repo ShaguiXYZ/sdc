@@ -80,6 +80,7 @@
 			CREATE TABLE components (
 				component_id int4 auto_increment NOT NULL,
 				component_name varchar NOT NULL,
+				component_coverage real,
 				component_type_architecture_id int4 NOT NULL,
 				squad_id int4 NOT NULL,
 				CONSTRAINT components_pk PRIMARY KEY (component_id),

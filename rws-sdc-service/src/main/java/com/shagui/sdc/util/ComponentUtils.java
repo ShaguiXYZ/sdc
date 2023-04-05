@@ -32,8 +32,10 @@ public class ComponentUtils {
 
 		// Analysis Properties
 		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
-		
-		addOrUpdatePropertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_COVERAGE, Float.toString(coverage));
+
+		component.setCoverage(coverage);
+		component = config.componentRepository().update(component.getId(), component);
+
 		addOrUpdatePropertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE,
 				Long.toString(date.getTime()));
 
@@ -76,7 +78,7 @@ public class ComponentUtils {
 		SquadModel squad = component.getSquad();
 
 		List<ComponentAnalysisModel> metricAnalysis = config.componentAnalysisRepository().repository()
-				.squadComponentAnalysis(squad.getId(), new Timestamp(date.getTime()));
+				.squadAnalysis(squad.getId(), new Timestamp(date.getTime()));
 
 		// Analysis Properties
 		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);

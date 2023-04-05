@@ -71,13 +71,11 @@ public class Mapper {
 	}
 
 	public static ComponentDTO parse(ComponentModel source) {
-		String coverageStr = ComponentUtils.propertyValue(source, Ctes.COMPONENT_PROPERTIES.COMPONENT_COVERAGE);
-		Float coverage = coverageStr == null ? null : Float.valueOf(coverageStr);
 		String analysisTimestampStr = ComponentUtils.propertyValue(source,
 				Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE);
 		Date analysisDate = analysisTimestampStr == null ? null : new Date(Long.valueOf(analysisTimestampStr));
 
-		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), analysisDate, coverage,
+		ComponentDTO target = new ComponentDTO(source.getId(), source.getName(), analysisDate, source.getCoverage(),
 				parse(source.getComponentTypeArchitecture().getComponentType()),
 				parse(source.getComponentTypeArchitecture().getArchitecture()), parse(source.getSquad()));
 

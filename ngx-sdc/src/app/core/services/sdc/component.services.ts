@@ -5,6 +5,7 @@ import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageableDTO,
 import { HttpStatus, UiHttpService } from '../http';
 import { ELEMENTS_BY_PAGE } from '../../constants/app.constants';
 import { hasValue } from '../../lib';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class ComponentService {
@@ -15,28 +16,39 @@ export class ComponentService {
   public filter(
     name?: string,
     squadId?: number,
+    coverageMin?: number,
+    coverageMax?: number,
     page?: number,
     ps: number = ELEMENTS_BY_PAGE
   ): Promise<IPageableModel<IComponentModel>> {
-    const params: Array<string> = [];
+    let httpParams = new HttpParams();
 
     if (hasValue(page)) {
-      params.push(`page=${page}&ps=${ps}`);
+      httpParams = httpParams.append('page', String(page));
+      httpParams = httpParams.append('ps', String(ps));
     }
 
     if (name) {
-      params.push(`name=${name}`);
+      httpParams = httpParams.append('name', name);
     }
 
     if (squadId) {
-      params.push(`squadId=${squadId}`);
+      httpParams = httpParams.append('squadId', String(squadId));
     }
 
-    const strParams = params.length ? `?${params.join('&')}` : '';
+    if (hasValue(coverageMin)) {
+      httpParams = httpParams.append('coverageMin', String(coverageMin));
+    }
+
+    if (coverageMax) {
+      httpParams = httpParams.append('coverageMax', String(coverageMax));
+    }
 
     return firstValueFrom(
       this.http
-        .get<IPageableDTO<IComponentDTO>>(`${this._urlComponents}/components/filter${strParams}`, {
+        .get<IPageableDTO<IComponentDTO>>(`${this._urlComponents}/components/filter`, {
+          showLoading: true,
+          clientOptions: { params: httpParams },
           responseStatusMessage: {
             [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
           }

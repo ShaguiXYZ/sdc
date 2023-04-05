@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { styleByCoverage } from 'src/app/core/lib';
 import { IComplianceModel } from './models';
 
@@ -7,12 +7,11 @@ import { IComplianceModel } from './models';
   templateUrl: './sdc-compliance-bar-card.component.html',
   styleUrls: ['./sdc-compliance-bar-card.component.scss']
 })
-export class SdcComplianceBarCardComponent {
+export class SdcComplianceBarCardComponent implements OnInit {
   public barCoverage!: number;
   public coverage!: number;
+  public coverageStyle!: string;
   public date?: Date;
-
-  public styleByCoverage = styleByCoverage;
 
   private _compliance!: IComplianceModel;
 
@@ -31,6 +30,10 @@ export class SdcComplianceBarCardComponent {
 
   @Output()
   public clickLink: EventEmitter<IComplianceModel> = new EventEmitter();
+
+  ngOnInit(): void {
+  this.coverageStyle = styleByCoverage(this.coverage);
+  }
 
   public onClick() {
     this.clickLink.emit(this.compliance);

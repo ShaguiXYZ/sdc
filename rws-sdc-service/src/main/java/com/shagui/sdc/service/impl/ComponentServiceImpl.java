@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
@@ -46,15 +47,16 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public PageData<ComponentDTO> filter(String name, Integer squadId) {
-		return componentRepository.repository().findBy(em, name, squadId == null ? null : new SquadModel(squadId))
-				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
+	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range) {
+		return componentRepository.repository()
+				.filter(em, name, squadId == null ? null : new SquadModel(squadId), range).stream().map(Mapper::parse)
+				.collect(SdcCollectors.toPageable());
 	}
 
 	@Override
-	public PageData<ComponentDTO> filter(String name, Integer squadId, RequestPageInfo pageInfo) {
-		Page<ComponentModel> models = componentRepository.repository().findBy(em, name,
-				squadId == null ? null : new SquadModel(squadId), pageInfo.getPageable());
+	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range, RequestPageInfo pageInfo) {
+		Page<ComponentModel> models = componentRepository.repository().filter(em, name,
+				squadId == null ? null : new SquadModel(squadId), range, pageInfo.getPageable());
 
 		PageData<ComponentDTO> components = models.stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable(models));

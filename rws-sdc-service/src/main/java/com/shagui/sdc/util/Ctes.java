@@ -13,7 +13,6 @@ public class Ctes {
 		public static final String PATH = "component_path"; // path to the project root
 		public static final String COMPONENT_OWNER = "component_owner";
 		public static final String COMPONENT_REPOSITORY = "component_repository";
-		public static final String COMPONENT_COVERAGE = "component_coverage";
 		public static final String COMPONENT_ANALYSIS_DATE = "component_analysis_date";
 	}
 

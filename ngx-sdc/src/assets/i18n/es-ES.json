@@ -12,6 +12,7 @@
   },
   "Dropdown": {
     "Filter": {
+      "Coverage": "Grado de cumplimiento",
       "Squad": "Filtra Squads"
     }
   },
@@ -25,8 +26,10 @@
   },
   "Label": {
     "Applications": "Aplicaciones",
+    "Coverage": "Covertura",
     "FindByApplicationName": "Buscar por aplicación",
     "Name": "Nombre",
+    "Of": "de",
     "ShowMore": "Ver mas",
     "Squads": "Squads"
   },

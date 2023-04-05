@@ -26,6 +26,8 @@ public interface ComponentRestApi {
 	PageData<ComponentView> filter(
 			@RequestParam(name = "name", required = false) @Parameter(description = "Component name") String name,
 			@RequestParam(name = "squadId", required = false) @Parameter(description = "Squad identifier") Integer squadId,
+			@RequestParam(name = "coverageMin", required = false) @Parameter(description = "Component coverage min range") Float coverageMin,
+			@RequestParam(name = "coverageMax", required = false) @Parameter(description = "Component coverage max range") Float coverageMax,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
 }

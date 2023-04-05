@@ -15,13 +15,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @Tag(name = "components", description = "API to maintain Components")
 public class ComponentController implements ComponentRestApi {
-	
+
 	@Autowired
 	private ComponentService componentService;
 
 	@Override
-	public PageData<ComponentView> filter(String name, Integer squadId, Integer page, Integer ps) {
-		return Mapper.parse(componentService.filter(name, squadId, page, ps), ComponentView.class);
+	public PageData<ComponentView> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
+			Integer page, Integer ps) {
+		return Mapper.parse(componentService.filter(name, squadId, coverageMin, coverageMax, page, ps),
+				ComponentView.class);
 	}
 
 	@Override

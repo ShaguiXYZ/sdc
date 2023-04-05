@@ -1,4 +1,19 @@
+@import '../../shared/styles/colors';
 
+// Defines a custom property
+@mixin define-custom-property($name, $value) {
+  #{custom-property-color($name)} {
+    color: $value;
+    background-color: $value;
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+  }
+}
+
+@each $name, $value in $coverage-colors {
+  @include define-custom-property($name, $value);
+}
 
 .align-right {
   position: absolute;
@@ -16,28 +31,30 @@
 
 .search-options {
   div {
-      display: flex;
-      flex-wrap: wrap;
+    display: flex;
   }
 
   #component-name {
-      width: 305px;
+    width: 205px;
+  }
+
+  #coverage {
+    width: 205px;
   }
 
   #squad {
-      width: 305px;
+    width: 305px;
   }
 
   nx-formfield {
-      .clear-box {
-          display: none;
-          // color: $primary-dark-color;
-      }
+    .clear-box {
+      display: none;
+    }
   }
 
   nx-formfield:hover {
-      .clear-box {
-          display: block;
-      }
+    .clear-box {
+      display: block;
+    }
   }
 }

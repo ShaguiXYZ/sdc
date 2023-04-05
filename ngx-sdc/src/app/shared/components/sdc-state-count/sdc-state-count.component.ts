@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MetricConfig, MetricState, styleByMetricState } from 'src/app/core/lib';
 import { IStateCount } from './model';
 
@@ -7,11 +7,14 @@ import { IStateCount } from './model';
   templateUrl: './sdc-state-count.component.html',
   styleUrls: ['./sdc-state-count.component.scss']
 })
-export class SdcStateCountComponent {
+export class SdcStateCountComponent implements OnInit {
   @Input()
   public stateCount!: IStateCount;
+  public stateStyle!: string;
 
-  public styleByMetricState = styleByMetricState;
+  ngOnInit(): void {
+    this.stateStyle = styleByMetricState(this.stateCount.state);
+  }
 
   public get metricConfig(): MetricConfig {
     return MetricState[this.stateCount.state];
