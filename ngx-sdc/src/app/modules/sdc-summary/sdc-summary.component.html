@@ -1,11 +1,29 @@
-<div *ngIf="summary" id="body-content" class="summary-content nx-margin-y-2xs">
+<div id="body-content" class="summary-content nx-margin-y-2xs">
   <div class="summary nx-margin-right-3xs">
-    <div class="nx-margin-bottom-2xs">
-      <sdc-squad-summary [components]="summary['components']" [squad]="summary['squad']"></sdc-squad-summary>
-    </div>
-    <sdc-compliance-bar-cards [compliances]="summary['components-in-view']" (clickLink)="complianceClicked($event)"></sdc-compliance-bar-cards>
+    <ng-container *ngIf="summary">
+      <div *ngIf="summary.squad" class="nx-margin-bottom-2xs">
+        <sdc-squad-summary
+          [components]="summary.components || []"
+          [squad]="summary.squad"
+          (clickStateCount)="onClickStateCount($event)"
+        ></sdc-squad-summary>
+      </div>
+      <div *ngIf="componentsInView.length" class="compliance-cards-header nx-margin-bottom-2xs">
+        <h5 nxHeadline="subsection-xsmall" class="title">{{ 'Label.MyApplications' | translate }}</h5>
+        <nx-link>
+          <a (click)="showAll()">{{ 'Label.ShowAll' | translate }}</a>
+        </nx-link>
+      </div>
+      <sdc-compliance-bar-cards [compliances]="componentsInView" (clickLink)="complianceClicked($event)"></sdc-compliance-bar-cards>
+    </ng-container>
   </div>
   <div class="coverages nx-margin-left-3xs">
-    <sdc-squads-coverage [squads]="summary['squads']"></sdc-squads-coverage>
+    <sdc-squads-coverage
+      [filter]="summary?.filter"
+      [selected]="summary?.squad?.id"
+      [squads]="summary?.squads"
+      (searchSquadChanged)="onSearchSquadChanged($event)"
+      (selectSquad)="onClickSquad($event)"
+    ></sdc-squads-coverage>
   </div>
 </div>

@@ -1,9 +1,25 @@
 <div class="card-content">
   <nx-card>
+    <div class="card-header nx-margin-2xs">
+      <h5 nxHeadline="subsection-xsmall" class="title">{{ 'Label.OtherSquads' | translate }}</h5>
+      <div class="align-right">
+        <nx-formfield id="squad-name">
+          <input #searchInput nxInput type="text" autocomplete="off" [(ngModel)]="filter" />
+          <span nxFormfieldSuffix>
+            <nx-icon name="search" size="s"></nx-icon>
+          </span>
+        </nx-formfield>
+      </div>
+    </div>
     <div class="coverages sdc-scrollable">
       <ng-container *ngIf="squads">
         <div *ngFor="let squad of squads">
-          <sdc-squad-coverage [squad]="squad"></sdc-squad-coverage>
+          <sdc-squad-coverage
+            [squad]="squad"
+            [selectable]="true"
+            [selected]="selected === squad.id"
+            (selectSquad)="onClickSquad($event)"
+          ></sdc-squad-coverage>
         </div>
       </ng-container>
     </div>

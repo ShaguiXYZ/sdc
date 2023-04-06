@@ -1,3 +1,3 @@
 <div *ngFor="let count of counts; last as isLast" [ngClass]="{ 'nx-margin-bottom-2xs': !isLast }">
-  <sdc-state-count [stateCount]="count"></sdc-state-count>
+  <sdc-state-count [stateCount]="count" (clickStateCount)="onClick($event)"></sdc-state-count>
 </div>

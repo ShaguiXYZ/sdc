@@ -1,3 +1,10 @@
+@import '../../../shared/styles/colors';
+
+.align-right {
+  position: absolute;
+  right: 0;
+}
+
 .card-content {
   height: 100%;
   position: relative;
@@ -5,9 +12,7 @@
   nx-card {
     border-radius: 4px;
     bottom: 0;
-    padding-left: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
     position: absolute;
     top: 0;
     width: -webkit-fill-available;
@@ -17,8 +22,24 @@
       overflow-x: hidden;
       overflow-y: auto;
       position: absolute;
-      top: 25px;
+      top: 50px;
       width: inherit;
+    }
+
+    .card-header {
+      align-items: center;
+      display: flex;
+      position: relative;
+
+      .title {
+        font-weight: bold;
+      }
+
+      ::ng-deep nx-formfield {
+        .nx-formfield__wrapper {
+          padding: 0;
+        }
+      }
     }
   }
 }

@@ -3,7 +3,6 @@ import { ICoverageChartModel } from './models';
 
 import { EChartsOption } from 'echarts';
 import { PieChart } from 'echarts/charts';
-import { GridComponent, LegendComponent, TooltipComponent } from 'echarts/components';
 import { COVERAGE_CHART, COVERAGE_CHART_BACKGROUND, SUMMARY_BACKGROUND } from '../../constants/colors';
 
 @Component({
@@ -12,8 +11,13 @@ import { COVERAGE_CHART, COVERAGE_CHART_BACKGROUND, SUMMARY_BACKGROUND } from '.
   styleUrls: ['./sdc-coverage-chart.component.scss']
 })
 export class SdcCoverageChartComponent implements OnInit {
+  private _coverage!: ICoverageChartModel;
   @Input()
-  public coverage!: ICoverageChartModel;
+  public set coverage(value: ICoverageChartModel) {
+    this._coverage = value;
+    this.echartsOptions = this.chartOptions(value);
+  }
+
   @Input()
   public size!: number;
   @Input()
@@ -27,14 +31,12 @@ export class SdcCoverageChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.echartsOptions = this.chartOptions();
+    this.echartsOptions = this.chartOptions(this._coverage);
   }
 
-  private chartOptions(): EChartsOption {
+  private chartOptions(value: ICoverageChartModel): EChartsOption {
     const center = this.size / 2;
-    const name = this.coverage.name?.trim()
-      ? [`${Math.floor(this.coverage.value)}%`, this.coverage.name].join('\n')
-      : `${Math.floor(this.coverage.value)}%`;
+    const name = value.name?.trim() ? [`${Math.floor(value.value)}%`, value.name].join('\n') : `${Math.floor(value.value)}%`;
 
     return {
       animation: false,
@@ -58,14 +60,14 @@ export class SdcCoverageChartComponent implements OnInit {
           },
           data: [
             {
-              value: this.coverage.value,
+              value: value.value,
               name,
               itemStyle: {
                 color: COVERAGE_CHART
               }
             },
             {
-              value: 100 - this.coverage.value,
+              value: 100 - value.value,
               itemStyle: {
                 color: COVERAGE_CHART_BACKGROUND
               },

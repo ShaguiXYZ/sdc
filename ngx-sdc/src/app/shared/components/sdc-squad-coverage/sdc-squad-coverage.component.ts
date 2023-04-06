@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { COVERAGE_CHART } from '../../constants/colors';
 
@@ -11,5 +11,18 @@ export class SdcSquadCoverageComponent {
   @Input()
   public squad!: ISquadModel;
 
+  @Input()
+  public selectable?: boolean;
+
+  @Input()
+  public selected?: boolean;
+
+  @Output()
+  public selectSquad: EventEmitter<ISquadModel> = new EventEmitter();
+
   public chartColor = COVERAGE_CHART;
+
+  public onClick() {
+    this.selectSquad.emit(this.squad);
+  }
 }

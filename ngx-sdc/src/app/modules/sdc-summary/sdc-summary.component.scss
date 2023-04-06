@@ -2,10 +2,27 @@
   display: flex;
 
   .summary {
+    min-height: 700px;
     width: 50%;
   }
 
   .coverages {
+    min-height: 700px;
     width: 50%;
+  }
+
+  .compliance-cards-header {
+    align-items: center;
+    display: flex;
+    position: relative;
+
+    .title {
+      font-weight: bold;
+    }
+
+    nx-link {
+      right: 0;
+      position: absolute;
+    }
   }
 }

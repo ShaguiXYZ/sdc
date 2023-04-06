@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { SdcComplianceBarCardsModule } from 'src/app/shared/components/sdc-compliance-bar-cards/sdc-compliance-bar-cards.module';
 import { SdcSquadSummaryModule } from 'src/app/shared/components/sdc-squad-summary/sdc-squad-summary.module';
@@ -11,6 +13,8 @@ import { SdcSummaryComponent } from './sdc-summary.component';
   declarations: [SdcSummaryComponent],
   imports: [
     CommonModule,
+    NxHeadlineModule,
+    NxLinkModule,
     SdcSummaryRoutingModule,
     SdcComplianceBarCardsModule,
     SdcSquadsCoverageModule,

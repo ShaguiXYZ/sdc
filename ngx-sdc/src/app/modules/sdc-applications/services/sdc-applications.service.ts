@@ -1,21 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/constants/app.constants';
+import { MetricState, styleByName } from 'src/app/core/lib';
 import { IPageableModel, ISquadModel } from 'src/app/core/models/sdc';
-import { ISdcSessionData } from 'src/app/core/models/session/session.model';
 import { UiContextDataService } from 'src/app/core/services';
 import { SquadService } from 'src/app/core/services/sdc';
 import { ComponentService } from 'src/app/core/services/sdc/component.services';
 import { IComplianceModel } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { ApplicationsContextData, ApplicationsFilter, SdcApplicationsCoverage, SdcApplicationsDataModel } from '../models';
-import { MetricState, styleByName } from 'src/app/core/lib';
 
 @Injectable()
 export class SdcApplicationsService implements OnDestroy {
   public contextData?: ApplicationsContextData;
 
-  private sessionData!: ISdcSessionData;
   private subject$: Subject<SdcApplicationsDataModel>;
 
   constructor(
@@ -24,12 +22,11 @@ export class SdcApplicationsService implements OnDestroy {
     private squadService: SquadService
   ) {
     this.subject$ = new Subject();
-    this.sessionData = this.contextDataService.getContextData(ContextDataInfo.SDC_SESSION_DATA);
     this.contextData = this.contextDataService.getContextData(ContextDataInfo.APPLICATIONS_DATA);
 
     this.squadData(
       this.contextData?.filter?.name,
-      this.contextData?.filter?.squad || this.sessionData.squad.id,
+      this.contextData?.filter?.squad,
       this.contextData?.filter?.coverage,
       this.contextData?.page || 0,
       ELEMENTS_BY_PAGE

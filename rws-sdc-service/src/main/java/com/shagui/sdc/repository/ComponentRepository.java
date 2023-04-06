@@ -38,25 +38,25 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	}
 
 	private TypedQuery<ComponentModel> findByQuery(EntityManager em, String name, SquadModel squad, Range range) {
-		TypedQuery<ComponentModel> query = filterQuery("SELECT cm FROM ComponentModel cm ", name, squad, range, em,
+		TypedQuery<ComponentModel> query = filterQuery(em, "SELECT cm FROM ComponentModel cm ", name, squad, range,
 				ComponentModel.class);
 
 		return query;
 	}
 
 	private long countBy(EntityManager em, String name, SquadModel squad, Range range) {
-		TypedQuery<Long> query = filterQuery("SELECT count(cm) FROM ComponentModel cm", name, squad, range, em,
+		TypedQuery<Long> query = filterQuery(em, "SELECT count(cm) FROM ComponentModel cm", name, squad, range,
 				Long.class);
 
 		return query.getSingleResult();
 	}
 
-	private <T> TypedQuery<T> filterQuery(String sql, String name, SquadModel squad, Range range, EntityManager em,
+	private <T> TypedQuery<T> filterQuery(EntityManager em, String sql, String name, SquadModel squad, Range range, 
 			Class<T> clazz) {
 		StringBuilder strQuery = new StringBuilder(sql).append(" WHERE ((:squad IS NULL) OR cm.squad IS :squad) AND ")
 				.append("((:name IS NULL) OR cm.name like (:name)) AND ")
-				.append("(((:coverageMin IS NULL) OR cm.coverage >= (:coverageMin)) AND ")
-				.append("((:coverageMax IS NULL) OR cm.coverage <= (:coverageMax)))");
+				.append("(((:coverageMin IS NULL) OR (:coverageMin) < cm.coverage) AND ")
+				.append("((:coverageMax IS NULL) OR (:coverageMax) >= cm.coverage ))");
 
 		TypedQuery<T> query = em.createQuery(strQuery.toString(), clazz);
 

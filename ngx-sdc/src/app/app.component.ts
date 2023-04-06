@@ -1,20 +1,11 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { UiContextDataService, UiSessionService } from './core/services';
-import { ContextDataInfo } from './shared/constants/context-data';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  providers: [UiSessionService]
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  public sessionLoaded = false;
-  private language$!: Subscription;
-
-  constructor(private contextData: UiContextDataService, private sessionService: UiSessionService) {}
-
+export class AppComponent {
   @HostListener('window:popstate', ['$event'])
   onPopState(event: PopStateEvent) {
     event.stopPropagation();
@@ -28,17 +19,6 @@ export class AppComponent implements OnInit, OnDestroy {
     } else {
       this.handleMacKeyEvents(event);
     }
-  }
-
-  ngOnInit(): void {
-    this.sessionService.sdcSession().then(session => {
-      this.contextData.setContextData(ContextDataInfo.SDC_SESSION_DATA, session, { persistent: true });
-      this.sessionLoaded = true;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.language$.unsubscribe();
   }
 
   private handleMacKeyEvents(event: KeyboardEvent) {

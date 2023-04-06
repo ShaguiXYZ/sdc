@@ -162,10 +162,7 @@ export class UiContextDataService {
         const keys = Object.keys(this.contextStorage.contextData);
 
         keys
-          .filter(key => {
-            console.log(key, this.contextStorage.contextData[key]);
-            return !this.contextStorage.contextData[key].protected();
-          })
+          .filter(key => !this.contextStorage.contextData[key].protected())
           .forEach(key => this.delete(key));
       } else {
         urlInfo?.resetData?.forEach(value => this.delete(value));

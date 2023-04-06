@@ -83,7 +83,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     });
   }
 
-  public coverageChange(coverage: string) {
+  public coverageChange(coverage: string): void {
     if (!coverage) {
       this.form.controls['coverage'].setValue('');
     }

@@ -27,6 +27,8 @@
 
     .application-count {
       font-weight: bold;
+      margin-top: auto;
+      margin-bottom: auto;
     }
 
     .align-right {
@@ -37,6 +39,12 @@
     .flex-row {
       display: flex;
       margin: auto 0px;
+    }
+
+    .show-more {
+      nx-link {
+        font-size: 12px;
+      }
     }
   }
 }

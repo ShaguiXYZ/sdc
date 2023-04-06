@@ -28,8 +28,11 @@
     "Applications": "Applications",
     "Coverage": "Coverage",
     "FindByApplicationName": "Find by application",
+    "MyApplications": "My Applications",
     "Name": "Name",
     "Of": "of",
+    "OtherSquads": "Other squads",
+    "ShowAll": "Show all",
     "ShowMore": "Show more",
     "Squads": "Squads"
   },

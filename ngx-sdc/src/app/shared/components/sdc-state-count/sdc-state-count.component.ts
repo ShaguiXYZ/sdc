@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MetricConfig, MetricState, styleByMetricState } from 'src/app/core/lib';
 import { IStateCount } from './model';
 
@@ -10,6 +10,10 @@ import { IStateCount } from './model';
 export class SdcStateCountComponent implements OnInit {
   @Input()
   public stateCount!: IStateCount;
+
+  @Output()
+  public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
+
   public stateStyle!: string;
 
   ngOnInit(): void {
@@ -18,5 +22,9 @@ export class SdcStateCountComponent implements OnInit {
 
   public get metricConfig(): MetricConfig {
     return MetricState[this.stateCount.state];
+  }
+
+  public onClick(): void {
+    this.clickStateCount.emit(this.stateCount);
   }
 }

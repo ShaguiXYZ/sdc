@@ -54,10 +54,6 @@ export class ComponentService {
           }
         })
         .pipe(
-          tap(res => {
-            const dto = res as IPageableDTO<IComponentDTO>;
-            dto.page.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
-          }),
           map(res => {
             const dto = res as IPageableDTO<IComponentDTO>;
             const result: IPageableModel<IComponentModel> = {

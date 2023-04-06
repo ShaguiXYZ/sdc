@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AvailableMetricStates, stateByCoverage } from 'src/app/core/lib';
 import { IComponentModel } from 'src/app/core/models/sdc';
 import { IStateCount } from '../sdc-state-count/model/state-count.model';
@@ -18,6 +18,13 @@ export class SdcComponentsStateCountComponent {
   set components(value: IComponentModel[]) {
     this._components = value;
     this.counts = this.stateCounts();
+  }
+
+  @Output()
+  public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
+
+  public onClick(event: IStateCount): void {
+    this.clickStateCount.emit(event);
   }
 
   private stateCounts(): IStateCount[] {

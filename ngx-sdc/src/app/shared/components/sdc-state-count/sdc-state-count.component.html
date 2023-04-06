@@ -7,7 +7,9 @@
         <span class="nx-margin-right-m">{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
       </div>
       <div class="show-more align-right">
-        <a routerLink=".">{{ 'Label.ShowMore' | translate }}</a>
+        <nx-link>
+          <a (click)="onClick()">{{ 'Label.ShowMore' | translate }}</a>
+        </nx-link>
       </div>
     </div>
   </div>
