@@ -25,7 +25,7 @@ export class ContextData implements IContextData {
     this._data = value;
   }
 
-  get configuration() {
+  get configuration(): IContextDataConfigurtion {
     return this._configuration;
   }
 

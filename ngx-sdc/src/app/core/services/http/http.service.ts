@@ -8,7 +8,7 @@ import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { MessageModal } from 'src/app/core/interfaces/modal';
 import { UiLoadingService } from '../../components/loading/services';
 import { UiNotificationService } from '../../components/notification/services';
-import { UiCache } from '../context-data';
+import { UiCacheService } from '../context-data';
 import { HttpStatus } from './models';
 
 export interface RequestOptions {
@@ -37,7 +37,7 @@ export class UiHttpService {
   constructor(
     private http: HttpClient,
     private translateService: TranslateService,
-    private cache: UiCache,
+    private cache: UiCacheService,
     private loadingService: UiLoadingService,
     private notificationService: UiNotificationService
   ) {}

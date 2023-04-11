@@ -1,5 +1,6 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { NavigationEnd, PRIMARY_OUTLET, Router, UrlTree } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { APP_NAME } from 'src/app/core/constants/app.constants';
@@ -13,7 +14,8 @@ import {
   IContextDataConfigurtion,
   NX_CONTEX_CONFIG,
   RouterInfo,
-  UrlInfo
+  UrlInfo,
+  cookieName
 } from './models';
 
 export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
@@ -29,8 +31,11 @@ export class UiContextDataService {
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
-  constructor(@Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig, private router: Router) {
-    contextConfig = contextConfig || { home: '', urls: {} };
+  constructor(
+    @Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig,
+    private router: Router
+  ) {
+    contextConfig =  {...{ home: '',urls: {} }, ...contextConfig};
 
     this.contextStorage = {
       contextData: {},
@@ -74,6 +79,10 @@ export class UiContextDataService {
       );
       return contextDataValues;
     }
+  }
+
+  public getContextConfiguration(key: string): IContextDataConfigurtion {
+    return {...this.contextStorage.contextData[key].configuration};
   }
 
   /**
@@ -161,9 +170,7 @@ export class UiContextDataService {
       if (urlInfo?.resetContext) {
         const keys = Object.keys(this.contextStorage.contextData);
 
-        keys
-          .filter(key => !this.contextStorage.contextData[key].protected())
-          .forEach(key => this.delete(key));
+        keys.filter(key => !this.contextStorage.contextData[key].protected()).forEach(key => this.delete(key));
       } else {
         urlInfo?.resetData?.forEach(value => this.delete(value));
       }

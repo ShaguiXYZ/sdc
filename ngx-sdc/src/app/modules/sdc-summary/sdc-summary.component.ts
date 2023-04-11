@@ -80,8 +80,4 @@ export class SdcSummaryComponent implements OnInit, OnDestroy {
       this.router.navigate([AppUrls.applications]);
     }
   }
-
-  private loadData(): void {
-    this.sdcSummaryService.availableSquads(this.summary?.filter);
-  }
 }

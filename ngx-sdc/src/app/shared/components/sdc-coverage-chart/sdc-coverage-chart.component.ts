@@ -19,6 +19,8 @@ export class SdcCoverageChartComponent implements OnInit {
   }
 
   @Input()
+  public animation = false;
+  @Input()
   public size!: number;
   @Input()
   public color!: string;
@@ -39,7 +41,7 @@ export class SdcCoverageChartComponent implements OnInit {
     const name = value.name?.trim() ? [`${Math.floor(value.value)}%`, value.name].join('\n') : `${Math.floor(value.value)}%`;
 
     return {
-      animation: false,
+      animation: this.animation,
       series: [
         {
           type: 'pie',

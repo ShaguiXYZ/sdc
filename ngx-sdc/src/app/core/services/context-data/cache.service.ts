@@ -8,7 +8,7 @@ import { UiContextDataService } from './context-data.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UiCache {
+export class UiCacheService {
   constructor(private contextData: UiContextDataService) {}
 
   public add(key: string, data: any) {
