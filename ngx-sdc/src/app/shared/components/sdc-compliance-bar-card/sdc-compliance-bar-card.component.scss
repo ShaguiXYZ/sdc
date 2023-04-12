@@ -19,6 +19,16 @@
 }
 
 .card-content {
+  .flex-info {
+    display: flex;
+  }
+
+  .position-end {
+    padding: 0;
+    position: absolute;
+    right: 0;
+  }
+
   nx-card {
     border-radius: 4px;
     padding-top: 0;

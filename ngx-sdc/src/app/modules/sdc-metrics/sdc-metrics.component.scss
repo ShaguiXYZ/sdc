@@ -1,0 +1,38 @@
+@import '../../shared/styles/colors';
+
+.cut-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.evolution-content {
+  display: flex;
+
+  .metrics {
+    width: 30%;
+
+    .metric {
+      width: 100%;
+      padding: 5px;
+      text-align: justify;
+      white-space: normal;
+    }
+
+    .metric.selected {
+      border-color: $background-color-1;
+      padding: 3px;
+      border: 2px dashed;
+      border-radius: 4px;
+    }
+
+    .metric:hover {
+      background-color: $background-color-1;
+      cursor: pointer;
+    }
+  }
+
+  .evolution-graph {
+    width: 100%;
+  }
+}

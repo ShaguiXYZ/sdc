@@ -1,30 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { LineChart } from 'echarts/charts';
-import { GridComponent, LegendComponent, TitleComponent, TooltipComponent, ToolboxComponent, VisualMapComponent } from 'echarts/components';
+import { GridComponent, TitleComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
 
 @Component({
   selector: 'sdc-metric-time-evolution-chart',
   templateUrl: './sdc-metric-time-evolution-chart.component.html',
   styleUrls: ['./sdc-metric-time-evolution-chart.component.scss']
 })
-export class SdcMetricTimeEvolutionChartComponent implements OnInit {
+export class SdcMetricTimeEvolutionChartComponent {
+  private _title!: string;
+  @Input()
+  set title(value: string) {
+    this._title = value;
+    this.echartsOptions = this.chartOptions(value, this._values);
+  }
+
+  private _values: { xAxis: string; data: number }[] = [];
+  @Input()
+  set values(value: { xAxis: string; data: number }[]) {
+    this._values = value || [];
+    this.echartsOptions = this.chartOptions(this._title, this._values);
+  }
+
   public readonly echartsExtentions: any[];
   public echartsOptions: EChartsOption = {};
 
   constructor() {
-    this.echartsExtentions = [LineChart, GridComponent, TitleComponent, TooltipComponent, ToolboxComponent, VisualMapComponent];
+    this.echartsExtentions = [LineChart, GridComponent, TitleComponent, TooltipComponent, VisualMapComponent];
   }
 
-  ngOnInit(): void {
-    this.echartsOptions = this.chartOptions();
-  }
+  private chartOptions(title?: string, values?: { xAxis: string; data: number }[]): EChartsOption {
+    console.log('Metric chart values', values);
 
-  private chartOptions(): EChartsOption {
+    const xAxis = values?.map(value => value.xAxis) || [];
+    const data = values?.map(value => value.data) || [];
+
     return {
+      animation: false,
       title: {
-        text: 'Distribution of Electricity',
-        subtext: 'Fake Data'
+        text: title
       },
       tooltip: {
         trigger: 'axis',
@@ -32,17 +47,10 @@ export class SdcMetricTimeEvolutionChartComponent implements OnInit {
           type: 'cross'
         }
       },
-      toolbox: {
-        show: true,
-        feature: {
-          saveAsImage: {}
-        }
-      },
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        // prettier-ignore
-        data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45']
+        data: xAxis
       },
       yAxis: {
         type: 'value',
@@ -84,36 +92,10 @@ export class SdcMetricTimeEvolutionChartComponent implements OnInit {
       },
       series: [
         {
-          name: 'Electricity',
+          name: title,
           type: 'line',
           smooth: true,
-          // prettier-ignore
-          data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
-          markArea: {
-            itemStyle: {
-              color: 'rgba(255, 173, 177, 0.4)'
-            },
-            data: [
-              [
-                {
-                  name: 'Morning Peak',
-                  xAxis: '07:30'
-                },
-                {
-                  xAxis: '10:00'
-                }
-              ],
-              [
-                {
-                  name: 'Evening Peak',
-                  xAxis: '17:30'
-                },
-                {
-                  xAxis: '21:15'
-                }
-              ]
-            ]
-          }
+          data
         }
       ]
     };

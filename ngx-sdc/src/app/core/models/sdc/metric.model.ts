@@ -1,11 +1,24 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-redeclare */
+export enum ValueType {
+  NUMERIC = 'NUMERIC',
+  VERSION = 'VERSION'
+}
+
+export enum ValidationType {
+  MAYOR = 'MAYOR',
+  MINOR = 'MINOR',
+  EQUAL = 'EQUAL',
+  MAYORorEQUAL = 'MAYORorEQUAL',
+  MINORorEQUAL = 'MINORorEQUAL'
+}
+
 export interface IMetricDTO {
   id: number;
   name: string;
   type: string;
   validation: string;
-  valueType: string;
+  valueType: ValueType;
 }
 
 export interface IMetricModel {
@@ -13,7 +26,7 @@ export interface IMetricModel {
   name: string;
   type: string;
   validation: string;
-  valueType: string;
+  valueType: ValueType;
 }
 
 export namespace IMetricModel {
@@ -22,5 +35,5 @@ export namespace IMetricModel {
 }
 
 export class MetricModel implements IMetricModel {
-  constructor(public id: number, public name: string, public type: string, public validation: string, public valueType: string) {}
+  constructor(public id: number, public name: string, public type: string, public validation: string, public valueType: ValueType) {}
 }

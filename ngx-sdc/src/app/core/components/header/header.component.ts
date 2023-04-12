@@ -42,9 +42,7 @@ export class UiHeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    if (!this.config) {
-      this.config = { navigation: DEFAULT_HEADER_MENU };
-    }
+    this.config = this.config || { navigation: DEFAULT_HEADER_MENU };
 
     this.initNavigation();
 

@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "start:local": "ng serve --configuration=local --watch",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "start": "nx serve",
+    "start:local": "nx serve --configuration=local --watch",
+    "build": "nx build",
+    "watch": "nx build --watch --configuration development",
+    "test": "nx test",
+    "lint": "nx lint"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +38,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~14.2.10",
+    "@angular-devkit/core": "~14.2.10",
+    "@angular-devkit/schematics": "~14.2.10",
     "@angular-eslint/builder": "14.4.0",
     "@angular-eslint/eslint-plugin": "14.4.0",
     "@angular-eslint/eslint-plugin-template": "14.4.0",
@@ -45,6 +47,10 @@
     "@angular-eslint/template-parser": "14.4.0",
     "@angular/cli": "~14.2.10",
     "@angular/compiler-cli": "~14.2.10",
+    "@nrwl/angular": "15.9.2",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/workspace": "15.9.2",
+    "@schematics/angular": "~14.2.10",
     "@types/jasmine": "~4.0.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "~16.11.7",
@@ -63,6 +69,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "karma-mocha-reporter": "~2.2.5",
+    "nx": "15.9.2",
     "protractor": "~7.0.0",
     "swagger-express-middleware": "~4.0.2",
     "typescript": "~4.7.2"
