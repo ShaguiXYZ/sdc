@@ -1,9 +1,9 @@
 <div *ngIf="squad" class="coverage-content" [ngClass]="{ selectable: selectable, selected: selected }" (click)="onClick()">
   <div class="coverage-chart">
-    <sdc-coverage-chart [color]="chartColor" [coverage]="{ name: '', value: squad.coverage || 0 }" [size]="55"></sdc-coverage-chart>
+    <sdc-coverage-chart [coverage]="{ name: '', value: squad.coverage || 0 }" [size]="55"></sdc-coverage-chart>
   </div>
   <div class="coverage-text">
-    <p nxCopytext="normal" class="name nx-margin-bottom-3xs">{{ squad.name | titlecase }}</p>
+    <p nxCopytext="normal" class="name nx-margin-bottom-3xs">{{ squad.name }}</p>
     <p nxCopytext="small">ID {{ squad.id }}</p>
   </div>
 </div>

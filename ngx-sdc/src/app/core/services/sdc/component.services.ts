@@ -1,11 +1,11 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageableDTO, IPageableModel, IPagingModel } from '../../models/sdc';
-import { HttpStatus, UiHttpService } from '../http';
 import { ELEMENTS_BY_PAGE } from '../../constants/app.constants';
 import { hasValue } from '../../lib';
-import { HttpParams } from '@angular/common/http';
+import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageableDTO, IPageableModel, IPagingModel } from '../../models/sdc';
+import { HttpStatus, UiHttpService } from '../http';
 
 @Injectable({ providedIn: 'root' })
 export class ComponentService {
@@ -32,7 +32,7 @@ export class ComponentService {
       httpParams = httpParams.append('name', name);
     }
 
-    if (squadId) {
+    if (hasValue(squadId)) {
       httpParams = httpParams.append('squadId', String(squadId));
     }
 
@@ -50,7 +50,7 @@ export class ComponentService {
           showLoading: true,
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
+            [HttpStatus.notFound]: { message: 'Notifications.ComponentsNotFound' }
           }
         })
         .pipe(
@@ -72,7 +72,7 @@ export class ComponentService {
       this.http
         .get<IPageableDTO<IMetricDTO>>(`${this._urlComponents}/component/${componentId}/metrics`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
+            [HttpStatus.notFound]: { message: 'Notifications.MetricsNotFound' }
           }
         })
         .pipe(

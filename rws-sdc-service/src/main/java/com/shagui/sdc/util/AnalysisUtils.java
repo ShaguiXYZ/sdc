@@ -1,5 +1,6 @@
 package com.shagui.sdc.util;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -21,9 +22,9 @@ public class AnalysisUtils {
 	}
 
 	public static UnaryOperator<ComponentAnalysisModel> setMetricValues = (analysis) -> {
-		Optional<MetricValuesModel> metricValues = config
-				.metricValuesRepository().repository().metricValueByDate(analysis.getMetric().getId(),
-						analysis.getComponentTypeArchitecture().getId(), analysis.getId().getComponentAnalysisDate())
+		Optional<MetricValuesModel> metricValues = config.metricValuesRepository().repository()
+				.metricValueByDate(analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),
+						new Timestamp(analysis.getId().getComponentAnalysisDate().getTime()))
 				.stream().findFirst();
 
 		ComponentAnalysisModel updatedModel = new ComponentAnalysisModel(analysis.getComponent(), analysis.getMetric(),

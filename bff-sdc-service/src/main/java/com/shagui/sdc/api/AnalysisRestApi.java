@@ -14,6 +14,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 @Headers("Content-Type: application/json;charset=UTF-8")
 @RequestMapping(path = "/api/analysis", produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface AnalysisRestApi {
+	@GetMapping("get/{componentId}/{metricId}")
+	MetricAnalysisView analysis(@PathVariable @Parameter(description = "Component identifier") int componentId,
+			@PathVariable @Parameter(description = "Metric identifier") int metricId);
+
 	@GetMapping("{componentId}/{metricId}")
 	PageData<MetricAnalysisView> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,

@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
+import { DEBOUNCE_TIME } from 'src/app/core/constants/app.constants';
 import { ISquadModel } from 'src/app/core/models/sdc';
 
 @Component({
@@ -45,7 +46,7 @@ export class SdcSquadsCoverageComponent implements OnInit, OnDestroy {
       .pipe(
         map(event => event),
         distinctUntilChanged(),
-        debounceTime(500)
+        debounceTime(DEBOUNCE_TIME)
       )
       .subscribe(() => this.searchSquadChanged.emit(this.filter));
   }

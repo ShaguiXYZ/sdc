@@ -14,28 +14,29 @@ export enum AvailableMetricStates {
   CRITICAL
 }
 
-const DEFAULT_METRIC_STATE = AvailableMetricStates.CRITICAL;
+export const DEFAULT_METRIC_STATE = AvailableMetricStates.CRITICAL;
 
 export interface MetricConfig {
   value: number;
   style: string;
+  color: StateColors;
 }
 
 export const MetricState: { [key: string]: MetricConfig } = {
-  [AvailableMetricStates.CRITICAL]: { value: 50, style: 'critical' },
-  [AvailableMetricStates.WITH_RISK]: { value: 75, style: 'with_risk' },
-  [AvailableMetricStates.ACCEPTABLE]: { value: 99, style: 'acceptable' },
-  [AvailableMetricStates.PERFECT]: { value: 100, style: 'perfect' }
+  [AvailableMetricStates.CRITICAL]: { value: 50, style: 'critical', color: StateColors.CRITICAL },
+  [AvailableMetricStates.WITH_RISK]: { value: 75, style: 'with_risk', color: StateColors.RISK },
+  [AvailableMetricStates.ACCEPTABLE]: { value: 95, style: 'acceptable', color: StateColors.ACCEPTABLE },
+  [AvailableMetricStates.PERFECT]: { value: 100, style: 'perfect', color: StateColors.PERFECT }
 };
 
 export const stateByCoverage = (coverage: number): AvailableMetricStates => {
   let _class = DEFAULT_METRIC_STATE;
 
-  if (coverage <= MetricState[AvailableMetricStates.CRITICAL].value) {
+  if (coverage < MetricState[AvailableMetricStates.CRITICAL].value) {
     _class = AvailableMetricStates.CRITICAL;
-  } else if (coverage <= MetricState[AvailableMetricStates.WITH_RISK].value) {
+  } else if (coverage < MetricState[AvailableMetricStates.WITH_RISK].value) {
     _class = AvailableMetricStates.WITH_RISK;
-  } else if (coverage <= MetricState[AvailableMetricStates.ACCEPTABLE].value) {
+  } else if (coverage < MetricState[AvailableMetricStates.ACCEPTABLE].value) {
     _class = AvailableMetricStates.ACCEPTABLE;
   } else if (coverage <= MetricState[AvailableMetricStates.PERFECT].value) {
     _class = AvailableMetricStates.PERFECT;

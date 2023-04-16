@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { ISquadModel } from 'src/app/core/models/sdc';
-import { SummaryContextData } from 'src/app/modules/sdc-summary/models/sdc-summary-context-data.model';
 import { UiContextDataService } from 'src/app/core/services';
-import { SquadService } from 'src/app/core/services/sdc';
-import { ComponentService } from 'src/app/core/services/sdc/component.services';
+import { ComponentService, SquadService } from 'src/app/core/services/sdc';
+import { SummaryContextData } from 'src/app/modules/sdc-summary/models/sdc-summary-context-data.model';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { SdcSummaryDataModel } from '../models';
 
@@ -52,9 +51,6 @@ export class SdcSummaryService {
     this.componetService.filter(undefined, squad.id).then(pageable => {
       this.data = { ...this.data, squad, components: pageable.page };
       this.summary$.next(this.data);
-
-      console.log('selectedSquad context data', this.contextData);
-
       this.contextData = { ...this.contextData, squad };
       this.contextDataService.setContextData(ContextDataInfo.SUMMARY_DATA, this.contextData, { persistent: true });
     });

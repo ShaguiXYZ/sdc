@@ -43,6 +43,11 @@
     span {
       font-size: 15px;
     }
+
+    &.hide-border {
+      border-style: none;
+      padding: 0;
+    }
   }
 }
 

@@ -11,12 +11,15 @@ export class SdcComplianceBarCardComponent implements OnInit {
   public barCoverage!: number;
   public coverage!: number;
   public coverageStyle!: string;
-  public date?: Date;
+  public date?: number;
 
   private _compliance!: IComplianceModel;
 
   @Input()
   public showMore = true;
+
+  @Input()
+  public hideBorder = false;
 
   @Input()
   set compliance(compliance: IComplianceModel) {
@@ -32,7 +35,7 @@ export class SdcComplianceBarCardComponent implements OnInit {
   public clickLink: EventEmitter<IComplianceModel> = new EventEmitter();
 
   ngOnInit(): void {
-  this.coverageStyle = styleByCoverage(this.coverage);
+    this.coverageStyle = styleByCoverage(this.coverage);
   }
 
   public onClick() {

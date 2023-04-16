@@ -14,3 +14,5 @@ export const equal = <T>(data1: Partial<T>, data2: Partial<T>): boolean => _.isE
 export const groupBy = <T>(collection: T[], property: keyof T): Dictionary<T[]> => _.groupBy(collection, property);
 
 export const hasValue = (data: any): boolean => data !== null && data !== undefined;
+
+export const isNumeric = (data: string): boolean => !isNaN(Number(data));

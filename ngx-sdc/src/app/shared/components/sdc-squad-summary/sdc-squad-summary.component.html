@@ -1,5 +1,5 @@
 <div *ngIf="squad" class="squad-summary">
-  <sdc-coverage-chart [animation]="true" [coverage]="{ name: squad.name, value: squad.coverage || 0 }" [color]="chartColor" [size]="300"></sdc-coverage-chart>
+  <sdc-coverage-chart [animation]="true" [coverage]="{ name: squad.name, value: squad.coverage || 0 }" [size]="300"></sdc-coverage-chart>
   <div class="summary-content">
     <div class="summary-count">
       <sdc-components-state-count [components]="components" (clickStateCount)="onClickStateCount($event)"></sdc-components-state-count>

@@ -1,6 +1,6 @@
 package com.shagui.sdc.repository;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +12,5 @@ public interface MetricValueRepository extends JpaRepository<MetricValuesModel, 
 	@Query("SELECT mv FROM MetricValuesModel mv "
 			+ "WHERE mv.metric.id = :metricId AND mv.componentTypeArchitecture.id = :componentTypeArchitectureId AND mv.metricValueDate <= :date "
 			+ "ORDER BY mv.metricValueDate DESC")
-	List<MetricValuesModel> metricValueByDate(int metricId, int componentTypeArchitectureId, Date date);
+	List<MetricValuesModel> metricValueByDate(int metricId, int componentTypeArchitectureId, Timestamp date);
 }

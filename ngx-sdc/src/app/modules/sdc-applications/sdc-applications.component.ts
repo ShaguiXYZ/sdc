@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IPaginationTexts, NX_PAGINATION_TEXTS } from '@aposin/ng-aquila/pagination';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map, tap } from 'rxjs';
-import { ELEMENTS_BY_PAGE } from 'src/app/core/constants/app.constants';
+import { DEBOUNCE_TIME, ELEMENTS_BY_PAGE } from 'src/app/core/constants/app.constants';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { IComplianceModel } from 'src/app/shared/components';
@@ -75,11 +75,15 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     this.router.navigate([AppUrls.metrics]);
   }
 
-  public squadChange(event: number): void {
+  public squadChange(squad: number): void {
+    if (!squad) {
+      this.form.controls['squadId'].setValue('');
+    }
+
     this.sdcApplicationsService.populateData({
       coverage: this.form.controls['coverage'].value,
       name: this.form.controls['name'].value,
-      squad: event
+      squad
     });
   }
 
@@ -163,7 +167,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
       .pipe(
         map(event => event),
         distinctUntilChanged(),
-        debounceTime(500)
+        debounceTime(DEBOUNCE_TIME)
       )
       .subscribe(() =>
         this.sdcApplicationsService.populateData({

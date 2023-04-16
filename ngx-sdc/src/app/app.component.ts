@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ContextDataInfo } from './shared/constants/context-data';
-import { UiContextDataService } from './core/services';
 import { UiCookieService } from './core/services/context-data/cookie.service';
+import { ContextDataInfo } from './shared/constants/context-data';
 
 @Component({
   selector: 'app-root',

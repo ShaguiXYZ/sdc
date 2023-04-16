@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { configContextRoutes } from './core/services/context-data';
 import { AppUrls } from './shared/config/routing';
 
 const routes: Routes = [
@@ -7,25 +8,21 @@ const routes: Routes = [
   {
     path: AppUrls.summary,
     loadChildren: () => import('./modules/sdc-summary/sdc-summary.module').then(m => m.SdcSummaryModule),
-    canDeactivate: [],
-    canActivate: []
+    canDeactivate: []
   },
   {
     path: AppUrls.applications,
     loadChildren: () => import('./modules/sdc-applications/sdc-applications.module').then(m => m.SdcApplicationsModule),
-    canDeactivate: [],
-    canActivate: []
+    canDeactivate: []
   },
   {
     path: AppUrls.metrics,
     loadChildren: () => import('./modules/sdc-metrics/sdc-metrics.module').then(m => m.SdcMetricsModule),
-    canDeactivate: [],
-    canActivate: []
-  }
+    canDeactivate: [] }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(configContextRoutes(routes), { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule],
   providers: []
 })

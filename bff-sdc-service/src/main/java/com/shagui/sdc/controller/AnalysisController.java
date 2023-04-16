@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.AnalysisRestApi;
+import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.view.MetricAnalysisView;
 import com.shagui.sdc.service.AnalysisService;
@@ -16,6 +17,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class AnalysisController implements AnalysisRestApi {
 	@Autowired
 	private AnalysisService analysisService;
+
+	@Override
+	public MetricAnalysisView analysis(int componentId, int metricId) {
+		return CastFactory.getInstance(MetricAnalysisView.class).parse(analysisService.analysis(componentId, metricId));
+	}
 
 	@Override
 	public PageData<MetricAnalysisView> metricHistory(int componentId, int metricId) {

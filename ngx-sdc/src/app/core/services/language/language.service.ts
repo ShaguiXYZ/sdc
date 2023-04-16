@@ -17,10 +17,8 @@ export class UiLanguageService {
     @Inject(LOCALE_ID) private locale: string,
     private translateService: TranslateService
   ) {
-
     this.configureService();
-
-    this.document.documentElement.lang = this.getLang() || this.locale;
+    this.i18n(this.getLang() || this.locale);
   }
 
   public i18n(key: string): void {

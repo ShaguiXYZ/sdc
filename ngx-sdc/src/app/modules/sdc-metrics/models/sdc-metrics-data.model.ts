@@ -5,5 +5,5 @@ export interface MetricsDataModel {
   analysis?: IMetricAnalysisModel[];
   compliance: IComplianceModel;
   metrics?: IMetricModel[];
-  selectedMetric?: IMetricModel;
+  selectedAnalysis?: IMetricAnalysisModel;
 }

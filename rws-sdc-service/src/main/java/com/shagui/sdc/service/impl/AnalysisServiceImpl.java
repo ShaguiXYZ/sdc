@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.enums.MetricType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -52,6 +53,13 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
+	public MetricAnalysisDTO analysis(int componentId, int metricId) {
+		ComponentAnalysisModel model = componentAnalysisRepository.repository().actualMetric(componentId, metricId)
+				.orElseThrow(() -> new JpaNotFoundException());
+		return Mapper.parse(AnalysisUtils.setMetricValues.apply(model));
+	}
+
+	@Override
 	@Transactional
 	public PageData<MetricAnalysisDTO> analyze(int componentId) {
 		ComponentModel component = componentsRepository.findById(componentId);
@@ -59,7 +67,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<ComponentAnalysisModel> analysis = executeAsyncMetricServicesAndWait(component);
 		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(analysis);
 
-		ComponentUtils.addOrUpdateComponentPorperties(component);		
+		ComponentUtils.addOrUpdateComponentPorperties(component);
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 

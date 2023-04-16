@@ -11,12 +11,31 @@ export class AnalysisService {
 
   constructor(private http: UiHttpService) {}
 
+  public analysis(componentId: number, metricId: number): Promise<IMetricAnalysisModel> {
+    return firstValueFrom(
+      this.http
+        .get<IMetricAnalysisDTO>(`${this._urlAnalysis}/get/${componentId}/${metricId}`, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { message: 'Notifications.AnalysisNotFound' }
+          }
+        })
+        .pipe(
+          map(res => {
+            const dto = res as IMetricAnalysisDTO;
+            const result: IMetricAnalysisModel = IMetricAnalysisModel.toModel(dto);
+
+            return result;
+          })
+        )
+    );
+  }
+
   public metricHistory(componentId: number, metricId: number): Promise<IPageableModel<IMetricAnalysisModel>> {
     return firstValueFrom(
       this.http
         .get<IPageableDTO<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}/${metricId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
+            [HttpStatus.notFound]: { message: 'Notifications.MetricAbalysisNotFound' }
           }
         })
         .pipe(

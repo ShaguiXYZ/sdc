@@ -16,6 +16,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 
 @FeignClient(name = "rws-sdc-service", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
+	@GetMapping("analysis/get/{componentId}/{metricId}")
+	MetricAnalysisDTO analysis(@PathVariable @Parameter(description = "Component identifier") int componentId,
+			@PathVariable @Parameter(description = "Metric identifier") int metricId);
+
 	@GetMapping("analysis/{componentId}/{metricId}")
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,

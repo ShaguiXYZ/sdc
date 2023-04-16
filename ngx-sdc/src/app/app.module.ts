@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { UiCoreComponentsModule } from './core/components/core-components.module';
 import { NX_HEADER_CONFIG } from './core/components/header/models';
 import { SDC_HEADER_MENU } from './shared/config/menu';
-import { urls } from './shared/config/routing';
+import { AppUrls, urls } from './shared/config/routing';
 import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
 import { NX_CONTEX_CONFIG } from './core/services/context-data';
 import { AppCoreModule } from './core/core.module';
@@ -41,7 +41,7 @@ const SdcLanguages = {
     UiCoreComponentsModule
   ],
   providers: [
-    { provide: NX_CONTEX_CONFIG, useValue: { urls } },
+    { provide: NX_CONTEX_CONFIG, useValue: { urls, home: AppUrls.summary, log: true } },
     { provide: NX_LANGUAGE_CONFIG, useValue: { languages: SdcLanguages } },
     { provide: NX_HEADER_CONFIG, useValue: { navigation: SDC_HEADER_MENU } },
   ],

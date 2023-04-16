@@ -27,11 +27,16 @@
   "Label": {
     "Applications": "Aplicaciones",
     "Coverage": "Covertura",
+    "CurrentValue": "Valor Actual",
     "FindByApplicationName": "Buscar por aplicación",
+    "ApplicationHistory": "Histórico de la aplicación",
+    "Metrics": "Métricas",
     "MyApplications": "Mis Aplicaciones",
     "Name": "Nombre",
     "Of": "de",
+    "OptimumValue": "Valor óptimo recomendado",
     "OtherSquads": "Otros squads",
+    "SelectedDate": "Fecha seleccionada",
     "ShowAll": "Ver todas",
     "ShowMore": "Ver mas",
     "Squads": "Squads"

@@ -3,7 +3,8 @@ import { ICoverageChartModel } from './models';
 
 import { EChartsOption } from 'echarts';
 import { PieChart } from 'echarts/charts';
-import { COVERAGE_CHART, COVERAGE_CHART_BACKGROUND, SUMMARY_BACKGROUND } from '../../constants/colors';
+import { MetricState, stateByCoverage } from 'src/app/core/lib';
+import { COVERAGE_CHART_BACKGROUND, SUMMARY_BACKGROUND } from '../../constants/colors';
 
 @Component({
   selector: 'sdc-coverage-chart',
@@ -22,8 +23,6 @@ export class SdcCoverageChartComponent implements OnInit {
   public animation = false;
   @Input()
   public size!: number;
-  @Input()
-  public color!: string;
 
   public readonly echartsExtentions: any[];
   public echartsOptions: EChartsOption = {};
@@ -39,6 +38,7 @@ export class SdcCoverageChartComponent implements OnInit {
   private chartOptions(value: ICoverageChartModel): EChartsOption {
     const center = this.size / 2;
     const name = value.name?.trim() ? [`${Math.floor(value.value)}%`, value.name].join('\n') : `${Math.floor(value.value)}%`;
+    const color = MetricState[stateByCoverage(value.value)].color;
 
     return {
       animation: this.animation,
@@ -65,7 +65,7 @@ export class SdcCoverageChartComponent implements OnInit {
               value: value.value,
               name,
               itemStyle: {
-                color: COVERAGE_CHART
+                color
               }
             },
             {

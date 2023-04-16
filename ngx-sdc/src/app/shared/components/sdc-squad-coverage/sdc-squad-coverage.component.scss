@@ -9,14 +9,9 @@
   font-weight: bold !important;
 }
 
-.selectable {
-  padding: 2px;
-}
-
 .selectable.selected {
-  border-color: $background-color-1;
+  background-color: $background-color-1;
   padding: 0;
-  border: 2px dashed;
   border-radius: 4px;
 }
 

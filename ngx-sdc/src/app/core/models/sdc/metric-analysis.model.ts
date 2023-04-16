@@ -4,26 +4,26 @@ import { IAnalysisValuesDTO, IAnalysisValuesModel } from './analysis-values.mode
 import { IMetricDTO, IMetricModel } from './metric.model';
 
 export interface IMetricAnalysisDTO {
-  analysisDate: Date;
+  analysisDate: number;
+  coverage: number;
   metric: IMetricDTO;
   analysisValues: IAnalysisValuesDTO;
-  state: string;
 }
 
 export interface IMetricAnalysisModel {
-  analysisDate: Date;
+  analysisDate: number;
+  coverage: number;
   metric: IMetricModel;
   analysisValues: IAnalysisValuesModel;
-  state: string;
 }
 
 export namespace IMetricAnalysisModel {
   export const toModel = (dto: IMetricAnalysisDTO): IMetricAnalysisModel =>
     new MetricAnalysisModel(
       dto.analysisDate,
+      dto.coverage,
       IMetricModel.toModel(dto.metric),
-      IAnalysisValuesModel.toModel(dto.analysisValues),
-      dto.state
+      IAnalysisValuesModel.toModel(dto.analysisValues)
     );
   export const toDTO = (model: IMetricAnalysisModel): IMetricAnalysisDTO => ({
     ...model,
@@ -33,5 +33,10 @@ export namespace IMetricAnalysisModel {
 }
 
 export class MetricAnalysisModel implements IMetricAnalysisModel {
-  constructor(public analysisDate: Date, public metric: IMetricModel, public analysisValues: IAnalysisValuesModel, public state: string) {}
+  constructor(
+    public analysisDate: number,
+    public coverage: number,
+    public metric: IMetricModel,
+    public analysisValues: IAnalysisValuesModel
+  ) {}
 }

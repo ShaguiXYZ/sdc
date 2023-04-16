@@ -1,18 +1,81 @@
-<div *ngIf="metricsData" id="body-content" class="nx-margin-y-2xs">
-  <sdc-compliance-bar-card [compliance]="metricsData.compliance" [showMore]="false"></sdc-compliance-bar-card>
+<div *ngIf="metricsData" id="application-content" class="nx-margin-y-2xs">
+  <sdc-compliance-bar-card [compliance]="metricsData.compliance" [showMore]="false" [hideBorder]="true"></sdc-compliance-bar-card>
+  <div class="application-historic nx-margin-y-2xs">
+    <nx-accordion>
+      <nx-expansion-panel (opened)="onOpenPanel()">
+        <nx-expansion-panel-header>
+          <nx-expansion-panel-title>
+            <div>
+              {{ 'Label.ApplicationHistory' | translate }}
+              <span class="selected-date nx-margin-left-s"
+                >{{ 'Label.SelectedDate' | translate }}: {{ metricsData.compliance.analysisDate | date }}</span
+              >
+            </div>
+          </nx-expansion-panel-title>
+        </nx-expansion-panel-header>
+
+        <sdc-time-evolution-chart
+          [name]="metricsData.selectedAnalysis?.metric?.name || ''"
+          [values]="values"
+          [pieces]="pieces"
+          [size]="{ height: 200 }"
+        ></sdc-time-evolution-chart>
+      </nx-expansion-panel>
+    </nx-accordion>
+  </div>
 </div>
-<div class="evolution-content">
-  <div class="metrics nx-margin-right-2xs">
-    <div
-      *ngFor="let metric of metricsData?.metrics"
-      [ngClass]="{ selected: selected && selected.id === metric.id }"
-      class="metric cut-text"
-      (click)="loadGraphData(metric)"
-    >
-      {{ metric.name }}
-    </div>
-  </div>
-  <div *ngIf="selected" class="evolution-graph">
-    <sdc-metric-time-evolution-chart [title]="selected.name" [values]="values"></sdc-metric-time-evolution-chart>
-  </div>
+
+<div class="application-coverages nx-margin-y-2xs">
+  <nx-accordion>
+    <nx-expansion-panel [expanded]="true" (opened)="onOpenPanel()">
+      <nx-expansion-panel-header>
+        <nx-expansion-panel-title>
+          <div>
+            {{ 'Label.Metrics' | translate }}
+            <span class="selected-date nx-margin-left-s"
+              >{{ 'Label.Coverage' | translate }}: {{ metricsData?.compliance?.coverage || 0 }} %</span
+            >
+          </div>
+        </nx-expansion-panel-title>
+      </nx-expansion-panel-header>
+
+      <div *ngIf="metricsData" class="evolution-content nx-margin-y-2xs">
+        <div *ngIf="metricsData.compliance.id" class="metrics nx-margin-right-2xs">
+          <sdc-metric-info
+            *ngFor="let metric of metricsData.metrics"
+            [componentId]="metricsData.compliance.id"
+            [metric]="metric"
+            [selected]="metricsData.selectedAnalysis?.metric?.id === metric.id"
+            (selectMetric)="loadGraphData($event)"
+          >
+          </sdc-metric-info>
+        </div>
+        <div *ngIf="metricsData?.selectedAnalysis" class="evolution-graph">
+          <div class="chart-header">
+            <div class="sdc-center">
+              <span *ngIf="metricsData.selectedAnalysis" nxCopytext="medium">
+                {{ 'Label.CurrentValue' | translate }}
+                {{ metricsData.selectedAnalysis.analysisValues.metricValue }}
+              </span>
+            </div>
+            <div class="sdc-center">
+              <span *ngIf="metricsData.selectedAnalysis" nxCopytext="medium">
+                {{ 'Label.OptimumValue' | translate }}
+                {{
+                  metricsData.selectedAnalysis.analysisValues.perfectValue ||
+                    metricsData.selectedAnalysis.analysisValues.goodValue ||
+                    metricsData.selectedAnalysis.analysisValues.expectedValue
+                }}
+              </span>
+            </div>
+          </div>
+          <sdc-time-evolution-chart
+            [name]="metricsData.selectedAnalysis?.metric?.name || ''"
+            [values]="values"
+            [pieces]="pieces"
+          ></sdc-time-evolution-chart>
+        </div>
+      </div>
+    </nx-expansion-panel>
+  </nx-accordion>
 </div>

@@ -1,0 +1,40 @@
+@import '../../../shared/styles/colors';
+
+// Defines a custom property
+@mixin define-custom-property($name, $value) {
+  .metric-state#{custom-property-color($name)} {
+    color: $value;
+  }
+}
+
+@each $name, $value in $coverage-colors {
+  @include define-custom-property($name, $value);
+}
+
+.metric {
+  display: flex;
+  padding: 5px;
+  text-align: justify;
+  white-space: normal;
+  width: 100%;
+
+  &.selected {
+    background-color: $background-color-1;
+    border-radius: 4px;
+  }
+
+  &:hover {
+    background-color: $background-color-1;
+    cursor: pointer;
+  }
+
+  .metric-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .metric-state {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}

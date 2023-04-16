@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { COVERAGE_CHART } from '../../constants/colors';
 import { IStateCount } from '../sdc-state-count';
 
 @Component({
@@ -17,8 +16,6 @@ export class SdcSquadSummaryComponent {
 
   @Output()
   public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
-
-  public chartColor = COVERAGE_CHART;
 
   public onClickStateCount(event: IStateCount) {
     this.clickStateCount.emit(event);

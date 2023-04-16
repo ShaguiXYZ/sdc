@@ -20,7 +20,7 @@ export class UiCookieService {
     };
 
     this.cookieService.set(name, JSON.stringify(cookieData));
-  }
+}
 
   public retrieve(key: string): void {
     const name = cookieName(key);
@@ -28,11 +28,12 @@ export class UiCookieService {
     if (this.cookieService.check(name)) {
       const cookie: IContextData = JSON.parse(this.cookieService.get(name));
 
-      console.log('Cookie data', cookie);
-
-
       if (cookie) {
         this.contextData.setContextData(key, cookie.data, cookie.configuration);
+
+        if (this.contextData.logActivated) {
+          console.log('Retrieve cookie data', cookie);
+        }
       }
     }
   }

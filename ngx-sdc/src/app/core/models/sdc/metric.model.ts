@@ -17,16 +17,16 @@ export interface IMetricDTO {
   id: number;
   name: string;
   type: string;
-  validation: string;
-  valueType: ValueType;
+  validation?: ValidationType;
+  valueType?: ValueType;
 }
 
 export interface IMetricModel {
   id: number;
   name: string;
   type: string;
-  validation: string;
-  valueType: ValueType;
+  validation?: ValidationType;
+  valueType?: ValueType;
 }
 
 export namespace IMetricModel {
@@ -35,5 +35,5 @@ export namespace IMetricModel {
 }
 
 export class MetricModel implements IMetricModel {
-  constructor(public id: number, public name: string, public type: string, public validation: string, public valueType: ValueType) {}
+  constructor(public id: number, public name: string, public type: string, public validation?: ValidationType, public valueType?: ValueType) {}
 }

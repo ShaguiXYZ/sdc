@@ -5,6 +5,12 @@
 
 @import '../src/app/shared/styles/colors';
 
+.sdc-cut-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .sdc-center {
   align-items: center;
   display: flex;

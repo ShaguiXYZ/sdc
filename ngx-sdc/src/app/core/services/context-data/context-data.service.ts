@@ -1,22 +1,12 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { NavigationEnd, PRIMARY_OUTLET, Router, UrlTree } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { APP_NAME } from 'src/app/core/constants/app.constants';
 import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { deepCopy } from '../../lib';
-import {
-  ContextConfig,
-  ContextData,
-  ContextInfo,
-  IContextData,
-  IContextDataConfigurtion,
-  NX_CONTEX_CONFIG,
-  RouterInfo,
-  UrlInfo,
-  cookieName
-} from './models';
+import { routerData } from './lib';
+import { ContextConfig, ContextData, ContextInfo, IContextData, IContextDataConfigurtion, NX_CONTEX_CONFIG, UrlInfo } from './models';
 
 export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
 
@@ -31,21 +21,22 @@ export class UiContextDataService {
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
-  constructor(
-    @Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig,
-    private router: Router
-  ) {
-    contextConfig =  {...{ home: '',urls: {} }, ...contextConfig};
-
+  constructor(@Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig, private router: Router) {
     this.contextStorage = {
       contextData: {},
       cache: {}
     };
 
     this.subject$ = new Subject<string>();
+
+    // contextConfig = { ...{ home: '', urls: {} }, ...contextConfig };
     this._contextConfig = { ...{ home: '', urls: {} }, ...contextConfig };
 
     this.sessionControl();
+  }
+
+  public get logActivated(): boolean {
+    return this._contextConfig.log;
   }
 
   /**
@@ -67,6 +58,7 @@ export class UiContextDataService {
   public getContextData(key?: string): any {
     if (key) {
       const contextData = this.contextStorage.contextData[key];
+
       if (contextData?.configuration.referenced) {
         return this.contextStorage.contextData[key]?.data;
       } else {
@@ -74,15 +66,17 @@ export class UiContextDataService {
       }
     } else {
       const contextDataValues: DataInfo = {};
+
       Object.keys(this.contextStorage.contextData).forEach(
         contextKey => (contextDataValues[contextKey] = deepCopy(this.contextStorage.contextData[contextKey].data))
       );
+
       return contextDataValues;
     }
   }
 
   public getContextConfiguration(key: string): IContextDataConfigurtion {
-    return {...this.contextStorage.contextData[key].configuration};
+    return { ...this.contextStorage.contextData[key].configuration };
   }
 
   /**
@@ -101,7 +95,9 @@ export class UiContextDataService {
     this.addContextData(key, data, configuration);
     this.subject$.next(key);
 
-    console.log(`Context data ${key} added`, data);
+    if (this._contextConfig.log) {
+      console.log(`Context data ${key} added`, this.contextStorage);
+    }
   }
 
   /**
@@ -165,7 +161,7 @@ export class UiContextDataService {
    */
   private controlData(): void {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      const urlInfo: UrlInfo = this.routerData(this.router).urlInfo;
+      const urlInfo: UrlInfo = routerData(this.router, this._contextConfig).urlInfo;
 
       if (urlInfo?.resetContext) {
         const keys = Object.keys(this.contextStorage.contextData);
@@ -174,24 +170,6 @@ export class UiContextDataService {
       } else {
         urlInfo?.resetData?.forEach(value => this.delete(value));
       }
-
-      console.log('Context Storage', this.contextStorage);
     });
-  }
-
-  private urlInfoBykey = (key: string): UrlInfo => this._contextConfig.urls[key];
-
-  private routerData(router: Router): RouterInfo {
-    const tree: UrlTree = router.parseUrl(router.url);
-    const urlSegments = tree.root.children[PRIMARY_OUTLET] ? tree.root.children[PRIMARY_OUTLET].segments || [] : [];
-    const key = tree.root.children.hasOwnProperty(PRIMARY_OUTLET) ? urlSegments[0].path : this._contextConfig.home;
-
-    return {
-      key,
-      urlInfo: this.urlInfoBykey(key),
-      tree,
-      queryParams: deepCopy(tree.queryParams),
-      segments: urlSegments
-    };
   }
 }

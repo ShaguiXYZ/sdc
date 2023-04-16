@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ISquadModel } from 'src/app/core/models/sdc';
-import { COVERAGE_CHART } from '../../constants/colors';
 
 @Component({
   selector: 'sdc-squad-coverage',
@@ -19,8 +18,6 @@ export class SdcSquadCoverageComponent {
 
   @Output()
   public selectSquad: EventEmitter<ISquadModel> = new EventEmitter();
-
-  public chartColor = COVERAGE_CHART;
 
   public onClick() {
     this.selectSquad.emit(this.squad);
