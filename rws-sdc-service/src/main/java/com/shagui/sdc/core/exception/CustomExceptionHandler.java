@@ -30,7 +30,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	ResponseEntity<?> exception(JpaNotFoundException ex) {
 		logException(ex);
 
-		ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), ExceptionCodes.NOT_FOUND);
+		ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex.getKey());
 		return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
 

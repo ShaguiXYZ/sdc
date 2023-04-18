@@ -51,7 +51,7 @@ export class UiHttpService {
     }
 
     if (cachedData) {
-      console.log(`Retrieve cached data ${requestOptions?.cache}`, cachedData);
+      console.log(`Retrieve cached data ${cacheId}`, cachedData);
       return of(cachedData).pipe(take(1));
     } else {
       if (requestOptions?.showLoading) {
@@ -62,7 +62,6 @@ export class UiHttpService {
         tap(data => {
           if (cacheId) {
             console.log(`Add cache data ${cacheId}`, data);
-
             this.cache.add(cacheId, data);
           }
         }),

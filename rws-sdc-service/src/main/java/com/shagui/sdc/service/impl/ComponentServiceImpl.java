@@ -11,6 +11,7 @@ import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
+import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
@@ -85,6 +86,8 @@ public class ComponentServiceImpl implements ComponentService {
 	private ComponentTypeArchitectureModel componentTypeArchitecture(Integer componentTypeId, Integer architectureId) {
 		return componentTypeArchitectureRepository.repository()
 				.findByComponentType_IdAndArchitecture_Id(componentTypeId, architectureId)
-				.orElseThrow(() -> new JpaNotFoundException());
+				.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_COMPONENTTYPE_ARCHITECTURE,
+						String.format("no result found for component type %s and architecture %s", componentTypeId,
+								architectureId)));
 	}
 }
