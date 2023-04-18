@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
@@ -94,11 +95,11 @@ public class GitServiceImpl implements GitService {
 
 		Optional<String> authorizationHeader = getUriProperty(uriModel, Ctes.URI_PROPERTIES.AUTHORIZATION);
 
-		ContentDTO data = authorizationHeader.isPresent()
+		ResponseEntity<ContentDTO> data = authorizationHeader.isPresent()
 				? gitClient.repoFile(URI.create(uri), authorizationHeader.get())
 				: gitClient.repoFile(URI.create(uri));
 
-		return data;
+		return data.getBody();
 	}
 
 	private XmlDocument xmlDocument(String uri) {

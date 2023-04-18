@@ -42,7 +42,7 @@ public interface RwsSdcClient {
 	PageData<MetricDTO> componentMetrics(@PathVariable(value = "componentId") int componentId);
 
 	@GetMapping("component/historical/{componentId}")
-	public HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
+	HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
 			@RequestParam(name = "page", required = false) Integer page,
 			@RequestParam(name = "ps", required = false) Integer ps);
 

@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.client.SonarClient;
@@ -48,18 +49,22 @@ public class SonarServiceImpl implements SonarService {
 
 		return analysisList;
 	}
-	
+
 	private Optional<MeasureSonarDTO> measureByMetric(MeasuresSonarDTO measures, MetricModel metric) {
-		return measures.getMeasures().stream()
-				.filter(m -> m.getMetric().equals(metric.getName())).findFirst();
+		return measures.getMeasures().stream().filter(m -> m.getMetric().equals(metric.getName())).findFirst();
 	}
 
-	private Optional<MeasuresSonarDTO> getSonarClientMeasures(ComponentModel component, List<MetricModel> sonarMetrics) {
+	private Optional<MeasuresSonarDTO> getSonarClientMeasures(ComponentModel component,
+			List<MetricModel> sonarMetrics) {
 		Optional<UriModel> sonarUri = getUri(component.getUris(), UriType.SONAR);
 
 		if (sonarUri.isPresent()) {
 			String metrics = sonarMetrics.stream().map(MetricModel::getName).collect(Collectors.joining(","));
-			return Optional.of(sonarClient.measures(URI.create(sonarUri.get().getUri()), component.getName(), metrics));
+
+			ResponseEntity<MeasuresSonarDTO> response = sonarClient.measures(URI.create(sonarUri.get().getUri()),
+					component.getName(), metrics);
+
+			return Optional.of(response.getBody());
 		}
 
 		return Optional.empty();
