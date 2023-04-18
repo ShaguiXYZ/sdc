@@ -222,7 +222,7 @@
 				 ('ncloc_language_distribution','SONAR',NULL,NULL),
 				 ('projects','SONAR',NULL,NULL),
 				 ('parent/version','GIT','VERSION','MINORorEQUAL'),
-				 ('properties/java.version','GIT','NUMERIC','MINORorEQUAL');
+				 ('properties/java.version','GIT','VERSION','MINORorEQUAL');
 		</sql>
 	</changeSet>
 				 
@@ -279,7 +279,7 @@
 				 ('bff-empty',1,0),
 				 ('storm:aff3ct:gitlab:master',3,0),
 				 ('cardamom:mmg:github:master',3,0),
-				 ('bff-analysis-service',1,0);		
+				 ('bff-sdc-service',1,0);		
 		</sql>
 	</changeSet>
 				 
@@ -346,7 +346,7 @@
 				 ('component_path','bff-empty',2),
 				 ('component_owner','shaguixyz',5),
 				 ('component_repository','sdc',5),
-				 ('component_path','bff-analysis-service',5),
+				 ('component_path','bff-sdc-service',5),
 				 ('xml_path','pom.xml',5);
 		</sql>
 	</changeSet>

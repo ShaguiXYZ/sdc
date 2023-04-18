@@ -12,8 +12,6 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 
-import io.swagger.v3.oas.annotations.Operation;
-
 @FeignClient(name = "rws-sdc-service", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
 	@GetMapping("analysis/get/{componentId}/{metricId}")
@@ -22,15 +20,12 @@ public interface RwsSdcClient {
 	@GetMapping("analysis/{componentId}/{metricId}")
 	PageData<MetricAnalysisDTO> metricHistory(@PathVariable int componentId, @PathVariable int metricId);
 
-	@Operation(summary = "Retrieve squad by id")
 	@GetMapping("squad/{squadId}")
 	SquadDTO squad(@PathVariable int squadId);
 
-	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads")
 	PageData<SquadDTO> squads(@RequestParam(name = "page", required = false) Integer page);
 
-	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId,
 			@RequestParam(name = "page", required = false) Integer page);
@@ -43,7 +38,6 @@ public interface RwsSdcClient {
 			@RequestParam(name = "page", required = false) Integer page,
 			@RequestParam(name = "ps", required = false) Integer ps);
 
-	@Operation(summary = "Retrieve squad components")
 	@GetMapping("component/{componentId}/metrics")
 	PageData<MetricDTO> componentMetrics(@PathVariable(value = "componentId") int componentId);
 

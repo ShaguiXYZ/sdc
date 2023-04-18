@@ -1,0 +1,14 @@
+<nav *ngIf="breadcrumbConfig" aria-label="Breadcrumb" class="nx-margin-top-m">
+  <ol nxBreadcrumb appearance="link">
+    <li>
+      <a nxBreadcrumbItem (click)="backClicked()">
+        {{ breadcrumbConfig.parentTitle | translate }}
+      </a>
+    </li>
+    <li>
+      <a nxBreadcrumbItem class="last-item">
+        {{ breadcrumbConfig.childTitle | translate }}
+      </a>
+    </li>
+  </ol>
+</nav>
