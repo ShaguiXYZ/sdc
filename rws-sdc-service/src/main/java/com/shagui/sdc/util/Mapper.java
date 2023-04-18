@@ -14,9 +14,11 @@ import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
+import com.shagui.sdc.api.dto.TimeCoverageDTO;
 import com.shagui.sdc.core.exception.ApiError;
 import com.shagui.sdc.model.ArchitectureModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
+import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTypeModel;
 import com.shagui.sdc.model.DepartmentModel;
@@ -115,4 +117,9 @@ public class Mapper {
 		return target;
 	}
 
+	public static TimeCoverageDTO parse(ComponentHistoricalCoverageModel source) {
+		TimeCoverageDTO target = new TimeCoverageDTO(source.getCoverage(), source.getId().getAnalysisDate());
+		
+		return target;
+	}
 }

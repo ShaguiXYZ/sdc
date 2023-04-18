@@ -7,8 +7,10 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.sdc.api.domain.CastFactory;
+import com.shagui.sdc.api.domain.HistoricalCoverage;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.PageInfo;
+import com.shagui.sdc.api.domain.TimeCoverage;
 import com.shagui.sdc.core.exception.ApiError;
 
 import feign.FeignException;
@@ -35,6 +37,15 @@ public class Mapper {
 		target.setPaging(CastFactory.getInstance(PageInfo.class).parse(source.getPaging()));
 		target.setPage(source.getPage().stream().map(CastFactory.getInstance(clazz)::parse).collect(Collectors.toList()));
 
+		return target;
+	}
+	
+	public static <V> HistoricalCoverage<V> parse(HistoricalCoverage<?> source, Class<V> clazz) {
+		HistoricalCoverage<V> target = new HistoricalCoverage<V>();
+		
+		target.setData(CastFactory.getInstance(clazz).parse(source.getData()));
+		target.setHistorical(Mapper.parse(source.getHistorical(), TimeCoverage.class));
+		
 		return target;
 	}
 }

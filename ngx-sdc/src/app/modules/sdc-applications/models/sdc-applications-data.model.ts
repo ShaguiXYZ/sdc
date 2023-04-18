@@ -1,4 +1,4 @@
-import { IPagingModel } from 'src/app/core/models/sdc';
+import { IPaging } from 'src/app/core/models/sdc';
 import { IComplianceModel } from 'src/app/shared/components';
 
 export interface SdcApplicationsDataModel {
@@ -6,5 +6,5 @@ export interface SdcApplicationsDataModel {
   coverage?: string;
   name?: string;
   squadId?: number;
-  paging: IPagingModel;
+  paging: IPaging;
 }

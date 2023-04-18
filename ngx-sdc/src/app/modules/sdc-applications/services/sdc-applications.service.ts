@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/constants/app.constants';
 import { MetricState, styleByName } from 'src/app/core/lib';
-import { IPageableModel, ISquadModel } from 'src/app/core/models/sdc';
+import { IPageable, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
 import { IComplianceModel } from 'src/app/shared/components';
@@ -40,7 +40,7 @@ export class SdcApplicationsService implements OnDestroy {
     return this.subject$.asObservable();
   }
 
-  public availableSquads(): Promise<IPageableModel<ISquadModel>> {
+  public availableSquads(): Promise<IPageable<ISquadModel>> {
     return this.squadService.squads();
   }
 

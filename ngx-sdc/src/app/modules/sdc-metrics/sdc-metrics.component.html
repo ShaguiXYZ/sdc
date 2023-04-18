@@ -15,9 +15,8 @@
         </nx-expansion-panel-header>
 
         <sdc-time-evolution-chart
-          [name]="metricsData.selectedAnalysis?.metric?.name || ''"
-          [values]="values"
-          [pieces]="pieces"
+          [name]="'Label.Coverage' | translate"
+          [values]="historicalChartConfig.values"
           [size]="{ height: 200 }"
         ></sdc-time-evolution-chart>
       </nx-expansion-panel>
@@ -27,7 +26,7 @@
 
 <div class="application-coverages nx-margin-y-2xs">
   <nx-accordion>
-    <nx-expansion-panel [expanded]="true" (opened)="onOpenPanel()">
+    <nx-expansion-panel [expanded]="true">
       <nx-expansion-panel-header>
         <nx-expansion-panel-title>
           <div>
@@ -71,8 +70,7 @@
           </div>
           <sdc-time-evolution-chart
             [name]="metricsData.selectedAnalysis?.metric?.name || ''"
-            [values]="values"
-            [pieces]="pieces"
+            [values]="metricChartConfig.values"
           ></sdc-time-evolution-chart>
         </div>
       </div>

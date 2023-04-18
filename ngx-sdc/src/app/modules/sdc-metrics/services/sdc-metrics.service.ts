@@ -42,6 +42,13 @@ export class SdcMetricsService {
     });
   }
 
+  public historicalComponentData(): void {
+    this.componentService.historical(this.metricData.compliance.id).then(historical => {
+      this.metricData.historical = historical;
+      this.data$.next(this.metricData);
+    });
+  }
+
   private loadInitData(): void {
     this.componentService.componentMetrics(this.metricData.compliance.id).then(metrics => {
       const availableMetrics = metrics.page.filter(metric => metric.validation && metric.valueType);

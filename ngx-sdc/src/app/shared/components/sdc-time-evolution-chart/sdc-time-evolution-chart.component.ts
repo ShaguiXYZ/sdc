@@ -3,9 +3,8 @@ import { EChartsOption } from 'echarts';
 import { LineChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ValueType } from 'src/app/core/models/sdc';
-import { ChartConfig, VisualPiece } from './models';
 import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
+import { ChartConfig, ChartValue } from './models';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
@@ -23,14 +22,8 @@ export class SdcTimeEvolutionChartComponent {
   }
 
   @Input()
-  set values(value: { xAxis: string; data: string; type?: ValueType }[]) {
+  set values(value: ChartValue[]) {
     this.chartConfig = { ...this.chartConfig, values: value || [] };
-    this.echartsOptions = this.chartOptions(this.chartConfig);
-  }
-
-  @Input()
-  set pieces(value: VisualPiece[]) {
-    this.chartConfig = { ...this.chartConfig, pieces: value || [] };
     this.echartsOptions = this.chartOptions(this.chartConfig);
   }
 
@@ -58,6 +51,14 @@ export class SdcTimeEvolutionChartComponent {
   private chartOptions(chartConfig: ChartConfig): EChartsOption {
     const xAxis = chartConfig.values?.map(value => value.xAxis) || [];
     const data = chartConfig.values?.map(value => this.valueTypeToNumberPipe.transform(value.data, value.type) || 0) || [];
+    const pieces =
+      chartConfig.values
+        ?.map((value, index) => ({
+          gte: index,
+          lt: index + 1,
+          color: value.color
+        }))
+        .filter(value => value.color) || [];
 
     return {
       animation: false,
@@ -91,7 +92,7 @@ export class SdcTimeEvolutionChartComponent {
       visualMap: {
         show: false,
         dimension: 0,
-        pieces: chartConfig.pieces
+        pieces
       },
       series: [
         {

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shagui.sdc.api.domain.HistoricalCoverage;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.view.ComponentView;
 import com.shagui.sdc.api.view.MetricView;
@@ -28,6 +29,12 @@ public interface ComponentRestApi {
 			@RequestParam(name = "squadId", required = false) @Parameter(description = "Squad identifier") Integer squadId,
 			@RequestParam(name = "coverageMin", required = false) @Parameter(description = "Component coverage min range") Float coverageMin,
 			@RequestParam(name = "coverageMax", required = false) @Parameter(description = "Component coverage max range") Float coverageMax,
+			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+
+	@GetMapping("component/historical/{componentId}")
+	HistoricalCoverage<ComponentView> historical(
+			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
 }

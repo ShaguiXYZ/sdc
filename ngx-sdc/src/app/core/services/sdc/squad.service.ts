@@ -3,14 +3,7 @@ import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UiHttpService } from '..';
 import { UniqueIds } from '../../lib';
-import {
-  IDepartmentModel,
-  IPageableDTO,
-  IPageableModel,
-  IPagingModel,
-  ISquadDTO,
-  ISquadModel
-} from '../../models/sdc';
+import { IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
 import { HttpStatus } from '../http';
 
 const _SQUADS_CACHE_ID_ = `_${UniqueIds.next()}_`;
@@ -34,12 +27,12 @@ export class SquadService {
     );
   }
 
-  public squads(department?: IDepartmentModel): Promise<IPageableModel<ISquadModel>> {
+  public squads(department?: IDepartmentModel): Promise<IPageable<ISquadModel>> {
     const path = department ? `/${department.id}` : '';
 
     return firstValueFrom(
       this.http
-        .get<IPageableDTO<ISquadDTO>>(`${this._urlSquads}/squads${path}`, {
+        .get<IPageable<ISquadDTO>>(`${this._urlSquads}/squads${path}`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
           },
@@ -47,9 +40,9 @@ export class SquadService {
         })
         .pipe(
           map(res => {
-            const dto = res as IPageableDTO<ISquadDTO>;
-            const result: IPageableModel<ISquadModel> = {
-              paging: IPagingModel.toModel(dto.paging),
+            const dto = res as IPageable<ISquadDTO>;
+            const result: IPageable<ISquadModel> = {
+              paging: { ...dto.paging },
               page: dto.page.map(ISquadModel.toModel)
             };
 

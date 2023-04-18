@@ -2,10 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MetricState, stateByCoverage } from 'src/app/core/lib';
-import { IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
-import { VisualPiece } from 'src/app/shared/components/sdc-time-evolution-chart';
-import { MetricsDataModel } from './models';
+import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
+import { MetricsChartConfig, MetricsDataModel } from './models';
 import { SdcMetricsService } from './services';
+import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 
 @Component({
   selector: 'sdc-metrics',
@@ -15,8 +15,8 @@ import { SdcMetricsService } from './services';
 })
 export class SdcMetricsComponent implements OnInit, OnDestroy {
   public metricsData?: MetricsDataModel;
-  public values: { xAxis: string; data: string; type?: ValueType }[] = [];
-  public pieces: VisualPiece[] = [];
+  public metricChartConfig: MetricsChartConfig = { values: [] };
+  public historicalChartConfig: MetricsChartConfig = { values: [] };
 
   private data$!: Subscription;
 
@@ -26,19 +26,8 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
     this.data$ = this.sdcMetricsService.onDataChange().subscribe(metricsData => {
       this.metricsData = metricsData;
 
-      this.pieces =
-        this.metricsData.analysis?.map((analysis, index) => ({
-          gte: index,
-          lt: index + 1,
-          color: MetricState[stateByCoverage(analysis.coverage)].color
-        })) || [];
-
-      this.values =
-        this.metricsData.analysis?.map(analysis => ({
-          xAxis: this.datePipe.transform(analysis.analysisDate, 'dd/MM/yyyy') || '',
-          data: analysis.analysisValues.metricValue,
-          type: analysis.metric.valueType
-        })) || [];
+      this.metricGraphConfig(this.metricsData.analysis);
+      this.applicationCoverageGraphConfig(this.metricsData.historical);
     });
   }
 
@@ -51,6 +40,30 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
   }
 
   onOpenPanel(): void {
-    console.log('Panel opened');
+    if (!this.metricsData?.historical) {
+      this.sdcMetricsService.historicalComponentData();
+    }
+  }
+
+  private metricGraphConfig(analysis?: IMetricAnalysisModel[]) {
+    this.metricChartConfig.values =
+      analysis?.map(data => ({
+        xAxis: this.datePipe.transform(data.analysisDate, 'dd/MM/yyyy') || '',
+        data: data.analysisValues.metricValue,
+        color: MetricState[stateByCoverage(data.coverage)].color,
+        type: data.metric.valueType
+      })) || [];
+  }
+
+  private applicationCoverageGraphConfig(historical?: IHistoricalCoverage<IComponentModel>) {
+    const analysis = historical?.historical.page || [];
+
+    this.historicalChartConfig.values =
+      analysis?.map(data => ({
+        xAxis: this.datePipe.transform(data.analysisDate, 'dd/MM/yyyy') || '',
+        data: `${data.coverage}`,
+        color: MetricState[stateByCoverage(data.coverage)].color,
+        type: ValueType.NUMERIC
+      })) || [];
   }
 }

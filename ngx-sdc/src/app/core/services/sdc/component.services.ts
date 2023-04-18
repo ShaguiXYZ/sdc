@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ELEMENTS_BY_PAGE } from '../../constants/app.constants';
-import { hasValue } from '../../lib';
-import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageableDTO, IPageableModel, IPagingModel } from '../../models/sdc';
+import { deepCopy, hasValue } from '../../lib';
+import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
+import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
 import { HttpStatus, UiHttpService } from '../http';
 
 @Injectable({ providedIn: 'root' })
@@ -20,7 +21,7 @@ export class ComponentService {
     coverageMax?: number,
     page?: number,
     ps: number = ELEMENTS_BY_PAGE
-  ): Promise<IPageableModel<IComponentModel>> {
+  ): Promise<IPageable<IComponentModel>> {
     let httpParams = new HttpParams();
 
     if (hasValue(page)) {
@@ -46,7 +47,7 @@ export class ComponentService {
 
     return firstValueFrom(
       this.http
-        .get<IPageableDTO<IComponentDTO>>(`${this._urlComponents}/components/filter`, {
+        .get<IPageable<IComponentDTO>>(`${this._urlComponents}/components/filter`, {
           showLoading: true,
           clientOptions: { params: httpParams },
           responseStatusMessage: {
@@ -55,9 +56,9 @@ export class ComponentService {
         })
         .pipe(
           map(res => {
-            const dto = res as IPageableDTO<IComponentDTO>;
-            const result: IPageableModel<IComponentModel> = {
-              paging: IPagingModel.toModel(dto.paging),
+            const dto = res as IPageable<IComponentDTO>;
+            const result: IPageable<IComponentModel> = {
+              paging: { ...dto.paging },
               page: dto.page.map(IComponentModel.toModel)
             };
 
@@ -67,24 +68,46 @@ export class ComponentService {
     );
   }
 
-  public componentMetrics(componentId: number): Promise<IPageableModel<IMetricModel>> {
+  public componentMetrics(componentId: number): Promise<IPageable<IMetricModel>> {
     return firstValueFrom(
       this.http
-        .get<IPageableDTO<IMetricDTO>>(`${this._urlComponents}/component/${componentId}/metrics`, {
+        .get<IPageable<IMetricDTO>>(`${this._urlComponents}/component/${componentId}/metrics`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { message: 'Notifications.MetricsNotFound' }
           }
         })
         .pipe(
           tap(res => {
-            const dto = res as IPageableDTO<IMetricDTO>;
+            const dto = res as IPageable<IMetricDTO>;
             dto.page.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
           }),
           map(res => {
-            const dto = res as IPageableDTO<IMetricDTO>;
-            const result: IPageableModel<IMetricModel> = {
-              paging: IPagingModel.toModel(dto.paging),
+            const dto = res as IPageable<IMetricDTO>;
+            const result: IPageable<IMetricModel> = {
+              paging: { ...dto.paging },
               page: dto.page.map(IMetricModel.toModel)
+            };
+
+            return result;
+          })
+        )
+    );
+  }
+
+  public historical(componentId: number): Promise<IHistoricalCoverage<IComponentModel>> {
+    return firstValueFrom(
+      this.http
+        .get<IHistoricalCoverage<IComponentDTO>>(`${this._urlComponents}/component/historical/${componentId}`, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { message: 'Notifications.HistoricalNotFound' }
+          }
+        })
+        .pipe(
+          map(res => {
+            const dto = res as IHistoricalCoverage<IComponentDTO>;
+            const result: IHistoricalCoverage<IComponentModel> = {
+              data: IComponentModel.toModel(dto.data),
+              historical: deepCopy(dto.historical)
             };
 
             return result;
