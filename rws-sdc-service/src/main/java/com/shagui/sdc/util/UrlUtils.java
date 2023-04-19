@@ -28,15 +28,15 @@ public class UrlUtils {
 	public static URL url(String uri, List<RequestProperiesModel> properties) throws IOException {
 		URL url = UrlUtils.url(uri);
 		URLConnection http = url.openConnection();
-		
+
 		properties.forEach(property -> {
 			http.setRequestProperty(property.getKey(), property.getValue());
 		});
 
 		return url;
 	}
-	
-	public static <T>T mapResponse(Response response, Class<T> clazz) {
+
+	public static <T> T mapResponse(Response response, Class<T> clazz) {
 		if (response.status() >= 400) {
 			throw new RuntimeException(
 					String.format("status %s calling %s", response.status(), response.request().url()));

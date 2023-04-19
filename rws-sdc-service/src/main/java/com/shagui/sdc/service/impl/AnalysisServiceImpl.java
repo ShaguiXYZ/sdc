@@ -69,7 +69,9 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<ComponentAnalysisModel> analysis = executeAsyncMetricServicesAndWait(component);
 		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(analysis);
 
-		ComponentUtils.addOrUpdateComponentPorperties(component);
+		if (!savedData.isEmpty()) {
+			ComponentUtils.addOrUpdateComponentPorperties(component);
+		}
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 

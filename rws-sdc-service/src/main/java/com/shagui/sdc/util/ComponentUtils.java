@@ -24,25 +24,9 @@ public class ComponentUtils {
 	}
 
 	@Transactional
-	public static List<ComponentAnalysisModel> addOrUpdateComponentPorperties(ComponentModel component) {
-		Date date = new Date();
-
-		List<ComponentAnalysisModel> metricAnalysis = config.componentAnalysisRepository().repository()
-				.componentAnalysis(component.getId(), new Timestamp(date.getTime()));
-
-		// Analysis Properties
-		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
-
-		component.setCoverage(coverage);
-		component = config.componentRepository().update(component.getId(), component);
-
-		addOrUpdatePropertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE,
-				Long.toString(date.getTime()));
-
-		saveHistoricalCoverage(component, date, coverage);
-		updateSquadPorperties(component);
-
-		return metricAnalysis;
+	public static void addOrUpdateComponentPorperties(ComponentModel component) {
+		updateComponentProperties(component);
+		updateSquadProperties(component);
 	}
 
 	public static String propertyValue(ComponentModel component, String key) {
@@ -73,14 +57,29 @@ public class ComponentUtils {
 				.create(new ComponentHistoricalCoverageModel(component, date, coverage));
 	}
 
-	private static void updateSquadPorperties(ComponentModel component) {
+	private static void updateComponentProperties(ComponentModel component) {
+		Date date = new Date();
+
+		List<ComponentAnalysisModel> metricAnalysis = config.componentAnalysisRepository().repository()
+				.componentAnalysis(component.getId(), new Timestamp(date.getTime()));
+
+		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
+
+		component.setCoverage(coverage);
+		component = config.componentRepository().update(component.getId(), component);
+
+		addOrUpdatePropertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE,
+				Long.toString(date.getTime()));
+		saveHistoricalCoverage(component, date, coverage);
+	}
+
+	private static void updateSquadProperties(ComponentModel component) {
 		Date date = new Date();
 		SquadModel squad = component.getSquad();
 
 		List<ComponentAnalysisModel> metricAnalysis = config.componentAnalysisRepository().repository()
 				.squadAnalysis(squad.getId(), new Timestamp(date.getTime()));
 
-		// Analysis Properties
 		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
 
 		squad.setCoverage(coverage);

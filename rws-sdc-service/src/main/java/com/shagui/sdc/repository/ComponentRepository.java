@@ -2,6 +2,7 @@ package com.shagui.sdc.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -17,6 +18,9 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.SquadModel;
 
 public interface ComponentRepository extends JpaRepository<ComponentModel, Integer> {
+	
+	public Optional<ComponentModel> findBySquad_IdAndName(int squadId, String name);
+	
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range,
 			Pageable pageable) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);

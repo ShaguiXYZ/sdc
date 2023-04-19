@@ -25,10 +25,14 @@ public interface AnalysisRestApi {
 	MetricAnalysisDTO analysis(@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
 
+	@PostMapping("{squadId}/{componentName}")
+	@ResponseStatus(HttpStatus.CREATED)
+	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "squad id") int squadId,
+			@PathVariable @Parameter(description = "component name") String componentName);
+
 	@PostMapping("{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	PageData<MetricAnalysisDTO> analyzeComponent(
-			@PathVariable @Parameter(description = "component identifier") int componentId);
+	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "component identifier") int componentId);
 
 	@GetMapping("{componentId}/{metricId}")
 	PageData<MetricAnalysisDTO> metricHistory(

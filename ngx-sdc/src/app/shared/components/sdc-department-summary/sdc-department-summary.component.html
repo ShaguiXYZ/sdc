@@ -1,8 +1,0 @@
-<div *ngIf="department" class="department-summary">
-  <sdc-coverage-chart [animation]="true" [coverage]="{ name: department.name, value: department.coverage || 0 }" [color]="chartColor" [size]="300"></sdc-coverage-chart>
-  <div class="summary-content">
-    <div class="summary-count">
-      <sdc-components-state-count [components]="components" (clickStateCount)="onClickStateCount($event)"></sdc-components-state-count>
-    </div>
-  </div>
-</div>
