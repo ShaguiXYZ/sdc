@@ -11,7 +11,13 @@ import static pl.pojo.tester.api.assertion.Method.TO_STRING;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.allianz.sdc.core.dto.AuthenticationDTO;
+import com.shagui.sdc.api.dto.AnalysisValuesDTO;
+import com.shagui.sdc.api.dto.ArchitectureDTO;
+import com.shagui.sdc.api.dto.ComponentDTO;
+import com.shagui.sdc.api.dto.ComponentTypeDTO;
+import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.api.dto.MetricDTO;
+import com.shagui.sdc.api.dto.SquadDTO;
 
 class PojoTest {
 
@@ -25,7 +31,6 @@ class PojoTest {
 		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
 		assertPojoMethodsFor(MetricDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
 		assertPojoMethodsFor(SquadDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();	
-		assertPojoMethodsFor(AuthenticationDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();	
 	}
 
 }

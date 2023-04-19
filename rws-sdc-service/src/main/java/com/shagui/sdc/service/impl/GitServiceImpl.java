@@ -13,7 +13,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
@@ -33,6 +32,7 @@ import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.UrlUtils;
 import com.shagui.sdc.util.XmlDocument;
 
+import feign.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -95,11 +95,11 @@ public class GitServiceImpl implements GitService {
 
 		Optional<String> authorizationHeader = getUriProperty(uriModel, Ctes.URI_PROPERTIES.AUTHORIZATION);
 
-		ResponseEntity<ContentDTO> data = authorizationHeader.isPresent()
+		Response response = authorizationHeader.isPresent()
 				? gitClient.repoFile(URI.create(uri), authorizationHeader.get())
 				: gitClient.repoFile(URI.create(uri));
 
-		return data.getBody();
+		return UrlUtils.mapResponse(response, ContentDTO.class);
 	}
 
 	private XmlDocument xmlDocument(String uri) {

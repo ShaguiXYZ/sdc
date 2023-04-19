@@ -10,6 +10,8 @@ import static pl.pojo.tester.api.assertion.Method.TO_STRING;
 
 import org.junit.jupiter.api.Test;
 
+import com.shagui.sdc.core.exception.ApiError;
+
 class ApiErrorTest {
 
 	@Test

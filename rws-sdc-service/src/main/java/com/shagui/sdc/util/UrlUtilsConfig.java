@@ -10,12 +10,12 @@ import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
-public class MapperConfig {
+public class UrlUtilsConfig {
 	private ObjectMapper objectMapper;
 
 	@PostConstruct
 	public void init() {
-		Mapper.setConfig(this);
+		UrlUtils.setConfig(this);
 	}
 
 	public ObjectMapper getObjectMapper() {

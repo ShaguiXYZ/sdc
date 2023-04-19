@@ -11,8 +11,15 @@ import static pl.pojo.tester.api.assertion.Method.TO_STRING;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.allianz.sdc.api.domain.PageData;
-import com.allianz.sdc.api.domain.PageInfo;
+import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.PageInfo;
+import com.shagui.sdc.api.view.AnalysisValuesView;
+import com.shagui.sdc.api.view.ArchitectureView;
+import com.shagui.sdc.api.view.ComponentTypeView;
+import com.shagui.sdc.api.view.ComponentView;
+import com.shagui.sdc.api.view.MetricAnalysisView;
+import com.shagui.sdc.api.view.MetricView;
+import com.shagui.sdc.api.view.SquadView;
 
 class PojoViewTest {
 

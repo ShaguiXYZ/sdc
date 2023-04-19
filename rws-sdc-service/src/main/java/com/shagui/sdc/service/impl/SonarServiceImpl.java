@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.client.SonarClient;
@@ -21,6 +20,9 @@ import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.UriModel;
 import com.shagui.sdc.service.SonarService;
 import com.shagui.sdc.util.Ctes;
+import com.shagui.sdc.util.UrlUtils;
+
+import feign.Response;
 
 @Service(Ctes.ANALYSIS_SERVICES_TYPES.SONAR)
 public class SonarServiceImpl implements SonarService {
@@ -61,10 +63,9 @@ public class SonarServiceImpl implements SonarService {
 		if (sonarUri.isPresent()) {
 			String metrics = sonarMetrics.stream().map(MetricModel::getName).collect(Collectors.joining(","));
 
-			ResponseEntity<MeasuresSonarDTO> response = sonarClient.measures(URI.create(sonarUri.get().getUri()),
-					component.getName(), metrics);
+			Response response = sonarClient.measures(URI.create(sonarUri.get().getUri()), component.getName(), metrics);
 
-			return Optional.of(response.getBody());
+			return Optional.of(UrlUtils.mapResponse(response, MeasuresSonarDTO.class));
 		}
 
 		return Optional.empty();

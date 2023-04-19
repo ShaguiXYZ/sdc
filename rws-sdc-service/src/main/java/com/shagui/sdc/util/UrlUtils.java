@@ -1,15 +1,24 @@
 package com.shagui.sdc.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
 import com.shagui.sdc.model.RequestProperiesModel;
 
-public class UrlUtils {
-	private UrlUtils() {
+import feign.Response;
 
+public class UrlUtils {
+
+	private static UrlUtilsConfig config;
+
+	private UrlUtils() {
+	}
+
+	public static void setConfig(UrlUtilsConfig config) {
+		UrlUtils.config = config;
 	}
 
 	public static URL url(String uri) throws IOException {
@@ -25,5 +34,18 @@ public class UrlUtils {
 		});
 
 		return url;
+	}
+	
+	public static <T>T mapResponse(Response response, Class<T> clazz) {
+		if (response.status() >= 400) {
+			throw new RuntimeException(
+					String.format("status %s calling %s", response.status(), response.request().url()));
+		}
+
+		try (InputStream bodyIs = response.body().asInputStream()) {
+			return config.getObjectMapper().readValue(bodyIs, clazz);
+		} catch (IOException ex) {
+			throw new RuntimeException(String.format("error mapping response to %s", clazz.getName()));
+		}
 	}
 }
