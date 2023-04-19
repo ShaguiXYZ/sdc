@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(configContextRoutes(routes), { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(configContextRoutes(routes), {})],
   exports: [RouterModule],
   providers: []
 })
