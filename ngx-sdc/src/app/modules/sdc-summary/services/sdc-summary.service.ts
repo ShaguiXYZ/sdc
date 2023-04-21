@@ -40,19 +40,20 @@ export class SdcSummaryService {
       }
 
       this.data = { ...this.data, squads, filter };
-      this.summary$.next(this.data);
-
       this.contextData = { ...this.contextData, filter };
       this.contextDataService.setContextData(ContextDataInfo.SUMMARY_DATA, this.contextData, { persistent: true });
+
+      this.summary$.next(this.data);
     });
   }
 
   public selectedSquad(squad: ISquadModel): void {
     this.componetService.filter(undefined, squad.id).then(pageable => {
       this.data = { ...this.data, squad, components: pageable.page };
-      this.summary$.next(this.data);
       this.contextData = { ...this.contextData, squad };
       this.contextDataService.setContextData(ContextDataInfo.SUMMARY_DATA, this.contextData, { persistent: true });
+
+      this.summary$.next(this.data);
     });
   }
 

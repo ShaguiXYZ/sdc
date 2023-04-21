@@ -24,9 +24,17 @@ public class ComponentUtils {
 	}
 
 	@Transactional
-	public static void addOrUpdateComponentPorperties(ComponentModel component) {
-		updateComponentProperties(component);
-		updateSquadProperties(component);
+	public static void updateComponentProperties(ComponentModel component) {
+		Date date = new Date();
+
+		addOrUpdatePropertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE,
+				Long.toString(date.getTime()));
+	}
+
+	@Transactional
+	public static void updateRelatedComponentEntities(ComponentModel component) {
+		updateComponent(component);
+		updateSquadComponent(component);
 	}
 
 	public static String propertyValue(ComponentModel component, String key) {
@@ -57,7 +65,7 @@ public class ComponentUtils {
 				.create(new ComponentHistoricalCoverageModel(component, date, coverage));
 	}
 
-	private static void updateComponentProperties(ComponentModel component) {
+	private static void updateComponent(ComponentModel component) {
 		Date date = new Date();
 
 		List<ComponentAnalysisModel> metricAnalysis = config.componentAnalysisRepository().repository()
@@ -68,12 +76,10 @@ public class ComponentUtils {
 		component.setCoverage(coverage);
 		component = config.componentRepository().update(component.getId(), component);
 
-		addOrUpdatePropertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE,
-				Long.toString(date.getTime()));
 		saveHistoricalCoverage(component, date, coverage);
 	}
 
-	private static void updateSquadProperties(ComponentModel component) {
+	private static void updateSquadComponent(ComponentModel component) {
 		Date date = new Date();
 		SquadModel squad = component.getSquad();
 

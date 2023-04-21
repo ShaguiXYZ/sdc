@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class DepartmentView {
 	private int id;
 	private String name;
+	private Float coverage;
 
 	public DepartmentView(DepartmentDTO source) {
 		BeanUtils.copyProperties(source, this);

@@ -70,8 +70,10 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(analysis);
 
 		if (!savedData.isEmpty()) {
-			ComponentUtils.addOrUpdateComponentPorperties(component);
+			ComponentUtils.updateRelatedComponentEntities(component);
 		}
+		
+		ComponentUtils.updateComponentProperties(component);
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 

@@ -1,6 +1,7 @@
 package com.shagui.sdc.util;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -105,7 +106,12 @@ public class Mapper {
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {
-		DepartmentDTO target = new DepartmentDTO(source.getId(), source.getName());
+		int numSquads = source.getSquads().size();
+		Float coverage = source.getSquads().stream().map(SquadModel::getCoverage).filter(Objects::nonNull).reduce(0f,
+				(a, b) -> a + b);
+
+		DepartmentDTO target = new DepartmentDTO(source.getId(), source.getName(),
+				numSquads > 0 ? coverage / numSquads : 0);
 
 		return target;
 	}
@@ -119,7 +125,7 @@ public class Mapper {
 
 	public static TimeCoverageDTO parse(ComponentHistoricalCoverageModel source) {
 		TimeCoverageDTO target = new TimeCoverageDTO(source.getCoverage(), source.getId().getAnalysisDate());
-		
+
 		return target;
 	}
 }

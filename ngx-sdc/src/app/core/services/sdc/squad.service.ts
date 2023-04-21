@@ -23,7 +23,7 @@ export class SquadService {
             [HttpStatus.notFound]: { message: 'Notifications.SquadNotFound' }
           }
         })
-        .pipe(map(state => ISquadModel.toModel(state as ISquadDTO)))
+        .pipe(map(data => ISquadModel.toModel(data as ISquadDTO)))
     );
   }
 

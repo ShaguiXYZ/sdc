@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.shagui.sdc.api.domain.HistoricalCoverage;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentDTO;
+import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
@@ -26,6 +27,12 @@ public interface RwsSdcClient {
 	@PostMapping("analysis/{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);
+
+	@GetMapping("department/{departmentId}")
+	DepartmentDTO department(@PathVariable(value = "departmentId") int departmentId);
+
+	@GetMapping("departments")
+	PageData<DepartmentDTO> departments(@RequestParam(name = "page", required = false) Integer page);
 
 	@GetMapping("squad/{squadId}")
 	SquadDTO squad(@PathVariable int squadId);
