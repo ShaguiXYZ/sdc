@@ -1,4 +1,10 @@
 {
+  "Alerts": {
+    "RunProcess": {
+      "Title": "¿ Seguro ?",
+      "Description": "¿ Quieres proceder con el analisis del componente ?"
+    }
+  },
   "ComplianceCard": {
     "ProcessDate": "Fecha de proceso"
   },
@@ -26,6 +32,8 @@
   },
   "Label": {
     "Applications": "Aplicaciones",
+    "Cancel": "Cancelar",
+    "Continue": "Continuar",
     "Coverage": "Covertura",
     "CurrentValue": "Valor Actual",
     "FindByApplicationName": "Buscar por aplicación",
@@ -33,13 +41,15 @@
     "Metrics": "Métricas",
     "MyApplications": "Mis Aplicaciones",
     "Name": "Nombre",
+    "No": "No",
     "Of": "de",
     "OptimumValue": "Valor óptimo recomendado",
     "OtherSquads": "Otros squads",
     "SelectedDate": "Fecha seleccionada",
     "ShowAll": "Ver todas",
     "ShowMore": "Ver mas",
-    "Squads": "Squads"
+    "Squads": "Squads",
+    "Yes": "Si"
   },
   "Language": {
     "enGB": "Inglés (en-GB)",
@@ -47,5 +57,8 @@
     "esCO": "Castellano (es-CO)",
     "ptBR": "Portugués (pt-BR)",
     "ptPT": "Portugués (pt-PT)"
+  },
+  "Tooltip": {
+    "RunProcess": "Analiza {{name}}"
   }
 }

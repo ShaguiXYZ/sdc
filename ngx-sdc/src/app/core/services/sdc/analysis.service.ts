@@ -42,13 +42,31 @@ export class AnalysisService {
           map(res => {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
-              paging: {...dto.paging},
+              paging: { ...dto.paging },
               page: dto.page.map(IMetricAnalysisModel.toModel)
             };
 
             return result;
           })
         )
+    );
+  }
+
+  public analize(componentId: number): Promise<IPageable<IMetricAnalysisModel>> {
+    return firstValueFrom(
+      this.http.post<IPageable<IMetricAnalysisDTO>, any>(`${this._urlAnalysis}/${componentId}`, undefined, {
+        successMessage: { message: 'Label.Component.Analized' }
+      }).pipe(
+        map(res => {
+          const dto = res as IPageable<IMetricAnalysisDTO>;
+          const result: IPageable<IMetricAnalysisModel> = {
+            paging: { ...dto.paging },
+            page: dto.page.map(IMetricAnalysisModel.toModel)
+          };
+
+          return result;
+        })
+      )
     );
   }
 }

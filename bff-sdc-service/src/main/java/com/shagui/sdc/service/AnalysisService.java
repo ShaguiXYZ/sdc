@@ -7,4 +7,6 @@ public interface AnalysisService {
 	MetricAnalysisDTO analysis(int componentId, int metricId);
 
 	PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId);
+
+	PageData<MetricAnalysisDTO> analize(int componentId);
 }

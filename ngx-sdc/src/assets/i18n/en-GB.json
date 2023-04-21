@@ -1,4 +1,10 @@
 {
+  "Alerts": {
+    "RunProcess": {
+      "Title": "Are you sure ?",
+      "Description": "Do you want to proceed with the analysis of the component ?"
+    }
+  },
   "ComplianceCard": {
     "ProcessDate": "Date of process"
   },
@@ -26,6 +32,8 @@
   },
   "Label": {
     "Applications": "Applications",
+    "Cancel": "Cancel",
+    "Continue": "Continue",
     "Coverage": "Coverage",
     "CurrentValue": "Current value",
     "FindByApplicationName": "Find by application",
@@ -33,13 +41,15 @@
     "Metrics": "Metrics",
     "MyApplications": "My Applications",
     "Name": "Name",
+    "No": "No",
     "Of": "of",
     "OptimumValue": "Recommended optimum value",
     "OtherSquads": "Other squads",
     "SelectedDate": "Selected date",
     "ShowAll": "Show all",
     "ShowMore": "Show more",
-    "Squads": "Squads"
+    "Squads": "Squads",
+    "Yes": "Yes"
   },
   "Language": {
     "enGB": "English (en-GB)",
@@ -47,5 +57,8 @@
     "esCO": "Spanish (es-CO)",
     "ptBR": "Portuguese (pt-BR)",
     "ptPT": "Portuguese (pt-PT)"
+  },
+  "Tooltip": {
+    "RunProcess": "Analize {{name}}"
   }
 }

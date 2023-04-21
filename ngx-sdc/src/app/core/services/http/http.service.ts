@@ -12,11 +12,11 @@ import { UiCacheService } from '../context-data';
 import { HttpStatus } from './models';
 
 export interface RequestOptions {
-  // params?: any;
+  clientOptions?: any;
+  procesingMessage?: MessageModal;
+  responseStatusMessage?: GenericDataInfo<MessageModal>;
   showLoading?: boolean;
   successMessage?: MessageModal;
-  responseStatusMessage?: GenericDataInfo<MessageModal>;
-  clientOptions?: any;
 }
 
 export interface CacheRequestOptions extends RequestOptions {
@@ -81,8 +81,8 @@ export class UiHttpService {
 
   public post<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
     const notificationId = this.notificationService.info(
-      this.translateService.instant('Notifications.Saving'),
-      this.translateService.instant('Notifications.SavingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
+      this.translateService.instant(requestOptions?.procesingMessage?.message || 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -103,8 +103,8 @@ export class UiHttpService {
 
   public put<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
     const notificationId = this.notificationService.info(
-      this.translateService.instant('Notifications.Saving'),
-      this.translateService.instant('Notifications.SavingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
+      this.translateService.instant(requestOptions?.procesingMessage?.message || 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -140,8 +140,8 @@ export class UiHttpService {
 
   public delete<T>(url: string, requestOptions?: RequestOptions): Observable<any> {
     const notificationId = this.notificationService.info(
-      this.translateService.instant('Notifications.Deleting'),
-      this.translateService.instant('Notifications.SavingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
+      this.translateService.instant(requestOptions?.procesingMessage?.message || 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -194,7 +194,7 @@ export class UiHttpService {
 
       this.notificationService.error(
         this.translateService.instant(title || 'Notifications.Error'),
-        this.translateService.instant(message || ''),
+        message?.trim() ? this.translateService.instant(message) : message,
         DEFAULT_TIMEOUT_NOTIFICATIONS,
         true
       );

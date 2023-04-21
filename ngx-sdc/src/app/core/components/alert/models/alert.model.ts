@@ -1,5 +1,13 @@
 import { ButtonModel } from '../../../models/button.model';
 
 export class AlertModel {
-  constructor(public title: string, public description: string, public buttons: ButtonModel[]) {}
+  private _descriptions: string[] = [];
+
+  constructor(public title: string, description: string | string[], public buttons: ButtonModel[]) {
+    this._descriptions = Array.isArray(description) ? [...description] : [description];
+  }
+
+  public get desctiptions(): string[] {
+    return this._descriptions;
+  }
 }

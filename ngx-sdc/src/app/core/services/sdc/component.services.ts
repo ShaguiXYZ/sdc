@@ -14,6 +14,18 @@ export class ComponentService {
 
   constructor(private http: UiHttpService) {}
 
+  public component(componentId: number): Promise<IComponentModel> {
+    return firstValueFrom(
+      this.http
+        .get<IComponentDTO>(`${this._urlComponents}/component/${componentId}`, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { message: 'Notifications.ComponentNotFound' }
+          }
+        })
+        .pipe(map(res => IComponentModel.toModel(res as IComponentDTO)))
+    );
+  }
+
   public filter(
     name?: string,
     squadId?: number,

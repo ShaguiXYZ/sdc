@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.ComponentRestApi;
+import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.domain.HistoricalCoverage;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.view.ComponentView;
@@ -19,6 +20,11 @@ public class ComponentController implements ComponentRestApi {
 
 	@Autowired
 	private ComponentService componentService;
+
+	@Override
+	public ComponentView component(int componentId) {
+		return CastFactory.getInstance(ComponentView.class).parse(componentService.findBy(componentId));
+	}
 
 	@Override
 	public PageData<ComponentView> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,

@@ -5,11 +5,7 @@ button {
   min-width: 120px;
 }
 
-h3[nxheadline='subsection-large'] {
+h3[nxheadline='subsection-small'] {
   margin-bottom: 24px;
   white-space: pre-line;
-}
-
-nx-icon {
-  color: $primary-dark-color;
 }

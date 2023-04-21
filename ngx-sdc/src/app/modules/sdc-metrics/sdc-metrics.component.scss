@@ -1,4 +1,23 @@
+@import '../../shared/styles/globals';
 @import '../../shared/styles/colors';
+
+.application-graph {
+  position: relative;
+
+  .run-process {
+    cursor: pointer;
+    height: 25px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 25px;
+    z-index: $z-index-bottom;
+
+    &:hover {
+      color: var(--link-hover-color);
+    }
+  }
+}
 
 .application-historic,
 .application-coverages {

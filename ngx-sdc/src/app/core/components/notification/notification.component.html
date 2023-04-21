@@ -1,22 +1,23 @@
-<nx-message
-    *ngFor="let notification of notifications; let i = index"
-    closable="{{ notification.closable }}"
-    [nxContext]="notification.type"
-    (close)="close(notification.id)"
->
-    <strong>
-        {{ notification.title }}
-    </strong>
-    <br />
-    <span class="description">{{ notification.description }}</span>
-    <button
-        *ngIf="notification.button"
-        type="button"
-        nxButton="{{ notification.button.type }} small-medium"
-        class="nx-margin-bottom-0"
-        (click)="notification.button.action()"
-    >
-        <nx-icon name="arrow-right" class="nx-margin-right-2xs"></nx-icon>
-        {{ notification.button.text }}
-    </button>
-</nx-message>
+<div *ngFor="let notification of notifications; let i = index" class="message-content">
+  <nx-message
+      closable="{{ notification.closable }}"
+      [nxContext]="notification.type"
+      (close)="close(notification.id)"
+  >
+      <strong>
+          {{ notification.title }}
+      </strong>
+      <br />
+      <span class="description">{{ notification.description }}</span>
+      <button
+          *ngIf="notification.button"
+          type="button"
+          nxButton="{{ notification.button.type }} small-medium"
+          class="nx-margin-bottom-0"
+          (click)="notification.button.action()"
+      >
+          <nx-icon name="arrow-right" class="nx-margin-right-2xs"></nx-icon>
+          {{ notification.button.text }}
+      </button>
+  </nx-message>
+</div>

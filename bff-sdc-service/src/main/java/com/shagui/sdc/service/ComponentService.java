@@ -6,6 +6,8 @@ import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 
 public interface ComponentService {
+	ComponentDTO findBy(int componentId);
+
 	PageData<ComponentDTO> filter(String name, Integer squadId, Float coverageMin, Float coverageMax, Integer page,
 			Integer ps);
 

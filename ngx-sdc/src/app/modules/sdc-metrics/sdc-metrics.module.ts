@@ -9,6 +9,8 @@ import { SdcMetricInfoModule } from 'src/app/shared/components/sdc-metric-info/s
 import { SdcTimeEvolutionChartModule } from 'src/app/shared/components/sdc-time-evolution-chart/sdc-time-evolution-chart.module';
 import { SdcMetricsRoutingModule } from './sdc-metrics-routing.module';
 import { SdcMetricsComponent } from './sdc-metrics.component';
+import { NxIconModule } from '@aposin/ng-aquila/icon';
+import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 
 @NgModule({
   declarations: [SdcMetricsComponent],
@@ -16,7 +18,9 @@ import { SdcMetricsComponent } from './sdc-metrics.component';
     CommonModule,
     NxAccordionModule,
     NxButtonModule,
+    NxIconModule,
     NxCopytextModule,
+    NxTooltipModule,
     SdcComplianceBarCardModule,
     SdcMetricsRoutingModule,
     SdcMetricInfoModule,

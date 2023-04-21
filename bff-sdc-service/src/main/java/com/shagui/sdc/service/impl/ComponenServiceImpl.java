@@ -17,6 +17,11 @@ public class ComponenServiceImpl implements ComponentService {
 	private RwsSdcClient rwsSdcClient;
 
 	@Override
+	public ComponentDTO findBy(int componentId) {
+		return rwsSdcClient.component(componentId);
+	}
+
+	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
 			Integer page, Integer ps) {
 		return rwsSdcClient.filter(name, squadId, coverageMin, coverageMax, page, ps);
@@ -31,5 +36,4 @@ public class ComponenServiceImpl implements ComponentService {
 	public HistoricalCoverage<ComponentDTO> historical(int componentId, Integer page, Integer ps) {
 		return rwsSdcClient.componentHistoricalCoverage(componentId, page, ps);
 	}
-
 }

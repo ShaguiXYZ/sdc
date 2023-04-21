@@ -23,4 +23,9 @@ public class AnalysisServiceImpl implements AnalysisService {
 	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId) {
 		return rwsSdcClient.metricHistory(componentId, metricId);
 	}
+
+	@Override
+	public PageData<MetricAnalysisDTO> analize(int componentId) {
+		return rwsSdcClient.analyze(componentId);
+	}
 }

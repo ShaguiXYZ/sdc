@@ -5,6 +5,7 @@ import { UiContextDataService } from 'src/app/core/services';
 import { AnalysisService, ComponentService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { MetricsContextData, MetricsDataModel } from '../models';
+import { IComplianceModel } from 'src/app/shared/components';
 
 @Injectable()
 export class SdcMetricsService {
@@ -25,10 +26,6 @@ export class SdcMetricsService {
     this.loadInitData();
   }
 
-  public retrieveCoverage = async (componentId: number, metric: IMetricModel): Promise<any> => {
-    await this.analysisService.analysis(componentId, metric.id).then(value => value.coverage);
-  };
-
   public onDataChange(): Observable<MetricsDataModel> {
     return this.data$.asObservable();
   }
@@ -48,6 +45,17 @@ export class SdcMetricsService {
       this.data$.next(this.metricData);
     });
   }
+
+  public analyze = (): void => {
+    this.analysisService.analize(this.metricData.compliance.id).then(() => {
+      this.componentService.component(this.metricData.compliance.id).then(data => {
+        this.metricData.compliance = IComplianceModel.fromComponentModel(data);
+      });
+
+      this.loadInitData();
+      this.historicalComponentData();
+    });
+  };
 
   private loadInitData(): void {
     this.componentService.componentMetrics(this.metricData.compliance.id).then(metrics => {

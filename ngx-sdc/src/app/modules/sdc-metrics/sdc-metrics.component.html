@@ -13,12 +13,20 @@
             </div>
           </nx-expansion-panel-title>
         </nx-expansion-panel-header>
-
-        <sdc-time-evolution-chart
-          [name]="'Label.Coverage' | translate"
-          [values]="historicalChartConfig.values"
-          [size]="{ height: 200 }"
-        ></sdc-time-evolution-chart>
+        <div class="application-graph">
+          <div
+            class="run-process"
+            [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
+            (click)="onRunProcess()"
+          >
+            <nx-icon name="product-cog-wheels" size="s"></nx-icon>
+          </div>
+          <sdc-time-evolution-chart
+            [name]="'Label.Coverage' | translate"
+            [values]="historicalChartConfig.values"
+            [size]="{ height: 200 }"
+          ></sdc-time-evolution-chart>
+        </div>
       </nx-expansion-panel>
     </nx-accordion>
   </div>

@@ -21,6 +21,11 @@ public class ComponentController implements ComponentRestApi {
 	private ComponentService componentService;
 
 	@Override
+	public ComponentDTO component(int componentId) {
+		return componentService.findBy(componentId);
+	}
+
+	@Override
 	public ComponentDTO create(ComponentDTO component) {
 		return componentService.create(component);
 	}

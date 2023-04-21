@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { UiAlertService } from 'src/app/core/components/alert';
 import { MetricState, stateByCoverage } from 'src/app/core/lib';
 import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
+import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 import { MetricsChartConfig, MetricsDataModel } from './models';
 import { SdcMetricsService } from './services';
-import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 
 @Component({
   selector: 'sdc-metrics',
@@ -20,7 +21,7 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
   private data$!: Subscription;
 
-  constructor(private datePipe: DatePipe, private sdcMetricsService: SdcMetricsService) {}
+  constructor(private datePipe: DatePipe, private alertService: UiAlertService, private sdcMetricsService: SdcMetricsService) {}
 
   ngOnInit(): void {
     this.data$ = this.sdcMetricsService.onDataChange().subscribe(metricsData => {
@@ -43,6 +44,20 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
     if (!this.metricsData?.historical) {
       this.sdcMetricsService.historicalComponentData();
     }
+  }
+
+  onRunProcess() {
+    this.alertService.confirm(
+      {
+        title: 'Alerts.RunProcess.Title',
+        message: 'Alerts.RunProcess.Description'
+      },
+      () => {
+        this.sdcMetricsService.analyze();
+      },
+      'Label.Yes',
+      'Label.No'
+    );
   }
 
   private metricGraphConfig(analysis?: IMetricAnalysisModel[]) {

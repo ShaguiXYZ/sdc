@@ -18,6 +18,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 @Headers("Content-Type: application/json;charset=UTF-8")
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface ComponentRestApi {
+	@Operation(summary = "Retrieve component by Id")
+	@GetMapping("component/{componentId}")
+	ComponentView component(
+			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
+
 	@Operation(summary = "Retrieve component metrics")
 	@GetMapping("component/{componentId}/metrics")
 	PageData<MetricView> componentMetrics(

@@ -1,14 +1,14 @@
 <ng-template #alertBody>
-  <div nxModalContent nxLayout="grid">
+  <div nxModalContent nxLayout="grid nogutters">
     <div nxRow>
       <div nxCol="12">
-        <h3 nxHeadline="subsection-large">{{ alert?.title }}</h3>
+        <h3 nxHeadline="subsection-small" class="nx-modal-margin-bottom">{{ alert?.title }}</h3>
       </div>
     </div>
 
     <div nxRow class="nx-margin-bottom-2m">
-      <div nxCol="12">
-        <span nxCopytext>{{ alert?.description }}</span>
+      <div *ngFor="let description of alert?.desctiptions" nxCol="12">
+        <span nxCopytext>{{ description }}</span>
       </div>
     </div>
   </div>

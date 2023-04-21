@@ -7,6 +7,8 @@ import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 
 public interface ComponentService {
+	ComponentDTO findBy(int componentId);
+
 	ComponentDTO findBy(int squadId, String name);
 
 	ComponentDTO create(ComponentDTO component);

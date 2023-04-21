@@ -1,9 +1,12 @@
 package com.shagui.sdc.api.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.shagui.sdc.api.domain.HistoricalCoverage;
 import com.shagui.sdc.api.domain.PageData;
@@ -20,6 +23,10 @@ public interface RwsSdcClient {
 	@GetMapping("analysis/{componentId}/{metricId}")
 	PageData<MetricAnalysisDTO> metricHistory(@PathVariable int componentId, @PathVariable int metricId);
 
+	@PostMapping("analysis/{componentId}")
+	@ResponseStatus(HttpStatus.CREATED)
+	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);
+
 	@GetMapping("squad/{squadId}")
 	SquadDTO squad(@PathVariable int squadId);
 
@@ -29,6 +36,9 @@ public interface RwsSdcClient {
 	@GetMapping("squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId,
 			@RequestParam(name = "page", required = false) Integer page);
+
+	@GetMapping("component/{componentId}")
+	ComponentDTO component(@PathVariable(value = "componentId") int componentId);
 
 	@GetMapping("components/filter")
 	PageData<ComponentDTO> filter(@RequestParam(name = "name", required = false) String name,
