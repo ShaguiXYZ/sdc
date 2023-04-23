@@ -19,7 +19,7 @@ export class ComponentService {
       this.http
         .get<IComponentDTO>(`${this._urlComponents}/component/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.ComponentNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.ComponentNotFound' }
           }
         })
         .pipe(map(res => IComponentModel.toModel(res as IComponentDTO)))
@@ -63,7 +63,7 @@ export class ComponentService {
           showLoading: true,
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.ComponentsNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.ComponentsNotFound' }
           }
         })
         .pipe(
@@ -85,7 +85,7 @@ export class ComponentService {
       this.http
         .get<IPageable<IMetricDTO>>(`${this._urlComponents}/component/${componentId}/metrics`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.MetricsNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.MetricsNotFound' }
           }
         })
         .pipe(
@@ -111,7 +111,7 @@ export class ComponentService {
       this.http
         .get<IHistoricalCoverage<IComponentDTO>>(`${this._urlComponents}/component/historical/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.HistoricalNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.HistoricalNotFound' }
           }
         })
         .pipe(

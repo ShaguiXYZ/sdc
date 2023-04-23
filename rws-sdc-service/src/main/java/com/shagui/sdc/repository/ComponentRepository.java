@@ -16,11 +16,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.SquadModel;
+import com.shagui.sdc.util.JpaUtils;
 
 public interface ComponentRepository extends JpaRepository<ComponentModel, Integer> {
-	
+
 	public Optional<ComponentModel> findBySquad_IdAndName(int squadId, String name);
-	
+
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range,
 			Pageable pageable) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);
@@ -47,7 +48,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 		List<String> orderBy = new ArrayList<>();
 		orderBy.add("cm.coverage");
 		orderBy.add("cm.name");
-		
+
 		TypedQuery<ComponentModel> query = filterQuery(em, "SELECT cm FROM ComponentModel cm ", name, squad, range,
 				orderBy, ComponentModel.class);
 
@@ -63,8 +64,9 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 	private <T> TypedQuery<T> filterQuery(EntityManager em, String sql, String name, SquadModel squad, Range range,
 			List<String> orderBy, Class<T> clazz) {
+
 		StringBuilder strQuery = new StringBuilder(sql).append(" WHERE ((:squad IS NULL) OR cm.squad IS :squad) AND ")
-				.append("((:name IS NULL) OR cm.name like (:name)) AND ")
+				.append("((:name IS NULL) OR LOWER(cm.name) like LOWER(:name)) AND ")
 				.append("(((:coverageMin IS NULL) OR (:coverageMin) < cm.coverage) AND ")
 				.append("((:coverageMax IS NULL) OR (:coverageMax) >= cm.coverage )) ");
 
@@ -74,7 +76,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 		TypedQuery<T> query = em.createQuery(strQuery.toString(), clazz);
 
-		query.setParameter("name", name == null ? null : "%" + name + "%").setParameter("squad", squad)
+		query.setParameter("name", JpaUtils.contains(name)).setParameter("squad", squad)
 				.setParameter("coverageMin", range == null ? null : range.getMin())
 				.setParameter("coverageMax", range == null ? null : range.getMax());
 

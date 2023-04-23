@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: AppUrls.root, redirectTo: AppUrls.summary, pathMatch: 'full' },
   {
     path: AppUrls.summary,
-    loadChildren: () => import('./modules/sdc-summary/sdc-summary.module').then(m => m.SdcSummaryModule),
+    loadChildren: () => import('./modules/sdc-squads-home/sdc-squads-home.module').then(m => m.SdcSquadsHomeModule),
     canDeactivate: []
   },
   {

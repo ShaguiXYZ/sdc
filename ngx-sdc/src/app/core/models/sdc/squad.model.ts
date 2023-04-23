@@ -1,5 +1,6 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable @typescript-eslint/no-namespace */
+import { ICoverageModel } from './coverage.model';
 import { IDepartmentDTO, IDepartmentModel } from './department.model';
 
 export interface ISquadDTO {
@@ -9,11 +10,8 @@ export interface ISquadDTO {
   coverage?: number;
 }
 
-export interface ISquadModel {
-  id: number;
-  name: string;
+export interface ISquadModel extends ICoverageModel {
   department: IDepartmentModel;
-  coverage?: number;
 }
 
 export namespace ISquadModel {

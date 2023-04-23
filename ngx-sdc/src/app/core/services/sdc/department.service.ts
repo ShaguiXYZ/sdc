@@ -19,7 +19,7 @@ export class DepartmentService {
         .get<IDepartmentDTO>(`${this._urlDepartments}/department/${departmentId}`, {
           showLoading,
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.DepartmentNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.DepartmentNotFound' }
           }
         })
         .pipe(map(data => IDepartmentModel.toModel(data as IDepartmentDTO)))
@@ -31,7 +31,7 @@ export class DepartmentService {
       this.http
         .get<IPageable<IDepartmentDTO>>(`${this._urlDepartments}/departments`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.DepartmentsNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.DepartmentsNotFound' }
           },
           cache: _DEPARTMENT_CACHE_ID_
         })

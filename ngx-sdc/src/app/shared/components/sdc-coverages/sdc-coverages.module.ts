@@ -6,11 +6,11 @@ import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxIconModule } from '@aposin/ng-aquila/icon';
 import { NxInputModule } from '@aposin/ng-aquila/input';
 import { TranslateModule } from '@ngx-translate/core';
-import { SdcSquadCoverageModule } from '../sdc-squad-coverage/sdc-squad-coverage.module';
-import { SdcSquadsCoverageComponent } from './sdc-squads-coverage.component';
+import { SdcCoverageInfoModule } from '../sdc-coverage-info/sdc-coverage-info.module';
+import { SdcCoveragesComponent } from './sdc-coverages.component';
 
 @NgModule({
-  declarations: [SdcSquadsCoverageComponent],
+  declarations: [SdcCoveragesComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -18,9 +18,9 @@ import { SdcSquadsCoverageComponent } from './sdc-squads-coverage.component';
     NxHeadlineModule,
     NxIconModule,
     NxInputModule,
-    SdcSquadCoverageModule,
+    SdcCoverageInfoModule,
     TranslateModule
   ],
-  exports: [SdcSquadsCoverageComponent]
+  exports: [SdcCoveragesComponent]
 })
-export class SdcSquadsCoverageModule {}
+export class SdcCoveragesModule {}

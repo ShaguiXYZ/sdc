@@ -9,7 +9,6 @@ import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { NxRadioToggleModule } from '@aposin/ng-aquila/radio-toggle';
 import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { routes } from 'src/app/modules/sdc-summary/sdc-summary-routing.module';
 import { UiHeaderComponent } from './header.component';
 
 @NgModule({
@@ -23,7 +22,7 @@ import { UiHeaderComponent } from './header.component';
     NxLinkModule,
     NxRadioToggleModule,
     NxTooltipModule,
-    RouterModule.forChild(routes),
+    RouterModule,
     TranslateModule
   ],
   exports: [UiHeaderComponent]

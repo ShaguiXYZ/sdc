@@ -20,7 +20,7 @@ export class SquadService {
         .get<ISquadDTO>(`${this._urlSquads}/squad/${squadId}`, {
           showLoading,
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.SquadNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.SquadNotFound' }
           }
         })
         .pipe(map(data => ISquadModel.toModel(data as ISquadDTO)))
@@ -34,7 +34,7 @@ export class SquadService {
       this.http
         .get<IPageable<ISquadDTO>>(`${this._urlSquads}/squads${path}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.SquadsNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.SquadsNotFound' }
           },
           cache: _SQUADS_CACHE_ID_
         })

@@ -16,7 +16,7 @@ export class AnalysisService {
       this.http
         .get<IMetricAnalysisDTO>(`${this._urlAnalysis}/get/${componentId}/${metricId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.AnalysisNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.AnalysisNotFound' }
           }
         })
         .pipe(
@@ -35,7 +35,7 @@ export class AnalysisService {
       this.http
         .get<IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}/${metricId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { message: 'Notifications.MetricAbalysisNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.MetricAbalysisNotFound' }
           }
         })
         .pipe(
@@ -55,7 +55,7 @@ export class AnalysisService {
   public analize(componentId: number): Promise<IPageable<IMetricAnalysisModel>> {
     return firstValueFrom(
       this.http.post<IPageable<IMetricAnalysisDTO>, any>(`${this._urlAnalysis}/${componentId}`, undefined, {
-        successMessage: { message: 'Label.Component.Analized' }
+        successMessage: { text: 'Label.Component.Analized' }
       }).pipe(
         map(res => {
           const dto = res as IPageable<IMetricAnalysisDTO>;

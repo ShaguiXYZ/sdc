@@ -1,23 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SquadModel } from 'src/app/core/models/sdc';
+import { ICoverageModel, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { IComplianceModel, IStateCount } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { ApplicationsContextData } from '../sdc-applications';
-import { SdcSummaryDataModel } from './models';
+import { SdcSquadsDataModel } from './models';
 import { SdcSummaryService } from './services';
 
 @Component({
-  selector: 'sdc-home',
-  templateUrl: './sdc-summary.component.html',
-  styleUrls: ['./sdc-summary.component.scss'],
+  selector: 'sdc-squads-home',
+  templateUrl: './sdc-squads-home.component.html',
+  styleUrls: ['./sdc-squads-home.component.scss'],
   providers: [SdcSummaryService]
 })
-export class SdcSummaryComponent implements OnInit, OnDestroy {
-  public summary?: SdcSummaryDataModel;
+export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
+  public squadsData?: SdcSquadsDataModel;
   public componentsInView: IComplianceModel[] = [];
 
   private summary$!: Subscription;
@@ -26,11 +26,13 @@ export class SdcSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.summary$ = this.sdcSummaryService.onSummaryChange().subscribe(data => {
-      this.summary = data;
-      this.componentsInView = this.summary?.components ? this.summary.components.slice(0, 3).map(IComplianceModel.fromComponentModel) : [];
+      this.squadsData = data;
+      this.componentsInView = this.squadsData?.components
+        ? this.squadsData.components.slice(0, 3).map(IComplianceModel.fromComponentModel)
+        : [];
     });
 
-    this.sdcSummaryService.summaryData();
+    this.sdcSummaryService.loadData();
   }
 
   ngOnDestroy(): void {
@@ -43,10 +45,10 @@ export class SdcSummaryComponent implements OnInit, OnDestroy {
   }
 
   public showAll(): void {
-    if (this.summary) {
+    if (this.squadsData) {
       const applicationsContextData: Partial<ApplicationsContextData> = {
         filter: {
-          squad: this.summary.squad?.id
+          squad: this.squadsData.squad?.id
         }
       };
 
@@ -57,20 +59,20 @@ export class SdcSummaryComponent implements OnInit, OnDestroy {
   }
 
   public onSearchSquadChanged(filter: string): void {
-    if (this.summary) {
+    if (this.squadsData) {
       this.sdcSummaryService.availableSquads(filter);
     }
   }
 
-  public onClickSquad(event: SquadModel) {
-    this.sdcSummaryService.selectedSquad(event);
+  public onClickSquad(event: ICoverageModel) {
+    this.sdcSummaryService.selectedSquad(event as ISquadModel);
   }
 
   public onClickStateCount(event: IStateCount) {
-    if (this.summary) {
+    if (this.squadsData) {
       const applicationsContextData: Partial<ApplicationsContextData> = {
         filter: {
-          squad: this.summary.squad?.id,
+          squad: this.squadsData.squad?.id,
           coverage: event.state.toString()
         }
       };

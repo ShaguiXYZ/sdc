@@ -4,22 +4,22 @@ import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { SdcComplianceBarCardsModule } from 'src/app/shared/components/sdc-compliance-bar-cards/sdc-compliance-bar-cards.module';
+import { SdcCoveragesModule } from 'src/app/shared/components/sdc-coverages/sdc-coverages.module';
 import { SdcSquadSummaryModule } from 'src/app/shared/components/sdc-squad-summary/sdc-squad-summary.module';
-import { SdcSquadsCoverageModule } from 'src/app/shared/components/sdc-squads-coverage/sdc-squads-coverage.module';
-import { SdcSummaryRoutingModule } from './sdc-summary-routing.module';
-import { SdcSummaryComponent } from './sdc-summary.component';
+import { SdcSquadsHomeRoutingModule } from './sdc-squads-home-routing.module';
+import { SdcSquadsHomeComponent } from './sdc-squads-home.component';
 
 @NgModule({
-  declarations: [SdcSummaryComponent],
+  declarations: [SdcSquadsHomeComponent],
   imports: [
     CommonModule,
     NxHeadlineModule,
     NxLinkModule,
-    SdcSummaryRoutingModule,
+    SdcSquadsHomeRoutingModule,
     SdcComplianceBarCardsModule,
-    SdcSquadsCoverageModule,
+    SdcCoveragesModule,
     SdcSquadSummaryModule,
     TranslateModule
   ]
 })
-export class SdcSummaryModule {}
+export class SdcSquadsHomeModule {}

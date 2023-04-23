@@ -20,7 +20,9 @@ export class UiCookieService {
     };
 
     this.cookieService.set(name, JSON.stringify(cookieData));
-}
+
+    console.log('Create cookie data', key);
+  }
 
   public retrieve(key: string): void {
     const name = cookieName(key);
@@ -31,9 +33,7 @@ export class UiCookieService {
       if (cookie) {
         this.contextData.setContextData(key, cookie.data, cookie.configuration);
 
-        if (this.contextData.logActivated) {
-          console.log('Retrieve cookie data', cookie);
-        }
+        console.log('Retrieve cookie data', cookie);
       }
     }
   }

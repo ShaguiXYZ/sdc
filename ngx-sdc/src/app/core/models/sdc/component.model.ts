@@ -2,6 +2,7 @@
 /* eslint-disable no-redeclare */
 import { IArchitectureDTO, IArchitectureModel } from './architecture.model';
 import { IComponentTypeDTO, IComponentTypeModel } from './component-type.model';
+import { ICoverageModel } from './coverage.model';
 import { ISquadDTO, ISquadModel } from './squad.model';
 
 export interface IComponentDTO {
@@ -14,14 +15,11 @@ export interface IComponentDTO {
   coverage?: number;
 }
 
-export interface IComponentModel {
-  id: number;
-  name: string;
-  componentType: IComponentTypeModel;
+export interface IComponentModel  extends ICoverageModel {
   architecture: IArchitectureModel;
+  componentType: IComponentTypeModel;
   squad: ISquadModel;
   analysisDate?: number;
-  coverage?: number;
 }
 
 export namespace IComponentModel {
@@ -47,8 +45,8 @@ export class ComponentModel implements IComponentModel {
   constructor(
     public id: number,
     public name: string,
-    public componentType: IComponentTypeModel,
     public architecture: IArchitectureModel,
+    public componentType: IComponentTypeModel,
     public squad: ISquadModel,
     public analysisDate?: number,
     public coverage?: number

@@ -50,13 +50,10 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
     this.alertService.confirm(
       {
         title: 'Alerts.RunProcess.Title',
-        message: 'Alerts.RunProcess.Description'
+        text: 'Alerts.RunProcess.Description'
       },
-      () => {
-        this.sdcMetricsService.analyze();
-      },
-      'Label.Yes',
-      'Label.No'
+      this.sdcMetricsService.analyze,
+      { okText: 'Label.Yes', cancelText: 'Label.No' }
     );
   }
 

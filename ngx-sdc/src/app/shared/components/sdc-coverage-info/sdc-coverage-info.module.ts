@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SdcCoverageChartModule } from '../sdc-coverage-chart/sdc-coverage-chart.module';
-import { SdcSquadCoverageComponent } from './sdc-squad-coverage.component';
+import { SdcCoverageInfoComponent } from './sdc-coverage-info.component';
 import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 
 @NgModule({
-  declarations: [SdcSquadCoverageComponent],
+  declarations: [SdcCoverageInfoComponent],
   imports: [CommonModule, NxCopytextModule, SdcCoverageChartModule],
-  exports: [SdcSquadCoverageComponent]
+  exports: [SdcCoverageInfoComponent]
 })
-export class SdcSquadCoverageModule {}
+export class SdcCoverageInfoModule {}

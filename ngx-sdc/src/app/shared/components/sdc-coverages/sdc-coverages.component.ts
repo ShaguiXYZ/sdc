@@ -1,18 +1,21 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants/app.constants';
-import { ISquadModel } from 'src/app/core/models/sdc';
+import { ICoverageModel } from 'src/app/core/models/sdc';
 
 @Component({
-  selector: 'sdc-squads-coverage',
-  templateUrl: './sdc-squads-coverage.component.html',
-  styleUrls: ['./sdc-squads-coverage.component.scss']
+  selector: 'sdc-coverages',
+  templateUrl: './sdc-coverages.component.html',
+  styleUrls: ['./sdc-coverages.component.scss']
 })
-export class SdcSquadsCoverageComponent implements OnInit, OnDestroy {
+export class SdcCoveragesComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   @Input()
-  public squads?: ISquadModel[];
+  public title = '';
+
+  @Input()
+  public coverages?: ICoverageModel[];
 
   @Input()
   public filter?: string;
@@ -21,10 +24,10 @@ export class SdcSquadsCoverageComponent implements OnInit, OnDestroy {
   public selected?: number;
 
   @Output()
-  public searchSquadChanged: EventEmitter<string> = new EventEmitter();
+  public searchCoverageChanged: EventEmitter<string> = new EventEmitter();
 
   @Output()
-  public selectSquad: EventEmitter<ISquadModel> = new EventEmitter();
+  public selectCoverage: EventEmitter<ICoverageModel> = new EventEmitter();
 
   private subscription$!: Subscription;
 
@@ -36,9 +39,9 @@ export class SdcSquadsCoverageComponent implements OnInit, OnDestroy {
     this.subscription$.unsubscribe();
   }
 
-  public onClickSquad(squad: ISquadModel) {
-    this.selected = squad.id;
-    this.selectSquad.emit(squad);
+  public onClickCoverage(coverage: ICoverageModel) {
+    this.selected = coverage.id;
+    this.selectCoverage.emit(coverage);
   }
 
   private searchBoxConfig(): Subscription {
@@ -48,6 +51,6 @@ export class SdcSquadsCoverageComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         debounceTime(DEBOUNCE_TIME)
       )
-      .subscribe(() => this.searchSquadChanged.emit(this.filter));
+      .subscribe(() => this.searchCoverageChanged.emit(this.filter));
   }
 }

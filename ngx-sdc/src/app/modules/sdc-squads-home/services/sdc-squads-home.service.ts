@@ -3,15 +3,15 @@ import { Observable, Subject } from 'rxjs';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
-import { SummaryContextData } from 'src/app/modules/sdc-summary/models/sdc-summary-context-data.model';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
-import { SdcSummaryDataModel } from '../models';
+import { SdcSquadsDataModel, SdcSquadsContextData } from '../models';
+import { filterByProperty } from 'src/app/core/lib';
 
 @Injectable()
 export class SdcSummaryService {
-  private contextData!: SummaryContextData;
-  private summary$: Subject<SdcSummaryDataModel>;
-  private data!: SdcSummaryDataModel;
+  private contextData!: SdcSquadsContextData;
+  private summary$: Subject<SdcSquadsDataModel>;
+  private data!: SdcSquadsDataModel;
 
   constructor(
     private contextDataService: UiContextDataService,
@@ -25,7 +25,7 @@ export class SdcSummaryService {
     this.summary$.next(this.data);
   }
 
-  public onSummaryChange(): Observable<SdcSummaryDataModel> {
+  public onSummaryChange(): Observable<SdcSquadsDataModel> {
     return this.summary$.asObservable();
   }
 
@@ -34,7 +34,7 @@ export class SdcSummaryService {
       let squads: ISquadModel[] = [];
 
       if (filter?.trim().length) {
-        squads = pageable.page.filter(squad => squad.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
+         squads = filterByProperty(pageable.page, 'name', filter);
       } else {
         squads = pageable.page;
       }
@@ -57,7 +57,7 @@ export class SdcSummaryService {
     });
   }
 
-  public summaryData(): void {
+  public loadData(): void {
     this.availableSquads(this.contextData?.filter);
 
     if (this.contextData?.squad) {

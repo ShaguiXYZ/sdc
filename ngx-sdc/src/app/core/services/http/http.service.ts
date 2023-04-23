@@ -82,7 +82,7 @@ export class UiHttpService {
   public post<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
     const notificationId = this.notificationService.info(
       this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.message || 'Notifications.ProcesingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.text || 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -104,7 +104,7 @@ export class UiHttpService {
   public put<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
     const notificationId = this.notificationService.info(
       this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.message || 'Notifications.ProcesingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.text || 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -141,7 +141,7 @@ export class UiHttpService {
   public delete<T>(url: string, requestOptions?: RequestOptions): Observable<any> {
     const notificationId = this.notificationService.info(
       this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.message || 'Notifications.ProcesingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.text || 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -171,7 +171,7 @@ export class UiHttpService {
     if (message) {
       this.notificationService.success(
         this.translateService.instant(message.title || 'Notifications.Success'),
-        this.translateService.instant(message.message || ''),
+        this.translateService.instant(message.text || ''),
         DEFAULT_TIMEOUT_NOTIFICATIONS
       );
     }
@@ -180,13 +180,13 @@ export class UiHttpService {
   private error(err: HttpErrorResponse, responseStatusMessage?: GenericDataInfo<MessageModal>): void {
     if (responseStatusMessage) {
       let title;
-      let message;
+      let message: string;
 
       switch (err.status) {
         case HttpStatus.notFound:
         case HttpStatus.conflict:
-          title = responseStatusMessage[err.status].title;
-          message = responseStatusMessage[err.status].message;
+          title = responseStatusMessage[err.status].title || '';
+          message = responseStatusMessage[err.status].text as string;
           break;
         default:
           message = 'Notifications.GeneralError';

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/constants/app.constants';
 import { MetricState, styleByName } from 'src/app/core/lib';
@@ -10,7 +10,7 @@ import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { ApplicationsContextData, ApplicationsFilter, SdcApplicationsCoverage, SdcApplicationsDataModel } from '../models';
 
 @Injectable()
-export class SdcApplicationsService implements OnDestroy {
+export class SdcApplicationsService {
   public contextData?: ApplicationsContextData;
 
   private subject$: Subject<SdcApplicationsDataModel>;
@@ -32,7 +32,7 @@ export class SdcApplicationsService implements OnDestroy {
     );
   }
 
-  public populateData(filter: ApplicationsFilter, page?: number) {
+  public populateData(filter: ApplicationsFilter, page?: number): void {
     this.squadData(filter.name, filter.squad, filter.coverage, page || 0, ELEMENTS_BY_PAGE);
   }
 
@@ -74,9 +74,5 @@ export class SdcApplicationsService implements OnDestroy {
         paging: pageable.paging
       });
     });
-  }
-
-  public ngOnDestroy() {
-    console.log('...Destroy test service...');
   }
 }

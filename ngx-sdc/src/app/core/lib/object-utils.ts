@@ -16,3 +16,14 @@ export const groupBy = <T>(collection: T[], property: keyof T): Dictionary<T[]> 
 export const hasValue = (data: any): boolean => data !== null && data !== undefined;
 
 export const isNumeric = (data: string): boolean => !isNaN(Number(data));
+
+export const filterByProperty = <T>(collection: T[], property: keyof T, filter: string): T[] => {
+  const searchWords: string[] = filter
+    .toLowerCase()
+    .split(' ')
+    .filter(str => str.length > 1);
+  const regex = searchWords.map(word => `(?=.*${word})`).join('');
+  const searchExp = new RegExp(regex, 'gi');
+
+  return collection.filter(data => searchExp.test((data[property] as string).toLocaleLowerCase()));
+};

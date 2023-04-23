@@ -35,10 +35,6 @@ export class UiContextDataService {
     this.sessionControl();
   }
 
-  public get logActivated(): boolean {
-    return this._contextConfig.log;
-  }
-
   /**
    * Public context data
    */
@@ -95,9 +91,7 @@ export class UiContextDataService {
     this.addContextData(key, data, configuration);
     this.subject$.next(key);
 
-    if (this._contextConfig.log) {
-      console.log(`Context data ${key} added`, this.contextStorage);
-    }
+    console.log(`Context data ${key} added`, this.contextStorage);
   }
 
   /**

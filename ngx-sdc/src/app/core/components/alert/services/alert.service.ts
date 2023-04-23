@@ -26,21 +26,38 @@ export class UiAlertService {
     this.alert$.next(undefined);
   }
 
-  public confirm(message: MessageModal, callback?: () => void, okText: string = 'Continue', cancelText: string = 'Cancel'): void {
-    const buttons: ButtonModel[] = [];
+  public confirm(
+    message: MessageModal,
+    callback?: () => void,
+    labels: { okText?: string; cancelText?: string } = { okText: 'Continue', cancelText: 'Cancel' },
+    reserse?: boolean
+  ): void {
+    const _labels = { ...{ okText: 'Continue', cancelText: 'Cancel' }, ...labels };
+    let buttons: ButtonModel[] = [];
+
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    buttons.push(new ButtonModel(TypeButton.primary, this.translateService.instant(cancelText), () => {}));
+    buttons.push(new ButtonModel(TypeButton.primary, this.translateService.instant(_labels.cancelText), () => {}));
 
     if (callback) {
       buttons.push(
-        new ButtonModel(TypeButton.secondary, this.translateService.instant(okText), () => {
+        new ButtonModel(TypeButton.secondary, this.translateService.instant(_labels.okText), () => {
           callback();
         })
       );
     }
 
+    if (reserse) {
+      buttons = buttons.reverse();
+    }
+
     const titleTranslate = message.title ? this.translateService.instant(message.title) : '';
-    const messageTranslate = message.message ? this.translateService.instant(message.message) : '';
+    let messageTranslate: string | string[];
+
+    if (Array.isArray(message.text)) {
+      messageTranslate = message.text.map(str => (str ? this.translateService.instant(str) : ''));
+    } else {
+      messageTranslate = message.text ? this.translateService.instant(message.text) : '';
+    }
 
     const alert: AlertModel = new AlertModel(titleTranslate, messageTranslate, buttons);
 

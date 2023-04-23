@@ -1,0 +1,27 @@
+<div class="card-content">
+  <nx-card>
+    <div class="card-header nx-margin-2xs nx-margin-x-m nx-margin-top-m">
+      <h5 nxHeadline="subsection-xsmall" class="title">{{ title }}</h5>
+      <div class="align-right">
+        <nx-formfield id="squad-name">
+          <input #searchInput nxInput type="text" autocomplete="off" [(ngModel)]="filter" />
+          <span nxFormfieldSuffix>
+            <nx-icon name="search" size="s"></nx-icon>
+          </span>
+        </nx-formfield>
+      </div>
+    </div>
+    <div class="coverages sdc-scrollable nx-margin-x-m nx-margin-bottom-m">
+      <ng-container *ngIf="coverages">
+        <div *ngFor="let coverage of coverages">
+          <sdc-coverage-info
+            [coverage]="coverage"
+            [selectable]="true"
+            [selected]="selected === coverage.id"
+            (selectCoverage)="onClickCoverage($event)"
+          ></sdc-coverage-info>
+        </div>
+      </ng-container>
+    </div>
+  </nx-card>
+</div>

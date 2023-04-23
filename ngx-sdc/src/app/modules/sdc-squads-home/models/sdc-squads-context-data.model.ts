@@ -1,6 +1,6 @@
 import { ISquadModel } from '../../../core/models/sdc';
 
-export interface SummaryContextData {
+export interface SdcSquadsContextData {
   filter?: string;
   squad: ISquadModel;
 }

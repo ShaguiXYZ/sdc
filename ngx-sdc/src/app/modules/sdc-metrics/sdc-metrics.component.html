@@ -13,7 +13,7 @@
             </div>
           </nx-expansion-panel-title>
         </nx-expansion-panel-header>
-        <div class="application-graph">
+        <div class="application-graph nx-margin-top-2xs">
           <div
             class="run-process"
             [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
@@ -46,7 +46,7 @@
         </nx-expansion-panel-title>
       </nx-expansion-panel-header>
 
-      <div *ngIf="metricsData" class="evolution-content nx-margin-y-2xs">
+      <div *ngIf="metricsData" class="evolution-content nx-margin-top-2xs">
         <div *ngIf="metricsData.compliance.id" class="metrics nx-margin-right-2xs">
           <sdc-metric-info
             *ngFor="let metric of metricsData.metrics"

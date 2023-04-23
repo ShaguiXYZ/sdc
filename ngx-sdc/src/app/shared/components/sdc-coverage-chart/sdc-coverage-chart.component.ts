@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ICoverageChartModel } from './models';
 
 import { EChartsOption } from 'echarts';
 import { PieChart } from 'echarts/charts';
 import { MetricState, stateByCoverage } from 'src/app/core/lib';
 import { COVERAGE_CHART_BACKGROUND, SUMMARY_BACKGROUND } from '../../constants/colors';
+import { ICoverageModel } from 'src/app/core/models/sdc';
 
 @Component({
   selector: 'sdc-coverage-chart',
@@ -12,9 +12,9 @@ import { COVERAGE_CHART_BACKGROUND, SUMMARY_BACKGROUND } from '../../constants/c
   styleUrls: ['./sdc-coverage-chart.component.scss']
 })
 export class SdcCoverageChartComponent implements OnInit {
-  private _coverage!: ICoverageChartModel;
+  private _coverage!: ICoverageModel;
   @Input()
-  public set coverage(value: ICoverageChartModel) {
+  public set coverage(value: ICoverageModel) {
     this._coverage = value;
     this.echartsOptions = this.chartOptions(value);
   }
@@ -35,10 +35,11 @@ export class SdcCoverageChartComponent implements OnInit {
     this.echartsOptions = this.chartOptions(this._coverage);
   }
 
-  private chartOptions(value: ICoverageChartModel): EChartsOption {
+  private chartOptions(value: ICoverageModel): EChartsOption {
     const center = this.size / 2;
-    const name = value.name?.trim() ? [`${Math.floor(value.value)}%`, value.name].join('\n') : `${Math.floor(value.value)}%`;
-    const color = MetricState[stateByCoverage(value.value)].color;
+    const coverage = value.coverage || 0;
+    const name = value.name?.trim() ? [`${Math.floor(coverage || 0)}%`, value.name].join('\n') : `${Math.floor(coverage)}%`;
+    const color = MetricState[stateByCoverage(coverage)].color;
 
     return {
       animation: this.animation,
@@ -62,14 +63,14 @@ export class SdcCoverageChartComponent implements OnInit {
           },
           data: [
             {
-              value: value.value,
+              value: coverage,
               name,
               itemStyle: {
                 color
               }
             },
             {
-              value: 100 - value.value,
+              value: 100 - coverage,
               itemStyle: {
                 color: COVERAGE_CHART_BACKGROUND
               },

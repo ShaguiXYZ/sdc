@@ -3,12 +3,12 @@
 
   .summary {
     min-height: 700px;
-    width: 50%;
+    // width: 50%;
   }
 
   .coverages {
     min-height: 700px;
-    width: 50%;
+    // width: 50%;
   }
 
   .compliance-cards-header {
@@ -25,4 +25,17 @@
       position: absolute;
     }
   }
+}
+
+.width-0 {
+  width: 0%;
+}
+
+.width-50 {
+  transition: width 0.5s;
+  width: 50%;
+}
+
+.width-100 {
+  width: 100%;
 }

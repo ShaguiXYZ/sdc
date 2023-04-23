@@ -21,7 +21,6 @@ export const NX_CONTEX_CONFIG = new InjectionToken<ContextConfig>('NX_CONTEX_CON
 export interface ContextConfig {
   home: string;
   cookiePrefix: string;
-  log: boolean;
   urls: RouteConfig;
 }
 
