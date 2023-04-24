@@ -1,7 +1,7 @@
 <div class="card-content">
   <nx-card>
     <div class="card-header nx-margin-2xs nx-margin-x-m nx-margin-top-m">
-      <h5 nxHeadline="subsection-xsmall" class="title">{{ title }}</h5>
+      <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ title }}</h4>
       <div class="align-right">
         <nx-formfield id="squad-name">
           <input #searchInput nxInput type="text" autocomplete="off" [(ngModel)]="filter" />
@@ -16,7 +16,7 @@
         <div *ngFor="let coverage of coverages">
           <sdc-coverage-info
             [coverage]="coverage"
-            [selectable]="true"
+            [selectable]="selectable"
             [selected]="selected === coverage.id"
             (selectCoverage)="onClickCoverage($event)"
           ></sdc-coverage-info>

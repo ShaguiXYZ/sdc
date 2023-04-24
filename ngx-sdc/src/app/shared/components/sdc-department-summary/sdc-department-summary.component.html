@@ -1,0 +1,12 @@
+<div *ngIf="department" class="departments-summary">
+  <div class="summary-pie-chart sdc-center">
+    <sdc-coverage-chart [animation]="true" [coverage]="department" [size]="300"></sdc-coverage-chart>
+  </div>
+  <div class="summary-bar-chart">
+    <sdc-horizontal-bar-chart
+      [name]="'Label.ComplianceState' | translate"
+      [values]="chartValues"
+      [size]="{ height: 250 }"
+    ></sdc-horizontal-bar-chart>
+  </div>
+</div>

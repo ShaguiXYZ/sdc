@@ -28,11 +28,9 @@ export class SquadService {
   }
 
   public squads(department?: IDepartmentModel): Promise<IPageable<ISquadModel>> {
-    const path = department ? `/${department.id}` : '';
-
     return firstValueFrom(
       this.http
-        .get<IPageable<ISquadDTO>>(`${this._urlSquads}/squads${path}`, {
+        .get<IPageable<ISquadDTO>>(`${this._urlSquads}/squads`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.SquadsNotFound' }
           },
@@ -43,7 +41,7 @@ export class SquadService {
             const dto = res as IPageable<ISquadDTO>;
             const result: IPageable<ISquadModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(ISquadModel.toModel)
+              page: dto.page.map(ISquadModel.toModel).filter(data => !department || data.department.id === department.id)
             };
 
             return result;

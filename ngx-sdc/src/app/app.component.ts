@@ -11,14 +11,14 @@ export class AppComponent implements OnInit {
   constructor(private cookieService: UiCookieService) {}
 
   ngOnInit(): void {
-    this.cookieService.retrieve(ContextDataInfo.SUMMARY_DATA);
+    this.cookieService.retrieve(ContextDataInfo.SQUADS_DATA);
   }
 
   // Detect the Closing of a Browser Tab
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
     event.preventDefault();
-    this.cookieService.create(ContextDataInfo.SUMMARY_DATA);
+    this.cookieService.create(ContextDataInfo.SQUADS_DATA);
   }
 
   @HostListener('window:popstate', ['$event'])

@@ -31,10 +31,6 @@
       display: flex;
       position: relative;
 
-      .title {
-        font-weight: bold;
-      }
-
       ::ng-deep nx-formfield {
         .nx-formfield__wrapper {
           padding: 0;

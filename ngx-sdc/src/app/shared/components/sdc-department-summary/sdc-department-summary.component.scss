@@ -1,0 +1,16 @@
+@import '../../../shared/styles/colors';
+
+.departments-summary {
+  align-items: center;
+  background-color: $background-color-1;
+  display: flex;
+
+  .summary-bar-chart {
+    padding: 25px;
+    width: 60%;
+  }
+
+  .summary-pie-chart {
+    width: 40%;
+  }
+}

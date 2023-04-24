@@ -26,14 +26,17 @@
     "Help": "Help",
     "Menu": {
       "Applications": "Applications",
-      "Summary": "Summary"
+      "Departments": "Departments",
+      "Squads": "Summary"
     },
     "Title": "Software Development Console"
   },
   "Label": {
     "Applications": "Applications",
+    "AssociatedSquads": "Associated squads",
     "Cancel": "Cancel",
     "Continue": "Continue",
+    "ComplianceState": "Compliance state / Nº Squads",
     "Coverage": "Coverage",
     "CurrentValue": "Current value",
     "FindByApplicationName": "Find by application",
@@ -44,6 +47,7 @@
     "No": "No",
     "Of": "of",
     "OptimumValue": "Recommended optimum value",
+    "OtherDepartments": "Other departments",
     "OtherSquads": "Other squads",
     "SelectedDate": "Selected date",
     "ShowAll": "Show all",

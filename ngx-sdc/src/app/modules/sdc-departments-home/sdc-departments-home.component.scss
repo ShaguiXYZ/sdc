@@ -1,11 +1,14 @@
 .summary-content {
-  display: flex;
-
-  .summary {
-    min-height: 700px;
+  .coverages {
+    display: flex;
+    width: 100%;
   }
 
-  .coverages {
+  .data-loaded {
+    min-height: 350px;
+  }
+
+  .no-data-loaded {
     min-height: 700px;
   }
 
@@ -13,6 +16,10 @@
     align-items: center;
     display: flex;
     position: relative;
+
+    .title {
+      font-weight: bold;
+    }
 
     nx-link {
       right: 0;

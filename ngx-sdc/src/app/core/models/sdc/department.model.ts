@@ -16,5 +16,5 @@ export namespace IDepartmentModel {
 }
 
 export class DepartmentModel implements IDepartmentModel {
-  constructor(public id: number, public name: string, coverage?: number) {}
+  constructor(public id: number, public name: string, public coverage?: number) {}
 }

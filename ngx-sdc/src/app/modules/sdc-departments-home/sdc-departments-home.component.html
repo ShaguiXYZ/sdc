@@ -1,0 +1,28 @@
+<div class="summary-content nx-margin-y-2xs">
+  <div *ngIf="departmentsData && departmentsData?.department" class="summary width-100">
+    <div *ngIf="departmentsData.department" class="nx-margin-bottom-2xs">
+      <sdc-department-summary [squads]="departmentsData.squads || []" [department]="departmentsData.department"></sdc-department-summary>
+    </div>
+  </div>
+  <div class="coverages" [ngClass]="{ 'data-loaded': departmentsData?.department, 'no-data-loaded': !departmentsData?.department }">
+    <div *ngIf="departmentsData?.department" class="width-50 nx-margin-right-3xs">
+      <sdc-coverages
+        [filter]="departmentsData?.squadFilter"
+        [coverages]="departmentsData?.squadsInView"
+        [selectable]="false"
+        [title]="'Label.AssociatedSquads' | translate"
+        (searchCoverageChanged)="onSearchSquadChanged($event)"
+      ></sdc-coverages>
+    </div>
+    <div class="nx-margin-left-3xs" [ngClass]="{ 'width-50': departmentsData?.department, 'width-100': !departmentsData?.department }">
+      <sdc-coverages
+        [filter]="departmentsData?.departmentFilter"
+        [coverages]="departmentsData?.departments"
+        [selected]="departmentsData?.department?.id"
+        [title]="'Label.OtherDepartments' | translate"
+        (searchCoverageChanged)="onSearchDepartmentChanged($event)"
+        (selectCoverage)="onClickDepartment($event)"
+      ></sdc-coverages>
+    </div>
+  </div>
+</div>

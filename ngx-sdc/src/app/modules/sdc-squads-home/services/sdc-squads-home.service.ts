@@ -8,7 +8,7 @@ import { SdcSquadsDataModel, SdcSquadsContextData } from '../models';
 import { filterByProperty } from 'src/app/core/lib';
 
 @Injectable()
-export class SdcSummaryService {
+export class SdcSquadsService {
   private contextData!: SdcSquadsContextData;
   private summary$: Subject<SdcSquadsDataModel>;
   private data!: SdcSquadsDataModel;
@@ -19,13 +19,13 @@ export class SdcSummaryService {
     private squadService: SquadService
   ) {
     this.summary$ = new Subject();
-    this.contextData = this.contextDataService.getContextData(ContextDataInfo.SUMMARY_DATA);
+    this.contextData = this.contextDataService.getContextData(ContextDataInfo.SQUADS_DATA);
     this.data = { filter: this.contextData?.filter, squad: this.contextData?.squad, components: [], squads: [] };
 
     this.summary$.next(this.data);
   }
 
-  public onSummaryChange(): Observable<SdcSquadsDataModel> {
+  public onDataChange(): Observable<SdcSquadsDataModel> {
     return this.summary$.asObservable();
   }
 
@@ -41,7 +41,7 @@ export class SdcSummaryService {
 
       this.data = { ...this.data, squads, filter };
       this.contextData = { ...this.contextData, filter };
-      this.contextDataService.setContextData(ContextDataInfo.SUMMARY_DATA, this.contextData, { persistent: true });
+      this.contextDataService.setContextData(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
 
       this.summary$.next(this.data);
     });
@@ -51,7 +51,7 @@ export class SdcSummaryService {
     this.componetService.filter(undefined, squad.id).then(pageable => {
       this.data = { ...this.data, squad, components: pageable.page };
       this.contextData = { ...this.contextData, squad };
-      this.contextDataService.setContextData(ContextDataInfo.SUMMARY_DATA, this.contextData, { persistent: true });
+      this.contextDataService.setContextData(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
 
       this.summary$.next(this.data);
     });

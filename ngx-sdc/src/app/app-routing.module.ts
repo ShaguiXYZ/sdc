@@ -4,9 +4,14 @@ import { configContextRoutes } from './core/services/context-data';
 import { AppUrls } from './shared/config/routing';
 
 const routes: Routes = [
-  { path: AppUrls.root, redirectTo: AppUrls.summary, pathMatch: 'full' },
+  { path: AppUrls.root, redirectTo: AppUrls.squads, pathMatch: 'full' },
   {
-    path: AppUrls.summary,
+    path: AppUrls.departments,
+    loadChildren: () => import('./modules/sdc-departments-home/sdc-departments-home.module').then(m => m.SdcDepartmentsHomeModule),
+    canDeactivate: []
+  },
+  {
+    path: AppUrls.squads,
     loadChildren: () => import('./modules/sdc-squads-home/sdc-squads-home.module').then(m => m.SdcSquadsHomeModule),
     canDeactivate: []
   },

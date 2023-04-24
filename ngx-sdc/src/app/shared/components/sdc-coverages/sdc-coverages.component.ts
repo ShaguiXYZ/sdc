@@ -23,6 +23,9 @@ export class SdcCoveragesComponent implements OnInit, OnDestroy {
   @Input()
   public selected?: number;
 
+  @Input()
+  public selectable = true;
+
   @Output()
   public searchCoverageChanged: EventEmitter<string> = new EventEmitter();
 

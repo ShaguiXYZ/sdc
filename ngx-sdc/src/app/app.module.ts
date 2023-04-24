@@ -41,7 +41,7 @@ const SdcLanguages = {
     UiCoreComponentsModule
   ],
   providers: [
-    { provide: NX_CONTEX_CONFIG, useValue: { urls, home: AppUrls.summary } },
+    { provide: NX_CONTEX_CONFIG, useValue: { urls, home: AppUrls.squads } },
     { provide: NX_LANGUAGE_CONFIG, useValue: { languages: SdcLanguages } },
     { provide: NX_HEADER_CONFIG, useValue: { navigation: SDC_HEADER_MENU } },
   ],

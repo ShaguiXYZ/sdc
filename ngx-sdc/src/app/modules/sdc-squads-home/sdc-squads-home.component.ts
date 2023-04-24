@@ -8,13 +8,13 @@ import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { ApplicationsContextData } from '../sdc-applications';
 import { SdcSquadsDataModel } from './models';
-import { SdcSummaryService } from './services';
+import { SdcSquadsService } from './services';
 
 @Component({
   selector: 'sdc-squads-home',
   templateUrl: './sdc-squads-home.component.html',
   styleUrls: ['./sdc-squads-home.component.scss'],
-  providers: [SdcSummaryService]
+  providers: [SdcSquadsService]
 })
 export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   public squadsData?: SdcSquadsDataModel;
@@ -22,10 +22,10 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
 
   private summary$!: Subscription;
 
-  constructor(private router: Router, private contextDataService: UiContextDataService, private sdcSummaryService: SdcSummaryService) {}
+  constructor(private router: Router, private contextDataService: UiContextDataService, private sdcSummaryService: SdcSquadsService) {}
 
   ngOnInit(): void {
-    this.summary$ = this.sdcSummaryService.onSummaryChange().subscribe(data => {
+    this.summary$ = this.sdcSummaryService.onDataChange().subscribe(data => {
       this.squadsData = data;
       this.componentsInView = this.squadsData?.components
         ? this.squadsData.components.slice(0, 3).map(IComplianceModel.fromComponentModel)

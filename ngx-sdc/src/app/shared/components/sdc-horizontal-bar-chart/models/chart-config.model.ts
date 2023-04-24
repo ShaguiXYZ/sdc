@@ -5,6 +5,5 @@ export interface ChartValue {
 }
 
 export interface ChartConfig {
-  name?: string;
   values: ChartValue[];
 }
