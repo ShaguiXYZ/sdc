@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ICoverageModel, IDepartmentModel } from 'src/app/core/models/sdc';
+import { ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
-import { IStateCount } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
-import { ApplicationsContextData } from '../sdc-applications';
+import { SdcSquadsContextData } from '../sdc-squads-home';
 import { SdcDepartmentsDataModel } from './models';
 import { SdcDepartmentsService } from './services';
 
@@ -21,7 +20,11 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
 
   private summary$!: Subscription;
 
-  constructor(private sdcDepartmentService: SdcDepartmentsService) {}
+  constructor(
+    private router: Router,
+    private contextDataService: UiContextDataService,
+    private sdcDepartmentService: SdcDepartmentsService
+  ) {}
 
   ngOnInit(): void {
     this.summary$ = this.sdcDepartmentService.onDataChange().subscribe(data => {
@@ -47,6 +50,12 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
 
   public onClickDepartment(event: ICoverageModel) {
     this.squadsByDepartmernt(event as IDepartmentModel, this.departmentsData?.squadFilter);
+  }
+
+  public onClickSquad(squad: ICoverageModel) {
+    const squadContextData: SdcSquadsContextData = { squad: squad as ISquadModel };
+    this.contextDataService.setContextData(ContextDataInfo.SQUADS_DATA, squadContextData);
+    this.router.navigate([AppUrls.squads]);
   }
 
   private squadsByDepartmernt(department?: IDepartmentModel, filter?: string) {

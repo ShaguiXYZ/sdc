@@ -9,9 +9,9 @@
       <sdc-coverages
         [filter]="departmentsData?.squadFilter"
         [coverages]="departmentsData?.squadsInView"
-        [selectable]="false"
         [title]="'Label.AssociatedSquads' | translate"
         (searchCoverageChanged)="onSearchSquadChanged($event)"
+        (selectCoverage)="onClickSquad($event)"
       ></sdc-coverages>
     </div>
     <div class="nx-margin-left-3xs" [ngClass]="{ 'width-50': departmentsData?.department, 'width-100': !departmentsData?.department }">
