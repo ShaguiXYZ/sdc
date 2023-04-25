@@ -33,7 +33,7 @@ export class DepartmentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.DepartmentsNotFound' }
           },
-          cache: _DEPARTMENT_CACHE_ID_
+          cache: { id: _DEPARTMENT_CACHE_ID_, scheduled: true }
         })
         .pipe(
           map(res => {

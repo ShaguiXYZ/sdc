@@ -1,6 +1,10 @@
-import { Injectable } from '@angular/core';
-import { firstValueFrom, Observable, of, take } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, firstValueFrom, of, take } from 'rxjs';
+import { GenericDataInfo } from '../../interfaces/dataInfo';
+import { UiSchedulerService } from '../task-scheduler';
 import { UiContextDataService } from './context-data.service';
+
+const DEFAULT_SCHEDULER_PERIOD = 5 * 60 * 1000;
 
 /**
  * Cache
@@ -8,11 +12,25 @@ import { UiContextDataService } from './context-data.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UiCacheService {
-  constructor(private contextData: UiContextDataService) {}
+export class UiCacheService implements OnDestroy {
+  private schedukerId!: string;
+  private scheduledIds: GenericDataInfo<boolean> = {};
 
-  public add(key: string, data: any) {
+  constructor(private contextData: UiContextDataService, private scheduleroService: UiSchedulerService) {
+    this.schedukerId = this.scheduleroService.create(this.resetContextData, undefined, DEFAULT_SCHEDULER_PERIOD);
+    this.scheduleroService.subscribe(this.schedukerId, () => console.log('Sdc cache cleaned...'));
+  }
+
+  ngOnDestroy(): void {
+    this.scheduleroService.finish(this.schedukerId);
+  }
+
+  public add(key: string, data: any, scheduled: boolean = false) {
     this.contextData.cache[key] = data;
+
+    if (scheduled) {
+      this.scheduledIds[key] = true;
+    }
   }
 
   public get(key: string): any {
@@ -21,6 +39,7 @@ export class UiCacheService {
 
   public delete(key: string) {
     delete this.contextData.cache[key];
+    delete this.scheduledIds[key];
   }
 
   public asObservable<T>(key: string): Observable<T> {
@@ -30,4 +49,9 @@ export class UiCacheService {
   public asPromise<T>(key: string): Promise<T> {
     return firstValueFrom(this.asObservable(key));
   }
+
+  private resetContextData = (): void =>
+    Object.keys(this.scheduledIds)
+      .filter(key => this.scheduledIds[key])
+      .forEach(key => this.delete(key));
 }

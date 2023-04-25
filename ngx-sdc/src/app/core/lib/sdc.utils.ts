@@ -1,7 +1,7 @@
-import { IComponentModel } from '../models/sdc';
+import { ICoverageModel } from '../models/sdc';
 
-export const componentsCoverage = (components: IComponentModel[]): number => {
-  const coverageComponents = components.filter(component => component.coverage);
+export const componentsCoverage = (coverages: ICoverageModel[]): number => {
+  const coverageComponents = coverages.filter(data => data.coverage);
 
   if (coverageComponents.length > 0) {
     const total = coverageComponents.map(component => component.coverage).reduce((acc = 0, coverage = 0) => (acc += coverage), 0);

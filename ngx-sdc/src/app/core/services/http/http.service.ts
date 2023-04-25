@@ -20,7 +20,7 @@ export interface RequestOptions {
 }
 
 export interface CacheRequestOptions extends RequestOptions {
-  cache?: string;
+  cache?: string | { id: string; scheduled?: boolean };
 }
 
 export interface PageHttp<T> {
@@ -43,7 +43,16 @@ export class UiHttpService {
   ) {}
 
   public get<T>(url: string, requestOptions?: CacheRequestOptions): Observable<T | HttpEvent<T>> {
-    const cacheId = requestOptions?.cache;
+    let cacheId: string | undefined;
+    let cacheScheduled: boolean | undefined;
+
+    if (typeof requestOptions?.cache === 'string') {
+      cacheId = requestOptions?.cache;
+    } else if (requestOptions?.cache) {
+      cacheId = requestOptions?.cache.id;
+      cacheScheduled = requestOptions?.cache.scheduled;
+    }
+
     let cachedData: T | undefined;
 
     if (cacheId) {
@@ -62,7 +71,7 @@ export class UiHttpService {
         tap(data => {
           if (cacheId) {
             console.log(`Add cache data ${cacheId}`, data);
-            this.cache.add(cacheId, data);
+            this.cache.add(cacheId, data, cacheScheduled);
           }
         }),
         tap(this.tabControl(requestOptions)),

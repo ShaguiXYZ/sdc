@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.cookieService.retrieve(ContextDataInfo.SQUADS_DATA);
+    this.cookieService.retrieve(ContextDataInfo.DEPARTMENTS_DATA);
   }
 
   // Detect the Closing of a Browser Tab
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
     event.preventDefault();
     this.cookieService.create(ContextDataInfo.SQUADS_DATA);
+    this.cookieService.create(ContextDataInfo.DEPARTMENTS_DATA);
   }
 
   @HostListener('window:popstate', ['$event'])

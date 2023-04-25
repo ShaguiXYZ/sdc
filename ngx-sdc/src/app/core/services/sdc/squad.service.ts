@@ -34,7 +34,7 @@ export class SquadService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.SquadsNotFound' }
           },
-          cache: _SQUADS_CACHE_ID_
+          cache: { id: _SQUADS_CACHE_ID_, scheduled: true }
         })
         .pipe(
           map(res => {

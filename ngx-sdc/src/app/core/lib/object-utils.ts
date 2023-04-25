@@ -27,3 +27,5 @@ export const filterByProperty = <T>(collection: T[], property: keyof T, filter: 
 
   return collection.filter(data => searchExp.test((data[property] as string).toLocaleLowerCase()));
 };
+
+export const propertyIn = <T>(object: any, property: string): object is T =>  property in object;
