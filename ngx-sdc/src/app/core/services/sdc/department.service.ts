@@ -13,19 +13,6 @@ export class DepartmentService {
 
   constructor(private http: UiHttpService) {}
 
-  public department(departmentId: number, showLoading?: boolean): Promise<IDepartmentModel> {
-    return firstValueFrom(
-      this.http
-        .get<IDepartmentDTO>(`${this._urlDepartments}/department/${departmentId}`, {
-          showLoading,
-          responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.DepartmentNotFound' }
-          }
-        })
-        .pipe(map(data => IDepartmentModel.toModel(data as IDepartmentDTO)))
-    );
-  }
-
   public departments(): Promise<IPageable<IDepartmentModel>> {
     return firstValueFrom(
       this.http

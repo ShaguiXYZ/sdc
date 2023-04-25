@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { UiCookieService } from './core/services/context-data/cookie.service';
+import { UiStorageService } from './core/services/context-data/storage.service';
 import { ContextDataInfo } from './shared/constants/context-data';
 
 @Component({
@@ -8,7 +8,7 @@ import { ContextDataInfo } from './shared/constants/context-data';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private cookieService: UiCookieService) {}
+  constructor(private cookieService: UiStorageService) {}
 
   ngOnInit(): void {
     this.cookieService.retrieve(ContextDataInfo.SQUADS_DATA);

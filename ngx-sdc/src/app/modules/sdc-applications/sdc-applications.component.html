@@ -48,8 +48,8 @@
       </div>
     </div>
   </form>
-  <div nxLayout="grid nogutters">
-    <div *ngIf="applicationsInfo" nxRow>
+  <div *ngIf="applicationsInfo" nxLayout="grid nogutters">
+    <div nxRow>
       <div nxCol="12">
         <sdc-compliance-bar-cards
           [compliances]="applicationsInfo.compliances"

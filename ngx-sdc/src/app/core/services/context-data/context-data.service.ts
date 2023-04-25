@@ -28,8 +28,6 @@ export class UiContextDataService {
     };
 
     this.subject$ = new Subject<string>();
-
-    // contextConfig = { ...{ home: '', urls: {} }, ...contextConfig };
     this._contextConfig = { ...{ home: '', urls: {} }, ...contextConfig };
 
     this.sessionControl();
@@ -90,8 +88,6 @@ export class UiContextDataService {
 
     this.addContextData(key, data, configuration);
     this.subject$.next(key);
-
-    console.log(`Context data ${key} added`, this.contextStorage);
   }
 
   /**

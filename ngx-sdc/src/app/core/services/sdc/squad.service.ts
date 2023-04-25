@@ -14,19 +14,6 @@ export class SquadService {
 
   constructor(private http: UiHttpService) {}
 
-  public squad(squadId: number, showLoading?: boolean): Promise<ISquadModel> {
-    return firstValueFrom(
-      this.http
-        .get<ISquadDTO>(`${this._urlSquads}/squad/${squadId}`, {
-          showLoading,
-          responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.SquadNotFound' }
-          }
-        })
-        .pipe(map(data => ISquadModel.toModel(data as ISquadDTO)))
-    );
-  }
-
   public squads(department?: IDepartmentModel): Promise<IPageable<ISquadModel>> {
     return firstValueFrom(
       this.http

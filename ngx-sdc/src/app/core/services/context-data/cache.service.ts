@@ -31,10 +31,15 @@ export class UiCacheService implements OnDestroy {
     if (scheduled) {
       this.scheduledIds[key] = true;
     }
+
+    console.log(`cache data ${key} added`, data);
   }
 
   public get(key: string): any {
-    return this.contextData.cache[key];
+    const data = this.contextData.cache[key];
+    console.log(`Retrieving cache data ${key}`, data);
+
+    return data;
   }
 
   public delete(key: string) {

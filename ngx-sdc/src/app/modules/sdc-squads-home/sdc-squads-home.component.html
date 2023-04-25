@@ -1,5 +1,5 @@
-<div class="summary-content nx-margin-y-2xs">
-  <div [ngClass]="{ 'width-50': squadsData?.squad, 'width-0': !squadsData?.squad }" class="summary nx-margin-right-3xs">
+<div *ngIf="squadsData" class="summary-content nx-margin-y-2xs">
+  <div [ngClass]="{ 'width-50': squadsData.squad, 'width-0': !squadsData.squad }" class="summary nx-margin-right-3xs">
     <ng-container *ngIf="squadsData">
       <div *ngIf="squadsData.squad" class="nx-margin-bottom-2xs">
         <sdc-squad-summary
@@ -17,11 +17,11 @@
       <sdc-compliance-bar-cards [compliances]="componentsInView" (clickLink)="complianceClicked($event)"></sdc-compliance-bar-cards>
     </ng-container>
   </div>
-  <div [ngClass]="{ 'width-50': squadsData?.squad, 'width-100': !squadsData?.squad }" class="coverages nx-margin-left-3xs">
+  <div [ngClass]="{ 'width-50': squadsData.squad, 'width-100': !squadsData.squad }" class="coverages nx-margin-left-3xs">
     <sdc-coverages
-      [filter]="squadsData?.filter"
-      [coverages]="squadsData?.squads"
-      [selected]="squadsData?.squad?.id"
+      [filter]="squadsData.filter"
+      [coverages]="squadsData.squads"
+      [selected]="squadsData.squad?.id"
       [title]="'Label.OtherSquads' | translate"
       (searchCoverageChanged)="onSearchSquadChanged($event)"
       (selectCoverage)="onClickSquad($event)"

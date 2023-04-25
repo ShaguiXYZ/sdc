@@ -32,7 +32,7 @@ export class UiLanguageService {
       this.languageChange$.emit(key);
     }
 
-    sessionStorage.setItem(SESSION_LANGUAGE_KEY, JSON.stringify(this.languageConfig));
+    localStorage.setItem(SESSION_LANGUAGE_KEY, JSON.stringify(this.languageConfig));
   }
 
   public getLang(): string {
@@ -48,7 +48,7 @@ export class UiLanguageService {
   }
 
   private configureService(): void {
-    const sessionData = sessionStorage.getItem(SESSION_LANGUAGE_KEY);
+    const sessionData = localStorage.getItem(SESSION_LANGUAGE_KEY);
 
     if (sessionData) {
       this.languageConfig = JSON.parse(sessionData);
