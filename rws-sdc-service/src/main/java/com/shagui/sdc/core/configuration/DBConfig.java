@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 //@Configuration
-//@EnableJpaRepositories(basePackages = "com.allianz.sdc.repository")
+//@EnableJpaRepositories(basePackages = "com.shagui.sdc.repository")
 public class DBConfig {
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
