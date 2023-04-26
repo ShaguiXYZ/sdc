@@ -14,8 +14,8 @@ export class UiStorageService {
   public create(key: string): void {
     const name = storageKey(key);
     const storageData: IContextData = {
-      data: this.contextData.getContextData(key),
-      configuration: this.contextData.getContextConfiguration(key)
+      data: this.contextData.get(key),
+      configuration: this.contextData.getConfiguration(key)
     };
 
     localStorage.setItem(name, JSON.stringify(storageData));
@@ -31,7 +31,7 @@ export class UiStorageService {
       const contextData: IContextData = JSON.parse(storageData);
 
       if (contextData) {
-        this.contextData.setContextData(key, contextData.data, contextData.configuration);
+        this.contextData.set(key, contextData.data, contextData.configuration);
 
         console.log(`Retrieve storage data ${key}`, contextData);
       }
@@ -44,10 +44,10 @@ export class UiStorageService {
     const data = localStorage.getItem(name);
     if (data) {
       const storageData: IContextData = JSON.parse(data);
-      const contextData = this.contextData.getContextData(key);
+      const contextData = this.contextData.get(key);
 
       if (storageData) {
-        this.contextData.setContextData({ ...contextData, ...storageData }, storageData.configuration);
+        this.contextData.set({ ...contextData, ...storageData }, storageData.configuration);
       }
     }
   }

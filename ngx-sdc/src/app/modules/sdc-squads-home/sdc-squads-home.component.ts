@@ -40,7 +40,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   }
 
   public complianceClicked(compliance: IComplianceModel): void {
-    this.contextDataService.setContextData(ContextDataInfo.METRICS_DATA, { compliance });
+    this.contextDataService.set(ContextDataInfo.METRICS_DATA, { compliance });
     this.router.navigate([AppUrls.metrics]);
   }
 
@@ -52,7 +52,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
         }
       };
 
-      this.contextDataService.setContextData(ContextDataInfo.APPLICATIONS_DATA, applicationsContextData);
+      this.contextDataService.set(ContextDataInfo.APPLICATIONS_DATA, applicationsContextData);
 
       this.router.navigate([AppUrls.applications]);
     }
@@ -77,7 +77,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
         }
       };
 
-      this.contextDataService.setContextData(ContextDataInfo.APPLICATIONS_DATA, applicationsContextData);
+      this.contextDataService.set(ContextDataInfo.APPLICATIONS_DATA, applicationsContextData);
 
       this.router.navigate([AppUrls.applications]);
     }

@@ -54,7 +54,7 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
 
   public onClickSquad(squad: ICoverageModel) {
     const squadContextData: SdcSquadsContextData = { squad: squad as ISquadModel };
-    this.contextDataService.setContextData(ContextDataInfo.SQUADS_DATA, squadContextData);
+    this.contextDataService.set(ContextDataInfo.SQUADS_DATA, squadContextData);
     this.router.navigate([AppUrls.squads]);
   }
 

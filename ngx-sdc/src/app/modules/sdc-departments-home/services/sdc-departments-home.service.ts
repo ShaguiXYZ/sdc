@@ -19,7 +19,7 @@ export class SdcDepartmentsService {
     private squadService: SquadService
   ) {
     this.summary$ = new Subject();
-    this.contextData = this.contextDataService.getContextData(ContextDataInfo.DEPARTMENTS_DATA);
+    this.contextData = this.contextDataService.get(ContextDataInfo.DEPARTMENTS_DATA);
     this.data = {
       departmentFilter: this.contextData?.departmentFilter,
       squadFilter: this.contextData?.squadFilter,
@@ -48,7 +48,7 @@ export class SdcDepartmentsService {
 
       this.data = { ...this.data, departments, departmentFilter: filter };
       this.contextData = { ...this.contextData, departmentFilter: filter };
-      this.contextDataService.setContextData(ContextDataInfo.DEPARTMENTS_DATA, this.contextData, { persistent: true });
+      this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, this.contextData, { persistent: true });
 
       this.summary$.next(this.data);
     });
@@ -61,7 +61,7 @@ export class SdcDepartmentsService {
 
       this.data = { ...this.data, department, squads, squadsInView, squadFilter: filter };
       this.contextData = { ...this.contextData, department, squadFilter: filter };
-      this.contextDataService.setContextData(ContextDataInfo.DEPARTMENTS_DATA, this.contextData, { persistent: true });
+      this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, this.contextData, { persistent: true });
 
       this.summary$.next(this.data);
     });

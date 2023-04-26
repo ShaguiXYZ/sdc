@@ -70,7 +70,7 @@ export class UiHttpService {
       return this.http.get<T>(url, requestOptions?.clientOptions).pipe(
         tap(data => {
           if (cacheId) {
-            this.cache.add(cacheId, data, expiration);
+            this.cache.set(cacheId, data, expiration);
           }
         }),
         tap(this.tabControl(requestOptions)),

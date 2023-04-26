@@ -20,7 +20,7 @@ export class SdcMetricsService {
   ) {
     this.data$ = new Subject();
 
-    this.metricContextData = this.contextDataService.getContextData(ContextDataInfo.METRICS_DATA);
+    this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
     this.metricData = { compliance: this.metricContextData.compliance };
 
     this.loadInitData();
@@ -34,7 +34,7 @@ export class SdcMetricsService {
     this.analysisService.metricHistory(this.metricData.compliance.id, analysis.metric.id).then(data => {
       this.metricData = { ...this.metricData, analysis: data.page, selectedAnalysis: analysis };
 
-      this.contextDataService.setContextData(ContextDataInfo.METRICS_DATA, { ...this.metricContextData, selected: analysis });
+      this.contextDataService.set(ContextDataInfo.METRICS_DATA, { ...this.metricContextData, selected: analysis });
       this.data$.next(this.metricData);
     });
   }

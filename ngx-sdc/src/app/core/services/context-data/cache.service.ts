@@ -22,11 +22,10 @@ export class UiCacheService implements OnDestroy {
     private contextData: UiContextDataService,
     private scheduleroService: UiSchedulerService
   ) {
-    this.schedulerPeriod = contextConfig.cache?.schedulerPeriod
-      ? contextConfig.cache.schedulerPeriod < MIN_SCHEDULER_PERIOD
-        ? MIN_SCHEDULER_PERIOD
-        : contextConfig.cache.schedulerPeriod
-      : MIN_SCHEDULER_PERIOD;
+    this.schedulerPeriod =
+      contextConfig.cache?.schedulerPeriod && contextConfig.cache.schedulerPeriod > MIN_SCHEDULER_PERIOD
+        ? contextConfig.cache.schedulerPeriod
+        : MIN_SCHEDULER_PERIOD;
 
     this.schedukerId = this.scheduleroService.create(this.resetContextData, undefined, this.schedulerPeriod);
     this.scheduleroService.subscribe(this.schedukerId, emptyFn);
@@ -38,7 +37,7 @@ export class UiCacheService implements OnDestroy {
 
   public expirationDate = (cachedDuring?: number) => (hasValue(cachedDuring) ? new Date().getTime() + (cachedDuring || 0) : undefined);
 
-  public add(key: string, data: any, expiration?: number) {
+  public set(key: string, data: any, expiration?: number) {
     this.contextData.cache[key] = { data, expiration };
 
     console.log(`cache data ${key} added`, {
@@ -56,6 +55,8 @@ export class UiCacheService implements OnDestroy {
   }
 
   public delete(key: string) {
+    console.log(`deleting ${key} from cache`);
+
     delete this.contextData.cache[key];
   }
 
@@ -70,9 +71,5 @@ export class UiCacheService implements OnDestroy {
   private resetContextData = (): void =>
     Object.keys(this.contextData.cache)
       .filter(key => this.contextData.cache[key].expiration && (this.contextData.cache[key].expiration || 0) < new Date().getTime())
-      .forEach(key => {
-        console.log(`deleting ${key} from cache`);
-
-        this.delete(key);
-      });
+      .forEach(this.delete);
 }

@@ -21,7 +21,7 @@ export class SdcApplicationsService {
     private squadService: SquadService
   ) {
     this.subject$ = new Subject();
-    this.contextData = this.contextDataService.getContextData(ContextDataInfo.APPLICATIONS_DATA);
+    this.contextData = this.contextDataService.get(ContextDataInfo.APPLICATIONS_DATA);
 
     this.squadData(
       this.contextData?.filter?.name,
@@ -60,7 +60,7 @@ export class SdcApplicationsService {
     const range = coverage ? SdcApplicationsCoverage[coverage] : undefined;
 
     this.componetService.filter(name, squadId, range?.min, range?.max, page, ps).then(pageable => {
-      this.contextDataService.setContextData(
+      this.contextDataService.set(
         ContextDataInfo.APPLICATIONS_DATA,
         { ...this.contextData, filter: { coverage, name, squad: squadId }, page },
         { persistent: true }

@@ -19,7 +19,7 @@ export class SdcSquadsService {
     private squadService: SquadService
   ) {
     this.summary$ = new Subject();
-    this.contextData = this.contextDataService.getContextData(ContextDataInfo.SQUADS_DATA);
+    this.contextData = this.contextDataService.get(ContextDataInfo.SQUADS_DATA);
     this.data = { filter: this.contextData?.filter, squad: this.contextData?.squad, components: [], squads: [] };
 
     this.summary$.next(this.data);
@@ -41,7 +41,7 @@ export class SdcSquadsService {
 
       this.data = { ...this.data, squads, filter };
       this.contextData = { ...this.contextData, filter };
-      this.contextDataService.setContextData(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
+      this.contextDataService.set(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
 
       this.summary$.next(this.data);
     });
@@ -51,7 +51,7 @@ export class SdcSquadsService {
     this.componetService.squadComponents(squad.id).then(pageable => {
       this.data = { ...this.data, squad, components: pageable.page };
       this.contextData = { ...this.contextData, squad };
-      this.contextDataService.setContextData(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
+      this.contextDataService.set(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
 
       this.summary$.next(this.data);
     });

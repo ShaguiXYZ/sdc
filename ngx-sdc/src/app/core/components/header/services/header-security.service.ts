@@ -40,7 +40,7 @@ export class HeaderSecurityService implements OnDestroy {
   }
 
   private updateSecurityData = () => {
-    const securityInfo = this.appContextData.getContextData(CoreContextDataNames.securityInfo) as UiSecurityInfo;
+    const securityInfo = this.appContextData.get(CoreContextDataNames.securityInfo) as UiSecurityInfo;
 
     this._securityInfo = {
       currentUser: UiSecurityInfo.getUser(securityInfo),

@@ -24,9 +24,9 @@ export class UiSecurityService {
     const securityInfo = this.securityInfo();
 
     if (securityInfo) {
-      this.contextData.setContextData(CoreContextDataNames.securityInfo, { ...securityInfo, session });
+      this.contextData.set(CoreContextDataNames.securityInfo, { ...securityInfo, session });
     } else {
-      this.contextData.setContextData(CoreContextDataNames.securityInfo, { session });
+      this.contextData.set(CoreContextDataNames.securityInfo, { session });
     }
   }
 
@@ -37,7 +37,7 @@ export class UiSecurityService {
     const securityInfo = this.securityInfo();
 
     if (securityInfo) {
-      this.contextData.setContextData(CoreContextDataNames.securityInfo, { ...securityInfo, user });
+      this.contextData.set(CoreContextDataNames.securityInfo, { ...securityInfo, user });
     } else {
       throw new Error('Valid token not returned');
     }
@@ -92,7 +92,7 @@ export class UiSecurityService {
   }
 
   private securityInfo(): UiSecurityInfo {
-    return this.contextData.getContextData(CoreContextDataNames.securityInfo) as UiSecurityInfo;
+    return this.contextData.get(CoreContextDataNames.securityInfo) as UiSecurityInfo;
   }
 
   private getAuthoritiesByUID(uid: string): Observable<IAuthorityModel[]> {

@@ -49,7 +49,7 @@ export class UiContextDataService {
    *
    * @param key Key of the variable in context
    */
-  public getContextData(key?: string): any {
+  public get(key?: string): any {
     if (key) {
       const contextData = this.contextStorage.contextData[key];
 
@@ -69,7 +69,7 @@ export class UiContextDataService {
     }
   }
 
-  public getContextConfiguration(key: string): IContextDataConfigurtion {
+  public getConfiguration(key: string): IContextDataConfigurtion {
     return { ...this.contextStorage.contextData[key].configuration };
   }
 
@@ -79,7 +79,7 @@ export class UiContextDataService {
    * @param key Key of the variable in context
    * @param data data to save in the storage
    */
-  public setContextData(key: string, data: any, configuration: IContextDataConfigurtion = { persistent: false }): void {
+  public set(key: string, data: any, configuration: IContextDataConfigurtion = { persistent: false }): void {
     const contextDataValue = this.contextStorage.contextData[key];
 
     if (contextDataValue && contextDataValue.configuration.readonly) {

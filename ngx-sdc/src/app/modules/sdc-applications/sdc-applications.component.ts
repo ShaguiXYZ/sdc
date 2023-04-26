@@ -70,7 +70,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   }
 
   public complianceClicked(compliance: IComplianceModel): void {
-    this.contextDataService.setContextData(ContextDataInfo.METRICS_DATA, { compliance });
+    this.contextDataService.set(ContextDataInfo.METRICS_DATA, { compliance });
     this.router.navigate([AppUrls.metrics]);
   }
 

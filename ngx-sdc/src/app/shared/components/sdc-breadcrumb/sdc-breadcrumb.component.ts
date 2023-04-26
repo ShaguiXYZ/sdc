@@ -15,7 +15,7 @@ export class SdcBreadcrumbComponent implements OnInit {
   constructor(private contextDataService: UiContextDataService, private location: Location) {}
 
   ngOnInit(): void {
-    this.breadcrumbConfig = this.contextDataService.getContextData(ContextDataInfo.BREADCRUMBS_DATA);
+    this.breadcrumbConfig = this.contextDataService.get(ContextDataInfo.BREADCRUMBS_DATA);
   }
 
   backClicked() {
