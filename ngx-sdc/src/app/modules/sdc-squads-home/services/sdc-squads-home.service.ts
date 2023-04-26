@@ -5,7 +5,7 @@ import { UiContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { SdcSquadsDataModel, SdcSquadsContextData } from '../models';
-import { filterByProperty } from 'src/app/core/lib';
+import { filterByProperties } from 'src/app/core/lib';
 
 @Injectable()
 export class SdcSquadsService {
@@ -34,7 +34,7 @@ export class SdcSquadsService {
       let squads: ISquadModel[] = [];
 
       if (filter?.trim().length) {
-         squads = filterByProperty(pageable.page, 'name', filter);
+        squads = filterByProperties(pageable.page, ['id', 'name'], filter);
       } else {
         squads = pageable.page;
       }

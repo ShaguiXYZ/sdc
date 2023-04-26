@@ -17,7 +17,8 @@ export const hasValue = (data: any): boolean => data !== null && data !== undefi
 
 export const isNumeric = (data: string): boolean => !isNaN(Number(data));
 
-export const filterByProperty = <T>(collection: T[], property: keyof T, filter: string): T[] => {
+export const filterByProperties = <T>(collection: T[], properties: keyof T | (keyof T)[], filter: string): T[] => {
+  const propertyList = Array.isArray(properties) ? properties : [properties];
   const searchWords: string[] = filter
     .toLowerCase()
     .split(' ')
@@ -25,7 +26,14 @@ export const filterByProperty = <T>(collection: T[], property: keyof T, filter: 
   const regex = searchWords.map(word => `(?=.*${word})`).join('');
   const searchExp = new RegExp(regex, 'gi');
 
-  return collection.filter(data => searchExp.test((data[property] as string).toLocaleLowerCase()));
+  return collection.filter(data =>
+    searchExp.test(
+      propertyList
+        .map(key => `${data[key]}`)
+        .join(' ')
+        .toLocaleLowerCase()
+    )
+  );
 };
 
-export const propertyIn = <T>(object: any, property: string): object is T =>  property in object;
+export const propertyIn = <T>(object: any, property: string): object is T => property in object;

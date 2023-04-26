@@ -1,4 +1,4 @@
-export const SCHEDULER_PERIOD = 60 * 1000; // Minutes
+export const SCHEDULER_PERIOD = 1 * 60 * 1000; // Minutes
 
 export enum ContextDataInfo {
   APPLICATIONS_DATA = 'APPLICATIONS_DATA',

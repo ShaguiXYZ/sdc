@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { filterByProperty } from 'src/app/core/lib';
+import { filterByProperties } from 'src/app/core/lib';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { DepartmentService, SquadService } from 'src/app/core/services/sdc';
@@ -41,7 +41,7 @@ export class SdcDepartmentsService {
       let departments: IDepartmentModel[] = [];
 
       if (filter?.trim().length) {
-        departments = filterByProperty(pageable.page, 'name', filter);
+        departments = filterByProperties(pageable.page, ['id', 'name'], filter);
       } else {
         departments = pageable.page;
       }
@@ -57,7 +57,7 @@ export class SdcDepartmentsService {
   public availableSquads(department: IDepartmentModel, filter?: string): void {
     this.squadService.squads().then(pageable => {
       const squads: ISquadModel[] = pageable.page.filter(squad => squad.department.id === department.id);
-      const squadsInView: ISquadModel[] = filter?.trim().length ? filterByProperty(squads, 'name', filter) : squads;
+      const squadsInView: ISquadModel[] = filter?.trim().length ? filterByProperties(squads, ['id', 'name'], filter) : squads;
 
       this.data = { ...this.data, department, squads, squadsInView, squadFilter: filter };
       this.contextData = { ...this.contextData, department, squadFilter: filter };
