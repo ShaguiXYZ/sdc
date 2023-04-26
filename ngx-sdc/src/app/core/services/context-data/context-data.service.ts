@@ -6,7 +6,7 @@ import { APP_NAME } from 'src/app/core/constants/app.constants';
 import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { deepCopy } from '../../lib';
 import { routerData } from './lib';
-import { ContextConfig, ContextData, ContextInfo, IContextData, IContextDataConfigurtion, NX_CONTEX_CONFIG, UrlInfo } from './models';
+import { CacheData, ContextConfig, ContextData, ContextInfo, IContextData, IContextDataConfigurtion, NX_CONTEX_CONFIG, UrlInfo } from './models';
 
 export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
 
@@ -36,7 +36,7 @@ export class UiContextDataService {
   /**
    * Public context data
    */
-  public get cache(): DataInfo {
+  public get cache(): GenericDataInfo<CacheData> {
     return this.contextStorage.cache;
   }
 

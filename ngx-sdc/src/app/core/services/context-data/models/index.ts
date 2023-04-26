@@ -1,5 +1,6 @@
 import { APP_NAME } from 'src/app/core/constants/app.constants';
 
+export * from './cache-data.model';
 export * from './context-data';
 export * from './contex.model';
 

@@ -1,12 +1,11 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { Observable, firstValueFrom, of, take } from 'rxjs';
-import { GenericDataInfo } from '../../interfaces/dataInfo';
 import { emptyFn, hasValue } from '../../lib';
 import { UiSchedulerService } from '../task-scheduler';
 import { UiContextDataService } from './context-data.service';
 import { ContextConfig, NX_CONTEX_CONFIG } from './models';
 
-const MIN_SCHEDULER_PERIOD = 30 * 1000;
+const MIN_SCHEDULER_PERIOD = 60 * 1000;
 
 /**
  * Cache
@@ -16,8 +15,6 @@ const MIN_SCHEDULER_PERIOD = 30 * 1000;
 })
 export class UiCacheService implements OnDestroy {
   private schedukerId!: string;
-  private scheduledIds: GenericDataInfo<number> = {}; // 0 to clear the cache ID each time the scheduler is executed or the date to clear
-
   private schedulerPeriod!: number;
 
   constructor(
@@ -42,28 +39,24 @@ export class UiCacheService implements OnDestroy {
   public expirationDate = (cachedDuring?: number) => (hasValue(cachedDuring) ? new Date().getTime() + (cachedDuring || 0) : undefined);
 
   public add(key: string, data: any, expiration?: number) {
-    this.contextData.cache[key] = data;
-
-    if (expiration !== undefined) {
-      this.scheduledIds[key] = expiration;
-    }
+    this.contextData.cache[key] = { data, expiration };
 
     console.log(`cache data ${key} added`, {
-      'expited-on': this.scheduledIds[key] ? `${new Date(this.scheduledIds[key])}` : 'never',
+      'expited-on': expiration ? `${new Date(expiration)}` : 'never',
       data
     });
   }
 
   public get(key: string): any {
     const data = this.contextData.cache[key];
+
     console.log(`Retrieving cache data ${key}`, data);
 
-    return hasValue(this.scheduledIds[key]) && this.scheduledIds[key] > new Date().getTime() ? data : undefined;
+    return data && (!data.expiration || data.expiration > new Date().getTime()) ? data.data : undefined;
   }
 
   public delete(key: string) {
     delete this.contextData.cache[key];
-    delete this.scheduledIds[key];
   }
 
   public asObservable<T>(key: string): Observable<T> {
@@ -75,8 +68,8 @@ export class UiCacheService implements OnDestroy {
   }
 
   private resetContextData = (): void =>
-    Object.keys(this.scheduledIds)
-      .filter(key => this.scheduledIds[key] < new Date().getTime())
+    Object.keys(this.contextData.cache)
+      .filter(key => this.contextData.cache[key].expiration && (this.contextData.cache[key].expiration || 0) < new Date().getTime())
       .forEach(key => {
         console.log(`deleting ${key} from cache`);
 

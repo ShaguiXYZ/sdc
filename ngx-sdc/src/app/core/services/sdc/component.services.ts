@@ -10,7 +10,7 @@ import { UiCacheService } from '../context-data';
 import { HttpStatus, UiHttpService } from '../http';
 
 const _COMPONENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
-const SCHEDULER_TIME = 1 * 60 * 1000;
+const SCHEDULER_TIME = 10 * 60 * 1000;
 
 @Injectable({ providedIn: 'root' })
 export class ComponentService {

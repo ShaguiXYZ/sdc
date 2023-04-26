@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core';
 import { Params, UrlSegment, UrlTree } from '@angular/router';
 import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { ContextData } from './context-data';
+import { CacheData } from './cache-data.model';
 
 export interface ICoreConfig {
   lang: string;
@@ -9,7 +10,7 @@ export interface ICoreConfig {
 
 export interface ContextInfo {
   contextData: GenericDataInfo<ContextData>;
-  cache: DataInfo;
+  cache: GenericDataInfo<CacheData>;
 }
 
 export enum CoreContextDataNames {
