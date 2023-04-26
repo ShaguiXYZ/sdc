@@ -11,7 +11,9 @@ import javax.persistence.TypedQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.model.ComponentModel;
@@ -19,6 +21,10 @@ import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.util.JpaUtils;
 
 public interface ComponentRepository extends JpaRepository<ComponentModel, Integer> {
+
+	public List<ComponentModel> findBySquad_Id(int squadId, Sort sort);
+
+	public Page<ComponentModel> findBySquad_Id(int squadId, Pageable pageable);
 
 	public Optional<ComponentModel> findBySquad_IdAndName(int squadId, String name);
 
@@ -64,21 +70,58 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 	private <T> TypedQuery<T> filterQuery(EntityManager em, String sql, String name, SquadModel squad, Range range,
 			List<String> orderBy, Class<T> clazz) {
+		StringBuilder strQuery = new StringBuilder(sql);
 
-		StringBuilder strQuery = new StringBuilder(sql).append(" WHERE ((:squad IS NULL) OR cm.squad IS :squad) AND ")
-				.append("((:name IS NULL) OR LOWER(cm.name) like LOWER(:name)) AND ")
-				.append("(((:coverageMin IS NULL) OR (:coverageMin) < cm.coverage) AND ")
-				.append("((:coverageMax IS NULL) OR (:coverageMax) >= cm.coverage )) ");
+		List<String> whereAnds = new ArrayList<>();
+
+		if (StringUtils.hasText(name)) {
+			whereAnds.add("LOWER(cm.name) like LOWER(:name)");
+		}
+
+		if (squad != null) {
+			whereAnds.add("cm.squad IS (:squad)");
+		}
+
+		if (range != null) {
+			if (range.getMin() != null) {
+				whereAnds.add("(:coverageMin) < cm.coverage");
+			}
+
+			if (range.getMax() != null) {
+				whereAnds.add("(:coverageMax) >= cm.coverage");
+			}
+		}
+
+		String whereCondition = whereAnds.stream().collect(Collectors.joining(" AND "));
+		
+		if (StringUtils.hasText(whereCondition)) {
+			strQuery.append(" WHERE ").append(whereCondition);
+		}
+
 
 		if (!orderBy.isEmpty()) {
-			strQuery.append("ORDER BY ").append(orderBy.stream().collect(Collectors.joining(",")));
+			strQuery.append(" ORDER BY ").append(orderBy.stream().collect(Collectors.joining(",")));
 		}
 
 		TypedQuery<T> query = em.createQuery(strQuery.toString(), clazz);
 
-		query.setParameter("name", JpaUtils.contains(name)).setParameter("squad", squad)
-				.setParameter("coverageMin", range == null ? null : range.getMin())
-				.setParameter("coverageMax", range == null ? null : range.getMax());
+		if (StringUtils.hasText(name)) {
+			query.setParameter("name", JpaUtils.contains(name));
+		}
+
+		if (squad != null) {
+			query.setParameter("squad", squad);
+		}
+
+		if (range != null) {
+			if (range.getMin() != null) {
+				query.setParameter("coverageMin", range.getMin());
+			}
+
+			if (range.getMax() != null) {
+				query.setParameter("coverageMax", range.getMax());
+			}
+		}
 
 		return query;
 	}

@@ -20,13 +20,10 @@ export class SdcDepartmentSummaryComponent {
     this._squads = [...values];
     this.chartValues = this.stateCounts();
   }
-  public get squads(): ISquadModel[] {
-    return this._squads;
-  }
 
   private stateCounts(): ChartValue[] {
     const counts: { [key: string]: { value: number; color: string } } = {};
-    this.squads?.forEach(squad => {
+    this._squads?.forEach(squad => {
       const state: AvailableMetricStates = stateByCoverage(squad.coverage || 0);
 
       if (counts[state]) {

@@ -1,11 +1,11 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { EChartsOption } from 'echarts';
 import { BarChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { ChartConfig, ChartValue } from './models';
-import { TranslateService } from '@ngx-translate/core';
-import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',
@@ -67,6 +67,8 @@ export class SdcHorizontalBarChartComponent {
         containLabel: true
       },
       tooltip: {
+        backgroundColor: '#A694BB',
+        textStyle: { color: 'white' },
         trigger: 'axis',
         axisPointer: {
           type: 'cross'

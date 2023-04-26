@@ -47,6 +47,11 @@ public interface RwsSdcClient {
 	@GetMapping("component/{componentId}")
 	ComponentDTO component(@PathVariable(value = "componentId") int componentId);
 
+	@GetMapping("components/squad/{squadId}")
+	PageData<ComponentDTO> squadComponents(@PathVariable(name = "squadId") int squadId,
+			@RequestParam(name = "page", required = false) Integer page,
+			@RequestParam(name = "ps", required = false) Integer ps);
+
 	@GetMapping("components/filter")
 	PageData<ComponentDTO> filter(@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "squadId", required = false) Integer squadId,

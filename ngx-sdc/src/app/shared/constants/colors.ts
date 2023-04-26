@@ -1,3 +1,0 @@
-
-export const SUMMARY_BACKGROUND = '#EBF2F6';
-export const COVERAGE_CHART_BACKGROUND = '#A9C9DA';

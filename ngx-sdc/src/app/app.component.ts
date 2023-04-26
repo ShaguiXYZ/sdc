@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { UiStorageService } from './core/services/context-data/storage.service';
+import { UiStorageService } from './core/services/context-data';
 import { ContextDataInfo } from './shared/constants/context-data';
 
 @Component({

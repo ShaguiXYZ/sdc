@@ -50,6 +50,7 @@ export class SdcMetricsService {
     this.analysisService.analize(this.metricData.compliance.id).then(() => {
       this.componentService.component(this.metricData.compliance.id).then(data => {
         this.metricData.compliance = IComplianceModel.fromComponentModel(data);
+        this.componentService.clearSquadCache(data.squad.id);
       });
 
       this.loadInitData();

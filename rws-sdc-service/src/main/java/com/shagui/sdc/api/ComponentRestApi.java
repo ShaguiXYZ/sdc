@@ -39,6 +39,12 @@ public interface ComponentRestApi {
 			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId,
 			@RequestBody ComponentDTO component);
 
+	@GetMapping("squad/{squadId}")
+	PageData<ComponentDTO> squadComponents(
+			@PathVariable(name = "squadId") @Parameter(description = "Squad identifier") int squadId,
+			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+
 	@GetMapping("filter")
 	PageData<ComponentDTO> filter(
 			@RequestParam(name = "name", required = false) @Parameter(description = "Component name") String name,

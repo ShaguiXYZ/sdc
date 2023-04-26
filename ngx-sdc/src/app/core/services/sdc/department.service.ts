@@ -4,14 +4,16 @@ import { environment } from 'src/environments/environment';
 import { UniqueIds } from '../../lib';
 import { IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
 import { HttpStatus, UiHttpService } from '../http';
+import { UiCacheService } from '../context-data';
 
 const _DEPARTMENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
+const SCHEDULER_TIME = 30 * 60 * 1000;
 
 @Injectable({ providedIn: 'root' })
 export class DepartmentService {
   private _urlDepartments = `${environment.baseUrl}/api`;
 
-  constructor(private http: UiHttpService) {}
+  constructor(private cache: UiCacheService, private http: UiHttpService) {}
 
   public departments(): Promise<IPageable<IDepartmentModel>> {
     return firstValueFrom(
@@ -20,7 +22,7 @@ export class DepartmentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.DepartmentsNotFound' }
           },
-          cache: { id: _DEPARTMENT_CACHE_ID_, scheduled: true }
+          cache: { id: _DEPARTMENT_CACHE_ID_, cachedDuring: SCHEDULER_TIME }
         })
         .pipe(
           map(res => {
@@ -35,4 +37,6 @@ export class DepartmentService {
         )
     );
   }
+
+  public clearCache = () => this.cache.delete(_DEPARTMENT_CACHE_ID_);
 }

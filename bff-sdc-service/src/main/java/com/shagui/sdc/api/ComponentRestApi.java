@@ -28,6 +28,12 @@ public interface ComponentRestApi {
 	PageData<MetricView> componentMetrics(
 			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
 
+	@GetMapping("components/squad/{squadId}")
+	PageData<ComponentView> squadComponents(
+			@PathVariable(name = "squadId") @Parameter(description = "Squad identifier") int squadId,
+			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+
 	@GetMapping("components/filter")
 	PageData<ComponentView> filter(
 			@RequestParam(name = "name", required = false) @Parameter(description = "Component name") String name,

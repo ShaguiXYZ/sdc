@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { PieChart } from 'echarts/charts';
 import { MetricState, stateByCoverage } from 'src/app/core/lib';
-import { COVERAGE_CHART_BACKGROUND, SUMMARY_BACKGROUND } from '../../constants/colors';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 
 @Component({
@@ -23,6 +22,8 @@ export class SdcCoverageChartComponent implements OnInit {
   public animation = false;
   @Input()
   public size!: number;
+  @Input()
+  public backgroundColor!: string;
 
   public readonly echartsExtentions: any[];
   public echartsOptions: EChartsOption = {};
@@ -48,7 +49,7 @@ export class SdcCoverageChartComponent implements OnInit {
           type: 'pie',
           itemStyle: {
             borderRadius: 15,
-            borderColor: SUMMARY_BACKGROUND,
+            borderColor: 'transparent',
             borderWidth: 2
           },
           radius: ['55%', '70%'],
@@ -72,7 +73,7 @@ export class SdcCoverageChartComponent implements OnInit {
             {
               value: 100 - coverage,
               itemStyle: {
-                color: COVERAGE_CHART_BACKGROUND
+                color: this.backgroundColor
               },
               label: {
                 show: false

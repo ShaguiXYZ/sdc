@@ -36,6 +36,15 @@ public class ComponentController implements ComponentRestApi {
 	}
 
 	@Override
+	public PageData<ComponentDTO> squadComponents(int squadId, Integer page, Integer ps) {
+		if (page == null) {
+			return componentService.squadComponents(squadId);
+		} else {
+			return componentService.squadComponents(squadId, new RequestPageInfo(page, ps));
+		}
+	}
+
+	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
 			Integer page, Integer ps) {
 		if (page == null) {

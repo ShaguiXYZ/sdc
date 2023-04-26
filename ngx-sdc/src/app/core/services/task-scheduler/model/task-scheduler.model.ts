@@ -34,10 +34,6 @@ export class UiTaskScheduler<D> {
    * Run the task periodically
    */
   private runScheduler() {
-    this.scheduler$ = interval(this.period).subscribe(() => {
-      console.log('Run scheduler observers...', this.isObserved);
-
-      this.task$.next(this.task());
-    });
+    this.scheduler$ = interval(this.period).subscribe(() => this.task$.next(this.task()));
   }
 }

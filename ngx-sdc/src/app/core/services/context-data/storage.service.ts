@@ -20,7 +20,7 @@ export class UiStorageService {
 
     localStorage.setItem(name, JSON.stringify(storageData));
 
-    console.log('Create storage data', key);
+    console.log('Created storage data', key);
   }
 
   public retrieve(key: string): void {
@@ -33,7 +33,7 @@ export class UiStorageService {
       if (contextData) {
         this.contextData.setContextData(key, contextData.data, contextData.configuration);
 
-        console.log('Retrieve storage data', contextData);
+        console.log(`Retrieve storage data ${key}`, contextData);
       }
     }
   }

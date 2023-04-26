@@ -8,6 +8,7 @@ import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { MessageModal } from 'src/app/core/interfaces/modal';
 import { UiLoadingService } from '../../components/loading/services';
 import { UiNotificationService } from '../../components/notification/services';
+import { hasValue } from '../../lib';
 import { UiCacheService } from '../context-data';
 import { HttpStatus } from './models';
 
@@ -20,7 +21,7 @@ export interface RequestOptions {
 }
 
 export interface CacheRequestOptions extends RequestOptions {
-  cache?: string | { id: string; scheduled?: boolean };
+  cache?: string | { id: string; cachedDuring?: number };
 }
 
 export interface PageHttp<T> {
@@ -44,13 +45,13 @@ export class UiHttpService {
 
   public get<T>(url: string, requestOptions?: CacheRequestOptions): Observable<T | HttpEvent<T>> {
     let cacheId: string | undefined;
-    let cacheScheduled: boolean | undefined;
+    let expiration: number | undefined;
 
     if (typeof requestOptions?.cache === 'string') {
       cacheId = requestOptions?.cache;
     } else if (requestOptions?.cache) {
       cacheId = requestOptions?.cache.id;
-      cacheScheduled = requestOptions?.cache.scheduled;
+      expiration = this.cache.expirationDate(requestOptions?.cache.cachedDuring);
     }
 
     let cachedData: T | undefined;
@@ -69,7 +70,7 @@ export class UiHttpService {
       return this.http.get<T>(url, requestOptions?.clientOptions).pipe(
         tap(data => {
           if (cacheId) {
-            this.cache.add(cacheId, data, cacheScheduled);
+            this.cache.add(cacheId, data, expiration);
           }
         }),
         tap(this.tabControl(requestOptions)),

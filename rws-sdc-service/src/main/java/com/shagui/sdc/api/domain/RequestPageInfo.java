@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.shagui.sdc.util.Ctes.JPA;
 
@@ -25,5 +26,10 @@ public class RequestPageInfo {
 
 	public Pageable getPageable() {
 		return PageRequest.of(page, size);
+	}
+
+
+	public Pageable getPageable(Sort sort) {
+		return PageRequest.of(page, size, sort);
 	}
 }

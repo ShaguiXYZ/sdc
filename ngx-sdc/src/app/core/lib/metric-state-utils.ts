@@ -48,3 +48,17 @@ export const stateByCoverage = (coverage: number): AvailableMetricStates => {
 export const styleByName = (name: string): string => `${COLOR_PREFIX}${name}`;
 export const styleByMetricState = (state: AvailableMetricStates): string => styleByName(MetricState[state].style);
 export const styleByCoverage = (coverage: number): string => styleByMetricState(stateByCoverage(coverage));
+
+export const rangeByState = (state: AvailableMetricStates): { min: number; max: number } =>
+  ({
+    [AvailableMetricStates.CRITICAL]: { min: 0, max: MetricState[AvailableMetricStates.CRITICAL].value },
+    [AvailableMetricStates.WITH_RISK]: {
+      min: MetricState[AvailableMetricStates.CRITICAL].value,
+      max: MetricState[AvailableMetricStates.WITH_RISK].value
+    },
+    [AvailableMetricStates.ACCEPTABLE]: {
+      min: MetricState[AvailableMetricStates.WITH_RISK].value,
+      max: MetricState[AvailableMetricStates.ACCEPTABLE].value
+    },
+    [AvailableMetricStates.PERFECT]: { min: MetricState[AvailableMetricStates.ACCEPTABLE].value, max: 100 }
+  }[state]);

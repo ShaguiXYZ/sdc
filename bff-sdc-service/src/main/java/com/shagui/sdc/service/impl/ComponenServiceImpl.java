@@ -22,6 +22,11 @@ public class ComponenServiceImpl implements ComponentService {
 	}
 
 	@Override
+	public PageData<ComponentDTO> squadComponents(int squadId, Integer page, Integer ps) {
+		return rwsSdcClient.squadComponents(squadId, page, ps);
+	}
+
+	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
 			Integer page, Integer ps) {
 		return rwsSdcClient.filter(name, squadId, coverageMin, coverageMax, page, ps);

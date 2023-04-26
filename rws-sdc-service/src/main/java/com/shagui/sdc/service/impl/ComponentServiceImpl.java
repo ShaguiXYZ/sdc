@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.domain.PageData;
@@ -57,6 +58,20 @@ public class ComponentServiceImpl implements ComponentService {
 	@Override
 	public ComponentDTO update(Integer id, ComponentDTO component) {
 		return Mapper.parse(componentRepository.update(id, componentModel(component)));
+	}
+
+	@Override
+	public PageData<ComponentDTO> squadComponents(int squadId) {
+		return componentRepository.repository().findBySquad_Id(squadId, Sort.by("coverage").and(Sort.by("name")))
+				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public PageData<ComponentDTO> squadComponents(int squadId, RequestPageInfo pageInfo) {
+		Page<ComponentModel> data = componentRepository.repository().findBySquad_Id(squadId,
+				pageInfo.getPageable(Sort.by("coverage").and(Sort.by("name"))));
+
+		return data.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(data));
 	}
 
 	@Override

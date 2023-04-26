@@ -11,6 +11,7 @@ import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsService } from './services';
+import { hasValue } from 'src/app/core/lib';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'
@@ -26,13 +27,11 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   public ELEMENTS_BY_PAGE = ELEMENTS_BY_PAGE;
-  public selectOptionValue = 'Select';
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
   public coverages: { key: string; label: string; style: string }[] = [];
   public applicationsInfo?: SdcApplicationsDataModel;
 
-  private pattern = `^((?!${this.selectOptionValue}).)*$`;
   private subscription$: Array<Subscription> = [];
   private loaded = false;
 
@@ -76,7 +75,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   }
 
   public squadChange(squad: number): void {
-    if (!squad) {
+    if (!hasValue(squad)) {
       this.form.controls['squadId'].setValue('');
     }
 
@@ -158,7 +157,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       coverage: [this.sdcApplicationsService.contextData?.filter?.coverage],
       name: [this.sdcApplicationsService.contextData?.filter?.name],
-      squadId: [this.sdcApplicationsService.contextData?.filter?.squad, [Validators.pattern(this.pattern)]]
+      squadId: [this.sdcApplicationsService.contextData?.filter?.squad || '']
     });
   }
 

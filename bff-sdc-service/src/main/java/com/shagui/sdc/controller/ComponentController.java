@@ -27,6 +27,11 @@ public class ComponentController implements ComponentRestApi {
 	}
 
 	@Override
+	public PageData<ComponentView> squadComponents(int squadId, Integer page, Integer ps) {
+		return Mapper.parse(componentService.squadComponents(squadId, page, ps), ComponentView.class);
+	}
+
+	@Override
 	public PageData<ComponentView> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
 			Integer page, Integer ps) {
 		return Mapper.parse(componentService.filter(name, squadId, coverageMin, coverageMax, page, ps),

@@ -16,13 +16,13 @@ export const SDC_HEADER_MENU = {
       id: '3',
       name: 'Header.Menu.Applications',
       collapsed: true,
-      children: [
-        {
-          id: '3@1',
-          name: 'Header.Test.1',
-          routerLink: AppUrls.applications
-        }
-      ]
+      routerLink: AppUrls.applications
+      // children: [
+      //   {
+      //     id: '3@1',
+      //     name: 'Header.Test.1',
+      //   }
+      // ]
     }
   ],
   activeParent: ''

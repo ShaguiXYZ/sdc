@@ -48,7 +48,7 @@ export class SdcSquadsService {
   }
 
   public selectedSquad(squad: ISquadModel): void {
-    this.componetService.filter(undefined, squad.id).then(pageable => {
+    this.componetService.squadComponents(squad.id).then(pageable => {
       this.data = { ...this.data, squad, components: pageable.page };
       this.contextData = { ...this.contextData, squad };
       this.contextDataService.setContextData(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });

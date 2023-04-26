@@ -15,6 +15,10 @@ public interface ComponentService {
 
 	ComponentDTO update(Integer id, ComponentDTO component);
 
+	PageData<ComponentDTO> squadComponents(int squadId);
+
+	PageData<ComponentDTO> squadComponents(int squadId, RequestPageInfo pageInfo);
+	
 	PageData<ComponentDTO> filter(String name, Integer squadId, Range range);
 
 	PageData<ComponentDTO> filter(String name, Integer squadId, Range range, RequestPageInfo pageInfo);

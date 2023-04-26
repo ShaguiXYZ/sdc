@@ -6,7 +6,6 @@
           <div class="nx-margin-right-2xs">
             <nx-formfield id="squad" [nxLabel]="'Label.Squads' | translate">
               <nx-dropdown
-                autocomplete="disabled"
                 formControlName="squadId"
                 name="allSquads"
                 [nxShowFilter]="true"
@@ -22,7 +21,6 @@
           </div>
           <nx-formfield id="coverage" [nxLabel]="'Label.Coverage' | translate">
             <nx-dropdown
-              autocomplete="disabled"
               formControlName="coverage"
               name="coverages"
               [nxFilterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
