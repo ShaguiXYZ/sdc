@@ -70,10 +70,7 @@ public class GitServiceImpl implements GitService {
 		metrics.forEach(metric -> {
 			try {
 				Optional<String> value = docuemnt.fromPath(metric.getName()).stream().findFirst();
-
-				if (value.isPresent()) {
-					response.add(new ComponentAnalysisModel(component, metric, value.get()));
-				}
+				response.add(new ComponentAnalysisModel(component, metric, value.isPresent() ? value.get() : "N/A"));
 			} catch (XPathExpressionException ex) {
 				log.error("ERROR in metric {}.", metric.getName());
 				log.error("ERROR ...", ex);

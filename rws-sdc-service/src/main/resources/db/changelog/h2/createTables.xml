@@ -130,18 +130,18 @@
 				CONSTRAINT component_uris_uri_fk FOREIGN KEY (uri_id) REFERENCES uris(uri_id)
 			);
 			
-			CREATE TABLE request_properies (
+			CREATE TABLE request_properties (
 				request_property_id int4 auto_increment NOT NULL,
 				request_property_key varchar NOT NULL,
 				request_property_value varchar NULL,
-				CONSTRAINT request_properies_pk PRIMARY KEY (request_property_id)
+				CONSTRAINT request_properties_pk PRIMARY KEY (request_property_id)
 			);
 
 			CREATE TABLE uri_request_properties (
 				uri_id int4 NOT NULL,
 				request_property_id int4 NOT NULL,
 				CONSTRAINT uri_request_properties_pk PRIMARY KEY (uri_id, request_property_id),
-				CONSTRAINT uri_request_property_request_property_fk FOREIGN KEY (request_property_id) REFERENCES request_properies(request_property_id) ON DELETE CASCADE ON UPDATE CASCADE,
+				CONSTRAINT uri_request_property_request_property_fk FOREIGN KEY (request_property_id) REFERENCES request_properties(request_property_id) ON DELETE CASCADE ON UPDATE CASCADE,
 				CONSTRAINT uri_request_property_uri_fk FOREIGN KEY (uri_id) REFERENCES uris(uri_id) ON DELETE CASCADE ON UPDATE CASCADE
 			);
 

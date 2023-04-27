@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "request_properies")
+@Table(name = "request_properties")
 public class RequestPropertiesModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
