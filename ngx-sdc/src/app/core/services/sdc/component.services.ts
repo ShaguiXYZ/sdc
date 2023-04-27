@@ -2,15 +2,12 @@ import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ELEMENTS_BY_PAGE } from '../../constants/app.constants';
-import { UniqueIds, deepCopy, hasValue } from '../../lib';
+import { deepCopy, hasValue } from '../../lib';
 import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
 import { UiCacheService } from '../context-data';
-import { HttpStatus, UiHttpService } from '../http';
-
-const _COMPONENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
-const SCHEDULER_TIME = 10 * 60 * 1000;
+import { ELEMENTS_BY_PAGE, HttpStatus, UiHttpService } from '../http';
+import { COMPONENT_EXPIRATON_TIME, _COMPONENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class ComponentService {
@@ -38,7 +35,7 @@ export class ComponentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.ComponentsNotFound' }
           },
-          cache: { id: this.squadCacheId(squadId), cachedDuring: SCHEDULER_TIME }
+          cache: { id: this.squadCacheId(squadId), cachedDuring: COMPONENT_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {

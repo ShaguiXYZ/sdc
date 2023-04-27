@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-import com.shagui.sdc.model.RequestProperiesModel;
+import com.shagui.sdc.model.RequestPropertiesModel;
 
 import feign.Response;
 
@@ -25,7 +25,7 @@ public class UrlUtils {
 		return new URL(uri);
 	}
 
-	public static URL url(String uri, List<RequestProperiesModel> properties) throws IOException {
+	public static URL url(String uri, List<RequestPropertiesModel> properties) throws IOException {
 		URL url = UrlUtils.url(uri);
 		URLConnection http = url.openConnection();
 

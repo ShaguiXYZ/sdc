@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UiCacheService, UiHttpService } from '..';
-import { UniqueIds } from '../../lib';
 import { IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
 import { HttpStatus } from '../http';
-
-const _SQUADS_CACHE_ID_ = `_${UniqueIds.next()}_`;
-const SCHEDULER_TIME = 25 * 60 * 1000;
+import { SQUADS_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class SquadService {
@@ -22,7 +19,7 @@ export class SquadService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.SquadsNotFound' }
           },
-          cache: { id: _SQUADS_CACHE_ID_, cachedDuring: SCHEDULER_TIME }
+          cache: { id: _SQUADS_CACHE_ID_, cachedDuring: SQUADS_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {

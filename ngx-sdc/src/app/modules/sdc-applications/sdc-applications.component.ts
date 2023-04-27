@@ -1,17 +1,18 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IPaginationTexts, NX_PAGINATION_TEXTS } from '@aposin/ng-aquila/pagination';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map, tap } from 'rxjs';
-import { DEBOUNCE_TIME, ELEMENTS_BY_PAGE } from 'src/app/core/constants/app.constants';
+import { DEBOUNCE_TIME } from 'src/app/core/constants';
+import { hasValue } from 'src/app/core/lib';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
+import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { IComplianceModel } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsService } from './services';
-import { hasValue } from 'src/app/core/lib';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'

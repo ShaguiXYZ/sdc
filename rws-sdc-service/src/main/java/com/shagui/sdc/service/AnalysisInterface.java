@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.model.RequestProperiesModel;
+import com.shagui.sdc.model.RequestPropertiesModel;
 import com.shagui.sdc.model.UriModel;
 
 @FunctionalInterface
@@ -19,6 +19,6 @@ public interface AnalysisInterface {
 
 	default Optional<String> getUriProperty(UriModel uri, String key) {
 		return uri.getProperties().stream().filter(property -> property.getKey().equals(key))
-				.map(RequestProperiesModel::getValue).findFirst();
+				.map(RequestPropertiesModel::getValue).findFirst();
 	}
 }

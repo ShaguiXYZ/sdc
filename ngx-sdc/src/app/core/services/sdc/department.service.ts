@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UniqueIds } from '../../lib';
 import { IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
-import { HttpStatus, UiHttpService } from '../http';
 import { UiCacheService } from '../context-data';
-
-const _DEPARTMENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
-const SCHEDULER_TIME = 30 * 60 * 1000;
+import { HttpStatus, UiHttpService } from '../http';
+import { DEPARTMENTS_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class DepartmentService {
@@ -22,7 +19,7 @@ export class DepartmentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.DepartmentsNotFound' }
           },
-          cache: { id: _DEPARTMENT_CACHE_ID_, cachedDuring: SCHEDULER_TIME }
+          cache: { id: _DEPARTMENT_CACHE_ID_, cachedDuring: DEPARTMENTS_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {

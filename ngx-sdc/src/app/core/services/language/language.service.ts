@@ -2,8 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { EventEmitter, Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { Languages } from './models';
-import { LanguageConfig, NX_LANGUAGE_CONFIG, SESSION_LANGUAGE_KEY } from './models/language.model';
+import { Languages, NX_LANGUAGE_CONFIG, SESSION_LANGUAGE_KEY } from './constants';
+import { LanguageConfig } from './models/language.model';
 
 @Injectable({
   providedIn: 'root'

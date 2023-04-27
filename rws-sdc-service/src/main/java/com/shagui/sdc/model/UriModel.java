@@ -43,6 +43,6 @@ public class UriModel implements ModelInterface<Integer> {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "uri_request_properties", joinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "uri_id"), inverseJoinColumns = @JoinColumn(name = "request_property_id", referencedColumnName = "request_property_id"))
-	private List<RequestProperiesModel> properties;
+	private List<RequestPropertiesModel> properties;
 
 }

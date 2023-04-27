@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
-import { DEBOUNCE_TIME } from 'src/app/core/constants/app.constants';
+import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 
 @Component({

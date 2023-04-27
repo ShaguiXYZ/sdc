@@ -2,10 +2,9 @@ import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { Observable, firstValueFrom, of, take } from 'rxjs';
 import { emptyFn, hasValue } from '../../lib';
 import { UiSchedulerService } from '../task-scheduler';
+import { MIN_CACHE_SCHEDULER_PERIOD, NX_CONTEX_CONFIG } from './constatnts';
 import { UiContextDataService } from './context-data.service';
-import { ContextConfig, NX_CONTEX_CONFIG } from './models';
-
-const MIN_SCHEDULER_PERIOD = 60 * 1000;
+import { ContextConfig } from './models';
 
 /**
  * Cache
@@ -23,9 +22,9 @@ export class UiCacheService implements OnDestroy {
     private scheduleroService: UiSchedulerService
   ) {
     this.schedulerPeriod =
-      contextConfig.cache?.schedulerPeriod && contextConfig.cache.schedulerPeriod > MIN_SCHEDULER_PERIOD
+      contextConfig.cache?.schedulerPeriod && contextConfig.cache.schedulerPeriod > MIN_CACHE_SCHEDULER_PERIOD
         ? contextConfig.cache.schedulerPeriod
-        : MIN_SCHEDULER_PERIOD;
+        : MIN_CACHE_SCHEDULER_PERIOD;
 
     this.schedukerId = this.scheduleroService.create(this.resetContextData, undefined, this.schedulerPeriod);
     this.scheduleroService.subscribe(this.schedukerId, emptyFn);
@@ -54,11 +53,11 @@ export class UiCacheService implements OnDestroy {
     return data && (!data.expiration || data.expiration > new Date().getTime()) ? data.data : undefined;
   }
 
-  public delete(key: string) {
+  public delete = (key: string) => {
     console.log(`deleting ${key} from cache`);
 
     delete this.contextData.cache[key];
-  }
+  };
 
   public asObservable<T>(key: string): Observable<T> {
     return of(this.get(key)).pipe(take(1));

@@ -1,4 +1,4 @@
-import { APP_NAME } from 'src/app/core/constants/app.constants';
+import { APP_NAME } from 'src/app/core/constants';
 
 export * from './cache-data.model';
 export * from './context-data';

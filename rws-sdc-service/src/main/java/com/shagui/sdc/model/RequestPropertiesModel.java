@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "request_properies")
-public class RequestProperiesModel {
+public class RequestPropertiesModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "request_property_id")

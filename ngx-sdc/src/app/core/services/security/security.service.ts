@@ -4,9 +4,10 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISessionModel, IUserDTO, IUserModel } from '../../models/security';
 import { UiSecurityInfo } from '../../models/security/security.model';
-import { contextStorageID, UiContextDataService } from '../context-data/context-data.service';
+import { UiContextDataService } from '../context-data/context-data.service';
 import { CoreContextDataNames } from '../context-data/models';
 import { HttpStatus, UiHttpService } from '../http';
+import { contextStorageID } from '../context-data';
 
 @Injectable({
   providedIn: 'root'

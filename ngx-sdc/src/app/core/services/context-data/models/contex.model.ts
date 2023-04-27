@@ -1,8 +1,7 @@
-import { InjectionToken } from '@angular/core';
 import { Params, UrlSegment, UrlTree } from '@angular/router';
-import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ContextData } from './context-data';
+import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { CacheData } from './cache-data.model';
+import { ContextData } from './context-data';
 
 export interface ICoreConfig {
   lang: string;
@@ -16,8 +15,6 @@ export interface ContextInfo {
 export enum CoreContextDataNames {
   securityInfo = 'security_info'
 }
-
-export const NX_CONTEX_CONFIG = new InjectionToken<ContextConfig>('NX_CONTEX_CONFIG');
 
 export interface ContextConfig {
   home: string;

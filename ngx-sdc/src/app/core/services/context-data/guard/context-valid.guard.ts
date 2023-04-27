@@ -1,11 +1,11 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { UiNotificationService } from 'src/app/core/components/notification';
-import { DEFAULT_TIMEOUT_NOTIFICATIONS } from 'src/app/core/constants/app.constants';
+import { DEFAULT_TIMEOUT_NOTIFICATIONS, UiNotificationService } from 'src/app/core/components/notification';
+import { NX_CONTEX_CONFIG } from '../constatnts';
 import { UiContextDataService } from '../context-data.service';
 import { urlInfoBykey } from '../lib';
-import { ContextConfig, NX_CONTEX_CONFIG } from '../models';
+import { ContextConfig } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class ContextValidGuard {

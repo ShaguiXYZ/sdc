@@ -3,33 +3,14 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of, take } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { DEFAULT_TIMEOUT_NOTIFICATIONS } from 'src/app/core/constants/app.constants';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { MessageModal } from 'src/app/core/interfaces/modal';
 import { UiLoadingService } from '../../components/loading/services';
+import { DEFAULT_TIMEOUT_NOTIFICATIONS } from '../../components/notification';
 import { UiNotificationService } from '../../components/notification/services';
-import { hasValue } from '../../lib';
 import { UiCacheService } from '../context-data';
-import { HttpStatus } from './models';
-
-export interface RequestOptions {
-  clientOptions?: any;
-  procesingMessage?: MessageModal;
-  responseStatusMessage?: GenericDataInfo<MessageModal>;
-  showLoading?: boolean;
-  successMessage?: MessageModal;
-}
-
-export interface CacheRequestOptions extends RequestOptions {
-  cache?: string | { id: string; cachedDuring?: number };
-}
-
-export interface PageHttp<T> {
-  totalItems: number;
-  totalPages: number;
-  currentPage: number;
-  items: T | T[];
-}
+import { HttpStatus } from './constants';
+import { CacheRequestOptions, RequestOptions } from './models';
 
 @Injectable({
   providedIn: 'root'

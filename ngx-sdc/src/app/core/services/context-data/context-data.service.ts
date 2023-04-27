@@ -2,13 +2,11 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { APP_NAME } from 'src/app/core/constants/app.constants';
 import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { deepCopy } from '../../lib';
+import { NX_CONTEX_CONFIG, contextStorageID } from './constatnts';
 import { routerData } from './lib';
-import { CacheData, ContextConfig, ContextData, ContextInfo, IContextData, IContextDataConfigurtion, NX_CONTEX_CONFIG, UrlInfo } from './models';
-
-export const contextStorageID = `CTX_${APP_NAME.toUpperCase()}`; // Key for data how is saved in session
+import { CacheData, ContextConfig, ContextData, ContextInfo, IContextData, IContextDataConfigurtion, UrlInfo } from './models';
 
 /**
  * Data persistence service between screens

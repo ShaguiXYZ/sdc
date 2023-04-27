@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IMetricAnalysisModel, IMetricModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
-import { AnalysisService, ComponentService } from 'src/app/core/services/sdc';
+import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { MetricsContextData, MetricsDataModel } from '../models';
 import { IComplianceModel } from 'src/app/shared/components';
@@ -16,7 +16,9 @@ export class SdcMetricsService {
   constructor(
     private contextDataService: UiContextDataService,
     private analysisService: AnalysisService,
-    private componentService: ComponentService
+    private componentService: ComponentService,
+    private departmentService: DepartmentService,
+    private squadService: SquadService
   ) {
     this.data$ = new Subject();
 
@@ -47,14 +49,18 @@ export class SdcMetricsService {
   }
 
   public analyze = (): void => {
-    this.analysisService.analize(this.metricData.compliance.id).then(() => {
-      this.componentService.component(this.metricData.compliance.id).then(data => {
-        this.metricData.compliance = IComplianceModel.fromComponentModel(data);
-        this.componentService.clearSquadCache(data.squad.id);
-      });
+    this.analysisService.analize(this.metricData.compliance.id).then(analysis => {
+      if (analysis.page.length) {
+        this.componentService.component(this.metricData.compliance.id).then(data => {
+          this.metricData.compliance = IComplianceModel.fromComponentModel(data);
+          this.componentService.clearSquadCache(data.squad.id);
+          this.departmentService.clearCache();
+          this.squadService.clearCache();
+        });
 
-      this.loadInitData();
-      this.historicalComponentData();
+        this.loadInitData();
+        this.historicalComponentData();
+      }
     });
   };
 
