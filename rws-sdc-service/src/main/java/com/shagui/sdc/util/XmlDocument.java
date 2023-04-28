@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -30,14 +31,12 @@ public class XmlDocument {
 	private Element root;
 
 	public XmlDocument(URL url) throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
+		DocumentBuilder builder = documentBuilder();
 		this.root = builder.parse(url.openStream()).getDocumentElement();
 	}
 
 	public XmlDocument(String data) throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
+		DocumentBuilder builder = documentBuilder();
 		this.root = builder.parse(new InputSource(new StringReader(data))).getDocumentElement();
 	}
 
@@ -54,5 +53,18 @@ public class XmlDocument {
 				.collect(Collectors.toList());
 
 		return result;
+	}
+
+	private DocumentBuilder documentBuilder() throws ParserConfigurationException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+		// Disable access to external entities in XML parsing.
+		// XML parsers should not be vulnerable to XXE attacks
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+		factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+		factory.setXIncludeAware(false);
+
+		return factory.newDocumentBuilder();
 	}
 }

@@ -69,7 +69,6 @@ public class DBConfig {
 
         jpaProperties.setProperty("hibernate.dialect", dialect);
         jpaProperties.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
-//		jpaProperties.setProperty("hibernate.archive.autodetection", "class");
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", ddlAuto);
         jpaProperties.setProperty("hibernate.flushMode", "FLUSH_AUTO");
         jpaProperties.setProperty("hibernate.show_sql", showSql);

@@ -40,7 +40,7 @@ public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoric
 
 		PageData<TimeCoverageDTO> timeCoverage = historical.stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable());
-		return new HistoricalCoverageDTO<ComponentDTO>(Mapper.parse(component), timeCoverage);
+		return new HistoricalCoverageDTO<>(Mapper.parse(component), timeCoverage);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoric
 
 		PageData<TimeCoverageDTO> timeCoverage = historical.stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable(historical));
-		return new HistoricalCoverageDTO<ComponentDTO>(Mapper.parse(component), timeCoverage);
+		return new HistoricalCoverageDTO<>(Mapper.parse(component), timeCoverage);
 	}
 
 }

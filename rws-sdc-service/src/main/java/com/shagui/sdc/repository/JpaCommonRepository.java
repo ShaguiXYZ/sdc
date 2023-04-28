@@ -40,7 +40,7 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 			Optional<T> data = repository().findById(model.getId());
 
 			if (data.isPresent()) {
-				throw new RuntimeException();
+				throw new JpaNotFoundException();
 			}
 		}
 

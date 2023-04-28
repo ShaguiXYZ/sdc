@@ -11,7 +11,7 @@ import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.service.ComponentService;
 
 @Service
-public class ComponenServiceImpl implements ComponentService {
+public class ComponentServiceImpl implements ComponentService {
 
 	@Autowired
 	private RwsSdcClient rwsSdcClient;

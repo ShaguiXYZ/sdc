@@ -50,9 +50,9 @@ public class GitServiceImpl implements GitService {
 				.filter(metric -> MetricType.GIT.equals(metric.getType())).collect(Collectors.toList());
 
 		if (!gitMetrics.isEmpty()) {
-			Optional<UriModel> uri;
+			Optional<UriModel> uri = getUri(component.getUris(), UriType.GIT);
 
-			if ((uri = getUri(component.getUris(), UriType.GIT)).isPresent()) {
+			if (uri.isPresent()) {
 				ContentDTO gitData = retrieveGitData(component, uri.get());
 				XmlDocument docuemnt = xmlDocument(gitData.getDownloadUrl());
 

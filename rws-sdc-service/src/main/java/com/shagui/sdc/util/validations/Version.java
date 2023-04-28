@@ -27,9 +27,9 @@ public class Version implements Comparable<Version> {
 	}
 
 	private List<Integer> cast(String toCast) {
-		List<Integer> data = Arrays.asList(toCast.split("\\.")).stream()
+		List<Integer> values = Arrays.asList(toCast.split("\\.")).stream()
 				.map(item -> StringUtils.isNumeric(item) ? Integer.valueOf(item) : 0).collect(Collectors.toList());
-		return data;
+		return values;
 	}
 
 	@Override

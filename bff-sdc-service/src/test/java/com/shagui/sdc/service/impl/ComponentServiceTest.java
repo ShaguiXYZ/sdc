@@ -21,7 +21,7 @@ import com.shagui.sdc.api.dto.MetricDTO;
 class ComponentServiceTest {
 
 	@InjectMocks
-	ComponenServiceImpl service;
+	ComponentServiceImpl service;
 
 	@Mock
 	private RwsSdcClient rwsSdcClient;

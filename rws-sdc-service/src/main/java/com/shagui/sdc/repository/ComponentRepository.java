@@ -2,6 +2,7 @@ package com.shagui.sdc.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -41,13 +42,13 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 		List<ComponentModel> resultList = query.getResultList();
 		long totalReords = countBy(em, name, squad, range);
 
-		return new PageImpl<ComponentModel>(resultList, pageable, totalReords);
+		return new PageImpl<>(resultList, pageable, totalReords);
 	}
 
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);
 
-		return new PageImpl<ComponentModel>(query.getResultList());
+		return new PageImpl<>(query.getResultList());
 	}
 
 	private TypedQuery<ComponentModel> findByQuery(EntityManager em, String name, SquadModel squad, Range range) {
@@ -55,10 +56,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 		orderBy.add("cm.coverage");
 		orderBy.add("cm.name");
 
-		TypedQuery<ComponentModel> query = filterQuery(em, "SELECT cm FROM ComponentModel cm ", name, squad, range,
-				orderBy, ComponentModel.class);
-
-		return query;
+		return filterQuery(em, "SELECT cm FROM ComponentModel cm ", name, squad, range, orderBy, ComponentModel.class);
 	}
 
 	private long countBy(EntityManager em, String name, SquadModel squad, Range range) {
@@ -71,33 +69,22 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	private <T> TypedQuery<T> filterQuery(EntityManager em, String sql, String name, SquadModel squad, Range range,
 			List<String> orderBy, Class<T> clazz) {
 		StringBuilder strQuery = new StringBuilder(sql);
-
 		List<String> whereAnds = new ArrayList<>();
 
-		if (StringUtils.hasText(name)) {
-			whereAnds.add("LOWER(cm.name) like LOWER(:name)");
-		}
-
-		if (squad != null) {
-			whereAnds.add("cm.squad IS (:squad)");
-		}
+		String nameTofind = JpaUtils.contains(name);
+		whereAnds.add(nameTofind != null ? "LOWER(cm.name) like LOWER(:name)" : null);
+		whereAnds.add(squad != null ? "cm.squad IS (:squad)" : null);
 
 		if (range != null) {
-			if (range.getMin() != null) {
-				whereAnds.add("(:coverageMin) < cm.coverage");
-			}
-
-			if (range.getMax() != null) {
-				whereAnds.add("(:coverageMax) >= cm.coverage");
-			}
+			whereAnds.add(range.getMin() != null ? "(:coverageMin) < cm.coverage" : null);
+			whereAnds.add(range.getMax() != null ? "(:coverageMax) >= cm.coverage" : null);
 		}
 
-		String whereCondition = whereAnds.stream().collect(Collectors.joining(" AND "));
-		
+		String whereCondition = whereAnds.stream().filter(Objects::nonNull).collect(Collectors.joining(" AND "));
+
 		if (StringUtils.hasText(whereCondition)) {
 			strQuery.append(" WHERE ").append(whereCondition);
 		}
-
 
 		if (!orderBy.isEmpty()) {
 			strQuery.append(" ORDER BY ").append(orderBy.stream().collect(Collectors.joining(",")));
@@ -105,24 +92,20 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 		TypedQuery<T> query = em.createQuery(strQuery.toString(), clazz);
 
-		if (StringUtils.hasText(name)) {
-			query.setParameter("name", JpaUtils.contains(name));
-		}
-
-		if (squad != null) {
-			query.setParameter("squad", squad);
-		}
+		addQueryParameter(query, "name", nameTofind);
+		addQueryParameter(query, "squad", squad);
 
 		if (range != null) {
-			if (range.getMin() != null) {
-				query.setParameter("coverageMin", range.getMin());
-			}
-
-			if (range.getMax() != null) {
-				query.setParameter("coverageMax", range.getMax());
-			}
+			addQueryParameter(query, "coverageMin", range.getMin());
+			addQueryParameter(query, "coverageMax", range.getMax());
 		}
 
 		return query;
+	}
+
+	private <T> void addQueryParameter(TypedQuery<T> query, String name, Object value) {
+		if (value != null) {
+			query.setParameter(name, value);
+		}
 	}
 }

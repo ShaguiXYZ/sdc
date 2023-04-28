@@ -8,19 +8,19 @@ import { ContextDataInfo } from './shared/constants/context-data';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private cookieService: UiStorageService) {}
+  constructor(private storageService: UiStorageService) {}
 
   ngOnInit(): void {
-    this.cookieService.retrieve(ContextDataInfo.SQUADS_DATA);
-    this.cookieService.retrieve(ContextDataInfo.DEPARTMENTS_DATA);
+    this.storageService.retrieve(ContextDataInfo.SQUADS_DATA);
+    this.storageService.retrieve(ContextDataInfo.DEPARTMENTS_DATA);
   }
 
   // Detect the Closing of a Browser Tab
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
     event.preventDefault();
-    this.cookieService.create(ContextDataInfo.SQUADS_DATA);
-    this.cookieService.create(ContextDataInfo.DEPARTMENTS_DATA);
+    this.storageService.create(ContextDataInfo.SQUADS_DATA);
+    this.storageService.create(ContextDataInfo.DEPARTMENTS_DATA);
   }
 
   @HostListener('window:popstate', ['$event'])

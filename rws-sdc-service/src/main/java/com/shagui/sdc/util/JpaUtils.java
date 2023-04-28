@@ -8,12 +8,16 @@ import java.util.stream.Collectors;
 import org.springframework.util.StringUtils;
 
 public class JpaUtils {
-	private JpaUtils() {}
-	
+	private JpaUtils() {
+	}
+
 	public static String contains(String source) {
+		if (!StringUtils.hasText(source))
+			return null;
+
 		List<String> words = StringUtils.hasText(source) ? Arrays.asList(source.split("\\s+")) : new ArrayList<>();
 		String toFind = words.stream().filter(word -> word.length() > 1).collect(Collectors.joining("%"));
-		
-		return toFind.length() > 0 ? "%" + toFind + "%" :  null;
+
+		return StringUtils.hasText(toFind) ? "%" + toFind + "%" : null;
 	}
 }

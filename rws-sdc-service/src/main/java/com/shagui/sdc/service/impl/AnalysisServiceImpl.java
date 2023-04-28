@@ -72,7 +72,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		if (!savedData.isEmpty()) {
 			ComponentUtils.updateRelatedComponentEntities(component);
 		}
-		
+
 		ComponentUtils.updateComponentProperties(component);
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
@@ -112,11 +112,10 @@ public class AnalysisServiceImpl implements AnalysisService {
 		return toSave;
 	}
 
-	@Transactional
 	private List<ComponentAnalysisModel> saveReturnAnalysis(List<ComponentAnalysisModel> toSave) {
 		List<ComponentAnalysisModel> saved = new ArrayList<>();
 
-		if (toSave.size() > 0) {
+		if (!toSave.isEmpty()) {
 			saved.addAll(componentAnalysisRepository.repository().saveAll(toSave));
 		}
 
@@ -125,12 +124,10 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 	private Function<List<ComponentAnalysisModel>, List<ComponentAnalysisModel>> saveChangesInMetrics = (
 			List<ComponentAnalysisModel> toAnalyze) -> {
-		List<ComponentAnalysisModel> toSave = toAnalyze.stream().filter(reg -> {
+		return toAnalyze.stream().filter(reg -> {
 			Optional<ComponentAnalysisModel> model = componentAnalysisRepository.repository()
 					.actualMetric(reg.getId().getComponentId(), reg.getId().getMetricId());
 			return model.isEmpty() || !model.get().getValue().equals(reg.getValue());
 		}).collect(Collectors.toList());
-
-		return toSave;
 	};
 }
