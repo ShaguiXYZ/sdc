@@ -1,4 +1,4 @@
-package com.shagui.sdc.core.configuration;
+package com.shagui.sdc.core.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

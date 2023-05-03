@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { configContextRoutes } from './core/services/context-data';
 import { AppUrls } from './shared/config/routing';
 
-const routes: Routes = [
+const routes: Routes = configContextRoutes([
   { path: AppUrls.root, redirectTo: AppUrls.squads, pathMatch: 'full' },
   {
     path: AppUrls.departments,
@@ -23,11 +23,12 @@ const routes: Routes = [
   {
     path: AppUrls.metrics,
     loadChildren: () => import('./modules/sdc-metrics/sdc-metrics.module').then(m => m.SdcMetricsModule),
-    canDeactivate: [] }
-];
+    canDeactivate: []
+  }
+]);
 
 @NgModule({
-  imports: [RouterModule.forRoot(configContextRoutes(routes), {})],
+  imports: [RouterModule.forRoot(routes, {})],
   exports: [RouterModule],
   providers: []
 })

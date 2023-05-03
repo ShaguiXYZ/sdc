@@ -1,4 +1,4 @@
-import { IUserModel } from 'src/app/core/models/security';
+import { IUserModel } from 'src/app/core/services/security';
 
 export interface ISecurityHeader {
   currentUser?: IUserModel;

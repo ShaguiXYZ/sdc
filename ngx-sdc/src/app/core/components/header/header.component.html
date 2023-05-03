@@ -72,7 +72,7 @@
   </nx-header-brand>
 
   <ng-container>
-    <nx-header-navigation *ngIf="securityInfo.isUserLogged && navigation.routes.length > 0">
+    <nx-header-navigation *ngIf="navigation.routes.length > 0">
       <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
         <!-- Parent menu -->
         <div *ngIf="parent.routerLink" class="menu-item-root">

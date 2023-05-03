@@ -87,6 +87,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-ui-editor:build",
+            "port": 4205
+          },
           "configurations": {
             "local": {
               "browserTarget": "ngx-sdc:build:local"

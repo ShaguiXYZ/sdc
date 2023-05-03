@@ -1,5 +1,5 @@
 // Angular
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +17,7 @@ import { NX_HEADER_CONFIG } from './core/components/header/models';
 import { AppCoreModule } from './core/core.module';
 import { NX_CONTEX_CONFIG } from './core/services/context-data';
 import { NX_LANGUAGE_CONFIG } from './core/services/language';
+import { AuthInterceptor } from './core/services/security';
 import { SDC_HEADER_MENU } from './shared/config/menu';
 import { AppUrls, urls } from './shared/config/routing';
 import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
@@ -44,7 +45,8 @@ const SdcLanguages = {
   providers: [
     { provide: NX_CONTEX_CONFIG, useValue: { urls, home: AppUrls.squads, cache: { schedulerPeriod: SCHEDULER_PERIOD } } },
     { provide: NX_LANGUAGE_CONFIG, useValue: { languages: SdcLanguages } },
-    { provide: NX_HEADER_CONFIG, useValue: { navigation: SDC_HEADER_MENU } }
+    { provide: NX_HEADER_CONFIG, useValue: { navigation: SDC_HEADER_MENU } },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-package com.shagui.sdc.core.configuration;
+package com.shagui.sdc.core.configuration.security;
 
 import java.util.List;
 
@@ -45,5 +45,4 @@ public class SecurityProperties {
 		private Boolean allowCredentials;
 		private Long maxAge;
 	}
-
 }

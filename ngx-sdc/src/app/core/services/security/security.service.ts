@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISessionModel, IUserDTO, IUserModel } from '../../models/security';
-import { UiSecurityInfo } from '../../models/security/security.model';
-import { UiContextDataService } from '../context-data/context-data.service';
-import { CoreContextDataNames } from '../context-data/models';
-import { HttpStatus, UiHttpService } from '../http';
 import { contextStorageID } from '../context-data';
+import { UiContextDataService } from '../context-data/context-data.service';
+import { HttpStatus, UiHttpService } from '../http';
+import { CONTEXT_SECURITY_KEY } from './constants';
+import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISecurityModel, ISessionModel, IUserDTO, IUserModel } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +21,9 @@ export class UiSecurityService {
     return this.securityInfo()?.session;
   }
   public set session(session: ISessionModel) {
-    const securityInfo = this.securityInfo();
+    const securityInfo = { ...this.securityInfo(), session };
 
-    if (securityInfo) {
-      this.contextData.set(CoreContextDataNames.securityInfo, { ...securityInfo, session });
-    } else {
-      this.contextData.set(CoreContextDataNames.securityInfo, { session });
-    }
+    this.contextData.set(CONTEXT_SECURITY_KEY, securityInfo, { persistent: true });
   }
 
   public get user(): IUserModel {
@@ -38,7 +33,7 @@ export class UiSecurityService {
     const securityInfo = this.securityInfo();
 
     if (securityInfo) {
-      this.contextData.set(CoreContextDataNames.securityInfo, { ...securityInfo, user });
+      this.contextData.set(CONTEXT_SECURITY_KEY, { ...securityInfo, user }, { persistent: true });
     } else {
       throw new Error('Valid token not returned');
     }
@@ -50,7 +45,7 @@ export class UiSecurityService {
     if (!this.securityInfo()) {
       this.http.put<ISessionModel, ISessionModel>(`${this._urlSecurity}/logout`).subscribe({
         next: event => {
-          this.contextData.delete(CoreContextDataNames.securityInfo);
+          this.contextData.delete(CONTEXT_SECURITY_KEY);
           window.location.href = environment.baseAuth;
         },
         error: err => {
@@ -76,7 +71,7 @@ export class UiSecurityService {
       .includes(AppAuthorities.business);
 
   public isItUser = (): boolean =>
-    UiSecurityInfo.getUser(this.securityInfo())
+    ISecurityModel.getUser(this.securityInfo())
       ?.authorities?.map(auth => auth.authority)
       .includes(AppAuthorities.it);
 
@@ -86,14 +81,14 @@ export class UiSecurityService {
     );
 
   public uidSameProfile = (authority: string): boolean =>
-    UiSecurityInfo.getUser(this.securityInfo()).authorities?.some(auth => auth.authority === authority);
+    ISecurityModel.getUser(this.securityInfo()).authorities?.some(auth => auth.authority === authority);
 
   public onSignIn(): Observable<ISessionModel> {
     return this.signIn$.asObservable();
   }
 
-  private securityInfo(): UiSecurityInfo {
-    return this.contextData.get(CoreContextDataNames.securityInfo) as UiSecurityInfo;
+  private securityInfo(): ISecurityModel {
+    return this.contextData.get(CONTEXT_SECURITY_KEY) as ISecurityModel;
   }
 
   private getAuthoritiesByUID(uid: string): Observable<IAuthorityModel[]> {

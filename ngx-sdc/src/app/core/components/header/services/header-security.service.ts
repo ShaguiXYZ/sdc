@@ -1,53 +1,30 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { filter, Observable, Subject, Subscription } from 'rxjs';
-import { CoreContextDataNames } from 'src/app/core/services/context-data';
-import { UiSecurityInfo } from '../../../models/security/security.model';
-import { UiContextDataService, UiSecurityService } from '../../../services';
+import { hasValue } from 'src/app/core/lib';
+import { UiSecurityService } from 'src/app/core/services';
+import { ISecurityModel } from 'src/app/core/services/security';
 import { ISecurityHeader } from '../models';
 
 @Injectable()
-export class HeaderSecurityService implements OnDestroy {
-  private _securityInfo: ISecurityHeader = { isUserLogged: false };
-  private securityChange$: Subject<ISecurityHeader>;
-  private security$: Subscription;
+export class HeaderSecurityService {
+  private _securityInfo!: ISecurityHeader;
 
-  constructor(private appContextData: UiContextDataService, private securityService: UiSecurityService) {
-    this.securityChange$ = new Subject<ISecurityHeader>();
-    this.updateSecurityData();
-
-    this.security$ = this.appContextData
-      .onDataChange()
-      .pipe(filter(key => key === CoreContextDataNames.securityInfo))
-      .subscribe(() => {
-        this.updateSecurityData();
-      });
-  }
-
-  public ngOnDestroy() {
-    this.security$.unsubscribe();
+  constructor(private securityService: UiSecurityService) {
+    this._securityInfo = { currentUser: this.securityService.user, isUserLogged: hasValue(this.securityService.user) };
   }
 
   get info(): ISecurityHeader {
     return this._securityInfo;
   }
 
-  public onSecurityChange(): Observable<ISecurityHeader> {
-    return this.securityChange$.asObservable();
-  }
-
   public signout() {
     this.securityService.logout();
   }
 
-  private updateSecurityData = () => {
-    const securityInfo = this.appContextData.get(CoreContextDataNames.securityInfo) as UiSecurityInfo;
-
+  private updateSecurityData = (securityData: ISecurityModel) => {
     this._securityInfo = {
-      currentUser: UiSecurityInfo.getUser(securityInfo),
+      currentUser: ISecurityModel.getUser(securityData),
       isItUser: this.securityService.isItUser(),
-      isUserLogged: UiSecurityInfo.isLogged(securityInfo)
+      isUserLogged: ISecurityModel.isLogged(securityData)
     };
-
-    this.securityChange$.next(this._securityInfo);
   };
 }

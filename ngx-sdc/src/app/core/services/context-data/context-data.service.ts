@@ -85,6 +85,9 @@ export class UiContextDataService {
     }
 
     this.addContextData(key, data, configuration);
+
+    console.log(`${key} added`, this.contextStorage.contextData);
+
     this.subject$.next(key);
   }
 

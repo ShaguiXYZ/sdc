@@ -22,4 +22,8 @@ spring:
       dropFirst: false
 server:
    port: 9090
-      
+   
+services:
+   security: 
+      enabled: true
+      uri: http://localhost:9092/rws-security

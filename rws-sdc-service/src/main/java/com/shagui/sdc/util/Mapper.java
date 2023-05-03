@@ -39,6 +39,14 @@ public class Mapper {
 	public static void setConfig(MapperConfig config) {
 		Mapper.config = config;
 	}
+	
+	public static String parse(Object source) throws JsonProcessingException {
+		if (source == null) {
+			return null;
+		}
+
+		return config.getObjectMapper().writeValueAsString(source);
+	}
 
 	public static ApiError parse(FeignException ex) throws JSONException, JsonProcessingException {
 		JSONObject json = new JSONObject(ex.contentUTF8());

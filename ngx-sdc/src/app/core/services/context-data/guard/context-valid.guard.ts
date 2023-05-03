@@ -20,7 +20,7 @@ export class ContextValidGuard {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (route.routeConfig?.path) {
       const urlInfo = urlInfoBykey(route.routeConfig.path, this.contextConfig);
-      const canNavigate = !urlInfo.requiredData?.some(data => this.contextData.get(data) === undefined);
+      const canNavigate = !urlInfo?.requiredData?.some(data => this.contextData.get(data) === undefined);
 
       if (!canNavigate) {
         this.notificationService.error(

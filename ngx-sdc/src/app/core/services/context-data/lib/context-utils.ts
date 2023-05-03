@@ -1,7 +1,7 @@
 import { PRIMARY_OUTLET, Route, Router, UrlTree } from '@angular/router';
-import { ContextConfig, RouterInfo, UrlInfo } from '../models';
 import { deepCopy, hasValue } from 'src/app/core/lib';
 import { ContextValidGuard } from '../guard';
+import { ContextConfig, RouterInfo, UrlInfo } from '../models';
 
 export const urlInfoBykey = (key: string, contextConfig: ContextConfig): UrlInfo => contextConfig.urls[key];
 
@@ -19,8 +19,13 @@ export const routerData = (router: Router, contextConfig: ContextConfig): Router
   };
 };
 
-export const configContextRoutes = (routes: Route[]): Route[] =>
-  routes.map(route => {
+export const configContextRoutes = (routes: Route[]): Route[] => {
+  routes.push({
+    path: `signin/:sid/:token`,
+    loadChildren: () => import('src/app/core/components/signin/signin.module').then(m => m.SigninModule)
+  });
+
+  return routes.map(route => {
     if (!hasValue(route.redirectTo)) {
       route.canActivate = Object.assign([], route.canActivate || []);
       route.canActivate.push(ContextValidGuard);
@@ -28,3 +33,4 @@ export const configContextRoutes = (routes: Route[]): Route[] =>
 
     return route;
   });
+};

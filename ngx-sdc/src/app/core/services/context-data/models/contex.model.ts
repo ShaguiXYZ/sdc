@@ -12,10 +12,6 @@ export interface ContextInfo {
   cache: GenericDataInfo<CacheData>;
 }
 
-export enum CoreContextDataNames {
-  securityInfo = 'security_info'
-}
-
 export interface ContextConfig {
   home: string;
   urls: RouteConfig;
