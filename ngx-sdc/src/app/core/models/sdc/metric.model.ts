@@ -6,11 +6,11 @@ export enum ValueType {
 }
 
 export enum ValidationType {
-  MAYOR = 'MAYOR',
-  MINOR = 'MINOR',
-  EQUAL = 'EQUAL',
-  MAYORorEQUAL = 'MAYORorEQUAL',
-  MINORorEQUAL = 'MINORorEQUAL'
+  GT = 'GT',
+  LT = 'LT',
+  EQ = 'EQ',
+  GTE = 'GTE',
+  LTE = 'LTE'
 }
 
 export interface IMetricDTO {
@@ -35,5 +35,11 @@ export namespace IMetricModel {
 }
 
 export class MetricModel implements IMetricModel {
-  constructor(public id: number, public name: string, public type: string, public validation?: ValidationType, public valueType?: ValueType) {}
+  constructor(
+    public id: number,
+    public name: string,
+    public type: string,
+    public validation?: ValidationType,
+    public valueType?: ValueType
+  ) {}
 }

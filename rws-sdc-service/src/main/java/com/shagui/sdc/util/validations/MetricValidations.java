@@ -56,23 +56,23 @@ public class MetricValidations {
 		List<MetricControl<T>> control = controlValues(analysis, clazz);
 
 		switch (analysis.getMetric().getValidation()) {
-		case EQUAL:
+		case EQ:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 0)
 					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
-		case MAYOR:
+		case GT:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 1)
 					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
-		case MINOR:
+		case LT:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == -1)
 					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
-		case MAYORorEQUAL:
+		case GTE:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) >= 0)
 					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
-		case MINORorEQUAL:
+		case LTE:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) <= 0)
 					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;

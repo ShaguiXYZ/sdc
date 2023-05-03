@@ -5,14 +5,17 @@ RWS - Software deveplopment console
 ## How to
 
 ### ddbb relation entities description
+The central object of the application are the components.
 
-the central object of the application are the components.
-each component is associated with a squad and a component type / architecture.
+Each component is associated with a squad and a component type / architecture.
 Each squad is associated with a department.
 
 The object of the application is to define metrics extracted from different services (sonar, git...) from which we can calculate a reference value to measure the technical status of a component / squad / department.
 
-Obtaining the values ​​of the metrics is done by calling the different apis that provide the services, the call to an api returns a unique result for each metric of type string and that is comparable with results of the same type (Numeric, Versions... ..).
+Obtaining the values ​​of the metrics is done by calling the different APIs that provide the services. The call to an API returns a single string-type result for each metric.
+
+The metric configuration defines what type of object is expected as a response to an api call to a service and how to compare that response with other responses of the same type 
+(Numeric, Versions. .. ..).
 
 The metrics are associated with a type of component of an architecture, all the components associated with this type of architecture component will have the same metrics associated.
 
@@ -39,9 +42,22 @@ To calculate the coverage of a list of coverages, the following formula is appli
 - total coverage of the metrics = sum of all the relative coverage of each of the metrics
 
 ### Calculate component coverage
-To calculate the coverage of a component, the previous process is applied to the metrics with calculated coverage of the component.
+To calculate the coverage of a component, all the metrics with coverage associated with the component (component/architecture of the component) are selected and the coverage calculation formula is applied to this list of metrics.
 
-## boot arguments
+To increase performance, this calculation is performed at the time of component analysis and the database is saved.
+
+### Calculate squad coverage
+To calculate the coverage of a squad, all the metrics with coverage associated with the squad are selected and the coverage calculation formula is applied to this list of metrics.
+
+To increase performance, this calculation is performed at the time of component analysis and the database is saved.
+
+### Calculate department coverage
+The coverage of a department is calculated with the average of the coverage of its squads.
+
+
+## Local configuration
+
+### Boot arguments
 ```
 -Dspring.profiles.active=local
 -Ddb.domain=localhost:5432
@@ -49,7 +65,7 @@ To calculate the coverage of a component, the previous process is applied to the
 -Ddb.password=
 ```
 
-## urls
+## Useful urls
 
 ### Swagger
 ```

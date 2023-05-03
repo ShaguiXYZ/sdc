@@ -206,23 +206,23 @@
 	<changeSet author="initial" id="10022023_50005">
 		<sql dbms="h2">
 			INSERT INTO metrics (metric_name,metric_type,metric_value_type,metric_validation) VALUES
-				 ('coverage','SONAR','NUMERIC','MINORorEQUAL'),
+				 ('coverage','SONAR','NUMERIC','LTE'),
 				 ('alert_status','SONAR',NULL,NULL),
-				 ('bugs','SONAR','NUMERIC','MAYORorEQUAL'),
+				 ('bugs','SONAR','NUMERIC','GTE'),
 				 ('reliability_rating','SONAR',NULL,NULL),
-				 ('vulnerabilities','SONAR','NUMERIC','MAYORorEQUAL'),
+				 ('vulnerabilities','SONAR','NUMERIC','GTE'),
 				 ('security_rating','SONAR',NULL,NULL),
 				 ('security_hotspots_reviewed','SONAR',NULL,NULL),
 				 ('security_review_rating','SONAR',NULL,NULL),
 				 ('code_smells','SONAR',NULL,NULL),
 				 ('sqale_rating','SONAR',NULL,NULL);
 			INSERT INTO metrics (metric_name,metric_type,metric_value_type,metric_validation) VALUES
-				 ('duplicated_lines_density','SONAR','NUMERIC','MAYORorEQUAL'),
+				 ('duplicated_lines_density','SONAR','NUMERIC','GTE'),
 				 ('ncloc','SONAR',NULL,NULL),
 				 ('ncloc_language_distribution','SONAR',NULL,NULL),
 				 ('projects','SONAR',NULL,NULL),
-				 ('parent/version','GIT','VERSION','MINORorEQUAL'),
-				 ('properties/java.version','GIT','VERSION','MINORorEQUAL');
+				 ('parent/version','GIT','VERSION','LTE'),
+				 ('properties/java.version','GIT','VERSION','LTE');
 		</sql>
 	</changeSet>
 				 
