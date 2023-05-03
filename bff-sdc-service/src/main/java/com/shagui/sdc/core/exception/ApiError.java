@@ -32,7 +32,7 @@ public class ApiError {
 		
 		this.status = status;
 		this.message = message;
-		this.errors = new ArrayList<String>(errors);
+		this.errors = new ArrayList<>(errors);
 	}
 
 	public void addError(String error) {

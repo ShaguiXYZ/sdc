@@ -104,7 +104,10 @@ public class AnalysisServiceImpl implements AnalysisService {
 		futureTascs.forEach(task -> {
 			try {
 				toSave.addAll(task.get());
-			} catch (InterruptedException | ExecutionException e) {
+			} catch (InterruptedException e) {
+				log.error("Error getting task result!!!!!", e);
+				Thread.currentThread().interrupt();
+			} catch (ExecutionException e) {
 				log.error("Error getting task result!!!!!", e);
 			}
 		});
@@ -123,11 +126,9 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	private Function<List<ComponentAnalysisModel>, List<ComponentAnalysisModel>> saveChangesInMetrics = (
-			List<ComponentAnalysisModel> toAnalyze) -> {
-		return toAnalyze.stream().filter(reg -> {
-			Optional<ComponentAnalysisModel> model = componentAnalysisRepository.repository()
-					.actualMetric(reg.getId().getComponentId(), reg.getId().getMetricId());
-			return model.isEmpty() || !model.get().getValue().equals(reg.getValue());
-		}).collect(Collectors.toList());
-	};
+			List<ComponentAnalysisModel> toAnalyze) -> toAnalyze.stream().filter(reg -> {
+				Optional<ComponentAnalysisModel> model = componentAnalysisRepository.repository()
+						.actualMetric(reg.getId().getComponentId(), reg.getId().getMetricId());
+				return model.isEmpty() || !model.get().getValue().equals(reg.getValue());
+			}).collect(Collectors.toList());
 }

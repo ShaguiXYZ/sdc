@@ -49,10 +49,8 @@ public class XmlDocument {
 		log.debug("Num nodes from '{}': {}", path, list.getLength());
 
 		Stream<Node> nodeStream = IntStream.range(0, list.getLength()).mapToObj(list::item);
-		List<String> result = nodeStream.filter(n -> n.getNodeType() == Node.ELEMENT_NODE).map(Node::getTextContent)
+		return nodeStream.filter(n -> n.getNodeType() == Node.ELEMENT_NODE).map(Node::getTextContent)
 				.collect(Collectors.toList());
-
-		return result;
 	}
 
 	private DocumentBuilder documentBuilder() throws ParserConfigurationException {

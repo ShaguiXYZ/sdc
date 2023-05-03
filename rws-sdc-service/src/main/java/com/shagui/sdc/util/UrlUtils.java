@@ -6,6 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
+import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.model.RequestPropertiesModel;
 
 import feign.Response;
@@ -29,23 +30,21 @@ public class UrlUtils {
 		URL url = UrlUtils.url(uri);
 		URLConnection http = url.openConnection();
 
-		properties.forEach(property -> {
-			http.setRequestProperty(property.getKey(), property.getValue());
-		});
+		properties.forEach(property -> http.setRequestProperty(property.getKey(), property.getValue()));
 
 		return url;
 	}
 
 	public static <T> T mapResponse(Response response, Class<T> clazz) {
 		if (response.status() >= 400) {
-			throw new RuntimeException(
+			throw new SdcCustomException(
 					String.format("status %s calling %s", response.status(), response.request().url()));
 		}
 
 		try (InputStream bodyIs = response.body().asInputStream()) {
 			return config.getObjectMapper().readValue(bodyIs, clazz);
 		} catch (IOException ex) {
-			throw new RuntimeException(String.format("error mapping response to %s", clazz.getName()));
+			throw new SdcCustomException(String.format("error mapping response to %s", clazz.getName()));
 		}
 	}
 }

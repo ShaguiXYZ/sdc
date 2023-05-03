@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.springframework.beans.BeanUtils;
 
+import com.shagui.sdc.core.exception.SdcCustomException;
+
 @FunctionalInterface
 public interface CastTo<T> {
 
@@ -29,7 +31,7 @@ public interface CastTo<T> {
 			return target;
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
-			throw new RuntimeException(String.format("An empty constructor or a %s constructor in needed",
+			throw new SdcCustomException(String.format("An empty constructor or a %s constructor in needed",
 					source.getClass().getSimpleName()), e);
 		}
 	}

@@ -19,7 +19,7 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 	R repository();
 
 	default T findById(K id) {
-		return repository().findById(id).orElseThrow(() -> new JpaNotFoundException());
+		return repository().findById(id).orElseThrow(JpaNotFoundException::new);
 	}
 
 	default List<T> findAll() {

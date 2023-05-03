@@ -23,7 +23,6 @@ export class AuthInterceptor implements HttpInterceptor {
     /**
      * Adding more headers without overwriting
      */
-    console.log('security info', { token: this.getToken(), sid: this.getSID() });
     const source = APP_NAME.toUpperCase();
 
     const httpRequest = req.clone({

@@ -21,7 +21,7 @@ public class AnalysisUtils {
 		AnalysisUtils.config = config;
 	}
 
-	public static UnaryOperator<ComponentAnalysisModel> setMetricValues = (analysis) -> {
+	public static final UnaryOperator<ComponentAnalysisModel> setMetricValues = analysis -> {
 		Optional<MetricValuesModel> metricValues = config.metricValuesRepository().repository()
 				.metricValueByDate(analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),
 						new Timestamp(analysis.getId().getComponentAnalysisDate().getTime()))
@@ -53,10 +53,8 @@ public class AnalysisUtils {
 				.filter(data -> data.getCoverage() != null).collect(Collectors.toList());
 		int totalWeight = analysisWithCoverage.stream().map(data -> data.getAnalysisValues().getWeight()).reduce(0,
 				(a, b) -> a + b);
-		float sumOfAllMetricCoverages = analysisWithCoverage.stream().map(metricAnalysisRelativeCoverage(totalWeight))
-				.reduce(0f, (a, b) -> a + b);
-
-		return sumOfAllMetricCoverages;
+		return analysisWithCoverage.stream().map(metricAnalysisRelativeCoverage(totalWeight)).reduce(0f,
+				(a, b) -> a + b);
 	}
 
 	private static Function<MetricAnalysisDTO, Float> metricAnalysisRelativeCoverage(int totalWeight) {

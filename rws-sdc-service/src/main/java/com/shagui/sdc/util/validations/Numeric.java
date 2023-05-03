@@ -1,10 +1,13 @@
 package com.shagui.sdc.util.validations;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class Numeric implements Comparable<Numeric> {
 	private Float value;
 
-	public Numeric(String vlaue) {
-		this.value = cast(vlaue);
+	public Numeric(String value) {
+		this.value = cast(value);
 	}
 
 	@Override

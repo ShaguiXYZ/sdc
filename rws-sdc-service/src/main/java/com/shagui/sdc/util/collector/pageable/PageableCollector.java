@@ -45,7 +45,7 @@ public class PageableCollector<T> implements Collector<T, PageableAccumulator<T>
 
 	@Override
 	public Set<Characteristics> characteristics() {
-		Set<Characteristics> chars = new HashSet<Collector.Characteristics>();
+		Set<Characteristics> chars = new HashSet<>();
 		chars.add(Characteristics.CONCURRENT);
 		return chars;
 	}

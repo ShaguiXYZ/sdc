@@ -35,15 +35,15 @@ public class MetricValidations {
 		List<MetricControl<T>> control = new ArrayList<>();
 
 		if (Objects.nonNull(perfectValue)) {
-			control.add(new MetricControl<T>(perfectValue, MetricState.PERFECT.coverage()));
+			control.add(new MetricControl<>(perfectValue, MetricState.PERFECT.coverage()));
 		}
 
 		if (Objects.nonNull(goodValue)) {
-			control.add(new MetricControl<T>(goodValue, MetricState.ACCEPTABLE.coverage()));
+			control.add(new MetricControl<>(goodValue, MetricState.ACCEPTABLE.coverage()));
 		}
 
 		if (Objects.nonNull(expectedValue)) {
-			control.add(new MetricControl<T>(expectedValue, MetricState.WITH_RISK.coverage()));
+			control.add(new MetricControl<>(expectedValue, MetricState.WITH_RISK.coverage()));
 		}
 
 		return control;
@@ -58,23 +58,23 @@ public class MetricValidations {
 		switch (analysis.getMetric().getValidation()) {
 		case EQ:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 0)
-					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
+					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
 		case GT:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 1)
-					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
+			coverage = control.stream().filter(c -> c.getControl().compareTo(value) > 0)
+					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
 		case LT:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == -1)
-					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
+			coverage = control.stream().filter(c -> c.getControl().compareTo(value) < 0)
+					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
 		case GTE:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) >= 0)
-					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
+					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
 		case LTE:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) <= 0)
-					.map(data -> data.getCoverage()).findFirst().orElse(MetricState.CRITICAL.coverage());
+					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
 		default:
 			return null;

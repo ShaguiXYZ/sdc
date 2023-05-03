@@ -32,7 +32,7 @@ public class Mapper {
 	}
 
 	public static <V, D> PageData<V> parse(PageData<D> source, Class<V> clazz) {
-		PageData<V> target = new PageData<V>();
+		PageData<V> target = new PageData<>();
 
 		target.setPaging(CastFactory.getInstance(PageInfo.class).parse(source.getPaging()));
 		target.setPage(source.getPage().stream().map(CastFactory.getInstance(clazz)::parse).collect(Collectors.toList()));
@@ -41,7 +41,7 @@ public class Mapper {
 	}
 	
 	public static <V> HistoricalCoverage<V> parse(HistoricalCoverage<?> source, Class<V> clazz) {
-		HistoricalCoverage<V> target = new HistoricalCoverage<V>();
+		HistoricalCoverage<V> target = new HistoricalCoverage<>();
 		
 		target.setData(CastFactory.getInstance(clazz).parse(source.getData()));
 		target.setHistorical(Mapper.parse(source.getHistorical(), TimeCoverage.class));

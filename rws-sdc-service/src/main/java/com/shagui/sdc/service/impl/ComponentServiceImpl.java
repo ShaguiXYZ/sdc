@@ -86,10 +86,7 @@ public class ComponentServiceImpl implements ComponentService {
 		Page<ComponentModel> models = componentRepository.repository().filter(em, name,
 				squadId == null ? null : new SquadModel(squadId), range, pageInfo.getPageable());
 
-		PageData<ComponentDTO> components = models.stream().map(Mapper::parse)
-				.collect(SdcCollectors.toPageable(models));
-
-		return components;
+		return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(models));
 	}
 
 	@Override

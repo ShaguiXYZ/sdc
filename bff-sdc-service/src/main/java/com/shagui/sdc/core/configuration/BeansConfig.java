@@ -20,9 +20,4 @@ public class BeansConfig {
 
 		return objectMapper;
 	}
-	
-	@Bean
-	public AppConfig appConfig() {
-		return new AppConfig();
-	}
 }

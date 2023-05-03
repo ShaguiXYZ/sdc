@@ -8,6 +8,9 @@ import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class Version implements Comparable<Version> {
 	private String str;
 	private List<Integer> data;
@@ -27,9 +30,8 @@ public class Version implements Comparable<Version> {
 	}
 
 	private List<Integer> cast(String toCast) {
-		List<Integer> values = Arrays.asList(toCast.split("\\.")).stream()
+		return Arrays.asList(toCast.split("\\.")).stream()
 				.map(item -> StringUtils.isNumeric(item) ? Integer.valueOf(item) : 0).collect(Collectors.toList());
-		return values;
 	}
 
 	@Override

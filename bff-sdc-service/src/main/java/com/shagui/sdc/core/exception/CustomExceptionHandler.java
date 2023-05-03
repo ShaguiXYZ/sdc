@@ -18,14 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
-	@ExceptionHandler({ Exception.class, RuntimeException.class })
+	@ExceptionHandler({ Exception.class, RuntimeException.class, SdcCustomException.class })
 	ResponseEntity<ApiError> exception(Exception ex) {
 		logException(ex);
 
-		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ExceptionCodes.DEFAULT_EXCEPTION_CODE, ExceptionCodes.DEFAULT_EXCEPTION_CODE);
+		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ExceptionCodes.DEFAULT_EXCEPTION_CODE,
+				ExceptionCodes.DEFAULT_EXCEPTION_CODE);
 		return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
-		
+
 	@ExceptionHandler({ BadRequestException.class })
 	ResponseEntity<ApiError> exception(BadRequestException ex) {
 		logException(ex);
