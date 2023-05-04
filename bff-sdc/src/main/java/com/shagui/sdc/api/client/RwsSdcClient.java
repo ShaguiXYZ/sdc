@@ -16,7 +16,7 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 
-@FeignClient(name = "rws-sdc-service", url = "${services.rws-sdc}", primary = false)
+@FeignClient(name = "rws-sdc", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
 	@GetMapping("analysis/get/{componentId}/{metricId}")
 	MetricAnalysisDTO analysis(@PathVariable int componentId, @PathVariable int metricId);

@@ -1,4 +1,4 @@
-# rws-sdc-service
+# rws-sdc
 
 RWS - Software deveplopment console
 

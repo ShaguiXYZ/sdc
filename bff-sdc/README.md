@@ -1,4 +1,4 @@
-# bff-sdc-service
+# bff-sdc
 
 Bff - Software deveplopment console
 
