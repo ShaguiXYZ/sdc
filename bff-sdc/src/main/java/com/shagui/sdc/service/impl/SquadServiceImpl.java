@@ -25,7 +25,7 @@ public class SquadServiceImpl implements SquadService {
 	}
 
 	@Override
-	public PageData<SquadDTO> squads(int departmentId, Integer page) {
+	public PageData<SquadDTO> departmentSquads(int departmentId, Integer page) {
 		return rwsSdcClient.squadsByDepartment(departmentId, page);
 	}
 

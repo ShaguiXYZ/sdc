@@ -30,7 +30,7 @@ public class SquadController implements SquadRestApi {
 	}
 
 	@Override
-	public PageData<SquadView> squads(int departmentId, Integer page) {
-		return Mapper.parse(squadService.squads(departmentId, page), SquadView.class);
+	public PageData<SquadView> departmentSquads(int departmentId, Integer page) {
+		return Mapper.parse(squadService.departmentSquads(departmentId, page), SquadView.class);
 	}
 }

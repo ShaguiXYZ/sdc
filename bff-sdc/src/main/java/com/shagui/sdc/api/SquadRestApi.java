@@ -28,6 +28,6 @@ public interface SquadRestApi {
 
 	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads/{departmentId}")
-	PageData<SquadView> squads(@PathVariable @Parameter(description = "Department identifier") int departmentId,
+	PageData<SquadView> departmentSquads(@PathVariable @Parameter(description = "Department identifier") int departmentId,
 			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page);
 }

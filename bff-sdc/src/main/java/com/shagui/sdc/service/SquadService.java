@@ -8,5 +8,5 @@ public interface SquadService {
 
 	PageData<SquadDTO> squads(Integer page);
 
-	PageData<SquadDTO> squads(int departmentId, Integer page);
+	PageData<SquadDTO> departmentSquads(int departmentId, Integer page);
 }
