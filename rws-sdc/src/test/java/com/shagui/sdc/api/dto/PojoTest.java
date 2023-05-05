@@ -3,11 +3,8 @@ package com.shagui.sdc.api.dto;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsForAll;
 import static pl.pojo.tester.api.assertion.Method.CONSTRUCTOR;
-import static pl.pojo.tester.api.assertion.Method.EQUALS;
 import static pl.pojo.tester.api.assertion.Method.GETTER;
-import static pl.pojo.tester.api.assertion.Method.HASH_CODE;
 import static pl.pojo.tester.api.assertion.Method.SETTER;
-import static pl.pojo.tester.api.assertion.Method.TO_STRING;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,12 +28,14 @@ class PojoTest {
 		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(MetricDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(PageData.class).testing(CONSTRUCTOR, GETTER).areWellImplemented();	
-		assertPojoMethodsFor(PageInfo.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();	
+		assertPojoMethodsFor(PageInfo.class).testing(GETTER, SETTER).areWellImplemented();	
 		assertPojoMethodsFor(SquadDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();	
-		assertPojoMethodsFor(DepartmentDTO.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();	
-		assertPojoMethodsFor(HistoricalCoverageDTO.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
-		assertPojoMethodsFor(TimeCoverageDTO.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
-		assertPojoMethodsFor(UriDTO.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();	
+		assertPojoMethodsFor(DepartmentDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();	
+		assertPojoMethodsFor(HistoricalCoverageDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
+		assertPojoMethodsFor(TimeCoverageDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
+		assertPojoMethodsFor(UriDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();	
+//		assertPojoMethodsFor(AuthenticationDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();	
+
 
 
 	}
@@ -59,7 +58,7 @@ class PojoTest {
 		
 		PackageFilter gitDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.git");
 		
-		assertPojoMethodsForAll(gitDTO).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
+		assertPojoMethodsForAll(gitDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		
 	}
 

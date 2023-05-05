@@ -14,7 +14,7 @@ import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
 
 class MetricValidationsTest {
-
+	
 	@Test
 	void validateEquals() {
 		MetricDTO metric = new MetricDTO(1, "test", MetricType.GIT, MetricValueType.NUMERIC, MetricValidation.EQ);
@@ -23,7 +23,7 @@ class MetricValidationsTest {
 		Float result = MetricValidations.validate(analysis);
 		assertNotNull(result);
 	}
-
+	
 	@Test
 	void validateMayor() {
 		MetricDTO metric = new MetricDTO(1, "test", MetricType.GIT, MetricValueType.NUMERIC, MetricValidation.GT);
@@ -32,7 +32,7 @@ class MetricValidationsTest {
 		Float result = MetricValidations.validate(analysis);
 		assertNotNull(result);
 	}
-
+	
 	@Test
 	void validateMinor() {
 		MetricDTO metric = new MetricDTO(1, "test", MetricType.GIT, MetricValueType.NUMERIC, MetricValidation.LT);
@@ -41,21 +41,19 @@ class MetricValidationsTest {
 		Float result = MetricValidations.validate(analysis);
 		assertNotNull(result);
 	}
-
+	
 	@Test
 	void validateMayorOrEquals() {
-		MetricDTO metric = new MetricDTO(1, "test", MetricType.GIT, MetricValueType.NUMERIC,
-				MetricValidation.GTE);
+		MetricDTO metric = new MetricDTO(1, "test", MetricType.GIT, MetricValueType.NUMERIC, MetricValidation.GTE);
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(10, "10", "50", "75", "100");
 		MetricAnalysisDTO analysis = new MetricAnalysisDTO(new Date(), metric, analysisValues, 0.5F);
 		Float result = MetricValidations.validate(analysis);
 		assertNotNull(result);
 	}
-
+	
 	@Test
 	void validateMinorOrEquals() {
-		MetricDTO metric = new MetricDTO(1, "test", MetricType.GIT, MetricValueType.NUMERIC,
-				MetricValidation.LTE);
+		MetricDTO metric = new MetricDTO(1, "test", MetricType.GIT, MetricValueType.NUMERIC, MetricValidation.LTE);
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(10, "10", "50", "75", "100");
 		MetricAnalysisDTO analysis = new MetricAnalysisDTO(new Date(), metric, analysisValues, 0.5F);
 		Float result = MetricValidations.validate(analysis);
