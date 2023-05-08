@@ -10,7 +10,7 @@ import static pl.pojo.tester.api.assertion.Method.TO_STRING;
 
 import org.junit.jupiter.api.Test;
 
-public class HistoricalCoverageTest {
+class HistoricalCoverageTest {
 	
 	@Test
 	void HistoricalCoveragetest() {
