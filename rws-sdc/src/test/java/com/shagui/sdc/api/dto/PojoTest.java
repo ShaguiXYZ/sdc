@@ -27,39 +27,33 @@ class PojoTest {
 		assertPojoMethodsFor(ComponentTypeDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(MetricDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(PageData.class).testing(CONSTRUCTOR, GETTER).areWellImplemented();	
-		assertPojoMethodsFor(PageInfo.class).testing(GETTER, SETTER).areWellImplemented();	
-		assertPojoMethodsFor(SquadDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();	
-		assertPojoMethodsFor(DepartmentDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();	
+		assertPojoMethodsFor(PageData.class).testing(CONSTRUCTOR, GETTER).areWellImplemented();
+		assertPojoMethodsFor(PageInfo.class).testing(GETTER, SETTER).areWellImplemented();
+		assertPojoMethodsFor(SquadDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+		assertPojoMethodsFor(DepartmentDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(HistoricalCoverageDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(TimeCoverageDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
-		assertPojoMethodsFor(UriDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();	
-//		assertPojoMethodsFor(AuthenticationDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();	
-
-
-
+		assertPojoMethodsFor(UriDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 	}
-	
+
 	@Test
 	@DisplayName("Tests for sonar DTOs to ensure POJO methods are well implemented")
 	void testSonarDTO() {
-		
-		
+
 		PackageFilter sonarDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.sonar");
-		
+
 		assertPojoMethodsForAll(sonarDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		
+
 	}
-	
+
 	@Test
 	@DisplayName("Tests for git DTOs to ensure POJO methods are well implemented")
 	void testGitDTO() {
-		
-		
+
 		PackageFilter gitDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.git");
-		
+
 		assertPojoMethodsForAll(gitDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		
+
 	}
 
 }

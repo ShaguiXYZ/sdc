@@ -1,5 +1,6 @@
 package com.shagui.sdc.exception;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import static pl.pojo.tester.api.assertion.Method.CONSTRUCTOR;
 import static pl.pojo.tester.api.assertion.Method.EQUALS;
@@ -20,6 +21,13 @@ class ApiErrorTest {
 	@DisplayName("Test for ApiError class to ensure POJO methods are well implemented")
 	void Pojotest() {
 		assertPojoMethodsFor(ApiError.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, EQUALS, HASH_CODE).areWellImplemented();
+	}
+	
+	@Test
+	void addErrorTest() {
+		ApiError error = new ApiError();
+		error.addError("error");
+		assertNotNull(error);
 	}
 
 }

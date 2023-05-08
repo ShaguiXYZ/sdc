@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.mockito.Mock;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.enums.MetricType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
@@ -34,6 +34,7 @@ import com.shagui.sdc.util.AnalysisUtilsConfig;
 import com.shagui.sdc.util.ComponentUtilsConfig;
 import com.shagui.sdc.util.MapperConfig;
 import com.shagui.sdc.util.UrlUtilsConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import feign.Request;
 import feign.Response;
@@ -54,7 +55,7 @@ public class RwsTestUtils {
 
 	@Mock
 	private static SquadRepository squadRepository;
-	
+
 	@Mock
 	private static MetricValueRepository metricValueRepository;
 
@@ -81,7 +82,7 @@ public class RwsTestUtils {
 
 		return config;
 	}
-	
+
 	public static AnalysisUtilsConfig analysisUtilsConfig() {
 
 		AnalysisUtilsConfig config = new AnalysisUtilsConfig(metricValueRepository);
@@ -261,6 +262,12 @@ public class RwsTestUtils {
 		source.setName("name");
 
 		return source;
+	}
+
+	public static RequestPageInfo requestPageInfo() {
+
+		return new RequestPageInfo(1);
+		
 	}
 
 }
