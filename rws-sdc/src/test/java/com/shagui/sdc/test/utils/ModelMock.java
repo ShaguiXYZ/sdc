@@ -2,7 +2,7 @@ package com.shagui.sdc.test.utils;
 
 import com.shagui.sdc.model.ModelInterface;
 
-public class ModelTest  implements ModelInterface<Integer>{
+public class ModelMock  implements ModelInterface<Integer>{
 	private Integer id;
 
 	@Override
