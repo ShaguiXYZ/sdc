@@ -3,10 +3,12 @@ package com.shagui.sdc.api.dto;
 import com.shagui.sdc.enums.UriType;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class UriDTO {
 	private int id;

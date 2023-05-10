@@ -19,7 +19,7 @@ spring:
    liquibase:
       change-log: classpath:/db/changelog/h2/changelogMaster.xml
       contexts: ${spring.profiles.active}
-      dropFirst: false
+      dropFirst: true
 server:
    port: 9090
    

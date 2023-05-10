@@ -8,9 +8,11 @@ import org.springframework.data.domain.Sort;
 
 import com.shagui.sdc.util.Ctes.JPA;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class RequestPageInfo {
 	private Integer page;
 	private Integer size;

@@ -3,9 +3,11 @@ package com.shagui.sdc.api.dto;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class TimeCoverageDTO {
 	private Float coverage;

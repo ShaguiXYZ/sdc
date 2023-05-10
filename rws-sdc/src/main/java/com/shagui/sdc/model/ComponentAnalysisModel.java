@@ -15,10 +15,12 @@ import javax.persistence.Transient;
 
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "component_analysis")
@@ -51,15 +53,16 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 
 	@Transient
 	private String perfectValue;
-	
+
 	@Transient
 	private int weight;
-	
+
 	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value) {
 		this(component, metric, value, new Date());
 	}
-	
-	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value, Date componentAnalysisDate) {
+
+	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value,
+			Date componentAnalysisDate) {
 		this.id = new ComponentAnalysisPk(component.getId(), metric.getId(), componentAnalysisDate);
 
 		this.component = component;

@@ -11,27 +11,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "departments")
 @NoArgsConstructor
 public class DepartmentModel implements ModelInterface<Integer> {
 	@Id
 	@Column(name = "department_id")
-	private Integer id;	
+	private Integer id;
 	@Column(name = "department_name")
 	private String name;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	private CompanyModel company;
-	
+
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<SquadModel> squads;
-	
+
 	public DepartmentModel(Integer id) {
 		this.id = id;
 	}

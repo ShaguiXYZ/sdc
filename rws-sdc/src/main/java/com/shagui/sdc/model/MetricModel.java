@@ -14,9 +14,11 @@ import com.shagui.sdc.enums.MetricType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "metrics", uniqueConstraints = { @UniqueConstraint(columnNames = { "metric_name", "metric_type" }) })
 public class MetricModel implements ModelInterface<Integer> {

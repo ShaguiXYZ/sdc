@@ -11,14 +11,16 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class ComponentHistoricalCoveragePk  implements Serializable {
+public class ComponentHistoricalCoveragePk implements Serializable {
 	/**
 	 * 
 	 */
@@ -26,7 +28,7 @@ public class ComponentHistoricalCoveragePk  implements Serializable {
 
 	@Column(name = "component_id")
 	private int componentId;
-	
+
 	@CreationTimestamp
 	@Column(name = "component_historical_coverage_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)

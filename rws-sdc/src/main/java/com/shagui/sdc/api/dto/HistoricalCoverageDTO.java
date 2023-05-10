@@ -3,9 +3,11 @@ package com.shagui.sdc.api.dto;
 import com.shagui.sdc.api.domain.PageData;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class HistoricalCoverageDTO<T> {
 	private T data;

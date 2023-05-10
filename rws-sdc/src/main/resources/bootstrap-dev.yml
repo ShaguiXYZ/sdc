@@ -13,11 +13,11 @@ spring:
    liquibase:
       change-log: classpath:/db/changelog/postgresql/changelogMaster.xml
       contexts: ${spring.profiles.active}
-      dropFirst: false
+      dropFirst: true
 server:
    port: 9090
    
 services:
    security: 
-      enabled: true
+      enabled: false
       uri: http://localhost:9092/rws-security

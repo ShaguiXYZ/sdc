@@ -3,9 +3,11 @@ package com.shagui.sdc.api.domain;
 import org.springframework.data.domain.Page;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class PageInfo {
 	private int pageIndex;

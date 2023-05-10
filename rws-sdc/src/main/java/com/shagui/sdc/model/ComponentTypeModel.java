@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "component_types")
 public class ComponentTypeModel {
@@ -25,7 +27,7 @@ public class ComponentTypeModel {
 
 	@Column(name = "component_type_name")
 	private String name;
-	
+
 	@OneToMany(mappedBy = "componentType", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentTypeArchitectureModel> componentTypeArchitectures;
 

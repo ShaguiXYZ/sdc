@@ -18,9 +18,11 @@ import javax.persistence.Table;
 
 import com.shagui.sdc.enums.UriType;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "uris")
 public class UriModel implements ModelInterface<Integer> {

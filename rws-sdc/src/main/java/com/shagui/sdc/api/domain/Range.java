@@ -1,9 +1,11 @@
 package com.shagui.sdc.api.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class Range {
 	private Float min;

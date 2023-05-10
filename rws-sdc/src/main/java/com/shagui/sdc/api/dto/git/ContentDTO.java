@@ -2,9 +2,11 @@ package com.shagui.sdc.api.dto.git;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ContentDTO {
 	private String name;
 	private String path;

@@ -17,9 +17,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "components", uniqueConstraints = { @UniqueConstraint(columnNames = { "squad_id", "component_name" }) })
 public class ComponentModel implements ModelInterface<Integer> {
@@ -30,7 +32,7 @@ public class ComponentModel implements ModelInterface<Integer> {
 
 	@Column(name = "component_name", nullable = false)
 	private String name;
-	
+
 	@Column(name = "component_coverage")
 	private Float coverage;
 

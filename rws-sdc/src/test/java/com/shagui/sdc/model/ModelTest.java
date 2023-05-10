@@ -13,10 +13,8 @@ import org.junit.jupiter.api.Test;
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 import com.shagui.sdc.model.pk.ComponentHistoricalCoveragePk;
 
-
-
 class ModelTest {
-	
+
 	@Test
 	void pojoModelTest() {
 		assertPojoMethodsFor(ArchitectureModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
@@ -24,7 +22,8 @@ class ModelTest {
 		assertPojoMethodsFor(ComponentAnalysisModel.class).testing(GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(ComponentModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentPropertyModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
-		assertPojoMethodsFor(ComponentTypeArchitectureModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
+		assertPojoMethodsFor(ComponentTypeArchitectureModel.class).testing(GETTER, SETTER, CONSTRUCTOR)
+				.areWellImplemented();
 		assertPojoMethodsFor(ComponentTypeModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(DepartmentModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(MetricModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
@@ -34,42 +33,43 @@ class ModelTest {
 		assertPojoMethodsFor(RequestPropertiesModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentAnalysisPk.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentHistoricalCoverageModel.class).testing(GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(ComponentHistoricalCoveragePk.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
+		assertPojoMethodsFor(ComponentHistoricalCoveragePk.class).testing(GETTER, SETTER, CONSTRUCTOR)
+				.areWellImplemented();
 	}
 
 	@Test
 	void componentAnalysisModelTest() {
-		
+
 		ComponentModel component = new ComponentModel();
 		component.setId(1);
-		
+
 		MetricModel metric = new MetricModel();
 		metric.setId(1);
-		
+
 		String value = "test";
 		ComponentAnalysisModel model = new ComponentAnalysisModel(component, metric, value);
-		
+
 		assertNotNull(model);
 
 	}
-	
+
 	@Test
 	void componentTypeArchitectureModelTest() {
-		
+
 		ComponentTypeModel componentType = new ComponentTypeModel();
 		ArchitectureModel architecture = new ArchitectureModel();
-		ComponentTypeArchitectureModel model = new ComponentTypeArchitectureModel(componentType, architecture);	
+		ComponentTypeArchitectureModel model = new ComponentTypeArchitectureModel(componentType, architecture);
 		assertNotNull(model);
 
 	}
-	
+
 	@Test
 	void componentHistoricalCoverageModelTest() {
-	
-		
+
 		ComponentModel componentModel = new ComponentModel();
 		componentModel.setId(1);
-		ComponentHistoricalCoverageModel model = new ComponentHistoricalCoverageModel(componentModel , new Date(), 90.1f);	
+		ComponentHistoricalCoverageModel model = new ComponentHistoricalCoverageModel(componentModel, new Date(),
+				90.1f);
 		assertNotNull(model);
 
 	}
