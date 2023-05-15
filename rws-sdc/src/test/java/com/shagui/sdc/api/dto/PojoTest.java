@@ -56,4 +56,14 @@ class PojoTest {
 
 	}
 
+	@Test
+	@DisplayName("Tests for git DTOs to ensure POJO methods are well implemented")
+	void testSecurityDTO() {
+
+		PackageFilter securityDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.security");
+
+		assertPojoMethodsForAll(securityDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+
+	}
+
 }

@@ -57,7 +57,7 @@ class SquadsServiceImplTest {
 		SquadDTO result = service.findById(1);
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void findAllTest() {
 
@@ -67,7 +67,18 @@ class SquadsServiceImplTest {
 		PageData<SquadDTO> result = service.findAll();
 		assertNotNull(result);
 	}
-	
+
+	@Test
+	void findAllPageTest() {
+
+		List<SquadModel> value = new ArrayList<SquadModel>();
+		PageImpl<SquadModel> page = new PageImpl<>(value);
+		value.add(RwsTestUtils.squadModelMock());
+		when(squadRepositoryMock.findAll(any(Pageable.class))).thenReturn(page);
+		PageData<SquadDTO> result = service.findAll(new RequestPageInfo(1));
+		assertNotNull(result);
+	}
+
 	@Test
 	void findByDepartmentTest() {
 
@@ -77,10 +88,10 @@ class SquadsServiceImplTest {
 		PageData<SquadDTO> result = service.findByDepartment(1);
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void findByDepartmentArgumentsTest() {
-		
+
 		List<SquadModel> list = new ArrayList<SquadModel>();
 		list.add(RwsTestUtils.squadModelMock());
 		Page<SquadModel> value = new PageImpl<SquadModel>(list);

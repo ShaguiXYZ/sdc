@@ -3,8 +3,7 @@ package com.shagui.sdc.util;
 import java.util.Date;
 import java.util.Objects;
 
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
@@ -48,9 +47,12 @@ public class Mapper {
 		return config.getObjectMapper().writeValueAsString(source);
 	}
 
-	public static ApiError parse(FeignException ex) throws JSONException, JsonProcessingException {
-		JSONObject json = new JSONObject(ex.contentUTF8());
-		return config.getObjectMapper().readValue(json.toString(), ApiError.class);
+	public static ApiError parse(FeignException ex) {
+		ApiError error = new ApiError();
+		error.setStatus(HttpStatus.valueOf(ex.status()));
+		error.setMessage(ex.getMessage());
+
+		return error;
 	}
 
 	public static MetricAnalysisDTO parse(ComponentAnalysisModel source) {

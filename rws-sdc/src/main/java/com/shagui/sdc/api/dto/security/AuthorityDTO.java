@@ -1,8 +1,10 @@
 package com.shagui.sdc.api.dto.security;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class AuthorityDTO {
     private String authority;
 }
