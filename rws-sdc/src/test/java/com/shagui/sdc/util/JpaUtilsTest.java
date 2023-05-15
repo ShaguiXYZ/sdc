@@ -1,22 +1,22 @@
 package com.shagui.sdc.util;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 class JpaUtilsTest {
-	
-	@Test
-	void containsTest() {
-		JpaUtils.contains("a");
-	}
 
 	@Test
 	void containsHasTextTest() {
-		JpaUtils.contains("test");
+		String result = JpaUtils.contains("data1 data2");
+		assertEquals("%data1%data2%", result);
 	}
 	
 	@Test
 	void containsNotHasTextTest() {
-		JpaUtils.contains(null);
+		String result = JpaUtils.contains(null);
+		assertNull(result);
 	}
 
 }

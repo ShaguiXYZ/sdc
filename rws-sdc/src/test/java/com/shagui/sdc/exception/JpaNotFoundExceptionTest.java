@@ -7,22 +7,21 @@ import org.junit.jupiter.api.Test;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 
 class JpaNotFoundExceptionTest {
-	
-	
+
 	@Test
 	void getMessageTest() {
 		JpaNotFoundException error = new JpaNotFoundException("message");
 		String result = error.getMessage();
-		assertEquals(result, "message");
-		
+		assertEquals("message", result);
+
 	}
-	
+
 	@Test
 	void getKeyTest() {
-		JpaNotFoundException error = new JpaNotFoundException("key","message");
+		JpaNotFoundException error = new JpaNotFoundException("key", "message");
 		String result = error.getKey();
-		assertEquals(result, "key");
-		
+		assertEquals("key", result);
+
 	}
 
 }

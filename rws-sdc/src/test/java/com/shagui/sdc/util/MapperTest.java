@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Date;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.enums.MetricType;
@@ -16,9 +18,10 @@ import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
 class MapperTest {
-
-	@Test
-	void setConfigTest() {
+	
+	@BeforeEach
+	void init(){
+	    MockitoAnnotations.openMocks(this);
 		Mapper.setConfig(RwsTestUtils.mapperConfig());
 	}
 	

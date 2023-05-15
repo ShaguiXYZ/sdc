@@ -2,7 +2,7 @@ package com.shagui.sdc.test.utils;
 
 import com.shagui.sdc.model.ModelInterface;
 
-public class ModelMock  implements ModelInterface<Integer>{
+public class ModelMock implements ModelInterface<Integer> {
 	private Integer id;
 
 	@Override
@@ -13,7 +13,7 @@ public class ModelMock  implements ModelInterface<Integer>{
 	@Override
 	public void setId(Integer id) {
 		this.id = id;
-		
+
 	}
 
 }

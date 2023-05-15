@@ -1,9 +1,11 @@
 package com.shagui.sdc.util.validations;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class MetricControl<T extends Comparable<T>> {
 	private T control;

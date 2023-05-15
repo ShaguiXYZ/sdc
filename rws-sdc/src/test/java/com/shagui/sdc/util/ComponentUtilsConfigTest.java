@@ -21,10 +21,10 @@ import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
 public class ComponentUtilsConfigTest {
-	
+
 	@Mock
 	private ComponentRepository componentRepository;
-	
+
 	@Mock
 	private ComponentAnalysisRepository componentAnalysisRepository;
 
@@ -33,50 +33,43 @@ public class ComponentUtilsConfigTest {
 
 	@Mock
 	private ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
-	
+
 	@Mock
 	private SquadRepository squadRepository;
-	
-	
+
 	@Test
 	void componentRepositoryTest() {
-		
-		JpaCommonRepository<ComponentRepository, ComponentModel, Integer> result = RwsTestUtils.config().componentRepository();
+		JpaCommonRepository<ComponentRepository, ComponentModel, Integer> result = RwsTestUtils.componentUtilsConfig()
+				.componentRepository();
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void componentAnalysisRepositoryTest() {
-		
-		JpaCommonRepository<ComponentAnalysisRepository, ComponentAnalysisModel, ComponentAnalysisPk> result = RwsTestUtils.config().componentAnalysisRepository();
+		JpaCommonRepository<ComponentAnalysisRepository, ComponentAnalysisModel, ComponentAnalysisPk> result = RwsTestUtils
+				.componentUtilsConfig().componentAnalysisRepository();
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void componentPropertyRepositoryTest() {
-		
-		JpaCommonRepository<ComponentPropertyRepository, ComponentPropertyModel, Integer> result = RwsTestUtils.config().componentPropertyRepository();
+		JpaCommonRepository<ComponentPropertyRepository, ComponentPropertyModel, Integer> result = RwsTestUtils
+				.componentUtilsConfig().componentPropertyRepository();
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void historicalCoverageComponentRepositoryTest() {
-		
-		JpaCommonRepository<ComponentHistoricalCoverageRepository, ComponentHistoricalCoverageModel, ComponentHistoricalCoveragePk> result = RwsTestUtils.config().historicalCoverageComponentRepository();
+		JpaCommonRepository<ComponentHistoricalCoverageRepository, ComponentHistoricalCoverageModel, ComponentHistoricalCoveragePk> result = RwsTestUtils
+				.componentUtilsConfig().historicalCoverageComponentRepository();
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void squadRepositoryTest() {
-		
-		JpaCommonRepository<SquadRepository, SquadModel, Integer> result = RwsTestUtils.config().squadRepository();
+		JpaCommonRepository<SquadRepository, SquadModel, Integer> result = RwsTestUtils.componentUtilsConfig()
+				.squadRepository();
 		assertNotNull(result);
-	}
-	
-	@Test
-	void initTest() {
-		
-		RwsTestUtils.config().init();
 	}
 
 }
