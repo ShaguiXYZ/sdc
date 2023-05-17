@@ -31,8 +31,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	ResponseEntity<ApiError> exception(BadRequestException ex) {
 		logException(ex);
 
-		ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), ExceptionCodes.BAD_REQUEST);
-		return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.NOT_FOUND);
+		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ExceptionCodes.BAD_REQUEST,
+				ExceptionCodes.BAD_REQUEST);
+		return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(FeignException.class)
