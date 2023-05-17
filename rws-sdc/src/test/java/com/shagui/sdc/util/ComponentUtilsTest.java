@@ -82,13 +82,15 @@ class ComponentUtilsTest {
 				}
 			}
 		);
-		when(metricValueRepository.metricValueByDate(anyInt(), anyInt(), any(Timestamp.class))).thenReturn(new ArrayList<>() {
-			private static final long serialVersionUID = 1L;
-
-			{
-				add(RwsTestUtils.metricValuesModelMock());
+		when(metricValueRepository.metricValueByDate(anyInt(), anyInt(), any(Timestamp.class))).thenReturn(
+			new ArrayList<>() {
+				private static final long serialVersionUID = 1L;
+	
+				{
+					add(RwsTestUtils.metricValuesModelMock());
+				}
 			}
-		});
+		);
 		when(historicalCoverageComponentRepository.save(any(ComponentHistoricalCoverageModel.class))).thenReturn(new ComponentHistoricalCoverageModel());
 		when(componentRepository.findById(anyInt())).thenReturn(Optional.of( RwsTestUtils.componentModelMock()));
 		when(componentRepository.save(any(ComponentModel.class))).thenReturn(RwsTestUtils.componentModelMock());

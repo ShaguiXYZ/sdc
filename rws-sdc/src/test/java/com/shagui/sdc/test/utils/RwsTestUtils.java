@@ -88,27 +88,21 @@ public class RwsTestUtils {
 	}
 
 	public static AnalysisUtilsConfig analysisUtilsConfig() {
-
 		AnalysisUtilsConfig config = new AnalysisUtilsConfig(metricValueRepository);
 
 		return config;
-
 	}
 
 	public static UrlUtilsConfig urlUtilsConfig() {
-
 		UrlUtilsConfig config = new UrlUtilsConfig(new ObjectMapper());
 
 		return config;
-
 	}
 
 	public static MapperConfig mapperConfig() {
-
 		MapperConfig config = new MapperConfig(new ObjectMapper());
 
 		return config;
-
 	}
 
 	public static ComponentPropertyModel componentProperty(String name) {

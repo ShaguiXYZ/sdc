@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,7 +125,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		return saved;
 	}
 
-	private Function<List<ComponentAnalysisModel>, List<ComponentAnalysisModel>> saveChangesInMetrics = (
+	private UnaryOperator<List<ComponentAnalysisModel>> saveChangesInMetrics = (
 			List<ComponentAnalysisModel> toAnalyze) -> toAnalyze.stream().filter(reg -> {
 				Optional<ComponentAnalysisModel> model = componentAnalysisRepository.repository()
 						.actualMetric(reg.getId().getComponentId(), reg.getId().getMetricId());
