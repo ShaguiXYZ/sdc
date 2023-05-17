@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.enums.MetricState;
+import com.shagui.sdc.enums.MetricValidation;
 
 public class MetricValidations {
 	private MetricValidations() {
@@ -53,9 +54,10 @@ public class MetricValidations {
 	private static <T extends Comparable<T>> Float validate(MetricAnalysisDTO analysis, Class<T> clazz) {
 		Float coverage = null;
 		T value = cast(analysis.getAnalysisValues().getMetricValue(), clazz);
+		MetricValidation validation = value == null ? MetricValidation.NA : analysis.getMetric().getValidation();
 		List<MetricControl<T>> control = controlValues(analysis, clazz);
 
-		switch (analysis.getMetric().getValidation()) {
+		switch (validation) {
 		case EQ:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 0)
 					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
