@@ -33,47 +33,48 @@ class ComponentServiceTest {
 
 	@Test
 	void findByTest() {
-
 		ComponentDTO value = new ComponentDTO();
 		when(rwsSdcClient.component(anyInt())).thenReturn(value);
 		ComponentDTO result = service.findBy(1);
 
 		assertEquals(result, value);
-
 	}
 
 	@Test
+	void squadComponentsTest() {
+		PageData<ComponentDTO> value = new PageData<ComponentDTO>();
+		when(rwsSdcClient.squadComponents(anyInt(), anyInt(), anyInt())).thenReturn(value);
+		PageData<ComponentDTO> result = service.squadComponents(1, 1, 1);
+		
+		assertEquals(result, value);
+	}
+	
+	@Test
 	void filterTest() {
-
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>();
 		when(rwsSdcClient.filter(anyString(), anyInt(), any(Float.class), any(Float.class), anyInt(), anyInt()))
 				.thenReturn(value);
 		PageData<ComponentDTO> result = service.filter("test", 1, (float) 90.1, (float) 10.1, 1, 1);
 
 		assertEquals(result, value);
-
 	}
 
 	@Test
 	void componentMetricsTest() {
-
 		PageData<MetricDTO> value = new PageData<MetricDTO>();
 		when(rwsSdcClient.componentMetrics(anyInt())).thenReturn(value);
 		PageData<MetricDTO> result = service.componentMetrics(1);
 
 		assertEquals(result, value);
-
 	}
 
 	@Test
 	void historicalCoverageTest() {
-
 		HistoricalCoverage<ComponentDTO> value = new HistoricalCoverage<ComponentDTO>();
 		when(rwsSdcClient.componentHistoricalCoverage(anyInt(), anyInt(), anyInt())).thenReturn(value);
 		HistoricalCoverage<ComponentDTO> result = service.historical(1, 1, 1);
 
 		assertEquals(result, value);
-
 	}
 
 }
