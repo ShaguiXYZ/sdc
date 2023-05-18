@@ -1,5 +1,6 @@
 package com.shagui.sdc.api.view;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import static pl.pojo.tester.api.assertion.Method.CONSTRUCTOR;
 import static pl.pojo.tester.api.assertion.Method.EQUALS;
@@ -13,21 +14,124 @@ import org.junit.jupiter.api.Test;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.PageInfo;
+import com.shagui.sdc.api.dto.AnalysisValuesDTO;
+import com.shagui.sdc.api.dto.ArchitectureDTO;
+import com.shagui.sdc.api.dto.ComponentDTO;
+import com.shagui.sdc.api.dto.ComponentTypeDTO;
+import com.shagui.sdc.api.dto.DepartmentDTO;
+import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.api.dto.MetricDTO;
+import com.shagui.sdc.api.dto.SquadDTO;
+import com.shagui.sdc.test.utils.DtoDataUtils;
 
 class PojoViewTest {
 
 	@Test
 	@DisplayName("Tests for Views to ensure POJO methods are well implemented")
 	void testView() {
-		assertPojoMethodsFor(AnalysisValuesView.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
-		assertPojoMethodsFor(ArchitectureView.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
-		assertPojoMethodsFor(ComponentView.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
-		assertPojoMethodsFor(ComponentTypeView.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
-		assertPojoMethodsFor(MetricAnalysisView.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
-		assertPojoMethodsFor(MetricView.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
-		assertPojoMethodsFor(PageData.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();	
-		assertPojoMethodsFor(PageInfo.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();	
-		assertPojoMethodsFor(SquadView.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();	
+		assertPojoMethodsFor(AnalysisValuesView.class)
+				.testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
+		assertPojoMethodsFor(ArchitectureView.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
+				.areWellImplemented();
+		assertPojoMethodsFor(ComponentView.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
+				.areWellImplemented();
+		assertPojoMethodsFor(ComponentTypeView.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
+				.areWellImplemented();
+		assertPojoMethodsFor(MetricAnalysisView.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
+				.areWellImplemented();
+		assertPojoMethodsFor(MetricView.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
+				.areWellImplemented();
+		assertPojoMethodsFor(SquadView.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
+				.areWellImplemented();
+		assertPojoMethodsFor(DepartmentView.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
+				.areWellImplemented();
+
+		assertPojoMethodsFor(PageData.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+		assertPojoMethodsFor(PageInfo.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
+				.areWellImplemented();
+	}
+
+	@Test
+	void analysisValuesView_form_AnalysisValuesDTO_constructorTest() {
+		AnalysisValuesDTO source = DtoDataUtils.createAnalysisValues();
+		AnalysisValuesView target = new AnalysisValuesView(source);
+
+		assertEquals(source.getMetricValue(), target.getMetricValue());
+		assertEquals(source.getExpectedValue(), target.getExpectedValue());
+		assertEquals(source.getGoodValue(), target.getGoodValue());
+		assertEquals(source.getPerfectValue(), target.getPerfectValue());
+	}
+
+	@Test
+	void architectureView_form_ArchitectureDTO_constructorTest() {
+		ArchitectureDTO source = DtoDataUtils.createArchitecture();
+		ArchitectureView target = new ArchitectureView(source);
+
+		assertEquals(source.getId(), target.getId());
+		assertEquals(source.getName(), target.getName());
+	}
+
+	@Test
+	void componentView_form_ComponentDTO_constructorTest() {
+		ComponentDTO source = DtoDataUtils.createComponent();
+		source.setComponentType(DtoDataUtils.createComponentType());
+		source.setArchitecture(DtoDataUtils.createArchitecture());
+		source.setSquad(DtoDataUtils.createSquad());
+		ComponentView target = new ComponentView(source);
+
+		assertEquals(source.getId(), target.getId());
+		assertEquals(source.getName(), target.getName());
+		assertEquals(source.getAnalysisDate(), target.getAnalysisDate());
+	}
+
+	@Test
+	void metricView_form_MetricDTO_constructorTest() {
+		MetricDTO source = DtoDataUtils.createMetric(null, null, null);
+		MetricView target = new MetricView(source);
+
+		assertEquals(source.getId(), target.getId());
+		assertEquals(source.getName(), target.getName());
+	}
+
+	@Test
+	void componentTypeView_form_ComponentTypeDTO_constructorTest() {
+		ComponentTypeDTO source = DtoDataUtils.createComponentType();
+		ComponentTypeView target = new ComponentTypeView(source);
+
+		assertEquals(source.getId(), target.getId());
+		assertEquals(source.getName(), target.getName());
+		assertEquals(source.getName(), target.getName());
+	}
+
+	@Test
+	void metricAnalysisView_form_MetricAnalysisDTO_constructorTest() {
+		MetricAnalysisDTO source = DtoDataUtils.createMetricAnalysis();
+		source.setMetric(DtoDataUtils.createMetric(null, null, null));
+		source.setAnalysisValues(DtoDataUtils.createAnalysisValues());
+		MetricAnalysisView target = new MetricAnalysisView(source);
+
+		assertEquals(source.getAnalysisDate(), target.getAnalysisDate());
+		assertEquals(source.getCoverage(), target.getCoverage());
+	}
+
+	@Test
+	void departmentView_form_DepartmentDTO_constructorTest() {
+		DepartmentDTO source = DtoDataUtils.createDepartment();
+		DepartmentView target = new DepartmentView(source);
+
+		assertEquals(source.getId(), target.getId());
+		assertEquals(source.getName(), target.getName());
+		assertEquals(source.getCoverage(), target.getCoverage());
+	}
+
+	@Test
+	void squadView_form_SquadDTO_constructorTest() {
+		SquadDTO source = DtoDataUtils.createSquad();
+		SquadView target = new SquadView(source);
+
+		assertEquals(source.getId(), target.getId());
+		assertEquals(source.getName(), target.getName());
+		assertEquals(source.getCoverage(), target.getCoverage());
 	}
 
 }

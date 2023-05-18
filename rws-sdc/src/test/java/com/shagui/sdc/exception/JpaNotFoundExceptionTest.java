@@ -13,7 +13,6 @@ class JpaNotFoundExceptionTest {
 		JpaNotFoundException error = new JpaNotFoundException("message");
 		String result = error.getMessage();
 		assertEquals("message", result);
-
 	}
 
 	@Test
@@ -21,7 +20,6 @@ class JpaNotFoundExceptionTest {
 		JpaNotFoundException error = new JpaNotFoundException("key", "message");
 		String result = error.getKey();
 		assertEquals("key", result);
-
 	}
 
 }

@@ -19,6 +19,7 @@ import com.shagui.sdc.api.view.ComponentView;
 import com.shagui.sdc.api.view.MetricView;
 import com.shagui.sdc.service.ComponentService;
 import com.shagui.sdc.test.utils.DataUtils;
+import com.shagui.sdc.test.utils.DtoDataUtils;
 
 class ComponentControllerTest {
 
@@ -35,7 +36,7 @@ class ComponentControllerTest {
 
 	@Test
 	void componentTest() {
-		ComponentDTO dto = DataUtils.createComponentDTO();
+		ComponentDTO dto = DtoDataUtils.createComponent();
 		when(componentService.findBy(anyInt())).thenReturn(dto);
 		ComponentView result = componentController.component(DataUtils.DEFAULT_COMPONENT_ID);
 		assertNotNull(result);
@@ -67,7 +68,7 @@ class ComponentControllerTest {
 
 	@Test
 	void historicalTest() {
-		when(componentService.historical(anyInt(), any(), any())).thenReturn(DataUtils.createEmptyHistoricalCoverage(DataUtils.createComponentDTO()));
+		when(componentService.historical(anyInt(), any(), any())).thenReturn(DataUtils.createEmptyHistoricalCoverage(DtoDataUtils.createComponent()));
 		HistoricalCoverage<ComponentView> result = componentController.historical(DataUtils.DEFAULT_COMPONENT_ID, null, null);
 		assertNotNull(result);		
 	}

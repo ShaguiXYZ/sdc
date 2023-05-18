@@ -1,7 +1,7 @@
 package com.shagui.sdc.controller;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +16,7 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.view.MetricAnalysisView;
 import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.test.utils.DataUtils;
+import com.shagui.sdc.test.utils.DtoDataUtils;
 
 class AnalysisControllerTest {
 
@@ -32,7 +33,7 @@ class AnalysisControllerTest {
 
 	@Test
 	void analysisTest() {
-		MetricAnalysisDTO dto = DataUtils.createMetricAnalysisDTO();
+		MetricAnalysisDTO dto = DtoDataUtils.createMetricAnalysis();
 		when(analysisService.analysis(Mockito.anyInt(), Mockito.anyInt())).thenReturn(dto);
 		MetricAnalysisView result = controller.analysis(1, 1);
 		assertNotNull(result);

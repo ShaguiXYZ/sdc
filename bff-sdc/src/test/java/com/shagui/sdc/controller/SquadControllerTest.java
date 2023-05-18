@@ -17,6 +17,7 @@ import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.api.view.SquadView;
 import com.shagui.sdc.service.SquadService;
 import com.shagui.sdc.test.utils.DataUtils;
+import com.shagui.sdc.test.utils.DtoDataUtils;
 
 class SquadControllerTest {
 	@InjectMocks
@@ -32,7 +33,7 @@ class SquadControllerTest {
 
 	@Test
 	void squadTest() {
-		SquadDTO dto = DataUtils.createSquadDTO();
+		SquadDTO dto = DtoDataUtils.createSquad();
 		when(squadService.squad(anyInt())).thenReturn(dto);
 		SquadView result = squadController.squad(DataUtils.DEFAULT_SQUAD_ID);
 		assertNotNull(result);

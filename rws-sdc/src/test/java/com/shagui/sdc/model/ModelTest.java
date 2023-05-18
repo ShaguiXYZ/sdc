@@ -39,7 +39,6 @@ class ModelTest {
 
 	@Test
 	void componentAnalysisModelTest() {
-
 		ComponentModel component = new ComponentModel();
 		component.setId(1);
 
@@ -50,28 +49,23 @@ class ModelTest {
 		ComponentAnalysisModel model = new ComponentAnalysisModel(component, metric, value);
 
 		assertNotNull(model);
-
 	}
 
 	@Test
 	void componentTypeArchitectureModelTest() {
-
 		ComponentTypeModel componentType = new ComponentTypeModel();
 		ArchitectureModel architecture = new ArchitectureModel();
 		ComponentTypeArchitectureModel model = new ComponentTypeArchitectureModel(componentType, architecture);
 		assertNotNull(model);
-
 	}
 
 	@Test
 	void componentHistoricalCoverageModelTest() {
-
 		ComponentModel componentModel = new ComponentModel();
 		componentModel.setId(1);
 		ComponentHistoricalCoverageModel model = new ComponentHistoricalCoverageModel(componentModel, new Date(),
 				90.1f);
 		assertNotNull(model);
-
 	}
 
 }

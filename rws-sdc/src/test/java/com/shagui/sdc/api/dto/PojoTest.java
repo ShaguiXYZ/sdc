@@ -39,31 +39,25 @@ class PojoTest {
 	@Test
 	@DisplayName("Tests for sonar DTOs to ensure POJO methods are well implemented")
 	void testSonarDTO() {
-
 		PackageFilter sonarDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.sonar");
 
 		assertPojoMethodsForAll(sonarDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-
 	}
 
 	@Test
 	@DisplayName("Tests for git DTOs to ensure POJO methods are well implemented")
 	void testGitDTO() {
-
 		PackageFilter gitDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.git");
 
 		assertPojoMethodsForAll(gitDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-
 	}
 
 	@Test
 	@DisplayName("Tests for git DTOs to ensure POJO methods are well implemented")
 	void testSecurityDTO() {
-
 		PackageFilter securityDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.security");
 
 		assertPojoMethodsForAll(securityDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-
 	}
 
 }

@@ -17,6 +17,7 @@ import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.view.DepartmentView;
 import com.shagui.sdc.service.DepartmentService;
 import com.shagui.sdc.test.utils.DataUtils;
+import com.shagui.sdc.test.utils.DtoDataUtils;
 
 class DepartmentControllerTest {
 	
@@ -33,7 +34,7 @@ class DepartmentControllerTest {
 
 	@Test
 	void departmentTest() {
-		DepartmentDTO dto = DataUtils.createDepartmentDTO();
+		DepartmentDTO dto = DtoDataUtils.createDepartment();
 		when(departmentService.department(anyInt())).thenReturn(dto);
 		DepartmentView result = departmentController.department(DataUtils.DEFAULT_DEPARTMENT_ID);
 		assertNotNull(result);

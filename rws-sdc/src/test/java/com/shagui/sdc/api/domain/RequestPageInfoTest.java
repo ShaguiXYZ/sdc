@@ -14,7 +14,6 @@ class RequestPageInfoTest {
 	@Test
 	void pojoTest() {
 		assertPojoMethodsFor(RequestPageInfo.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-
 	}
 
 	@Test
