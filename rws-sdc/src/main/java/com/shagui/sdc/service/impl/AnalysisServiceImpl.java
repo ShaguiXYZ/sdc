@@ -28,13 +28,13 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 import com.shagui.sdc.repository.ComponentAnalysisRepository;
 import com.shagui.sdc.repository.ComponentRepository;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.service.AnalysisInterface;
 import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.util.AnalysisUtils;
 import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 import lombok.extern.slf4j.Slf4j;
 

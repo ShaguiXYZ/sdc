@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.service.MetricService;
 import com.shagui.sdc.util.Mapper;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
 public class MetricServiceImpl implements MetricService {

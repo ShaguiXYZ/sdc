@@ -19,10 +19,10 @@ import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.service.ComponentService;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
 public class ComponentServiceImpl implements ComponentService {

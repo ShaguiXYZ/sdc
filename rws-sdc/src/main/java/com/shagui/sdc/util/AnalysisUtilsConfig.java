@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.shagui.sdc.model.MetricValuesModel;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 import lombok.AllArgsConstructor;
 

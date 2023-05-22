@@ -9,10 +9,10 @@ import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.repository.DepartmentRepository;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.service.DepartmentService;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {

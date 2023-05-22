@@ -25,6 +25,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.test.utils.ModelMock;
 import com.shagui.sdc.test.utils.RwsTestUtils;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 class JpaCommonRepositoryTest { 
 	

@@ -16,8 +16,8 @@ import com.shagui.sdc.repository.ComponentAnalysisRepository;
 import com.shagui.sdc.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.sdc.repository.ComponentPropertyRepository;
 import com.shagui.sdc.repository.ComponentRepository;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.repository.SquadRepository;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 import lombok.AllArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.shagui.sdc.repository;
+package com.shagui.sdc.util.jpa;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.model.ModelInterface;
+import com.shagui.sdc.util.LockHolder;
 
 @FunctionalInterface
 public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends ModelInterface<K>, K> {
@@ -35,6 +36,7 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 		return repository().findAll(pageInfo.getPageable());
 	}
 
+	@SuppressWarnings("unchecked")
 	default T create(T model) {
 		if (model.getId() != null) {
 			Optional<T> data = repository().findById(model.getId());
@@ -42,15 +44,23 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 			if (data.isPresent()) {
 				throw new JpaNotFoundException();
 			}
-		}
 
+		} else if (JpaAuroincrementRepository.class.isAssignableFrom(repository().getClass())) {
+			synchronized (LockHolder.AUTOINCREMENT_LOCK) {
+				JpaAuroincrementRepository<K> auroincrementRepository = (JpaAuroincrementRepository<K>) repository();
+				model.setId(auroincrementRepository.nextId());
+
+				return repository().save(model);
+			}
+		}
+		
 		return repository().save(model);
 	}
 
 	default T update(K id, T model) {
 		Optional<T> data = repository().findById(id);
 
-		if (data.isEmpty() || !data.get().getId().equals(model.getId())) {
+		if (!data.isPresent() || !data.get().getId().equals(model.getId())) {
 			throw new JpaNotFoundException();
 		}
 

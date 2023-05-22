@@ -15,10 +15,10 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.pk.ComponentHistoricalCoveragePk;
 import com.shagui.sdc.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.sdc.repository.ComponentRepository;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.service.ComponentHistoricalCoverageService;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
 public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoricalCoverageService {

@@ -10,11 +10,11 @@ import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.SquadModel;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.service.SquadService;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
 public class SquadServiceImpl implements SquadService {

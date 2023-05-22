@@ -33,9 +33,9 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
-import com.shagui.sdc.repository.JpaCommonRepository;
 import com.shagui.sdc.service.impl.ComponentServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 class ComponentServiceImplTest {
 
