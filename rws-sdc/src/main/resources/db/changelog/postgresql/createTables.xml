@@ -45,14 +45,15 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10005">
+	<changeSet author="initial" id="23052023_10001">
 		<sql dbms="postgresql">
 			CREATE TABLE uris (
 				uri_id serial4 NOT NULL,
 				uri_name varchar NULL,
 				uri_value varchar NULL,
 				uri_type varchar NULL,
-				CONSTRAINT uris_pk PRIMARY KEY (uri_id)
+				CONSTRAINT uris_pk PRIMARY KEY (uri_id),
+				CONSTRAINT uris_name_uk UNIQUE (uri_name)
 			);
 		</sql>
 	</changeSet>

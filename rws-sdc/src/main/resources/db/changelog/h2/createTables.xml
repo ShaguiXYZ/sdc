@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 						http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-	<changeSet author="initial" id="020220231011">
+	<changeSet author="initial" id="230520231011">
 		<sql dbms="h2">
 			CREATE TABLE architectures (
 				architecture_id int4 auto_increment NOT NULL,
@@ -40,7 +40,8 @@
 				uri_name varchar NULL,
 				uri_value varchar NULL,
 				uri_type varchar NULL,
-				CONSTRAINT uris_pk PRIMARY KEY (uri_id)
+				CONSTRAINT uris_pk PRIMARY KEY (uri_id),
+				CONSTRAINT uris_name_uk UNIQUE (uri_name)
 			);
 			
 			CREATE TABLE departments (
