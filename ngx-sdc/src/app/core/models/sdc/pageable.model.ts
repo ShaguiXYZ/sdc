@@ -2,7 +2,7 @@ export interface IPaging {
   pageIndex: number;
   pageSize: number;
   pages: number;
-  elelments: number;
+  elements: number;
 }
 
 export interface IPageable<T> {

@@ -13,12 +13,12 @@ public class PageInfo {
 	private int pageIndex;
 	private int pageSize;
 	private int pages;
-	private long elelments;
+	private long elements;
 	
 	public PageInfo(Page<?> page) {
 		this.pageIndex = page.getNumber();
 		this.pageSize = page.getNumberOfElements();
 		this.pages = page.getTotalPages();
-		this.elelments = page.getTotalElements();
+		this.elements = page.getTotalElements();
 	}
 }

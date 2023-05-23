@@ -22,7 +22,7 @@ export class UiCacheService implements OnDestroy {
     private scheduleroService: UiSchedulerService
   ) {
     this.schedulerPeriod =
-      contextConfig.cache?.schedulerPeriod && contextConfig.cache.schedulerPeriod > MIN_CACHE_SCHEDULER_PERIOD
+      contextConfig?.cache?.schedulerPeriod && contextConfig.cache.schedulerPeriod > MIN_CACHE_SCHEDULER_PERIOD
         ? contextConfig.cache.schedulerPeriod
         : MIN_CACHE_SCHEDULER_PERIOD;
 

@@ -11,7 +11,7 @@ public class PageInfo {
 	private int pageIndex;
 	private int pageSize;
 	private int pages;
-	private long elelments;
+	private long elements;
 	
 	public PageInfo(PageInfo source) {
 		BeanUtils.copyProperties(source, this);

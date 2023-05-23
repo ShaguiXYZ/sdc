@@ -56,7 +56,7 @@
       </div>
       <div *ngIf="applicationsInfo.paging.pages > 1" nxCol="12" class="pagination nx-margin-top-2xs">
         <nx-pagination
-          [nxCount]="applicationsInfo.paging.elelments"
+          [nxCount]="applicationsInfo.paging.elements"
           [nxPage]="applicationsInfo.paging.pageIndex + 1"
           [nxPerPage]="ELEMENTS_BY_PAGE"
           (nxGoPrev)="prevPage()"

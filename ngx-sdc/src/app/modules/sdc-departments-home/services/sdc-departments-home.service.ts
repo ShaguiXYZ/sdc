@@ -39,6 +39,7 @@ export class SdcDepartmentsService {
   public availableDepartments(filter?: string): void {
     this.departmentService.departments().then(pageable => {
       let departments: IDepartmentModel[] = [];
+      const department = pageable.page.find(data => this.contextData.department?.id === data.id);
 
       if (filter?.trim().length) {
         departments = filterByProperties(pageable.page, ['id', 'name'], filter);
@@ -46,8 +47,8 @@ export class SdcDepartmentsService {
         departments = pageable.page;
       }
 
-      this.data = { ...this.data, departments, departmentFilter: filter };
-      this.contextData = { ...this.contextData, departmentFilter: filter };
+      this.data = { ...this.data, department, departments, departmentFilter: filter };
+      this.contextData = { ...this.contextData, department, departmentFilter: filter };
       this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, this.contextData, { persistent: true });
 
       this.summary$.next(this.data);
