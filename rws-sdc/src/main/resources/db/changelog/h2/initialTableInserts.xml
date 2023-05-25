@@ -237,10 +237,10 @@
 				 
 	<changeSet author="initial" id="10022023_50007">
 		<sql dbms="h2">
-			INSERT INTO uris (uri_name,uri_value,uri_type) VALUES
-				 ('public-repo','https://api.github.com/repos','GIT'),
-				 ('private-repo','https://api.github.com/repos', 'GIT'),
-				 ('sonar-repo-example','https://sonarqube.inria.fr/sonarqube/api','SONAR');
+			INSERT INTO uris (uri_name,uri_value,uri_type,uri_source) VALUES
+				 ('public-repo','https://api.github.com/repos','GIT','https://github.com/${project}'),
+				 ('private-repo','https://api.github.com/repos', 'GIT','https://github.com/${project}'),
+				 ('sonar-repo-example','https://sonarqube.inria.fr/sonarqube/api','SONAR','https://sonarqube.inria.fr/sonarqube/dashboard?id=${project}');
 		</sql>
 	</changeSet>
 				 
@@ -340,23 +340,23 @@
 	<changeSet author="initial" id="10022023_50014">
 		<sql dbms="h2">
 			INSERT INTO component_properties (component_property_name,component_property_value,component_id) VALUES
-				 ('component_owner','shaguixyz',1),
+				 ('organization','shaguixyz',1),
 				 ('component_repository','empty',1),
 				 ('xml_path','pom.xml',1),
 				 ('component_path','rws-empty',1),
-				 ('component_owner','shaguixyz',2),
+				 ('organization','shaguixyz',2),
 				 ('component_repository','empty',2),
 				 ('xml_path','pom.xml',2),
 				 ('component_path','bff-empty',2),
-				 ('component_owner','shaguixyz',5),
+				 ('organization','shaguixyz',5),
 				 ('component_repository','sdc',5),
 				 ('component_path','bff-sdc',5),
 				 ('xml_path','pom.xml',5),
-				 ('component_owner','shaguixyz',6),
+				 ('organization','shaguixyz',6),
 				 ('component_repository','sdc',6),
 				 ('component_path','rws-sdc',6),
 				 ('xml_path','pom.xml',6),
-				 ('component_owner','shaguixyz',7),
+				 ('organization','shaguixyz',7),
 				 ('component_repository','sdc',7),
 				 ('component_path','ngx-sdc',7),
 				 ('xml_path','pom.xml',7);

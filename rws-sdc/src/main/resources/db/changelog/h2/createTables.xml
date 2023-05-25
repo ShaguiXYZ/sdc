@@ -37,9 +37,10 @@
 			
 			CREATE TABLE uris (
 				uri_id int4 auto_increment NOT NULL,
-				uri_name varchar NULL,
-				uri_value varchar NULL,
-				uri_type varchar NULL,
+				uri_name varchar NOT NULL,
+				uri_value varchar NOT NULL,
+				uri_type varchar NOT NULL,
+				uri_source varchar NULL,
 				CONSTRAINT uris_pk PRIMARY KEY (uri_id),
 				CONSTRAINT uris_name_uk UNIQUE (uri_name)
 			);

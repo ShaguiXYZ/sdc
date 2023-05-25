@@ -4,13 +4,16 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
+import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
 
 public class ComponentUtils {
@@ -45,6 +48,11 @@ public class ComponentUtils {
 		Optional<ComponentPropertyModel> model = component.getProperties().stream()
 				.filter(property -> key.equals(property.getName())).findFirst();
 		return model.isPresent() ? model.get().getValue() : defaultValue;
+	}
+	
+	public static List<MetricModel> metricsByType(ComponentModel component, AnalysisType type) {
+		return component.getComponentTypeArchitecture().getMetrics().stream()
+				.filter(metric -> type.equals(metric.getType())).collect(Collectors.toList());
 	}
 
 	private static void addOrUpdatePropertyValue(ComponentModel component, String propertyName, String propertyValue) {

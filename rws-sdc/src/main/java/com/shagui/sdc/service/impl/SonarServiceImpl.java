@@ -12,11 +12,9 @@ import org.springframework.stereotype.Service;
 import com.shagui.sdc.api.client.SonarClient;
 import com.shagui.sdc.api.dto.sonar.MeasureSonarDTO;
 import com.shagui.sdc.api.dto.sonar.MeasuresSonarDTO;
-import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.model.UriModel;
 import com.shagui.sdc.service.SonarService;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.UrlUtils;
@@ -31,8 +29,7 @@ public class SonarServiceImpl implements SonarService {
 	@Override
 	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
 		List<ComponentAnalysisModel> analysisList = new ArrayList<>();
-		List<MetricModel> sonarMetrics = component.getComponentTypeArchitecture().getMetrics().stream()
-				.filter(metric -> AnalysisType.SONAR.equals(metric.getType())).collect(Collectors.toList());
+		List<MetricModel> sonarMetrics = metrics(component);
 
 		if (!sonarMetrics.isEmpty()) {
 			Optional<MeasuresSonarDTO> measures = getSonarClientMeasures(component, sonarMetrics);
@@ -57,12 +54,11 @@ public class SonarServiceImpl implements SonarService {
 
 	private Optional<MeasuresSonarDTO> getSonarClientMeasures(ComponentModel component,
 			List<MetricModel> sonarMetrics) {
-		Optional<UriModel> sonarUri = getUri(component.getUris(), AnalysisType.SONAR);
+		Optional<String> sonarUri = uri(component);
 
 		if (sonarUri.isPresent()) {
 			String metrics = sonarMetrics.stream().map(MetricModel::getName).collect(Collectors.joining(","));
-
-			Response response = sonarClient.measures(URI.create(sonarUri.get().getUri()), component.getName(), metrics);
+			Response response = sonarClient.measures(URI.create(sonarUri.get()), component.getName(), metrics);
 
 			return Optional.of(UrlUtils.mapResponse(response, MeasuresSonarDTO.class));
 		}

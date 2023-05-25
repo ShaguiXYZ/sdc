@@ -4,28 +4,22 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.xml.sax.SAXException;
 
 import com.shagui.sdc.api.client.GitClient;
 import com.shagui.sdc.api.dto.git.ContentDTO;
-import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.model.UriModel;
 import com.shagui.sdc.service.GitService;
-import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.UrlUtils;
 import com.shagui.sdc.util.XmlDocument;
@@ -41,18 +35,13 @@ public class GitServiceImpl implements GitService {
 
 	@Override
 	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
-		List<MetricModel> gitMetrics = component.getComponentTypeArchitecture().getMetrics().stream()
-				.filter(metric -> AnalysisType.GIT.equals(metric.getType())).collect(Collectors.toList());
+		List<MetricModel> gitMetrics = metrics(component);
+		ContentDTO gitData = null;
 
-		if (!gitMetrics.isEmpty()) {
-			Optional<UriModel> uri = getUri(component.getUris(), AnalysisType.GIT);
+		if (!gitMetrics.isEmpty() && (gitData = retrieveGitData(component)) != null) {
+			XmlDocument docuemnt = xmlDocument(gitData.getDownloadUrl());
 
-			if (uri.isPresent()) {
-				ContentDTO gitData = retrieveGitData(component, uri.get());
-				XmlDocument docuemnt = xmlDocument(gitData.getDownloadUrl());
-
-				return getResponse(component, gitMetrics, docuemnt);
-			}
+			return getResponse(component, gitMetrics, docuemnt);
 		}
 
 		return new ArrayList<>();
@@ -75,22 +64,20 @@ public class GitServiceImpl implements GitService {
 		return response;
 	}
 
-	private ContentDTO retrieveGitData(ComponentModel component, UriModel uriModel) {
-		String xmlPath = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.XML_PATH);
-		String path = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.PATH);
-		String owner = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_OWNER);
-		String repository = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_REPOSITORY);
+	private ContentDTO retrieveGitData(ComponentModel component) {
+		Optional<String> uri = uri(component);
 
-		String uri = Arrays.asList(uriModel.getUri(), owner, repository, "contents", path, xmlPath).stream()
-				.filter(StringUtils::hasText).collect(Collectors.joining("/"));
+		if (uri.isPresent()) {
+			Optional<String> authorizationHeader = authorization(component);
 
-		Optional<String> authorizationHeader = getUriProperty(uriModel, Ctes.URI_PROPERTIES.AUTHORIZATION);
+			Response response = authorizationHeader.isPresent()
+					? gitClient.repoFile(URI.create(uri.get()), authorizationHeader.get())
+					: gitClient.repoFile(URI.create(uri.get()));
 
-		Response response = authorizationHeader.isPresent()
-				? gitClient.repoFile(URI.create(uri), authorizationHeader.get())
-				: gitClient.repoFile(URI.create(uri));
+			return UrlUtils.mapResponse(response, ContentDTO.class);
+		}
 
-		return UrlUtils.mapResponse(response, ContentDTO.class);
+		return null;
 	}
 
 	private XmlDocument xmlDocument(String uri) {
