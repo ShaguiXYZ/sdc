@@ -13,10 +13,9 @@ import org.mockito.Mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.domain.RequestPageInfo;
-import com.shagui.sdc.enums.MetricType;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
-import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.model.ArchitectureModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -68,7 +67,7 @@ public class RwsTestUtils {
 
 	public static String JSON_RESPONSE_TEST = "{\"id\": 100, \"name\": \"generic response\"}";
 	public static String JSON_COMPONENT_DTO_TEST = "{\"name\": \"generic response\", \"download_url\": \"http://www.url-pom.xml\"}";
-	
+
 	public static Response response(int status, String json) {
 		Map<String, Collection<String>> headers = new HashMap<>();
 		headers.put("Authorization", Collections.emptyList());
@@ -109,9 +108,10 @@ public class RwsTestUtils {
 		ComponentPropertyModel model = new ComponentPropertyModel();
 		model.setName(name);
 		model.setValue("test");
-		
+
 		return model;
 	}
+
 	public static ComponentTypeArchitectureModel componentTypeArchitectureModelMock() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		metrics.add(metricModelMock(1));
@@ -123,17 +123,17 @@ public class RwsTestUtils {
 		ArchitectureModel architecture = new ArchitectureModel();
 		architecture.setId(1);
 		architecture.setName("test");
-		
+
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);
 		componentTypeArchitecture.setMetrics(metrics);
 		componentTypeArchitecture.setComponentType(componentType);
 		componentTypeArchitecture.setArchitecture(architecture);
-		
+
 		return componentTypeArchitecture;
 
 	}
-	
+
 	public static ComponentModel componentModelMock() {
 		List<ComponentPropertyModel> properties = new ArrayList<>();
 		properties.add(componentProperty("property_name"));
@@ -190,7 +190,7 @@ public class RwsTestUtils {
 		squad.setDepartment(department);
 
 		UriModel urimodel = new UriModel();
-		urimodel.setType(UriType.GIT);
+		urimodel.setType(AnalysisType.GIT);
 		urimodel.setName("test");
 
 		List<UriModel> uris = new ArrayList<UriModel>();
@@ -213,7 +213,7 @@ public class RwsTestUtils {
 		MetricModel source = new MetricModel();
 		source.setId(id);
 		source.setName("metric name");
-		source.setType(MetricType.GIT);
+		source.setType(AnalysisType.GIT);
 		source.setValidation(MetricValidation.EQ);
 		source.setValueType(MetricValueType.NUMERIC);
 
@@ -258,9 +258,9 @@ public class RwsTestUtils {
 	public static RequestPageInfo requestPageInfo() {
 
 		return new RequestPageInfo(1);
-		
+
 	}
-	
+
 	public static MetricValuesModel metricValuesModelMock() {
 		MetricValuesModel mock = new MetricValuesModel();
 		mock.setId(1);
@@ -271,10 +271,10 @@ public class RwsTestUtils {
 		mock.setGoodValue("10.0");
 		mock.setPerfectValue("25.0");
 		mock.setWeight(10);
-		
+
 		return mock;
 	}
-	
+
 	public static ComponentAnalysisModel componentAnalysisModelMock(String value) {
 		ComponentAnalysisModel mock = new ComponentAnalysisModel();
 		mock.setId(new ComponentAnalysisPk(1, 1, new Date()));
@@ -282,7 +282,7 @@ public class RwsTestUtils {
 		mock.setMetric(metricModelMock(1));
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
 		mock.setValue(value);
-		
+
 		return mock;
 	}
 

@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
+
+import { AnalysisType } from './analysis-type.model';
+
 /* eslint-disable no-redeclare */
 export enum ValueType {
   NUMERIC = 'NUMERIC',
@@ -16,7 +19,7 @@ export enum ValidationType {
 export interface IMetricDTO {
   id: number;
   name: string;
-  type: string;
+  type: AnalysisType;
   validation?: ValidationType;
   valueType?: ValueType;
 }
@@ -24,7 +27,7 @@ export interface IMetricDTO {
 export interface IMetricModel {
   id: number;
   name: string;
-  type: string;
+  type: AnalysisType;
   validation?: ValidationType;
   valueType?: ValueType;
 }
@@ -38,7 +41,7 @@ export class MetricModel implements IMetricModel {
   constructor(
     public id: number,
     public name: string,
-    public type: string,
+    public type: AnalysisType,
     public validation?: ValidationType,
     public valueType?: ValueType
   ) {}

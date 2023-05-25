@@ -28,9 +28,26 @@
     cursor: pointer;
   }
 
-  .metric-name {
-    font-size: 14px;
-    font-weight: bold;
+  .metric-info {
+    width: 100%;
+
+    .extra-info {
+      position: relative;
+
+      i {
+        position: absolute;
+        right: 10px;
+      }
+
+      i:hover {
+        color: $primary-base-color;
+      }
+    }
+
+    .metric-name {
+      font-size: 14px;
+      font-weight: bold;
+    }
   }
 
   .metric-state {

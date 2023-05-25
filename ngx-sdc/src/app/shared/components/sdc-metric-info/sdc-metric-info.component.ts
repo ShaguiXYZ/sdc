@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AvailableMetricStates, DEFAULT_METRIC_STATE, stateByCoverage, styleByCoverage } from 'src/app/core/lib';
-import { IMetricAnalysisModel, IMetricModel } from 'src/app/core/models/sdc';
+import { AnalysisType, IMetricAnalysisModel, IMetricModel } from 'src/app/core/models/sdc';
 import { AnalysisService } from 'src/app/core/services/sdc';
 
 @Component({
@@ -44,7 +44,16 @@ export class SdcMetricInfoComponent implements OnInit {
       [AvailableMetricStates.WITH_RISK]: 'fa-solid fa-triangle-exclamation fa-lg',
       [AvailableMetricStates.ACCEPTABLE]: 'fa-solid fa-circle-exclamation fa-lg',
       [AvailableMetricStates.PERFECT]: 'fa-solid fa-circle-check fa-lg'
-    }[stateByCoverage(this.analysis?.coverage || DEFAULT_METRIC_STATE)];
+    }[stateByCoverage(this.analysis?.coverage ?? DEFAULT_METRIC_STATE)];
+  }
+
+  get analysisIcon(): string {
+    return (
+      {
+        [AnalysisType.GIT]: 'fa-brands fa-github',
+        [AnalysisType.SONAR]: 'fa-solid fa-satellite-dish'
+      }[this.metric.type] ?? ''
+    );
   }
 
   public onClick() {

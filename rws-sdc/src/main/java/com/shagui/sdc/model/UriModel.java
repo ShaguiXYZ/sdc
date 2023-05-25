@@ -17,7 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.shagui.sdc.enums.UriType;
+import com.shagui.sdc.enums.AnalysisType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +38,7 @@ public class UriModel implements ModelInterface<Integer> {
 
 	@Column(name = "uri_type")
 	@Enumerated(EnumType.STRING)
-	private UriType type;
+	private AnalysisType type;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "component_uris", joinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "uri_id"), inverseJoinColumns = @JoinColumn(name = "component_id", referencedColumnName = "component_id"))

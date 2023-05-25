@@ -1,5 +1,5 @@
 package com.shagui.sdc.enums;
 
-public enum UriType {
+public enum AnalysisType {
 	GIT, SONAR
 }

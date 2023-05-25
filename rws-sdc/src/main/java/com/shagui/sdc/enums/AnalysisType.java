@@ -1,5 +1,5 @@
 package com.shagui.sdc.enums;
 
-public enum MetricType {
+public enum AnalysisType {
 	GIT, SONAR
 }

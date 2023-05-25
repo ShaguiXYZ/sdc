@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.shagui.sdc.enums.MetricType;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
 
@@ -32,7 +32,7 @@ public class MetricModel implements ModelInterface<Integer> {
 
 	@Column(name = "metric_type")
 	@Enumerated(EnumType.STRING)
-	private MetricType type;
+	private AnalysisType type;
 
 	@Column(name = "metric_value_type")
 	@Enumerated(EnumType.STRING)

@@ -10,7 +10,7 @@ import com.shagui.sdc.api.view.DepartmentView;
 import com.shagui.sdc.api.view.MetricAnalysisView;
 import com.shagui.sdc.api.view.MetricView;
 import com.shagui.sdc.api.view.SquadView;
-import com.shagui.sdc.enums.MetricType;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
 
@@ -46,7 +46,7 @@ public class ViewDataUtils {
 		return data;
 	}
 
-	public static MetricView createMetric(MetricType type, MetricValueType valueType, MetricValidation validation) {
+	public static MetricView createMetric(AnalysisType type, MetricValueType valueType, MetricValidation validation) {
 		MetricView data = new MetricView();
 		data.setId(DataUtils.DEFAULT_METRIC_ID);
 		data.setName("architecture name");

@@ -22,7 +22,7 @@ import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
-import com.shagui.sdc.enums.MetricType;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
@@ -89,7 +89,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	private List<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {
-		Set<MetricType> metricTypes = new HashSet<>();
+		Set<AnalysisType> metricTypes = new HashSet<>();
 		component.getComponentTypeArchitecture().getMetrics().forEach(metric -> metricTypes.add(metric.getType()));
 
 		List<Future<List<ComponentAnalysisModel>>> futureTascs = new ArrayList<>();

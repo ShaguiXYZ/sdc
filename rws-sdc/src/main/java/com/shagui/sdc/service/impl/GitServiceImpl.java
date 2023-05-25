@@ -19,9 +19,7 @@ import org.xml.sax.SAXException;
 
 import com.shagui.sdc.api.client.GitClient;
 import com.shagui.sdc.api.dto.git.ContentDTO;
-import com.shagui.sdc.core.configuration.AppConfig;
-import com.shagui.sdc.enums.MetricType;
-import com.shagui.sdc.enums.UriType;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
@@ -39,18 +37,15 @@ import lombok.extern.slf4j.Slf4j;
 @Service(Ctes.ANALYSIS_SERVICES_TYPES.GIT)
 public class GitServiceImpl implements GitService {
 	@Autowired
-	private AppConfig appConfig;
-
-	@Autowired
 	private GitClient gitClient;
 
 	@Override
 	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
 		List<MetricModel> gitMetrics = component.getComponentTypeArchitecture().getMetrics().stream()
-				.filter(metric -> MetricType.GIT.equals(metric.getType())).collect(Collectors.toList());
+				.filter(metric -> AnalysisType.GIT.equals(metric.getType())).collect(Collectors.toList());
 
 		if (!gitMetrics.isEmpty()) {
-			Optional<UriModel> uri = getUri(component.getUris(), UriType.GIT);
+			Optional<UriModel> uri = getUri(component.getUris(), AnalysisType.GIT);
 
 			if (uri.isPresent()) {
 				ContentDTO gitData = retrieveGitData(component, uri.get());
@@ -81,9 +76,8 @@ public class GitServiceImpl implements GitService {
 	}
 
 	private ContentDTO retrieveGitData(ComponentModel component, UriModel uriModel) {
-		String xmlPath = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.XML_PATH,
-				appConfig.getDefaultXmlPath());
-		String path = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.PATH, component.getName());
+		String xmlPath = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.XML_PATH);
+		String path = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.PATH);
 		String owner = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_OWNER);
 		String repository = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_REPOSITORY);
 

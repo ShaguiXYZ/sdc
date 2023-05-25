@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
-import com.shagui.sdc.enums.MetricType;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
@@ -32,7 +32,7 @@ class MapperTest {
 		MetricModel metric = new MetricModel();
 		metric.setId(1);
 		metric.setName("test");
-		metric.setType(MetricType.GIT);
+		metric.setType(AnalysisType.GIT);
 		metric.setValidation(MetricValidation.EQ);
 		metric.setValueType(MetricValueType.NUMERIC);
 		

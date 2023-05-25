@@ -10,7 +10,7 @@ import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
-import com.shagui.sdc.enums.MetricType;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
 
@@ -46,7 +46,7 @@ public class DtoDataUtils {
 		return data;
 	}
 
-	public static MetricDTO createMetric(MetricType type, MetricValueType valueType, MetricValidation validation) {
+	public static MetricDTO createMetric(AnalysisType type, MetricValueType valueType, MetricValidation validation) {
 		MetricDTO data = new MetricDTO();
 		data.setId(DataUtils.DEFAULT_METRIC_ID);
 		data.setName("architecture name");

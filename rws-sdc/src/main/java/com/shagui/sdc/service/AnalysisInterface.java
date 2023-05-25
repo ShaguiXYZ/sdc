@@ -3,7 +3,7 @@ package com.shagui.sdc.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.shagui.sdc.enums.UriType;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.RequestPropertiesModel;
@@ -13,7 +13,7 @@ import com.shagui.sdc.model.UriModel;
 public interface AnalysisInterface {
 	List<ComponentAnalysisModel> analyze(ComponentModel component);
 
-	default Optional<UriModel> getUri(List<UriModel> uris, UriType type) {
+	default Optional<UriModel> getUri(List<UriModel> uris, AnalysisType type) {
 		return uris.stream().filter(uri -> type.equals(uri.getType())).findFirst();
 	}
 
