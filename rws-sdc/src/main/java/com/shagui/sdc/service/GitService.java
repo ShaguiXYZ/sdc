@@ -13,6 +13,7 @@ import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.UriModel;
 import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Ctes;
+import com.shagui.sdc.util.TokenReplacement;
 
 public interface GitService extends AnalysisInterface {
 	@Override
@@ -47,6 +48,7 @@ public interface GitService extends AnalysisInterface {
 			authorization = uriProperty(uriModel.get(), Ctes.URI_PROPERTIES.AUTHORIZATION).orElse(null);
 		}
 
-		return Optional.ofNullable(authorization);
+		return Optional.ofNullable(authorization)
+				.map(data -> TokenReplacement.getInstance(ComponentUtils.tokens()).replace(data));
 	}
 }

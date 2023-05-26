@@ -1,10 +1,13 @@
 package com.shagui.sdc.util;
 
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.shagui.sdc.core.configuration.SecurityTokenConfig;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -25,19 +28,26 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ComponentUtilsConfig {
 	@Autowired
-	private ComponentRepository componentRepository;
+	private final SecurityTokenConfig tokens;
 	
 	@Autowired
-	private ComponentAnalysisRepository componentAnalysisRepository;
-
-	@Autowired
-	private ComponentPropertyRepository componentPropertyRepository;
-
-	@Autowired
-	private ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
+	private final ComponentRepository componentRepository;
 	
 	@Autowired
-	private SquadRepository squadRepository;
+	private final ComponentAnalysisRepository componentAnalysisRepository;
+
+	@Autowired
+	private final ComponentPropertyRepository componentPropertyRepository;
+
+	@Autowired
+	private final ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
+	
+	@Autowired
+	private final SquadRepository squadRepository;
+	
+	public Map<String, String> tokens() {
+		return tokens.dictionary();
+	}
 
 	public JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository() {
 		return () -> componentRepository;

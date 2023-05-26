@@ -3,6 +3,7 @@ package com.shagui.sdc.util;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,10 @@ public class ComponentUtils {
 
 	public static void setConfig(ComponentUtilsConfig config) {
 		ComponentUtils.config = config;
+	}
+	
+	public static Map<String, String> tokens() {
+		return config.tokens();
 	}
 
 	@Transactional

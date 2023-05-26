@@ -20,7 +20,7 @@ import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
-public class ComponentUtilsConfigTest {
+class ComponentUtilsConfigTest {
 
 	@Mock
 	private ComponentRepository componentRepository;

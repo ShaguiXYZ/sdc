@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 public class UrlUtilsConfig {
-	private ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
 	@PostConstruct
 	public void init() {

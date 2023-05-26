@@ -13,6 +13,7 @@ import org.mockito.Mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.domain.RequestPageInfo;
+import com.shagui.sdc.core.configuration.SecurityTokenConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
@@ -43,6 +44,9 @@ import feign.Request;
 import feign.Response;
 
 public class RwsTestUtils {
+
+	@Mock
+	private static SecurityTokenConfig securityTokenConfig;
 
 	@Mock
 	private static ComponentRepository componentRepository;
@@ -80,8 +84,9 @@ public class RwsTestUtils {
 	}
 
 	public static ComponentUtilsConfig componentUtilsConfig() {
-		ComponentUtilsConfig config = new ComponentUtilsConfig(componentRepository, componentAnalysisRepository,
-				componentPropertyRepository, historicalCoverageComponentRepository, squadRepository);
+		ComponentUtilsConfig config = new ComponentUtilsConfig(securityTokenConfig, componentRepository,
+				componentAnalysisRepository, componentPropertyRepository, historicalCoverageComponentRepository,
+				squadRepository);
 
 		return config;
 	}

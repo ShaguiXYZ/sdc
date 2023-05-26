@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 public class MapperConfig {
-	private ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
 	@PostConstruct
 	public void init() {

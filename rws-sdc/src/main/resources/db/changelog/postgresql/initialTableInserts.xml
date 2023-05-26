@@ -248,7 +248,7 @@
 		<sql dbms="postgresql">
 			INSERT INTO request_properties (request_property_key,request_property_value) VALUES
 				 ('Accept','application/vnd.github.v4.raw'),
-				 ('Authorization','token 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');
+				 ('Authorization','token ${git-authorization}');
 		</sql>
 	</changeSet>
 				 

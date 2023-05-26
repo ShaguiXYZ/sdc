@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.shagui.sdc.core.configuration.SecurityTokenConfig;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
@@ -28,6 +29,9 @@ import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
 class ComponentUtilsTest {
+
+	@Mock
+	private static SecurityTokenConfig securityTokenConfig;
 
 	@Mock
 	private static ComponentRepository componentRepository;
@@ -50,8 +54,9 @@ class ComponentUtilsTest {
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
-		ComponentUtils.setConfig(new ComponentUtilsConfig(componentRepository, componentAnalysisRepository,
-				componentPropertyRepository, historicalCoverageComponentRepository, squadRepository));
+		ComponentUtils.setConfig(
+				new ComponentUtilsConfig(securityTokenConfig, componentRepository, componentAnalysisRepository,
+						componentPropertyRepository, historicalCoverageComponentRepository, squadRepository));
 		AnalysisUtils.setConfig(new AnalysisUtilsConfig(metricValueRepository));
 	}
 
