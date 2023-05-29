@@ -24,8 +24,9 @@ services:
       uri: http://localhost:9092/rws-security
 
 sdc:
-   security:
+   dictionary:
       secret:
+         git-authorization-type: token
          git-authorization: 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
          generic-authorization: ghp_GenericT1LU4Mh5HhoxckHaK0LJ1ev2pK4CU
           

@@ -13,7 +13,7 @@ import org.mockito.Mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.domain.RequestPageInfo;
-import com.shagui.sdc.core.configuration.SecurityTokenConfig;
+import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
@@ -46,7 +46,7 @@ import feign.Response;
 public class RwsTestUtils {
 
 	@Mock
-	private static SecurityTokenConfig securityTokenConfig;
+	private static DictionaryConfig securityTokenConfig;
 
 	@Mock
 	private static ComponentRepository componentRepository;

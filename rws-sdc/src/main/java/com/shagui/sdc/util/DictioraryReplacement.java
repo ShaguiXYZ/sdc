@@ -1,13 +1,14 @@
 package com.shagui.sdc.util;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
-public class TokenReplacement {
+public class DictioraryReplacement {
 
-	private TokenReplacement() {
+	private DictioraryReplacement() {
 	}
 
 	public static Replacement getInstance(Map<String, String> dictionary) {
@@ -22,20 +23,21 @@ public class TokenReplacement {
 		}
 
 		public String replace(String source) {
-			Pattern p = Pattern.compile("(?<=\\$\\{)(.*)(?=\\})");
+			Pattern p = Pattern.compile("(?<=\\$\\{)([\\w\\-]*)(?=\\})");
 			Matcher m = p.matcher(source);
 
-			var wrapper = new Object() {
-				String result = source;
-			};
-			
-			if (m.find()) {
-				IntStream.range(0, m.groupCount()).filter(index -> dictionary.containsKey(m.group(index)))
-						.forEach(index -> wrapper.result = wrapper.result.replace("${" + m.group(index) + "}",
-								dictionary.get(m.group(index))));
+			String result = source;
+			Set<String> keys = new HashSet<>();
+
+			while (m.find()) {
+				String key = m.group();
+
+				if (keys.add(key) && dictionary.containsKey(key)) {
+					result = result.replace("${" + key + "}", dictionary.get(key));
+				}
 			}
 
-			return wrapper.result;
+			return result;
 		}
 	}
 }

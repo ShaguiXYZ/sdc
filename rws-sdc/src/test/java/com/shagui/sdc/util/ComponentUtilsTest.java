@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.shagui.sdc.core.configuration.SecurityTokenConfig;
+import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
@@ -31,7 +31,7 @@ import com.shagui.sdc.test.utils.RwsTestUtils;
 class ComponentUtilsTest {
 
 	@Mock
-	private static SecurityTokenConfig securityTokenConfig;
+	private static DictionaryConfig securityTokenConfig;
 
 	@Mock
 	private static ComponentRepository componentRepository;

@@ -9,15 +9,11 @@ import lombok.Data;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "sdc.security")
-public class SecurityTokenConfig {
+@ConfigurationProperties(prefix = "sdc.dictionary")
+public class DictionaryConfig {
 	private final Map<String, String> secret;
 
-	public Map<String, String> dictionary() {
+	public Map<String, String> secret() {
 		return secret;
-	}
-	
-	public String secret(String key) {
-		return secret.get(key);
 	}
 }

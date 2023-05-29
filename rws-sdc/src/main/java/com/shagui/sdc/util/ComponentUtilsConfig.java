@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.shagui.sdc.core.configuration.SecurityTokenConfig;
+import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -28,11 +28,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ComponentUtilsConfig {
 	@Autowired
-	private final SecurityTokenConfig tokens;
-	
+	private final DictionaryConfig tokens;
+
 	@Autowired
 	private final ComponentRepository componentRepository;
-	
+
 	@Autowired
 	private final ComponentAnalysisRepository componentAnalysisRepository;
 
@@ -41,12 +41,12 @@ public class ComponentUtilsConfig {
 
 	@Autowired
 	private final ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
-	
+
 	@Autowired
 	private final SquadRepository squadRepository;
-	
+
 	public Map<String, String> tokens() {
-		return tokens.dictionary();
+		return tokens.secret();
 	}
 
 	public JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository() {
