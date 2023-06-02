@@ -20,17 +20,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "metrics", uniqueConstraints = { @UniqueConstraint(columnNames = { "metric_name", "metric_type" }) })
+@Table(name = "metrics", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "type" }) })
 public class MetricModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "metric_id")
 	private Integer id;
 
-	@Column(name = "metric_name")
+	@Column(nullable = false)
 	private String name;
 
-	@Column(name = "metric_type")
 	@Enumerated(EnumType.STRING)
 	private AnalysisType type;
 

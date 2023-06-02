@@ -27,7 +27,6 @@ import lombok.Setter;
 public class MetricValuesModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "metric_value_id")
 	private Integer id;
 
 	@CreationTimestamp

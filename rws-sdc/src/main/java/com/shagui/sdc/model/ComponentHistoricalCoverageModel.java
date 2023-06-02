@@ -27,7 +27,7 @@ public class ComponentHistoricalCoverageModel implements ModelInterface<Componen
 	@EmbeddedId
 	private ComponentHistoricalCoveragePk id;
 
-	@Column(name = "component_historical_coverage_vaue")
+	@Column(name = "historical_coverage_vaue")
 	private float coverage;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

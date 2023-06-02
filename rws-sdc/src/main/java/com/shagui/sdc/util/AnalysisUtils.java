@@ -24,11 +24,11 @@ public class AnalysisUtils {
 	public static final UnaryOperator<ComponentAnalysisModel> setMetricValues = analysis -> {
 		Optional<MetricValuesModel> metricValues = config.metricValuesRepository().repository()
 				.metricValueByDate(analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),
-						new Timestamp(analysis.getId().getComponentAnalysisDate().getTime()))
+						new Timestamp(analysis.getId().getAnalysisDate().getTime()))
 				.stream().findFirst();
 
 		ComponentAnalysisModel updatedModel = new ComponentAnalysisModel(analysis.getComponent(), analysis.getMetric(),
-				analysis.getValue(), analysis.getId().getComponentAnalysisDate());
+				analysis.getValue(), analysis.getId().getAnalysisDate());
 
 		if (metricValues.isPresent()) {
 			MetricValuesModel value = metricValues.get();

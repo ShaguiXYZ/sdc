@@ -25,27 +25,28 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "uris", uniqueConstraints = { @UniqueConstraint(columnNames = { "uri_name" }) })
+@Table(name = "uris", uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }) })
 public class UriModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "uri_id")
 	private Integer id;
-	@Column(name = "uri_name")
+
+	@Column(nullable = false)
 	private String name;
-	@Column(name = "uri_value")
+	
+	@Column(name = "value")
 	private String uri;
 
-	@Column(name = "uri_type")
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private AnalysisType type;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "component_uris", joinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "uri_id"), inverseJoinColumns = @JoinColumn(name = "component_id", referencedColumnName = "component_id"))
+	@JoinTable(name = "component_uris", joinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "component_id", referencedColumnName = "id"))
 	private List<ComponentModel> components;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "uri_request_properties", joinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "uri_id"), inverseJoinColumns = @JoinColumn(name = "request_property_id", referencedColumnName = "request_property_id"))
+	@JoinTable(name = "uri_request_properties", joinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_property_id", referencedColumnName = "id"))
 	private List<RequestPropertiesModel> properties;
 
 }

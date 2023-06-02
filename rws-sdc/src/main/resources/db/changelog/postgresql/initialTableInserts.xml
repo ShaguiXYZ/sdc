@@ -6,7 +6,7 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 	<changeSet author="initial" id="10022023_50001">
 		<sql dbms="postgresql">
-			INSERT INTO architectures (architecture_name) VALUES
+			INSERT INTO architectures (name) VALUES
 				 ('MICROSERVICES'),
 				 ('LEGACY'),
 				 ('ANGULAR'),
@@ -17,7 +17,7 @@
 				 
 	<changeSet author="initial" id="10022023_50002">
 		<sql dbms="postgresql">
-			INSERT INTO companies (company_id,company_name,company_codes) VALUES
+			INSERT INTO companies (id,name,company_codes) VALUES
 				 (2,'Allianz','ALZ,AZS'),
 				 (3,'Colombia','AZC,COL'),
 				 (4,'Brazil','AZB,BRA'),
@@ -32,7 +32,7 @@
 				 
 	<changeSet author="initial" id="10022023_50003">
 		<sql dbms="postgresql">
-			INSERT INTO departments (department_id,department_name,company_id) VALUES
+			INSERT INTO departments (id,name,company_id) VALUES
 				 (0,'ENTIDAD GENERICA',2),
 				 (13,'GCIA. DE TECNOLOGIA',3),
 				 (16,'OFIC. DIRECTAS (AREA 6 DIVISIÓN 47)',4),
@@ -43,7 +43,7 @@
 				 (108,'OFIC. DIRECTAS (AREA * DIVISIÓN 99)',9),
 				 (103,'SUPERINT INFRAESTRUTURA E ARQUITETURA',4),
 				 (109,'SUPERINT DESENV SISTEMAS DE PRODUTOS, RE',4);
-			INSERT INTO departments (department_id,department_name,company_id) VALUES
+			INSERT INTO departments (id,name,company_id) VALUES
 				 (70,'EPAC IBERIAN P&amp;C',2),
 				 (110,'EPAC IBERIAN LIFE &amp; MARKETING',2),
 				 (111,'BMP CROSS FUNCTION',2),
@@ -54,7 +54,7 @@
 				 (116,'TRANSITIONAL APPLICATIONS &amp; DECOMMISSION',2),
 				 (118,'BMP P&amp;C',2),
 				 (112,'OFIC. DIRECTAS (AREA * DIVISIÓN 58)',2);
-			INSERT INTO departments (department_id,department_name,company_id) VALUES
+			INSERT INTO departments (id,name,company_id) VALUES
 				 (120,'BUSINESS APPLICATIONS - TEAM 2',2),
 				 (121,'DTMF IT DEVELOPMENT PORTUGAL',8),
 				 (122,'DTMF IT OPERATIONS AND INCIDENT MGMT',8),
@@ -65,7 +65,7 @@
 				 (129,'EPAC CORE',2),
 				 (131,'INFRASTRUCTURE &amp; SECURITY',2),
 				 (132,'FINANCE &amp; GOVERNANCE',2);
-			INSERT INTO departments (department_id,department_name,company_id) VALUES
+			INSERT INTO departments (id,name,company_id) VALUES
 				 (133,'QA &amp; IT STANDARDS, TRAINING',2),
 				 (134,'REGIONAL SERVICES',2),
 				 (135,'GSI CLAIMS',2),
@@ -77,7 +77,7 @@
 				 
 	<changeSet author="initial" id="10022023_50004">
 		<sql dbms="postgresql">
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (42,'CO_DIR. DE DESARROLLO',13),
 				 (75,'CO_DIR. INFRAESTRUCTURA Y COMUNICACIONES',13),
 				 (89,'BR_GER INFRAESTRUTURA, SERVICOS E ARQUITETU',16),
@@ -88,7 +88,7 @@
 				 (179,'RE_SAP &amp; DBA',73),
 				 (180,'RE_SECURITY',74),
 				 (265,'SAP SERVICES - TEAM 2',96);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (287,'BR_GER SIST BACK OFFICE, IMPRESSAO, CORPORA',104),
 				 (289,'BR_GER SIST SAUDE, VIDA, AGRO E AUTO',104),
 				 (290,'BR_GER SISTEMAS FINANCEIRO, CONTABIL, RH E',104),
@@ -99,7 +99,7 @@
 				 (305,'BR_GER SIST CORPORATE, P&amp;C, TRANSPORTES, AG',109),
 				 (306,'BR_GER SIST AUTOMOVEL',109),
 				 (307,'BR_GER SIST SAUDE, VIDA E AGRO',109);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (312,'IB_IBERIA P&amp;C &amp; PORTFOLIO',70),
 				 (314,'IB_AGROSEGUROS',70),
 				 (315,'IB_COMMERCIAL &amp; FISCAL',70),
@@ -110,7 +110,7 @@
 				 (321,'BB_JV INTEGRATION',111),
 				 (332,'RE_OPERATIONS &amp; PEOPLE FUNCTION',78),
 				 (333,'BMP3',113);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (334,'BMP1',113),
 				 (335,'ARCHITECTURE 1',113),
 				 (336,'QUALITY ASSURANCE',114),
@@ -121,7 +121,7 @@
 				 (345,'ITMP component',115),
 				 (347,'ARCHITECTURE 2',113),
 				 (349,'SPAIN FACTORY TL / APPLICATION OWNER SP/',116);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (353,'IB_DOCUMENT MANAGEMENT',111),
 				 (354,'IB_COLLECTION &amp; PAYMENTS',111),
 				 (355,'IB_PRIVATE CAR',118),
@@ -132,7 +132,7 @@
 				 (366,'DIGITAL INTERACTION - TEAM 1',120),
 				 (367,'DIGITAL INTERACTION - TEAM 2',120),
 				 (368,'DTMF IT DEV THIRD PARTIES PT',121);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (369,'DTMF IT DEV BPI E PRODUTOS',121),
 				 (370,'DTMF IT DEV CLAIMS &amp; FISCAL',121),
 				 (371,'DTMF IT MAINFRAME AND STORAGE',122),
@@ -143,7 +143,7 @@
 				 (380,'RE_CPI',72),
 				 (381,'RE_BATCH OPERATIONS',124),
 				 (382,'RE_WORKPLACE &amp; APPLICATIONS',124);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (383,'RE_SERVICE DESK',124),
 				 (384,'IB_IT RRHH',111),
 				 (390,'DIR. SEGURIDAD DE INFORMATICA',126),
@@ -154,7 +154,7 @@
 				 (396,'RE_CORE POLICY',129),
 				 (397,'RE_PAYMENT &amp; COLLECTION &amp; REINSURANCE',129),
 				 (398,'RE_CLAIMS MANAGEMENT',129);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (399,'RE_OFICINA EPAC CORE',129),
 				 (401,'IB_OTHER MOTOR',118),
 				 (402,'BUSINESS CONTINUITY',112),
@@ -165,7 +165,7 @@
 				 (408,'RE_QA &amp; IT STANDARDS',133),
 				 (409,'RE_FINANCIAL ACCOUNTING',134),
 				 (410,'RE_SALES, CUSTOMERS &amp; DISTRIBUTION',134);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (411,'RE_BUSINESS INTELLIGENCE',134),
 				 (412,'RE_CPI',134),
 				 (413,'IB_DATA ANALYTICS AND INTEGRATION',135),
@@ -176,7 +176,7 @@
 				 (420,'ORGANIZATIONAL MANAGEMENT',130),
 				 (421,'PEOPLE ATTRACTION &amp; DEVELOPMENT',130),
 				 (422,'PEOPLE OPERATIONS &amp; MANAGEMENT - SWP &amp; D',130);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (423,'INTERNAL IT',130),
 				 (424,'PEOPLE OPERATIONS &amp; MANAGEMENT - BRANCH',130),
 				 (425,'FINANCE HUB',132),
@@ -187,7 +187,7 @@
 				 (432,'TEAM 1',136),
 				 (433,'BR_GER ARQUITETURA E INOVACAO',103),
 				 (434,'BR_GER WORKPLACE E SUPORTE CORRETORES',103);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (435,'TEAM 2',136),
 				 (437,'BUSINESS ANALYSIS',114),
 				 (438,'PROCUREMENT HUB',132),
@@ -198,14 +198,14 @@
 				 (443,'DATA HUB',120),
 				 (444,'SCRUM MASTERS',114),
 				 (445,'SERVICES &amp; QUALITY ASSURANCE',130);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
+			INSERT INTO squads (id,name,department_id) VALUES
 				 (0,'ENTIDAD GENERICA',0);
 		</sql>
 	</changeSet>
 				 
 	<changeSet author="initial" id="10022023_50005">
 		<sql dbms="postgresql">
-			INSERT INTO metrics (metric_name,metric_type,metric_value_type,metric_validation) VALUES
+			INSERT INTO metrics (name,type,metric_value_type,metric_validation) VALUES
 				 ('coverage','SONAR','NUMERIC','LTE'),
 				 ('alert_status','SONAR',NULL,NULL),
 				 ('bugs','SONAR','NUMERIC','GTE'),
@@ -216,7 +216,7 @@
 				 ('security_review_rating','SONAR',NULL,NULL),
 				 ('code_smells','SONAR',NULL,NULL),
 				 ('sqale_rating','SONAR',NULL,NULL);
-			INSERT INTO metrics (metric_name,metric_type,metric_value_type,metric_validation) VALUES
+			INSERT INTO metrics (name,type,metric_value_type,metric_validation) VALUES
 				 ('duplicated_lines_density','SONAR','NUMERIC','GTE'),
 				 ('ncloc','SONAR',NULL,NULL),
 				 ('ncloc_language_distribution','SONAR',NULL,NULL),
@@ -228,7 +228,7 @@
 				 
 	<changeSet author="initial" id="10022023_50006">
 		<sql dbms="postgresql">
-			INSERT INTO component_types (component_type_name) VALUES
+			INSERT INTO component_types (name) VALUES
 				 ('BACKEND'),
 				 ('FRONTEND'),
 				 ('CONTAINER');
@@ -237,7 +237,7 @@
 				 
 	<changeSet author="initial" id="10022023_50007">
 		<sql dbms="postgresql">
-			INSERT INTO uris (uri_name,uri_value,uri_type,uri_source) VALUES
+			INSERT INTO uris (name,value,type,source) VALUES
 				 ('public-repo','https://api.github.com/repos','GIT','https://github.com/${project}'),
 				 ('private-repo','https://api.github.com/repos', 'GIT','https://github.com/${project}'),
 				 ('sonar-repo-example','https://sonarqube.inria.fr/sonarqube/api','SONAR','https://sonarqube.inria.fr/sonarqube/dashboard?id=${project}');
@@ -246,7 +246,7 @@
 				 
 	<changeSet author="initial" id="10022023_50008">
 		<sql dbms="postgresql">
-			INSERT INTO request_properties (request_property_key,request_property_value) VALUES
+			INSERT INTO request_properties (key,value) VALUES
 				 ('Accept','application/vnd.github.v4.raw'),
 				 ('Authorization','token ${git-authorization}');
 		</sql>
@@ -274,7 +274,7 @@
 
 	<changeSet author="initial" id="10022023_50011">
 		<sql dbms="postgresql">
-			INSERT INTO components (component_name,component_type_architecture_id,squad_id) VALUES
+			INSERT INTO components (name,component_type_architecture_id,squad_id) VALUES
 				 ('rws-empty',1,42),
 				 ('bff-empty',1,42),
 				 ('storm:aff3ct:gitlab:master',3,75),
@@ -339,7 +339,7 @@
 
 	<changeSet author="initial" id="10022023_50014">
 		<sql dbms="postgresql">
-			INSERT INTO component_properties (component_property_name,component_property_value,component_id) VALUES
+			INSERT INTO component_properties (name,value,component_id) VALUES
 				 ('organization','shaguixyz',1),
 				 ('component_repository','empty',1),
 				 ('xml_path','pom.xml',1),

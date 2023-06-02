@@ -23,17 +23,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "components", uniqueConstraints = { @UniqueConstraint(columnNames = { "squad_id", "component_name" }) })
+@Table(name = "components", uniqueConstraints = { @UniqueConstraint(columnNames = { "squad_id", "name" }) })
 public class ComponentModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "component_id")
 	private Integer id;
 
-	@Column(name = "component_name", nullable = false)
+	@Column(nullable = false)
 	private String name;
 
-	@Column(name = "component_coverage")
 	private Float coverage;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -48,7 +46,7 @@ public class ComponentModel implements ModelInterface<Integer> {
 	private List<ComponentPropertyModel> properties;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "component_uris", joinColumns = @JoinColumn(name = "component_id", referencedColumnName = "component_id"), inverseJoinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "uri_id"))
+	@JoinTable(name = "component_uris", joinColumns = @JoinColumn(name = "component_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "id"))
 	private List<UriModel> uris;
 
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

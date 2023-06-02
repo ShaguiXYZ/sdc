@@ -22,10 +22,9 @@ import lombok.Setter;
 public class ArchitectureModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "architecture_id")
 	private int id;
 
-	@Column(name = "architecture_name")
+	@Column(nullable = false)
 	private String name;
 
 	@OneToMany(mappedBy = "architecture", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

@@ -33,7 +33,7 @@ public class ComponentAnalysisPk implements Serializable {
 	private int metricId;
 
 	@CreationTimestamp
-	@Column(name = "component_analysis_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
+	@Column(name = "analysis_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date componentAnalysisDate;
+	private Date analysisDate;
 }

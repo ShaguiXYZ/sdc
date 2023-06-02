@@ -22,10 +22,9 @@ import lombok.Setter;
 public class ComponentTypeModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "component_type_id")
 	private int id;
 
-	@Column(name = "component_type_name")
+	@Column(nullable = false)
 	private String name;
 
 	@OneToMany(mappedBy = "componentType", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

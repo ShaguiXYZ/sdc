@@ -3,7 +3,6 @@ package com.shagui.sdc.model;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +27,6 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 	@EmbeddedId
 	private ComponentAnalysisPk id;
 
-	@Column(name = "component_analysis_value")
 	private String value;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -62,8 +60,8 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 	}
 
 	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value,
-			Date componentAnalysisDate) {
-		this.id = new ComponentAnalysisPk(component.getId(), metric.getId(), componentAnalysisDate);
+			Date analysisDate) {
+		this.id = new ComponentAnalysisPk(component.getId(), metric.getId(), analysisDate);
 
 		this.component = component;
 		this.componentTypeArchitecture = component.getComponentTypeArchitecture();

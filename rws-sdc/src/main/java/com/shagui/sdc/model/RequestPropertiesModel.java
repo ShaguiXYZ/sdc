@@ -17,10 +17,8 @@ import lombok.Setter;
 public class RequestPropertiesModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "request_property_id")
 	private Integer id;
-	@Column(name = "request_property_key")
+	@Column(nullable = false)
 	private String key;
-	@Column(name = "request_property_value")
 	private String value;
 }

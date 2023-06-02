@@ -22,9 +22,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DepartmentModel implements ModelInterface<Integer> {
 	@Id
-	@Column(name = "department_id")
 	private Integer id;
-	@Column(name = "department_name")
+
+	@Column(nullable = false)
 	private String name;
 
 	@ManyToOne(fetch = FetchType.LAZY)

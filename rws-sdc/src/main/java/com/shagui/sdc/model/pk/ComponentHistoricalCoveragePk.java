@@ -30,7 +30,7 @@ public class ComponentHistoricalCoveragePk implements Serializable {
 	private int componentId;
 
 	@CreationTimestamp
-	@Column(name = "component_historical_coverage_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
+	@Column(name = "historical_coverage_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date analysisDate;
 }

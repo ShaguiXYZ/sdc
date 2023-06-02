@@ -37,7 +37,7 @@ class MapperTest {
 		metric.setValueType(MetricValueType.NUMERIC);
 		
 		ComponentAnalysisPk id = new ComponentAnalysisPk();
-		id.setComponentAnalysisDate(new Date(0));
+		id.setAnalysisDate(new Date(0));
 		
 		source.setMetric(metric);
 		source.setId(id);

@@ -18,10 +18,11 @@ import lombok.Setter;
 @Table(name = "companies")
 public class CompanyModel {
 	@Id
-	@Column(name = "company_id")
 	private int id;
-	@Column(name = "company_name")
+
+	@Column(nullable = false)
 	private String name;
+
 	@Column(name = "company_codes")
 	private String codes;
 

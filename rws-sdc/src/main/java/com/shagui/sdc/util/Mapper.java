@@ -60,7 +60,7 @@ public class Mapper {
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(source.getWeight(), source.getValue(),
 				source.getExpectedValue(), source.getGoodValue(), source.getPerfectValue());
 
-		MetricAnalysisDTO target = new MetricAnalysisDTO(source.getId().getComponentAnalysisDate(), metric,
+		MetricAnalysisDTO target = new MetricAnalysisDTO(source.getId().getAnalysisDate(), metric,
 				analysisValues, null);
 
 		target.setCoverage(MetricValidations.validate(target));

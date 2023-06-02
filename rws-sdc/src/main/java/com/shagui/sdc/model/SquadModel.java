@@ -22,13 +22,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SquadModel implements ModelInterface<Integer> {
 	@Id
-	@Column(name = "squad_id")
 	private Integer id;
 
-	@Column(name = "squad_name", nullable = false)
+	@Column(nullable = false)
 	private String name;
 
-	@Column(name = "squad_coverage")
 	private Float coverage;
 
 	@ManyToOne(fetch = FetchType.LAZY)

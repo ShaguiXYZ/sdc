@@ -21,17 +21,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "component_properties", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "component_id", "component_property_name" }) })
+		@UniqueConstraint(columnNames = { "component_id", "name" }) })
 public class ComponentPropertyModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "component_property_id")
 	private Integer id;
 
-	@Column(name = "component_property_name")
+	@Column(nullable = false)
 	private String name;
 
-	@Column(name = "component_property_value")
 	private String value;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
