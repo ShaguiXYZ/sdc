@@ -1,0 +1,4599 @@
+[
+  {
+    "id": 134,
+    "name": "REGIONAL SERVICES",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 411,
+        "name": "RE_BUSINESS INTELLIGENCE",
+        "jiraCode": "DTW",
+        "leadUser": "E006697",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 537,
+            "name": "SAS / Dyna - Cierre Mensual"
+          },
+          {
+            "id": 514,
+            "name": "Reporting BI"
+          },
+          {
+            "id": 215,
+            "name": "DTW (hito cierre diario)"
+          },
+          {
+            "id": 32,
+            "name": "Carga datos MIRA"
+          },
+          {
+            "id": 283,
+            "name": "JIRA PWC"
+          },
+          {
+            "id": 191,
+            "name": "DiaAllz"
+          },
+          {
+            "id": 513,
+            "name": "SAS-Datawarehouse"
+          },
+          {
+            "id": 533,
+            "name": "SAS - Especiales"
+          },
+          {
+            "id": 584,
+            "name": "Microstrategy DW"
+          },
+          {
+            "id": 515,
+            "name": "Datawarehouse IT"
+          },
+          {
+            "id": 532,
+            "name": "SAS - Cierre Diario"
+          },
+          {
+            "id": 534,
+            "name": "SAS - Cierre Mensual"
+          },
+          {
+            "id": 535,
+            "name": "SAS - Cierre Semanal"
+          },
+          {
+            "id": 539,
+            "name": "Contexto Dyna"
+          },
+          {
+            "id": 636,
+            "name": "Elastic"
+          },
+          {
+            "id": 713,
+            "name": "Analytics Data Tools"
+          },
+          {
+            "id": 585,
+            "name": "Microstrategy Users"
+          },
+          {
+            "id": 385,
+            "name": "Sales Objectives Manager"
+          },
+          {
+            "id": 598,
+            "name": "Microstrategy Consolidate"
+          },
+          {
+            "id": 432,
+            "name": "DiaAllz Maintenance"
+          },
+          {
+            "id": 538,
+            "name": "Tablas Dyna"
+          },
+          {
+            "id": 29,
+            "name": "Cadenas asignadas por Entidad Generica"
+          }
+        ]
+      },
+      {
+        "id": 409,
+        "name": "RE_FINANCIAL ACCOUNTING",
+        "jiraCode": "SAP",
+        "leadUser": "ORSIBCF",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 222,
+            "name": "Contabilidad terceros - Hito cierre"
+          },
+          {
+            "id": 197,
+            "name": "BW"
+          },
+          {
+            "id": 46,
+            "name": "Contabilidad terceros"
+          },
+          {
+            "id": 220,
+            "name": "Fiscal"
+          },
+          {
+            "id": 45,
+            "name": "Contabilidad general"
+          },
+          {
+            "id": 330,
+            "name": "Migraciones"
+          },
+          {
+            "id": 652,
+            "name": "SAP BBVA"
+          },
+          {
+            "id": 201,
+            "name": "Contabilidad Inversiones"
+          },
+          {
+            "id": 212,
+            "name": "Datos maestros"
+          },
+          {
+            "id": 221,
+            "name": "Contabilidad general - Hito Cierre"
+          }
+        ]
+      },
+      {
+        "id": 410,
+        "name": "RE_SALES, CUSTOMERS & DISTRIBUTION",
+        "jiraCode": "SCD",
+        "leadUser": "ORSILRV",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 38,
+            "name": "Commercial Agenda"
+          },
+          {
+            "id": 424,
+            "name": "Restrictive Lists"
+          },
+          {
+            "id": 557,
+            "name": "Lead- Mgmt"
+          },
+          {
+            "id": 40,
+            "name": "Commission Management"
+          },
+          {
+            "id": 423,
+            "name": "Legal"
+          },
+          {
+            "id": 581,
+            "name": "Organizational Mgmt"
+          },
+          {
+            "id": 436,
+            "name": "Webservices"
+          },
+          {
+            "id": 41,
+            "name": "Agent Campaign"
+          },
+          {
+            "id": 120,
+            "name": "Customer Campaign Manager"
+          },
+          {
+            "id": 372,
+            "name": "Kovis (debe pasar a local)"
+          },
+          {
+            "id": 563,
+            "name": "Sales & Business Development"
+          },
+          {
+            "id": 146,
+            "name": "Complaints"
+          },
+          {
+            "id": 427,
+            "name": "Customer Unification"
+          },
+          {
+            "id": 575,
+            "name": "Distribution Mgmt"
+          },
+          {
+            "id": 39,
+            "name": "Agent Agenda"
+          },
+          {
+            "id": 189,
+            "name": "Debtor Agent"
+          },
+          {
+            "id": 184,
+            "name": "Agent grouping"
+          },
+          {
+            "id": 144,
+            "name": "General Queries"
+          },
+          {
+            "id": 186,
+            "name": "Collaborator Manager"
+          },
+          {
+            "id": 100,
+            "name": "Communication management legacy"
+          },
+          {
+            "id": 121,
+            "name": "CRM Brokers (CRM Mediadores)"
+          },
+          {
+            "id": 118,
+            "name": "Leads"
+          },
+          {
+            "id": 36,
+            "name": "Commercial Structure Maintenance"
+          },
+          {
+            "id": 470,
+            "name": "SC Associations Management"
+          },
+          {
+            "id": 145,
+            "name": "Information Request"
+          },
+          {
+            "id": 576,
+            "name": "Communication Management"
+          },
+          {
+            "id": 182,
+            "name": "Agent Recruitment"
+          },
+          {
+            "id": 422,
+            "name": "Custormer Labels"
+          },
+          {
+            "id": 425,
+            "name": "Black Lists"
+          },
+          {
+            "id": 429,
+            "name": "Inf. Policies"
+          },
+          {
+            "id": 115,
+            "name": "Customer Manager"
+          },
+          {
+            "id": 331,
+            "name": "eContact"
+          },
+          {
+            "id": 185,
+            "name": "Associations"
+          },
+          {
+            "id": 37,
+            "name": "Agent Management/Company Management"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "name": "DOM IT DEVELOPMENT",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 370,
+        "name": "DOM IT DEV CLAIMS AND FISCAL",
+        "jiraCode": "IFL",
+        "leadUser": "E785008",
+        "cia": 8,
+        "businessServices": [
+          {
+            "id": 718,
+            "name": "VOC"
+          },
+          {
+            "id": 755,
+            "name": "FNOL AZP"
+          },
+          {
+            "id": 401,
+            "name": "ADC's , SIB's  e cobranças"
+          },
+          {
+            "id": 403,
+            "name": "Ficheiro FSF para APS"
+          },
+          {
+            "id": 400,
+            "name": "Aplicacao Juridico"
+          },
+          {
+            "id": 566,
+            "name": "Defensa de Cartera"
+          },
+          {
+            "id": 399,
+            "name": "Reports Fiscais"
+          },
+          {
+            "id": 398,
+            "name": "Reports APS e ISP"
+          },
+          {
+            "id": 394,
+            "name": "AP - acidentes pessoais"
+          },
+          {
+            "id": 402,
+            "name": "Outputs"
+          },
+          {
+            "id": 572,
+            "name": "BPI Portal"
+          },
+          {
+            "id": 389,
+            "name": "Decreto Lei Auto"
+          },
+          {
+            "id": 140,
+            "name": "Listados y controles salud LOCAL"
+          },
+          {
+            "id": 390,
+            "name": "Ficheiro FSMR"
+          },
+          {
+            "id": 449,
+            "name": "Integracion DAAA"
+          },
+          {
+            "id": 551,
+            "name": "Sinistros diversos"
+          },
+          {
+            "id": 434,
+            "name": "IDS / CIDS"
+          },
+          {
+            "id": 141,
+            "name": "Accidentes trabajo IBERICO"
+          },
+          {
+            "id": 410,
+            "name": "Facturação electronica"
+          },
+          {
+            "id": 717,
+            "name": "Ficheiros VOC"
+          },
+          {
+            "id": 143,
+            "name": "Varios salud LOCAL"
+          },
+          {
+            "id": 409,
+            "name": "Prestadores clinicos"
+          },
+          {
+            "id": 136,
+            "name": "Accidentes trabajo"
+          },
+          {
+            "id": 395,
+            "name": "FHS - faturas hospitalares"
+          },
+          {
+            "id": 447,
+            "name": "Sinistros standard"
+          }
+        ]
+      },
+      {
+        "id": 456,
+        "name": "DOM IT DEV CONECTIVIDADE",
+        "jiraCode": "IAS",
+        "leadUser": "E000508",
+        "cia": 8,
+        "businessServices": [
+          {
+            "id": 762,
+            "name": "GDPR ASIDM AZP"
+          },
+          {
+            "id": 760,
+            "name": "APIs Quote & Buy"
+          },
+          {
+            "id": 759,
+            "name": "APIs Claims"
+          },
+          {
+            "id": 761,
+            "name": "Chatbot"
+          }
+        ]
+      },
+      {
+        "id": 369,
+        "name": "DOM IT DEV BPI E PRODUTOS VIDA & ACC",
+        "jiraCode": "AIS",
+        "leadUser": "E166502",
+        "cia": 8,
+        "businessServices": [
+          {
+            "id": 396,
+            "name": "Produção AT"
+          },
+          {
+            "id": 124,
+            "name": "Juridico LOCAL"
+          },
+          {
+            "id": 154,
+            "name": "BPI"
+          },
+          {
+            "id": 122,
+            "name": "Cupones Bosch LOCAL"
+          },
+          {
+            "id": 123,
+            "name": "PEP y listas negras LOCAL"
+          },
+          {
+            "id": 125,
+            "name": "Gestion clientes LOCAL"
+          },
+          {
+            "id": 126,
+            "name": "Codigos postales"
+          },
+          {
+            "id": 127,
+            "name": "Market Management LOCAL"
+          },
+          {
+            "id": 397,
+            "name": "Consultas Risco Local"
+          },
+          {
+            "id": 116,
+            "name": "AF/VCG/Abandono LOCAL"
+          },
+          {
+            "id": 117,
+            "name": "Juridico"
+          }
+        ]
+      },
+      {
+        "id": 368,
+        "name": "DOM IT DEV PRODUTOS P C",
+        "jiraCode": "P&C",
+        "leadUser": "E400115",
+        "cia": 8,
+        "businessServices": [
+          {
+            "id": 414,
+            "name": "WS Plataforma Clínica"
+          },
+          {
+            "id": 747,
+            "name": "IAS_PME Product AZP"
+          },
+          {
+            "id": 407,
+            "name": "Web services tarificadores"
+          },
+          {
+            "id": 730,
+            "name": "BMP APIs Claims"
+          },
+          {
+            "id": 744,
+            "name": "IAS_Auto Product AZP"
+          },
+          {
+            "id": 413,
+            "name": "Integracao de Peritagens"
+          },
+          {
+            "id": 574,
+            "name": "Servicios de Suporte a WS Producto"
+          },
+          {
+            "id": 570,
+            "name": "Facturação Electronica PT"
+          },
+          {
+            "id": 567,
+            "name": "Vip Colectivos"
+          },
+          {
+            "id": 569,
+            "name": "Servicios de Soporte a Mediadores(Recibos)"
+          },
+          {
+            "id": 746,
+            "name": "IAS_RC Product AZP"
+          },
+          {
+            "id": 748,
+            "name": "IAS_AP Product AZP"
+          },
+          {
+            "id": 722,
+            "name": "BMP Segurnet FNM"
+          },
+          {
+            "id": 745,
+            "name": "IAS_MR Product AZP"
+          },
+          {
+            "id": 723,
+            "name": "BMP Segurnet IDS/CIDS"
+          },
+          {
+            "id": 727,
+            "name": "BMP APIs Quote & Buy"
+          },
+          {
+            "id": 568,
+            "name": "Agente 24"
+          },
+          {
+            "id": 725,
+            "name": "BMP InformaDB"
+          },
+          {
+            "id": 749,
+            "name": "IAS_Generic Product AZP"
+          },
+          {
+            "id": 406,
+            "name": "BPI - Indexação de Certificados"
+          },
+          {
+            "id": 573,
+            "name": "Componentes de Pruebas"
+          },
+          {
+            "id": 724,
+            "name": "BMP Segurnet FHS"
+          },
+          {
+            "id": 726,
+            "name": "BMP Others"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "name": "GSI CLAIMS",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 416,
+        "name": "IB_CLAIMS AZS",
+        "jiraCode": "ILA",
+        "leadUser": "E006300",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 318,
+            "name": "Procesos Back-End"
+          },
+          {
+            "id": 204,
+            "name": "Convenios de seguros TIREA"
+          },
+          {
+            "id": 684,
+            "name": "Letters Agreement"
+          },
+          {
+            "id": 320,
+            "name": "Siniestros de extranjeros"
+          },
+          {
+            "id": 319,
+            "name": "Siniestros y peritajes online"
+          },
+          {
+            "id": 634,
+            "name": "Agreements BBDD"
+          },
+          {
+            "id": 737,
+            "name": "SFE Agreement"
+          },
+          {
+            "id": 670,
+            "name": "CAS Agreement"
+          },
+          {
+            "id": 195,
+            "name": "Encargos medicos"
+          },
+          {
+            "id": 720,
+            "name": "Regula Agreement"
+          },
+          {
+            "id": 317,
+            "name": "Gestion de lesionados"
+          },
+          {
+            "id": 739,
+            "name": "SDM Agreement"
+          },
+          {
+            "id": 677,
+            "name": "LOCAL AGREEMENTS"
+          },
+          {
+            "id": 135,
+            "name": "Siniestros salud AZS"
+          },
+          {
+            "id": 704,
+            "name": "Reports Agreement"
+          },
+          {
+            "id": 738,
+            "name": "SDP Agreement"
+          },
+          {
+            "id": 671,
+            "name": "CICOS Agreement"
+          }
+        ]
+      },
+      {
+        "id": 413,
+        "name": "IB_OPERATIONS & DATA",
+        "jiraCode": "RIN",
+        "leadUser": "E006449",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 635,
+            "name": "ABS Synchro"
+          },
+          {
+            "id": 721,
+            "name": "EIAC FICHEROS MASIVOS"
+          },
+          {
+            "id": 594,
+            "name": "EIAC GENERICO"
+          },
+          {
+            "id": 554,
+            "name": "EIAC POLIZAS DIARIO"
+          },
+          {
+            "id": 556,
+            "name": "EIAC RECIBOS ONDEMAND"
+          },
+          {
+            "id": 676,
+            "name": "INTEGRATION"
+          },
+          {
+            "id": 552,
+            "name": "EIAC SINIESTROS DIARIO"
+          },
+          {
+            "id": 553,
+            "name": "EIAC RECIBOS DIARIO"
+          },
+          {
+            "id": 555,
+            "name": "EIAC POLIZAS ONDEMAND"
+          },
+          {
+            "id": 758,
+            "name": "Data"
+          },
+          {
+            "id": 375,
+            "name": "EIAC"
+          },
+          {
+            "id": 752,
+            "name": "Operativas OSN"
+          }
+        ]
+      },
+      {
+        "id": 414,
+        "name": "IB_CLAIMS AZV",
+        "jiraCode": "CLH",
+        "leadUser": "E104413",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 673,
+            "name": "CLAIMS HANDLING"
+          }
+        ]
+      },
+      {
+        "id": 415,
+        "name": "IB_BMP CLAIMS VERTICALS & PROVIDERS",
+        "jiraCode": "PAC",
+        "leadUser": "E004137",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 682,
+            "name": "PROVIDERS"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "name": "EPAC IBERIAN LIFE & MARKETING",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 318,
+        "name": "IB_SAVINGS & INVESTMENT",
+        "jiraCode": "IFC",
+        "leadUser": "E004464",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 381,
+            "name": "WS Registro de fallecimiento"
+          },
+          {
+            "id": 277,
+            "name": "Reservas de viajes"
+          },
+          {
+            "id": 274,
+            "name": "produccion vida individual"
+          },
+          {
+            "id": 175,
+            "name": "Unit Linked"
+          },
+          {
+            "id": 162,
+            "name": "Interfases Inverco"
+          },
+          {
+            "id": 496,
+            "name": "Utilidades Vida"
+          },
+          {
+            "id": 164,
+            "name": "Formulacion Tarifa Vida"
+          },
+          {
+            "id": 336,
+            "name": "Estadisticas"
+          },
+          {
+            "id": 276,
+            "name": "utils"
+          },
+          {
+            "id": 685,
+            "name": "Allianz Popular"
+          },
+          {
+            "id": 157,
+            "name": "Fiscalidad Vida"
+          },
+          {
+            "id": 689,
+            "name": "Active Invest"
+          },
+          {
+            "id": 387,
+            "name": "PB Financiera"
+          },
+          {
+            "id": 174,
+            "name": "Transformaciones y reinversiones"
+          },
+          {
+            "id": 168,
+            "name": "Rentas Comun"
+          },
+          {
+            "id": 509,
+            "name": "Productos financieros"
+          },
+          {
+            "id": 596,
+            "name": "Venta necesidades Idd"
+          },
+          {
+            "id": 337,
+            "name": "CEPRES"
+          },
+          {
+            "id": 170,
+            "name": "Salidas impresion Vida"
+          },
+          {
+            "id": 546,
+            "name": "Rentas Colectivas"
+          },
+          {
+            "id": 324,
+            "name": "Tratamiento bloqueos batch vida"
+          },
+          {
+            "id": 693,
+            "name": "WS Titularidad Real"
+          },
+          {
+            "id": 158,
+            "name": "Flujos Vida"
+          },
+          {
+            "id": 165,
+            "name": "Produccion Vida"
+          },
+          {
+            "id": 714,
+            "name": "PPE Planes de Pensiones de Empleo"
+          },
+          {
+            "id": 155,
+            "name": "Cierre mensual Vida"
+          },
+          {
+            "id": 169,
+            "name": "Rescates y vencimientos"
+          },
+          {
+            "id": 641,
+            "name": "P2S Perspektive"
+          },
+          {
+            "id": 270,
+            "name": "Pedra"
+          },
+          {
+            "id": 642,
+            "name": "PPI Planes Pensiones"
+          },
+          {
+            "id": 275,
+            "name": "Discosa"
+          },
+          {
+            "id": 167,
+            "name": "Comisiones Vida"
+          },
+          {
+            "id": 503,
+            "name": "Blanqueo Capitales"
+          },
+          {
+            "id": 161,
+            "name": "IB_Produccion Clientes Vida"
+          },
+          {
+            "id": 156,
+            "name": "Descargas SAS Vida"
+          },
+          {
+            "id": 172,
+            "name": "Taller de Productos Vida"
+          },
+          {
+            "id": 545,
+            "name": "Rentas Individual"
+          },
+          {
+            "id": 678,
+            "name": "VIDA"
+          }
+        ]
+      },
+      {
+        "id": 317,
+        "name": "IB_OUTPUTS (ERASED)",
+        "jiraCode": "CLM",
+        "leadUser": "ORSIMAE",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 242,
+            "name": "Printing"
+          },
+          {
+            "id": 316,
+            "name": "SAP BW"
+          }
+        ]
+      },
+      {
+        "id": 458,
+        "name": "IB_RISK LIFE & HEALTH",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 163,
+            "name": "Nueva Produccion Vida Colectivo"
+          },
+          {
+            "id": 640,
+            "name": "Autonomos AZS"
+          },
+          {
+            "id": 62,
+            "name": "Menus de vida"
+          },
+          {
+            "id": 371,
+            "name": "Teleseleccion Individual"
+          },
+          {
+            "id": 258,
+            "name": "solicitudes informacion"
+          },
+          {
+            "id": 627,
+            "name": "Cartera Vida"
+          },
+          {
+            "id": 501,
+            "name": "MIV"
+          },
+          {
+            "id": 703,
+            "name": "Produccion 2192"
+          },
+          {
+            "id": 160,
+            "name": "Convenios Vida"
+          },
+          {
+            "id": 166,
+            "name": "Reaseguro Vida"
+          },
+          {
+            "id": 628,
+            "name": "Decesos Plus"
+          },
+          {
+            "id": 696,
+            "name": "Salud AZS"
+          },
+          {
+            "id": 611,
+            "name": "Accidentes Plus"
+          },
+          {
+            "id": 510,
+            "name": "Produccion 1901"
+          },
+          {
+            "id": 257,
+            "name": "cargas masivas"
+          }
+        ]
+      },
+      {
+        "id": 316,
+        "name": "IB_MARKETING",
+        "jiraCode": "PPM",
+        "leadUser": "E006359",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 619,
+            "name": "Voice of Customer"
+          },
+          {
+            "id": 692,
+            "name": "EIAC SINIESTROS PREGENERADOS"
+          },
+          {
+            "id": 543,
+            "name": "Operativas Dirigidas"
+          },
+          {
+            "id": 613,
+            "name": "xCampaign"
+          },
+          {
+            "id": 412,
+            "name": "Visual IVR"
+          },
+          {
+            "id": 289,
+            "name": "Tablas de Agente24"
+          },
+          {
+            "id": 149,
+            "name": "Outbound Iberico"
+          },
+          {
+            "id": 716,
+            "name": "AllianzUniverse"
+          },
+          {
+            "id": 612,
+            "name": "PORTALES"
+          },
+          {
+            "id": 621,
+            "name": "Digital Signature"
+          },
+          {
+            "id": 281,
+            "name": "Procesos VISA"
+          },
+          {
+            "id": 620,
+            "name": "Cartas certificadas Evicertia"
+          }
+        ]
+      },
+      {
+        "id": 319,
+        "name": "IB_IT RRHH (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "name": "EPAC CORE",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 395,
+        "name": "RE_COMMUNICATION MANAGEMENT",
+        "jiraCode": "GFE",
+        "leadUser": "E004799",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 488,
+            "name": "3.1 Output - Management"
+          },
+          {
+            "id": 59,
+            "name": "Gestion expedientes"
+          },
+          {
+            "id": 493,
+            "name": "3.5 Output - Messaging"
+          },
+          {
+            "id": 495,
+            "name": "3.7 Output - Tools"
+          },
+          {
+            "id": 188,
+            "name": "Operaciones diarias mediadores"
+          },
+          {
+            "id": 560,
+            "name": "Case Management"
+          },
+          {
+            "id": 491,
+            "name": "3.3 Output - Monitorization"
+          },
+          {
+            "id": 490,
+            "name": "Local or other teams"
+          },
+          {
+            "id": 487,
+            "name": "2.2 Doc. Designer - Regional Documents"
+          },
+          {
+            "id": 61,
+            "name": "Envio SMS"
+          },
+          {
+            "id": 104,
+            "name": "Application architecture"
+          },
+          {
+            "id": 492,
+            "name": "3.4 Output - Printing"
+          },
+          {
+            "id": 484,
+            "name": "1.0 Content Manager"
+          },
+          {
+            "id": 196,
+            "name": "Output processes Compuset to suppress"
+          },
+          {
+            "id": 237,
+            "name": "Sistema de imagen (Index. CM , Preindex, ...)"
+          },
+          {
+            "id": 238,
+            "name": "FG Profesionales y Taller de Vistas"
+          },
+          {
+            "id": 485,
+            "name": "2.1 Doc. Designer - Design Tools"
+          },
+          {
+            "id": 494,
+            "name": "3.6 Output - Storage"
+          },
+          {
+            "id": 102,
+            "name": "IT Security & Privacy"
+          },
+          {
+            "id": 63,
+            "name": "LOPD"
+          },
+          {
+            "id": 60,
+            "name": "Gestor operaciones (GO)"
+          },
+          {
+            "id": 489,
+            "name": "3.2 Output - Email"
+          }
+        ]
+      },
+      {
+        "id": 398,
+        "name": "RE_CLAIMS MANAGEMENT",
+        "jiraCode": "CLE",
+        "leadUser": "E004457",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 77,
+            "name": "Liquidación profesionales"
+          },
+          {
+            "id": 558,
+            "name": "Claims Management"
+          },
+          {
+            "id": 152,
+            "name": "Profesionales LOCAL"
+          },
+          {
+            "id": 595,
+            "name": "Consulta Flash"
+          },
+          {
+            "id": 518,
+            "name": "Claims Factory II"
+          },
+          {
+            "id": 521,
+            "name": "Economic Reserves"
+          },
+          {
+            "id": 466,
+            "name": "Payments & Recoveries"
+          },
+          {
+            "id": 58,
+            "name": "Gestion fraude"
+          },
+          {
+            "id": 81,
+            "name": "Procedimientos judiciales"
+          },
+          {
+            "id": 134,
+            "name": "Listados y controles salud"
+          },
+          {
+            "id": 54,
+            "name": "Plataforma Autos"
+          },
+          {
+            "id": 70,
+            "name": "Coaseguro siniestros"
+          },
+          {
+            "id": 519,
+            "name": "FNOL"
+          },
+          {
+            "id": 153,
+            "name": "Parametros salud"
+          },
+          {
+            "id": 55,
+            "name": "Verificaciones de riesgo"
+          },
+          {
+            "id": 464,
+            "name": "Payment Authorization"
+          },
+          {
+            "id": 80,
+            "name": "Peritajes siniestros"
+          },
+          {
+            "id": 456,
+            "name": "Segmentation"
+          },
+          {
+            "id": 74,
+            "name": "Tablas maestras siniestros"
+          },
+          {
+            "id": 465,
+            "name": "Recoveries"
+          },
+          {
+            "id": 79,
+            "name": "Proveedores siniestros"
+          },
+          {
+            "id": 446,
+            "name": "Mantenimiento Cheques"
+          },
+          {
+            "id": 71,
+            "name": "Flotas siniestros"
+          },
+          {
+            "id": 67,
+            "name": "Cierre siniestros"
+          },
+          {
+            "id": 75,
+            "name": "Pagos y recobros"
+          },
+          {
+            "id": 133,
+            "name": "Calculo despesas"
+          },
+          {
+            "id": 69,
+            "name": "Copias anuales siniestralidad"
+          },
+          {
+            "id": 72,
+            "name": "Gestion reserva"
+          },
+          {
+            "id": 469,
+            "name": "Expert Orders Assigment"
+          },
+          {
+            "id": 131,
+            "name": "Health Claims"
+          },
+          {
+            "id": 245,
+            "name": "Expert Orders"
+          },
+          {
+            "id": 384,
+            "name": "Talleres"
+          },
+          {
+            "id": 562,
+            "name": "Service Provider & Partner Management"
+          },
+          {
+            "id": 459,
+            "name": "Involved Person/Property"
+          },
+          {
+            "id": 76,
+            "name": "Transferencias siniestros"
+          },
+          {
+            "id": 53,
+            "name": "Plataforma diversos"
+          },
+          {
+            "id": 148,
+            "name": "Profesionales"
+          },
+          {
+            "id": 57,
+            "name": "Plataforma profesionales"
+          },
+          {
+            "id": 147,
+            "name": "Asignacion profesionales"
+          },
+          {
+            "id": 78,
+            "name": "Encargos abogados"
+          },
+          {
+            "id": 139,
+            "name": "Varios Salud"
+          },
+          {
+            "id": 599,
+            "name": "Traspaso Iberia"
+          },
+          {
+            "id": 448,
+            "name": "Handling"
+          },
+          {
+            "id": 66,
+            "name": "Reporte siniestros para CI"
+          },
+          {
+            "id": 520,
+            "name": "Parameterization"
+          },
+          {
+            "id": 291,
+            "name": "General"
+          },
+          {
+            "id": 132,
+            "name": "Agenda medica"
+          },
+          {
+            "id": 73,
+            "name": "Gestion siniestros"
+          },
+          {
+            "id": 137,
+            "name": "Proveedores clínicos"
+          },
+          {
+            "id": 56,
+            "name": "Plataforma de abogados-juridico"
+          },
+          {
+            "id": 138,
+            "name": "Recobros salud"
+          },
+          {
+            "id": 453,
+            "name": "Massive Closings"
+          },
+          {
+            "id": 68,
+            "name": "Integridad BBDD siniestros"
+          },
+          {
+            "id": 516,
+            "name": "Judicial Proceedings"
+          }
+        ]
+      },
+      {
+        "id": 397,
+        "name": "RE_PAYMENT & COLLECTION & REINSURANCE",
+        "jiraCode": "RBF",
+        "leadUser": "E104743",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 47,
+            "name": "Reinsurance Configuration"
+          },
+          {
+            "id": 28,
+            "name": "PPNC"
+          },
+          {
+            "id": 52,
+            "name": "Reinsurance Payments"
+          },
+          {
+            "id": 51,
+            "name": "Reinsurance Accounting"
+          },
+          {
+            "id": 187,
+            "name": "History Management"
+          },
+          {
+            "id": 49,
+            "name": "Reinsurance Cessions"
+          },
+          {
+            "id": 252,
+            "name": "BW Host Interfaces"
+          },
+          {
+            "id": 15,
+            "name": "Bank File Management"
+          },
+          {
+            "id": 240,
+            "name": "Host-SAP Interfaces"
+          },
+          {
+            "id": 9,
+            "name": "Branch Accounting"
+          },
+          {
+            "id": 230,
+            "name": "TRASPASAR-A-IBERIA"
+          },
+          {
+            "id": 50,
+            "name": "Reinsurance Claims"
+          },
+          {
+            "id": 559,
+            "name": "Accounting"
+          },
+          {
+            "id": 13,
+            "name": "Receipt List"
+          },
+          {
+            "id": 609,
+            "name": "Fractionated Premium"
+          },
+          {
+            "id": 48,
+            "name": "Otras reaseguro"
+          },
+          {
+            "id": 224,
+            "name": "Agent Accounting Closure"
+          },
+          {
+            "id": 219,
+            "name": "Payments Return of Premium"
+          },
+          {
+            "id": 350,
+            "name": "Multicurrency Collections"
+          },
+          {
+            "id": 411,
+            "name": "Exception Management"
+          },
+          {
+            "id": 12,
+            "name": "Self-Settlement"
+          },
+          {
+            "id": 593,
+            "name": "Collection & Disbursement"
+          },
+          {
+            "id": 1,
+            "name": "Travel Expenses"
+          },
+          {
+            "id": 3,
+            "name": "Automatic Payments"
+          },
+          {
+            "id": 379,
+            "name": "Debit Management"
+          },
+          {
+            "id": 2,
+            "name": "Agent Accounting"
+          },
+          {
+            "id": 20,
+            "name": "Closure"
+          },
+          {
+            "id": 14,
+            "name": "Credit Card Operations Management"
+          },
+          {
+            "id": 16,
+            "name": "Receipts Maintenance"
+          },
+          {
+            "id": 647,
+            "name": "BMP"
+          },
+          {
+            "id": 18,
+            "name": "Receipts Operative"
+          },
+          {
+            "id": 19,
+            "name": "Cancellation Process"
+          },
+          {
+            "id": 223,
+            "name": "Billing Process"
+          }
+        ]
+      },
+      {
+        "id": 399,
+        "name": "RE_OFICINA EPAC CORE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 396,
+        "name": "RE_CORE POLICY",
+        "jiraCode": "CPF",
+        "leadUser": "E004811",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 173,
+            "name": "Taller productos vida Region"
+          },
+          {
+            "id": 177,
+            "name": "Product Workshop"
+          },
+          {
+            "id": 471,
+            "name": "Tariff Maintenance"
+          },
+          {
+            "id": 241,
+            "name": "Fleet Maintenance"
+          },
+          {
+            "id": 548,
+            "name": "Product Design"
+          },
+          {
+            "id": 181,
+            "name": "Reporting produccion"
+          },
+          {
+            "id": 547,
+            "name": "Policy issuance Administration"
+          },
+          {
+            "id": 179,
+            "name": "Gestion cartera"
+          },
+          {
+            "id": 475,
+            "name": "Local Product Structure Toolkit"
+          },
+          {
+            "id": 178,
+            "name": "Output Manager"
+          },
+          {
+            "id": 64,
+            "name": "Issuing Workflow"
+          },
+          {
+            "id": 180,
+            "name": "Production"
+          }
+        ]
+      },
+      {
+        "id": 447,
+        "name": "RE_DEVELOPMENT TOOLING & IT SUPPORT (ERA",
+        "jiraCode": "",
+        "leadUser": "ORSIMLZ",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "name": "EPAC IBERIAN P&C",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 313,
+        "name": "IB_MULTIRRIESGOS & PORTFOLIO (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 459,
+        "name": "IB_OUTPUTS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 315,
+        "name": "IB_SALES &  TAXES",
+        "jiraCode": "IBN",
+        "leadUser": "ORSIDSP",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 608,
+            "name": "Comercial IB"
+          },
+          {
+            "id": 701,
+            "name": "Requerimientos Legales"
+          },
+          {
+            "id": 610,
+            "name": "Extracomisiones"
+          },
+          {
+            "id": 702,
+            "name": "Facturas"
+          },
+          {
+            "id": 655,
+            "name": "Fiscal BBVA"
+          },
+          {
+            "id": 43,
+            "name": "IBERIA Agent"
+          },
+          {
+            "id": 11,
+            "name": "Fiscal IBERIA"
+          }
+        ]
+      },
+      {
+        "id": 460,
+        "name": "IB_MULTIRISK",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 167,
+        "name": "IB_RE_POLICY & REINSURANCE (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 312,
+        "name": "IB_RETAIL P&C & PORTFOLIO",
+        "jiraCode": "MOT",
+        "leadUser": "ORSISCC",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 327,
+            "name": "Normalizacion batch de direcciones"
+          },
+          {
+            "id": 508,
+            "name": "Segurnet"
+          },
+          {
+            "id": 622,
+            "name": "ABS Motor Integration"
+          },
+          {
+            "id": 353,
+            "name": "emisión flotas"
+          },
+          {
+            "id": 419,
+            "name": "EIAC SINIESTROS"
+          },
+          {
+            "id": 500,
+            "name": "CreditScoring+"
+          },
+          {
+            "id": 625,
+            "name": "Cyber"
+          },
+          {
+            "id": 278,
+            "name": "Modificacion Kymco"
+          },
+          {
+            "id": 451,
+            "name": "NBS - Next Best Sale"
+          },
+          {
+            "id": 481,
+            "name": "Cadena Fenix Directo"
+          },
+          {
+            "id": 605,
+            "name": "Traspaso P&C Multirisk"
+          },
+          {
+            "id": 279,
+            "name": "Cadena Temporal"
+          },
+          {
+            "id": 282,
+            "name": "Modificacion Clientes"
+          },
+          {
+            "id": 323,
+            "name": "Gestion Cartera Diversos"
+          },
+          {
+            "id": 606,
+            "name": "Actualizar PROD"
+          },
+          {
+            "id": 378,
+            "name": "Control de Cupos"
+          },
+          {
+            "id": 632,
+            "name": "Produccion Multirriesgos"
+          },
+          {
+            "id": 614,
+            "name": "Clientes SEA"
+          },
+          {
+            "id": 42,
+            "name": "GESCOM"
+          },
+          {
+            "id": 597,
+            "name": "Soporte Empresas"
+          },
+          {
+            "id": 638,
+            "name": "Desbloqueo SEA"
+          },
+          {
+            "id": 332,
+            "name": "Hogar Full Digital"
+          },
+          {
+            "id": 421,
+            "name": "Carga Defensa Cartera"
+          },
+          {
+            "id": 159,
+            "name": "IB_Carteras & asistencia Vida"
+          },
+          {
+            "id": 631,
+            "name": "Soporte Multirriesgos"
+          },
+          {
+            "id": 380,
+            "name": "Produccion Empresas"
+          },
+          {
+            "id": 65,
+            "name": "Soporte produccion IBERIA"
+          },
+          {
+            "id": 280,
+            "name": "FTP-Traspaso Ficheros"
+          },
+          {
+            "id": 472,
+            "name": "EIAC POLIZAS"
+          },
+          {
+            "id": 358,
+            "name": "PB Flotas"
+          },
+          {
+            "id": 360,
+            "name": "cargas masivas AUTOGRUP"
+          },
+          {
+            "id": 286,
+            "name": "Reserva Matrícula AZS/AZP"
+          },
+          {
+            "id": 359,
+            "name": "AUTOGRUP"
+          },
+          {
+            "id": 322,
+            "name": "Renovaciones"
+          },
+          {
+            "id": 624,
+            "name": "Comercio"
+          },
+          {
+            "id": 623,
+            "name": "Hogar SEA"
+          },
+          {
+            "id": 207,
+            "name": "Portal SAS"
+          },
+          {
+            "id": 285,
+            "name": "Tablas Produccion"
+          }
+        ]
+      },
+      {
+        "id": 314,
+        "name": "IB_AGROSEGUROS",
+        "jiraCode": "AGS",
+        "leadUser": "ORSIJBM",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 255,
+            "name": "Plataforma Agroseguro"
+          }
+        ]
+      },
+      {
+        "id": 168,
+        "name": "IB_RE_PRODUCT DESIGN (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 166,
+        "name": "IB_RE_COMMUNICATION MANAGEMENT (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "GCIA. DE TECNOLOGIA",
+    "cia": 3,
+    "squads": [
+      {
+        "id": 42,
+        "name": "CO_DIR. DE DESARROLLO",
+        "jiraCode": "COL",
+        "leadUser": "CE00041",
+        "cia": 3,
+        "businessServices": [
+          {
+            "id": 326,
+            "name": "CO_EpacPortlet"
+          },
+          {
+            "id": 301,
+            "name": "Co_Batch-SAS"
+          },
+          {
+            "id": 34,
+            "name": "CI - COLOMBIA statistics"
+          },
+          {
+            "id": 44,
+            "name": "COLOMBIA Agent"
+          },
+          {
+            "id": 299,
+            "name": "Co_Renovaciones"
+          },
+          {
+            "id": 293,
+            "name": "Co_Autos"
+          },
+          {
+            "id": 292,
+            "name": "Co_Salud"
+          },
+          {
+            "id": 294,
+            "name": "Co_PyC"
+          },
+          {
+            "id": 290,
+            "name": "Billing Colombia"
+          },
+          {
+            "id": 287,
+            "name": "Co_Aplicación objetivos"
+          },
+          {
+            "id": 298,
+            "name": "Co_Webservice"
+          },
+          {
+            "id": 300,
+            "name": "Co_Cobros-Barredora"
+          },
+          {
+            "id": 297,
+            "name": "Co_Impresion"
+          },
+          {
+            "id": 209,
+            "name": "Portal SAS Colombia"
+          },
+          {
+            "id": 296,
+            "name": "Co_Hogar"
+          },
+          {
+            "id": 295,
+            "name": "Co_Vida"
+          }
+        ]
+      },
+      {
+        "id": 75,
+        "name": "CO_DIR. INFRAESTRUCTURA Y COMUNICACIONES (ERASED)",
+        "jiraCode": "COS",
+        "leadUser": "CE01470",
+        "cia": 3,
+        "businessServices": [
+          {
+            "id": 312,
+            "name": "Renovaciones Cobros y Cadenas Batch"
+          },
+          {
+            "id": 310,
+            "name": "Salud y PML"
+          },
+          {
+            "id": 313,
+            "name": "Vida"
+          },
+          {
+            "id": 309,
+            "name": "P&C y Cumplimiento"
+          },
+          {
+            "id": 308,
+            "name": "Impresion"
+          },
+          {
+            "id": 314,
+            "name": "CO_Sistemas"
+          },
+          {
+            "id": 311,
+            "name": "Autos y Hogar"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "name": "SUPERINT DESENV SIST SINISTROS, COML, FI",
+    "cia": 4,
+    "squads": [
+      {
+        "id": 288,
+        "name": "BR_GER SIST GRANDES RISCOS, MULTIPROD, (",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 289,
+        "name": "BR_GER SIST SAUDE, VIDA, AGRO E AUTO",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 293,
+        "name": "BR_GER SISTEMAS SINISTROS",
+        "jiraCode": "BSS",
+        "leadUser": "BE00777",
+        "cia": 4,
+        "businessServices": [
+          {
+            "id": 731,
+            "name": "SINISTRO"
+          }
+        ]
+      },
+      {
+        "id": 291,
+        "name": "BR_GER SIST PARCERIAS, APIS E PORTAIS (E",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 290,
+        "name": "BR_GER SISTEMAS FINANCEIRO, CONTABIL, RH E",
+        "jiraCode": "BCF",
+        "leadUser": "BE00201",
+        "cia": 4,
+        "businessServices": [
+          {
+            "id": 354,
+            "name": "Dia-Allz"
+          },
+          {
+            "id": 365,
+            "name": "Compliance"
+          },
+          {
+            "id": 363,
+            "name": "Resseguro"
+          },
+          {
+            "id": 35,
+            "name": "Central de Informações"
+          },
+          {
+            "id": 735,
+            "name": "Open Insurance"
+          },
+          {
+            "id": 736,
+            "name": "SRO"
+          },
+          {
+            "id": 370,
+            "name": "Patrimônio"
+          },
+          {
+            "id": 364,
+            "name": "Reportes Regulatorios"
+          },
+          {
+            "id": 369,
+            "name": "Sistemas Satelites"
+          },
+          {
+            "id": 304,
+            "name": "FINANCEIRO E SISTEMAS LOCAIS GENERICA"
+          },
+          {
+            "id": 367,
+            "name": "RH"
+          },
+          {
+            "id": 438,
+            "name": "Pagamentos"
+          },
+          {
+            "id": 210,
+            "name": "DW Brasil (SAS)"
+          },
+          {
+            "id": 443,
+            "name": "BDPO (Perdas Operacionais)"
+          },
+          {
+            "id": 368,
+            "name": "Gestão de Acessos (GAC)"
+          },
+          {
+            "id": 707,
+            "name": "Sharepoint"
+          },
+          {
+            "id": 439,
+            "name": "Tributos"
+          }
+        ]
+      },
+      {
+        "id": 292,
+        "name": "BR_GER SISTEMAS LEGAL, COMERCIAL E COBRANCA",
+        "jiraCode": "BRC",
+        "leadUser": "BE00425",
+        "cia": 4,
+        "businessServices": [
+          {
+            "id": 711,
+            "name": "Legal_BR"
+          },
+          {
+            "id": 441,
+            "name": "Comercial"
+          },
+          {
+            "id": 734,
+            "name": "Cartao de Credito"
+          },
+          {
+            "id": 284,
+            "name": "Cobranca"
+          },
+          {
+            "id": 708,
+            "name": "Corretor"
+          },
+          {
+            "id": 440,
+            "name": "Comissões"
+          },
+          {
+            "id": 709,
+            "name": "Salesforce"
+          },
+          {
+            "id": 442,
+            "name": "Cosseguro"
+          }
+        ]
+      },
+      {
+        "id": 287,
+        "name": "BR_GER SIST BACK OFFICE, IMPRESSAO, CORPORA",
+        "jiraCode": "BBO",
+        "leadUser": "BE00218",
+        "cia": 4,
+        "businessServices": [
+          {
+            "id": 700,
+            "name": "Robotics"
+          },
+          {
+            "id": 699,
+            "name": "Portais e Canais"
+          },
+          {
+            "id": 697,
+            "name": "Parcerias"
+          },
+          {
+            "id": 305,
+            "name": "SINISTROS, BACK OFFICE"
+          },
+          {
+            "id": 698,
+            "name": "Apis e App"
+          },
+          {
+            "id": 203,
+            "name": "Claims Management BRA"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "name": "BMP CROSS FUNCTION",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 384,
+        "name": "IB_IT HR",
+        "jiraCode": "HR",
+        "leadUser": "E106505",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 259,
+            "name": "Recursos Humanos"
+          },
+          {
+            "id": 376,
+            "name": "Produccion"
+          },
+          {
+            "id": 565,
+            "name": "Widget de Clientes"
+          },
+          {
+            "id": 253,
+            "name": "Alertas de negocio"
+          },
+          {
+            "id": 452,
+            "name": "BCM"
+          },
+          {
+            "id": 549,
+            "name": "POIS Geolocalizacion"
+          },
+          {
+            "id": 630,
+            "name": "Peticion de Material"
+          },
+          {
+            "id": 582,
+            "name": "Portlets Epac"
+          }
+        ]
+      },
+      {
+        "id": 322,
+        "name": "BB_IT FINANCE (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 321,
+        "name": "BB_CONNECTIVITY AZV",
+        "jiraCode": "RII",
+        "leadUser": "E006801",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 650,
+            "name": "EIAC BBVA"
+          },
+          {
+            "id": 672,
+            "name": "Interfases"
+          },
+          {
+            "id": 651,
+            "name": "Conector BBVA"
+          },
+          {
+            "id": 688,
+            "name": "Partner Connection"
+          }
+        ]
+      },
+      {
+        "id": 354,
+        "name": "IB_COLLECTION & PAYMENTS",
+        "jiraCode": "ICP",
+        "leadUser": "E007062",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 22,
+            "name": "Gestion recibos IBERIA"
+          },
+          {
+            "id": 656,
+            "name": "Gestion Recibos BBVA"
+          },
+          {
+            "id": 21,
+            "name": "Interfaz bancaria LOCAL"
+          },
+          {
+            "id": 666,
+            "name": "Direct Debit Process"
+          },
+          {
+            "id": 674,
+            "name": "COLLECTION PAYMENTS"
+          },
+          {
+            "id": 653,
+            "name": "Interfases Contables BBVA"
+          },
+          {
+            "id": 654,
+            "name": "Interfases reporting BBVA"
+          }
+        ]
+      },
+      {
+        "id": 400,
+        "name": "BB_JV MOTOR (ERASED)",
+        "jiraCode": "",
+        "leadUser": "E004599",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 728,
+            "name": "Onboarding"
+          }
+        ]
+      },
+      {
+        "id": 353,
+        "name": "IB_DOCUMENT MANAGEMENT (ERASED)",
+        "jiraCode": "",
+        "leadUser": "E105819",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 675,
+            "name": "DOCUMENT MANAGEMENT"
+          }
+        ]
+      },
+      {
+        "id": 320,
+        "name": "BB_CORPORATE",
+        "jiraCode": "ROP",
+        "leadUser": "ORSIJGA",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 680,
+            "name": "Medioambiental BBVA"
+          },
+          {
+            "id": 658,
+            "name": "Cyber BBVA"
+          },
+          {
+            "id": 663,
+            "name": "D&O BBVA"
+          },
+          {
+            "id": 661,
+            "name": "Multiseguro Empresarial BBVA"
+          },
+          {
+            "id": 659,
+            "name": "RC Pyme BBVA"
+          },
+          {
+            "id": 664,
+            "name": "Outputs BBVA"
+          },
+          {
+            "id": 665,
+            "name": "Transversal Producto"
+          },
+          {
+            "id": 662,
+            "name": "Decesos BBVA"
+          },
+          {
+            "id": 669,
+            "name": "Segurleasing BBVA"
+          },
+          {
+            "id": 660,
+            "name": "Negocio Comercio Pyme BBVA"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "name": "SUPERINT DESENV SISTEMAS DE PRODUTOS, RE",
+    "cia": 4,
+    "squads": [
+      {
+        "id": 306,
+        "name": "BR_GER SIST AUTOMOVEL",
+        "jiraCode": "BPA",
+        "leadUser": "BE00831",
+        "cia": 4,
+        "businessServices": [
+          {
+            "id": 690,
+            "name": "AUTO"
+          }
+        ]
+      },
+      {
+        "id": 307,
+        "name": "BR_GER SIST SAUDE, VIDA E AGRO",
+        "jiraCode": "BPD",
+        "leadUser": "BE00130",
+        "cia": 4,
+        "businessServices": [
+          {
+            "id": 691,
+            "name": "SAUDE,VIDA,AGRO"
+          }
+        ]
+      },
+      {
+        "id": 305,
+        "name": "BR_GER SIST CORPORATE, P&C, TRANSPORTES, AG",
+        "jiraCode": "BPG",
+        "leadUser": "BE00394",
+        "cia": 4,
+        "businessServices": [
+          {
+            "id": 307,
+            "name": "GRANDES RISCOS, MULTIPROD, TRANSP, AERO E RESSEGURO"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "name": "QA & IT STANDARDS, TRAINING",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 408,
+        "name": "RE_QA & IT STANDARDS",
+        "jiraCode": "QAD",
+        "leadUser": "E006302",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 83,
+            "name": "QA"
+          },
+          {
+            "id": 226,
+            "name": "CMDB"
+          },
+          {
+            "id": 108,
+            "name": "Performance Testing"
+          },
+          {
+            "id": 715,
+            "name": "APIGEE"
+          },
+          {
+            "id": 416,
+            "name": "Smoke Testing"
+          },
+          {
+            "id": 111,
+            "name": "Security and audit validation"
+          }
+        ]
+      },
+      {
+        "id": 280,
+        "name": "BB_PRODUCT & OUTPUTS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 170,
+        "name": "RE_PAYMENT & COLLECTION (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 240,
+        "name": "RE_COMMUNICATION MANAGEMENT (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 394,
+        "name": "RE_DEVELOPMENT TOOLING & IT SUPPORT",
+        "jiraCode": "TCN",
+        "leadUser": "ORSIMLZ",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 23,
+            "name": "Contadores_Sequences"
+          },
+          {
+            "id": 343,
+            "name": "Data update processes"
+          },
+          {
+            "id": 526,
+            "name": "Obsolete"
+          },
+          {
+            "id": 435,
+            "name": "Gestion de tablas (ficheros)"
+          },
+          {
+            "id": 629,
+            "name": "QueriesDB2"
+          },
+          {
+            "id": 602,
+            "name": "User Audit"
+          },
+          {
+            "id": 25,
+            "name": "Mantenimiento acceso tablas"
+          },
+          {
+            "id": 26,
+            "name": "Compañias aseguradoras"
+          },
+          {
+            "id": 522,
+            "name": "Training Components"
+          },
+          {
+            "id": 740,
+            "name": "VOC_TCN"
+          },
+          {
+            "id": 695,
+            "name": "GSSS"
+          },
+          {
+            "id": 408,
+            "name": "Incident Management"
+          },
+          {
+            "id": 743,
+            "name": "Mainframe TCN"
+          },
+          {
+            "id": 377,
+            "name": "Gestion de Historicos"
+          },
+          {
+            "id": 712,
+            "name": "VoC"
+          },
+          {
+            "id": 604,
+            "name": "Cross"
+          },
+          {
+            "id": 601,
+            "name": "User Services"
+          },
+          {
+            "id": 24,
+            "name": "Replica tablas"
+          }
+        ]
+      },
+      {
+        "id": 171,
+        "name": "RE_SALES, CUSTOMERS & DISTRIBUTION (ERAS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 448,
+        "name": "RE_CPI",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 419,
+        "name": "TRAINING",
+        "jiraCode": "ITT",
+        "leadUser": "E006735",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 705,
+            "name": "Training"
+          },
+          {
+            "id": 729,
+            "name": "Formacion"
+          }
+        ]
+      },
+      {
+        "id": 279,
+        "name": "RE_EPIC OWNERS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 241,
+        "name": "RE_CLAIMS MANAGEMENT (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "name": "SERVICE OPERATIONS",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 381,
+        "name": "RE_BATCH OPERATIONS",
+        "jiraCode": "PRD",
+        "leadUser": "E106708",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 234,
+            "name": "EDITRAN"
+          },
+          {
+            "id": 232,
+            "name": "PLANNING"
+          },
+          {
+            "id": 236,
+            "name": "SERVICE DELIVERY"
+          },
+          {
+            "id": 235,
+            "name": "TRANFERS"
+          }
+        ]
+      },
+      {
+        "id": 383,
+        "name": "RE_SERVICE DESK",
+        "jiraCode": "",
+        "leadUser": "E074226",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 382,
+        "name": "RE_WORKPLACE & APPLICATIONS",
+        "jiraCode": "SAM",
+        "leadUser": "E004539",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 504,
+            "name": "SAS"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "name": "INFRASTRUCTURE",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 179,
+        "name": "RE_SAP & DBA",
+        "jiraCode": "DBA",
+        "leadUser": "ORSIMAT",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 248,
+            "name": "Database administration Db2 zOs"
+          },
+          {
+            "id": 251,
+            "name": "Database administration Db2 LUW"
+          },
+          {
+            "id": 249,
+            "name": "SAP Basis"
+          }
+        ]
+      },
+      {
+        "id": 176,
+        "name": "RE_NETWORKING",
+        "jiraCode": "SYS",
+        "leadUser": "E000202",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 617,
+            "name": "NetworkOps"
+          }
+        ]
+      },
+      {
+        "id": 178,
+        "name": "RE_APPLICATION SERVERS",
+        "jiraCode": "APS",
+        "leadUser": "E004227",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 329,
+            "name": "Traspasos a Produccion"
+          },
+          {
+            "id": 616,
+            "name": "AppSOps"
+          }
+        ]
+      },
+      {
+        "id": 175,
+        "name": "RE_MAINFRAME & STORAGE",
+        "jiraCode": "MFS",
+        "leadUser": "ORSISPP",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 525,
+            "name": "Group Directory"
+          },
+          {
+            "id": 348,
+            "name": "Procesos Sistemas"
+          },
+          {
+            "id": 243,
+            "name": "Estadisticas Batch"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "OFIC. DIRECTAS (AREA 6 DIVISIÓN 47)",
+    "cia": 4,
+    "squads": [
+      {
+        "id": 144,
+        "name": "BR_GER SIST. FINANCEIRO E CONTABEIS (ERA",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 89,
+        "name": "BR_GER INFRAESTRUTURA, SERVICOS E ARQUITETU",
+        "jiraCode": "BSI",
+        "leadUser": "BE01126",
+        "cia": 4,
+        "businessServices": [
+          {
+            "id": 386,
+            "name": "Arquitetura e Infraestrutura"
+          }
+        ]
+      },
+      {
+        "id": 141,
+        "name": "BR_GER SIST DE SINISTROS, BACK OFFICE, (",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 90,
+        "name": "BR_GER GOVERNANCA E QUALIDADE",
+        "jiraCode": "BRF",
+        "leadUser": "BE00211",
+        "cia": 4,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 58)",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 417,
+        "name": "RE_JMP ADMINISTRATION & PMO TEMPLATES",
+        "jiraCode": "TOF",
+        "leadUser": "E006673",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 741,
+            "name": "JIRA Addon"
+          }
+        ]
+      },
+      {
+        "id": 402,
+        "name": "BUSINESS CONTINUITY",
+        "jiraCode": "",
+        "leadUser": "E104956",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 361,
+        "name": "RE_SYSTEM ARCHITECTURE",
+        "jiraCode": "SAR",
+        "leadUser": "E103880",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 479,
+            "name": "Continuous Integration & Development Legacy"
+          },
+          {
+            "id": 577,
+            "name": "IT Strategy & Management"
+          },
+          {
+            "id": 589,
+            "name": "EBCM_CM"
+          },
+          {
+            "id": 527,
+            "name": "IT Security & Privacy Legacy"
+          },
+          {
+            "id": 588,
+            "name": "EBCM"
+          },
+          {
+            "id": 681,
+            "name": "SYSTEM ARCHITECTURE"
+          },
+          {
+            "id": 615,
+            "name": "EBCM Traspaso"
+          },
+          {
+            "id": 540,
+            "name": "IT Strategy & Management Legacy"
+          },
+          {
+            "id": 580,
+            "name": "Interaction Mgmt"
+          },
+          {
+            "id": 541,
+            "name": "Interaction Mgmt Legacy"
+          },
+          {
+            "id": 586,
+            "name": "CONTHACKAM"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 99)",
+    "cia": 3,
+    "squads": [
+      {
+        "id": 390,
+        "name": "DIR. SEGURIDAD DE INFORMATICA",
+        "jiraCode": "ISC",
+        "leadUser": "CE00018",
+        "cia": 3,
+        "businessServices": [
+          {
+            "id": 633,
+            "name": "Seguridad Informatica"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "name": "SHARED SERVICES",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 165,
+        "name": "RE_OPERATIONS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 255,
+        "name": "RE_IT SUPPORT & CPI MANAGEMENT (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 162,
+        "name": "RE_DEVELOPMENT TOOLING (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 200,
+        "name": "RE_TOOLSTACK&TRAINING (ERASED)",
+        "jiraCode": "TST",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 603,
+            "name": "Copys"
+          }
+        ]
+      },
+      {
+        "id": 163,
+        "name": "RE_QA & IT STANDARDS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 164,
+        "name": "RE_PERFORMANCE METRICS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 48)",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 180,
+        "name": "RE_SECURITY",
+        "jiraCode": "ITS",
+        "leadUser": "E007208",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 626,
+            "name": "SecurityOps"
+          },
+          {
+            "id": 340,
+            "name": "Security controls"
+          },
+          {
+            "id": 750,
+            "name": "user management"
+          },
+          {
+            "id": 751,
+            "name": "user audit"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "name": "BMP P&C",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 355,
+        "name": "IB_AZS CONNECTIVITY",
+        "jiraCode": "PCA",
+        "leadUser": "E006724",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 753,
+            "name": "Firma Digital"
+          },
+          {
+            "id": 756,
+            "name": "APIs Connectivity"
+          },
+          {
+            "id": 637,
+            "name": "Third Parties"
+          },
+          {
+            "id": 679,
+            "name": "PRODUCTS"
+          },
+          {
+            "id": 742,
+            "name": "Base7 Catalogue"
+          }
+        ]
+      },
+      {
+        "id": 360,
+        "name": "IB_MULTIRISK (ERASED)",
+        "jiraCode": "",
+        "leadUser": "E006319",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 733,
+            "name": "Policy Admin Household"
+          },
+          {
+            "id": 732,
+            "name": "Production Household"
+          }
+        ]
+      },
+      {
+        "id": 356,
+        "name": "IB_POLICY & PORTFOLIO MNGT.",
+        "jiraCode": "",
+        "leadUser": "E006707",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 401,
+        "name": "IB_BMP PRODUCTS",
+        "jiraCode": "",
+        "leadUser": "E104888",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "name": "ENTIDAD GENERICA",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 0,
+        "name": "ENTIDAD GENERICA",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": [
+          {
+            "id": 6,
+            "name": "Business service genérico BRASIL"
+          },
+          {
+            "id": 4,
+            "name": "Business service genérico IBERIA"
+          },
+          {
+            "id": 0,
+            "name": "Business service genérico"
+          },
+          {
+            "id": 5,
+            "name": "Business service genérico COLOMBIA"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "PRODUCTION & REINSURANCE",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 12,
+        "name": "RE_REINSURANCE (ERASED)",
+        "jiraCode": "REI",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 108,
+        "name": "RE_CLIENTS, MM & QUERIES (ERASED)",
+        "jiraCode": "PRO",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 11,
+        "name": "RE_PORTFOLIO PROCESSES (ERASED)",
+        "jiraCode": "PFS",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 13,
+        "name": "RE_PRODUCT FACTORY",
+        "jiraCode": "CPF",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 10,
+        "name": "RE_GO & FILE MANAGEMENT (ERASED)",
+        "jiraCode": "GFE",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 97)",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 22,
+        "name": "RE_TECHNICAL COORDINATION",
+        "jiraCode": "SDV",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "IT FRONT-END",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 30,
+        "name": "IB_IT LIFE PRODUCTS (ERASED)",
+        "jiraCode": "IFC",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 118,
+        "name": "IB_IT HUMAN RESOURCES",
+        "jiraCode": "HR",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 29,
+        "name": "IB_IT P&C MOTOR  & FENIX (ERASED)",
+        "jiraCode": "MOT",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 93)",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 123,
+        "name": "IB_IT ACCOUNTING & TAXES (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 37,
+        "name": "IB_IT PORTFOLIO MANAGEMENT & ASSISTANC (",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "ITI FRONT END",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 130,
+        "name": "ITI FE HUMAN RESOURCES",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "name": "IT BANCASSURANCE",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 296,
+        "name": "BB_PRODUCT & OUTPUTS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 297,
+        "name": "BB_INTEGRATION (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 298,
+        "name": "BB_IT FINANCE (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "name": "GLOBAL SYSTEM INTEGRATION 1",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 452,
+        "name": "DEVOPS GATEWAY PLATFORM",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 336,
+        "name": "QUALITY ASSURANCE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 340,
+        "name": "FRONT & MIDDLE OFFICE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 437,
+        "name": "BUSINESS ANALYSIS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 444,
+        "name": "SCRUM MASTERS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 339,
+        "name": "BACK OFFICE & PAYMENT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 130,
+    "name": "OPERATIONS  & PEOPLE FUNCTION",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 421,
+        "name": "PEOPLE ATTRACTION & DEVELOPMENT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 423,
+        "name": "INTERNAL IT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 424,
+        "name": "PEOPLE OPERATIONS & MANAGEMENT - BRANCH",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 422,
+        "name": "PEOPLE OPERATIONS & MANAGEMENT - SWP & D",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 453,
+        "name": "GLOBAL OPERATIONS & CIO - HUB",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 445,
+        "name": "SERVICES & QUALITY ASSURANCE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 420,
+        "name": "ORGANIZATIONAL DESIGN & CHANGE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 455,
+        "name": "PEOPLE OPERATIONS & MANAGEMENT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 136,
+    "name": "NEARSHORE SERVICES GERMANY",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 432,
+        "name": "TEAM 1",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 435,
+        "name": "TEAM 2",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "IT BACK-END",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 34,
+        "name": "IB_IT LIFE & CONTACT CENTER (ERASED)",
+        "jiraCode": "IBO",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 127,
+        "name": "IB_IT ACCOUNTING & TAXES (ERASED)",
+        "jiraCode": "IBF",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 35,
+        "name": "IB_IT CLAIMS PLATFORMS (ERASED)",
+        "jiraCode": "CLM",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 121,
+        "name": "IB_IT PORTFOLIO MANAGEMENT & ASSISTANC (",
+        "jiraCode": "ICA",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 122,
+        "name": "IB_IT OUTPUTS (ERASED)",
+        "jiraCode": "IBN",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 32,
+        "name": "IB_IT RECURSOS HUMANOS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "IT SISTEMAS",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 57,
+        "name": "IB_IT SISTEMAS NETWORK & ARQUITECTURA",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 54,
+        "name": "IB_IT SISTEMAS EMAIL E IMAGEM",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 55,
+        "name": "IB_IT SISTEMAS CENTRAIS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 56,
+        "name": "IB_IT SISTEMAS PRODUCAO",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "ITR OPERATIONS AND INCIDENT MGMT",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 79,
+        "name": "IB_IT SISTEMAS PRODUCAO",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 96,
+        "name": "IB_IT SISTEMAS BRS, SAS & SPOC",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 78,
+        "name": "IB_IT SISTEMAS CENTRAIS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 80,
+        "name": "IB_IT SISTEMAS NETWORK & ARQUITECTURA",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "name": "ENTERPRISE ARCHITECTURE & BMP TECHN",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 181,
+        "name": "RE_SYSTEM ARCHITECTURE (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 182,
+        "name": "RE_API MGMT. PLATFORM",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 183,
+        "name": "RE_EBCM",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "name": "LIFE, HEALTH, HR AND PORTUGAL",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 193,
+        "name": "IB_OUTPUTS & COMERCIAL (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 191,
+        "name": "IB_VIDA (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 250,
+        "name": "IB_MARKETING & CONECTIVIDAD (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 192,
+        "name": "IB_IT RRHH (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 311,
+        "name": "IB_CLAIMS CONVENIOS & OUTPUTS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 47)",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 173,
+        "name": "RE_BUSINESS INTELLIGENCE (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 380,
+        "name": "RE_CPI",
+        "jiraCode": "",
+        "leadUser": "E106407",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 389,
+        "name": "RE_CLAIMS MANAGEMENT (ERASED)",
+        "jiraCode": "CLE",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 378,
+        "name": "RE_DEVELOPMENT TOOLING & IT SUPPORT (ERA",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 379,
+        "name": "RE_PAYMENT & COLLECTION (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 272,
+        "name": "RE_SALES, CUSTOMERS & DISTRIBUTION (ERAS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 242,
+        "name": "RE_POLICY & REINSURANCE (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 283,
+        "name": "RE_COMMUNICATION MANAGEMENT (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 244,
+        "name": "RE_FINANCIAL ACCOUNTING (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 243,
+        "name": "RE_PRODUCT DESIGN (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "name": "BUSINESS APPLICATIONS - TEAM 1",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 334,
+        "name": "BMP1",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 403,
+        "name": "BMP4",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 404,
+        "name": "BMP2",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 347,
+        "name": "ARCHITECTURE 2",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 428,
+        "name": "ARCHITECTURE 3",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 335,
+        "name": "ARCHITECTURE 1",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 429,
+        "name": "BMP5",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 451,
+        "name": "ITMP PROJECT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 333,
+        "name": "BMP3",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "SUPERINT DESENVOLV E MANUT DE SISTE",
+    "cia": 4,
+    "squads": [
+      {
+        "id": 115,
+        "name": "BR_GER SIST BACK OFFICE E SINISTROS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 51,
+        "name": "BR_GER SIST. FINANCEIRO E CONTABEIS (ERA",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 48,
+        "name": "BR_GER SIST DE SINISTROS, BACK OFFICE, (",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "EPAC OPERATION & INCIDENT MANAGEMEN",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 7,
+        "name": "RE_MAIL & IMAGE (ERASED)",
+        "jiraCode": "MAI",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 93,
+        "name": "RE_APPLICATION SERVERS (ERASED)",
+        "jiraCode": "APS",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 92,
+        "name": "RE_NETWORK & SERVERS",
+        "jiraCode": "SYS",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 6,
+        "name": "RE_MAINFRAME & STORAGE (ERASED)",
+        "jiraCode": "MFS",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 8,
+        "name": "RE_DATABASE & SAP (ERASED)",
+        "jiraCode": "DBA",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 5,
+        "name": "RE_PLANNING & OPERATION (ERASED)",
+        "jiraCode": "PRD",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "name": "BMP FUNCTIONAL SQUADS",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 185,
+        "name": "RE_IB_AUTOS Y PARTICULARES (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 189,
+        "name": "RE_IB_COMERCIAL & CONECTIVIDAD (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 188,
+        "name": "RE_IB_PORTFOLIO & FISCAL (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 190,
+        "name": "IB_CLAIMS CONVENIOS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 186,
+        "name": "RE_IB_EMPRESAS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "name": "IT LIFE, HEALTH, HR AND PORTUGAL",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 201,
+        "name": "IB_IT CLAIMS AND CONNECTIVITY (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 202,
+        "name": "IB_IT BPI E PRODUTOS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 203,
+        "name": "IB_IT FISCAL AND HR (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "name": "BUSINESS APPLICATIONS - TEAM 2",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 443,
+        "name": "DATA HUB",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 365,
+        "name": "SAP SERVICES - TEAM 1",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 367,
+        "name": "DIGITAL INTERACTION - TEAM 2",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 366,
+        "name": "DIGITAL INTERACTION - TEAM 1",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "name": "DOM IT OPERATIONS AND INCIDENT MGMT",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 371,
+        "name": "DOM IT OI MAINFRAME AND STORAGE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 372,
+        "name": "DOM IT OI DATABASE AND SAP",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 373,
+        "name": "DTMF IT NETWORK AND SERVERS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "name": "IBEROLATAM CTO - AGILE, DEMAND, MNG",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 386,
+        "name": "RE_DEMAND MANAGEMENT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 385,
+        "name": "RE_QA & IT STANDARDS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "name": "INFRASTRUCTURE & SECURITY",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 446,
+        "name": "SECURITY SERVICES",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 442,
+        "name": "AZP SPAIN INFRASTRUCTURE & WORKPLACE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 449,
+        "name": "DEVOPS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 406,
+        "name": "AZP INFRASTRUCTURE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 450,
+        "name": "INFRASTRUCTURE & SECURITY - TEAM 1",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 96)",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 94,
+        "name": "RE_IT INFORMATION SECURITY (ERASED)",
+        "jiraCode": "ITS",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 9,
+        "name": "RE_SECURITY",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 99)",
+    "cia": 9,
+    "squads": [
+      {
+        "id": 300,
+        "name": "BBVA USUARIO FICTICIO",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 9,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 99)",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 332,
+        "name": "RE_OPERATIONS & PEOPLE FUNCTION",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 392,
+        "name": "RE_FINANCE & GOVERNANCE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 194,
+        "name": "RE_BUDGET & PROVIDERS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "name": "TRANSITIONAL APPLICATIONS & DECOMMISSION",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 349,
+        "name": "SPAIN FACTORY TL / APPLICATION OWNER SP/",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 441,
+        "name": "BTM",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 431,
+        "name": "SPAIN FACTORY TL / SERVICE EXCELLENCE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 132,
+    "name": "FINANCE & GOVERNANCE",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 407,
+        "name": "FINANCE, RISK & LEGAL",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 425,
+        "name": "FINANCE HUB",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 438,
+        "name": "PROCUREMENT HUB",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 440,
+        "name": "RISK MANAGEMENT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "name": "IBERIAN P&C DEVELOPMENT",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 246,
+        "name": "IB_AUTOS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 249,
+        "name": "IB_PORTFOLIO & FISCAL (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 247,
+        "name": "IB_MULTIRRIESGOS & PORTFOLIO (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "name": "SUPERINT INFRAESTRUTURA E ARQUITETURA",
+    "cia": 4,
+    "squads": [
+      {
+        "id": 433,
+        "name": "BR_GER ARQUITETURA E INOVACAO",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 434,
+        "name": "BR_GER WORKPLACE E SUPORTE CORRETORES",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      },
+      {
+        "id": 304,
+        "name": "BR_GER INFRAESTRUTURA E OPERACOES DE SI",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 4,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "IT QUALIDADE E I D",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 58,
+        "name": "IB_IT QUALIDADE & DBA",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "ESCR. DIRECTOS (ÁREA * DIVISÃO 69)",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 63,
+        "name": "IT SECURITY",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "name": "DOM IT SHARED SERVICES",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 391,
+        "name": "DOM IT SS SERVICE AND APPLICATION MGMT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 375,
+        "name": "DOM IT SS PLANNING AND OPERATION",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "FINANCE & CLAIMS",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 17,
+        "name": "RE_ACCOUNTING",
+        "jiraCode": "RBF",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 21,
+        "name": "RE_INFORMATION CENTER (ERASED)",
+        "jiraCode": "DTW",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 109,
+        "name": "RE_CLAIMS ASSISTANCE MANAGEMENT",
+        "jiraCode": "CLA",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      },
+      {
+        "id": 18,
+        "name": "RE_COMMERCIAL (ERASED)",
+        "jiraCode": "COM",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "name": "ITR FRONT END",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 133,
+        "name": "IB_ITR FE BPI E PRODUTOS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 136,
+        "name": "IB_ITR FE AT E CONSULTAS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "IT LOCAL SERVICOS CENTRAIS",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 103,
+        "name": "IT LOCAL SC FISCAL E LEGAL (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 102,
+        "name": "IT LOCAL SC RH",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "name": "OFIC. DIRECTAS (AREA * DIVISIÓN 99)",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 439,
+        "name": "ACCOUNT MANAGEMENT",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "name": "IT QUALIDADE E I D",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 81,
+        "name": "IB_IT QUALIDADE & DBA",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "name": "SUPERINT SEGURANCA DA INFORMACAO",
+    "cia": 4,
+    "squads": []
+  },
+  {
+    "id": 55,
+    "name": "INFORMATION SECURITY / P&R",
+    "cia": 2,
+    "squads": []
+  },
+  {
+    "id": 62,
+    "name": "IT LIFE, HEALTH, HR AND PORTUGAL",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 137,
+        "name": "IB_IT CLAIMS AND CONNECTIVITY (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 199,
+        "name": "IB_IT BPI E PRODUTOS (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      },
+      {
+        "id": 139,
+        "name": "IB_IT FISCAL AND HR (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "ITI BACK END",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 101,
+        "name": "IT LOCAL BE OUTPUTS",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 138,
+    "name": "AZ SERVICES / AZ CONSULTING",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 454,
+        "name": "AZ CONSULTING SPAIN",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "IT BACK-END AP",
+    "cia": 1,
+    "squads": [
+      {
+        "id": 84,
+        "name": "IB_IT CANAL BANCARIO AP (ERASED)",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 1,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "ARCHITECTURE & SQA",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 2,
+        "name": "RE_USER INTERFACE (ERASED)",
+        "jiraCode": "UMP",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "name": "ESCR. DIRECTOS (ÁREA * DIVISÃO 99)",
+    "cia": 8,
+    "squads": [
+      {
+        "id": 457,
+        "name": "DOM SERVICE DESK E WORKPLACE",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 8,
+        "businessServices": []
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "name": "GLOBAL PLATFORM",
+    "cia": 2,
+    "squads": [
+      {
+        "id": 265,
+        "name": "SAP SERVICES - TEAM 2",
+        "jiraCode": "",
+        "leadUser": "",
+        "cia": 2,
+        "businessServices": []
+      }
+    ]
+  }
+]

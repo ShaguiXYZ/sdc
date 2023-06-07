@@ -10,7 +10,8 @@
 			CREATE TABLE architectures (
 				id serial4 NOT NULL,
 				name varchar NOT NULL,
-				CONSTRAINT architectures_pk PRIMARY KEY (id)
+				CONSTRAINT architectures_pk PRIMARY KEY (id),
+				CONSTRAINT architectures_name_type_uk UNIQUE (name)
 			);
 		</sql>
 	</changeSet>
@@ -42,7 +43,8 @@
 			CREATE TABLE component_types (
 				id serial4 NOT NULL,
 				name varchar NOT NULL,
-				CONSTRAINT component_types_pk PRIMARY KEY (id)
+				CONSTRAINT component_types_pk PRIMARY KEY (id),
+				CONSTRAINT component_types_name_type_uk UNIQUE (name)
 			);
 		</sql>
 	</changeSet>
@@ -65,6 +67,7 @@
 			CREATE TABLE departments (
 				id int4 NOT NULL,
 				name varchar NOT NULL,
+				expiry_date timestamp,
 				company_id int4 NOT NULL,
 				CONSTRAINT departments_pk PRIMARY KEY (id),
 				CONSTRAINT department_company_fk FOREIGN KEY (company_id) REFERENCES companies(id)
@@ -91,9 +94,10 @@
 				id int4 NOT NULL,
 				name varchar NOT NULL,
 				coverage real,
+				expiry_date timestamp,
 				department_id int4 NOT NULL,
 				CONSTRAINT squads_pk PRIMARY KEY (id),
-				CONSTRAINT squads_department_fk FOREIGN KEY (department_id) REFERENCES departments(id)
+				CONSTRAINT squads_department_fk FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE
 			);
 		</sql>
 	</changeSet>
@@ -114,6 +118,7 @@
 				id serial4 NOT NULL,
 				name varchar NOT NULL,
 				coverage real,
+				expiry_date timestamp,
 				component_type_architecture_id int4 NOT NULL,
 				squad_id int4 NOT NULL,
 				CONSTRAINT components_pk PRIMARY KEY (id),

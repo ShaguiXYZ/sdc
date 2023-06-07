@@ -34,7 +34,7 @@ public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoric
 
 	@Override
 	public HistoricalCoverageDTO<ComponentDTO> historicalCoverage(int componentId) {
-		ComponentModel component = componentRepository.findById(componentId);
+		ComponentModel component = componentRepository.findExistingId(componentId);
 		List<ComponentHistoricalCoverageModel> historical = componentHistoricalCoverageRepository.repository()
 				.findById_ComponentId(component.getId());
 
@@ -45,7 +45,7 @@ public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoric
 
 	@Override
 	public HistoricalCoverageDTO<ComponentDTO> historicalCoverage(int componentId, RequestPageInfo pageInfo) {
-		ComponentModel component = componentRepository.findById(componentId);
+		ComponentModel component = componentRepository.findExistingId(componentId);
 		Page<ComponentHistoricalCoverageModel> historical = componentHistoricalCoverageRepository.repository()
 				.findById_ComponentId(component.getId(), pageInfo.getPageable());
 

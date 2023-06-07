@@ -10,10 +10,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "companies")
 public class CompanyModel {
@@ -29,4 +31,7 @@ public class CompanyModel {
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<DepartmentModel> departments;
 
+	public CompanyModel(int id) {
+		this.id = id;
+	}
 }

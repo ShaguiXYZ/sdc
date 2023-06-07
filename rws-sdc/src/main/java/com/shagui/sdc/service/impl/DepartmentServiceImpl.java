@@ -24,7 +24,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public DepartmentDTO findById(int departmentId) {
-		return Mapper.parse(departmentRepository.findById(departmentId));
+		return Mapper.parse(departmentRepository.findExistingId(departmentId));
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class ComponentServiceImpl implements ComponentService {
 
 	@Override
 	public ComponentDTO findBy(int componentId) {
-		return Mapper.parse(componentRepository.findById(componentId));
+		return Mapper.parse(componentRepository.findExistingId(componentId));
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class ComponentServiceImpl implements ComponentService {
 
 	@Override
 	public PageData<MetricDTO> componentMetrics(int componentId) {
-		ComponentModel model = componentRepository.findById(componentId);
+		ComponentModel model = componentRepository.findExistingId(componentId);
 
 		return model.getComponentTypeArchitecture().getMetrics().stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable());

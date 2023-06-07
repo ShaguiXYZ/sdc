@@ -1,5 +1,6 @@
 package com.shagui.sdc.util.jpa;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,8 +20,16 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 
 	R repository();
 
-	default T findById(K id) {
+	default Optional<T> findById(K id) {
+		return repository().findById(id);
+	}
+
+	default T findExistingId(K id) {
 		return repository().findById(id).orElseThrow(JpaNotFoundException::new);
+	}
+
+	default T findByIdOr(K id, T orData) {
+		return repository().findById(id).orElse(orData);
 	}
 
 	default List<T> findAll() {
@@ -53,7 +62,7 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 				return repository().save(model);
 			}
 		}
-		
+
 		return repository().save(model);
 	}
 
@@ -65,5 +74,18 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 		}
 
 		return repository().save(model);
+	}
+
+	default List<T> saveAll(Iterable<T> data) {
+		return repository().saveAll(data);
+	}
+
+	default void delete(T model) {
+		if (JpaExpirableData.class.isAssignableFrom(model.getClass())) {
+			((JpaExpirableData) model).setExpiryDate(new Date());
+			update(model.getId(), model);
+		} else {
+			this.repository().delete(model);
+		}
 	}
 }

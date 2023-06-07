@@ -26,7 +26,7 @@ public class SquadServiceImpl implements SquadService {
 
 	@Override
 	public SquadDTO findById(int squadId) {
-		return Mapper.parse(squadRepository.findById(squadId));
+		return Mapper.parse(squadRepository.findExistingId(squadId));
 	}
 
 	@Override

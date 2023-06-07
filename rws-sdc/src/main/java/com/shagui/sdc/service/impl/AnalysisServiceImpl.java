@@ -64,7 +64,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 	@Override
 	@Transactional
 	public PageData<MetricAnalysisDTO> analyze(int componentId) {
-		ComponentModel component = componentsRepository.findById(componentId);
+		ComponentModel component = componentsRepository.findExistingId(componentId);
 
 		List<ComponentAnalysisModel> analysis = executeAsyncMetricServicesAndWait(component);
 		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(analysis);

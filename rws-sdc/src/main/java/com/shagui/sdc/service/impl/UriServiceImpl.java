@@ -18,7 +18,7 @@ public class UriServiceImpl implements UriService {
 
 	@Override
 	public UriDTO findById(int uriId) {
-		uriRepository.findById(uriId);
+		uriRepository.findExistingId(uriId);
 		
 		return null;
 	}
