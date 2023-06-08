@@ -4,20 +4,63 @@
 	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-	<changeSet author="initial" id="10022023_50001">
+	<changeSet author="initial" id="20230707_50001">
 		<sql dbms="postgresql">
-			INSERT INTO architectures (name) VALUES
-				 ('MICROSERVICES'),
-				 ('LEGACY'),
-				 ('ANGULAR'),
-				 ('SEA'),
-				 ('UNI_REPO');
+			INSERT INTO networks (name) VALUES
+				 ('none'),
+				 ('user-integration'),
+				 ('user-integration::public'),
+				 ('user-integration::private'),
+				 ('third-party-integration::public'),
+				 ('third-party-integration::private'),
+				 ('business-logic');
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50002">
+	<changeSet author="initial" id="20230707_50002">
 		<sql dbms="postgresql">
-			INSERT INTO companies (id,name,company_codes) VALUES
+			INSERT INTO deployment_types (name) VALUES
+				 ('none'),
+				 ('static'),
+				 ('jboss'),
+				 ('container'),
+				 ('standalone');
+		</sql>
+	</changeSet>
+				 
+	<changeSet author="initial" id="20230707_50003">
+		<sql dbms="postgresql">
+			INSERT INTO platforms (name) VALUES
+				 ('cloud'),
+				 ('on-premises');
+		</sql>
+	</changeSet>
+				 
+	<changeSet author="initial" id="20230707_50004">
+		<sql dbms="postgresql">
+			INSERT INTO languages (name) VALUES
+				 ('typescript'),
+				 ('javascript'),
+				 ('java');
+		</sql>
+	</changeSet>
+				 
+	<changeSet author="initial" id="20230707_50005">
+		<sql dbms="postgresql">
+			INSERT INTO architectures (name) VALUES
+				 ('rws'),
+				 ('rws::legacy'),
+				 ('sea::legacy'),
+				 ('axis::legacy'),
+				 ('module::legacy'),
+				 ('shared::legacy'),
+				 ('batch::legacy');
+		</sql>
+	</changeSet>
+				 
+	<changeSet author="initial" id="20230707_50006">
+		<sql dbms="postgresql">
+			INSERT INTO companies (id,name,codes) VALUES
 				 (2,'Allianz','ALZ,AZS'),
 				 (3,'Colombia','AZC,COL'),
 				 (4,'Brazil','AZB,BRA'),
@@ -30,7 +73,7 @@
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50003">
+	<changeSet author="initial" id="20230707_50007">
 		<sql dbms="postgresql">
 			INSERT INTO departments (id,name,company_id) VALUES
 				 (0,'SDC GENERIC',2),
@@ -38,7 +81,7 @@
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50004">
+	<changeSet author="initial" id="20230707_50008">
 		<sql dbms="postgresql">
 			INSERT INTO squads (id,name,department_id) VALUES
 				 (42,'CO_SDC. DE DESARROLLO',13),
@@ -46,7 +89,7 @@
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50005">
+	<changeSet author="initial" id="20230707_50009">
 		<sql dbms="postgresql">
 			INSERT INTO metrics (name,type,metric_value_type,metric_validation) VALUES
 				 ('coverage','SONAR','NUMERIC','LTE'),
@@ -69,16 +112,25 @@
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50006">
+	<changeSet author="initial" id="20230707_50010">
 		<sql dbms="postgresql">
 			INSERT INTO component_types (name) VALUES
-				 ('BACKEND'),
-				 ('FRONTEND'),
-				 ('CONTAINER');
+				 ('frontend::library'),
+				 ('frontend::angular'),
+				 ('frontend::bff'),
+				 ('frontend::ssr'),
+				 ('frontend::anonymous'),
+				 ('integration::rest'),
+				 ('integration::soap'),
+				 ('backend::library'),
+				 ('backend::starter'),
+				 ('backend::rest'),
+				 ('backend::batch'),
+				 ('backend::ebs');
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50007">
+	<changeSet author="initial" id="20230707_50011">
 		<sql dbms="postgresql">
 			INSERT INTO uris (name,value,type,source) VALUES
 				 ('public-repo','https://api.github.com/repos','GIT','https://github.com/${project}'),
@@ -87,7 +139,7 @@
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50008">
+	<changeSet author="initial" id="20230707_50012">
 		<sql dbms="postgresql">
 			INSERT INTO request_properties (key,value) VALUES
 				 ('Accept','application/vnd.github.v4.raw'),
@@ -95,7 +147,7 @@
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50009">
+	<changeSet author="initial" id="20230707_50013">
 		<sql dbms="postgresql">
 			INSERT INTO uri_request_properties (uri_id,request_property_id) VALUES
 				 (2,1),
@@ -103,32 +155,83 @@
 		</sql>
 	</changeSet>
 
-	<changeSet author="initial" id="10022023_50010">
+	<changeSet author="initial" id="20230707_50014">
 		<sql dbms="postgresql">
-			INSERT INTO component_type_architectures (component_type_id,architecture_id) VALUES
-				 (1,1),
-				 (1,2),
-				 (2,3),
-				 (2,4),
-				 (2,1),
-				 (3,5);
+			INSERT INTO component_type_architectures (component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
+				 (1,1,1,1,1,1),
+				 (1,1,1,2,1,1),
+				 (1,2,2,1,3,2),
+				 (1,2,2,2,3,2),
+				 (1,2,3,1,3,3),
+				 (1,2,3,2,3,3),
+				 (2,3,4,1,1,1),
+				 (2,3,2,2,1,1),
+				 (2,4,4,1,1,1),
+				 (2,4,2,2,1,1);
+			INSERT INTO component_type_architectures (component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
+				 (3,3,4,1,1,3),
+				 (3,3,3,2,1,3),
+				 (3,4,4,1,1,3),
+				 (3,4,3,2,1,3),
+				 (4,3,4,1,3,3),
+				 (4,3,3,2,3,3),
+				 (4,4,4,1,3,3),
+				 (4,4,3,2,3,3),
+				 (5,2,4,1,1,3),
+				 (5,2,3,2,1,3);
+			INSERT INTO component_type_architectures (component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
+				 (5,2,4,1,1,1),
+				 (5,2,3,2,1,1),
+				 (6,5,4,1,1,3),
+				 (6,5,3,2,1,3),
+				 (6,6,4,1,1,3),
+				 (6,6,3,2,1,3),
+				 (7,5,4,1,1,3),
+				 (7,5,3,2,1,3),
+				 (7,6,4,1,1,3),
+				 (7,6,3,2,1,3);
+			INSERT INTO component_type_architectures (component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
+				 (7,5,3,1,4,3),
+				 (7,5,3,2,4,3),
+				 (7,6,3,1,4,3),
+				 (7,6,3,2,4,3),
+				 (8,1,1,1,1,3),
+				 (8,1,3,2,1,3),
+				 (9,1,1,1,1,3),
+				 (9,1,3,2,1,3),
+				 (8,7,3,1,5,3),
+				 (8,7,3,2,5,3);
+			INSERT INTO component_type_architectures (component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
+				 (8,7,3,1,6,3),
+				 (8,7,3,2,6,3),
+				 (10,7,4,1,1,3),
+				 (10,7,3,2,1,3),
+				 (10,7,3,1,2,3),
+				 (10,7,3,2,2,3),
+				 (11,7,4,1,1,3),
+				 (11,7,5,2,1,3),
+				 (11,7,4,1,7,3),
+				 (11,7,5,2,7,3);
+			INSERT INTO component_type_architectures (component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
+				 (12,7,4,1,1,3),
+				 (12,7,3,2,1,3);
 		</sql>
 	</changeSet>
 
-	<changeSet author="initial" id="10022023_50011">
+	<changeSet author="initial" id="20230707_50015">
 		<sql dbms="postgresql">
 			INSERT INTO components (name,component_type_architecture_id,squad_id) VALUES
-				 ('rws-empty',1,42),
-				 ('bff-empty',1,42),
-				 ('storm:aff3ct:gitlab:master',3,75),
-				 ('cardamom:mmg:github:master',3,75),
-				 ('bff-sdc',1,42),
+				 ('rws-empty',2,42),
+				 ('bff-empty',11,42),
+				 ('storm:aff3ct:gitlab:master',15,75),
+				 ('cardamom:mmg:github:master',15,75),
+				 ('bff-sdc',13,42),
 				 ('rws-sdc',1,42),
-				 ('ngx-sdc',1,42);		
+				 ('ngx-sdc',9,42);		
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50012">
+	<changeSet author="initial" id="20230707_50016">
 		<sql dbms="postgresql">
 			INSERT INTO component_uris (component_id,uri_id) VALUES
 				 (1,1),
@@ -141,12 +244,14 @@
 		</sql>
 	</changeSet>
 
-	<changeSet author="initial" id="10022023_50013">
+	<changeSet author="initial" id="20230707_50017">
 		<sql dbms="postgresql">
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (1,15),
-				 (1,16),
-				 (2,15),
+				 (1,16);
+			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				 (2,15);
+			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (3,1),
 				 (3,2),
 				 (3,3),
@@ -154,19 +259,18 @@
 				 (3,5),
 				 (3,6),
 				 (3,7),
-				 (3,8);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				 (3,8),
 				 (3,9),
 				 (3,10),
 				 (3,11),
 				 (3,12),
 				 (3,13),
-				 (3,14),
+				 (3,14);
+			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (4,1),
 				 (4,2),
 				 (4,3),
-				 (4,4);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				 (4,4),
 				 (4,5),
 				 (4,6),
 				 (4,7),
@@ -177,10 +281,25 @@
 				 (4,12),
 				 (4,13),
 				 (4,14);
+			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				 (15,1),
+				 (15,2),
+				 (15,3),
+				 (15,4),
+				 (15,5),
+				 (15,6),
+				 (15,7),
+				 (15,8),
+				 (15,9),
+				 (15,10),
+				 (15,11),
+				 (15,12),
+				 (15,13),
+				 (15,14);
 		</sql>
 	</changeSet>
 
-	<changeSet author="initial" id="10022023_50014">
+	<changeSet author="initial" id="20230707_50018">
 		<sql dbms="postgresql">
 			INSERT INTO component_properties (name,value,component_id) VALUES
 				 ('organization','shaguixyz',1),
@@ -206,7 +325,7 @@
 		</sql>
 	</changeSet>
 	
-	<changeSet author="initial" id="10022023_50015">
+	<changeSet author="initial" id="20230707_50019">
 		<sql dbms="postgresql">
 			INSERT INTO metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
 				 (1,3,'2023-03-01 10:57:21.597993',60,'50','60','90'),

@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.data.ComponentDataRestApi;
 import com.shagui.sdc.api.dto.ComponentDTO;
-import com.shagui.sdc.api.dto.input.ComponentInput;
+import com.shagui.sdc.api.dto.cmdb.ComponentInput;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 

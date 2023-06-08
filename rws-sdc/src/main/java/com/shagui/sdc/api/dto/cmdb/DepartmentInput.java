@@ -1,4 +1,4 @@
-package com.shagui.sdc.api.dto.input;
+package com.shagui.sdc.api.dto.cmdb;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.data.DepartmentDataRestApi;
 import com.shagui.sdc.api.dto.DepartmentDTO;
-import com.shagui.sdc.api.dto.input.DepartmentInput;
+import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
 import com.shagui.sdc.service.DataMaintenanceService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;

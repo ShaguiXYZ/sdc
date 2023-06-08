@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
-import com.shagui.sdc.api.dto.input.ComponentInput;
-import com.shagui.sdc.api.dto.input.DepartmentInput;
-import com.shagui.sdc.api.dto.input.SquadInput;
+import com.shagui.sdc.api.dto.cmdb.ComponentInput;
+import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
+import com.shagui.sdc.api.dto.cmdb.SquadInput;
 import com.shagui.sdc.model.CompanyModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.DepartmentModel;

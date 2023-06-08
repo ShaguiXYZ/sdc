@@ -25,7 +25,7 @@ public class CompanyModel {
 	@Column(nullable = false)
 	private String name;
 
-	@Column(name = "company_codes")
+	@Column(nullable = false)
 	private String codes;
 
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)

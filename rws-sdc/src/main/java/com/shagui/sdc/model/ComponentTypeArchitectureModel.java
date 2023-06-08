@@ -24,8 +24,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "component_type_architectures", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "component_type_id", "architecture_id" }) })
+@Table(name = "component_type_architectures", uniqueConstraints = { @UniqueConstraint(columnNames = {
+		"component_type_id", "architecture_id", "network_id", "deployment_type_id", "platform_id", "language_id" }) })
 public class ComponentTypeArchitectureModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +38,22 @@ public class ComponentTypeArchitectureModel implements ModelInterface<Integer> {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "architecture_id")
 	private ArchitectureModel architecture;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "network_id")
+	private NetworkModel network;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "deployment_type_id")
+	private DeploymentTypeModel deploymentType;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "platform_id")
+	private PlatformModel platform;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "language_id")
+	private LanguageModel language;
 
 	@OneToMany(mappedBy = "componentTypeArchitecture", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentModel> components;

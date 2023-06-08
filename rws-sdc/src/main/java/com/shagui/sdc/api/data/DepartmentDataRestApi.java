@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shagui.sdc.api.dto.DepartmentDTO;
-import com.shagui.sdc.api.dto.input.DepartmentInput;
+import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Operation;

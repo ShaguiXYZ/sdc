@@ -5,7 +5,47 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 						http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-	<changeSet author="initial" id="18022023_10001">
+	<changeSet author="initial" id="20230707_10001">
+		<sql dbms="postgresql">
+			CREATE TABLE networks (
+				id serial4 NOT NULL,
+				name varchar NOT NULL,
+				CONSTRAINT networks_pk PRIMARY KEY (id),
+				CONSTRAINT network_name_uk UNIQUE (name)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20230707_10002">
+		<sql dbms="postgresql">
+			CREATE TABLE deployment_types (
+				id serial4 NOT NULL,
+				name varchar NOT NULL,
+				CONSTRAINT deployment_types_pk PRIMARY KEY (id),
+				CONSTRAINT deployment_type_name_uk UNIQUE (name)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20230707_10003">
+		<sql dbms="postgresql">
+			CREATE TABLE platforms (
+				id serial4 NOT NULL,
+				name varchar NOT NULL,
+				CONSTRAINT platforms_pk PRIMARY KEY (id),
+				CONSTRAINT platform_name_uk UNIQUE (name)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20230707_10004">
+		<sql dbms="postgresql">
+			CREATE TABLE languages (
+				id serial4 NOT NULL,
+				name varchar NOT NULL,
+				CONSTRAINT languages_pk PRIMARY KEY (id),
+				CONSTRAINT language_name_uk UNIQUE (name)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20230707_10005">
 		<sql dbms="postgresql">
 			CREATE TABLE architectures (
 				id serial4 NOT NULL,
@@ -14,18 +54,18 @@
 				CONSTRAINT architectures_name_type_uk UNIQUE (name)
 			);
 		</sql>
-	</changeSet>
-	<changeSet author="initial" id="18022023_10002">
+	</changeSet>	
+	<changeSet author="initial" id="20230707_10006">
 		<sql dbms="postgresql">
 			CREATE TABLE companies (
 				id int4 NOT NULL,
 				name varchar NOT NULL,
-				company_codes varchar NOT NULL,
+				codes varchar NOT NULL,
 				CONSTRAINT companies_pk PRIMARY KEY (id)
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10003">
+	<changeSet author="initial" id="20230707_10007">
 		<sql dbms="postgresql">
 			CREATE TABLE metrics (
 				id serial4 NOT NULL,
@@ -38,7 +78,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10004">
+	<changeSet author="initial" id="20230707_10008">
 		<sql dbms="postgresql">
 			CREATE TABLE component_types (
 				id serial4 NOT NULL,
@@ -48,7 +88,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="23052023_10001">
+	<changeSet author="initial" id="20230707_10009">
 		<sql dbms="postgresql">
 			CREATE TABLE uris (
 				id serial4 NOT NULL,
@@ -62,7 +102,7 @@
 		</sql>
 	</changeSet>
 			
-	<changeSet author="initial" id="18022023_10006">
+	<changeSet author="initial" id="20230707_10010">
 		<sql dbms="postgresql">
 			CREATE TABLE departments (
 				id int4 NOT NULL,
@@ -74,21 +114,29 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10007">
+	<changeSet author="initial" id="20230707_10011">
 		<sql dbms="postgresql">
 			CREATE TABLE component_type_architectures (
 				id serial4 NOT NULL,
 				component_type_id int4 NOT NULL,
+				network_id int4 NOT NULL,
+				deployment_type_id int4 NOT NULL,
+				platform_id int4 NOT NULL,
 				architecture_id int4 NOT NULL,
+				language_id int4 NOT NULL,
 				CONSTRAINT component_type_architectures_pk PRIMARY KEY (id),
-				CONSTRAINT component_type_architectures_component_type_architecture_uk UNIQUE (component_type_id,architecture_id),
-				CONSTRAINT component_type_architecture_architecture_fk FOREIGN KEY (architecture_id) REFERENCES architectures(id) ON DELETE CASCADE,
-				CONSTRAINT component_type_architecture_component_type_fk FOREIGN KEY (component_type_id) REFERENCES component_types(id) ON DELETE CASCADE
+				CONSTRAINT component_type_architectures_component_type_architecture_uk UNIQUE (component_type_id,network_id,deployment_type_id,platform_id,language_id,architecture_id),
+				CONSTRAINT component_type_architecture_architecture_fk FOREIGN KEY (architecture_id) REFERENCES architectures(id),
+				CONSTRAINT component_type_architecture_component_type_fk FOREIGN KEY (component_type_id) REFERENCES component_types(id),
+				CONSTRAINT component_type_architecture_network_fk FOREIGN KEY (network_id) REFERENCES networks(id),
+				CONSTRAINT component_type_architecture_deployment_type_fk FOREIGN KEY (deployment_type_id) REFERENCES deployment_types(id),
+				CONSTRAINT component_type_architecture_platform_fk FOREIGN KEY (platform_id) REFERENCES platforms(id),
+				CONSTRAINT component_type_architecture_language_fk FOREIGN KEY (language_id) REFERENCES languages(id)
 			);
 		</sql>
 	</changeSet>
 			
-	<changeSet author="initial" id="18022023_10008">
+	<changeSet author="initial" id="20230707_10012">
 		<sql dbms="postgresql">
 			CREATE TABLE squads (
 				id int4 NOT NULL,
@@ -101,7 +149,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10009">
+	<changeSet author="initial" id="20230707_10013">
 		<sql dbms="postgresql">
 			CREATE TABLE component_type_architecture_metrics (
 				component_type_architecture_id int4 NOT NULL,
@@ -112,7 +160,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10010">
+	<changeSet author="initial" id="20230707_10014">
 		<sql dbms="postgresql">
 			CREATE TABLE components (
 				id serial4 NOT NULL,
@@ -128,7 +176,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10011">
+	<changeSet author="initial" id="20230707_10015">
 		<sql dbms="postgresql">
 			CREATE TABLE metric_values (
 				id serial4 NOT NULL,
@@ -146,7 +194,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10012">
+	<changeSet author="initial" id="20230707_10016">
 		<sql dbms="postgresql">
 			CREATE TABLE component_analysis (
 				component_id int4 NOT NULL,
@@ -160,7 +208,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10013">
+	<changeSet author="initial" id="20230707_10017">
 		<sql dbms="postgresql">
 			CREATE TABLE component_properties (
 				id serial4 NOT NULL,
@@ -173,7 +221,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10014">
+	<changeSet author="initial" id="20230707_10018">
 		<sql dbms="postgresql">
 			CREATE TABLE component_uris (
 				component_id int4 NOT NULL,
@@ -184,7 +232,7 @@
 			);
 		</sql>
 	</changeSet>		
-	<changeSet author="initial" id="18022023_10015">
+	<changeSet author="initial" id="20230707_10019">
 		<sql dbms="postgresql">
 			CREATE TABLE request_properties (
 				id serial4 NOT NULL,
@@ -194,7 +242,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10016">
+	<changeSet author="initial" id="20230707_10020">
 		<sql dbms="postgresql">
 			CREATE TABLE uri_request_properties (
 				uri_id int4 NOT NULL,
@@ -205,7 +253,7 @@
 			);
 		</sql>
 	</changeSet>
-	<changeSet author="initial" id="18022023_10017">
+	<changeSet author="initial" id="20230707_10021">
 		<sql dbms="postgresql">
 			CREATE TABLE component_historical_coverages (
 				component_id int4 NOT NULL,

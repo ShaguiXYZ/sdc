@@ -1,4 +1,4 @@
-package com.shagui.sdc.api.dto.input;
+package com.shagui.sdc.api.dto.cmdb;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BusinessServiceInput {
-	private int id;
+public class ComponentPropertyInput {
 	private String name;
+	private String value;
 }

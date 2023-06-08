@@ -1,4 +1,4 @@
-package com.shagui.sdc.api.dto.input;
+package com.shagui.sdc.api.dto.cmdb;
 
 import java.util.List;
 
@@ -12,7 +12,11 @@ import lombok.Setter;
 public class ComponentInput {
 	private String name;
 	private String componentType;
+	private String network;
+	private String deploymentType;
+	private String platform;
 	private String architecture;
+	private String language;
 	private int squad;
 	private List<ComponentPropertyInput> properties;
 	private List<String> uriNames;
