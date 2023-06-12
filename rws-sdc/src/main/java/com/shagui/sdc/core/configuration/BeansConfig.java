@@ -20,7 +20,4 @@ public class BeansConfig {
 
         return objectMapper;
     }
-    
-//	@Value("classpath:data/departments-squads.json")
-//	Resource jsonDepartmentsSquads;
 }

@@ -3,6 +3,7 @@ package com.shagui.sdc.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,12 +25,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "component_type_architectures", uniqueConstraints = { @UniqueConstraint(columnNames = {
-		"component_type_id", "architecture_id", "network_id", "deployment_type_id", "platform_id", "language_id" }) })
+@Table(name = "component_type_architectures", uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }),
+		@UniqueConstraint(columnNames = { "component_type_id", "architecture_id", "network_id", "deployment_type_id",
+				"platform_id", "language_id" }) })
 public class ComponentTypeArchitectureModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@Column(nullable = false)
+	private String name;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "component_type_id")

@@ -7,10 +7,12 @@ import org.springframework.beans.BeanUtils;
 import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class MetricAnalysisView {
 	private Date analysisDate;

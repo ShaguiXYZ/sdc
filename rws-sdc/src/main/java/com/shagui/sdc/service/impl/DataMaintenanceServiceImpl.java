@@ -56,12 +56,10 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	public List<DepartmentDTO> departmentsData(List<DepartmentInput> data) {
 		List<DepartmentModel> models = data.stream().map(maintainDepartment).collect(Collectors.toList());
 
-		List<SquadInput> squadsInput = data.stream().map(d -> {
-			return d.getSquads().stream().map(s -> {
-				s.setDepartmentId(d.getId());
-				return s;
-			}).collect(Collectors.toList());
-		}).flatMap(List::stream).collect(Collectors.toList());
+		List<SquadInput> squadsInput = data.stream().map(d -> d.getSquads().stream().map(s -> {
+			s.setDepartmentId(d.getId());
+			return s;
+		}).collect(Collectors.toList())).flatMap(List::stream).collect(Collectors.toList());
 
 		squadsInput.forEach(input -> maintainSquad.apply(input));
 

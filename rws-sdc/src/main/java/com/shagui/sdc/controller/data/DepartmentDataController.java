@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @Tag(name = "department maintenance", description = "API to department maintenance")
 public class DepartmentDataController implements DepartmentDataRestApi {
+    
+	@Value("classpath:data/departments-squads.json")
+	Resource jsonDepartmentsSquads;
 
 	@Autowired
 	private ObjectMapper mapper;
@@ -39,10 +43,22 @@ public class DepartmentDataController implements DepartmentDataRestApi {
 
 	@Override
 	public List<DepartmentDTO> jsonDepartments() {
-		Resource jsonDepartmentsSquads = resourceLoader.getResource("classpath:data/departments-squads.json");
-		
 		try {
 			InputStream is = jsonDepartmentsSquads.getInputStream();
+			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
+			
+			return departments(Arrays.asList(input));
+		} catch (IOException e) {
+			throw new SdcCustomException("Error reading departments", e);
+		}
+	}
+
+	@Override
+	public List<DepartmentDTO> jsonDepartments(String path) {
+		Resource resource = resourceLoader.getResource("classpath:" + path);
+		
+		try {
+			InputStream is = resource.getInputStream();
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
 			
 			return departments(Arrays.asList(input));

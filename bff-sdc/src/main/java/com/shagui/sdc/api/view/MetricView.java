@@ -7,10 +7,12 @@ import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class MetricView {
 	private Integer id;
@@ -18,7 +20,7 @@ public class MetricView {
 	private AnalysisType type;
 	private MetricValidation validation;
 	private MetricValueType valueType;
-	
+
 	public MetricView(MetricDTO source) {
 		BeanUtils.copyProperties(source, this);
 	}

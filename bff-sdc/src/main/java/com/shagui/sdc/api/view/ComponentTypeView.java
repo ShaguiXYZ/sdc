@@ -4,10 +4,12 @@ import org.springframework.beans.BeanUtils;
 
 import com.shagui.sdc.api.dto.ComponentTypeDTO;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class ComponentTypeView {
 	private Integer id;

@@ -4,10 +4,12 @@ import org.springframework.beans.BeanUtils;
 
 import com.shagui.sdc.api.dto.DepartmentDTO;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class DepartmentView {
 	private int id;

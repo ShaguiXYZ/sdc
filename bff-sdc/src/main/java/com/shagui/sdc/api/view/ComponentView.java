@@ -7,10 +7,12 @@ import org.springframework.beans.BeanUtils;
 import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.dto.ComponentDTO;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class ComponentView {
 	private Integer id;
@@ -23,7 +25,7 @@ public class ComponentView {
 
 	public ComponentView(ComponentDTO source) {
 		BeanUtils.copyProperties(source, this);
-		
+
 		this.componentType = CastFactory.getInstance(ComponentTypeView.class).parse(source.getComponentType());
 		this.architecture = CastFactory.getInstance(ArchitectureView.class).parse(source.getArchitecture());
 		this.squad = CastFactory.getInstance(SquadView.class).parse(source.getSquad());
