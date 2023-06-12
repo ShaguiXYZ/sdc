@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
-import { MetricState, styleByName } from 'src/app/core/lib';
+import { MetricState, emptyFn, styleByName } from 'src/app/core/lib';
 import { IPageable, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
@@ -59,20 +59,23 @@ export class SdcApplicationsService {
   private squadData(name?: string, squadId?: number, coverage?: string, page?: number, ps?: number): void {
     const range = coverage ? SdcApplicationsCoverage[coverage] : undefined;
 
-    this.componetService.filter(name, squadId, range?.min, range?.max, page, ps).then(pageable => {
-      this.contextDataService.set(
-        ContextDataInfo.APPLICATIONS_DATA,
-        { ...this.contextData, filter: { coverage, name, squad: squadId }, page },
-        { persistent: true }
-      );
+    this.componetService
+      .filter(name, squadId, range?.min, range?.max, page, ps)
+      .then(pageable => {
+        this.contextDataService.set(
+          ContextDataInfo.APPLICATIONS_DATA,
+          { ...this.contextData, filter: { coverage, name, squad: squadId }, page },
+          { persistent: true }
+        );
 
-      this.subject$.next({
-        squadId,
-        name,
-        coverage,
-        compliances: pageable.page.map(IComplianceModel.fromComponentModel),
-        paging: pageable.paging
-      });
-    });
+        this.subject$.next({
+          squadId,
+          name,
+          coverage,
+          compliances: pageable.page.map(IComplianceModel.fromComponentModel),
+          paging: pageable.paging
+        });
+      })
+      .catch(emptyFn);
   }
 }

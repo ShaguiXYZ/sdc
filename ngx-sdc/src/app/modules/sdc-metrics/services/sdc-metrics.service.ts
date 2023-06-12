@@ -6,6 +6,7 @@ import { AnalysisService, ComponentService, DepartmentService, SquadService } fr
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { MetricsContextData, MetricsDataModel } from '../models';
 import { IComplianceModel } from 'src/app/shared/components';
+import { emptyFn } from 'src/app/core/lib';
 
 @Injectable()
 export class SdcMetricsService {
@@ -33,50 +34,66 @@ export class SdcMetricsService {
   }
 
   public analysisData(analysis: IMetricAnalysisModel): void {
-    this.analysisService.metricHistory(this.metricData.compliance.id, analysis.metric.id).then(data => {
-      this.metricData = { ...this.metricData, analysis: data.page, selectedAnalysis: analysis };
+    this.analysisService
+      .metricHistory(this.metricData.compliance.id, analysis.metric.id)
+      .then(data => {
+        this.metricData = { ...this.metricData, analysis: data.page, selectedAnalysis: analysis };
 
-      this.contextDataService.set(ContextDataInfo.METRICS_DATA, { ...this.metricContextData, selected: analysis });
-      this.data$.next(this.metricData);
-    });
+        this.contextDataService.set(ContextDataInfo.METRICS_DATA, { ...this.metricContextData, selected: analysis });
+        this.data$.next(this.metricData);
+      })
+      .catch(emptyFn);
   }
 
   public historicalComponentData(): void {
-    this.componentService.historical(this.metricData.compliance.id).then(historical => {
-      this.metricData.historical = historical;
-      this.data$.next(this.metricData);
-    });
+    this.componentService
+      .historical(this.metricData.compliance.id)
+      .then(historical => {
+        this.metricData.historical = historical;
+        this.data$.next(this.metricData);
+      })
+      .catch(emptyFn);
   }
 
   public analyze = (): void => {
-    this.analysisService.analize(this.metricData.compliance.id).then(analysis => {
-      if (analysis.page.length) {
-        this.componentService.component(this.metricData.compliance.id).then(data => {
-          this.metricData.compliance = IComplianceModel.fromComponentModel(data);
-          this.componentService.clearSquadCache(data.squad.id);
-          this.departmentService.clearCache();
-          this.squadService.clearCache();
-        });
+    this.analysisService
+      .analize(this.metricData.compliance.id)
+      .then(analysis => {
+        if (analysis.page.length) {
+          this.componentService
+            .component(this.metricData.compliance.id)
+            .then(data => {
+              this.metricData.compliance = IComplianceModel.fromComponentModel(data);
+              this.componentService.clearSquadCache(data.squad.id);
+              this.departmentService.clearCache();
+              this.squadService.clearCache();
+            })
+            .catch(emptyFn);
 
-        this.loadInitData();
-        this.historicalComponentData();
-      }
-    });
+          this.loadInitData();
+          this.historicalComponentData();
+        }
+      })
+      .catch(emptyFn);
   };
 
   private loadInitData(): void {
-    this.componentService.componentMetrics(this.metricData.compliance.id).then(metrics => {
-      const availableMetrics = metrics.page.filter(metric => metric.validation && metric.valueType);
-      this.metricData = {
-        ...this.metricData,
-        metrics: availableMetrics
-      };
+    this.componentService
+      .componentMetrics(this.metricData.compliance.id)
+      .then(metrics => {
+        const availableMetrics = metrics.page.filter(metric => metric.validation && metric.valueType);
+        this.metricData = {
+          ...this.metricData,
+          metrics: availableMetrics
+        };
 
-      this.data$.next(this.metricData);
+        this.data$.next(this.metricData);
 
-      this.analysisService
-        .analysis(this.metricData.compliance.id, this.metricContextData.selected?.metric.id ?? availableMetrics[0].id)
-        .then(data => this.analysisData(data));
-    });
+        this.analysisService
+          .analysis(this.metricData.compliance.id, this.metricContextData.selected?.metric.id ?? availableMetrics[0].id)
+          .then(data => this.analysisData(data))
+          .catch(emptyFn);
+      })
+      .catch(emptyFn);
   }
 }
