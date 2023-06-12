@@ -13,6 +13,8 @@ import org.mockito.Mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.domain.RequestPageInfo;
+import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
+import com.shagui.sdc.api.dto.cmdb.SquadInput;
 import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
@@ -287,6 +289,34 @@ public class RwsTestUtils {
 		mock.setMetric(metricModelMock(1));
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
 		mock.setValue(value);
+
+		return mock;
+	}
+
+	public static DepartmentInput departmentInputMock() {
+		DepartmentInput mock = new DepartmentInput();
+		mock.setId(1);
+		mock.setName("name");
+		mock.setCia(1);
+		mock.setSquads(new ArrayList<>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{
+				add(squadInputMock());
+			}
+		});
+
+		return mock;
+	}
+
+	public static SquadInput squadInputMock() {
+		SquadInput mock = new SquadInput();
+		mock.setId(1);
+		mock.setCia(1);
+		mock.setName("name");
 
 		return mock;
 	}

@@ -29,43 +29,43 @@ public interface RwsSdcClient {
 	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);
 
 	@GetMapping("department/{departmentId}")
-	DepartmentDTO department(@PathVariable(value = "departmentId") int departmentId);
+	DepartmentDTO department(@PathVariable int departmentId);
 
 	@GetMapping("departments")
-	PageData<DepartmentDTO> departments(@RequestParam(name = "page", required = false) Integer page);
+	PageData<DepartmentDTO> departments(@RequestParam(required = false) Integer page);
 
 	@GetMapping("squad/{squadId}")
 	SquadDTO squad(@PathVariable int squadId);
 
 	@GetMapping("squads")
-	PageData<SquadDTO> squads(@RequestParam(name = "page", required = false) Integer page);
+	PageData<SquadDTO> squads(@RequestParam(required = false) Integer page);
 
 	@GetMapping("squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId,
-			@RequestParam(name = "page", required = false) Integer page);
+			@RequestParam(required = false) Integer page);
 
 	@GetMapping("component/{componentId}")
-	ComponentDTO component(@PathVariable(value = "componentId") int componentId);
+	ComponentDTO component(@PathVariable int componentId);
 
 	@GetMapping("components/squad/{squadId}")
-	PageData<ComponentDTO> squadComponents(@PathVariable(name = "squadId") int squadId,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "ps", required = false) Integer ps);
+	PageData<ComponentDTO> squadComponents(@PathVariable int squadId,
+			@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer ps);
 
 	@GetMapping("components/filter")
-	PageData<ComponentDTO> filter(@RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "squadId", required = false) Integer squadId,
-			@RequestParam(name = "coverageMin", required = false) Float coverageMin,
-			@RequestParam(name = "coverageMax", required = false) Float coverageMax,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "ps", required = false) Integer ps);
+	PageData<ComponentDTO> filter(@RequestParam(required = false) String name,
+			@RequestParam(required = false) Integer squadId,
+			@RequestParam(required = false) Float coverageMin,
+			@RequestParam(required = false) Float coverageMax,
+			@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer ps);
 
 	@GetMapping("component/{componentId}/metrics")
-	PageData<MetricDTO> componentMetrics(@PathVariable(value = "componentId") int componentId);
+	PageData<MetricDTO> componentMetrics(@PathVariable int componentId);
 
 	@GetMapping("component/historical/{componentId}")
 	HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
-			@RequestParam(name = "page", required = false) Integer page,
-			@RequestParam(name = "ps", required = false) Integer ps);
+			@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer ps);
 
 }

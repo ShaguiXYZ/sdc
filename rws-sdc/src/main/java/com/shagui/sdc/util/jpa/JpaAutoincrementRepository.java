@@ -1,5 +1,5 @@
 package com.shagui.sdc.util.jpa;
 
-public interface JpaAuroincrementRepository<K> {
+public interface JpaAutoincrementRepository<K> {
 	K nextId();
 }

@@ -25,7 +25,7 @@ public interface ComponentRestApi {
 	@Operation(summary = "Retrieve component by Id")
 	@GetMapping("{componentId}")
 	ComponentDTO component(
-			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
+			@PathVariable @Parameter(description = "component identifier") int componentId);
 
 	@Operation(summary = "Create new component")
 	@PostMapping
@@ -36,26 +36,26 @@ public interface ComponentRestApi {
 	@PutMapping("{componentId}")
 	@ResponseStatus(HttpStatus.OK)
 	ComponentDTO update(
-			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId,
+			@PathVariable @Parameter(description = "component identifier") int componentId,
 			@RequestBody ComponentDTO component);
 
 	@GetMapping("squad/{squadId}")
 	PageData<ComponentDTO> squadComponents(
-			@PathVariable(name = "squadId") @Parameter(description = "Squad identifier") int squadId,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+			@PathVariable @Parameter(description = "Squad identifier") int squadId,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@GetMapping("filter")
 	PageData<ComponentDTO> filter(
-			@RequestParam(name = "name", required = false) @Parameter(description = "Component name") String name,
-			@RequestParam(name = "squadId", required = false) @Parameter(description = "Squad identifier") Integer squadId,
-			@RequestParam(name = "coverageMin", required = false) @Parameter(description = "Component coverage min range") Float coverageMin,
-			@RequestParam(name = "coverageMax", required = false) @Parameter(description = "Component coverage max range") Float coverageMax,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+			@RequestParam(required = false) @Parameter(description = "Component name") String name,
+			@RequestParam(required = false) @Parameter(description = "Squad identifier") Integer squadId,
+			@RequestParam(required = false) @Parameter(description = "Component coverage min range") Float coverageMin,
+			@RequestParam(required = false) @Parameter(description = "Component coverage max range") Float coverageMax,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@Operation(summary = "Retrieve squad components")
 	@GetMapping("{componentId}/metrics")
 	PageData<MetricDTO> componentMetrics(
-			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
+			@PathVariable @Parameter(description = "component identifier") int componentId);
 }

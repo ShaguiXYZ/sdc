@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -30,12 +29,10 @@ import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
 import com.shagui.sdc.service.impl.ComponentServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
-import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 class ComponentServiceImplTest {
 
@@ -50,12 +47,6 @@ class ComponentServiceImplTest {
 
 	@Mock
 	private ComponentTypeArchitectureRepository componentTypeArchitectureRepositoryMock;
-
-	@Autowired
-	JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
-
-	@Autowired
-	JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 
 	@BeforeEach
 	void init() {

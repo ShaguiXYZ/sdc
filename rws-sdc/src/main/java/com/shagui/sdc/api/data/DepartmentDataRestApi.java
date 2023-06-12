@@ -20,6 +20,10 @@ public interface DepartmentDataRestApi {
 	@PatchMapping("department")
 	DepartmentDTO department(@RequestBody DepartmentInput data);
 
+	@Operation(summary = "Update departments data from provided json", description = "Update departments data")
+	@PatchMapping("jsonDepartments")
+	List<DepartmentDTO> jsonDepartments();
+
 	@Operation(summary = "Update departments data", description = "Update departments data")
 	@PatchMapping("departments")
 	List<DepartmentDTO> departments(@RequestBody List<DepartmentInput> data);

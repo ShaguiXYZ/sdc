@@ -23,13 +23,13 @@ public interface SquadRestApi {
 	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads")
 	PageData<SquadDTO> squads(
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@Operation(summary = "Retrieve available squads")
 	@GetMapping("squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(
 			@PathVariable @Parameter(description = "Department identifier") int departmentId,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 }

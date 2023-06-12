@@ -11,19 +11,19 @@ import feign.Response;
 @FeignClient(name = "sonar-service", url = "${services.sonar.uri}", primary = false)
 public interface SonarClient {
 	@GetMapping("components/search")
-	Response components(URI baseUrl, @RequestParam("qualifiers") String qualifiers);
+	Response components(URI baseUrl, @RequestParam String qualifiers);
 
 	@GetMapping("measures/search")
-	Response measures(URI baseUrl, @RequestParam("projectKeys") String projectKeys,
-			@RequestParam("metricKeys") String metricKeys);
+	Response measures(URI baseUrl, @RequestParam String projectKeys,
+			@RequestParam String metricKeys);
 
 	default Response components(URI baseUri) {
 		return components(baseUri, "TRK");
 	}
 
 	@GetMapping("components/search")
-	Response components(@RequestParam("qualifiers") String qualifiers);
+	Response components(@RequestParam String qualifiers);
 
 	@GetMapping("measures/search")
-	Response measures(@RequestParam("projectKeys") String projectKeys, @RequestParam("metricKeys") String metricKeys);
+	Response measures(@RequestParam String projectKeys, @RequestParam String metricKeys);
 }

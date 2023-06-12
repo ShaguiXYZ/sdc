@@ -18,6 +18,6 @@ public interface ComponentHistoricalCoverageApi {
 	@GetMapping("{componentId}")
 	public HistoricalCoverageDTO<ComponentDTO> historicalCoverage(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 }

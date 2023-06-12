@@ -21,31 +21,31 @@ public interface ComponentRestApi {
 	@Operation(summary = "Retrieve component by Id")
 	@GetMapping("component/{componentId}")
 	ComponentView component(
-			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
+			@PathVariable @Parameter(description = "component identifier") int componentId);
 
 	@Operation(summary = "Retrieve component metrics")
 	@GetMapping("component/{componentId}/metrics")
 	PageData<MetricView> componentMetrics(
-			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
+			@PathVariable @Parameter(description = "component identifier") int componentId);
 
 	@GetMapping("components/squad/{squadId}")
 	PageData<ComponentView> squadComponents(
-			@PathVariable(name = "squadId") @Parameter(description = "Squad identifier") int squadId,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+			@PathVariable @Parameter(description = "Squad identifier") int squadId,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@GetMapping("components/filter")
 	PageData<ComponentView> filter(
-			@RequestParam(name = "name", required = false) @Parameter(description = "Component name") String name,
-			@RequestParam(name = "squadId", required = false) @Parameter(description = "Squad identifier") Integer squadId,
-			@RequestParam(name = "coverageMin", required = false) @Parameter(description = "Component coverage min range") Float coverageMin,
-			@RequestParam(name = "coverageMax", required = false) @Parameter(description = "Component coverage max range") Float coverageMax,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+			@RequestParam(required = false) @Parameter(description = "Component name") String name,
+			@RequestParam(required = false) @Parameter(description = "Squad identifier") Integer squadId,
+			@RequestParam(required = false) @Parameter(description = "Component coverage min range") Float coverageMin,
+			@RequestParam(required = false) @Parameter(description = "Component coverage max range") Float coverageMax,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@GetMapping("component/historical/{componentId}")
 	HistoricalCoverage<ComponentView> historical(
-			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId,
-			@RequestParam(name = "page", required = false) @Parameter(description = "Page number") Integer page,
-			@RequestParam(name = "ps", required = false) @Parameter(description = "Page size") Integer ps);
+			@PathVariable @Parameter(description = "component identifier") int componentId,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 }

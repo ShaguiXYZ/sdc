@@ -60,4 +60,12 @@ class PojoTest {
 		assertPojoMethodsForAll(securityDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 	}
 
+	@Test
+	@DisplayName("Tests for dmdb DTOs to ensure POJO methods are well implemented")
+	void testCmdbDTO() {
+		PackageFilter securityDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.cmdb");
+
+		assertPojoMethodsForAll(securityDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+	}
+
 }

@@ -118,6 +118,7 @@
 		<sql dbms="postgresql">
 			CREATE TABLE component_type_architectures (
 				id serial4 NOT NULL,
+				name varchar NOT NULL,
 				component_type_id int4 NOT NULL,
 				network_id int4 NOT NULL,
 				deployment_type_id int4 NOT NULL,
@@ -125,6 +126,7 @@
 				architecture_id int4 NOT NULL,
 				language_id int4 NOT NULL,
 				CONSTRAINT component_type_architectures_pk PRIMARY KEY (id),
+				CONSTRAINT component_type_architectures_name_uk UNIQUE (name),
 				CONSTRAINT component_type_architectures_component_type_architecture_uk UNIQUE (component_type_id,network_id,deployment_type_id,platform_id,language_id,architecture_id),
 				CONSTRAINT component_type_architecture_architecture_fk FOREIGN KEY (architecture_id) REFERENCES architectures(id),
 				CONSTRAINT component_type_architecture_component_type_fk FOREIGN KEY (component_type_id) REFERENCES component_types(id),

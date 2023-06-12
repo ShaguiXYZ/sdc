@@ -76,42 +76,23 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	private Function<DepartmentInput, DepartmentModel> maintainDepartment = (DepartmentInput data) -> {
 		Optional<DepartmentModel> optionalDepartment = departmentRepository.findById(data.getId());
+		DepartmentModel departmentModel = optionalDepartment.isPresent() ? optionalDepartment.get()
+				: new DepartmentModel(data.getId());
 
-		DepartmentModel departmentModel;
-		if (optionalDepartment.isPresent()) {
-			departmentModel = optionalDepartment.get();
-			departmentModel.setName(data.getName());
-			departmentModel.setCompany(new CompanyModel(data.getCia()));
-
-			departmentModel = departmentRepository.update(data.getId(), departmentModel);
-		} else {
-			departmentModel = new DepartmentModel(data.getId());
-			departmentModel.setName(data.getName());
-			departmentModel.setCompany(new CompanyModel(data.getCia()));
-
-			departmentModel = departmentRepository.create(departmentModel);
-		}
+		departmentModel.setName(data.getName());
+		departmentModel.setCompany(new CompanyModel(data.getCia()));
+		departmentModel = departmentRepository.save(departmentModel);
 
 		return departmentModel;
 	};
 
 	private Function<SquadInput, SquadModel> maintainSquad = (SquadInput data) -> {
 		Optional<SquadModel> optionalSquad = squadRepository.findById(data.getId());
+		SquadModel squadModel = optionalSquad.isPresent() ? optionalSquad.get() : new SquadModel(data.getId());
 
-		SquadModel squadModel;
-		if (optionalSquad.isPresent()) {
-			squadModel = optionalSquad.get();
-			squadModel.setName(data.getName());
-			squadModel.setDepartment(new DepartmentModel(data.getDepartmentId()));
-
-			squadModel = squadRepository.update(data.getId(), squadModel);
-		} else {
-			squadModel = new SquadModel(data.getId());
-			squadModel.setName(data.getName());
-			squadModel.setDepartment(new DepartmentModel(data.getDepartmentId()));
-
-			squadModel = squadRepository.create(squadModel);
-		}
+		squadModel.setName(data.getName());
+		squadModel.setDepartment(new DepartmentModel(data.getDepartmentId()));
+		squadModel = squadRepository.save(squadModel);
 
 		return squadModel;
 	};

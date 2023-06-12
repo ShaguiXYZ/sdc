@@ -1,6 +1,7 @@
 package com.shagui.sdc.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.nullable;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.when;
 
@@ -92,7 +92,7 @@ class ComponentHistoricalCoverageServiceImplTest {
 		source.setId(id);
 		list.add(source);
 		
-		when(componentHistoricalCoverageRepository.findById_ComponentId(anyInt(), any(Pageable.class))).thenReturn(page );
+		when(componentHistoricalCoverageRepository.findById_ComponentId(anyInt(), nullable(Pageable.class))).thenReturn(page );
 		HistoricalCoverageDTO<ComponentDTO> result = service.historicalCoverage(11, new RequestPageInfo(1));
 		assertNotNull(result);
 	}

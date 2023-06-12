@@ -2,7 +2,7 @@ package com.shagui.sdc.util.jpa;
 
 import java.util.Optional;
 
-public interface JpaIntegerIdRepository extends JpaAuroincrementRepository<Integer> {
+public interface JpaIntegerIdRepository extends JpaAutoincrementRepository<Integer> {
 	Optional<Integer> maxId();
 
 	@Override

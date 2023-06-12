@@ -38,5 +38,5 @@ public interface AnalysisRestApi {
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId,
-			@RequestParam(name = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
 }
