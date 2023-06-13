@@ -13,8 +13,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.shagui.sdc.api.view.AnalysisValuesView;
-import com.shagui.sdc.api.view.ArchitectureView;
-import com.shagui.sdc.api.view.ComponentTypeView;
 import com.shagui.sdc.api.view.ComponentView;
 import com.shagui.sdc.api.view.DepartmentView;
 import com.shagui.sdc.api.view.MetricAnalysisView;
@@ -29,11 +27,7 @@ class PojoDtoTest {
 	void testDTO() {
 		assertPojoMethodsFor(AnalysisValuesDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
 				.areWellImplemented();
-		assertPojoMethodsFor(ArchitectureDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
-				.areWellImplemented();
 		assertPojoMethodsFor(ComponentDTO.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
-				.areWellImplemented();
-		assertPojoMethodsFor(ComponentTypeDTO.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
 				.areWellImplemented();
 		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS)
 				.areWellImplemented();
@@ -54,19 +48,8 @@ class PojoDtoTest {
 	}
 
 	@Test
-	void architectureDTO_form_ArchitectureView_constructorTest() {
-		ArchitectureView source = ViewDataUtils.createArchitecture();
-		ArchitectureDTO target = new ArchitectureDTO(source);
-
-		assertEquals(source.getId(), target.getId());
-		assertEquals(source.getName(), target.getName());
-	}
-
-	@Test
 	void componentDTO_form_ComponentView_constructorTest() {
 		ComponentView source = ViewDataUtils.createComponent();
-		source.setComponentType(ViewDataUtils.createComponentType());
-		source.setArchitecture(ViewDataUtils.createArchitecture());
 		source.setSquad(ViewDataUtils.createSquad());
 		ComponentDTO target = new ComponentDTO(source);
 
@@ -81,16 +64,6 @@ class PojoDtoTest {
 		MetricDTO target = new MetricDTO(source);
 
 		assertEquals(source.getId(), target.getId());
-		assertEquals(source.getName(), target.getName());
-	}
-
-	@Test
-	void componentTypeDTO_form_ComponentTypeView_constructorTest() {
-		ComponentTypeView source = ViewDataUtils.createComponentType();
-		ComponentTypeDTO target = new ComponentTypeDTO(source);
-
-		assertEquals(source.getId(), target.getId());
-		assertEquals(source.getName(), target.getName());
 		assertEquals(source.getName(), target.getName());
 	}
 

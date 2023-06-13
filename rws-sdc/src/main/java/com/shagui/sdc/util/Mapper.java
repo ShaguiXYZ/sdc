@@ -60,8 +60,8 @@ public class Mapper {
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(source.getWeight(), source.getValue(),
 				source.getExpectedValue(), source.getGoodValue(), source.getPerfectValue());
 
-		MetricAnalysisDTO target = new MetricAnalysisDTO(source.getId().getAnalysisDate(), metric,
-				analysisValues, null);
+		MetricAnalysisDTO target = new MetricAnalysisDTO(source.getId().getAnalysisDate(), metric, analysisValues,
+				null);
 
 		target.setCoverage(MetricValidations.validate(target));
 
@@ -87,8 +87,7 @@ public class Mapper {
 		Date analysisDate = analysisTimestampStr == null ? null : new Date(Long.valueOf(analysisTimestampStr));
 
 		return new ComponentDTO(source.getId(), source.getName(), analysisDate, source.getCoverage(),
-				parse(source.getComponentTypeArchitecture().getComponentType()),
-				parse(source.getComponentTypeArchitecture().getArchitecture()), parse(source.getSquad()));
+				source.getComponentTypeArchitecture().getName(), parse(source.getSquad()));
 	}
 
 	public static ComponentTypeModel parse(ComponentTypeDTO source) {

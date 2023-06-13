@@ -99,19 +99,16 @@ public class ComponentServiceImpl implements ComponentService {
 
 	private ComponentModel componentModel(ComponentDTO component) {
 		ComponentTypeArchitectureModel componentTypeArchitecture = componentTypeArchitecture(
-				component.getComponentType().getId(), component.getArchitecture().getId());
-
+				component.getComponentTypeAchitecture());
 		ComponentModel model = Mapper.parse(component);
 		model.setComponentTypeArchitecture(componentTypeArchitecture);
 
 		return model;
 	}
 
-	private ComponentTypeArchitectureModel componentTypeArchitecture(Integer componentTypeId, Integer architectureId) {
-		return componentTypeArchitectureRepository.repository()
-				.findByComponentType_IdAndArchitecture_Id(componentTypeId, architectureId)
+	private ComponentTypeArchitectureModel componentTypeArchitecture(String name) {
+		return componentTypeArchitectureRepository.repository().findByName(name)
 				.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_COMPONENTTYPE_ARCHITECTURE,
-						String.format("no result found for component type %s and architecture %s", componentTypeId,
-								architectureId)));
+						String.format("no result found for component type architecture %s", name)));
 	}
 }

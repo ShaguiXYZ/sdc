@@ -16,7 +16,6 @@ public class ComponentDTO  {
 	private String name;
 	private Date analysisDate;
 	private Float coverage;
-	private ComponentTypeDTO componentType;
-	private ArchitectureDTO architecture;
+	private String componentTypeAchitecture;
 	private SquadDTO squad;
 }

@@ -3,8 +3,6 @@ package com.shagui.sdc.test.utils;
 import java.util.Date;
 
 import com.shagui.sdc.api.view.AnalysisValuesView;
-import com.shagui.sdc.api.view.ArchitectureView;
-import com.shagui.sdc.api.view.ComponentTypeView;
 import com.shagui.sdc.api.view.ComponentView;
 import com.shagui.sdc.api.view.DepartmentView;
 import com.shagui.sdc.api.view.MetricAnalysisView;
@@ -38,14 +36,6 @@ public class ViewDataUtils {
 		return data;
 	}
 
-	public static ArchitectureView createArchitecture() {
-		ArchitectureView data = new ArchitectureView();
-		data.setId(DataUtils.DEFAULT_ARCHITECTURE_ID);
-		data.setName("architecture name");
-
-		return data;
-	}
-
 	public static MetricView createMetric(AnalysisType type, MetricValueType valueType, MetricValidation validation) {
 		MetricView data = new MetricView();
 		data.setId(DataUtils.DEFAULT_METRIC_ID);
@@ -62,7 +52,6 @@ public class ViewDataUtils {
 		data.setId(DataUtils.DEFAULT_COMPONENT_ID);
 		data.setName("component name");
 		data.setSquad(createSquad());
-		data.setArchitecture(createArchitecture());
 
 		return data;
 	}
@@ -81,14 +70,6 @@ public class ViewDataUtils {
 		MetricAnalysisView data = new MetricAnalysisView();
 		data.setAnalysisDate(new Date());
 		data.setCoverage(50f);
-
-		return data;
-	}
-
-	public static ComponentTypeView createComponentType() {
-		ComponentTypeView data = new ComponentTypeView();
-		data.setId(DataUtils.DEFAULT_COMPONENT_TYPE_ID);
-		data.setName("component type name");
 
 		return data;
 	}

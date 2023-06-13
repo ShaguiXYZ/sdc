@@ -3,9 +3,7 @@ package com.shagui.sdc.test.utils;
 import java.util.Date;
 
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
-import com.shagui.sdc.api.dto.ArchitectureDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
-import com.shagui.sdc.api.dto.ComponentTypeDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
@@ -38,14 +36,6 @@ public class DtoDataUtils {
 		return data;
 	}
 
-	public static ArchitectureDTO createArchitecture() {
-		ArchitectureDTO data = new ArchitectureDTO();
-		data.setId(DataUtils.DEFAULT_ARCHITECTURE_ID);
-		data.setName("architecture name");
-
-		return data;
-	}
-
 	public static MetricDTO createMetric(AnalysisType type, MetricValueType valueType, MetricValidation validation) {
 		MetricDTO data = new MetricDTO();
 		data.setId(DataUtils.DEFAULT_METRIC_ID);
@@ -62,7 +52,6 @@ public class DtoDataUtils {
 		data.setId(DataUtils.DEFAULT_COMPONENT_ID);
 		data.setName("component name");
 		data.setSquad(createSquad());
-		data.setArchitecture(createArchitecture());
 
 		return data;
 	}
@@ -81,14 +70,6 @@ public class DtoDataUtils {
 		MetricAnalysisDTO data = new MetricAnalysisDTO();
 		data.setAnalysisDate(new Date());
 		data.setCoverage(50f);
-
-		return data;
-	}
-
-	public static ComponentTypeDTO createComponentType() {
-		ComponentTypeDTO data = new ComponentTypeDTO();
-		data.setId(DataUtils.DEFAULT_COMPONENT_TYPE_ID);
-		data.setName("component type name");
 
 		return data;
 	}
