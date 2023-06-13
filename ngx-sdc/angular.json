@@ -117,9 +117,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": ["src/assets", "src/favicon.ico", "src/.htaccess"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
+              "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
+            ],
             "scripts": []
           }
         },

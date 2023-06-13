@@ -1,12 +1,12 @@
 <div class="metric" [ngClass]="{ selected: selected }" (click)="onClick()">
   <div class="metric-state {{ style }}">
-    <i [class]="icon"></i>
+    <em [class]="icon"></em>
   </div>
   <div class="metric-info nx-margin-left-2xs" metric-info>
     <div class="metric-name cut-text">{{ metric.name }}</div>
     <div class="extra-info">
       {{ analysis?.analysisValues?.metricValue || '-' }}
-      <i [class]="analysisIcon"></i>
+      <em [class]="analysisIcon"></em>
     </div>
   </div>
 </div>

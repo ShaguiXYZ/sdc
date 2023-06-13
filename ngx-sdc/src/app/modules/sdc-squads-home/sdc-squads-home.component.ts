@@ -25,7 +25,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private contextDataService: UiContextDataService, private sdcSummaryService: SdcSquadsService) {}
 
   ngOnInit(): void {
-    this.summary$ = this.sdcSummaryService.onDataChange().subscribe(data => {
+    this.summary$ = this.sdcSummaryService.onDataChange().subscribe((data: SdcSquadsDataModel | undefined) => {
       this.squadsData = data;
       this.componentsInView = this.squadsData?.components
         ? this.squadsData.components.slice(0, 3).map(IComplianceModel.fromComponentModel)

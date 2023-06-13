@@ -80,7 +80,7 @@ export class UiContextDataService {
   public set(key: string, data: any, configuration: IContextDataConfigurtion = { persistent: false }): void {
     const contextDataValue = this.contextStorage.contextData[key];
 
-    if (contextDataValue && contextDataValue.configuration.readonly) {
+    if (contextDataValue?.configuration.readonly) {
       throw new Error(`${key} is read only`);
     }
 
