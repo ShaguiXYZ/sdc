@@ -10,6 +10,8 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
+import com.shagui.sdc.json.data.RequestPropertiesModel;
+import com.shagui.sdc.json.data.UriModel;
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 import com.shagui.sdc.model.pk.ComponentHistoricalCoveragePk;
 

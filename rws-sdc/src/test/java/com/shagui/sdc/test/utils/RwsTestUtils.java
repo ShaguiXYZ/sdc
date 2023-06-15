@@ -25,12 +25,13 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponentTypeModel;
+import com.shagui.sdc.model.ComponentUris;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.MetricValuesModel;
 import com.shagui.sdc.model.SquadModel;
-import com.shagui.sdc.model.UriModel;
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
+import com.shagui.sdc.model.pk.ComponentUriPk;
 import com.shagui.sdc.repository.ComponentAnalysisRepository;
 import com.shagui.sdc.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.sdc.repository.ComponentPropertyRepository;
@@ -196,12 +197,10 @@ public class RwsTestUtils {
 		squad.setName("test");
 		squad.setDepartment(department);
 
-		UriModel urimodel = new UriModel();
-		urimodel.setType(AnalysisType.GIT);
-		urimodel.setName("test");
-
-		List<UriModel> uris = new ArrayList<UriModel>();
-		uris.add(urimodel);
+		List<ComponentUris> uris = new ArrayList<>();
+		ComponentUris uriModel = new ComponentUris();
+		uriModel.setId(new ComponentUriPk(0, "uri_name"));
+		uris.add(uriModel);
 
 		ComponentModel source = new ComponentModel();
 		source.setId(1);

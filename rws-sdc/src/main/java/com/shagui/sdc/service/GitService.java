@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.json.data.UriModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.model.UriModel;
 import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.DictioraryReplacement;
@@ -27,7 +27,7 @@ public interface GitService extends AnalysisInterface {
 			String owner = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_OWNER);
 			String repository = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_REPOSITORY);
 
-			uri = uriModel.get().getUri();
+			uri = uriModel.get().getValue();
 			uri = Arrays.asList(uri, owner, repository, "contents", path, xmlPath).stream().filter(StringUtils::hasText)
 					.collect(Collectors.joining("/"));
 		}

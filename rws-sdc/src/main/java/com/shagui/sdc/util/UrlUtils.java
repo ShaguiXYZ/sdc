@@ -7,7 +7,7 @@ import java.net.URLConnection;
 import java.util.List;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
-import com.shagui.sdc.model.RequestPropertiesModel;
+import com.shagui.sdc.json.data.RequestPropertiesModel;
 
 import feign.Response;
 
@@ -30,7 +30,7 @@ public class UrlUtils {
 		URL url = UrlUtils.url(uri);
 		URLConnection http = url.openConnection();
 
-		properties.forEach(property -> http.setRequestProperty(property.getKey(), property.getValue()));
+		properties.forEach(property -> http.setRequestProperty(property.getName(), property.getValue()));
 
 		return url;
 	}

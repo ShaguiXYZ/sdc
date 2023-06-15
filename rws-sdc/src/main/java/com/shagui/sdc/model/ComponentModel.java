@@ -1,5 +1,6 @@
 package com.shagui.sdc.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,7 +37,7 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 	private String name;
 
 	private Float coverage;
-	
+
 	@Column(name = "expiry_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date expiryDate;
@@ -54,9 +53,8 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentPropertyModel> properties;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "component_uris", joinColumns = @JoinColumn(name = "component_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "uri_id", referencedColumnName = "id"))
-	private List<UriModel> uris;
+	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<ComponentUris> uris = new ArrayList<>();
 
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentHistoricalCoverageModel> historicalCoverage;

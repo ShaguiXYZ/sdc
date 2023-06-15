@@ -1,0 +1,68 @@
+[
+	{
+		"name": "architectures",
+		"values": [
+			"rws",
+			"rws::legacy",
+			"sea::legacy",
+			"axis::legacy",
+			"module::legacy",
+			"shared::legacy",
+			"batch::legacy"
+		]
+	},
+	{
+		"name": "component_types",
+		"values": [
+			"frontend::library",
+			"frontend::angular",
+			"frontend::bff",
+			"frontend::ssr",
+			"frontend::anonymous",
+			"integration::rest",
+			"integration::soap",
+			"backend::library",
+			"backend::starter",
+			"backend::rest",
+			"backend::batch",
+			"backend::ebs"
+		]
+	},
+	{
+		"name": "networks",
+		"values": [
+			"none",
+			"user-integration",
+			"user-integration::public",
+			"user-integration::private",
+			"third-party-integration::public",
+			"third-party-integration::private",
+			"business-logic"
+		]
+	},
+	{
+		"name": "platforms",
+		"values": [
+			"cloud",
+			"on-premises"
+		]
+	},
+	{
+		"name": "languages",
+		"values": [
+			"typescript",
+			"javascript",
+			"java"
+		]
+	},
+	{
+		"name": "deployment_types",
+		"values": [
+			"none",
+			"static",
+			"jboss",
+			"container",
+			"standalone"
+		]
+	}
+]
