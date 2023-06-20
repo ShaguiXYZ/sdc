@@ -4,60 +4,7 @@
 	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-	<changeSet author="initial" id="20230707_50001">
-		<sql dbms="postgresql">
-			INSERT INTO networks (name) VALUES
-				 ('none'),
-				 ('user-integration'),
-				 ('user-integration::public'),
-				 ('user-integration::private'),
-				 ('third-party-integration::public'),
-				 ('third-party-integration::private'),
-				 ('business-logic');
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="20230707_50002">
-		<sql dbms="postgresql">
-			INSERT INTO deployment_types (name) VALUES
-				 ('none'),
-				 ('static'),
-				 ('jboss'),
-				 ('container'),
-				 ('standalone');
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="20230707_50003">
-		<sql dbms="postgresql">
-			INSERT INTO platforms (name) VALUES
-				 ('cloud'),
-				 ('on-premises');
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="20230707_50004">
-		<sql dbms="postgresql">
-			INSERT INTO languages (name) VALUES
-				 ('typescript'),
-				 ('javascript'),
-				 ('java');
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="20230707_50005">
-		<sql dbms="postgresql">
-			INSERT INTO architectures (name) VALUES
-				 ('rws'),
-				 ('rws::legacy'),
-				 ('sea::legacy'),
-				 ('axis::legacy'),
-				 ('module::legacy'),
-				 ('shared::legacy'),
-				 ('batch::legacy');
-		</sql>
-	</changeSet>
-				 
+			 
 	<changeSet author="initial" id="20230707_50006">
 		<sql dbms="postgresql">
 			INSERT INTO companies (id,name,codes) VALUES
@@ -111,85 +58,67 @@
 				 ('properties/java.version','GIT','VERSION','LTE');
 		</sql>
 	</changeSet>
-				 
-	<changeSet author="initial" id="20230707_50010">
-		<sql dbms="postgresql">
-			INSERT INTO component_types (name) VALUES
-				 ('frontend::library'),
-				 ('frontend::angular'),
-				 ('frontend::bff'),
-				 ('frontend::ssr'),
-				 ('frontend::anonymous'),
-				 ('integration::rest'),
-				 ('integration::soap'),
-				 ('backend::library'),
-				 ('backend::starter'),
-				 ('backend::rest'),
-				 ('backend::batch'),
-				 ('backend::ebs');
-		</sql>
-	</changeSet>
 
 	<changeSet author="initial" id="20230707_50014">
 		<sql dbms="postgresql">
-			INSERT INTO component_type_architectures (name,component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
-				 ('cta1',1,1,1,1,1,1),
-				 ('cta2',1,1,1,2,1,1),
-				 ('cta3',1,2,2,1,3,2),
-				 ('cta4',1,2,2,2,3,2),
-				 ('cta5',1,2,3,1,3,3),
-				 ('cta6',1,2,3,2,3,3),
-				 ('cta7',2,3,4,1,1,1),
-				 ('cta8',2,3,2,2,1,1),
-				 ('cta9',2,4,4,1,1,1),
-				 ('cta10',2,4,2,2,1,1);
-			INSERT INTO component_type_architectures (name,component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
-				 ('cta11',3,3,4,1,1,3),
-				 ('cta12',3,3,3,2,1,3),
-				 ('cta13',3,4,4,1,1,3),
-				 ('cta14',3,4,3,2,1,3),
-				 ('cta15',4,3,4,1,3,3),
-				 ('cta16',4,3,3,2,3,3),
-				 ('cta17',4,4,4,1,3,3),
-				 ('cta18',4,4,3,2,3,3),
-				 ('cta19',5,2,4,1,1,3),
-				 ('cta20',5,2,3,2,1,3);
-			INSERT INTO component_type_architectures (name,component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
-				 ('cta21',5,2,4,1,1,1),
-				 ('cta22',5,2,3,2,1,1),
-				 ('cta23',6,5,4,1,1,3),
-				 ('cta24',6,5,3,2,1,3),
-				 ('cta25',6,6,4,1,1,3),
-				 ('cta26',6,6,3,2,1,3),
-				 ('cta27',7,5,4,1,1,3),
-				 ('cta28',7,5,3,2,1,3),
-				 ('cta29',7,6,4,1,1,3),
-				 ('cta30',7,6,3,2,1,3);
-			INSERT INTO component_type_architectures (name,component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
-				 ('cta31',7,5,3,1,4,3),
-				 ('cta32',7,5,3,2,4,3),
-				 ('cta33',7,6,3,1,4,3),
-				 ('cta34',7,6,3,2,4,3),
-				 ('cta35',8,1,1,1,1,3),
-				 ('cta36',8,1,3,2,1,3),
-				 ('cta37',9,1,1,1,1,3),
-				 ('cta38',9,1,3,2,1,3),
-				 ('cta39',8,7,3,1,5,3),
-				 ('cta40',8,7,3,2,5,3);
-			INSERT INTO component_type_architectures (name,component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
-				 ('cta41',8,7,3,1,6,3),
-				 ('cta42',8,7,3,2,6,3),
-				 ('cta43',10,7,4,1,1,3),
-				 ('cta44',10,7,3,2,1,3),
-				 ('cta45',10,7,3,1,2,3),
-				 ('cta46',10,7,3,2,2,3),
-				 ('cta47',11,7,4,1,1,3),
-				 ('cta48',11,7,5,2,1,3),
-				 ('cta49',11,7,4,1,7,3),
-				 ('cta50',11,7,5,2,7,3);
-			INSERT INTO component_type_architectures (name,component_type_id,network_id,deployment_type_id,platform_id,architecture_id,language_id) VALUES
-				 ('cta51',12,7,4,1,1,3),
-				 ('cta52',12,7,3,2,1,3);
+			INSERT INTO public.component_type_architectures (component_type,network,deployment_type,platform,architecture,"language") VALUES
+				 ('frontend::library','none','none','cloud','rws','typescript'),
+				 ('frontend::library','none','none','on-premises','rws','typescript'),
+				 ('frontend::library','user-integration','static','cloud','sea::legacy','javascript'),
+				 ('frontend::library','user-integration','static','on-premises','sea::legacy','javascript'),
+				 ('frontend::library','user-integration','jboss','cloud','sea::legacy','java'),
+				 ('frontend::library','user-integration','jboss','on-premises','sea::legacy','java'),
+				 ('frontend::angular','user-integration::public','container','cloud','rws','typescript'),
+				 ('frontend::angular','user-integration::public','static','on-premises','rws','typescript'),
+				 ('frontend::angular','user-integration::private','container','cloud','rws','typescript'),
+				 ('frontend::angular','user-integration::private','static','on-premises','rws','typescript');
+			INSERT INTO public.component_type_architectures (component_type,network,deployment_type,platform,architecture,"language") VALUES
+				 ('frontend::bff','user-integration::public','container','cloud','rws','java'),
+				 ('frontend::bff','user-integration::public','jboss','on-premises','rws','java'),
+				 ('frontend::bff','user-integration::private','container','cloud','rws','java'),
+				 ('frontend::bff','user-integration::private','jboss','on-premises','rws','java'),
+				 ('frontend::ssr','user-integration::public','container','cloud','sea::legacy','java'),
+				 ('frontend::ssr','user-integration::public','jboss','on-premises','sea::legacy','java'),
+				 ('frontend::ssr','user-integration::private','container','cloud','sea::legacy','java'),
+				 ('frontend::ssr','user-integration::private','jboss','on-premises','sea::legacy','java'),
+				 ('frontend::anonymous','user-integration','container','cloud','rws','java'),
+				 ('frontend::anonymous','user-integration','jboss','on-premises','rws','java');
+			INSERT INTO public.component_type_architectures (component_type,network,deployment_type,platform,architecture,"language") VALUES
+				 ('frontend::anonymous','user-integration','container','cloud','rws','typescript'),
+				 ('frontend::anonymous','user-integration','jboss','on-premises','rws','typescript'),
+				 ('integration::rest','third-party-integration::public','container','cloud','rws','java'),
+				 ('integration::rest','third-party-integration::public','jboss','on-premises','rws','java'),
+				 ('integration::rest','third-party-integration::private','container','cloud','rws','java'),
+				 ('integration::rest','third-party-integration::private','jboss','on-premises','rws','java'),
+				 ('integration::soap','third-party-integration::public','container','cloud','rws','java'),
+				 ('integration::soap','third-party-integration::public','jboss','cloud','axis::legacy','java'),
+				 ('integration::soap','third-party-integration::public','jboss','on-premises','axis::legacy','java'),
+				 ('integration::soap','third-party-integration::private','jboss','cloud','axis::legacy','java');
+			INSERT INTO public.component_type_architectures (component_type,network,deployment_type,platform,architecture,"language") VALUES
+				 ('integration::soap','third-party-integration::private','jboss','on-premises','axis::legacy','java'),
+				 ('backend::library','none','none','cloud','rws','java'),
+				 ('backend::library','none','jboss','on-premises','rws','java'),
+				 ('backend::starter','none','none','cloud','rws','java'),
+				 ('backend::starter','none','jboss','on-premises','rws','java'),
+				 ('backend::library','business-logic','jboss','cloud','module::legacy','java'),
+				 ('backend::library','business-logic','jboss','on-premises','module::legacy','java'),
+				 ('backend::library','business-logic','jboss','cloud','shared::legacy','java'),
+				 ('backend::library','business-logic','jboss','on-premises','shared::legacy','java'),
+				 ('backend::rest','business-logic','container','cloud','rws','java');
+			INSERT INTO public.component_type_architectures (component_type,network,deployment_type,platform,architecture,"language") VALUES
+				 ('backend::rest','business-logic','jboss','on-premises','rws','java'),
+				 ('integration::soap','third-party-integration::public','jboss','on-premises','rws','java'),
+				 ('integration::soap','third-party-integration::private','container','cloud','rws','java'),
+				 ('integration::soap','third-party-integration::private','jboss','on-premises','rws','java'),
+				 ('backend::rest','business-logic','jboss','cloud','rws::legacy','java'),
+				 ('backend::rest','business-logic','jboss','on-premises','rws::legacy','java'),
+				 ('backend::batch','business-logic','container','cloud','rws','java'),
+				 ('backend::batch','business-logic','standalone','on-premises','rws','java'),
+				 ('backend::batch','business-logic','container','cloud','batch::legacy','java'),
+				 ('backend::batch','business-logic','standalone','on-premises','batch::legacy','java');
+			INSERT INTO public.component_type_architectures (component_type,network,deployment_type,platform,architecture,"language") VALUES
+				 ('backend::ebs','business-logic','container','cloud','rws','java'),
+				 ('backend::ebs','business-logic','jboss','on-premises','rws','java');
 		</sql>
 	</changeSet>
 

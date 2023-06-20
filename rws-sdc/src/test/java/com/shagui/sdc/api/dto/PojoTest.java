@@ -22,9 +22,8 @@ class PojoTest {
 	@DisplayName("Tests for DTOs to ensure POJO methods are well implemented")
 	void testDTO() {
 		assertPojoMethodsFor(AnalysisValuesDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(ArchitectureDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(ComponentDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(ComponentTypeDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+		assertPojoMethodsFor(ComponentTypeArchitectureDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(MetricAnalysisDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(MetricDTO.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(PageData.class).testing(CONSTRUCTOR, GETTER).areWellImplemented();

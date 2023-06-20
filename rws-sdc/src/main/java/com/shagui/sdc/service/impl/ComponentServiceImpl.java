@@ -11,6 +11,7 @@ import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
+import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
@@ -99,16 +100,21 @@ public class ComponentServiceImpl implements ComponentService {
 
 	private ComponentModel componentModel(ComponentDTO component) {
 		ComponentTypeArchitectureModel componentTypeArchitecture = componentTypeArchitecture(
-				component.getComponentTypeAchitecture());
+				component.getComponentTypeArchitecture());
 		ComponentModel model = Mapper.parse(component);
 		model.setComponentTypeArchitecture(componentTypeArchitecture);
 
 		return model;
 	}
 
-	private ComponentTypeArchitectureModel componentTypeArchitecture(String name) {
-		return componentTypeArchitectureRepository.repository().findByName(name)
+	private ComponentTypeArchitectureModel componentTypeArchitecture(ComponentTypeArchitectureDTO dto) {
+		return componentTypeArchitectureRepository.repository()
+				.findByComponentTypeAndArchitectureAndNetworkAndDeploymentTypeAndPlatformAndLanguage(
+						dto.getComponentType(), dto.getArchitecture(), dto.getNetwork(), dto.getDeploymentType(),
+						dto.getPlatform(), dto.getLanguage())
 				.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_COMPONENTTYPE_ARCHITECTURE,
-						String.format("no result found for component type architecture %s", name)));
+						String.format("no result found for component type architecture %s, %s, %s, %s, %s, %s ",
+								dto.getComponentType(), dto.getArchitecture(), dto.getNetwork(),
+								dto.getDeploymentType(), dto.getPlatform(), dto.getLanguage())));
 	}
 }

@@ -1,5 +1,6 @@
 package com.shagui.sdc.test.utils;
 
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,12 +20,10 @@ import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
-import com.shagui.sdc.model.ArchitectureModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
-import com.shagui.sdc.model.ComponentTypeModel;
 import com.shagui.sdc.model.ComponentUris;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
@@ -75,6 +74,22 @@ public class RwsTestUtils {
 	public static String JSON_RESPONSE_TEST = "{\"id\": 100, \"name\": \"generic response\"}";
 	public static String JSON_COMPONENT_DTO_TEST = "{\"name\": \"generic response\", \"download_url\": \"http://www.url-pom.xml\"}";
 
+	public static InputStream mockInputStream(String data) {
+		return new InputStream() {
+			private final byte[] msg = data.getBytes();
+			private int index = 0;
+
+			@Override
+			public int read() {
+				if (index >= msg.length) {
+					return -1;
+				}
+				
+				return msg[index++];
+			}
+		};
+	}
+
 	public static Response response(int status, String json) {
 		Map<String, Collection<String>> headers = new HashMap<>();
 		headers.put("Authorization", Collections.emptyList());
@@ -124,19 +139,15 @@ public class RwsTestUtils {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		metrics.add(metricModelMock(1));
 
-		ComponentTypeModel componentType = new ComponentTypeModel();
-		componentType.setId(1);
-		componentType.setName("test");
-
-		ArchitectureModel architecture = new ArchitectureModel();
-		architecture.setId(1);
-		architecture.setName("test");
-
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);
 		componentTypeArchitecture.setMetrics(metrics);
-		componentTypeArchitecture.setComponentType(componentType);
-		componentTypeArchitecture.setArchitecture(architecture);
+		componentTypeArchitecture.setComponentType("componentType");
+		componentTypeArchitecture.setArchitecture("architecture");
+		componentTypeArchitecture.setDeploymentType("deploymentType");
+		componentTypeArchitecture.setLanguage("language");
+		componentTypeArchitecture.setNetwork("network");
+		componentTypeArchitecture.setPlatform("platform");
 
 		return componentTypeArchitecture;
 

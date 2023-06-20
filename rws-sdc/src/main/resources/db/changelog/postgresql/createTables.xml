@@ -5,66 +5,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 						http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-	<changeSet author="initial" id="20230707_10008">
-		<sql dbms="postgresql">
-			CREATE TABLE component_types (
-				id serial4 NOT NULL,
-				name varchar NOT NULL,
-				CONSTRAINT component_types_pk PRIMARY KEY (id),
-				CONSTRAINT component_types_name_type_uk UNIQUE (name)
-			);
-		</sql>
-	</changeSet>
-	<changeSet author="initial" id="20230707_10001">
-		<sql dbms="postgresql">
-			CREATE TABLE networks (
-				id serial4 NOT NULL,
-				name varchar NOT NULL,
-				CONSTRAINT networks_pk PRIMARY KEY (id),
-				CONSTRAINT network_name_uk UNIQUE (name)
-			);
-		</sql>
-	</changeSet>
-	<changeSet author="initial" id="20230707_10002">
-		<sql dbms="postgresql">
-			CREATE TABLE deployment_types (
-				id serial4 NOT NULL,
-				name varchar NOT NULL,
-				CONSTRAINT deployment_types_pk PRIMARY KEY (id),
-				CONSTRAINT deployment_type_name_uk UNIQUE (name)
-			);
-		</sql>
-	</changeSet>
-	<changeSet author="initial" id="20230707_10003">
-		<sql dbms="postgresql">
-			CREATE TABLE platforms (
-				id serial4 NOT NULL,
-				name varchar NOT NULL,
-				CONSTRAINT platforms_pk PRIMARY KEY (id),
-				CONSTRAINT platform_name_uk UNIQUE (name)
-			);
-		</sql>
-	</changeSet>
-	<changeSet author="initial" id="20230707_10004">
-		<sql dbms="postgresql">
-			CREATE TABLE languages (
-				id serial4 NOT NULL,
-				name varchar NOT NULL,
-				CONSTRAINT languages_pk PRIMARY KEY (id),
-				CONSTRAINT language_name_uk UNIQUE (name)
-			);
-		</sql>
-	</changeSet>
-	<changeSet author="initial" id="20230707_10005">
-		<sql dbms="postgresql">
-			CREATE TABLE architectures (
-				id serial4 NOT NULL,
-				name varchar NOT NULL,
-				CONSTRAINT architectures_pk PRIMARY KEY (id),
-				CONSTRAINT architectures_name_type_uk UNIQUE (name)
-			);
-		</sql>
-	</changeSet>	
 	<changeSet author="initial" id="20230707_10006">
 		<sql dbms="postgresql">
 			CREATE TABLE companies (
@@ -102,24 +42,16 @@
 	</changeSet>
 	<changeSet author="initial" id="20230707_10011">
 		<sql dbms="postgresql">
-			CREATE TABLE component_type_architectures (
+			CREATE TABLE public.component_type_architectures (
 				id serial4 NOT NULL,
-				name varchar NOT NULL,
-				component_type_id int4 NOT NULL,
-				network_id int4 NOT NULL,
-				deployment_type_id int4 NOT NULL,
-				platform_id int4 NOT NULL,
-				architecture_id int4 NOT NULL,
-				language_id int4 NOT NULL,
-				CONSTRAINT component_type_architectures_pk PRIMARY KEY (id),
-				CONSTRAINT component_type_architectures_name_uk UNIQUE (name),
-				CONSTRAINT component_type_architectures_component_type_architecture_uk UNIQUE (component_type_id,network_id,deployment_type_id,platform_id,language_id,architecture_id),
-				CONSTRAINT component_type_architecture_architecture_fk FOREIGN KEY (architecture_id) REFERENCES architectures(id),
-				CONSTRAINT component_type_architecture_component_type_fk FOREIGN KEY (component_type_id) REFERENCES component_types(id),
-				CONSTRAINT component_type_architecture_network_fk FOREIGN KEY (network_id) REFERENCES networks(id),
-				CONSTRAINT component_type_architecture_deployment_type_fk FOREIGN KEY (deployment_type_id) REFERENCES deployment_types(id),
-				CONSTRAINT component_type_architecture_platform_fk FOREIGN KEY (platform_id) REFERENCES platforms(id),
-				CONSTRAINT component_type_architecture_language_fk FOREIGN KEY (language_id) REFERENCES languages(id)
+				component_type varchar NOT NULL,
+				network varchar NOT NULL,
+				deployment_type varchar NOT NULL,
+				platform varchar NOT NULL,
+				architecture varchar NOT NULL,
+				"language" varchar NOT NULL,
+				CONSTRAINT component_type_architectures_names_uk UNIQUE (language, architecture, platform, deployment_type, network, component_type),
+				CONSTRAINT component_type_architectures_pk PRIMARY KEY (id)
 			);
 		</sql>
 	</changeSet>
