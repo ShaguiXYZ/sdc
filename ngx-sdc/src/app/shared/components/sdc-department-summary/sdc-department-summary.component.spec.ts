@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { emptyFn } from 'src/app/core/lib';
 import { SdcDepartmentSummaryComponent } from './sdc-department-summary.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SdcDepartmentSummaryComponent', () => {
   let component: SdcDepartmentSummaryComponent;
@@ -13,7 +14,7 @@ describe('SdcDepartmentSummaryComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SdcDepartmentSummaryComponent],
-      imports: [HttpClientModule, RouterTestingModule],
+      imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents()
@@ -23,6 +24,9 @@ describe('SdcDepartmentSummaryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SdcDepartmentSummaryComponent);
     component = fixture.componentInstance;
+    var department = {id: 1, name: '', coverage:1};
+    component.department = department;
+    component.squads = [{id: 1, name: 'squad', department: department, coverage: 1}];
     fixture.detectChanges();
   });
 

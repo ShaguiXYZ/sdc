@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SdcTimeEvolutionChartComponent } from './sdc-time-evolution-chart.component';
+import { ValueType } from 'src/app/core/models/sdc';
 
 describe('SdcBreadcrumbComponent', () => {
   let component: SdcTimeEvolutionChartComponent;
@@ -20,6 +21,9 @@ describe('SdcBreadcrumbComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SdcTimeEvolutionChartComponent);
     component = fixture.componentInstance;
+    component.name = 'test';
+    component.values = [{data:'', xAxis: '', color: '', type: ValueType.NUMERIC}];
+    component.size = {height: 1, width: 1};
     fixture.detectChanges();
   });
 

@@ -24,6 +24,9 @@ describe('SdcHorizontalBarChartComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SdcHorizontalBarChartComponent);
     component = fixture.componentInstance;
+    component.name = 'test';
+    component.size = { height: 1, width: 1 };
+    component.values = [{ data: '', yAxis: '', color: '' }];
     fixture.detectChanges();
   });
 

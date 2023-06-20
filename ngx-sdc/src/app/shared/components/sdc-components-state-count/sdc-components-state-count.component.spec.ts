@@ -27,6 +27,7 @@ describe('SdcComponentsStateCountComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SdcComponentsStateCountComponent);
     component = fixture.componentInstance;
+    component.components = [{id: 1, name: '', coverage: 1}];
     fixture.detectChanges();
   });
 
