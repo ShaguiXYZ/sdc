@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.shagui.sdc.enums.AnalysisType;
-import com.shagui.sdc.json.data.UriModel;
+import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.util.ComponentUtils;

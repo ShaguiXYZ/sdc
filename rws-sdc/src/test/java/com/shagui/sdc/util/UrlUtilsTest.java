@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
-import com.shagui.sdc.json.data.RequestPropertiesModel;
+import com.shagui.sdc.json.model.RequestPropertiesModel;
 import com.shagui.sdc.test.utils.ResponseBodyMock;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 

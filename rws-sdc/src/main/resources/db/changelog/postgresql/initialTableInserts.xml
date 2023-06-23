@@ -54,8 +54,15 @@
 				 ('ncloc','SONAR',NULL,NULL),
 				 ('ncloc_language_distribution','SONAR',NULL,NULL),
 				 ('projects','SONAR',NULL,NULL),
-				 ('parent/version','GIT','VERSION','LTE'),
-				 ('properties/java.version','GIT','VERSION','LTE');
+				 ('parent/version','GIT_XML','VERSION','LTE'),
+				 ('properties/java.version','GIT_XML','VERSION','LTE');
+			INSERT INTO metrics (name,type,metric_value_type,metric_validation) VALUES
+				 ('info_violations','SONAR','NUMERIC','GTE'),
+				 ('minor_violations','SONAR','NUMERIC','GTE'),
+				 ('major_violations','SONAR','NUMERIC','GTE'),
+				 ('critical_violations','SONAR','NUMERIC','GTE'),
+				 ('blocker_violations','SONAR','NUMERIC','GTE'),
+				 ('devDependencies.@angular/cli','GIT_JSON','VERSION','LTE');
 		</sql>
 	</changeSet>
 
@@ -170,7 +177,12 @@
 				 (3,11),
 				 (3,12),
 				 (3,13),
-				 (3,14);
+				 (3,14),
+				 (3,17),
+				 (3,18),
+				 (3,19),
+				 (3,20),
+				 (3,21);
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (4,1),
 				 (4,2),
@@ -202,7 +214,8 @@
 				 (11,13),
 				 (11,14),
 				 (11,15),
-				 (11,16);
+				 (11,16),
+				 (11,22);
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (15,1),
 				 (15,2),
@@ -218,7 +231,12 @@
 				 (15,12),
 				 (15,13),
 				 (15,15),
-				 (15,16);
+				 (15,16),
+				 (15,17),
+				 (15,18),
+				 (15,19),
+				 (15,20),
+				 (15,21);
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (16,1),
 				 (16,2),
@@ -242,24 +260,20 @@
 			INSERT INTO component_properties (name,value,component_id) VALUES
 				 ('organization','shaguixyz',1),
 				 ('component_repository','empty',1),
-				 ('xml_path','pom.xml',1),
-				 ('component_path','rws-empty',1),
+				 ('xml_path','rws-empty/pom.xml',1),
 				 ('organization','shaguixyz',2),
 				 ('component_repository','empty',2),
-				 ('xml_path','pom.xml',2),
-				 ('component_path','bff-empty',2),
+				 ('xml_path','bff-empty/pom.xml',2),
+				 ('json_path','ngx-empty/package.json',2),
 				 ('organization','shaguixyz',5),
 				 ('component_repository','sdc',5),
-				 ('component_path','bff-sdc',5),
-				 ('xml_path','pom.xml',5),
+				 ('xml_path','bff-sdc/pom.xml',5),
 				 ('organization','shaguixyz',6),
 				 ('component_repository','sdc',6),
-				 ('component_path','rws-sdc',6),
-				 ('xml_path','pom.xml',6),
+				 ('xml_path','rws-sdc/pom.xml',6),
 				 ('organization','shaguixyz',7),
 				 ('component_repository','sdc',7),
-				 ('component_path','ngx-sdc',7),
-				 ('xml_path','pom.xml',7);
+				 ('xml_path','ngx-sdc/pom.xml',7);
 		</sql>
 	</changeSet>
 	
@@ -279,7 +293,12 @@
 				 (15,1,'2023-03-01 10:57:21.597993',250,'70','85','90'),
 				 (15,3,'2023-03-01 10:57:21.597993',40,'30','20','5'),
 				 (15,4,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
-				 (15,5,'2023-03-01 10:57:21.597993',60,'40','25','5');
+				 (15,5,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (15,17,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (15,18,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (15,19,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (15,20,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (15,21,'2023-03-01 10:57:21.597993',60,'40','25','5');
 		</sql>
 	</changeSet>
 </databaseChangeLog>

@@ -26,17 +26,17 @@ import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
-import com.shagui.sdc.model.ComponentUris;
+import com.shagui.sdc.model.ComponentUrisModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.pk.ComponentUriPk;
-import com.shagui.sdc.service.impl.GitServiceImpl;
+import com.shagui.sdc.service.impl.GitXmlServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
 
 class GitServiceTest {
 
 	@InjectMocks
-	GitServiceImpl service;
+	GitXmlServiceImpl service;
 
 	@Mock
 	private GitClient gitClient;
@@ -73,11 +73,11 @@ class GitServiceTest {
 
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();
-		metricModel.setType(AnalysisType.GIT);
+		metricModel.setType(AnalysisType.GIT_XML);
 		metrics.add(metricModel);
 
-		List<ComponentUris> uris = new ArrayList<>();
-		ComponentUris uriModel = new ComponentUris();
+		List<ComponentUrisModel> uris = new ArrayList<>();
+		ComponentUrisModel uriModel = new ComponentUrisModel();
 		uriModel.setId(new ComponentUriPk(0, "uri_name"));
 		uris.add(uriModel);
 
@@ -104,11 +104,11 @@ class GitServiceTest {
 
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();
-		metricModel.setType(AnalysisType.GIT);
+		metricModel.setType(AnalysisType.GIT_XML);
 		metrics.add(metricModel);
 
-		List<ComponentUris> uris = new ArrayList<>();
-		ComponentUris uriModel = new ComponentUris();
+		List<ComponentUrisModel> uris = new ArrayList<>();
+		ComponentUrisModel uriModel = new ComponentUrisModel();
 		uriModel.setId(new ComponentUriPk(0, "uri_name"));
 		uris.add(uriModel);
 

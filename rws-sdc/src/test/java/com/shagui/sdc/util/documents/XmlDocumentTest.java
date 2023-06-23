@@ -1,10 +1,11 @@
-package com.shagui.sdc.util;
+package com.shagui.sdc.util.documents;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Optional;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -15,13 +16,15 @@ import org.xml.sax.SAXException;
 class XmlDocumentTest {
 	@Test
 	void urlConstructorTest() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-		XmlDocument document = new XmlDocument("<project><properties><version>1</version></properties></project>");
+		XmlDocument document = SdcDocumentFactory.newInstance(
+				"<project><properties><version>1</version><version2>2</version2></properties></project>",
+				XmlDocument.class);
 
-		List<String> data = document.fromPath("properties/version");
+		Optional<String> data = document.fromPath("properties/version");
 
 		assertNotNull(data);
-		assertEquals(1, data.size());
-		assertEquals("1", data.get(0));
+		assertTrue(data.isPresent());
+		assertEquals("1", data.get());
 	}
 
 }

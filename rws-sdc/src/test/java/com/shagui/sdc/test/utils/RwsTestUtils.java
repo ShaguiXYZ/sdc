@@ -1,6 +1,5 @@
 package com.shagui.sdc.test.utils;
 
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +23,7 @@ import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
-import com.shagui.sdc.model.ComponentUris;
+import com.shagui.sdc.model.ComponentUrisModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.MetricValuesModel;
@@ -73,22 +72,6 @@ public class RwsTestUtils {
 
 	public static String JSON_RESPONSE_TEST = "{\"id\": 100, \"name\": \"generic response\"}";
 	public static String JSON_COMPONENT_DTO_TEST = "{\"name\": \"generic response\", \"download_url\": \"http://www.url-pom.xml\"}";
-
-	public static InputStream mockInputStream(String data) {
-		return new InputStream() {
-			private final byte[] msg = data.getBytes();
-			private int index = 0;
-
-			@Override
-			public int read() {
-				if (index >= msg.length) {
-					return -1;
-				}
-				
-				return msg[index++];
-			}
-		};
-	}
 
 	public static Response response(int status, String json) {
 		Map<String, Collection<String>> headers = new HashMap<>();
@@ -208,8 +191,8 @@ public class RwsTestUtils {
 		squad.setName("test");
 		squad.setDepartment(department);
 
-		List<ComponentUris> uris = new ArrayList<>();
-		ComponentUris uriModel = new ComponentUris();
+		List<ComponentUrisModel> uris = new ArrayList<>();
+		ComponentUrisModel uriModel = new ComponentUrisModel();
 		uriModel.setId(new ComponentUriPk(0, "uri_name"));
 		uris.add(uriModel);
 
@@ -230,7 +213,7 @@ public class RwsTestUtils {
 		MetricModel source = new MetricModel();
 		source.setId(id);
 		source.setName("metric name");
-		source.setType(AnalysisType.GIT);
+		source.setType(AnalysisType.GIT_XML);
 		source.setValidation(MetricValidation.EQ);
 		source.setValueType(MetricValueType.NUMERIC);
 

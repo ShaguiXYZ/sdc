@@ -6,8 +6,9 @@ public class Ctes {
 	}
 
 	public static class ANALYSIS_SERVICES_TYPES {
-		public static final String GIT = "GIT"; // = MetricType.GIT
-		public static final String SONAR = "SONAR"; // = MetricType.SONAR
+		public static final String GIT_JSON = "GIT_JSON"; // = AnalysisType.GIT_JSON
+		public static final String GIT_XML = "GIT_XML"; // = AnalysisType.GIT_XML
+		public static final String SONAR = "SONAR"; // = AnalysisType.SONAR
 
 		private ANALYSIS_SERVICES_TYPES() {
 		}
@@ -15,8 +16,8 @@ public class Ctes {
 
 	public static class COMPONENT_PROPERTIES {
 		public static final String XML_PATH = "xml_path"; // path to the pom.xml file from the git uri
+		public static final String JSON_PATH = "json_path"; // path to the package.json file from the git uri
 															// of the squad the project is associated with
-		public static final String PATH = "component_path"; // path to the project root
 		public static final String COMPONENT_OWNER = "organization";
 		public static final String COMPONENT_REPOSITORY = "component_repository";
 		public static final String COMPONENT_ANALYSIS_DATE = "component_analysis_date";

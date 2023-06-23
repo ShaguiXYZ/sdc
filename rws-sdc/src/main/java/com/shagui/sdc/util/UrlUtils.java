@@ -7,7 +7,7 @@ import java.net.URLConnection;
 import java.util.List;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
-import com.shagui.sdc.json.data.RequestPropertiesModel;
+import com.shagui.sdc.json.model.RequestPropertiesModel;
 
 import feign.Response;
 

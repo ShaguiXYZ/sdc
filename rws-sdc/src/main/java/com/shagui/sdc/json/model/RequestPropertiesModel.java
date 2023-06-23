@@ -1,4 +1,4 @@
-package com.shagui.sdc.json.data;
+package com.shagui.sdc.json.model;
 
 import lombok.Getter;
 import lombok.Setter;

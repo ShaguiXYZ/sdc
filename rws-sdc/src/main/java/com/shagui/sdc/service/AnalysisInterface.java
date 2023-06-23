@@ -5,11 +5,11 @@ import java.util.Optional;
 
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.json.StaticRepository;
-import com.shagui.sdc.json.data.RequestPropertiesModel;
-import com.shagui.sdc.json.data.UriModel;
+import com.shagui.sdc.json.model.RequestPropertiesModel;
+import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.model.ComponentUris;
+import com.shagui.sdc.model.ComponentUrisModel;
 import com.shagui.sdc.model.MetricModel;
 
 public interface AnalysisInterface {
@@ -19,7 +19,7 @@ public interface AnalysisInterface {
 
 	List<MetricModel> metrics(ComponentModel component);
 
-	default Optional<UriModel> uri(List<ComponentUris> uris, AnalysisType type) {
+	default Optional<UriModel> uri(List<ComponentUrisModel> uris, AnalysisType type) {
 		return StaticRepository.uris().stream().filter(uri -> type.equals(uri.getType()))
 				.filter(uri -> uris.stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName()))).findFirst();
 	}

@@ -30,7 +30,7 @@ describe('SdcMetricInfoComponent', () => {
     const metric: IMetricModel = {
       id: 1,
       name: 'Test',
-      type: AnalysisType.GIT
+      type: AnalysisType.GIT_XML
     };
     component.metric = metric;
     component.componentId = 1;
