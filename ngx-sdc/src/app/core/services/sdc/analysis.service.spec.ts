@@ -1,50 +1,66 @@
 /* eslint max-classes-per-file: 0 */
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/internal/Observable';
 import { UiHttpService } from '../http';
 import { AnalysisService } from './analysis.service';
+import { of } from 'rxjs';
+import { AnalysisType, IMetricAnalysisDTO, IPageable } from '../../models/sdc';
 
-class MockUiHttpService {
-  get(key: string) {
-    return new Observable<any>();
-  }
+let metricAnalysis: IMetricAnalysisDTO = { analysisDate: 1, coverage: 1, metric: { id: 1, name: '', type: AnalysisType.GIT }, analysisValues: { metricValue: '' } };
+let pageMetricAnalysis: IPageable<IMetricAnalysisDTO> = { paging: { pageIndex: 0, pageSize: 1, pages: 1, elements: 1 }, page: [metricAnalysis] };
 
-  post(key: string) {
-    return new Observable<any>();
-  }
-}
+let service: AnalysisService;
+let services: any, spies: any;
 
-interface DataMock {
-  id: number;
-  name: string;
-}
-
-describe('UiHttpService', () => {
-  beforeEach(() =>
+describe('AnalysisService', () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
       providers: [{ provide: UiHttpService, useClass: MockUiHttpService }]
-    })
-  );
+    });
+    service = TestBed.inject(AnalysisService);
+    initServices();
+  });
 
   it('should create service', () => {
-    const service: AnalysisService = TestBed.inject(AnalysisService);
     expect(service).toBeTruthy();
   });
 
-  it('should make an analysis', () => {
-    const service: AnalysisService = TestBed.inject(AnalysisService);
-    service.analysis(1, 1);
+  it('should call http get when analysis is called', async () => {
+    spies.http.get.and.returnValue(of(metricAnalysis));
+    await service.analysis(1, 1);
+    expect(spies.http.get).toHaveBeenCalled();
   });
 
-  it('should get a metric history', () => {
-    const service: AnalysisService = TestBed.inject(AnalysisService);
-    service.metricHistory(1, 1);
+  it('sshould call http get when metricHistory is called', async () => {
+    spies.http.get.and.returnValue(of(pageMetricAnalysis));
+    await service.metricHistory(1, 1);
+    expect(spies.http.get).toHaveBeenCalled();
   });
 
-  it('should analize the componente', () => {
-    const service: AnalysisService = TestBed.inject(AnalysisService);
-    service.analize(1);
+  it('should call http get when analize is called', async () => {
+    spies.http.post.and.returnValue(of(pageMetricAnalysis));
+    await service.analize(1);
+    expect(spies.http.post).toHaveBeenCalled();
   });
+
+  function initServices() {
+    services = {
+      http: TestBed.inject(UiHttpService)
+    };
+    initSpies();
+  }
+
+  function initSpies() {
+    spies = {
+      http: {
+        get: spyOn(services.http, 'get'),
+        post: spyOn(services.http, 'post')
+      }
+    };
+  }
 });
+
+class MockUiHttpService {
+  get() { }
+  post() { }
+}
