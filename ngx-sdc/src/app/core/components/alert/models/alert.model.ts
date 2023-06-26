@@ -10,4 +10,8 @@ export class AlertModel {
   public get desctiptions(): string[] {
     return this._descriptions;
   }
+
+  public set desctiptions(descriptions) {
+    this._descriptions = descriptions;
+  }
 }
