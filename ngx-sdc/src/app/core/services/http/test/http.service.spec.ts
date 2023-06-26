@@ -1,32 +1,10 @@
-/* eslint max-classes-per-file: 0 */
-import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UiHttpService } from '../http.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { UiCacheService } from '../../context-data/cache.service';
+import { TestBed } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
-
-class MockTranslateService {
-  private lang = '';
-
-  setDefaultLang(lang: string): void {
-    this.lang = lang;
-  }
-
-  stream(key: string | Array<string>, interpolateParams?: object): Observable<string | any> {
-    return new Observable<string>();
-  }
-
-  instant(key: string): string {
-    return key;
-  }
-
-  get(key: string) {
-    return new Observable<any>();
-  }
-}
-
-class MockUiCacheService {}
+import { TranslateServiceMock } from 'src/app/core/mock/services';
+import { CacheServiceMock } from 'src/app/core/mock/services/cache-service.mock';
+import { UiCacheService } from '../../context-data/cache.service';
+import { UiHttpService } from '../http.service';
 
 interface DataMock {
   id: number;
@@ -38,8 +16,8 @@ describe('UiHttpService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        { provide: TranslateService, useClass: MockTranslateService },
-        { provide: UiCacheService, useClass: MockUiCacheService }
+        { provide: TranslateService, useClass: TranslateServiceMock },
+        { provide: UiCacheService, useClass: CacheServiceMock }
       ]
     })
   );

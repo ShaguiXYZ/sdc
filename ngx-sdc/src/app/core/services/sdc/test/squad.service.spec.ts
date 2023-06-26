@@ -1,4 +1,3 @@
-/* eslint max-classes-per-file: 0 */
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { IPageable, ISquadDTO } from 'src/app/core/models/sdc';

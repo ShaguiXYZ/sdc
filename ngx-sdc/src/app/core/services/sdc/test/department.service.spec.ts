@@ -1,4 +1,3 @@
-/* eslint max-classes-per-file: 0 */
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';

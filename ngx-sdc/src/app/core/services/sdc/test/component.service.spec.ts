@@ -1,14 +1,12 @@
-/* eslint max-classes-per-file: 0 */
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { CacheServiceMock } from 'src/app/core/mock/services/cache-service.mock';
+import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 import { AnalysisType, IComponentDTO, IMetricDTO, IPageable, IPaging } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
-import { ComponentService } from '../component.services';
-import { UiHttpService } from '../../http';
 import { UiCacheService } from '../../context-data';
-import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
-import { CacheServiceMock } from 'src/app/core/mock/services/cache-service.mock';
+import { UiHttpService } from '../../http';
+import { ComponentService } from '../component.services';
 
 const paging: IPaging = { pageIndex: 0, pageSize: 1, pages: 1, elements: 1 };
 const component: IComponentDTO = { id: 1, name: '', squad: { id: 1, department: { id: 1, name: '' }, name: '' } };

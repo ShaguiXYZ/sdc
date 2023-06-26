@@ -10,7 +10,7 @@ import { UiContextDataServiceMock } from 'src/app/core/mock/services/context-dat
 import { UiContextDataService } from 'src/app/core/services';
 import { SdcSquadsHomeComponent } from '../sdc-squads-home.component';
 import { SdcSquadsService } from '../services';
-import { SdcSquadsServiceMock } from './services/sdc-squads-service.mock';
+import { SdcSquadsServiceMock } from './mock/sdc-squads-service.mock';
 import { RouterMock } from 'src/app/core/mock/router.mock';
 
 describe('SdcSquadsHomeComponent', () => {
