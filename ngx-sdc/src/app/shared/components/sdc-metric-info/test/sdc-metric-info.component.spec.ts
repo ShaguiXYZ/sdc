@@ -1,12 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
+import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { emptyFn } from 'src/app/core/lib';
+import { AnalysisServiceMock } from 'src/app/core/mock/services/sdc/analysis-service.mock';
 import { AnalysisType } from 'src/app/core/models/sdc/analysis-type.model';
 import { IMetricModel } from 'src/app/core/models/sdc/metric.model';
-import { SdcMetricInfoComponent } from '../sdc-metric-info.component';
-import { CommonModule } from '@angular/common';
 import { AnalysisService } from 'src/app/core/services/sdc/analysis.service';
+import { SdcMetricInfoComponent } from '../sdc-metric-info.component';
 
 describe('SdcMetricInfoComponent', () => {
   let component: SdcMetricInfoComponent;
@@ -40,9 +41,3 @@ describe('SdcMetricInfoComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-class AnalysisServiceMock {
-  analysis() {
-    return Promise.resolve({ analysisDate: 1, coverage: 1, metric: {}, analysisValues: {} });
-  }
-}

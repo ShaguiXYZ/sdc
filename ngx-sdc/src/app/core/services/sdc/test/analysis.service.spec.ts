@@ -1,11 +1,9 @@
-/* eslint max-classes-per-file: 0 */
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
+import { AnalysisType, IMetricAnalysisDTO, IPageable } from '../../../models/sdc';
 import { UiHttpService } from '../../http';
 import { AnalysisService } from '../analysis.service';
-import { of } from 'rxjs';
-import { AnalysisType, IMetricAnalysisDTO, IPageable } from '../../../models/sdc';
-import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 
 const metricAnalysis: IMetricAnalysisDTO = {
   analysisDate: 1,
