@@ -13,7 +13,8 @@ import { SdcSquadsService } from './services';
 @Component({
   selector: 'sdc-squads-home',
   templateUrl: './sdc-squads-home.component.html',
-  styleUrls: ['./sdc-squads-home.component.scss']
+  styleUrls: ['./sdc-squads-home.component.scss'],
+  providers: [SdcSquadsService]
 })
 export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   public squadsData?: SdcSquadsDataModel;

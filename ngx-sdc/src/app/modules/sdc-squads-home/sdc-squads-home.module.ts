@@ -8,7 +8,6 @@ import { SdcCoveragesModule } from 'src/app/shared/components/sdc-coverages/sdc-
 import { SdcSquadSummaryModule } from 'src/app/shared/components/sdc-squad-summary/sdc-squad-summary.module';
 import { SdcSquadsHomeRoutingModule } from './sdc-squads-home-routing.module';
 import { SdcSquadsHomeComponent } from './sdc-squads-home.component';
-import { SdcSquadsService } from './services';
 
 @NgModule({
   declarations: [SdcSquadsHomeComponent],
@@ -21,7 +20,6 @@ import { SdcSquadsService } from './services';
     SdcCoveragesModule,
     SdcSquadSummaryModule,
     TranslateModule
-  ],
-  providers: [SdcSquadsService]
+  ]
 })
 export class SdcSquadsHomeModule {}

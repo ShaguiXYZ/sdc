@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-export class MockTranslateService {
+export class TranslateServiceMock {
   private lang = '';
 
   setDefaultLang(lang: string): void {
