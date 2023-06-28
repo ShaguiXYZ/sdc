@@ -11,7 +11,7 @@ import { ComponentService } from '../component.services';
 const paging: IPaging = { pageIndex: 0, pageSize: 1, pages: 1, elements: 1 };
 const component: IComponentDTO = { id: 1, name: '', squad: { id: 1, department: { id: 1, name: '' }, name: '' } };
 const pageComponent: IPageable<IComponentDTO> = { paging, page: [component] };
-const pageMetric: IPageable<IMetricDTO> = { paging, page: [{ id: 1, name: '', type: AnalysisType.GIT }] };
+const pageMetric: IPageable<IMetricDTO> = { paging, page: [{ id: 1, name: '', type: AnalysisType.GIT_XML }] };
 const historicalCoverage: IHistoricalCoverage<IComponentDTO> = {
   data: component,
   historical: { paging, page: [{ coverage: 1, analysisDate: 1 }] }
