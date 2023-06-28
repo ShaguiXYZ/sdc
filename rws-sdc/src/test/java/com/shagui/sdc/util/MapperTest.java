@@ -32,7 +32,7 @@ class MapperTest {
 		MetricModel metric = new MetricModel();
 		metric.setId(1);
 		metric.setName("test");
-		metric.setType(AnalysisType.GIT);
+		metric.setType(AnalysisType.GIT_XML);
 		metric.setValidation(MetricValidation.EQ);
 		metric.setValueType(MetricValueType.NUMERIC);
 		

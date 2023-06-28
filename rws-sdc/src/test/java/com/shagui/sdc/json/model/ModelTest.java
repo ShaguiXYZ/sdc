@@ -7,13 +7,11 @@ import static pl.pojo.tester.api.assertion.Method.SETTER;
 
 import org.junit.jupiter.api.Test;
 
-import com.shagui.sdc.json.data.RequestPropertiesModel;
-import com.shagui.sdc.json.data.UriModel;
-
 class ModelTest {
 
 	@Test
 	void pojoModelTest() {
+		assertPojoMethodsFor(DataListModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(UriModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(RequestPropertiesModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 	}

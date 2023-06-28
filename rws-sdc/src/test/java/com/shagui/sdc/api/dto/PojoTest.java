@@ -67,4 +67,12 @@ class PojoTest {
 		assertPojoMethodsForAll(securityDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
 	}
 
+	@Test
+	@DisplayName("Tests for ebs DTOs to ensure POJO methods are well implemented")
+	void testEbsDTO() {
+		PackageFilter securityDTO = DefaultPackageFilter.forPackage("com.shagui.sdc.api.dto.ebs");
+
+		assertPojoMethodsForAll(securityDTO).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.shagui.sdc.api.dto.cmdb;
+package com.shagui.sdc.api.dto.ebs;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

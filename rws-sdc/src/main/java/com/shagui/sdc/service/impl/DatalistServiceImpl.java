@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.json.StaticRepository;
-import com.shagui.sdc.json.data.DataListModel;
+import com.shagui.sdc.json.model.DataListModel;
 import com.shagui.sdc.service.DatalistService;
 
 @Service

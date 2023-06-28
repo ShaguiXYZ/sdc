@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 import com.shagui.sdc.model.pk.ComponentHistoricalCoveragePk;
+import com.shagui.sdc.model.pk.ComponentUriPk;
 
 class ModelTest {
 
@@ -23,6 +24,7 @@ class ModelTest {
 		assertPojoMethodsFor(ComponentPropertyModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentTypeArchitectureModel.class).testing(GETTER, SETTER, CONSTRUCTOR)
 				.areWellImplemented();
+		assertPojoMethodsFor(ComponentUrisModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(DepartmentModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(MetricModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(MetricValuesModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
@@ -31,6 +33,7 @@ class ModelTest {
 		assertPojoMethodsFor(ComponentHistoricalCoverageModel.class).testing(GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(ComponentHistoricalCoveragePk.class).testing(GETTER, SETTER, CONSTRUCTOR)
 				.areWellImplemented();
+		assertPojoMethodsFor(ComponentUriPk.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 	}
 
 	@Test

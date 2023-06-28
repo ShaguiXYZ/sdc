@@ -2,8 +2,8 @@ package com.shagui.sdc.json;
 
 import java.util.List;
 
-import com.shagui.sdc.json.data.DataListModel;
-import com.shagui.sdc.json.data.UriModel;
+import com.shagui.sdc.json.model.DataListModel;
+import com.shagui.sdc.json.model.UriModel;
 
 public class StaticRepository {
 

@@ -43,6 +43,9 @@
   display: flex;
 
   .metrics {
+    max-height: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 270px;
   }
 

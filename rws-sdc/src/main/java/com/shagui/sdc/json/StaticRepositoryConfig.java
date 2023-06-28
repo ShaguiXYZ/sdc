@@ -15,8 +15,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shagui.sdc.json.data.DataListModel;
-import com.shagui.sdc.json.data.UriModel;
+import com.shagui.sdc.json.model.DataListModel;
+import com.shagui.sdc.json.model.UriModel;
 
 import lombok.extern.slf4j.Slf4j;
 

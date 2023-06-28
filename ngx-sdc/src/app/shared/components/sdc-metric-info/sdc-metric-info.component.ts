@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AvailableMetricStates, DEFAULT_METRIC_STATE, stateByCoverage, styleByCoverage } from 'src/app/core/lib';
-import { AnalysisType, IMetricAnalysisModel, IMetricModel } from 'src/app/core/models/sdc';
+import { IMetricAnalysisModel, IMetricModel, iconByType } from 'src/app/core/models/sdc';
 import { AnalysisService } from 'src/app/core/services/sdc';
 
 @Component({
@@ -48,12 +48,7 @@ export class SdcMetricInfoComponent implements OnInit {
   }
 
   get analysisIcon(): string {
-    return (
-      {
-        [AnalysisType.GIT]: 'fa-brands fa-github',
-        [AnalysisType.SONAR]: 'fa-solid fa-satellite-dish'
-      }[this.metric.type] ?? ''
-    );
+    return iconByType(this.metric.type);
   }
 
   public onClick() {
