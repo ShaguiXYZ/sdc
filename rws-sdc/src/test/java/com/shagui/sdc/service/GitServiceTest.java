@@ -26,9 +26,9 @@ import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
+import com.shagui.sdc.model.ComponentUris;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.model.RequestPropertiesModel;
-import com.shagui.sdc.model.UriModel;
+import com.shagui.sdc.model.pk.ComponentUriPk;
 import com.shagui.sdc.service.impl.GitServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
@@ -76,10 +76,9 @@ class GitServiceTest {
 		metricModel.setType(AnalysisType.GIT);
 		metrics.add(metricModel);
 
-		List<UriModel> uris = new ArrayList<UriModel>();
-		UriModel uriModel = new UriModel();
-		uriModel.setType(AnalysisType.GIT);
-		uriModel.setProperties(new ArrayList<RequestPropertiesModel>());
+		List<ComponentUris> uris = new ArrayList<>();
+		ComponentUris uriModel = new ComponentUris();
+		uriModel.setId(new ComponentUriPk(0, "uri_name"));
 		uris.add(uriModel);
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
@@ -108,10 +107,9 @@ class GitServiceTest {
 		metricModel.setType(AnalysisType.GIT);
 		metrics.add(metricModel);
 
-		List<UriModel> uris = new ArrayList<UriModel>();
-		UriModel uriModel = new UriModel();
-		uriModel.setType(AnalysisType.GIT);
-		uriModel.setProperties(new ArrayList<RequestPropertiesModel>());
+		List<ComponentUris> uris = new ArrayList<>();
+		ComponentUris uriModel = new ComponentUris();
+		uriModel.setId(new ComponentUriPk(0, "uri_name"));
 		uris.add(uriModel);
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();

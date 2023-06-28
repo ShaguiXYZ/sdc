@@ -7,20 +7,18 @@ import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
-import com.shagui.sdc.api.dto.ArchitectureDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
-import com.shagui.sdc.api.dto.ComponentTypeDTO;
+import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.api.dto.TimeCoverageDTO;
 import com.shagui.sdc.core.exception.ApiError;
-import com.shagui.sdc.model.ArchitectureModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.model.ComponentTypeModel;
+import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
@@ -77,6 +75,15 @@ public class Mapper {
 				source.getValidation());
 	}
 
+	public static ComponentTypeArchitectureDTO parse(ComponentTypeArchitectureModel source) {
+		return new ComponentTypeArchitectureDTO(source.getComponentType(), source.getArchitecture(),
+				source.getNetwork(), source.getDeploymentType(), source.getPlatform(), source.getLanguage());
+	}
+
+	public static ComponentTypeArchitectureModel parse(ComponentTypeArchitectureDTO source) {
+		return config.getObjectMapper().convertValue(source, ComponentTypeArchitectureModel.class);
+	}
+
 	public static ComponentModel parse(ComponentDTO source) {
 		return config.getObjectMapper().convertValue(source, ComponentModel.class);
 	}
@@ -86,24 +93,8 @@ public class Mapper {
 				Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE);
 		Date analysisDate = analysisTimestampStr == null ? null : new Date(Long.valueOf(analysisTimestampStr));
 
-		return new ComponentDTO(source.getId(), source.getName(), analysisDate, source.getCoverage(),
-				source.getComponentTypeArchitecture().getName(), parse(source.getSquad()));
-	}
-
-	public static ComponentTypeModel parse(ComponentTypeDTO source) {
-		return config.getObjectMapper().convertValue(source, ComponentTypeModel.class);
-	}
-
-	public static ComponentTypeDTO parse(ComponentTypeModel source) {
-		return new ComponentTypeDTO(source.getId(), source.getName());
-	}
-
-	public static ArchitectureModel parse(ArchitectureDTO source) {
-		return config.getObjectMapper().convertValue(source, ArchitectureModel.class);
-	}
-
-	public static ArchitectureDTO parse(ArchitectureModel source) {
-		return new ArchitectureDTO(source.getId(), source.getName());
+		return new ComponentDTO(source.getId(), source.getName(), parse(source.getComponentTypeArchitecture()),
+				analysisDate, source.getCoverage(), parse(source.getSquad()));
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {

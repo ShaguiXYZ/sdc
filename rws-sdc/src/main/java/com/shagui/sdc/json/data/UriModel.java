@@ -1,17 +1,17 @@
-package com.shagui.sdc.api.dto;
+package com.shagui.sdc.json.data;
+
+import java.util.List;
 
 import com.shagui.sdc.enums.AnalysisType;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
-@AllArgsConstructor
-public class UriDTO {
+public class UriModel {
 	private String name;
-	private String uri;
+	private String value;
 	private AnalysisType type;
+	private List<RequestPropertiesModel> properties;
 }

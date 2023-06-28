@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.json.data.UriModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.model.UriModel;
 import com.shagui.sdc.util.ComponentUtils;
 
 public interface SonarService extends AnalysisInterface {
@@ -16,7 +16,7 @@ public interface SonarService extends AnalysisInterface {
 		Optional<UriModel> uriModel = uri(component.getUris(), AnalysisType.SONAR);
 		
 		if (uriModel.isPresent()) {
-			uri= uriModel.get().getUri();
+			uri= uriModel.get().getValue();
 		}
 		
 		return Optional.ofNullable(uri);

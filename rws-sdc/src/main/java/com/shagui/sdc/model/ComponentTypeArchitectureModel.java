@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,40 +24,30 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "component_type_architectures", uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }),
-		@UniqueConstraint(columnNames = { "component_type_id", "architecture_id", "network_id", "deployment_type_id",
-				"platform_id", "language_id" }) })
+@Table(name = "component_type_architectures", uniqueConstraints = { @UniqueConstraint(columnNames = { "component_type",
+		"architecture", "network", "deployment_type", "platform", "language" }) })
 public class ComponentTypeArchitectureModel implements ModelInterface<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(name = "component_type", nullable = false)
+	private String componentType;
+
 	@Column(nullable = false)
-	private String name;
+	private String architecture;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "component_type_id")
-	private ComponentTypeModel componentType;
+	@Column(nullable = false)
+	private String network;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "architecture_id")
-	private ArchitectureModel architecture;
+	@Column(name = "deployment_type", nullable = false)
+	private String deploymentType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "network_id")
-	private NetworkModel network;
+	@Column(nullable = false)
+	private String platform;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "deployment_type_id")
-	private DeploymentTypeModel deploymentType;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "platform_id")
-	private PlatformModel platform;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "language_id")
-	private LanguageModel language;
+	@Column(nullable = false)
+	private String language;
 
 	@OneToMany(mappedBy = "componentTypeArchitecture", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentModel> components;
@@ -66,15 +55,4 @@ public class ComponentTypeArchitectureModel implements ModelInterface<Integer> {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "component_type_architecture_metrics", joinColumns = @JoinColumn(name = "component_type_architecture_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "metric_id", referencedColumnName = "id"))
 	private List<MetricModel> metrics;
-
-	public ComponentTypeArchitectureModel(ComponentTypeModel componentType, ArchitectureModel architecture) {
-		this(null, componentType, architecture);
-	}
-
-	public ComponentTypeArchitectureModel(Integer id, ComponentTypeModel componentType,
-			ArchitectureModel architecture) {
-		this.id = id;
-		this.componentType = componentType;
-		this.architecture = architecture;
-	}
 }

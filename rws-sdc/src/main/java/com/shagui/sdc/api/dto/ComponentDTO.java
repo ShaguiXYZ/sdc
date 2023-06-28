@@ -14,8 +14,8 @@ import lombok.Setter;
 public class ComponentDTO  {
 	private Integer id;
 	private String name;
+	private ComponentTypeArchitectureDTO componentTypeArchitecture;
 	private Date analysisDate;
 	private Float coverage;
-	private String componentTypeAchitecture;
 	private SquadDTO squad;
 }
