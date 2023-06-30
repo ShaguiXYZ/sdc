@@ -26,7 +26,7 @@ describe(`UiAlertService`, () => {
 
   it('should call translateService instant when confirm is called case one', () => {
     service.confirm(
-      { text: '' },
+      { text: '', title: '' },
       () => {
         /* Mock method */
       },
@@ -38,7 +38,7 @@ describe(`UiAlertService`, () => {
 
   it('should call translateService instant when confirm is called case two', () => {
     service.confirm(
-      { text: ['', ''] },
+      { text: ['test', ''] },
       () => {
         /* Mock method */
       },
@@ -48,10 +48,28 @@ describe(`UiAlertService`, () => {
     expect(services.translateService.instant).toHaveBeenCalled();
   });
 
+  it('should call translateService instant when confirm is called case three', () => {
+    service.confirm(
+      { text: 'test', title: 'test' },
+      () => {
+        /* Mock method */
+      },
+      true
+    );
+    expect(services.translateService.instant).toHaveBeenCalled();
+  });
+
   it('should return not null when onAlert is called', () => {
+    const spyNext = spyOn(service.alert$, 'next');
+    const result = service.closeAlert();
+    expect(spyNext).toHaveBeenCalled();
+  });
+
+  it('should call alert next when closeAlert is called', () => {
     const result = service.onAlert();
     expect(result).not.toBeNull();
   });
+
 
   const initServices = () => {
     services = {
