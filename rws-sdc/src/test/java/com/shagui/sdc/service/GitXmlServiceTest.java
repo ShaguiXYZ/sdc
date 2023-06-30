@@ -20,20 +20,22 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.client.GitClient;
-import com.shagui.sdc.api.dto.git.ContentDTO;
 import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.json.StaticRepository;
+import com.shagui.sdc.json.StaticRepositoryConfig;
+import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
-import com.shagui.sdc.model.ComponentUrisModel;
+import com.shagui.sdc.model.ComponentUriModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.pk.ComponentUriPk;
 import com.shagui.sdc.service.impl.GitXmlServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
 
-class GitServiceTest {
+class GitXmlServiceTest {
 
 	@InjectMocks
 	GitXmlServiceImpl service;
@@ -44,12 +46,26 @@ class GitServiceTest {
 	@Mock
 	private ObjectMapper objectMapper;
 
+	@Mock
+	private StaticRepositoryConfig staticRepositoryConfig;
+
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
+		StaticRepository.setConfig(staticRepositoryConfig);
 
 		UrlUtils.setConfig(RwsTestUtils.urlUtilsConfig());
+		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>() {
+			private static final long serialVersionUID = 1L;
 
+			{
+				UriModel uri = new UriModel();
+				uri.setName("uri_name");
+				uri.setType(AnalysisType.GIT);
+				uri.setProperties(new ArrayList<>());
+				add(uri);
+			}
+		});
 	}
 
 	@Test
@@ -76,8 +92,8 @@ class GitServiceTest {
 		metricModel.setType(AnalysisType.GIT_XML);
 		metrics.add(metricModel);
 
-		List<ComponentUrisModel> uris = new ArrayList<>();
-		ComponentUrisModel uriModel = new ComponentUrisModel();
+		List<ComponentUriModel> uris = new ArrayList<>();
+		ComponentUriModel uriModel = new ComponentUriModel();
 		uriModel.setId(new ComponentUriPk(0, "uri_name"));
 		uris.add(uriModel);
 
@@ -92,23 +108,24 @@ class GitServiceTest {
 		component.setUris(uris);
 		component.setProperties(properties);
 
-		when(gitClient.repoFile(any(URI.class)))
-				.thenReturn(RwsTestUtils.response(400, RwsTestUtils.JSON_COMPONENT_DTO_TEST));
+		when(gitClient.repoFile(any(URI.class))).thenReturn(
+				RwsTestUtils.response(400, RwsTestUtils.gitContentResponse(RwsTestUtils.XML_RESPONSE_TEST)));
 
 		assertThrows(RuntimeException.class, () -> service.analyze(component));
 	}
 
 	@Test
-	void testAnalyzeEmptyMetricsNotEmpty() throws JsonParseException, JsonMappingException, IOException {
-		ComponentModel component = new ComponentModel();
+	void testAnalyzeXmlMetricsNotEmpty() throws JsonParseException, JsonMappingException, IOException {
 
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();
+		metricModel.setId(1);
+		metricModel.setName("project/properties/version");
 		metricModel.setType(AnalysisType.GIT_XML);
 		metrics.add(metricModel);
 
-		List<ComponentUrisModel> uris = new ArrayList<>();
-		ComponentUrisModel uriModel = new ComponentUrisModel();
+		List<ComponentUriModel> uris = new ArrayList<>();
+		ComponentUriModel uriModel = new ComponentUriModel();
 		uriModel.setId(new ComponentUriPk(0, "uri_name"));
 		uris.add(uriModel);
 
@@ -117,19 +134,22 @@ class GitServiceTest {
 		componentProperty.setName("xml_path");
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
+		componentTypeArchitecture.setId(1);
 		componentTypeArchitecture.setMetrics(metrics);
 
+		ComponentModel component = new ComponentModel();
+		component.setId(1);
 		component.setComponentTypeArchitecture(componentTypeArchitecture);
 		component.setUris(uris);
 		component.setProperties(properties);
 
-		ContentDTO contentDTO = new ContentDTO();
-		contentDTO.setName("test");
+		when(gitClient.repoFile(any(URI.class))).thenReturn(
+				RwsTestUtils.response(200, RwsTestUtils.gitContentResponse(RwsTestUtils.XML_RESPONSE_TEST)));
 
-		when(gitClient.repoFile(any(URI.class)))
-				.thenReturn(RwsTestUtils.response(200, RwsTestUtils.JSON_COMPONENT_DTO_TEST));
+		List<ComponentAnalysisModel> analysis = service.analyze(component);
 
-		assertThrows(NullPointerException.class, () -> service.analyze(component));
+		assertEquals(1, analysis.size());
+		assertEquals("1", analysis.get(0).getValue());
 	}
 
 }

@@ -54,7 +54,7 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 	private List<ComponentPropertyModel> properties;
 
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, orphanRemoval = true)
-	private List<ComponentUrisModel> uris = new ArrayList<>();
+	private List<ComponentUriModel> uris = new ArrayList<>();
 
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentHistoricalCoverageModel> historicalCoverage;

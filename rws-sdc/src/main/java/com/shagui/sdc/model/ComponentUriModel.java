@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "component_uris", uniqueConstraints = { @UniqueConstraint(columnNames = { "component_id", "uri_name" }) })
-public class ComponentUrisModel {
+public class ComponentUriModel {
 	@EmbeddedId
 	private ComponentUriPk id;
 

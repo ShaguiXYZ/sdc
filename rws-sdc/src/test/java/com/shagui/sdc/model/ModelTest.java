@@ -24,7 +24,7 @@ class ModelTest {
 		assertPojoMethodsFor(ComponentPropertyModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentTypeArchitectureModel.class).testing(GETTER, SETTER, CONSTRUCTOR)
 				.areWellImplemented();
-		assertPojoMethodsFor(ComponentUrisModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
+		assertPojoMethodsFor(ComponentUriModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(DepartmentModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(MetricModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(MetricValuesModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();

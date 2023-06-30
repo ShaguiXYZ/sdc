@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Base64;
 import org.mockito.Mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,11 +20,12 @@ import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
+import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
-import com.shagui.sdc.model.ComponentUrisModel;
+import com.shagui.sdc.model.ComponentUriModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.MetricValuesModel;
@@ -70,8 +72,13 @@ public class RwsTestUtils {
 	@Mock
 	private static ObjectMapper objectMapper;
 
+	public static String XML_RESPONSE_TEST = "<data><project><properties><version>1</version><version2>2</version2></properties></project></data>";
 	public static String JSON_RESPONSE_TEST = "{\"id\": 100, \"name\": \"generic response\"}";
-	public static String JSON_COMPONENT_DTO_TEST = "{\"name\": \"generic response\", \"download_url\": \"http://www.url-pom.xml\"}";
+	public static String JSON_GIT_CONTENT = "{\"name\": \"generic response\", \"download_url\": \"http://www.url-pom.xml\",\"content\":\"%s\"}";
+
+	public static String gitContentResponse(String content) {
+		return String.format(JSON_GIT_CONTENT, Base64.encodeBase64String(content.getBytes()));
+	}
 
 	public static Response response(int status, String json) {
 		Map<String, Collection<String>> headers = new HashMap<>();
@@ -112,6 +119,7 @@ public class RwsTestUtils {
 
 	public static ComponentPropertyModel componentProperty(String name) {
 		ComponentPropertyModel model = new ComponentPropertyModel();
+		model.setId(1);
 		model.setName(name);
 		model.setValue("test");
 
@@ -120,7 +128,8 @@ public class RwsTestUtils {
 
 	public static ComponentTypeArchitectureModel componentTypeArchitectureModelMock() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
-		metrics.add(metricModelMock(1));
+		metrics.add(metricModelMock(1, AnalysisType.GIT_XML));
+		metrics.add(metricModelMock(2, AnalysisType.GIT_JSON));
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);
@@ -140,61 +149,30 @@ public class RwsTestUtils {
 		List<ComponentPropertyModel> properties = new ArrayList<>();
 		properties.add(componentProperty("property_name"));
 
-		SquadModel squad = new SquadModel();
-
-		DepartmentModel department = new DepartmentModel();
-
 		List<SquadModel> squads = new ArrayList<SquadModel>();
+		SquadModel squad = new SquadModel();
 		SquadModel squadModel = new SquadModel();
 		squadModel.setCoverage((float) 90.1);
 		squads.add(squadModel);
+		squad.setCoverage((float) 90.1);
+		squad.setId(1);
+		squad.setName("test");
 
+		DepartmentModel department = new DepartmentModel();
 		department.setSquads(squads);
 		department.setId(1);
 		department.setName("test");
 
-		squad.setCoverage((float) 90.1);
-		squad.setId(1);
-		squad.setName("test");
 		squad.setDepartment(department);
 
-		ComponentModel source = new ComponentModel();
-		source.setId(1);
-		source.setName("test");
-		source.setProperties(properties);
-		source.setCoverage((float) 90.1);
-		source.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
-		source.setSquad(squad);
 
-		return source;
-	}
+		List<ComponentUriModel> uris = new ArrayList<>() {
+			private static final long serialVersionUID = 1L;
 
-	public static ComponentModel componentModelSonarMock() {
-		List<ComponentPropertyModel> properties = new ArrayList<>();
-		properties.add(componentProperty("property_name"));
-
-		SquadModel squad = new SquadModel();
-
-		DepartmentModel department = new DepartmentModel();
-
-		List<SquadModel> squads = new ArrayList<SquadModel>();
-		SquadModel squadModel = new SquadModel();
-		squadModel.setCoverage((float) 90.1);
-		squads.add(squadModel);
-
-		department.setSquads(squads);
-		department.setId(1);
-		department.setName("test");
-
-		squad.setCoverage((float) 90.1);
-		squad.setId(1);
-		squad.setName("test");
-		squad.setDepartment(department);
-
-		List<ComponentUrisModel> uris = new ArrayList<>();
-		ComponentUrisModel uriModel = new ComponentUrisModel();
-		uriModel.setId(new ComponentUriPk(0, "uri_name"));
-		uris.add(uriModel);
+			{
+				add(componentUriModelMock());
+			}
+		};
 
 		ComponentModel source = new ComponentModel();
 		source.setId(1);
@@ -208,12 +186,12 @@ public class RwsTestUtils {
 		return source;
 	}
 
-	public static MetricModel metricModelMock(Integer id) {
+	public static MetricModel metricModelMock(Integer id, AnalysisType type) {
 
 		MetricModel source = new MetricModel();
 		source.setId(id);
 		source.setName("metric name");
-		source.setType(AnalysisType.GIT_XML);
+		source.setType(type);
 		source.setValidation(MetricValidation.EQ);
 		source.setValueType(MetricValueType.NUMERIC);
 
@@ -265,7 +243,7 @@ public class RwsTestUtils {
 		MetricValuesModel mock = new MetricValuesModel();
 		mock.setId(1);
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
-		mock.setMetric(metricModelMock(1));
+		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML));
 		mock.setMetricValueDate(new Date());
 		mock.setValue("0.0");
 		mock.setGoodValue("10.0");
@@ -279,7 +257,7 @@ public class RwsTestUtils {
 		ComponentAnalysisModel mock = new ComponentAnalysisModel();
 		mock.setId(new ComponentAnalysisPk(1, 1, new Date()));
 		mock.setComponent(componentModelMock());
-		mock.setMetric(metricModelMock(1));
+		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML));
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
 		mock.setValue(value);
 
@@ -314,4 +292,19 @@ public class RwsTestUtils {
 		return mock;
 	}
 
+	public static ComponentUriModel componentUriModelMock() {
+		ComponentUriModel componentUriModel = new ComponentUriModel();
+		componentUriModel.setId(new ComponentUriPk(0, "uri_name"));
+
+		return componentUriModel;
+	}
+
+	public static UriModel uriModelMock() {
+		UriModel uri = new UriModel();
+		uri.setName("uri_name");
+		uri.setType(AnalysisType.GIT);
+		uri.setProperties(new ArrayList<>());
+
+		return uri;
+	}
 }
