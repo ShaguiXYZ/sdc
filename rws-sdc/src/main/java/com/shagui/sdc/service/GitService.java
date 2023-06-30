@@ -72,23 +72,6 @@ public abstract class GitService implements AnalysisInterface {
 		return new ArrayList<>();
 	}
 
-	public Optional<String> uri(ComponentModel component) {
-		String uri = null;
-		Optional<UriModel> uriModel = uri(component.getUris(), AnalysisType.GIT);
-
-		if (uriModel.isPresent()) {
-			String path = ComponentUtils.propertyValue(component, documentPathProperty());
-			String owner = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_OWNER);
-			String repository = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_REPOSITORY);
-
-			uri = uriModel.get().getValue();
-			uri = Arrays.asList(uri, owner, repository, "contents", path).stream().filter(StringUtils::hasText)
-					.collect(Collectors.joining("/"));
-		}
-
-		return Optional.ofNullable(uri);
-	}
-
 	public List<MetricModel> metrics(ComponentModel component) {
 		return ComponentUtils.metricsByType(component, type());
 	}
@@ -123,10 +106,10 @@ public abstract class GitService implements AnalysisInterface {
 
 	private Optional<String> authorization(ComponentModel component) {
 		String authorization = null;
-		Optional<UriModel> uriModel = uri(component.getUris(), AnalysisType.GIT);
+		Optional<UriModel> uriModel = UrlUtils.uri(component.getUris(), AnalysisType.GIT);
 
 		if (uriModel.isPresent()) {
-			authorization = uriProperty(uriModel.get(), Ctes.URI_PROPERTIES.AUTHORIZATION).orElse(null);
+			authorization = UrlUtils.uriProperty(uriModel.get(), Ctes.URI_PROPERTIES.AUTHORIZATION).orElse(null);
 		}
 
 		return Optional.ofNullable(authorization)
@@ -152,5 +135,22 @@ public abstract class GitService implements AnalysisInterface {
 
 	private SdcDocument sdcDocument(InputStream is) throws IOException  {
 		return SdcDocumentFactory.newInstance(is, documentOf());
+	}
+
+	private Optional<String> uri(ComponentModel component) {
+		String uri = null;
+		Optional<UriModel> uriModel = UrlUtils.uri(component.getUris(), AnalysisType.GIT);
+
+		if (uriModel.isPresent()) {
+			String path = ComponentUtils.propertyValue(component, documentPathProperty());
+			String owner = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_OWNER);
+			String repository = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_REPOSITORY);
+
+			uri = uriModel.get().getValue();
+			uri = Arrays.asList(uri, owner, repository, "contents", path).stream().filter(StringUtils::hasText)
+					.collect(Collectors.joining("/"));
+		}
+
+		return Optional.ofNullable(uri);
 	}
 }
