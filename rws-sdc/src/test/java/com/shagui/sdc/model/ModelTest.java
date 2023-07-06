@@ -12,29 +12,28 @@ import org.junit.jupiter.api.Test;
 
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 import com.shagui.sdc.model.pk.ComponentHistoricalCoveragePk;
+import com.shagui.sdc.model.pk.ComponentUriPk;
 
 class ModelTest {
 
 	@Test
 	void pojoModelTest() {
-		assertPojoMethodsFor(ArchitectureModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(CompanyModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentAnalysisModel.class).testing(GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(ComponentModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentPropertyModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentTypeArchitectureModel.class).testing(GETTER, SETTER, CONSTRUCTOR)
 				.areWellImplemented();
-		assertPojoMethodsFor(ComponentTypeModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
+		assertPojoMethodsFor(ComponentUriModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(DepartmentModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(MetricModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(MetricValuesModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(SquadModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
-		assertPojoMethodsFor(UriModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
-		assertPojoMethodsFor(RequestPropertiesModel.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentAnalysisPk.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(ComponentHistoricalCoverageModel.class).testing(GETTER, SETTER).areWellImplemented();
 		assertPojoMethodsFor(ComponentHistoricalCoveragePk.class).testing(GETTER, SETTER, CONSTRUCTOR)
 				.areWellImplemented();
+		assertPojoMethodsFor(ComponentUriPk.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 	}
 
 	@Test
@@ -48,14 +47,6 @@ class ModelTest {
 		String value = "test";
 		ComponentAnalysisModel model = new ComponentAnalysisModel(component, metric, value);
 
-		assertNotNull(model);
-	}
-
-	@Test
-	void componentTypeArchitectureModelTest() {
-		ComponentTypeModel componentType = new ComponentTypeModel();
-		ArchitectureModel architecture = new ArchitectureModel();
-		ComponentTypeArchitectureModel model = new ComponentTypeArchitectureModel(componentType, architecture);
 		assertNotNull(model);
 	}
 

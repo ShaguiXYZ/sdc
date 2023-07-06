@@ -33,11 +33,8 @@ class SonarServiceImplTest {
 
 	@Test
 	void analyzeTest() {
-		
-		//when(sonarClient.measures(any(URI.class), anyString(), anyString())).thenReturn(RwsTestUtils.response(200, RwsTestUtils.JSON_RESPONSE_TEST));
-		List<ComponentAnalysisModel> result = service.analyze(RwsTestUtils.componentModelSonarMock());
+		List<ComponentAnalysisModel> result = service.analyze(RwsTestUtils.componentModelMock());
 		assertEquals(new ArrayList<>(), result);
-		
 	}
 
 }

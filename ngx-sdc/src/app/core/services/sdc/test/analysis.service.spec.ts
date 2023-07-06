@@ -8,7 +8,7 @@ import { AnalysisService } from '../analysis.service';
 const metricAnalysis: IMetricAnalysisDTO = {
   analysisDate: 1,
   coverage: 1,
-  metric: { id: 1, name: '', type: AnalysisType.GIT },
+  metric: { id: 1, name: '', type: AnalysisType.GIT_XML },
   analysisValues: { metricValue: '' }
 };
 const pageMetricAnalysis: IPageable<IMetricAnalysisDTO> = {

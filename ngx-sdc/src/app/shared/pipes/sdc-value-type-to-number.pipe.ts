@@ -10,6 +10,8 @@ export class SdcValueTypeToNumberPipe implements PipeTransform {
     switch (type) {
       case ValueType.NUMERIC:
         return this.numericValue(value);
+      case ValueType.BOOLEAN:
+        return this.booleanValue(value);
       case ValueType.VERSION:
         return this.versionValue(value);
       default:
@@ -21,10 +23,14 @@ export class SdcValueTypeToNumberPipe implements PipeTransform {
     return value && isNumeric(value) ? Number(value) : undefined;
   }
 
-  private versionValue(value?: string) {
+  private booleanValue(value?: string): number | undefined {
+    return /true/i.test(value || 'false') ? 1 : 0;
+  }
+
+  private versionValue(value?: string): number | undefined {
     const segments = value?.split('.');
 
-    if (segments && segments.length) {
+    if (segments?.length) {
       const integerPart = isNumeric(segments[0]) ? segments[0] : '0';
       let decimalPart = '';
 

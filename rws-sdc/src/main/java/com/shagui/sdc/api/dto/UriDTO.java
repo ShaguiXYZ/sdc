@@ -11,7 +11,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class UriDTO {
-	private int id;
 	private String name;
 	private String uri;
 	private AnalysisType type;

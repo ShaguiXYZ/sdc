@@ -1,0 +1,25 @@
+[
+	{
+		"name": "public-repo",
+		"value": "https://api.github.com/repos",
+		"type": "GIT",
+		"properties": []
+	},
+	{
+		"name": "private-repo",
+		"value": "https://api.github.com/repos",
+		"type": "GIT",
+		"properties": [
+			{
+				"name": "Authorization",
+				"value": "${git-authorization-type} ${git-authorization}"
+			}
+		]
+	},
+	{
+		"name": "sonar-repo-example",
+		"value": "https://sonarqube.inria.fr/sonarqube/api",
+		"type": "SONAR",
+		"properties": []
+	}
+]

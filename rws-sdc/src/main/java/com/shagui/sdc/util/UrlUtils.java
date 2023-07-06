@@ -5,9 +5,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
+import java.util.Optional;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
-import com.shagui.sdc.model.RequestPropertiesModel;
+import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.json.StaticRepository;
+import com.shagui.sdc.json.model.RequestPropertiesModel;
+import com.shagui.sdc.json.model.UriModel;
+import com.shagui.sdc.model.ComponentUriModel;
 
 import feign.Response;
 
@@ -30,7 +35,7 @@ public class UrlUtils {
 		URL url = UrlUtils.url(uri);
 		URLConnection http = url.openConnection();
 
-		properties.forEach(property -> http.setRequestProperty(property.getKey(), property.getValue()));
+		properties.forEach(property -> http.setRequestProperty(property.getName(), property.getValue()));
 
 		return url;
 	}
@@ -47,4 +52,15 @@ public class UrlUtils {
 			throw new SdcCustomException(String.format("error mapping response to %s", clazz.getName()));
 		}
 	}
+	
+	public static Optional<UriModel> uri(List<ComponentUriModel> uris, AnalysisType type) {
+		return StaticRepository.uris().stream().filter(uri -> type.equals(uri.getType()))
+				.filter(uri -> uris.stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName()))).findFirst();
+	}
+
+	public static Optional<String> uriProperty(UriModel uri, String key) {
+		return uri.getProperties().stream().filter(property -> property.getName().equals(key))
+				.map(RequestPropertiesModel::getValue).findFirst();
+	}
+
 }

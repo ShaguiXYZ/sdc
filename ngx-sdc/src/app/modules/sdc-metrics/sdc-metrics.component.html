@@ -47,7 +47,7 @@
       </nx-expansion-panel-header>
 
       <div *ngIf="metricsData" class="evolution-content nx-margin-top-2xs">
-        <div *ngIf="metricsData.compliance.id" class="metrics nx-margin-right-2xs">
+        <div *ngIf="metricsData.compliance.id" class="metrics sdc-scrollable nx-margin-right-2xs">
           <sdc-metric-info
             *ngFor="let metric of metricsData.metrics"
             [componentId]="metricsData.compliance.id"

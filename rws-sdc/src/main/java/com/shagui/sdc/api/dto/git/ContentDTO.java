@@ -1,5 +1,7 @@
 package com.shagui.sdc.api.dto.git;
 
+import org.apache.commons.codec.binary.Base64;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -20,4 +22,10 @@ public class ContentDTO {
 	private String type;
 	private String content;
 	private String encoding;
+	
+	public String getDecodedContent() {
+		byte[] bytesEncoded = Base64.decodeBase64(content.getBytes());
+		
+		return new String(bytesEncoded);
+	}
 }

@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.service.impl.MetricServiceImpl;
@@ -46,8 +47,8 @@ class MetricServiceImplTest {
 
 	@Test
 	void createTest() {
-		MetricModel model = RwsTestUtils.metricModelMock(1);
-		when(metricRepositoryMock.save(any(MetricModel.class))).thenReturn(RwsTestUtils.metricModelMock(1));
+		MetricModel model = RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML);
+		when(metricRepositoryMock.save(any(MetricModel.class))).thenReturn(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML));
 		MetricDTO result = service.create(Mapper.parse(model));
 		assertNotNull(result);
 
@@ -55,23 +56,23 @@ class MetricServiceImplTest {
 
 	@Test
 	void updateNotFoundTest() {
-		MetricModel model = RwsTestUtils.metricModelMock(1);
+		MetricModel model = RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML);
 		assertThrows(JpaNotFoundException.class, () -> service.update(1, Mapper.parse(model)));
 
 	}
 
 	@Test
 	void updateNotIdFoundTest() {
-		MetricModel model = RwsTestUtils.metricModelMock(1);
-		when(metricRepositoryMock.findById(any())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(2)));
+		MetricModel model = RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML);
+		when(metricRepositoryMock.findById(any())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(2, AnalysisType.GIT_XML)));
 		assertThrows(JpaNotFoundException.class, () -> service.update(2, Mapper.parse(model)));
 	}
 
 	@Test
 	void updateTest() {
-		MetricModel model = RwsTestUtils.metricModelMock(1);
-		when(metricRepositoryMock.findById(any())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(1)));
-		when(metricRepositoryMock.save(any(MetricModel.class))).thenReturn(RwsTestUtils.metricModelMock(1));
+		MetricModel model = RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML);
+		when(metricRepositoryMock.findById(any())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML)));
+		when(metricRepositoryMock.save(any(MetricModel.class))).thenReturn(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML));
 		MetricDTO result =  service.update(1, Mapper.parse(model));
 		assertNotNull(result);
 	}

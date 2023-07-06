@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable no-redeclare */
 
 import { AnalysisType } from './analysis-type.model';
 
-/* eslint-disable no-redeclare */
 export enum ValueType {
   NUMERIC = 'NUMERIC',
+  BOOLEAN = 'BOOLEAN',
   VERSION = 'VERSION'
 }
 

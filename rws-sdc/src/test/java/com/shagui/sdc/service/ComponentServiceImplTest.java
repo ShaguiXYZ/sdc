@@ -24,11 +24,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
 import com.shagui.sdc.service.impl.ComponentServiceImpl;
@@ -51,21 +53,17 @@ class ComponentServiceImplTest {
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
-
 	}
 
 	@Test
 	void constructorTest() {
-
 		ComponentServiceImpl service = new ComponentServiceImpl(componentRepositoryMock,
 				componentTypeArchitectureRepositoryMock);
 		assertNotNull(service);
-
 	}
 
 	@Test
 	void findByTest() {
-
 		Optional<ComponentModel> optional = Optional.of(RwsTestUtils.componentModelMock());
 		when(componentRepositoryMock.findById(anyInt())).thenReturn(optional);
 		ComponentDTO result = service.findBy(1);
@@ -73,33 +71,55 @@ class ComponentServiceImplTest {
 	}
 
 	@Test
-	void findBySquadTest() {
+	void filterTest() {
+		List<ComponentModel> list = new ArrayList<ComponentModel>();
+		list.add(RwsTestUtils.componentModelMock());
+		Page<ComponentModel> value = new PageImpl<ComponentModel>(list);
+		when(componentRepositoryMock.filter(any(), anyString(), any(SquadModel.class), any(Range.class)))
+				.thenReturn(value);
 
+		PageData<ComponentDTO> result = service.filter("filterName", 1, new Range(0f, 1f));
+
+		assertNotNull(result);
+	}
+
+	@Test
+	void filterWithPageInfoTest() {
+		List<ComponentModel> list = new ArrayList<ComponentModel>();
+		list.add(RwsTestUtils.componentModelMock());
+		Page<ComponentModel> value = new PageImpl<ComponentModel>(list);
+		when(componentRepositoryMock.filter(any(), anyString(), any(SquadModel.class), any(Range.class),
+				any(Pageable.class))).thenReturn(value);
+
+		PageData<ComponentDTO> result = service.filter("filterName", 1, new Range(0f, 1f), new RequestPageInfo(1));
+
+		assertNotNull(result);
+	}
+
+	@Test
+	void findBySquadTest() {
 		Optional<ComponentModel> optional = Optional.of(RwsTestUtils.componentModelMock());
 		when(componentRepositoryMock.findBySquad_IdAndName(anyInt(), anyString())).thenReturn(optional);
 		ComponentDTO result = service.findBy(1, "test");
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void findByJPAExceptionTest() {
 		assertThrows(JpaNotFoundException.class, () -> service.findBy(1, "test"));
 	}
-	
+
 	@Test
 	void squadComponentsTest() {
-		
 		List<ComponentModel> value = new ArrayList<ComponentModel>();
 		value.add(RwsTestUtils.componentModelMock());
-		when(componentRepositoryMock.findBySquad_Id(anyInt(), any(Sort.class))).thenReturn(value );
+		when(componentRepositoryMock.findBySquad_Id(anyInt(), any(Sort.class))).thenReturn(value);
 		PageData<ComponentDTO> result = service.squadComponents(1);
 		assertNotNull(result);
 	}
-	
+
 	@Test
-	void squadComponents2Test() {
-		
-		
+	void squadComponentsWithPageInfoTest() {
 		List<ComponentModel> list = new ArrayList<ComponentModel>();
 		list.add(RwsTestUtils.componentModelMock());
 		Page<ComponentModel> value = new PageImpl<ComponentModel>(list);
@@ -107,10 +127,9 @@ class ComponentServiceImplTest {
 		PageData<ComponentDTO> result = service.squadComponents(1, new RequestPageInfo(1));
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void componentMetricsTest() {
-		
 		Optional<ComponentModel> value = Optional.of(RwsTestUtils.componentModelMock());
 		when(componentRepositoryMock.findById(anyInt())).thenReturn(value);
 		PageData<MetricDTO> result = service.componentMetrics(1);
