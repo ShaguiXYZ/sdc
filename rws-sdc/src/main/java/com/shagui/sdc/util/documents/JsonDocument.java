@@ -25,6 +25,7 @@ public class JsonDocument implements SdcDocument {
 		data.transferTo(baos);
 	}
 
+	@Override
 	public Optional<String> fromPath(String path) {
 		try {
 			List<JSONKey> keys = Arrays
@@ -107,6 +108,9 @@ public class JsonDocument implements SdcDocument {
 				for (parser.nextToken(), name = parser.getCurrentName(); !this.key.equals(name); parser
 						.nextToken(), name = parser.getCurrentName()) {
 					JSONKey.skipToNext(parser);
+
+					if (name == null)
+						throw new SdcCustomException("Could not find requested key");
 				}
 			}
 		}

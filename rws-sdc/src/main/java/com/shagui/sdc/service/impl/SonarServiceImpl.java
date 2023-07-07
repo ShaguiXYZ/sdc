@@ -51,7 +51,7 @@ public class SonarServiceImpl implements SonarService {
 	}
 
 	private Optional<MeasureSonarDTO> measureByMetric(MeasuresSonarDTO measures, MetricModel metric) {
-		return measures.getMeasures().stream().filter(m -> m.getMetric().equals(metric.getName())).findFirst();
+		return measures.getMeasures().stream().filter(m -> m.getMetric().equals(metric.getValue())).findFirst();
 	}
 
 	private Optional<MeasuresSonarDTO> getSonarClientMeasures(ComponentModel component,
@@ -59,7 +59,7 @@ public class SonarServiceImpl implements SonarService {
 		Optional<String> sonarUri = uri(component);
 
 		if (sonarUri.isPresent()) {
-			String metrics = sonarMetrics.stream().map(MetricModel::getName).collect(Collectors.joining(","));
+			String metrics = sonarMetrics.stream().map(MetricModel::getValue).collect(Collectors.joining(","));
 			Response response = sonarClient.measures(URI.create(sonarUri.get()), component.getName(), metrics);
 
 			return Optional.of(UrlUtils.mapResponse(response, MeasuresSonarDTO.class));
@@ -67,15 +67,15 @@ public class SonarServiceImpl implements SonarService {
 
 		return Optional.empty();
 	}
-	
+
 	private Optional<String> uri(ComponentModel component) {
 		String uri = null;
 		Optional<UriModel> uriModel = UrlUtils.uri(component.getUris(), AnalysisType.SONAR);
-		
+
 		if (uriModel.isPresent()) {
-			uri= uriModel.get().getValue();
+			uri = uriModel.get().getValue();
 		}
-		
+
 		return Optional.ofNullable(uri);
 	}
 }

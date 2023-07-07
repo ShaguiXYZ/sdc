@@ -7,29 +7,28 @@ import static pl.pojo.tester.api.assertion.Method.HASH_CODE;
 
 import org.junit.jupiter.api.Test;
 
-class VersionTest {
+class BoolTest {
 
 	@Test
 	void pojoModelTest() {
-		final Object[] constructorParameters = { "1.1" };
+		final Object[] constructorParameters = { "true" };
 		Class<?>[] constructorParameterTypes = { String.class };
-		assertPojoMethodsFor(Version.class).create(Version.class, constructorParameters, constructorParameterTypes)
+		assertPojoMethodsFor(Bool.class).create(Bool.class, constructorParameters, constructorParameterTypes)
 				.testing(EQUALS, HASH_CODE).areWellImplemented();
 	}
 
 	@Test
 	void constructorTest() {
-		Version version = new Version("1");
-		assertNotNull(version);
+		Bool bool = new Bool("1");
+		assertNotNull(bool);
 	}
 
 	@Test
 	void compareToTest() {
-		Version version = new Version("1");
-		String string = version.toString();
-		Integer integer = version.compareTo(version);
+		Bool bool = new Bool("1");
+		String string = bool.toString();
+		Integer integer = bool.compareTo(bool);
 		assertNotNull(integer);
 		assertNotNull(string);
 	}
-
 }

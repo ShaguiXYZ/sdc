@@ -3,12 +3,14 @@ package com.shagui.sdc.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +33,10 @@ import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponentUriModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.pk.ComponentUriPk;
+import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.service.impl.GitXmlServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
+import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.UrlUtils;
 
 class GitXmlServiceTest {
@@ -45,6 +49,9 @@ class GitXmlServiceTest {
 
 	@Mock
 	private ObjectMapper objectMapper;
+
+	@Mock
+	private ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRep;
 
 	@Mock
 	private StaticRepositoryConfig staticRepositoryConfig;
@@ -70,14 +77,25 @@ class GitXmlServiceTest {
 
 	@Test
 	void testAnalyzeEmptyMetricsEmpty() {
-		ComponentModel component = new ComponentModel();
-
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
+
+		List<ComponentUriModel> uris = new ArrayList<>();
+		ComponentUriModel uriModel = new ComponentUriModel();
+		uriModel.setId(new ComponentUriPk(0, "uri_name"));
+		uris.add(uriModel);
+
+		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
+		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
+		componentProperty.setName("xml_path");
+		properties.add(componentProperty);
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setMetrics(metrics);
 
+		ComponentModel component = new ComponentModel();
 		component.setComponentTypeArchitecture(componentTypeArchitecture);
+		component.setUris(uris);
+		component.setProperties(properties);
 
 		List<ComponentAnalysisModel> analize = service.analyze(component);
 		assertEquals(new ArrayList<>(), analize);
@@ -85,8 +103,6 @@ class GitXmlServiceTest {
 
 	@Test
 	void testAnalyzeRuntimeException() {
-		ComponentModel component = new ComponentModel();
-
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();
 		metricModel.setType(AnalysisType.GIT_XML);
@@ -100,14 +116,19 @@ class GitXmlServiceTest {
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
 		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
 		componentProperty.setName("xml_path");
+		properties.add(componentProperty);
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setMetrics(metrics);
 
+		ComponentModel component = new ComponentModel();
 		component.setComponentTypeArchitecture(componentTypeArchitecture);
 		component.setUris(uris);
 		component.setProperties(properties);
 
+		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndName(
+				any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString()))
+				.thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
 		when(gitClient.repoFile(any(URI.class))).thenReturn(
 				RwsTestUtils.response(400, RwsTestUtils.gitContentResponse(RwsTestUtils.XML_RESPONSE_TEST)));
 
@@ -116,11 +137,11 @@ class GitXmlServiceTest {
 
 	@Test
 	void testAnalyzeXmlMetricsNotEmpty() throws JsonParseException, JsonMappingException, IOException {
-
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();
 		metricModel.setId(1);
-		metricModel.setName("project/properties/version");
+		metricModel.setValue("project version");
+		metricModel.setValue("project/properties/version");
 		metricModel.setType(AnalysisType.GIT_XML);
 		metrics.add(metricModel);
 
@@ -131,7 +152,8 @@ class GitXmlServiceTest {
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
 		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
-		componentProperty.setName("xml_path");
+		componentProperty.setName(Ctes.COMPONENT_PROPERTIES.XML_PATH);
+		properties.add(componentProperty);
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);
@@ -143,6 +165,9 @@ class GitXmlServiceTest {
 		component.setUris(uris);
 		component.setProperties(properties);
 
+		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndName(
+				any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString()))
+				.thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
 		when(gitClient.repoFile(any(URI.class))).thenReturn(
 				RwsTestUtils.response(200, RwsTestUtils.gitContentResponse(RwsTestUtils.XML_RESPONSE_TEST)));
 

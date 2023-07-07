@@ -5,7 +5,9 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -19,16 +21,20 @@ import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.model.ComponetTypeArchitectureMetricPropertiesModel;
 import com.shagui.sdc.model.MetricModel;
+import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.DictioraryReplacement;
+import com.shagui.sdc.util.DictioraryReplacement.Replacement;
 import com.shagui.sdc.util.IOUtils;
 import com.shagui.sdc.util.UrlUtils;
 import com.shagui.sdc.util.documents.JsonDocument;
 import com.shagui.sdc.util.documents.SdcDocument;
 import com.shagui.sdc.util.documents.SdcDocumentFactory;
 import com.shagui.sdc.util.documents.XmlDocument;
+import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 import feign.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -38,19 +44,37 @@ public abstract class GitService implements AnalysisInterface {
 	@Autowired
 	private GitClient gitClient;
 
+	@Autowired
+	private ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRep;
+
+	private JpaCommonRepository<ComponentTypeArchitectureMetricPropertiesRepository, ComponetTypeArchitectureMetricPropertiesModel, Integer> componentTypeArchitectureMetricPropertiesRepository;
+
 	protected abstract Class<? extends SdcDocument> documentOf();
-	
-	protected String documentPathProperty() {
-		if (documentOf().isAssignableFrom(JsonDocument.class)) {
-			return Ctes.COMPONENT_PROPERTIES.JSON_PATH;
-		} else if (documentOf().isAssignableFrom(XmlDocument.class)) {
-			return  Ctes.COMPONENT_PROPERTIES.XML_PATH;
-		} else {
-			throw new SdcCustomException("Unsupported document format");
-		}
+
+	protected GitService() {
+		this.componentTypeArchitectureMetricPropertiesRepository = () -> componentTypeArchitectureMetricPropertiesRep;
 	}
 
-	protected AnalysisType type() {
+	@Override
+	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
+		Map<String, List<MetricModel>> metricPaths = metricPaths(component);
+		List<ComponentAnalysisModel> analysis = new ArrayList<>();
+
+		metricPaths.entrySet().stream().forEach(entry -> {
+			ContentDTO gitData = retrieveGitData(component, entry.getKey());
+			SdcDocument docuemnt = sdcDocument(gitData);
+			analysis.addAll(getResponse(component, entry.getValue(), docuemnt));
+		});
+
+		return analysis;
+	}
+
+	@Override
+	public List<MetricModel> metrics(ComponentModel component) {
+		return ComponentUtils.metricsByType(component, type());
+	}
+
+	private AnalysisType type() {
 		if (documentOf().isAssignableFrom(JsonDocument.class)) {
 			return AnalysisType.GIT_JSON;
 		} else if (documentOf().isAssignableFrom(XmlDocument.class)) {
@@ -60,36 +84,20 @@ public abstract class GitService implements AnalysisInterface {
 		}
 	}
 
-	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
-		List<MetricModel> gitMetrics = metrics(component);
-		ContentDTO gitData = null;
-
-		if (!gitMetrics.isEmpty() && (gitData = retrieveGitData(component)) != null) {
-			SdcDocument docuemnt = sdcDocument(gitData);
-			return getResponse(component, gitMetrics, docuemnt);
-		}
-
-		return new ArrayList<>();
-	}
-
-	public List<MetricModel> metrics(ComponentModel component) {
-		return ComponentUtils.metricsByType(component, type());
-	}
-
 	private List<ComponentAnalysisModel> getResponse(ComponentModel component, List<MetricModel> metrics,
 			SdcDocument docuemnt) {
 		List<ComponentAnalysisModel> response = new ArrayList<>();
 
 		metrics.forEach(metric -> {
-			Optional<String> value = docuemnt.fromPath(metric.getName());
+			Optional<String> value = docuemnt.fromPath(metric.getValue());
 			response.add(new ComponentAnalysisModel(component, metric, value.isPresent() ? value.get() : "N/A"));
 		});
 
 		return response;
 	}
 
-	private ContentDTO retrieveGitData(ComponentModel component) {
-		Optional<String> uri = uri(component);
+	private ContentDTO retrieveGitData(ComponentModel component, String path) {
+		Optional<String> uri = uri(component, path);
 
 		if (uri.isPresent()) {
 			Optional<String> authorizationHeader = authorization(component);
@@ -133,18 +141,19 @@ public abstract class GitService implements AnalysisInterface {
 		}
 	}
 
-	private SdcDocument sdcDocument(InputStream is) throws IOException  {
+	private SdcDocument sdcDocument(InputStream is) throws IOException {
 		return SdcDocumentFactory.newInstance(is, documentOf());
 	}
 
-	private Optional<String> uri(ComponentModel component) {
+	private Optional<String> uri(ComponentModel component, String path) {
 		String uri = null;
 		Optional<UriModel> uriModel = UrlUtils.uri(component.getUris(), AnalysisType.GIT);
 
 		if (uriModel.isPresent()) {
-			String path = ComponentUtils.propertyValue(component, documentPathProperty());
-			String owner = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_OWNER);
-			String repository = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_REPOSITORY);
+			String owner = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_OWNER)
+					.map(model -> model.getValue()).orElse(null);
+			String repository = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_REPOSITORY)
+					.map(model -> model.getValue()).orElse(null);
 
 			uri = uriModel.get().getValue();
 			uri = Arrays.asList(uri, owner, repository, "contents", path).stream().filter(StringUtils::hasText)
@@ -152,5 +161,39 @@ public abstract class GitService implements AnalysisInterface {
 		}
 
 		return Optional.ofNullable(uri);
+	}
+
+	private Map<String, List<MetricModel>> metricPaths(ComponentModel component) {
+		Map<String, List<MetricModel>> paths = new HashMap<>();
+		Replacement replacement = DictioraryReplacement.getInstance(componentDictionary(component));
+
+		metrics(component).forEach(metric -> {
+			Optional<ComponetTypeArchitectureMetricPropertiesModel> data = componentTypeArchitectureMetricPropertiesRepository
+					.repository().findByComponentTypeArchitectureAndMetricAndName(
+							component.getComponentTypeArchitecture(), metric, "PATH");
+
+			if (data.isPresent()) {
+				String path = replacement.replace(data.get().getValue(), "");
+				List<MetricModel> pathMetrics = Optional.ofNullable(paths.get(path)).orElse(new ArrayList<>());
+
+				if (pathMetrics.isEmpty()) {
+					pathMetrics.add(metric);
+					paths.put(path, pathMetrics);
+				} else {
+					pathMetrics.add(metric);
+				}
+			}
+
+		});
+
+		return paths;
+	}
+
+	private Map<String, String> componentDictionary(ComponentModel component) {
+		Map<String, String> dictionay = new HashMap<>();
+		dictionay.put("$name", component.getName());
+
+		component.getProperties().forEach(property -> dictionay.put(property.getName(), property.getValue()));
+		return dictionay;
 	}
 }

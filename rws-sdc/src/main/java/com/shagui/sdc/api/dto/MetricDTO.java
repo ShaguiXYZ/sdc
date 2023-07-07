@@ -16,6 +16,7 @@ import lombok.Setter;
 public class MetricDTO {
 	private Integer id;
 	private String name;
+	private String value;
 	private AnalysisType type;
 	private MetricValueType valueType;
 	private MetricValidation validation;

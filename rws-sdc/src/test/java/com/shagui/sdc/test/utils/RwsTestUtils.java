@@ -26,6 +26,7 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponentUriModel;
+import com.shagui.sdc.model.ComponetTypeArchitectureMetricPropertiesModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.MetricValuesModel;
@@ -73,7 +74,7 @@ public class RwsTestUtils {
 	private static ObjectMapper objectMapper;
 
 	public static String XML_RESPONSE_TEST = "<data><project><properties><version>1</version><version2>2</version2></properties></project></data>";
-	public static String JSON_RESPONSE_TEST = "{\"id\": 100, \"name\": \"generic response\"}";
+	public static String JSON_RESPONSE_TEST = "{\"id\": 100,\"name\": \"generic response\"}";
 	public static String JSON_GIT_CONTENT = "{\"name\": \"generic response\", \"download_url\": \"http://www.url-pom.xml\",\"content\":\"%s\"}";
 
 	public static String gitContentResponse(String content) {
@@ -306,5 +307,16 @@ public class RwsTestUtils {
 		uri.setProperties(new ArrayList<>());
 
 		return uri;
+	}
+	
+	public static ComponetTypeArchitectureMetricPropertiesModel componetTypeArchitectureMetricPropertiesModelMock() {
+		ComponetTypeArchitectureMetricPropertiesModel model = new ComponetTypeArchitectureMetricPropertiesModel();
+		model.setId(1);
+		model.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
+		model.setMetric(metricModelMock(1, AnalysisType.GIT_XML));
+		model.setName("PATH");
+		model.setValue("path");
+		
+		return model;
 	}
 }

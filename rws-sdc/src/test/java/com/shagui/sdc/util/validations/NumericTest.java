@@ -1,6 +1,7 @@
 package com.shagui.sdc.util.validations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import static pl.pojo.tester.api.assertion.Method.EQUALS;
 import static pl.pojo.tester.api.assertion.Method.HASH_CODE;
@@ -22,6 +23,15 @@ class NumericTest {
 		Numeric numeric = new Numeric("90");
 		String result = numeric.toString();
 		assertEquals("90.0", result);
+	}
+
+	@Test
+	void compareToTest() {
+		Numeric numeric = new Numeric("1");
+		String string = numeric.toString();
+		Integer integer = numeric.compareTo(numeric);
+		assertNotNull(integer);
+		assertNotNull(string);
 	}
 
 }

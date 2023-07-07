@@ -2,12 +2,14 @@ package com.shagui.sdc.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,8 +31,10 @@ import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponentUriModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.pk.ComponentUriPk;
+import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.service.impl.GitJsonServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
+import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.UrlUtils;
 
 class GitJsonServiceTest {
@@ -43,6 +47,9 @@ class GitJsonServiceTest {
 
 	@Mock
 	private ObjectMapper objectMapper;
+
+	@Mock
+	private ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRep;
 
 	@Mock
 	private StaticRepositoryConfig staticRepositoryConfig;
@@ -61,13 +68,15 @@ class GitJsonServiceTest {
 			}
 		});
 	}
+
 	@Test
 	void testAnalyzeJsonMetricsNotEmpty() throws JsonParseException, JsonMappingException, IOException {
 
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();
 		metricModel.setId(1);
-		metricModel.setName("id");
+		metricModel.setName("project id");
+		metricModel.setValue("id");
 		metricModel.setType(AnalysisType.GIT_JSON);
 		metrics.add(metricModel);
 
@@ -78,7 +87,8 @@ class GitJsonServiceTest {
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
 		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
-		componentProperty.setName("json_path");
+		componentProperty.setName(Ctes.COMPONENT_PROPERTIES.JSON_PATH);
+		properties.add(componentProperty);
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);
@@ -90,6 +100,9 @@ class GitJsonServiceTest {
 		component.setUris(uris);
 		component.setProperties(properties);
 
+		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndName(
+				any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString()))
+				.thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
 		when(gitClient.repoFile(any(URI.class))).thenReturn(
 				RwsTestUtils.response(200, RwsTestUtils.gitContentResponse(RwsTestUtils.JSON_RESPONSE_TEST)));
 

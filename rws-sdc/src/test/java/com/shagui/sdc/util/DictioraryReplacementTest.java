@@ -29,4 +29,23 @@ class DictioraryReplacementTest {
 		assertEquals(dictionary.get("key1"), value);
 	}
 
+
+	@Test
+	void defaultRepalcementTest() {
+		Map<String, String> dictionary = new HashedMap<>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{
+				put("key1", "value1");
+			}
+		};
+
+		String value = DictioraryReplacement.getInstance(dictionary).replace("-${key}-", "default");
+		assertNotNull(value);
+		assertEquals("-default-", value);
+	}
+
 }

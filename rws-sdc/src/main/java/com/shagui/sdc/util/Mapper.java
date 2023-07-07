@@ -2,6 +2,7 @@ package com.shagui.sdc.util;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 
@@ -18,6 +19,7 @@ import com.shagui.sdc.core.exception.ApiError;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
@@ -71,8 +73,8 @@ public class Mapper {
 	}
 
 	public static MetricDTO parse(MetricModel source) {
-		return new MetricDTO(source.getId(), source.getName(), source.getType(), source.getValueType(),
-				source.getValidation());
+		return new MetricDTO(source.getId(), source.getName(), source.getValue(), source.getType(),
+				source.getValueType(), source.getValidation());
 	}
 
 	public static ComponentTypeArchitectureDTO parse(ComponentTypeArchitectureModel source) {
@@ -89,9 +91,10 @@ public class Mapper {
 	}
 
 	public static ComponentDTO parse(ComponentModel source) {
-		String analysisTimestampStr = ComponentUtils.propertyValue(source,
+		Optional<ComponentPropertyModel> analysisTimestamp = ComponentUtils.propertyValue(source,
 				Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE);
-		Date analysisDate = analysisTimestampStr == null ? null : new Date(Long.valueOf(analysisTimestampStr));
+
+		Date analysisDate = analysisTimestamp.map(data -> new Date(Long.valueOf(data.getValue()))).orElse(null);
 
 		return new ComponentDTO(source.getId(), source.getName(), parse(source.getComponentTypeArchitecture()),
 				analysisDate, source.getCoverage(), parse(source.getSquad()));

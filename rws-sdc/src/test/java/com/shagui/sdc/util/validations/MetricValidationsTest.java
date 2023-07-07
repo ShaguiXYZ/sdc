@@ -17,7 +17,7 @@ class MetricValidationsTest {
 	
 	@Test
 	void validateEquals() {
-		MetricDTO metric = new MetricDTO(1, "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.EQ);
+		MetricDTO metric = new MetricDTO(1, "test", "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.EQ);
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(10, "10", "50", "75", "100");
 		MetricAnalysisDTO analysis = new MetricAnalysisDTO(new Date(), metric, analysisValues, 0.5F);
 		Float result = MetricValidations.validate(analysis);
@@ -26,7 +26,7 @@ class MetricValidationsTest {
 	
 	@Test
 	void validateMayor() {
-		MetricDTO metric = new MetricDTO(1, "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.GT);
+		MetricDTO metric = new MetricDTO(1, "test", "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.GT);
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(10, "10", "50", "75", "100");
 		MetricAnalysisDTO analysis = new MetricAnalysisDTO(new Date(), metric, analysisValues, 0.5F);
 		Float result = MetricValidations.validate(analysis);
@@ -35,7 +35,7 @@ class MetricValidationsTest {
 	
 	@Test
 	void validateMinor() {
-		MetricDTO metric = new MetricDTO(1, "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.LT);
+		MetricDTO metric = new MetricDTO(1, "test", "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.LT);
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(10, "10", "50", "75", "100");
 		MetricAnalysisDTO analysis = new MetricAnalysisDTO(new Date(), metric, analysisValues, 0.5F);
 		Float result = MetricValidations.validate(analysis);
@@ -44,7 +44,7 @@ class MetricValidationsTest {
 	
 	@Test
 	void validateMayorOrEquals() {
-		MetricDTO metric = new MetricDTO(1, "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.GTE);
+		MetricDTO metric = new MetricDTO(1, "test", "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.GTE);
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(10, "10", "50", "75", "100");
 		MetricAnalysisDTO analysis = new MetricAnalysisDTO(new Date(), metric, analysisValues, 0.5F);
 		Float result = MetricValidations.validate(analysis);
@@ -53,7 +53,7 @@ class MetricValidationsTest {
 	
 	@Test
 	void validateMinorOrEquals() {
-		MetricDTO metric = new MetricDTO(1, "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.LTE);
+		MetricDTO metric = new MetricDTO(1, "test", "test", AnalysisType.GIT_XML, MetricValueType.NUMERIC, MetricValidation.LTE);
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(10, "10", "50", "75", "100");
 		MetricAnalysisDTO analysis = new MetricAnalysisDTO(new Date(), metric, analysisValues, 0.5F);
 		Float result = MetricValidations.validate(analysis);

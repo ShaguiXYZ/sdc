@@ -38,31 +38,32 @@
 				 
 	<changeSet author="initial" id="20230707_50009">
 		<sql dbms="postgresql">
-			INSERT INTO metrics (name,type,metric_value_type,metric_validation) VALUES
-				 ('coverage','SONAR','NUMERIC','LTE'),
-				 ('alert_status','SONAR',NULL,NULL),
-				 ('bugs','SONAR','NUMERIC','GTE'),
-				 ('reliability_rating','SONAR',NULL,NULL),
-				 ('vulnerabilities','SONAR','NUMERIC','GTE'),
-				 ('security_rating','SONAR',NULL,NULL),
-				 ('security_hotspots_reviewed','SONAR',NULL,NULL),
-				 ('security_review_rating','SONAR',NULL,NULL),
-				 ('code_smells','SONAR',NULL,NULL),
-				 ('sqale_rating','SONAR',NULL,NULL);
-			INSERT INTO metrics (name,type,metric_value_type,metric_validation) VALUES
-				 ('duplicated_lines_density','SONAR','NUMERIC','GTE'),
-				 ('ncloc','SONAR',NULL,NULL),
-				 ('ncloc_language_distribution','SONAR',NULL,NULL),
-				 ('projects','SONAR',NULL,NULL),
-				 ('parent/version','GIT_XML','VERSION','LTE'),
-				 ('properties/java.version','GIT_XML','VERSION','LTE');
-			INSERT INTO metrics (name,type,metric_value_type,metric_validation) VALUES
-				 ('info_violations','SONAR','NUMERIC','GTE'),
-				 ('minor_violations','SONAR','NUMERIC','GTE'),
-				 ('major_violations','SONAR','NUMERIC','GTE'),
-				 ('critical_violations','SONAR','NUMERIC','GTE'),
-				 ('blocker_violations','SONAR','NUMERIC','GTE'),
-				 ('devDependencies.@angular/cli','GIT_JSON','VERSION','LTE');
+			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
+				 ('coverage','coverage','SONAR','NUMERIC','LTE'),
+				 ('alert status','alert_status','SONAR',NULL,NULL),
+				 ('bugs','bugs','SONAR','NUMERIC','GTE'),
+				 ('reliability rating','reliability_rating','SONAR',NULL,NULL),
+				 ('vulnerabilities','vulnerabilities','SONAR','NUMERIC','GTE'),
+				 ('security rating','security_rating','SONAR',NULL,NULL),
+				 ('security hotspots reviewed','security_hotspots_reviewed','SONAR',NULL,NULL),
+				 ('security review rating','security_review_rating','SONAR',NULL,NULL),
+				 ('code smells','code_smells','SONAR',NULL,NULL),
+				 ('sqale rating','sqale_rating','SONAR',NULL,NULL);
+			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
+				 ('duplicated lines density','duplicated_lines_density','SONAR','NUMERIC','GTE'),
+				 ('ncloc','ncloc','SONAR',NULL,NULL),
+				 ('ncloc language distribution','ncloc_language_distribution','SONAR',NULL,NULL),
+				 ('projects','projects','SONAR',NULL,NULL),
+				 ('info violations','info_violations','SONAR','NUMERIC','GTE'),
+				 ('minor violations','minor_violations','SONAR','NUMERIC','GTE'),
+				 ('major violations','major_violations','SONAR','NUMERIC','GTE'),
+				 ('critical violations','critical_violations','SONAR','NUMERIC','GTE'),
+				 ('blocker violations','blocker_violations','SONAR','NUMERIC','GTE');
+			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
+				 ('parent version','parent/version','GIT_XML','VERSION','LTE'),
+				 ('bff java version','properties/java.version','GIT_XML','VERSION','LTE'),
+				 ('rws java version','properties/java.version','GIT_XML','VERSION','LTE'),
+				 ('angular version','devDependencies.@angular/cli','GIT_JSON','VERSION','LTE');
 		</sql>
 	</changeSet>
 
@@ -132,13 +133,10 @@
 	<changeSet author="initial" id="20230707_50015">
 		<sql dbms="postgresql">
 			INSERT INTO components (name,component_type_architecture_id,squad_id) VALUES
-				 ('rws-empty',2,42),
-				 ('bff-empty',11,42),
+				 ('empty',7,42),
+				 ('sdc',7,42),
 				 ('storm:aff3ct:gitlab:master',15,75),
-				 ('cardamom:mmg:github:master',15,75),
-				 ('bff-sdc',13,42),
-				 ('rws-sdc',1,42),
-				 ('ngx-sdc',9,42);		
+				 ('cardamom:mmg:github:master',15,75);		
 		</sql>
 	</changeSet>
 				 
@@ -146,76 +144,38 @@
 		<sql dbms="postgresql">
 			INSERT INTO component_uris (component_id,uri_name) VALUES
 				 (1,'public-repo'),
-				 (2,'public-repo'),
+				 (2,'private-repo'),
 				 (3,'sonar-repo-example'),
-				 (4,'sonar-repo-example'),
-				 (5,'private-repo'),
-				 (6,'private-repo'),
-				 (7,'private-repo');
+				 (4,'sonar-repo-example');
 		</sql>
 	</changeSet>
 
 	<changeSet author="initial" id="20230707_50017">
 		<sql dbms="postgresql">
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (1,15),
-				 (1,16);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (2,15),
-				 (2,16);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (3,1),
-				 (3,2),
-				 (3,3),
-				 (3,4),
-				 (3,5),
-				 (3,6),
-				 (3,7),
-				 (3,8),
-				 (3,9),
-				 (3,10),
-				 (3,11),
-				 (3,12),
-				 (3,13),
-				 (3,14),
-				 (3,17),
-				 (3,18),
-				 (3,19),
-				 (3,20),
-				 (3,21);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (4,1),
-				 (4,2),
-				 (4,3),
-				 (4,4),
-				 (4,5),
-				 (4,6),
-				 (4,7),
-				 (4,8),
-				 (4,9),
-				 (4,10),
-				 (4,11),
-				 (4,12),
-				 (4,13),
-				 (4,14);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (11,1),
-				 (11,2),
-				 (11,3),
-				 (11,4),
-				 (11,5),
-				 (11,6),
-				 (11,7),
-				 (11,8),
-				 (11,9),
-				 (11,10),
-				 (11,11),
-				 (11,12),
-				 (11,13),
-				 (11,14),
-				 (11,15),
-				 (11,16),
-				 (11,22);
+				 (7,1),
+				 (7,2),
+				 (7,3),
+				 (7,4),
+				 (7,5),
+				 (7,6),
+				 (7,7),
+				 (7,8),
+				 (7,9),
+				 (7,10),
+				 (7,11),
+				 (7,12),
+				 (7,13),
+				 (7,14),
+				 (7,15),
+				 (7,16),
+				 (7,17),
+				 (7,18),
+				 (7,19),
+				 (7,20),
+				 (7,21),
+				 (7,22),
+				 (7,23);
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (15,1),
 				 (15,2),
@@ -234,24 +194,7 @@
 				 (15,16),
 				 (15,17),
 				 (15,18),
-				 (15,19),
-				 (15,20),
-				 (15,21);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (16,1),
-				 (16,2),
-				 (16,3),
-				 (16,4),
-				 (16,5),
-				 (16,6),
-				 (16,7),
-				 (16,8),
-				 (16,9),
-				 (16,10),
-				 (16,11),
-				 (16,12),
-				 (16,13),
-				 (16,14);
+				 (15,19);
 		</sql>
 	</changeSet>
 
@@ -260,45 +203,49 @@
 			INSERT INTO component_properties (name,value,component_id) VALUES
 				 ('organization','shaguixyz',1),
 				 ('component_repository','empty',1),
-				 ('xml_path','rws-empty/pom.xml',1),
+				 ('ngx_path','ngx-empty',1),
+				 ('bff_path','bff-empty',1),
+				 ('rws_path','rws-empty',1),
 				 ('organization','shaguixyz',2),
-				 ('component_repository','empty',2),
-				 ('xml_path','bff-empty/pom.xml',2),
-				 ('json_path','ngx-empty/package.json',2),
-				 ('organization','shaguixyz',5),
-				 ('component_repository','sdc',5),
-				 ('xml_path','bff-sdc/pom.xml',5),
-				 ('organization','shaguixyz',6),
-				 ('component_repository','sdc',6),
-				 ('xml_path','rws-sdc/pom.xml',6),
-				 ('organization','shaguixyz',7),
-				 ('component_repository','sdc',7),
-				 ('xml_path','ngx-sdc/pom.xml',7);
+				 ('component_repository','sdc',2),
+				 ('ngx_path','ngx-sdc',2),
+				 ('bff_path','bff-sdc',2),
+				 ('rws_path','rws-sdc',2);
 		</sql>
 	</changeSet>
 	
 	<changeSet author="initial" id="20230707_50019">
 		<sql dbms="postgresql">
 			INSERT INTO metric_values (component_type_architecture_id,metric_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
-				 (1,15,'2023-03-01 10:57:21.597993',80,'2.6.1',null,'2.6.1'),
-				 (1,16,'2023-03-01 10:57:21.597993',20,'8','10','11'),
-				 (2,15,'2023-03-01 10:57:21.597993',80,'2.5.1',null,'2.7.0'),
-				 (2,16,'2023-03-01 10:57:21.597993',20,'8','10','11'),
-				 (3,1,'2023-03-01 10:57:21.597993',250,'70','80','90'),
-				 (3,3,'2023-03-01 10:57:21.597993',40,'30','20','5'),
-				 (3,4,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
-				 (3,5,'2023-03-01 10:57:21.597993',60,'40','25','5'),
-				 (11,15,'2023-03-01 10:57:21.597993',80,'2.6.1',null,'2.7.0'),
-				 (11,16,'2023-03-01 10:57:21.597993',20,'8','10','11'),
+				 (7,1,'2023-03-01 10:57:21.597993',250,'70','85','90'),
+				 (7,3,'2023-03-01 10:57:21.597993',40,'30','20','5'),
+				 (7,4,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
+				 (7,5,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (7,17,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (7,18,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (7,19,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (7,20,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (7,21,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (7,22,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (7,23,'2023-03-01 10:57:21.597993',60,'40','25','5');
+			INSERT INTO metric_values (component_type_architecture_id,metric_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
 				 (15,1,'2023-03-01 10:57:21.597993',250,'70','85','90'),
 				 (15,3,'2023-03-01 10:57:21.597993',40,'30','20','5'),
 				 (15,4,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
 				 (15,5,'2023-03-01 10:57:21.597993',60,'40','25','5'),
 				 (15,17,'2023-03-01 10:57:21.597993',60,'40','25','5'),
 				 (15,18,'2023-03-01 10:57:21.597993',60,'40','25','5'),
-				 (15,19,'2023-03-01 10:57:21.597993',60,'40','25','5'),
-				 (15,20,'2023-03-01 10:57:21.597993',60,'40','25','5'),
-				 (15,21,'2023-03-01 10:57:21.597993',60,'40','25','5');
+				 (15,19,'2023-03-01 10:57:21.597993',60,'40','25','5');
+		</sql>
+	</changeSet>
+	
+	<changeSet author="initial" id="20230707_50020">
+		<sql dbms="postgresql">
+			INSERT INTO component_type_architecture_metrics_properties (component_type_architecture_id,metric_id,name,value) VALUES
+				(7,20,'PATH','pom.xml'),
+				(7,21,'PATH','${bff_path}/pom.xml'),
+				(7,22,'PATH','${rws_path}/pom.xml'),
+				(7,23,'PATH','${ngx_path}/package.json');
 		</sql>
 	</changeSet>
 </databaseChangeLog>

@@ -26,7 +26,7 @@ public class ComponentUtils {
 	public static void setConfig(ComponentUtilsConfig config) {
 		ComponentUtils.config = config;
 	}
-	
+
 	public static Map<String, String> tokens() {
 		return config.tokens();
 	}
@@ -45,16 +45,10 @@ public class ComponentUtils {
 		updateSquadComponent(component);
 	}
 
-	public static String propertyValue(ComponentModel component, String key) {
-		return propertyValue(component, key, null);
+	public static Optional<ComponentPropertyModel> propertyValue(ComponentModel component, String key) {
+		return component.getProperties().stream().filter(property -> key.equals(property.getName())).findFirst();
 	}
 
-	public static String propertyValue(ComponentModel component, String key, String defaultValue) {
-		Optional<ComponentPropertyModel> model = component.getProperties().stream()
-				.filter(property -> key.equals(property.getName())).findFirst();
-		return model.isPresent() ? model.get().getValue() : defaultValue;
-	}
-	
 	public static List<MetricModel> metricsByType(ComponentModel component, AnalysisType type) {
 		return component.getComponentTypeArchitecture().getMetrics().stream()
 				.filter(metric -> type.equals(metric.getType())).collect(Collectors.toList());

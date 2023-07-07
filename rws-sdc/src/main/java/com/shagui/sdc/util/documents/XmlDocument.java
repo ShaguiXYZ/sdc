@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class XmlDocument implements SdcDocument {
 	private Element root;
-	
+
 	@Override
 	public void input(InputStream data) throws IOException {
 		try {
@@ -36,9 +36,10 @@ public class XmlDocument implements SdcDocument {
 			this.root = builder.parse(data).getDocumentElement();
 		} catch (SAXException | ParserConfigurationException e) {
 			throw new SdcCustomException(e.getMessage());
-		}		
+		}
 	}
 
+	@Override
 	public Optional<String> fromPath(String path) {
 		try {
 			XPathFactory xPathfactory = XPathFactory.newInstance();
@@ -49,7 +50,7 @@ public class XmlDocument implements SdcDocument {
 			log.debug("Num nodes from '{}': {}", path, list.getLength());
 
 			Stream<Node> nodeStream = IntStream.range(0, list.getLength()).mapToObj(list::item);
-			return nodeStream.filter(n -> n.getNodeType() == Node.ELEMENT_NODE).map(Node::getTextContent).findFirst();			
+			return nodeStream.filter(n -> n.getNodeType() == Node.ELEMENT_NODE).map(Node::getTextContent).findFirst();
 		} catch (XPathExpressionException e) {
 			throw new SdcCustomException(String.format("ERROR in metric '%s'.", path), e);
 		}
