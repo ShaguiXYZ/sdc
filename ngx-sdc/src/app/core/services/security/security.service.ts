@@ -31,7 +31,6 @@ export class UiSecurityService {
   }
   public set user(user: IUserModel) {
     const securityInfo = this.securityInfo();
-
     if (securityInfo) {
       this.contextData.set(CONTEXT_SECURITY_KEY, { ...securityInfo, user }, { persistent: true });
     } else {
@@ -46,19 +45,23 @@ export class UiSecurityService {
       this.http.put<ISessionModel, ISessionModel>(`${this._urlSecurity}/logout`).subscribe({
         next: event => {
           this.contextData.delete(CONTEXT_SECURITY_KEY);
-          window.location.href = environment.baseAuth;
+          this.changeWindowLocationHref(environment.baseAuth);
         },
         error: err => {
           console.log(err);
 
           if (err.status === HttpStatus.forbidden) {
-            window.location.href = environment.baseAuth;
+            this.changeWindowLocationHref(environment.baseAuth);
           }
         }
       });
     } else {
-      window.location.href = environment.baseAuth;
+      this.changeWindowLocationHref(environment.baseAuth);
     }
+  }
+
+  private changeWindowLocationHref(href: string){
+    window.location.href = href;
   }
 
   public authUser(): Promise<IUserModel> {
