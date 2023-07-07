@@ -1,14 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { AppAuthorities, AuthorityModel, IAuthorityDTO, IAuthorityModel } from '../authority.model';
 
-describe(`AuthorityModel`, () => {
+describe('AuthorityModel', () => {
   let model: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        { provide: AuthorityModel, useFactory: (authority: AppAuthorities) => new AuthorityModel(authority) }
-      ]
+      providers: [{ provide: AuthorityModel, useFactory: (authority: AppAuthorities) => new AuthorityModel(authority) }]
     });
 
     model = TestBed.inject(AuthorityModel);

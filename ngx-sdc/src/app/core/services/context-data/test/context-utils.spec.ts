@@ -1,10 +1,9 @@
+import { TestBed } from '@angular/core/testing';
 import { Route, Router } from '@angular/router';
 import { configContextRoutes, routerData } from '../lib';
-import { RouterInfo, ContextConfig } from '../models';
-import { TestBed } from '@angular/core/testing';
+import { RouterInfo } from '../models';
 
 describe('ContextUtils', () => {
-
   it('should add a route when configContextRoutes is called', () => {
     const routes: Route[] = [];
     configContextRoutes(routes);
@@ -18,5 +17,4 @@ describe('ContextUtils', () => {
     });
     expect(result).toBeDefined();
   });
-
 });

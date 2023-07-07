@@ -2,16 +2,22 @@ import { TestBed } from '@angular/core/testing';
 import { IUserDTO, IUserModel, UserModel } from '../userModel';
 import { AppAuthorities, IAuthorityModel } from '../authority.model';
 
-describe(`UserModel`, () => {
+describe('UserModel', () => {
   let model: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         {
-          provide: UserModel, useFactory: (userName: string, email: string, authorities: IAuthorityModel[],
-            name: string, surname: string, secondSurname: string) =>
-            new UserModel(userName, email, authorities, name, surname, secondSurname)
+          provide: UserModel,
+          useFactory: (
+            userName: string,
+            email: string,
+            authorities: IAuthorityModel[],
+            name: string,
+            surname: string,
+            secondSurname: string
+          ) => new UserModel(userName, email, authorities, name, surname, secondSurname)
         }
       ]
     });
@@ -24,7 +30,7 @@ describe(`UserModel`, () => {
   });
 
   it('should not return a null value when toDto and toModel is called case one', () => {
-    model.authorities = [{authority: AppAuthorities.business}, {authority: AppAuthorities.it}];
+    model.authorities = [{ authority: AppAuthorities.business }, { authority: AppAuthorities.it }];
     const dto: IUserDTO = IUserModel.toDTO(model);
     expect(dto).not.toBeNull();
     const mod: IUserModel = IUserModel.toModel(dto);

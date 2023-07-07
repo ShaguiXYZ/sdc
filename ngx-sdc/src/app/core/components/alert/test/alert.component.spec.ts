@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
+import { NxDialogService, NxModalModule } from '@aposin/ng-aquila/modal';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
 import { NxDialogServiceMock } from '../../../mock/services/dialog-service.mock';
@@ -12,7 +12,8 @@ import { UiAlertServiceMock } from './services/alert-service.mock';
 describe('UiAlertComponent', () => {
   let component: UiAlertComponent;
   let fixture: ComponentFixture<UiAlertComponent>;
-  let services: any, spies: any;
+  let services: any;
+  let spies: any;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -21,7 +22,7 @@ describe('UiAlertComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: UiAlertService, useClass: UiAlertServiceMock },
-        { provide: NxDialogService, useClass: NxDialogServiceMock },
+        { provide: NxDialogService, useClass: NxDialogServiceMock }
       ]
     })
       .compileComponents()
@@ -40,9 +41,15 @@ describe('UiAlertComponent', () => {
   });
 
   it('should call alertService closeAlert when actionAndClose called', () => {
-    spies.dialogService.open.and.returnValue({close() { }});
+    spies.dialogService.open.and.returnValue({
+      close: () => {
+        /* Mock method */
+      }
+    });
     component.openDetailsModal();
-    component.actionAndClose(() => { });
+    component.actionAndClose(() => {
+      /* Mock method */
+    });
     expect(spies.alertService.closeAlert).toHaveBeenCalled();
   });
 

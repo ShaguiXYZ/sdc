@@ -4,29 +4,32 @@ import { Observable, of, throwError } from 'rxjs';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 import { UiContextDataService } from '../..';
 import { UiHttpService } from '../../http';
+import { AppAuthorities, ISessionModel } from '../models';
 import { UiSecurityService } from '../security.service';
-import { AppAuthorities, ISecurityModel, ISessionModel, IUserModel } from '../models';
+import { SecurityContextDataServiceMock, securityModel, user } from './mock/context-data-service.mock';
 
 describe(`UiSecurityService`, () => {
   let service: any;
   let services: any;
   let spies: any;
-  const securityModel: ISecurityModel = { session: { sid: '', token: '' }, user: { userName: '', authorities: [{ authority: AppAuthorities.business }], email: '', name: '', surname: '', secondSurname: '' } };
-  const user: IUserModel = { userName: '', authorities: [{ authority: AppAuthorities.business }], email: '', name: '', surname: '', secondSurname: '' };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [UiSecurityService,
+      providers: [
+        UiSecurityService,
         { provide: UiHttpService, useClass: HttpServiceMock },
-        { provide: UiContextDataService, useClass: UiContextDataServiceMock },]
+        { provide: UiContextDataService, useClass: SecurityContextDataServiceMock }
+      ]
     });
 
     service = TestBed.inject(UiSecurityService);
     service.session = {};
     service.user = {};
     initServices();
-    service.changeWindowLocationHref = function () { };
+    service.changeWindowLocationHref = () => {
+      /* Mock method */
+    };
   });
 
   it('should exist service when module is compiled', () => {
@@ -50,7 +53,6 @@ describe(`UiSecurityService`, () => {
   });
 
   it('should call put http service when logout is called case one', () => {
-
     spyOn(sessionStorage, 'removeItem').and.callFake(() => {
       /* Mock method */
     });
@@ -61,13 +63,10 @@ describe(`UiSecurityService`, () => {
   });
 
   it('should not call put http service when logout is called', () => {
-
     spyOn(sessionStorage, 'removeItem').and.callFake(() => {
       /* Mock method */
     });
-    service.securityInfo = function () {
-      return {};
-    }
+    service.securityInfo = () => ({});
     service.logout();
     expect(spies.http.put).not.toHaveBeenCalled();
   });
@@ -91,9 +90,7 @@ describe(`UiSecurityService`, () => {
   });
 
   it('should throw a error when set user is called and securityInfo is not defined', () => {
-    service.securityInfo = function () {
-      return undefined;
-    }
+    service.securityInfo = () => undefined;
     expect(() => {
       service.user = user;
     }).toThrow(new Error('Valid token not returned'));
@@ -148,11 +145,4 @@ describe(`UiSecurityService`, () => {
       }
     };
   };
-
-  class UiContextDataServiceMock {
-    set() { };
-    get() { return securityModel };
-    delete() { };
-  }
-
 });

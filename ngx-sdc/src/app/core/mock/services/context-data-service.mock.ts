@@ -10,4 +10,8 @@ export class UiContextDataServiceMock {
   get() {
     /* Mock method */
   }
+
+  delete() {
+    /* Mock method */
+  }
 }

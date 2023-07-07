@@ -1,14 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { ISessionDTO, ISessionModel, SessionModel } from '../session.model';
 
-describe(`SessionModel`, () => {
+describe('SessionModel', () => {
   let model: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        { provide: SessionModel, useFactory: (sid: string, token: string) => new SessionModel(sid, token) }
-      ]
+      providers: [{ provide: SessionModel, useFactory: (sid: string, token: string) => new SessionModel(sid, token) }]
     });
 
     model = TestBed.inject(SessionModel);

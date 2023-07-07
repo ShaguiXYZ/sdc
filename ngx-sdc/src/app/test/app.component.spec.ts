@@ -1,31 +1,32 @@
-/* eslint max-classes-per-file: 0 */
 import { HttpClientModule } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AppComponent } from './app.component';
-import { UiAlertModule } from './core/components/alert/alert.module';
-import { UiLoadingModule } from './core/components/loading/loading.module';
-import { UiNotificationModule } from './core/components/notification/notification.module';
-import { UiStorageService } from './core/services/context-data';
+import { AppComponent } from '../app.component';
+import { UiAlertModule } from '../core/components/alert/alert.module';
+import { UiLoadingModule } from '../core/components/loading/loading.module';
+import { UiNotificationModule } from '../core/components/notification/notification.module';
+import { TranslateServiceMock } from '../core/mock/services';
+import { UiStorageServiceMock } from '../core/mock/services/storage-service.mock';
+import { UiStorageService } from '../core/services/context-data';
 
 describe('AppComponent', () => {
-  let services: any, spies: any;
+  let services: any;
+  let spies: any;
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [AppComponent],
-        imports: [HttpClientModule, RouterTestingModule, UiLoadingModule, UiAlertModule, UiNotificationModule],
-        schemas: [NO_ERRORS_SCHEMA],
-        providers: [
-          { provide: TranslateService, useClass: MockTranslateService },
-          { provide: UiStorageService, useClass: UiStorageServiceMock }]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [HttpClientModule, RouterTestingModule, UiLoadingModule, UiAlertModule, UiNotificationModule],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: TranslateService, useClass: TranslateServiceMock },
+        { provide: UiStorageService, useClass: UiStorageServiceMock }
+      ]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
@@ -40,9 +41,7 @@ describe('AppComponent', () => {
 
   it('should call storageService create when beforeunloadHandler is called', () => {
     component.beforeunloadHandler({
-      preventDefault(): string {
-        return '';
-      },
+      preventDefault: (): string => '',
       returnValue: ''
     });
     expect(spies.storageService.create).toHaveBeenCalledTimes(2);
@@ -89,15 +88,3 @@ describe('AppComponent', () => {
     };
   };
 });
-
-class UiStorageServiceMock {
-  retrieve() { }
-  create() { }
-}
-
-class MockTranslateService {
-  setDefaultLang() { }
-  stream() { }
-  instant() { }
-  get() { }
-}

@@ -1,14 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { IResourceDTO, IResourceModel, ResourceModel } from '../resource.model';
 
-describe(`ResourceModel`, () => {
+describe('ResourceModel', () => {
   let model: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        { provide: ResourceModel, useFactory: (name: string, uri: string) => new ResourceModel(name, uri) }
-      ]
+      providers: [{ provide: ResourceModel, useFactory: (name: string, uri: string) => new ResourceModel(name, uri) }]
     });
 
     model = TestBed.inject(ResourceModel);
