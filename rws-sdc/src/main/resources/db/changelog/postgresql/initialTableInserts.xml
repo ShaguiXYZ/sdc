@@ -134,7 +134,7 @@
 		<sql dbms="postgresql">
 			INSERT INTO components (name,component_type_architecture_id,squad_id) VALUES
 				 ('empty',7,42),
-				 ('sdc',7,42),
+				 ('sdc',9,42),
 				 ('storm:aff3ct:gitlab:master',15,75),
 				 ('cardamom:mmg:github:master',15,75);		
 		</sql>
@@ -153,29 +153,14 @@
 	<changeSet author="initial" id="20230707_50017">
 		<sql dbms="postgresql">
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (7,1),
-				 (7,2),
-				 (7,3),
-				 (7,4),
-				 (7,5),
-				 (7,6),
-				 (7,7),
-				 (7,8),
-				 (7,9),
-				 (7,10),
-				 (7,11),
-				 (7,12),
-				 (7,13),
-				 (7,14),
-				 (7,15),
-				 (7,16),
-				 (7,17),
-				 (7,18),
-				 (7,19),
 				 (7,20),
 				 (7,21),
 				 (7,22),
 				 (7,23);
+			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				 (9,21),
+				 (9,22),
+				 (9,23);
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (15,1),
 				 (15,2),
@@ -217,17 +202,14 @@
 	<changeSet author="initial" id="20230707_50019">
 		<sql dbms="postgresql">
 			INSERT INTO metric_values (component_type_architecture_id,metric_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
-				 (7,1,'2023-03-01 10:57:21.597993',250,'70','85','90'),
-				 (7,3,'2023-03-01 10:57:21.597993',40,'30','20','5'),
-				 (7,4,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
-				 (7,5,'2023-03-01 10:57:21.597993',60,'40','25','5'),
-				 (7,17,'2023-03-01 10:57:21.597993',60,'40','25','5'),
-				 (7,18,'2023-03-01 10:57:21.597993',60,'40','25','5'),
-				 (7,19,'2023-03-01 10:57:21.597993',60,'40','25','5'),
 				 (7,20,'2023-03-01 10:57:21.597993',60,'40','25','5'),
 				 (7,21,'2023-03-01 10:57:21.597993',60,'40','25','5'),
 				 (7,22,'2023-03-01 10:57:21.597993',60,'40','25','5'),
 				 (7,23,'2023-03-01 10:57:21.597993',60,'40','25','5');
+			INSERT INTO metric_values (component_type_architecture_id,metric_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+				 (9,21,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (9,22,'2023-03-01 10:57:21.597993',60,'40','25','5'),
+				 (9,23,'2023-03-01 10:57:21.597993',60,'40','25','5');
 			INSERT INTO metric_values (component_type_architecture_id,metric_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
 				 (15,1,'2023-03-01 10:57:21.597993',250,'70','85','90'),
 				 (15,3,'2023-03-01 10:57:21.597993',40,'30','20','5'),
@@ -246,6 +228,10 @@
 				(7,21,'PATH','${bff_path}/pom.xml'),
 				(7,22,'PATH','${rws_path}/pom.xml'),
 				(7,23,'PATH','${ngx_path}/package.json');
+			INSERT INTO component_type_architecture_metrics_properties (component_type_architecture_id,metric_id,name,value) VALUES
+				(9,21,'PATH','${bff_path}/pom.xml'),
+				(9,22,'PATH','${rws_path}/pom.xml'),
+				(9,23,'PATH','${ngx_path}/package.json');
 		</sql>
 	</changeSet>
 </databaseChangeLog>
