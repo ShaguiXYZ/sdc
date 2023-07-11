@@ -3,17 +3,16 @@ package com.shagui.sdc.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-
-import liquibase.repackaged.org.apache.commons.collections4.map.HashedMap;
 
 class DictioraryReplacementTest {
 
 	@Test
 	void repalcementTest() {
-		Map<String, String> dictionary = new HashedMap<>() {
+		Map<String, String> dictionary = new HashMap<>() {
 			/**
 			 * 
 			 */
@@ -29,10 +28,9 @@ class DictioraryReplacementTest {
 		assertEquals(dictionary.get("key1"), value);
 	}
 
-
 	@Test
 	void defaultRepalcementTest() {
-		Map<String, String> dictionary = new HashedMap<>() {
+		Map<String, String> dictionary = new HashMap<>() {
 			/**
 			 * 
 			 */

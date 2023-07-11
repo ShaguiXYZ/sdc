@@ -165,7 +165,7 @@ public abstract class GitService implements AnalysisInterface {
 
 	private Map<String, List<MetricModel>> metricPaths(ComponentModel component) {
 		Map<String, List<MetricModel>> paths = new HashMap<>();
-		Replacement replacement = DictioraryReplacement.getInstance(componentDictionary(component));
+		Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component));
 
 		metrics(component).forEach(metric -> {
 			Optional<ComponetTypeArchitectureMetricPropertiesModel> data = componentTypeArchitectureMetricPropertiesRepository
@@ -187,13 +187,5 @@ public abstract class GitService implements AnalysisInterface {
 		});
 
 		return paths;
-	}
-
-	private Map<String, String> componentDictionary(ComponentModel component) {
-		Map<String, String> dictionay = new HashMap<>();
-		dictionay.put("$name", component.getName());
-
-		component.getProperties().forEach(property -> dictionay.put(property.getName(), property.getValue()));
-		return dictionay;
 	}
 }

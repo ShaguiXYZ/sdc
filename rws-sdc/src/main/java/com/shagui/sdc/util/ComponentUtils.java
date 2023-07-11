@@ -2,6 +2,7 @@ package com.shagui.sdc.util;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,6 +53,14 @@ public class ComponentUtils {
 	public static List<MetricModel> metricsByType(ComponentModel component, AnalysisType type) {
 		return component.getComponentTypeArchitecture().getMetrics().stream()
 				.filter(metric -> type.equals(metric.getType())).collect(Collectors.toList());
+	}
+	
+	public static Map<String, String> dictionaryOf(ComponentModel component) {
+		Map<String, String> dictionay = new HashMap<>();
+		dictionay.put("$name", component.getName());
+
+		component.getProperties().forEach(property -> dictionay.put(property.getName(), property.getValue()));
+		return dictionay;
 	}
 
 	private static void addOrUpdatePropertyValue(ComponentModel component, String propertyName, String propertyValue) {

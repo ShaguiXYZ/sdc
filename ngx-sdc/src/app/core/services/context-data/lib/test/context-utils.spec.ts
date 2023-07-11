@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Route, Router } from '@angular/router';
-import { configContextRoutes, routerData } from '../lib';
-import { RouterInfo } from '../models';
+import { configContextRoutes, routerData } from '..';
+import { RouterInfo } from '../../models';
 
 describe('ContextUtils', () => {
   it('should add a route when configContextRoutes is called', () => {

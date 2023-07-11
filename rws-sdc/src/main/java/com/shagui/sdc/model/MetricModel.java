@@ -32,6 +32,8 @@ public class MetricModel implements ModelInterface<Integer> {
 	@Column(nullable = false)
 	private String value;
 
+	private String description;
+
 	@Enumerated(EnumType.STRING)
 	private AnalysisType type;
 

@@ -73,8 +73,8 @@ public class Mapper {
 	}
 
 	public static MetricDTO parse(MetricModel source) {
-		return new MetricDTO(source.getId(), source.getName(), source.getValue(), source.getType(),
-				source.getValueType(), source.getValidation());
+		return new MetricDTO(source.getId(), source.getName(), source.getValue(), source.getDescription(),
+				source.getType(), source.getValueType(), source.getValidation());
 	}
 
 	public static ComponentTypeArchitectureDTO parse(ComponentTypeArchitectureModel source) {

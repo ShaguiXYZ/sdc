@@ -140,7 +140,7 @@ class GitXmlServiceTest {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();
 		metricModel.setId(1);
-		metricModel.setValue("project version");
+		metricModel.setName("project version");
 		metricModel.setValue("project/properties/version");
 		metricModel.setType(AnalysisType.GIT_XML);
 		metrics.add(metricModel);
