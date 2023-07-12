@@ -303,6 +303,7 @@ public class RwsTestUtils {
 	public static UriModel uriModelMock() {
 		UriModel uri = new UriModel();
 		uri.setName("uri_name");
+		uri.setValue("");
 		uri.setType(AnalysisType.GIT);
 		uri.setProperties(new ArrayList<>());
 

@@ -70,7 +70,7 @@ public class SonarServiceImpl implements SonarService {
 
 	private Optional<String> uri(ComponentModel component) {
 		String uri = null;
-		Optional<UriModel> uriModel = UrlUtils.uri(component.getUris(), AnalysisType.SONAR);
+		Optional<UriModel> uriModel = UrlUtils.uri(component, AnalysisType.SONAR);
 
 		if (uriModel.isPresent()) {
 			uri = uriModel.get().getValue();

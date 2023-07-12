@@ -114,7 +114,7 @@ public abstract class GitService implements AnalysisInterface {
 
 	private Optional<String> authorization(ComponentModel component) {
 		String authorization = null;
-		Optional<UriModel> uriModel = UrlUtils.uri(component.getUris(), AnalysisType.GIT);
+		Optional<UriModel> uriModel = UrlUtils.uri(component, AnalysisType.GIT);
 
 		if (uriModel.isPresent()) {
 			authorization = UrlUtils.uriProperty(uriModel.get(), Ctes.URI_PROPERTIES.AUTHORIZATION).orElse(null);
@@ -147,16 +147,11 @@ public abstract class GitService implements AnalysisInterface {
 
 	private Optional<String> uri(ComponentModel component, String path) {
 		String uri = null;
-		Optional<UriModel> uriModel = UrlUtils.uri(component.getUris(), AnalysisType.GIT);
+		Optional<UriModel> uriModel = UrlUtils.uri(component, AnalysisType.GIT);
 
 		if (uriModel.isPresent()) {
-			String owner = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_OWNER)
-					.map(model -> model.getValue()).orElse(null);
-			String repository = ComponentUtils.propertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_REPOSITORY)
-					.map(model -> model.getValue()).orElse(null);
-
 			uri = uriModel.get().getValue();
-			uri = Arrays.asList(uri, owner, repository, "contents", path).stream().filter(StringUtils::hasText)
+			uri = Arrays.asList(uri, path).stream().filter(StringUtils::hasText)
 					.collect(Collectors.joining("/"));
 		}
 

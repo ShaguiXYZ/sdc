@@ -30,7 +30,7 @@ public class DictioraryReplacement {
 		}
 
 		public String replace(String source, String defaultValue) {
-			Pattern p = Pattern.compile("(?<=\\$\\{)([\\w\\-]*)(?=\\})");
+			Pattern p = Pattern.compile("(?<=\\$\\{)([\\w\\-\\$]*)(?=\\})");
 			Matcher m = p.matcher(source);
 
 			String result = source;

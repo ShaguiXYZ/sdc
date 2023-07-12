@@ -34,7 +34,6 @@ import com.shagui.sdc.model.pk.ComponentUriPk;
 import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.service.impl.GitJsonServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
-import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.UrlUtils;
 
 class GitJsonServiceTest {
@@ -87,7 +86,7 @@ class GitJsonServiceTest {
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
 		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
-		componentProperty.setName(Ctes.COMPONENT_PROPERTIES.JSON_PATH);
+		componentProperty.setName("test");
 		properties.add(componentProperty);
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();

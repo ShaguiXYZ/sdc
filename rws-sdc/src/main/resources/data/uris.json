@@ -1,13 +1,13 @@
 [
 	{
 		"name": "public-repo",
-		"value": "https://api.github.com/repos",
+		"value": "https://api.github.com/repos/${organization}/${$name}/contents",
 		"type": "GIT",
 		"properties": []
 	},
 	{
 		"name": "private-repo",
-		"value": "https://api.github.com/repos",
+		"value": "https://api.github.com/repos/${organization}/${$name}/contents",
 		"type": "GIT",
 		"properties": [
 			{

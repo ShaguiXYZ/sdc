@@ -15,11 +15,6 @@ public class Ctes {
 	}
 
 	public static class COMPONENT_PROPERTIES {
-		public static final String XML_PATH = "xml_path"; // path to the pom.xml file from the git uri
-		public static final String JSON_PATH = "json_path"; // path to the package.json file from the git uri
-															// of the squad the project is associated with
-		public static final String COMPONENT_OWNER = "organization";
-		public static final String COMPONENT_REPOSITORY = "component_repository";
 		public static final String COMPONENT_ANALYSIS_DATE = "component_analysis_date";
 
 		private COMPONENT_PROPERTIES() {

@@ -25,7 +25,6 @@ import com.shagui.sdc.api.client.GitClient;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.StaticRepositoryConfig;
-import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
@@ -36,7 +35,6 @@ import com.shagui.sdc.model.pk.ComponentUriPk;
 import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.service.impl.GitXmlServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
-import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.UrlUtils;
 
 class GitXmlServiceTest {
@@ -66,11 +64,7 @@ class GitXmlServiceTest {
 			private static final long serialVersionUID = 1L;
 
 			{
-				UriModel uri = new UriModel();
-				uri.setName("uri_name");
-				uri.setType(AnalysisType.GIT);
-				uri.setProperties(new ArrayList<>());
-				add(uri);
+				add(RwsTestUtils.uriModelMock());
 			}
 		});
 	}
@@ -152,7 +146,7 @@ class GitXmlServiceTest {
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
 		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
-		componentProperty.setName(Ctes.COMPONENT_PROPERTIES.XML_PATH);
+		componentProperty.setName("test");
 		properties.add(componentProperty);
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
