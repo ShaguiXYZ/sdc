@@ -7,8 +7,6 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
-
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.json.StaticRepository;
@@ -62,7 +60,8 @@ public class UrlUtils {
 
 		if (optionalUri.isPresent()) {
 			UriModel uri = config.getObjectMapper().convertValue(optionalUri.get(), UriModel.class);
-			uri.setValue(DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component))
+			uri.setValue(DictioraryReplacement
+					.getInstance(ComponentUtils.dictionaryOf(component), true)
 					.replace(optionalUri.get().getValue()));
 
 			return Optional.of(uri);

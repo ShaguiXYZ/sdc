@@ -187,12 +187,10 @@
 		<sql dbms="postgresql">
 			INSERT INTO component_properties (name,value,component_id) VALUES
 				 ('organization','shaguixyz',1),
-				 ('component_repository','empty',1),
 				 ('ngx_path','ngx-empty',1),
 				 ('bff_path','bff-empty',1),
 				 ('rws_path','rws-empty',1),
 				 ('organization','shaguixyz',2),
-				 ('component_repository','sdc',2),
 				 ('ngx_path','ngx-sdc',2),
 				 ('bff_path','bff-sdc',2),
 				 ('rws_path','rws-sdc',2);
@@ -225,13 +223,13 @@
 		<sql dbms="postgresql">
 			INSERT INTO component_type_architecture_metrics_properties (component_type_architecture_id,metric_id,name,value) VALUES
 				(7,20,'PATH','pom.xml'),
-				(7,21,'PATH','${bff_path}/pom.xml'),
-				(7,22,'PATH','${rws_path}/pom.xml'),
-				(7,23,'PATH','${ngx_path}/package.json');
+				(7,21,'PATH','#{bff_path}/pom.xml'),
+				(7,22,'PATH','#{rws_path}/pom.xml'),
+				(7,23,'PATH','#{ngx_path}/package.json');
 			INSERT INTO component_type_architecture_metrics_properties (component_type_architecture_id,metric_id,name,value) VALUES
-				(9,21,'PATH','${bff_path}/pom.xml'),
-				(9,22,'PATH','${rws_path}/pom.xml'),
-				(9,23,'PATH','${ngx_path}/package.json');
+				(9,21,'PATH','#{bff_path}/pom.xml'),
+				(9,22,'PATH','#{rws_path}/pom.xml'),
+				(9,23,'PATH','#{ngx_path}/package.json');
 		</sql>
 	</changeSet>
 </databaseChangeLog>

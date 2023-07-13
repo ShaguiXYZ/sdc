@@ -121,7 +121,7 @@ public abstract class GitService implements AnalysisInterface {
 		}
 
 		return Optional.ofNullable(authorization)
-				.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data));
+				.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
 	}
 
 	private SdcDocument sdcDocument(ContentDTO gitData) {
@@ -151,8 +151,7 @@ public abstract class GitService implements AnalysisInterface {
 
 		if (uriModel.isPresent()) {
 			uri = uriModel.get().getValue();
-			uri = Arrays.asList(uri, path).stream().filter(StringUtils::hasText)
-					.collect(Collectors.joining("/"));
+			uri = Arrays.asList(uri, path).stream().filter(StringUtils::hasText).collect(Collectors.joining("/"));
 		}
 
 		return Optional.ofNullable(uri);
@@ -160,7 +159,7 @@ public abstract class GitService implements AnalysisInterface {
 
 	private Map<String, List<MetricModel>> metricPaths(ComponentModel component) {
 		Map<String, List<MetricModel>> paths = new HashMap<>();
-		Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component));
+		Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true);
 
 		metrics(component).forEach(metric -> {
 			Optional<ComponetTypeArchitectureMetricPropertiesModel> data = componentTypeArchitectureMetricPropertiesRepository
