@@ -1,7 +1,7 @@
-import { AnalysisType } from './analysis-type.model';
+import { UriType } from './uri-type.model';
 
 export interface UriModel {
   name: string;
   uri: string;
-  type: AnalysisType;
+  type: UriType;
 }

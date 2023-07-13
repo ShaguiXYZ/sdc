@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
-import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.model.RequestPropertiesModel;
 import com.shagui.sdc.json.model.UriModel;
@@ -53,25 +53,23 @@ public class UrlUtils {
 		}
 	}
 
-	public static Optional<UriModel> uri(ComponentModel component, AnalysisType type) {
-		Optional<UriModel> optionalUri = StaticRepository.uris().stream().filter(uri -> type.equals(uri.getType()))
+	public static Optional<UriModel> uriModel(ComponentModel component, UriType type) {
+		return StaticRepository.uris().stream().filter(uri -> type.equals(uri.getType()))
 				.filter(uri -> component.getUris().stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName())))
 				.findFirst();
+	}
 
-		if (optionalUri.isPresent()) {
-			UriModel uri = config.getObjectMapper().convertValue(optionalUri.get(), UriModel.class);
-			uri.setValue(DictioraryReplacement
-					.getInstance(ComponentUtils.dictionaryOf(component), true)
-					.replace(optionalUri.get().getValue()));
-
-			return Optional.of(uri);
-		}
-
-		return optionalUri;
+	public static Optional<UriModel> uri(ComponentModel component, UriType type) {
+		return Optional.ofNullable(uriModel(component, type).map(data -> {
+			UriModel uri = config.getObjectMapper().convertValue(data, UriModel.class);
+			uri.setValue(DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true)
+					.replace(data.getValue()));
+			return uri;
+		}).orElse(null));
 	}
 
 	public static Optional<String> uriProperty(UriModel uri, String key) {
-		return uri.getProperties().stream().filter(property -> property.getName().equals(key))
+		return uri.getProperties().stream().filter(data -> data.getName().equals(key))
 				.map(RequestPropertiesModel::getValue).findFirst();
 	}
 

@@ -20,6 +20,7 @@ import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
 import com.shagui.sdc.enums.MetricValueType;
+import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -304,7 +305,7 @@ public class RwsTestUtils {
 		UriModel uri = new UriModel();
 		uri.setName("uri_name");
 		uri.setValue("");
-		uri.setType(AnalysisType.GIT);
+		uri.setType(UriType.GIT);
 		uri.setProperties(new ArrayList<>());
 
 		return uri;

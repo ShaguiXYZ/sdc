@@ -18,6 +18,7 @@ import com.shagui.sdc.api.client.GitClient;
 import com.shagui.sdc.api.dto.git.ContentDTO;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -114,7 +115,7 @@ public abstract class GitService implements AnalysisInterface {
 
 	private Optional<String> authorization(ComponentModel component) {
 		String authorization = null;
-		Optional<UriModel> uriModel = UrlUtils.uri(component, AnalysisType.GIT);
+		Optional<UriModel> uriModel = UrlUtils.uriModel(component, UriType.GIT);
 
 		if (uriModel.isPresent()) {
 			authorization = UrlUtils.uriProperty(uriModel.get(), Ctes.URI_PROPERTIES.AUTHORIZATION).orElse(null);
@@ -147,7 +148,7 @@ public abstract class GitService implements AnalysisInterface {
 
 	private Optional<String> uri(ComponentModel component, String path) {
 		String uri = null;
-		Optional<UriModel> uriModel = UrlUtils.uri(component, AnalysisType.GIT);
+		Optional<UriModel> uriModel = UrlUtils.uri(component, UriType.GIT);
 
 		if (uriModel.isPresent()) {
 			uri = uriModel.get().getValue();

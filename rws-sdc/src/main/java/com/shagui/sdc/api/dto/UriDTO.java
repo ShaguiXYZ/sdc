@@ -1,6 +1,6 @@
 package com.shagui.sdc.api.dto;
 
-import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.enums.UriType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,5 +13,5 @@ import lombok.Setter;
 public class UriDTO {
 	private String name;
 	private String uri;
-	private AnalysisType type;
+	private UriType type;
 }
