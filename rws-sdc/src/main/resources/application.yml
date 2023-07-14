@@ -60,10 +60,7 @@ management:
          enabled: false
          
 services:
-   sonar:
-      uri: https://sonarqube.inria.fr/sonarqube/api
-   git:
-      uri: https://api.github.com/
+   no-uri: http://no-uri
    
 feign:
    client:

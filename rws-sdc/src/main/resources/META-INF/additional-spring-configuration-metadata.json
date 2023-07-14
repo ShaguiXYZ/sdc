@@ -28,5 +28,10 @@
     "name": "services.xml.default-xml-path",
     "type": "java.lang.String",
     "description": "A description for 'services.xml.default-xml-path'"
+  },
+  {
+    "name": "services.no-uri",
+    "type": "java.lang.String",
+    "description": "A description for 'services.no-uri'"
   }
 ]}

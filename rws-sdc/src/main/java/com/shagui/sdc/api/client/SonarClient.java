@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import feign.Response;
 
-@FeignClient(name = "sonar-service", url = "${services.sonar.uri}", primary = false)
+@FeignClient(name = "sonar-service", url = "${services.no-uri}", primary = false)
 public interface SonarClient {
 	@GetMapping("components/search")
 	Response components(URI baseUrl, @RequestParam String qualifiers);

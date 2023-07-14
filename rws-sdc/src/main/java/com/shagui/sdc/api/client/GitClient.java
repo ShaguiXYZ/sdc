@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import feign.Response;
 
-@FeignClient(name = "git-service", url = "${services.git.uri}", primary = false)
+@FeignClient(name = "git-service", url = "${services.no-uri}", primary = false)
 public interface GitClient {
 	@GetMapping
 	Response repoFile(URI baseUrl);
