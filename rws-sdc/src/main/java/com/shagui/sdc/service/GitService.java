@@ -120,7 +120,7 @@ public abstract class GitService implements AnalysisInterface {
 
 	private SdcDocument sdcDocument(ContentDTO gitData) {
 		try {
-			return sdcDocument(IOUtils.stringInputStream(gitData.getDecodedContent()));
+			return sdcDocument(IOUtils.toInputStream(gitData.getDecodedContent()));
 		} catch (Exception e) {
 			log.error(String.format("ERROR in document '%s'.", gitData.getName()), e);
 			return sdcDocument(gitData.getDownloadUrl());

@@ -11,6 +11,6 @@ public interface SdcDocument {
 	public Optional<String> fromPath(String path);
 	
 	default void input(String data) throws IOException {
-		input(IOUtils.stringInputStream(data));
+		input(IOUtils.toInputStream(data));
 	}
 }

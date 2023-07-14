@@ -13,7 +13,7 @@ public class SdcDocumentFactory {
 	}
 
 	public static <T extends SdcDocument> T newInstance(String data, Class<T> clazz) throws IOException {
-		return newInstance(IOUtils.stringInputStream(data), clazz);
+		return newInstance(IOUtils.toInputStream(data), clazz);
 	}
 
 	public static <T extends SdcDocument> T newInstance(InputStream data, Class<T> clazz) throws IOException {
