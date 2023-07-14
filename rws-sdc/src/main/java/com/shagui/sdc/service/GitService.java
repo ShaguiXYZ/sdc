@@ -59,15 +59,12 @@ public abstract class GitService implements AnalysisInterface {
 	@Override
 	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
 		Map<String, List<MetricModel>> metricPaths = metricPaths(component);
-		List<ComponentAnalysisModel> analysis = new ArrayList<>();
-
-		metricPaths.entrySet().stream().forEach(entry -> {
+		
+		return metricPaths.entrySet().parallelStream().map(entry -> {
 			ContentDTO gitData = retrieveGitData(component, entry.getKey());
 			SdcDocument docuemnt = sdcDocument(gitData);
-			analysis.addAll(getResponse(component, entry.getValue(), docuemnt));
-		});
-
-		return analysis;
+			return getResponse(component, entry.getValue(), docuemnt);
+		}).flatMap(s -> s.stream()).collect(Collectors.toList());
 	}
 
 	@Override
@@ -87,14 +84,10 @@ public abstract class GitService implements AnalysisInterface {
 
 	private List<ComponentAnalysisModel> getResponse(ComponentModel component, List<MetricModel> metrics,
 			SdcDocument docuemnt) {
-		List<ComponentAnalysisModel> response = new ArrayList<>();
-
-		metrics.forEach(metric -> {
-			Optional<String> value = docuemnt.fromPath(metric.getValue());
-			response.add(new ComponentAnalysisModel(component, metric, value.isPresent() ? value.get() : "N/A"));
-		});
-
-		return response;
+		return metrics.stream().map(data -> {
+			Optional<String> value = docuemnt.fromPath(data.getValue());
+			return new ComponentAnalysisModel(component, data, value.isPresent() ? value.get() : "N/A");
+		}).collect(Collectors.toList());
 	}
 
 	private ContentDTO retrieveGitData(ComponentModel component, String path) {
