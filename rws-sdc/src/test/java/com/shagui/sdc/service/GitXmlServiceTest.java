@@ -74,14 +74,10 @@ class GitXmlServiceTest {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 
 		List<ComponentUriModel> uris = new ArrayList<>();
-		ComponentUriModel uriModel = new ComponentUriModel();
-		uriModel.setId(new ComponentUriPk(0, "uri_name"));
-		uris.add(uriModel);
+		uris.add(RwsTestUtils.componentUriModelMock());
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
-		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
-		componentProperty.setName("xml_path");
-		properties.add(componentProperty);
+		properties.add(RwsTestUtils.componentProperty("xml_path"));
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setMetrics(metrics);
@@ -98,19 +94,13 @@ class GitXmlServiceTest {
 	@Test
 	void testAnalyzeRuntimeException() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
-		MetricModel metricModel = new MetricModel();
-		metricModel.setType(AnalysisType.GIT_XML);
-		metrics.add(metricModel);
+		metrics.add(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML));
 
 		List<ComponentUriModel> uris = new ArrayList<>();
-		ComponentUriModel uriModel = new ComponentUriModel();
-		uriModel.setId(new ComponentUriPk(0, "uri_name"));
-		uris.add(uriModel);
+		uris.add(RwsTestUtils.componentUriModelMock());
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
-		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
-		componentProperty.setName("xml_path");
-		properties.add(componentProperty);
+		properties.add(RwsTestUtils.componentProperty("xml_path"));
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setMetrics(metrics);
@@ -145,9 +135,7 @@ class GitXmlServiceTest {
 		uris.add(uriModel);
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
-		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
-		componentProperty.setName("test");
-		properties.add(componentProperty);
+		properties.add(RwsTestUtils.componentProperty("xml_path"));
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);

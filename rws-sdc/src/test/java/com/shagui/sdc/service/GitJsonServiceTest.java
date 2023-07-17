@@ -30,7 +30,6 @@ import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponentUriModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.model.pk.ComponentUriPk;
 import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.service.impl.GitJsonServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
@@ -80,14 +79,10 @@ class GitJsonServiceTest {
 		metrics.add(metricModel);
 
 		List<ComponentUriModel> uris = new ArrayList<>();
-		ComponentUriModel uriModel = new ComponentUriModel();
-		uriModel.setId(new ComponentUriPk(0, "uri_name"));
-		uris.add(uriModel);
+		uris.add(RwsTestUtils.componentUriModelMock());
 
 		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
-		ComponentPropertyModel componentProperty = new ComponentPropertyModel();
-		componentProperty.setName("test");
-		properties.add(componentProperty);
+		properties.add(RwsTestUtils.componentProperty("xml_path"));
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);

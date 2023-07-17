@@ -1,16 +1,11 @@
 package com.shagui.sdc.service.impl;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -25,6 +20,7 @@ import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 import com.shagui.sdc.repository.ComponentAnalysisRepository;
 import com.shagui.sdc.repository.ComponentRepository;
@@ -89,40 +85,15 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	private List<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {
-		Set<AnalysisType> metricTypes = new HashSet<>();
-		component.getComponentTypeArchitecture().getMetrics().forEach(metric -> metricTypes.add(metric.getType()));
+		Set<AnalysisType> metricTypes = component.getComponentTypeArchitecture().getMetrics().stream()
+				.map(MetricModel::getType).collect(Collectors.toSet());
 
-		List<Future<List<ComponentAnalysisModel>>> futureTascs = new ArrayList<>();
-		metricTypes.forEach(type -> futureTascs
-				.add(CompletableFuture.supplyAsync(() -> metricServices.get(type.name()).analyze(component))
-						.thenApply(saveChangesInMetrics)));
-
-		while (futureTascs.stream().anyMatch(task -> !task.isDone()))
-			;
-
-		List<ComponentAnalysisModel> toSave = new ArrayList<>();
-		futureTascs.forEach(task -> {
-			try {
-				toSave.addAll(task.get());
-			} catch (InterruptedException e) {
-				log.error("Error getting task result!!!!!", e);
-				Thread.currentThread().interrupt();
-			} catch (ExecutionException e) {
-				log.error("Error getting task result!!!!!", e);
-			}
-		});
-
-		return toSave;
+		return metricTypes.parallelStream().map(type -> metricServices.get(type.name()).analyze(component))
+				.map(saveChangesInMetrics).flatMap(s -> s.stream()).collect(Collectors.toList());
 	}
 
 	private List<ComponentAnalysisModel> saveReturnAnalysis(List<ComponentAnalysisModel> toSave) {
-		List<ComponentAnalysisModel> saved = new ArrayList<>();
-
-		if (!toSave.isEmpty()) {
-			saved.addAll(componentAnalysisRepository.repository().saveAll(toSave));
-		}
-
-		return saved;
+		return componentAnalysisRepository.repository().saveAll(toSave).stream().collect(Collectors.toList());
 	}
 
 	private UnaryOperator<List<ComponentAnalysisModel>> saveChangesInMetrics = (
