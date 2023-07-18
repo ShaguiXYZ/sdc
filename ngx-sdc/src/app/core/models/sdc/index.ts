@@ -7,4 +7,3 @@ export * from './metric-analysis.model';
 export * from './metric.model';
 export * from './pageable.model';
 export * from './squad.model';
-export * from './uri.model';
