@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,18 @@ public class ComponentUtils {
 
 	public static Map<String, String> tokens() {
 		return config.tokens();
+	}
+
+	public static Optional<String> componentType(ComponentModel component) {
+		String key = null;
+		Pattern p = Pattern.compile("^[^\\_\\-]*");
+		Matcher m = p.matcher(component.getName());
+
+		if (m.find()) {
+			key = m.group();
+		}
+
+		return Optional.ofNullable(key);
 	}
 
 	@Transactional

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
 import com.shagui.sdc.api.dto.cmdb.SquadInput;
+import com.shagui.sdc.api.dto.ebs.ComponentInput;
 import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
@@ -262,6 +263,27 @@ public class RwsTestUtils {
 		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML));
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
 		mock.setValue(value);
+
+		return mock;
+	}
+
+	public static ComponentInput componentInputMock() {
+		ComponentInput mock = new ComponentInput();
+		mock.setArchitecture("architecture");
+		mock.setComponentType("component_type");
+		mock.setDeploymentType("deployment_type");
+		mock.setLanguage("language");
+		mock.setName("component_name");
+		mock.setNetwork("network");
+		mock.setPlatform("platform");
+		mock.setSquad(1);
+		mock.setUriNames(new ArrayList<>() {
+			private static final long serialVersionUID = 1L;
+
+			{
+				add("uri_name");
+			}
+		});
 
 		return mock;
 	}

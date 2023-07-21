@@ -53,7 +53,7 @@ public class DictioraryReplacement {
 					result = result.replaceAll(PRE_EXP + key.replace("$", "\\$") + POST_EXP, dictionary.get(key));
 				} else if (!dictionary.containsKey(key)) {
 					if (strict) {
-						throw new SdcCustomException(String.format("Not key %s found in repository", key));
+						throw new SdcCustomException(String.format("[STRICT] Not key %s found in repository", key));
 					}
 
 					log.debug(String.format("Not key %s found in repository", key));

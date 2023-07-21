@@ -89,7 +89,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 				.map(MetricModel::getType).collect(Collectors.toSet());
 
 		return metricTypes.parallelStream().map(type -> metricServices.get(type.name()).analyze(component))
-				.map(saveChangesInMetrics).flatMap(s -> s.stream()).collect(Collectors.toList());
+				.map(saveChangesInMetrics).flatMap(List::stream).collect(Collectors.toList());
 	}
 
 	private List<ComponentAnalysisModel> saveReturnAnalysis(List<ComponentAnalysisModel> toSave) {

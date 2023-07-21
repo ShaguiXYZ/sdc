@@ -51,12 +51,12 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 	private SquadModel squad;
 
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ComponentPropertyModel> properties;
+	private List<ComponentPropertyModel> properties = new ArrayList<>();
 
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<ComponentUriModel> uris = new ArrayList<>();
 
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ComponentHistoricalCoverageModel> historicalCoverage;
+	private List<ComponentHistoricalCoverageModel> historicalCoverage = new ArrayList<>();
 
 }

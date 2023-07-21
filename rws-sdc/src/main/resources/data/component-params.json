@@ -1,0 +1,147 @@
+[
+	{
+		"type": "_",
+		"params": [
+			{
+				"name": "ngx_path",
+				"pre": "ngx",
+				"post": ""
+			},
+			{
+				"name": "bff_path",
+				"pre": "rws-bff",
+				"post": "web"
+			},
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "frontend::angular",
+		"params": [
+			{
+				"name": "ngx_path",
+				"pre": "ngx",
+				"post": ""
+			},
+			{
+				"name": "bff_path",
+				"pre": "rws-bff",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "backend::ebs",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "ebs",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "frontend::library",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "frontend::bff",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "frontend::ssr",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "frontend::anonymous",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "integration::rest",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "integration::soap",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "backend::library",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "backend::starter",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "backend::rest",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	},
+	{
+		"type": "backend::batch",
+		"params": [
+			{
+				"name": "rws_path",
+				"pre": "rws",
+				"post": "web"
+			}
+		]
+	}
+]

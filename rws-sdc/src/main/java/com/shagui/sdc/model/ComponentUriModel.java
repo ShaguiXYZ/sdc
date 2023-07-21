@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -17,11 +18,12 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "component_uris", uniqueConstraints = { @UniqueConstraint(columnNames = { "component_id", "uri_name" }) })
-public class ComponentUriModel {
+public class ComponentUriModel implements ModelInterface<ComponentUriPk> {
 	@EmbeddedId
 	private ComponentUriPk id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("componentId")
 	@JoinColumn(name = "component_id", insertable = false, updatable = false)
 	private ComponentModel component;
 }

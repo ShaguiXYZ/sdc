@@ -20,7 +20,7 @@ public class DatalistServiceImpl implements DatalistService {
 	@Override
 	public List<String> datalistValues(String name) {
 		return StaticRepository.datalists().stream().filter(data -> data.getName().equals(name)).findFirst()
-				.map(DataListModel::getValues).orElse(new ArrayList<>());
+				.map(DataListModel::getValues).orElseGet(ArrayList::new);
 	}
 
 }

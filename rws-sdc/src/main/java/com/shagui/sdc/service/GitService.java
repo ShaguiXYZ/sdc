@@ -59,12 +59,18 @@ public abstract class GitService implements AnalysisInterface {
 	@Override
 	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
 		Map<String, List<MetricModel>> metricPaths = metricPaths(component);
-		
+
 		return metricPaths.entrySet().parallelStream().map(entry -> {
 			ContentDTO gitData = retrieveGitData(component, entry.getKey());
+
+			if (gitData == null) {
+				log.error(String.format("Not git info for component %s", component.getName()));
+				return new ArrayList<ComponentAnalysisModel>();
+			}
+
 			SdcDocument docuemnt = sdcDocument(gitData);
 			return getResponse(component, entry.getValue(), docuemnt);
-		}).flatMap(s -> s.stream()).collect(Collectors.toList());
+		}).flatMap(List::stream).collect(Collectors.toList());
 	}
 
 	@Override
@@ -162,7 +168,7 @@ public abstract class GitService implements AnalysisInterface {
 
 			if (data.isPresent()) {
 				String path = replacement.replace(data.get().getValue(), "");
-				List<MetricModel> pathMetrics = Optional.ofNullable(paths.get(path)).orElse(new ArrayList<>());
+				List<MetricModel> pathMetrics = Optional.ofNullable(paths.get(path)).orElseGet(ArrayList::new);
 
 				if (pathMetrics.isEmpty()) {
 					pathMetrics.add(metric);

@@ -15,6 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shagui.sdc.json.model.ComponentParamsModel;
 import com.shagui.sdc.json.model.DataListModel;
 import com.shagui.sdc.json.model.UriModel;
 
@@ -29,16 +30,22 @@ public class StaticRepositoryConfig {
 	@Value("classpath:data/datalists.json")
 	private Resource jsonDatalists;
 
+	@Value("classpath:data/component-params.json")
+	private Resource jsonComponentParams;
+
 	@Autowired
 	private ObjectMapper mapper;
 
 	private List<UriModel> uris = new ArrayList<>();
 	private List<DataListModel> datalists = new ArrayList<>();
+	private List<ComponentParamsModel> componentParams = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {
-		uris = mapResource(jsonUris, UriModel[].class).map(Arrays::asList).orElse(new ArrayList<>());
-		datalists = mapResource(jsonDatalists, DataListModel[].class).map(Arrays::asList).orElse(new ArrayList<>());
+		uris = mapResource(jsonUris, UriModel[].class).map(Arrays::asList).orElseGet(ArrayList::new);
+		datalists = mapResource(jsonDatalists, DataListModel[].class).map(Arrays::asList).orElseGet(ArrayList::new);
+		componentParams = mapResource(jsonComponentParams, ComponentParamsModel[].class).map(Arrays::asList)
+				.orElseGet(ArrayList::new);
 
 		StaticRepository.setConfig(this);
 	}
@@ -51,13 +58,19 @@ public class StaticRepositoryConfig {
 		return datalists;
 	}
 
+	public List<ComponentParamsModel> componentParams() {
+		return componentParams;
+	}
+
 	private <T> Optional<T> mapResource(Resource resource, Class<T> clazz) {
+		T input = null;
+
 		try (InputStream is = resource.getInputStream()) {
-			T input = mapper.readValue(is, clazz);
-			return Optional.of(input);
-		} catch (IOException e) {
-			log.error(resource.getFilename() + " not found.", e);
-			return Optional.ofNullable(null);
+			input = mapper.readValue(is, clazz);
+		} catch (IOException | IllegalArgumentException e) {
+			log.error(String.format("%s not found.", resource.getFilename()), e);
 		}
+
+		return Optional.ofNullable(input);
 	}
 }
