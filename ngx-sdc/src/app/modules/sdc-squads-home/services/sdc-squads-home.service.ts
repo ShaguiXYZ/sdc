@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { emptyFn, filterByProperties } from 'src/app/core/lib';
+import { filterByProperties, logError } from 'src/app/core/lib';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
@@ -34,7 +34,7 @@ export class SdcSquadsService {
       .squads()
       .then(pageable => {
         let squads: ISquadModel[] = [];
-        const squad = pageable.page.find(data => this.contextData.squad?.id === data.id);
+        const squad = pageable.page.find(data => this.contextData?.squad?.id === data.id);
 
         if (filter?.trim().length) {
           squads = filterByProperties(pageable.page, ['id', 'name'], filter);
@@ -48,7 +48,7 @@ export class SdcSquadsService {
 
         this.summary$.next(this.data);
       })
-      .catch(emptyFn);
+      .catch(logError);
   }
 
   public selectedSquad(squad: ISquadModel): void {
@@ -61,7 +61,7 @@ export class SdcSquadsService {
 
         this.summary$.next(this.data);
       })
-      .catch(emptyFn);
+      .catch(logError);
   }
 
   public loadData(): void {

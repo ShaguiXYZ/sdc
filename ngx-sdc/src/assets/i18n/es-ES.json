@@ -25,8 +25,8 @@
   "Header": {
     "Help": "Ayuda",
     "Menu": {
-      "Applications": "Applications",
-      "Departments": "Departments",
+      "Applications": "Aplicaciones",
+      "Departments": "Departamentos",
       "Squads": "Summary"
     },
     "Title": "Software Development Console"

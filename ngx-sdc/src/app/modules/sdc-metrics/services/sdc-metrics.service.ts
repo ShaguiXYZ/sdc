@@ -6,7 +6,7 @@ import { AnalysisService, ComponentService, DepartmentService, SquadService } fr
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { MetricsContextData, MetricsDataModel } from '../models';
 import { IComplianceModel } from 'src/app/shared/components';
-import { emptyFn } from 'src/app/core/lib';
+import { logError } from 'src/app/core/lib';
 
 @Injectable()
 export class SdcMetricsService {
@@ -42,7 +42,7 @@ export class SdcMetricsService {
         this.contextDataService.set(ContextDataInfo.METRICS_DATA, { ...this.metricContextData, selected: analysis });
         this.data$.next(this.metricData);
       })
-      .catch(emptyFn);
+      .catch(logError);
   }
 
   public historicalComponentData(): void {
@@ -52,7 +52,7 @@ export class SdcMetricsService {
         this.metricData.historical = historical;
         this.data$.next(this.metricData);
       })
-      .catch(emptyFn);
+      .catch(logError);
   }
 
   public analyze = (): void => {
@@ -68,13 +68,13 @@ export class SdcMetricsService {
               this.departmentService.clearCache();
               this.squadService.clearCache();
             })
-            .catch(emptyFn);
+            .catch(logError);
 
           this.loadInitData();
           this.historicalComponentData();
         }
       })
-      .catch(emptyFn);
+      .catch(logError);
   };
 
   private loadInitData(): void {
@@ -92,8 +92,8 @@ export class SdcMetricsService {
         this.analysisService
           .analysis(this.metricData.compliance.id, this.metricContextData.selected?.metric.id ?? availableMetrics[0].id)
           .then(data => this.analysisData(data))
-          .catch(emptyFn);
+          .catch(logError);
       })
-      .catch(emptyFn);
+      .catch(logError);
   }
 }

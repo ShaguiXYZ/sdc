@@ -41,7 +41,8 @@ nx-link {
   font-weight: var(--link-small-font-weight);
   letter-spacing: var(--link-small-letter-spacing);
   line-height: var(--link-small-line-height);
-  max-width: 128px;
+  max-width: 150px;
+  min-width: 120px;
 
   :hover {
     color: var(--link-hover-color);

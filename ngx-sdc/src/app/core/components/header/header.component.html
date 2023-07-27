@@ -76,7 +76,9 @@
       <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
         <!-- Parent menu -->
         <div *ngIf="parent.routerLink" class="menu-item-root">
-          <a [id]="parent.id" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink>{{ parent.name | translate }}</a>
+          <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink>{{
+            parent.name | translate
+          }}</a>
         </div>
         <div *ngIf="!parent.routerLink" class="menu-item-root menu-item-with-children">
           <a [id]="parent.id" nxHeaderLink>{{ parent.name | translate }}</a>

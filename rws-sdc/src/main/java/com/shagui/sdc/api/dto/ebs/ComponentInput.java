@@ -1,6 +1,8 @@
 package com.shagui.sdc.api.dto.ebs;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.util.StringUtils;
 
@@ -9,7 +11,6 @@ import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.model.ComponentParamsModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
-import com.shagui.sdc.util.ComponentUtils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,12 +50,9 @@ public class ComponentInput {
 				.filter(param -> model.getProperties().stream().map(ComponentPropertyModel::getName)
 						.noneMatch(propertyName -> propertyName.equals(param.getName())))
 				.map(param -> {
-					String value = ComponentUtils.componentType(model)
-							.map(data -> model.getName().replace(data, param.getPre())).orElse(model.getName());
-
-					if (StringUtils.hasText(param.getPost())) {
-						value = String.format("%s-%s", value, param.getPost());
-					}
+					String value = Arrays
+							.asList(model.getName().replaceFirst("^[^\\_\\-]*", param.getPre()), param.getPost())
+							.stream().filter(StringUtils::hasText).collect(Collectors.joining("-"));
 
 					return new ComponentPropertyModel(model, param.getName(), value);
 				}).forEach(model.getProperties()::add);

@@ -1,6 +1,6 @@
 <div *ngIf="departmentsData" class="summary-content nx-margin-y-2xs">
   <div *ngIf="departmentsData.department" class="summary width-100">
-    <div *ngIf="departmentsData.department" class="nx-margin-bottom-2xs">
+    <div class="nx-margin-bottom-2xs">
       <sdc-department-summary [squads]="departmentsData.squads || []" [department]="departmentsData.department"></sdc-department-summary>
     </div>
   </div>

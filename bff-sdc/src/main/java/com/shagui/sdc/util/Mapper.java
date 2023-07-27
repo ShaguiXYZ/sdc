@@ -16,6 +16,9 @@ import com.shagui.sdc.core.exception.ApiError;
 import feign.FeignException;
 
 public class Mapper {
+	private Mapper() {
+	}
+
 	public static ApiError parse(FeignException ex) throws JSONException, JsonProcessingException {
 		ApiError error = new ApiError();
 		error.setStatus(HttpStatus.valueOf(ex.status()));
