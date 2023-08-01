@@ -45,11 +45,20 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 		return repository().findAll(pageInfo.getPageable());
 	}
 
+	@SuppressWarnings("unchecked")
 	default T save(T model) {
+		if (JpaAutoincrementRepository.class.isAssignableFrom(repository().getClass()) && model.getId() == null) {
+			synchronized (LockHolder.AUTOINCREMENT_LOCK) {
+				JpaAutoincrementRepository<K> auroincrementRepository = (JpaAutoincrementRepository<K>) repository();
+				model.setId(auroincrementRepository.nextId());
+				
+				return repository().save(model);
+			}
+		}
+		
 		return repository().save(model);
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	default T create(T model) {
 		if (model.getId() != null) {
 			Optional<T> data = repository().findById(model.getId());
@@ -58,13 +67,6 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 				throw new JpaNotFoundException();
 			}
 
-		} else if (JpaAutoincrementRepository.class.isAssignableFrom(repository().getClass())) {
-			synchronized (LockHolder.AUTOINCREMENT_LOCK) {
-				JpaAutoincrementRepository<K> auroincrementRepository = (JpaAutoincrementRepository<K>) repository();
-				model.setId(auroincrementRepository.nextId());
-
-				return save(model);
-			}
 		}
 
 		return save(model);

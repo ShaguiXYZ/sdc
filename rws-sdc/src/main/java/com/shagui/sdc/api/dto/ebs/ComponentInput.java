@@ -45,8 +45,8 @@ public class ComponentInput {
 				.orElseGet(this::defaultComponentParams);
 
 		staticComponentParams
-				// filters out parameters that do not exist in the model
 				.getParams().stream()
+				// filters out parameters that do not exist in the model
 				.filter(param -> model.getProperties().stream().map(ComponentPropertyModel::getName)
 						.noneMatch(propertyName -> propertyName.equals(param.getName())))
 				.map(param -> {

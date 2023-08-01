@@ -1,11 +1,15 @@
 package com.shagui.sdc.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -88,8 +92,27 @@ public class AnalysisServiceImpl implements AnalysisService {
 		Set<AnalysisType> metricTypes = component.getComponentTypeArchitecture().getMetrics().stream()
 				.map(MetricModel::getType).collect(Collectors.toSet());
 
-		return metricTypes.parallelStream().map(type -> metricServices.get(type.name()).analyze(component))
-				.map(saveChangesInMetrics).flatMap(List::stream).collect(Collectors.toList());
+		List<Future<List<ComponentAnalysisModel>>> futureTascs = new ArrayList<>();
+		metricTypes.forEach(type -> futureTascs
+				.add(CompletableFuture.supplyAsync(() -> metricServices.get(type.name()).analyze(component))
+						.thenApply(saveChangesInMetrics)));
+
+		while (futureTascs.stream().anyMatch(task -> !task.isDone() && !task.isCancelled()))
+			;
+
+		List<ComponentAnalysisModel> toSave = new ArrayList<>();
+		futureTascs.forEach(task -> {
+			try {
+				toSave.addAll(task.get());
+			} catch (InterruptedException e) {
+				log.error("Error getting task result!!!!!", e);
+				Thread.currentThread().interrupt();
+			} catch (ExecutionException e) {
+				log.error("Error getting task result!!!!!", e);
+			}
+		});
+
+		return toSave;
 	}
 
 	private List<ComponentAnalysisModel> saveReturnAnalysis(List<ComponentAnalysisModel> toSave) {
