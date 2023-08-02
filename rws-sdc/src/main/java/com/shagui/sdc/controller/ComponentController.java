@@ -1,5 +1,7 @@
 package com.shagui.sdc.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +11,9 @@ import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
+import com.shagui.sdc.api.dto.ebs.ComponentInput;
 import com.shagui.sdc.service.ComponentService;
+import com.shagui.sdc.service.DataMaintenanceService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -19,6 +23,9 @@ public class ComponentController implements ComponentRestApi {
 
 	@Autowired
 	private ComponentService componentService;
+	
+	@Autowired
+	private DataMaintenanceService dataMaintenanceService;
 
 	@Override
 	public ComponentDTO component(int componentId) {
@@ -33,6 +40,11 @@ public class ComponentController implements ComponentRestApi {
 	@Override
 	public ComponentDTO update(int id, ComponentDTO component) {
 		return componentService.update(id, component);
+	}
+
+	@Override
+	public ComponentDTO patch(ComponentInput data) {
+		return dataMaintenanceService.componentData(data);
 	}
 
 	@Override
@@ -58,5 +70,10 @@ public class ComponentController implements ComponentRestApi {
 	@Override
 	public PageData<MetricDTO> componentMetrics(int componentId) {
 		return componentService.componentMetrics(componentId);
+	}
+
+	@Override
+	public Map<String, String> dictionary(int componentId) {
+		return componentService.dictionary(componentId);
 	}
 }

@@ -1,5 +1,7 @@
 package com.shagui.sdc.service;
 
+import java.util.Map;
+
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.api.domain.RequestPageInfo;
@@ -24,4 +26,6 @@ public interface ComponentService {
 	PageData<ComponentDTO> filter(String name, Integer squadId, Range range, RequestPageInfo pageInfo);
 
 	PageData<MetricDTO> componentMetrics(int componentId);
+
+	Map<String, String> dictionary(int componentId);
 }

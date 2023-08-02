@@ -22,6 +22,10 @@ public interface DepartmentDataRestApi {
 	@PatchMapping("department")
 	DepartmentDTO department(@RequestBody DepartmentInput data);
 
+	@Operation(summary = "Update departments data", description = "Update departments data")
+	@PatchMapping("departments")
+	List<DepartmentDTO> departments(@RequestBody List<DepartmentInput> data);
+
 	@Operation(summary = "Update departments data from default json", description = "Update departments data")
 	@PatchMapping("jsonDefaultDepartments")
 	List<DepartmentDTO> jsonDepartments();
@@ -30,8 +34,4 @@ public interface DepartmentDataRestApi {
 	@PatchMapping("jsonDepartments")
 	List<DepartmentDTO> jsonDepartments(
 			@RequestParam(required = true, defaultValue = "data/departments-squads.json") @Parameter(description = "departments file path") String path);
-
-	@Operation(summary = "Update departments data", description = "Update departments data")
-	@PatchMapping("departments")
-	List<DepartmentDTO> departments(@RequestBody List<DepartmentInput> data);
 }

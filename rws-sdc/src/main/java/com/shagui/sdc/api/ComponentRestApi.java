@@ -1,8 +1,11 @@
 package com.shagui.sdc.api;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
+import com.shagui.sdc.api.dto.ebs.ComponentInput;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,8 +28,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 public interface ComponentRestApi {
 	@Operation(summary = "Retrieve component by Id")
 	@GetMapping("{componentId}")
-	ComponentDTO component(
-			@PathVariable @Parameter(description = "component identifier") int componentId);
+	ComponentDTO component(@PathVariable @Parameter(description = "component identifier") int componentId);
 
 	@Operation(summary = "Create new component")
 	@PostMapping
@@ -35,13 +38,15 @@ public interface ComponentRestApi {
 	@Operation(summary = "Update an specific Component", description = "Field componentId should match the componentId from url")
 	@PutMapping("{componentId}")
 	@ResponseStatus(HttpStatus.OK)
-	ComponentDTO update(
-			@PathVariable @Parameter(description = "component identifier") int componentId,
+	ComponentDTO update(@PathVariable @Parameter(description = "component identifier") int componentId,
 			@RequestBody ComponentDTO component);
 
+	@Operation(summary = "Update component data", description = "Update component data")
+	@PatchMapping("component")
+	ComponentDTO patch(@RequestBody ComponentInput data);
+
 	@GetMapping("squad/{squadId}")
-	PageData<ComponentDTO> squadComponents(
-			@PathVariable @Parameter(description = "Squad identifier") int squadId,
+	PageData<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
@@ -58,4 +63,9 @@ public interface ComponentRestApi {
 	@GetMapping("{componentId}/metrics")
 	PageData<MetricDTO> componentMetrics(
 			@PathVariable @Parameter(description = "component identifier") int componentId);
+
+	@Operation(summary = "Retrieve component dictionary")
+	@GetMapping("{componentId}/dictionary")
+	Map<String, String> dictionary(
+			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
 }

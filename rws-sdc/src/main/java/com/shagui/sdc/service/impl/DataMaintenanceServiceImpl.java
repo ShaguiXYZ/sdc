@@ -1,13 +1,21 @@
 package com.shagui.sdc.service.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
@@ -33,6 +41,14 @@ import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
 public class DataMaintenanceServiceImpl implements DataMaintenanceService {
+	@Value("classpath:data/departments-squads.json")
+	Resource jsonDepartmentsSquads;
+
+	@Autowired
+	private ObjectMapper mapper;
+	
+	@Autowired
+	private ResourceLoader resourceLoader;
 
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 	private JpaCommonRepository<ComponentUriRepository, ComponentUriModel, ComponentUriPk> componentUriRepository;
@@ -49,6 +65,34 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 		this.squadRepository = () -> squadRepository;
 		this.departmentRepository = () -> departmentRepository;
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
+	}
+	
+	@Transactional
+	@Override
+	public List<DepartmentDTO> jsonDepartments() {
+		try {
+			InputStream is = jsonDepartmentsSquads.getInputStream();
+			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
+			
+			return departmentsData(Arrays.asList(input));
+		} catch (IOException e) {
+			throw new SdcCustomException("Error reading departments", e);
+		}
+	}
+
+	@Transactional
+	@Override
+	public List<DepartmentDTO> jsonDepartments(String path) {
+		Resource resource = resourceLoader.getResource("classpath:" + path);
+		
+		try {
+			InputStream is = resource.getInputStream();
+			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
+			
+			return departmentsData(Arrays.asList(input));
+		} catch (IOException e) {
+			throw new SdcCustomException("Error reading departments", e);
+		}
 	}
 
 	@Transactional
@@ -72,7 +116,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	@Transactional
 	@Override
-	public ComponentDTO componentData(ComponentInput data) {
+	public synchronized ComponentDTO componentData(ComponentInput data) {
 		SquadModel squadModel = squadRepository.findExistingId(data.getSquad());
 		ComponentTypeArchitectureModel componentTypeArchitectureModel = componentTypeArchitectureRepository.repository()
 				.findByComponentTypeAndArchitectureAndNetworkAndDeploymentTypeAndPlatformAndLanguage(

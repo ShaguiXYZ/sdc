@@ -13,4 +13,8 @@ public interface DataMaintenanceService {
 	List<DepartmentDTO> departmentsData(List<DepartmentInput> data);
 
 	ComponentDTO componentData(ComponentInput data);
+
+	List<DepartmentDTO> jsonDepartments();
+
+	List<DepartmentDTO> jsonDepartments(String path);
 }

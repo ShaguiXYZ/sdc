@@ -1,5 +1,7 @@
 package com.shagui.sdc.service.impl;
 
+import java.util.Map;
+
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
 import com.shagui.sdc.service.ComponentService;
+import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
@@ -96,6 +99,11 @@ public class ComponentServiceImpl implements ComponentService {
 
 		return model.getComponentTypeArchitecture().getMetrics().stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public Map<String, String> dictionary(int componentId) {
+		return ComponentUtils.dictionaryOf(componentRepository.findExistingId(componentId));
 	}
 
 	private ComponentModel componentModel(ComponentDTO component) {
