@@ -24,6 +24,7 @@
 
   .state-info {
     width: -webkit-fill-available;
+    width: -moz-available;
 
     .application-count {
       font-weight: bold;
