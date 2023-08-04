@@ -118,19 +118,19 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Override
 	public synchronized ComponentDTO componentData(ComponentInput data) {
 		SquadModel squadModel = squadRepository.findExistingId(data.getSquad());
-		ComponentTypeArchitectureModel componentTypeArchitectureModel = componentTypeArchitectureRepository.repository()
+		ComponentTypeArchitectureModel componentTypeArchitecture = componentTypeArchitectureRepository.repository()
 				.findByComponentTypeAndArchitectureAndNetworkAndDeploymentTypeAndPlatformAndLanguage(
 						data.getComponentType(), data.getArchitecture(), data.getNetwork(), data.getDeploymentType(),
 						data.getPlatform(), data.getLanguage())
 				.orElseThrow(JpaNotFoundException::new);
 
-		ComponentModel model = componentRepository.repository()
+		ComponentModel component = componentRepository.repository()
 				.findBySquad_IdAndName(squadModel.getId(), data.getName()).orElseGet(defaultComponent(data));
 
-		model.setSquad(squadModel);
-		model.setComponentTypeArchitecture(componentTypeArchitectureModel);
+		component.setSquad(squadModel);
+		component.setComponentTypeArchitecture(componentTypeArchitecture);
 
-		ComponentModel savedComponent = componentRepository.save(model);
+		ComponentModel savedComponent = componentRepository.save(component);
 
 		data.getUriNames().forEach(saveUriComponent(savedComponent));
 

@@ -193,7 +193,7 @@ public class RwsTestUtils {
 
 		MetricModel source = new MetricModel();
 		source.setId(id);
-		source.setName("metric name");
+		source.setName("metric1");
 		source.setType(type);
 		source.setValidation(MetricValidation.EQ);
 		source.setValueType(MetricValueType.NUMERIC);

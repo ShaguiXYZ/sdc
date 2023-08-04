@@ -33,7 +33,7 @@ public class ComponentInput {
 
 	public ComponentModel asModel() {
 		ComponentModel model = new ComponentModel();
-		model.setName(this.getName());
+		model.setName(this.name);
 
 		this.getProperties().stream().map(ComponentPropertyInput::asModel).forEach(prop -> {
 			prop.setComponent(model);
@@ -41,7 +41,7 @@ public class ComponentInput {
 		});
 
 		ComponentParamsModel staticComponentParams = StaticRepository.componentParams().stream()
-				.filter(param -> param.getType().equals(this.getComponentType())).findFirst()
+				.filter(param -> param.getType().equals(this.componentType)).findFirst()
 				.orElseGet(this::defaultComponentParams);
 
 		staticComponentParams

@@ -34,15 +34,12 @@ class MetricServiceImplTest {
 	void init() {
 		MockitoAnnotations.openMocks(this);
 		Mapper.setConfig(RwsTestUtils.mapperConfig());
-
 	}
 
 	@Test
 	void constructorTest() {
-
 		MetricServiceImpl service = new MetricServiceImpl(metricRepositoryMock);
 		assertNotNull(service);
-
 	}
 
 	@Test
@@ -51,14 +48,12 @@ class MetricServiceImplTest {
 		when(metricRepositoryMock.save(any(MetricModel.class))).thenReturn(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML));
 		MetricDTO result = service.create(Mapper.parse(model));
 		assertNotNull(result);
-
 	}
 
 	@Test
 	void updateNotFoundTest() {
 		MetricModel model = RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML);
 		assertThrows(JpaNotFoundException.class, () -> service.update(1, Mapper.parse(model)));
-
 	}
 
 	@Test
@@ -76,5 +71,4 @@ class MetricServiceImplTest {
 		MetricDTO result =  service.update(1, Mapper.parse(model));
 		assertNotNull(result);
 	}
-
 }
