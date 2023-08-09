@@ -9,6 +9,7 @@ public class Ctes {
 		public static final String GIT_JSON = "GIT_JSON"; // = AnalysisType.GIT_JSON
 		public static final String GIT_XML = "GIT_XML"; // = AnalysisType.GIT_XML
 		public static final String SONAR = "SONAR"; // = AnalysisType.SONAR
+		public static final String DEPENDABOT = "DEPENDABOT"; // = DEPENDABOT
 
 		private ANALYSIS_SERVICES_TYPES() {
 		}

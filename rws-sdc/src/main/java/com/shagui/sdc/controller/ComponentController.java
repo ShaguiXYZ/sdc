@@ -33,18 +33,13 @@ public class ComponentController implements ComponentRestApi {
 	}
 
 	@Override
-	public ComponentDTO create(ComponentDTO component) {
-		return componentService.create(component);
+	public ComponentDTO create(ComponentInput data) {
+		return dataMaintenanceService.componentData(data);
 	}
 
 	@Override
 	public ComponentDTO update(int id, ComponentDTO component) {
 		return componentService.update(id, component);
-	}
-
-	@Override
-	public ComponentDTO patch(ComponentInput data) {
-		return dataMaintenanceService.componentData(data);
 	}
 
 	@Override

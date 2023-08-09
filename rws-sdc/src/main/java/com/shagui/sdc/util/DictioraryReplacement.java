@@ -49,23 +49,24 @@ public class DictioraryReplacement {
 			while (m.find()) {
 				String key = m.group();
 
-				if (keys.add(key) && dictionary.containsKey(key)) {
-					result = result.replaceAll(PRE_EXP + key.replace("$", "\\$") + POST_EXP, dictionary.get(key));
-				} else if (!dictionary.containsKey(key)) {
-					if (strict) {
-						throw new SdcCustomException(String.format("[STRICT] Not key %s found in repository", key));
-					}
+				if (keys.add(key)) {
+					if (dictionary.containsKey(key)) {
+						result = result.replaceAll(PRE_EXP + key.replace("$", "\\$") + POST_EXP, dictionary.get(key));
+					} else {
+						if (strict) {
+							throw new SdcCustomException(String.format("[STRICT] Not key %s found in repository", key));
+						}
 
-					log.debug(String.format("Not key %s found in repository", key));
+						log.debug(String.format("Not key %s found in repository", key));
 
-					if (defaultValue != null) {
-						result = result.replaceAll(PRE_EXP + key + POST_EXP, defaultValue);
+						if (defaultValue != null) {
+							result = result.replaceAll(PRE_EXP + key + POST_EXP, defaultValue);
+						}
 					}
 				}
 			}
 
 			return result;
-
 		}
 	}
 }

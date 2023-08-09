@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
+import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.StaticRepositoryConfig;
 import com.shagui.sdc.model.ComponentModel;
@@ -141,7 +142,7 @@ class DataMaintenanceServiceImplTest {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(RwsTestUtils.uriModelMock());
+				add(RwsTestUtils.uriModelMock(UriType.GIT));
 			}
 		});
 

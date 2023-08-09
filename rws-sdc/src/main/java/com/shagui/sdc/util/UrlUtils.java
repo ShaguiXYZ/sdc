@@ -53,13 +53,7 @@ public class UrlUtils {
 		}
 	}
 
-	public static Optional<UriModel> uriModel(ComponentModel component, UriType type) {
-		return StaticRepository.uris().stream().filter(uri -> type.equals(uri.getType()))
-				.filter(uri -> component.getUris().stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName())))
-				.findFirst();
-	}
-
-	public static Optional<UriModel> uri(ComponentModel component, UriType type) {
+	public static Optional<UriModel> componentUri(ComponentModel component, UriType type) {
 		return Optional.ofNullable(uriModel(component, type).map(data -> {
 			UriModel uri = config.getObjectMapper().convertValue(data, UriModel.class);
 			uri.setValue(DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true)
@@ -73,4 +67,9 @@ public class UrlUtils {
 				.map(RequestPropertiesModel::getValue).findFirst();
 	}
 
+	private static Optional<UriModel> uriModel(ComponentModel component, UriType type) {
+		return StaticRepository.uris().stream().filter(uri -> type.equals(uri.getType()))
+				.filter(uri -> component.getUris().stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName())))
+				.findFirst();
+	}
 }

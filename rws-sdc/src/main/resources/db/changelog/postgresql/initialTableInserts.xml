@@ -64,6 +64,11 @@
 				 ('bff java version','properties/java.version','GIT_XML','VERSION','LTE'),
 				 ('rws java version','properties/java.version','GIT_XML','VERSION','LTE'),
 				 ('angular version','devDependencies.@angular/cli','GIT_JSON','VERSION','LTE');
+			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
+				 ('low severity','low_severity','DEPENDABOT','NUMERIC','LTE'),
+				 ('medium severity','medium_severity','DEPENDABOT','NUMERIC','LTE'),
+				 ('high severity','high_severity','DEPENDABOT','NUMERIC','LTE'),
+				 ('critical severity','critical_severity','DEPENDABOT','NUMERIC','LTE');
 		</sql>
 	</changeSet>
 
@@ -143,10 +148,12 @@
 	<changeSet author="initial" id="20230707_50016">
 		<sql dbms="postgresql">
 			INSERT INTO component_uris (component_id,uri_name) VALUES
-				 (1,'public-repo'),
-				 (2,'private-repo'),
-				 (3,'sonar-repo-example'),
-				 (4,'sonar-repo-example');
+				 (1,'git-public'),
+				 (1,'dependabot'),
+				 (2,'git-private'),
+				 (2,'dependabot'),
+				 (3,'sonar-repo'),
+				 (4,'sonar-repo');
 		</sql>
 	</changeSet>
 
@@ -160,7 +167,8 @@
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (9,21),
 				 (9,22),
-				 (9,23);
+				 (9,23),
+				 (9,24);
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (15,1),
 				 (15,2),

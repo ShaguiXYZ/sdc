@@ -48,7 +48,7 @@ class ComponentTypeArchitectureServiceTest {
 
 	@Test
 	void componentTypeMetricsTest() {
-		when(metricRepositoryMock.findByName(anyString())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML)));
+		when(metricRepositoryMock.findByName(anyString())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "git metric")));
 		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString())).thenReturn(new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
 
@@ -83,7 +83,7 @@ class ComponentTypeArchitectureServiceTest {
 
 	@Test
 	void componentTypeMetricsNonPropertyPresentTest() {
-		when(metricRepositoryMock.findByName(anyString())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML)));
+		when(metricRepositoryMock.findByName(anyString())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "git metric")));
 		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString())).thenReturn(new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
 

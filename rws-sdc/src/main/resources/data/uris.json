@@ -1,12 +1,12 @@
 [
 	{
-		"name": "public-repo",
+		"name": "git-public",
 		"value": "https://api.github.com/repos/#{organization}/#{$name}/contents",
 		"type": "GIT",
 		"properties": []
 	},
 	{
-		"name": "private-repo",
+		"name": "git-private",
 		"value": "https://api.github.com/repos/#{organization}/#{$name}/contents",
 		"type": "GIT",
 		"properties": [
@@ -17,7 +17,18 @@
 		]
 	},
 	{
-		"name": "sonar-repo-example",
+		"name": "dependabot",
+		"value": "https://api.github.com/repos/#{organization}/#{$name}/dependabot/alerts?state=open",
+		"type": "DEPENDABOT",
+		"properties": [
+			{
+				"name": "Authorization",
+				"value": "#{git-authorization-type} #{git-authorization}"
+			}
+		]
+	},
+	{
+		"name": "sonar-repo",
 		"value": "https://sonarqube.inria.fr/sonarqube/api",
 		"type": "SONAR",
 		"properties": []

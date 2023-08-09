@@ -76,8 +76,10 @@ public class RwsTestUtils {
 	private static ObjectMapper objectMapper;
 
 	public static String XML_RESPONSE_TEST = "<data><project><properties><version>1</version><version2>2</version2></properties></project></data>";
+	public static String JSON_SONAR_CONTENT = "{\"measures\":[{\"metric\":\"alert_status\",\"value\":\"ERROR\",\"component\":\"component:test\"},{\"metric\":\"blocker_violations\",\"value\":\"162\",\"component\":\"component:test\"}]}";
 	public static String JSON_RESPONSE_TEST = "{\"id\": 100,\"name\": \"generic response\"}";
 	public static String JSON_GIT_CONTENT = "{\"name\": \"generic response\", \"download_url\": \"http://www.url-pom.xml\",\"content\":\"%s\"}";
+	public static String JSON_DEPENDABOT_CONTENT = "[]";
 
 	public static String gitContentResponse(String content) {
 		return String.format(JSON_GIT_CONTENT, Base64.encodeBase64String(content.getBytes()));
@@ -131,8 +133,10 @@ public class RwsTestUtils {
 
 	public static ComponentTypeArchitectureModel componentTypeArchitectureModelMock() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
-		metrics.add(metricModelMock(1, AnalysisType.GIT_XML));
-		metrics.add(metricModelMock(2, AnalysisType.GIT_JSON));
+		metrics.add(metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
+		metrics.add(metricModelMock(2, AnalysisType.GIT_JSON, "git metric"));
+		metrics.add(metricModelMock(3, AnalysisType.DEPENDABOT, "low_severity"));
+		metrics.add(metricModelMock(4, AnalysisType.SONAR, "sonar metric"));
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);
@@ -168,7 +172,6 @@ public class RwsTestUtils {
 
 		squad.setDepartment(department);
 
-
 		List<ComponentUriModel> uris = new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
 
@@ -189,11 +192,12 @@ public class RwsTestUtils {
 		return source;
 	}
 
-	public static MetricModel metricModelMock(Integer id, AnalysisType type) {
+	public static MetricModel metricModelMock(Integer id, AnalysisType type, String value) {
 
 		MetricModel source = new MetricModel();
 		source.setId(id);
 		source.setName("metric1");
+		source.setValue(value);
 		source.setType(type);
 		source.setValidation(MetricValidation.EQ);
 		source.setValueType(MetricValueType.NUMERIC);
@@ -246,7 +250,7 @@ public class RwsTestUtils {
 		MetricValuesModel mock = new MetricValuesModel();
 		mock.setId(1);
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
-		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML));
+		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
 		mock.setMetricValueDate(new Date());
 		mock.setValue("0.0");
 		mock.setGoodValue("10.0");
@@ -260,7 +264,7 @@ public class RwsTestUtils {
 		ComponentAnalysisModel mock = new ComponentAnalysisModel();
 		mock.setId(new ComponentAnalysisPk(1, 1, new Date()));
 		mock.setComponent(componentModelMock());
-		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML));
+		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
 		mock.setValue(value);
 
@@ -323,24 +327,24 @@ public class RwsTestUtils {
 		return componentUriModel;
 	}
 
-	public static UriModel uriModelMock() {
+	public static UriModel uriModelMock(UriType type) {
 		UriModel uri = new UriModel();
 		uri.setName("uri_name");
 		uri.setValue("");
-		uri.setType(UriType.GIT);
+		uri.setType(type);
 		uri.setProperties(new ArrayList<>());
 
 		return uri;
 	}
-	
+
 	public static ComponetTypeArchitectureMetricPropertiesModel componetTypeArchitectureMetricPropertiesModelMock() {
 		ComponetTypeArchitectureMetricPropertiesModel model = new ComponetTypeArchitectureMetricPropertiesModel();
 		model.setId(1);
 		model.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
-		model.setMetric(metricModelMock(1, AnalysisType.GIT_XML));
+		model.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
 		model.setName("PATH");
 		model.setValue("path");
-		
+
 		return model;
 	}
 }

@@ -2,21 +2,6 @@
 	{
 		"type": "_",
 		"params": [
-			{
-				"name": "ngx_path",
-				"pre": "ngx",
-				"post": ""
-			},
-			{
-				"name": "bff_path",
-				"pre": "rws-bff",
-				"post": "web"
-			},
-			{
-				"name": "rws_path",
-				"pre": "rws",
-				"post": "web"
-			}
 		]
 	},
 	{

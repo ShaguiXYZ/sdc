@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.client.GitClient;
 import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.StaticRepositoryConfig;
 import com.shagui.sdc.model.ComponentAnalysisModel;
@@ -62,7 +63,7 @@ class GitJsonServiceTest {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(RwsTestUtils.uriModelMock());
+				add(RwsTestUtils.uriModelMock(UriType.GIT));
 			}
 		});
 	}

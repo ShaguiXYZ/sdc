@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,17 +32,13 @@ public interface ComponentRestApi {
 	@Operation(summary = "Create new component")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	ComponentDTO create(@RequestBody ComponentDTO component);
+	ComponentDTO create(@RequestBody ComponentInput data);
 
 	@Operation(summary = "Update an specific Component", description = "Field componentId should match the componentId from url")
 	@PutMapping("{componentId}")
 	@ResponseStatus(HttpStatus.OK)
 	ComponentDTO update(@PathVariable @Parameter(description = "component identifier") int componentId,
 			@RequestBody ComponentDTO component);
-
-	@Operation(summary = "Update component data", description = "Update component data")
-	@PatchMapping("component")
-	ComponentDTO patch(@RequestBody ComponentInput data);
 
 	@GetMapping("squad/{squadId}")
 	PageData<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,

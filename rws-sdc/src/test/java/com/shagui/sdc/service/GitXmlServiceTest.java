@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.client.GitClient;
 import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.StaticRepositoryConfig;
 import com.shagui.sdc.model.ComponentAnalysisModel;
@@ -64,7 +65,7 @@ class GitXmlServiceTest {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(RwsTestUtils.uriModelMock());
+				add(RwsTestUtils.uriModelMock(UriType.GIT));
 			}
 		});
 	}
@@ -94,7 +95,7 @@ class GitXmlServiceTest {
 	@Test
 	void testAnalyzeRuntimeException() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
-		metrics.add(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML));
+		metrics.add(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
 
 		List<ComponentUriModel> uris = new ArrayList<>();
 		uris.add(RwsTestUtils.componentUriModelMock());

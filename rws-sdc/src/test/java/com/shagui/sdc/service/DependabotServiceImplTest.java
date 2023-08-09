@@ -2,7 +2,6 @@ package com.shagui.sdc.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.net.URI;
@@ -15,22 +14,22 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.shagui.sdc.api.client.SonarClient;
+import com.shagui.sdc.api.client.GitClient;
 import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.StaticRepositoryConfig;
 import com.shagui.sdc.model.ComponentAnalysisModel;
-import com.shagui.sdc.service.impl.SonarServiceImpl;
+import com.shagui.sdc.service.impl.DependabotServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
 
-class SonarServiceImplTest {
+class DependabotServiceImplTest {
 
 	@InjectMocks
-	private SonarServiceImpl service;
+	DependabotServiceImpl service;
 
 	@Mock
-	private SonarClient sonarClient;
+	private GitClient gitClient;
 
 	@Mock
 	private StaticRepositoryConfig staticRepositoryConfig;
@@ -45,18 +44,18 @@ class SonarServiceImplTest {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(RwsTestUtils.uriModelMock(UriType.SONAR));
+				add(RwsTestUtils.uriModelMock(UriType.DEPENDABOT));
 			}
 		});
 	}
 
 	@Test
 	void analyzeTest() {
-		when(sonarClient.measures(any(URI.class), anyString(), anyString())).thenReturn(
-				RwsTestUtils.response(200, RwsTestUtils.JSON_SONAR_CONTENT));
+		when(gitClient.repoFile(any(URI.class))).thenReturn(
+				RwsTestUtils.response(200, RwsTestUtils.JSON_DEPENDABOT_CONTENT));
 
 		List<ComponentAnalysisModel> result = service.analyze(RwsTestUtils.componentModelMock());
-		assertEquals(new ArrayList<>(), result);
+		assertEquals(1, result.size());
 	}
 
 }

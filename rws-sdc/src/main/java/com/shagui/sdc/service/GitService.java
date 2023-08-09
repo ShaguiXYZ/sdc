@@ -90,21 +90,21 @@ public abstract class GitService implements AnalysisInterface {
 
 	private List<ComponentAnalysisModel> getResponse(ComponentModel component, List<MetricModel> metrics,
 			SdcDocument docuemnt) {
-		return metrics.stream().map(data -> {
-			Optional<String> value = docuemnt.fromPath(data.getValue());
-			return new ComponentAnalysisModel(component, data, value.isPresent() ? value.get() : "N/A");
+		return metrics.stream().map(metric -> {
+			Optional<String> value = docuemnt.fromPath(metric.getValue());
+			return new ComponentAnalysisModel(component, metric, value.isPresent() ? value.get() : "N/A");
 		}).collect(Collectors.toList());
 	}
 
 	private ContentDTO retrieveGitData(ComponentModel component, String path) {
-		Optional<String> uri = uri(component, path);
+		Optional<UriModel> uri = uri(component, path);
 
 		if (uri.isPresent()) {
-			Optional<String> authorizationHeader = authorization(component);
+			Optional<String> authorizationHeader = authorization(uri.get());
 
 			Response response = authorizationHeader.isPresent()
-					? gitClient.repoFile(URI.create(uri.get()), authorizationHeader.get())
-					: gitClient.repoFile(URI.create(uri.get()));
+					? gitClient.repoFile(URI.create(uri.get().getValue()), authorizationHeader.get())
+					: gitClient.repoFile(URI.create(uri.get().getValue()));
 
 			return UrlUtils.mapResponse(response, ContentDTO.class);
 		}
@@ -112,16 +112,10 @@ public abstract class GitService implements AnalysisInterface {
 		return null;
 	}
 
-	private Optional<String> authorization(ComponentModel component) {
-		String authorization = null;
-		Optional<UriModel> uriModel = UrlUtils.uriModel(component, UriType.GIT);
+	private Optional<String> authorization(UriModel uriModel) {
+		Optional<String> authorization = UrlUtils.uriProperty(uriModel, Ctes.URI_PROPERTIES.AUTHORIZATION);
 
-		if (uriModel.isPresent()) {
-			authorization = UrlUtils.uriProperty(uriModel.get(), Ctes.URI_PROPERTIES.AUTHORIZATION).orElse(null);
-		}
-
-		return Optional.ofNullable(authorization)
-				.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
+		return authorization.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
 	}
 
 	private SdcDocument sdcDocument(ContentDTO gitData) {
@@ -145,16 +139,14 @@ public abstract class GitService implements AnalysisInterface {
 		return SdcDocumentFactory.newInstance(is, documentOf());
 	}
 
-	private Optional<String> uri(ComponentModel component, String path) {
-		String uri = null;
-		Optional<UriModel> uriModel = UrlUtils.uri(component, UriType.GIT);
+	private Optional<UriModel> uri(ComponentModel component, String path) {
+		return UrlUtils.componentUri(component, UriType.GIT).map(model -> {
+			String uri = Arrays.asList(model.getValue(), path).stream().filter(StringUtils::hasText)
+					.collect(Collectors.joining("/"));
+			model.setValue(uri);
 
-		if (uriModel.isPresent()) {
-			uri = uriModel.get().getValue();
-			uri = Arrays.asList(uri, path).stream().filter(StringUtils::hasText).collect(Collectors.joining("/"));
-		}
-
-		return Optional.ofNullable(uri);
+			return model;
+		});
 	}
 
 	private Map<String, List<MetricModel>> metricPaths(ComponentModel component) {

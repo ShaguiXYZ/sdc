@@ -19,7 +19,9 @@ import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
+import com.shagui.sdc.api.dto.ebs.ComponentInput;
 import com.shagui.sdc.service.ComponentService;
+import com.shagui.sdc.service.DataMaintenanceService;
 
 class ComponentControllerTest {
 
@@ -29,6 +31,9 @@ class ComponentControllerTest {
 	@Mock
 	private ComponentService componentService;
 
+	@Mock
+	private DataMaintenanceService dataMaintenanceService;
+
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
@@ -36,7 +41,6 @@ class ComponentControllerTest {
 
 	@Test
 	void componentTest() {
-
 		ComponentDTO value = new ComponentDTO();
 		when(componentService.findBy(anyInt())).thenReturn(value);
 		ComponentDTO result = controller.component(1);
@@ -45,16 +49,14 @@ class ComponentControllerTest {
 
 	@Test
 	void createTest() {
-
-		ComponentDTO value = new ComponentDTO();
-		when(componentService.create(any(ComponentDTO.class))).thenReturn(value);
+		ComponentInput value = new ComponentInput();
+		when(dataMaintenanceService.componentData(any(ComponentInput.class))).thenReturn(new ComponentDTO());
 		ComponentDTO result = controller.create(value);
 		assertNotNull(result);
 	}
 
 	@Test
 	void updateTest() {
-
 		ComponentDTO value = new ComponentDTO();
 		when(componentService.update(anyInt(), any(ComponentDTO.class))).thenReturn(value);
 		ComponentDTO result = controller.update(1, value);
@@ -63,7 +65,6 @@ class ComponentControllerTest {
 
 	@Test
 	void filterPageNullTest() {
-
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>(new ArrayList<ComponentDTO>());
 		when(componentService.filter(anyString(), anyInt(), any(Range.class))).thenReturn(value);
 		PageData<ComponentDTO> result = controller.filter("test", 1, (float) 50.1, (float) 70.1, null, 1);
@@ -72,7 +73,6 @@ class ComponentControllerTest {
 
 	@Test
 	void filterWithPageTest() {
-
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>(new ArrayList<ComponentDTO>());
 		when(componentService.filter(anyString(), anyInt(), any(Range.class), any(RequestPageInfo.class)))
 				.thenReturn(value);
@@ -82,7 +82,6 @@ class ComponentControllerTest {
 
 	@Test
 	void squadComponentsNullTest() {
-
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>(new ArrayList<ComponentDTO>());
 		when(componentService.squadComponents(anyInt())).thenReturn(value);
 		PageData<ComponentDTO> result = controller.squadComponents(1, null, 1);
@@ -91,7 +90,6 @@ class ComponentControllerTest {
 
 	@Test
 	void squadComponentsNotNullTest() {
-
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>(new ArrayList<ComponentDTO>());
 		when(componentService.squadComponents(anyInt(), any(RequestPageInfo.class))).thenReturn(value);
 		PageData<ComponentDTO> result = controller.squadComponents(1, 1, 1);
@@ -100,7 +98,6 @@ class ComponentControllerTest {
 
 	@Test
 	void componentMetricsTest() {
-
 		PageData<MetricDTO> value = new PageData<MetricDTO>(new ArrayList<MetricDTO>());
 		when(componentService.componentMetrics(anyInt())).thenReturn(value);
 		PageData<MetricDTO> result = controller.componentMetrics(1);
