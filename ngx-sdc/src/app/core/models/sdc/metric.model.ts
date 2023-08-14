@@ -13,6 +13,7 @@ export enum ValidationType {
   GT = 'GT',
   LT = 'LT',
   EQ = 'EQ',
+  NEQ = 'NEQ',
   GTE = 'GTE',
   LTE = 'LTE'
 }

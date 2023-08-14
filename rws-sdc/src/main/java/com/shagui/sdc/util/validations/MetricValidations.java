@@ -62,6 +62,10 @@ public class MetricValidations {
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 0)
 					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
+		case NEQ:
+			coverage = control.stream().filter(c -> c.getControl().compareTo(value) != 0)
+					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+			break;
 		case GT:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) > 0)
 					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());

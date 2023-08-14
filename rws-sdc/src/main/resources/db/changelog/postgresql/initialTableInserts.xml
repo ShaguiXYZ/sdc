@@ -39,36 +39,38 @@
 	<changeSet author="initial" id="20230707_50009">
 		<sql dbms="postgresql">
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
-				 ('coverage','coverage','SONAR','NUMERIC','LTE'),
+				 ('Junit Coverage','coverage','SONAR','NUMERIC','LTE'),
 				 ('alert status','alert_status','SONAR',NULL,NULL),
-				 ('bugs','bugs','SONAR','NUMERIC','GTE'),
-				 ('reliability rating','reliability_rating','SONAR',NULL,NULL),
-				 ('vulnerabilities','vulnerabilities','SONAR','NUMERIC','GTE'),
-				 ('security rating','security_rating','SONAR',NULL,NULL),
-				 ('security hotspots reviewed','security_hotspots_reviewed','SONAR',NULL,NULL),
-				 ('security review rating','security_review_rating','SONAR',NULL,NULL),
-				 ('code smells','code_smells','SONAR',NULL,NULL),
-				 ('sqale rating','sqale_rating','SONAR',NULL,NULL);
+				 ('Bugs','bugs','SONAR','NUMERIC','GTE'),
+				 ('Reliability Rating','reliability_rating','SONAR',NULL,NULL),
+				 ('Vulnerabilities','vulnerabilities','SONAR','NUMERIC','GTE'),
+				 ('Security Rating','security_rating','SONAR',NULL,NULL),
+				 ('Recurity Hotspots Reviewed','security_hotspots_reviewed','SONAR',NULL,NULL),
+				 ('Security Review Rating','security_review_rating','SONAR',NULL,NULL),
+				 ('Code Smells','code_smells','SONAR',NULL,NULL),
+				 ('Sqale Index','sqale_index','SONAR',NULL,NULL);
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
 				 ('duplicated lines density','duplicated_lines_density','SONAR','NUMERIC','GTE'),
 				 ('ncloc','ncloc','SONAR',NULL,NULL),
 				 ('ncloc language distribution','ncloc_language_distribution','SONAR',NULL,NULL),
 				 ('projects','projects','SONAR',NULL,NULL),
 				 ('info violations','info_violations','SONAR','NUMERIC','GTE'),
-				 ('minor violations','minor_violations','SONAR','NUMERIC','GTE'),
-				 ('major violations','major_violations','SONAR','NUMERIC','GTE'),
-				 ('critical violations','critical_violations','SONAR','NUMERIC','GTE'),
-				 ('blocker violations','blocker_violations','SONAR','NUMERIC','GTE');
+				 ('Minor Errors','minor_violations','SONAR','NUMERIC','GTE'),
+				 ('Major Errors','major_violations','SONAR','NUMERIC','GTE'),
+				 ('Critical Errors','critical_violations','SONAR','NUMERIC','GTE'),
+				 ('Blocker Errors','blocker_violations','SONAR','NUMERIC','GTE');
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
-				 ('parent version','parent/version','GIT_XML','VERSION','LTE'),
+				 ('Legacy parent version','parent/version','GIT_XML','VERSION','LTE'),
 				 ('bff java version','properties/java.version','GIT_XML','VERSION','LTE'),
-				 ('rws java version','properties/java.version','GIT_XML','VERSION','LTE'),
-				 ('angular version','devDependencies.@angular/cli','GIT_JSON','VERSION','LTE');
+				 ('Microservice parent version','parent/version','GIT_XML','VERSION','LTE'),
+				 ('Angular Version','devDependencies.@angular/cli','GIT_JSON','VERSION','LTE');
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
-				 ('low severity','low_severity','DEPENDABOT','NUMERIC','LTE'),
-				 ('medium severity','medium_severity','DEPENDABOT','NUMERIC','LTE'),
-				 ('high severity','high_severity','DEPENDABOT','NUMERIC','LTE'),
-				 ('critical severity','critical_severity','DEPENDABOT','NUMERIC','LTE');
+				 ('Low Vulnerabilites','low_severity','DEPENDABOT','NUMERIC','GTE'),
+				 ('Medium Vulnerabilities','medium_severity','DEPENDABOT','NUMERIC','GTE'),
+				 ('High Vulnerabilites','high_severity','DEPENDABOT','NUMERIC','GTE'),
+				 ('Critical Vulnerabilities','critical_severity','DEPENDABOT','NUMERIC','GTE');
+			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
+				 ('Code Lines','lines','SONAR','NUMERIC',NULL);
 		</sql>
 	</changeSet>
 

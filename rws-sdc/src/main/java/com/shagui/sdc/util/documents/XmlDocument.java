@@ -41,6 +41,10 @@ public class XmlDocument implements SdcDocument {
 
 	@Override
 	public Optional<String> fromPath(String path) {
+		return streamFromPath(path).findFirst();
+	}
+	
+	private Stream<String> streamFromPath(String path) {
 		try {
 			XPathFactory xPathfactory = XPathFactory.newInstance();
 			XPath xpath = xPathfactory.newXPath();
@@ -50,10 +54,11 @@ public class XmlDocument implements SdcDocument {
 			log.debug("Num nodes from '{}': {}", path, list.getLength());
 
 			Stream<Node> nodeStream = IntStream.range(0, list.getLength()).mapToObj(list::item);
-			return nodeStream.filter(n -> n.getNodeType() == Node.ELEMENT_NODE).map(Node::getTextContent).findFirst();
+			return nodeStream.filter(n -> n.getNodeType() == Node.ELEMENT_NODE).map(Node::getTextContent);
 		} catch (XPathExpressionException e) {
 			throw new SdcCustomException(String.format("ERROR in metric '%s'.", path), e);
 		}
+
 	}
 
 	private DocumentBuilder documentBuilder() throws ParserConfigurationException {

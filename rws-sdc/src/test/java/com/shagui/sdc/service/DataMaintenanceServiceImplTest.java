@@ -81,11 +81,11 @@ class DataMaintenanceServiceImplTest {
 
 	@Test
 	void updateNotFoundDepartmentDataTest() {
-		Optional<DepartmentModel> departmentOptional = Optional.ofNullable(null);
+		Optional<DepartmentModel> departmentOptional = Optional.empty();
 		when(departmentRepositoryMock.findById(anyInt())).thenReturn(departmentOptional);
 		when(departmentRepositoryMock.save(any(DepartmentModel.class))).thenReturn(RwsTestUtils.departmentModelMock());
 
-		Optional<SquadModel> squadOptional = Optional.ofNullable(null);
+		Optional<SquadModel> squadOptional = Optional.empty();
 		when(squadRepositoryMock.findById(anyInt())).thenReturn(squadOptional);
 		when(squadRepositoryMock.save(any(SquadModel.class))).thenReturn(RwsTestUtils.squadModelMock());
 

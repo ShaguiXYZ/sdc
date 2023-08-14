@@ -84,9 +84,9 @@ public class DependabotServiceImpl implements DependabotService {
 		private DependabotMetricLibrary() {
 		}
 
-		private static Function<List<DependabotAlertDTO>, String> vulnerabilityCountFn(String metric) {
+		private static Function<List<DependabotAlertDTO>, String> vulnerabilityCountFn(String vulnerability) {
 			return data -> String.valueOf(data.stream().filter(
-					alert -> alert.getVulnerability() != null && metric.equals(alert.getVulnerability().getSeverity()))
+					alert -> alert.getVulnerability() != null && vulnerability.equals(alert.getVulnerability().getSeverity()))
 					.count());
 		}
 	}

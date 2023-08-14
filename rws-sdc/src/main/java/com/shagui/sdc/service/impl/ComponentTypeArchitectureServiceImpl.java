@@ -6,18 +6,23 @@ import java.util.Objects;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.MetricPropertiesDTO;
+import com.shagui.sdc.api.dto.MetricValuesDTO;
+import com.shagui.sdc.api.dto.MetricValuesOutDTO;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponetTypeArchitectureMetricPropertiesModel;
 import com.shagui.sdc.model.MetricModel;
+import com.shagui.sdc.model.MetricValuesModel;
 import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
 import com.shagui.sdc.repository.MetricRepository;
+import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.service.ComponentTypeArchitectureService;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
@@ -27,13 +32,16 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
 	private JpaCommonRepository<ComponentTypeArchitectureMetricPropertiesRepository, ComponetTypeArchitectureMetricPropertiesModel, Integer> componentTypeArchitectureMetricPropertiesRepository;
+	private JpaCommonRepository<MetricValueRepository, MetricValuesModel, Integer> metricValueRepository;
 
 	public ComponentTypeArchitectureServiceImpl(ComponentTypeArchitectureRepository componentTypeArchitectureRepository,
 			MetricRepository metricRepository,
-			ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRepository) {
+			ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRepository,
+			MetricValueRepository metricValueRepository) {
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
 		this.metricRepository = () -> metricRepository;
 		this.componentTypeArchitectureMetricPropertiesRepository = () -> componentTypeArchitectureMetricPropertiesRepository;
+		this.metricValueRepository = () -> metricValueRepository;
 	}
 
 	@Override
@@ -50,6 +58,27 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 		return componentTypeArchitectures.stream()
 				.map(patchComponentTypeArchitectureMetrics(metricsToSave, metricProperties)).map(Mapper::parse)
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<MetricValuesOutDTO> defineMetricValues(String componentType, String architecture, String metricName,
+			MetricValuesDTO values) {
+		MetricModel metric = metricRepository.repository().findByName(metricName)
+				.orElseThrow(() -> new SdcCustomException(String.format("Metric %s Not found", metricName)));
+		List<ComponentTypeArchitectureModel> componentTypeArchitectures = componentTypeArchitectures(componentType,
+				architecture).stream()
+				.filter(componentTypeArchitecture -> componentTypeArchitecture.getMetrics().stream()
+						.anyMatch(caMetric -> caMetric.getId().equals(metric.getId())))
+				.collect(Collectors.toList());
+
+		return componentTypeArchitectures.stream().map(componentTypeArchitecture -> {
+			MetricValuesModel model = new MetricValuesModel();
+			model.setComponentTypeArchitecture(componentTypeArchitecture);
+			model.setMetric(metric);
+			BeanUtils.copyProperties(values, model);
+			
+			return model;
+		}).map(metricValueRepository::create).map(MetricValuesOutDTO::new).collect(Collectors.toList());
 	}
 
 	private List<ComponentTypeArchitectureModel> componentTypeArchitectures(String componentType, String architecture) {

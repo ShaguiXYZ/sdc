@@ -18,12 +18,16 @@ import org.mockito.MockitoAnnotations;
 
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.MetricPropertiesDTO;
+import com.shagui.sdc.api.dto.MetricValuesDTO;
+import com.shagui.sdc.api.dto.MetricValuesOutDTO;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.MetricModel;
+import com.shagui.sdc.model.MetricValuesModel;
 import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
 import com.shagui.sdc.repository.MetricRepository;
+import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.service.impl.ComponentTypeArchitectureServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
@@ -40,6 +44,9 @@ class ComponentTypeArchitectureServiceTest {
 
 	@Mock
 	private MetricRepository metricRepositoryMock;
+
+	@Mock
+	private MetricValueRepository metricValueRepositoryMock;
 
 	@BeforeEach
 	void init() {
@@ -116,4 +123,22 @@ class ComponentTypeArchitectureServiceTest {
 		assertNotNull(result);
 	}
 
+	@Test
+	void defineMetricValuesTest() {
+		when(metricRepositoryMock.findByName(anyString())).thenReturn(Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "git metric")));
+		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString())).thenReturn(new ArrayList<>() {
+			private static final long serialVersionUID = 1L;
+
+			{
+				add(RwsTestUtils.componentTypeArchitectureModelMock());
+			}}
+		);
+		when(metricValueRepositoryMock.save(any(MetricValuesModel.class))).thenReturn(RwsTestUtils.metricValuesModelMock());
+		
+		List<MetricValuesOutDTO> result = service.defineMetricValues("componentType", "architecture", "metricName", new MetricValuesDTO() {{
+			setGoodValue("1");
+		}});
+
+		assertNotNull(result);		
+	}
 }
