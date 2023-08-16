@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { UniqueIds } from '../../lib';
+import { UniqueIds, _console } from '../../lib';
 import { UiTaskScheduler } from './model';
 
 interface SchedulerSubscription {
@@ -45,7 +45,7 @@ export class UiSchedulerService {
 
     this.schedulers.set(id, new UiTaskScheduler<D>(task, period));
 
-    console.log(`Scheduler ${id} created...`, this);
+    _console.log(`Scheduler ${id} created...`, this);
 
     return id;
   }
@@ -66,7 +66,7 @@ export class UiSchedulerService {
     this.schedulers.get(scheduleId)?.unregister();
     this.schedulers.delete(scheduleId);
 
-    console.log(`Scheduler ${scheduleId} finisehd...`, this.subscription$);
+    _console.log(`Scheduler ${scheduleId} finisehd...`, this.subscription$);
   }
 
   /**
@@ -83,7 +83,7 @@ export class UiSchedulerService {
       const subscriptionId = `${UniqueIds.next()}`;
       this.subscription$.set(subscriptionId, { schedulerId, subscriptionId, subscription: scheduler.register().subscribe(fn) });
 
-      console.log(`Subscribe ${subscriptionId} task...`, this);
+      _console.log(`Subscribe ${subscriptionId} task...`, this);
 
       return subscriptionId;
     }
@@ -107,7 +107,7 @@ export class UiSchedulerService {
 
     this.subscription$.delete(subscriptionId);
 
-    console.log(`Unsubscribe ${subscriptionId} task...`, this);
+    _console.log(`Unsubscribe ${subscriptionId} task...`, this);
   }
 
   /**

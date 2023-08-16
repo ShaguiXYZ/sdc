@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { Observable, firstValueFrom, of, take } from 'rxjs';
-import { emptyFn, hasValue } from '../../lib';
+import { emptyFn, hasValue, _console } from '../../lib';
 import { UiSchedulerService } from '../task-scheduler';
 import { MIN_CACHE_SCHEDULER_PERIOD, NX_CONTEX_CONFIG } from './constatnts';
 import { UiContextDataService } from './context-data.service';
@@ -39,7 +39,7 @@ export class UiCacheService implements OnDestroy {
   public set(key: string, data: any, expiration?: number) {
     this.contextData.cache[key] = { data, expiration };
 
-    console.log(`cache data ${key} added`, {
+    _console.log(`cache data ${key} added`, {
       'expited-on': expiration ? `${new Date(expiration)}` : 'never',
       data
     });
@@ -48,13 +48,13 @@ export class UiCacheService implements OnDestroy {
   public get(key: string): any {
     const data = this.contextData.cache[key];
 
-    console.log(`Retrieving cache data ${key}`, data);
+    _console.log(`Retrieving cache data ${key}`, data);
 
     return data && (!data.expiration || data.expiration > new Date().getTime()) ? data.data : undefined;
   }
 
   public delete = (key: string) => {
-    console.log(`deleting ${key} from cache`);
+    _console.log(`deleting ${key} from cache`);
 
     delete this.contextData.cache[key];
   };

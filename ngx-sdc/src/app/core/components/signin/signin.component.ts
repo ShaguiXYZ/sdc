@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UiSecurityService } from 'src/app/core/services';
 import { UiLoadingService } from '../loading';
+import { _console } from '../../lib';
 
 @Component({ template: '' })
 export class SigninComponent implements OnInit, OnDestroy {
@@ -28,7 +29,7 @@ export class SigninComponent implements OnInit, OnDestroy {
           this.router.navigate(['']);
         })
         .catch(error => {
-          console.log(error);
+          _console.log(error);
           this.securityService.logout();
         });
     });

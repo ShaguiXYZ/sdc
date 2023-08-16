@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UiContextDataService } from './context-data.service';
 import { IContextData, storageKey } from './models';
+import { _console } from '../../lib';
 
 /**
  * Cookies
@@ -20,7 +21,7 @@ export class UiStorageService {
 
     localStorage.setItem(name, JSON.stringify(storageData));
 
-    console.log('Created storage data', key);
+    _console.log('Created storage data', key);
   }
 
   public retrieve(key: string): void {
@@ -33,7 +34,7 @@ export class UiStorageService {
       if (contextData) {
         this.contextData.set(key, contextData.data, contextData.configuration);
 
-        console.log(`Retrieve storage data ${key}`, contextData);
+        _console.log(`Retrieve storage data ${key}`, contextData);
       }
     }
   }

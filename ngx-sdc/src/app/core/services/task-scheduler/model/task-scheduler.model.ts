@@ -1,4 +1,5 @@
 import { Observable, Subject, Subscription, interval } from 'rxjs';
+import { _console } from 'src/app/core/lib';
 
 const DEFAULT_PERIOD = 15000;
 
@@ -24,7 +25,7 @@ export class UiTaskScheduler<D> {
 
   public unregister() {
     if (!this.isObserved) {
-      console.log('Stop scheduler...');
+      _console.log('Stop scheduler...');
 
       this.scheduler$?.unsubscribe();
     }

@@ -7,6 +7,7 @@ import { UiContextDataService } from '../context-data/context-data.service';
 import { HttpStatus, UiHttpService } from '../http';
 import { CONTEXT_SECURITY_KEY } from './constants';
 import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISecurityModel, ISessionModel, IUserDTO, IUserModel } from './models';
+import { _console } from '../../lib';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class UiSecurityService {
           this.changeWindowLocationHref(environment.baseAuth);
         },
         error: err => {
-          console.log(err);
+          _console.log(err);
 
           if (err.status === HttpStatus.forbidden) {
             this.changeWindowLocationHref(environment.baseAuth);
@@ -60,7 +61,7 @@ export class UiSecurityService {
     }
   }
 
-  private changeWindowLocationHref(href: string){
+  private changeWindowLocationHref(href: string) {
     window.location.href = href;
   }
 
@@ -97,7 +98,7 @@ export class UiSecurityService {
   private getAuthoritiesByUID(uid: string): Observable<IAuthorityModel[]> {
     return this.http.get<IAuthorityDTO[]>(`${this._urlSecurity}/authorities/${uid}`).pipe(
       catchError((err, caught: Observable<any>) => {
-        console.log(err);
+        _console.log(err);
         return caught;
       }),
       map(auth => auth.map((value: IAuthorityDTO) => IAuthorityModel.toModel(value)))
