@@ -1,10 +1,14 @@
 package com.shagui.sdc.util;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
 
@@ -24,7 +28,7 @@ public class DictioraryReplacement {
 	}
 
 	public static class Replacement {
-		private static final String PRE_EXP = "\\#\\{";
+		private static final UnaryOperator<String> PRE_EXP = fn -> "\\#" + Optional.ofNullable(fn).orElse("") + "\\{";
 		private static final String POST_EXP = "\\}";
 
 		private boolean strict;
@@ -40,7 +44,7 @@ public class DictioraryReplacement {
 		}
 
 		public String replace(String source, String defaultValue) {
-			Pattern p = Pattern.compile("(?<=" + PRE_EXP + ")([$]?)([\\w\\-]*)(?=" + POST_EXP + ")");
+			Pattern p = Pattern.compile(DictionaryPattern.pattern('-'));
 			Matcher m = p.matcher(source);
 
 			String result = source;
@@ -51,7 +55,8 @@ public class DictioraryReplacement {
 
 				if (keys.add(key)) {
 					if (dictionary.containsKey(key)) {
-						result = result.replaceAll(PRE_EXP + key.replace("$", "\\$") + POST_EXP, dictionary.get(key));
+						result = result.replaceAll(PRE_EXP.apply(null) + key.replace("$", "\\$") + POST_EXP,
+								dictionary.get(key));
 					} else {
 						if (strict) {
 							throw new SdcCustomException(String.format("[STRICT] Not key %s found in repository", key));
@@ -60,13 +65,39 @@ public class DictioraryReplacement {
 						log.debug(String.format("Not key %s found in repository", key));
 
 						if (defaultValue != null) {
-							result = result.replaceAll(PRE_EXP + key + POST_EXP, defaultValue);
+							result = result.replaceAll(PRE_EXP.apply(null) + key + POST_EXP, defaultValue);
 						}
 					}
 				}
 			}
 
 			return result;
+		}
+	}
+
+	public static Optional<String> value(String key) {
+		return value(null, key);
+	}
+
+	public static Optional<String> value(String fn, String key, Character... chars) {
+		Pattern p = Pattern.compile(DictionaryPattern.pattern(fn, chars));
+		Matcher m = p.matcher(key);
+
+		return m.find() ? Optional.of(m.group()) : Optional.empty();
+	}
+
+	private static final class DictionaryPattern {
+		public static String pattern(Character... acceptableChars) {
+			return pattern(null, acceptableChars);
+		}
+
+		public static String pattern(String fn, Character... chars) {
+			return "(?<=" + Replacement.PRE_EXP.apply(fn) + ")([$]?)([\\w"
+					+ chars(chars) + "]*)(?=" + Replacement.POST_EXP + ")";
+		}
+
+		private static String chars(Character... chars) {
+			return Arrays.stream(chars).map(character -> "\\" + character.toString()).collect(Collectors.joining());
 		}
 	}
 }

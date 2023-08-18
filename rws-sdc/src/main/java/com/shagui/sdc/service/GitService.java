@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,16 +176,12 @@ public abstract class GitService implements AnalysisInterface {
 		return paths;
 	}
 
-	private static final String PRE_EXP = "\\#get\\{";
-	private static final String POST_EXP = "\\}";
-
 	private Function<MetricModel, ComponentAnalysisModel> execute(ComponentModel component, SdcDocument docuemnt) {
 		return metric -> {
-			Pattern p = Pattern.compile("(?<=" + PRE_EXP + ")([$]?)([\\w\\-\\[\\]\\.\\@\\/]*)(?=" + POST_EXP + ")");
-			Matcher m = p.matcher(metric.getValue());
+			Optional<String> key = DictioraryReplacement.value("get", metric.getValue(), '-', '[', ']', '.', '@', '/');
 
-			if (m.find()) {
-				Optional<String> value = docuemnt.fromPath(m.group());
+			if (key.isPresent()) {
+				Optional<String> value = docuemnt.fromPath(key.get());
 				return new ComponentAnalysisModel(component, metric, value.isPresent() ? value.get() : "N/A");
 			} else {
 				return executeMetricFn(metric.getValue(), component, metric, docuemnt);
