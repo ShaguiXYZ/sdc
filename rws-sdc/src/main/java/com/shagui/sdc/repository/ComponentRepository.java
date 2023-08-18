@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
 import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.SquadModel;
-import com.shagui.sdc.util.JpaUtils;
+import com.shagui.sdc.util.jpa.JpaUtils;
 
 public interface ComponentRepository extends JpaRepository<ComponentModel, Integer> {
 

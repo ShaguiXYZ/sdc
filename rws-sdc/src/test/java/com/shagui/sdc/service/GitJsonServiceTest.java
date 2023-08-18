@@ -75,7 +75,7 @@ class GitJsonServiceTest {
 		MetricModel metricModel = new MetricModel();
 		metricModel.setId(1);
 		metricModel.setName("project id");
-		metricModel.setValue("id");
+		metricModel.setValue("#get{id}");
 		metricModel.setType(AnalysisType.GIT_JSON);
 		metrics.add(metricModel);
 

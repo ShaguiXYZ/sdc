@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,15 +55,18 @@ public abstract class GitService implements AnalysisInterface {
 
 	protected abstract Class<? extends SdcDocument> documentOf();
 
+	protected abstract ComponentAnalysisModel executeMetricFn(String fn, ComponentModel component, MetricModel metric,
+			SdcDocument docuemnt);
+
 	protected GitService() {
 		this.componentTypeArchitectureMetricPropertiesRepository = () -> componentTypeArchitectureMetricPropertiesRep;
 	}
 
 	@Override
 	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
-		Map<String, List<MetricModel>> metricPaths = metricPaths(component);
+		Map<String, List<MetricModel>> metricsByPath = metricsByPath(component);
 
-		return metricPaths.entrySet().parallelStream().map(entry -> {
+		return metricsByPath.entrySet().parallelStream().map(entry -> {
 			ContentDTO gitData = retrieveGitData(component, entry.getKey());
 
 			if (gitData == null) {
@@ -90,10 +96,7 @@ public abstract class GitService implements AnalysisInterface {
 
 	private List<ComponentAnalysisModel> getResponse(ComponentModel component, List<MetricModel> metrics,
 			SdcDocument docuemnt) {
-		return metrics.stream().map(metric -> {
-			Optional<String> value = docuemnt.fromPath(metric.getValue());
-			return new ComponentAnalysisModel(component, metric, value.isPresent() ? value.get() : "N/A");
-		}).collect(Collectors.toList());
+		return metrics.stream().map(execute(component, docuemnt)).collect(Collectors.toList());
 	}
 
 	private ContentDTO retrieveGitData(ComponentModel component, String path) {
@@ -149,7 +152,7 @@ public abstract class GitService implements AnalysisInterface {
 		});
 	}
 
-	private Map<String, List<MetricModel>> metricPaths(ComponentModel component) {
+	private Map<String, List<MetricModel>> metricsByPath(ComponentModel component) {
 		Map<String, List<MetricModel>> paths = new HashMap<>();
 		Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true);
 
@@ -173,5 +176,22 @@ public abstract class GitService implements AnalysisInterface {
 		});
 
 		return paths;
+	}
+
+	private static final String PRE_EXP = "\\#get\\{";
+	private static final String POST_EXP = "\\}";
+
+	private Function<MetricModel, ComponentAnalysisModel> execute(ComponentModel component, SdcDocument docuemnt) {
+		return metric -> {
+			Pattern p = Pattern.compile("(?<=" + PRE_EXP + ")([$]?)([\\w\\-\\[\\]\\.\\@\\/]*)(?=" + POST_EXP + ")");
+			Matcher m = p.matcher(metric.getValue());
+
+			if (m.find()) {
+				Optional<String> value = docuemnt.fromPath(m.group());
+				return new ComponentAnalysisModel(component, metric, value.isPresent() ? value.get() : "N/A");
+			} else {
+				return executeMetricFn(metric.getValue(), component, metric, docuemnt);
+			}
+		};
 	}
 }

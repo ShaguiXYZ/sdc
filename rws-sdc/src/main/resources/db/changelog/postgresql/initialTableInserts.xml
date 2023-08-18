@@ -60,10 +60,10 @@
 				 ('Critical Errors','critical_violations','SONAR','NUMERIC','GTE'),
 				 ('Blocker Errors','blocker_violations','SONAR','NUMERIC','GTE');
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
-				 ('Legacy parent version','parent/version','GIT_XML','VERSION','LTE'),
-				 ('Bff Java Version','properties/java.version','GIT_XML','VERSION','LTE'),
-				 ('Microservice Parent Version','parent/version','GIT_XML','VERSION','LTE'),
-				 ('Angular Version','devDependencies.@angular/cli','GIT_JSON','VERSION','LTE');
+				 ('Legacy parent version','#get{parent/version}','GIT_XML','VERSION','LTE'),
+				 ('Bff Java Version','#get{properties/java.version}','GIT_XML','VERSION','LTE'),
+				 ('Microservice Parent Version','#get{parent/version}','GIT_XML','VERSION','LTE'),
+				 ('Angular Version','#get{devDependencies.@angular/cli}','GIT_JSON','VERSION','LTE');
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
 				 ('Low Vulnerabilites','low_severity','DEPENDABOT','NUMERIC','GTE'),
 				 ('Medium Vulnerabilities','medium_severity','DEPENDABOT','NUMERIC','GTE'),
@@ -71,6 +71,16 @@
 				 ('Critical Vulnerabilities','critical_severity','DEPENDABOT','NUMERIC','GTE');
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
 				 ('Code Lines','lines','SONAR','NUMERIC',NULL);
+			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation,config) VALUES
+				 ('Config Metric','lines','COMPLEX','NUMERIC',NULL,
+					'{
+						"type": "com.shagui.sdc.util.metric.DeprecatedLibs",
+						"config": {
+							"libs": ["com.mysql"],
+							"args": ""
+						}
+					}'
+				 );
 		</sql>
 	</changeSet>
 

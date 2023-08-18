@@ -23,6 +23,7 @@
 				value varchar NOT NULL,
 				type varchar NOT NULL,
 				description varchar NULL,
+				config json NULL,
 				metric_value_type varchar NULL,
 				metric_validation varchar NULL,
 				CONSTRAINT metrics_pk PRIMARY KEY (id),

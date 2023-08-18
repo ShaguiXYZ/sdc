@@ -34,7 +34,7 @@ public class DependabotServiceImpl implements DependabotService {
 		List<DependabotAlertDTO> result = Arrays.asList(retrieveGitData(component));
 
 		return this.metrics(component).stream().map(metric -> {
-			String value = DependabotMetricLibrary.DependabotMetric.valueOf(metric.getValue().toUpperCase())
+			String value = MetricLibrary.Library.valueOf(metric.getValue().toUpperCase())
 					.apply(result);
 
 			return new ComponentAnalysisModel(component, metric, value);
@@ -63,16 +63,16 @@ public class DependabotServiceImpl implements DependabotService {
 		return authorization.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
 	}
 
-	private static class DependabotMetricLibrary {
-		enum DependabotMetric {
-			LOW_SEVERITY(DependabotMetricLibrary.vulnerabilityCountFn("low")),
-			MEDIUM_SEVERITY(DependabotMetricLibrary.vulnerabilityCountFn("medium")),
-			HIGH_SEVERITY(DependabotMetricLibrary.vulnerabilityCountFn("high")),
-			CRITICAL_SEVERITY(DependabotMetricLibrary.vulnerabilityCountFn("critical"));
+	private static class MetricLibrary {
+		enum Library {
+			LOW_SEVERITY(MetricLibrary.vulnerabilityCountFn("low")),
+			MEDIUM_SEVERITY(MetricLibrary.vulnerabilityCountFn("medium")),
+			HIGH_SEVERITY(MetricLibrary.vulnerabilityCountFn("high")),
+			CRITICAL_SEVERITY(MetricLibrary.vulnerabilityCountFn("critical"));
 
 			private Function<List<DependabotAlertDTO>, String> fn;
 
-			private DependabotMetric(Function<List<DependabotAlertDTO>, String> fn) {
+			private Library(Function<List<DependabotAlertDTO>, String> fn) {
 				this.fn = fn;
 			}
 
@@ -81,12 +81,12 @@ public class DependabotServiceImpl implements DependabotService {
 			}
 		}
 
-		private DependabotMetricLibrary() {
+		private MetricLibrary() {
 		}
 
-		private static Function<List<DependabotAlertDTO>, String> vulnerabilityCountFn(String vulnerability) {
+		private static Function<List<DependabotAlertDTO>, String> vulnerabilityCountFn(String severity) {
 			return data -> String.valueOf(data.stream().filter(
-					alert -> alert.getVulnerability() != null && vulnerability.equals(alert.getVulnerability().getSeverity()))
+					alert -> alert.getVulnerability() != null && severity.equals(alert.getVulnerability().getSeverity()))
 					.count());
 		}
 	}

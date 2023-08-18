@@ -1,4 +1,4 @@
-package com.shagui.sdc.util;
+package com.shagui.sdc.util.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

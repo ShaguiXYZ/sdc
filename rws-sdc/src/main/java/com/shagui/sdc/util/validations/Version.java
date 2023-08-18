@@ -30,8 +30,8 @@ public class Version implements Comparable<Version> {
 	}
 
 	private List<Integer> cast(String toCast) {
-		return Arrays.asList(toCast.split("\\.")).stream()
-				.map(item -> StringUtils.isNumeric(item) ? Integer.valueOf(item) : 0).collect(Collectors.toList());
+		return Arrays.stream(toCast.split("\\.")).map(item -> StringUtils.isNumeric(item) ? Integer.valueOf(item) : 0)
+				.collect(Collectors.toList());
 	}
 
 	@Override

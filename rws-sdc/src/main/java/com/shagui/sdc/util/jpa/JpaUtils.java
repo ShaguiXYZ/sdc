@@ -1,8 +1,6 @@
-package com.shagui.sdc.util;
+package com.shagui.sdc.util.jpa;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.util.StringUtils;
@@ -15,8 +13,8 @@ public class JpaUtils {
 		if (!StringUtils.hasText(source))
 			return null;
 
-		List<String> words = StringUtils.hasText(source) ? Arrays.asList(source.split("\\s+")) : new ArrayList<>();
-		String toFind = words.stream().filter(word -> word.length() > 1).collect(Collectors.joining("%"));
+		String toFind = Arrays.stream(source.split("\\s+")).filter(word -> word.length() > 1)
+				.collect(Collectors.joining("%"));
 
 		return StringUtils.hasText(toFind) ? "%" + toFind + "%" : null;
 	}
