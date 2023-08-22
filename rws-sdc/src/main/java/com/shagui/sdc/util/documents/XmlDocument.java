@@ -2,7 +2,9 @@ package com.shagui.sdc.util.documents;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -40,8 +42,12 @@ public class XmlDocument implements SdcDocument {
 	}
 
 	@Override
-	public Optional<String> fromPath(String path) {
+	public Optional<String> value(String path) {
 		return streamFromPath(path).findFirst();
+	}
+
+	public List<String> values(String path) {
+		return streamFromPath(path).collect(Collectors.toList());
 	}
 	
 	private Stream<String> streamFromPath(String path) {

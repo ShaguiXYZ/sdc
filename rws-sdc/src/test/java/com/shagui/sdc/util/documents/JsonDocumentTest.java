@@ -60,7 +60,7 @@ class JsonDocumentTest {
 
 		JsonDocument document = SdcDocumentFactory.newInstance(json, JsonDocument.class);
 
-		Optional<String> data = document.fromPath("devDependencies.@angular/cli");
+		Optional<String> data = document.value("devDependencies.@angular/cli");
 
 		assertNotNull(data);
 		assertTrue(data.isPresent());

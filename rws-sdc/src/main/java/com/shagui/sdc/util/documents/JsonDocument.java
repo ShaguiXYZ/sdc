@@ -26,7 +26,7 @@ public class JsonDocument implements SdcDocument {
 	}
 
 	@Override
-	public Optional<String> fromPath(String path) {
+	public Optional<String> value(String path) {
 		try {
 			List<JSONKey> keys = Arrays
 					.stream((path.startsWith("[") ? path : String.valueOf("." + path)).split("(?=[\\[\\]\\.])"))

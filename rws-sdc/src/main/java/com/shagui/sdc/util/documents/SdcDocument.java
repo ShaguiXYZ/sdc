@@ -8,7 +8,7 @@ import com.shagui.sdc.util.IOUtils;
 
 public interface SdcDocument {
 	public void input(InputStream data) throws IOException;
-	public Optional<String> fromPath(String path);
+	public Optional<String> value(String path);
 	
 	default void input(String data) throws IOException {
 		input(IOUtils.toInputStream(data));

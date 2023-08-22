@@ -20,7 +20,7 @@ class XmlDocumentTest {
 				"<project><properties><version>1</version><version2>2</version2></properties></project>",
 				XmlDocument.class);
 
-		Optional<String> data = document.fromPath("properties/version");
+		Optional<String> data = document.value("properties/version");
 
 		assertNotNull(data);
 		assertTrue(data.isPresent());

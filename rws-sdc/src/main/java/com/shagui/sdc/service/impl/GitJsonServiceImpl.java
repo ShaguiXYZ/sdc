@@ -21,7 +21,7 @@ public final class GitJsonServiceImpl extends GitService {
 	@Override
 	protected ComponentAnalysisModel executeMetricFn(String fn, ComponentModel component, MetricModel metric,
 			SdcDocument docuemnt) {
-		throw new SdcCustomException(String.format("\r\n" + "%s function is not available for %s service", fn,
+		throw new SdcCustomException(String.format("%s function is not available for %s service", fn,
 				Ctes.ANALYSIS_SERVICES_TYPES.GIT_JSON));
 	}
 }

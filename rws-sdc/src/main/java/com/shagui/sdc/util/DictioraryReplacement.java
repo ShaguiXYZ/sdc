@@ -79,6 +79,13 @@ public class DictioraryReplacement {
 		return value(null, key);
 	}
 
+	public static Optional<String> fn(String value) {
+		Pattern p = Pattern.compile("(?<=\\#)([\\w]*)(?=\\{)");
+		Matcher m = p.matcher(value);
+
+		return m.find() ? Optional.of(m.group().trim()) : Optional.empty();
+	}
+
 	public static Optional<String> value(String fn, String key, Character... chars) {
 		Pattern p = Pattern.compile(DictionaryPattern.pattern(fn, chars));
 		Matcher m = p.matcher(key);
@@ -92,8 +99,8 @@ public class DictioraryReplacement {
 		}
 
 		public static String pattern(String fn, Character... chars) {
-			return "(?<=" + Replacement.PRE_EXP.apply(fn) + ")([$]?)([\\w"
-					+ chars(chars) + "]*)(?=" + Replacement.POST_EXP + ")";
+			return "(?<=" + Replacement.PRE_EXP.apply(fn) + ")([$]?)([\\w" + chars(chars) + "]*)(?="
+					+ Replacement.POST_EXP + ")";
 		}
 
 		private static String chars(Character... chars) {

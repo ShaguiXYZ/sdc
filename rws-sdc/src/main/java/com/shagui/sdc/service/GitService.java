@@ -39,6 +39,8 @@ import com.shagui.sdc.util.documents.XmlDocument;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 import feign.Response;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -155,22 +157,26 @@ public abstract class GitService implements AnalysisInterface {
 		Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true);
 
 		metrics(component).forEach(metric -> {
-			Optional<ComponetTypeArchitectureMetricPropertiesModel> data = componentTypeArchitectureMetricPropertiesRepository
+			Optional<ComponetTypeArchitectureMetricPropertiesModel> property = componentTypeArchitectureMetricPropertiesRepository
 					.repository().findByComponentTypeArchitectureAndMetricAndName(
 							component.getComponentTypeArchitecture(), metric, "PATH");
 
-			if (data.isPresent()) {
-				String path = replacement.replace(data.get().getValue(), "");
-				List<MetricModel> pathMetrics = Optional.ofNullable(paths.get(path)).orElseGet(ArrayList::new);
+			String path = property.map(p -> replacement.replace(p.getValue(), ""))
+					.orElseThrow(() -> new SdcCustomException(String.format(
+							"No path of origin has been defined for metric '%s' (%s) component type %s and architecture %s (%s)",
+							metric.getName(), metric.getId(),
+							component.getComponentTypeArchitecture().getComponentType(),
+							component.getComponentTypeArchitecture().getArchitecture(),
+							component.getComponentTypeArchitecture().getId())));
 
-				if (pathMetrics.isEmpty()) {
-					pathMetrics.add(metric);
-					paths.put(path, pathMetrics);
-				} else {
-					pathMetrics.add(metric);
-				}
+			List<MetricModel> pathMetrics = Optional.ofNullable(paths.get(path)).orElseGet(ArrayList::new);
+
+			if (pathMetrics.isEmpty()) {
+				pathMetrics.add(metric);
+				paths.put(path, pathMetrics);
+			} else {
+				pathMetrics.add(metric);
 			}
-
 		});
 
 		return paths;
@@ -178,14 +184,54 @@ public abstract class GitService implements AnalysisInterface {
 
 	private Function<MetricModel, ComponentAnalysisModel> execute(ComponentModel component, SdcDocument docuemnt) {
 		return metric -> {
-			Optional<String> key = DictioraryReplacement.value("get", metric.getValue(), '-', '[', ']', '.', '@', '/');
+			Optional<String> fn = DictioraryReplacement.fn(metric.getValue());
 
-			if (key.isPresent()) {
-				Optional<String> value = docuemnt.fromPath(key.get());
+			if (fn.isPresent() && isGenericFn(fn.get())) {
+				Optional<String> value = MetricLibrary.Library.valueOf(fn.get().toUpperCase())
+						.apply(new ServiceData(component, metric, docuemnt));
 				return new ComponentAnalysisModel(component, metric, value.isPresent() ? value.get() : "N/A");
 			} else {
 				return executeMetricFn(metric.getValue(), component, metric, docuemnt);
 			}
+		};
+	}
+
+	private boolean isGenericFn(String fn) {
+		return Arrays.stream(MetricLibrary.Library.values())
+				.anyMatch(libraryValue -> libraryValue.name().equals(fn.toUpperCase()));
+	}
+
+	@Getter
+	@AllArgsConstructor
+	protected static class ServiceData {
+		private ComponentModel component;
+		private MetricModel metric;
+		private SdcDocument docuemnt;
+	}
+
+	private static class MetricLibrary {
+		enum Library {
+			GET(get);
+
+			private Function<ServiceData, Optional<String>> fn;
+
+			private Library(Function<ServiceData, Optional<String>> fn) {
+				this.fn = fn;
+			}
+
+			public Optional<String> apply(ServiceData data) {
+				return this.fn.apply(data);
+			}
+		}
+
+		private MetricLibrary() {
+		}
+
+		// Metric library fn's
+		private static Function<ServiceData, Optional<String>> get = serviceData -> {
+			Optional<String> key = DictioraryReplacement.value("get", serviceData.getMetric().getValue(), '-', '[', ']',
+					'.', '@', '/');
+			return key.map(serviceData.getDocuemnt()::value).orElse(Optional.empty());
 		};
 	}
 }
