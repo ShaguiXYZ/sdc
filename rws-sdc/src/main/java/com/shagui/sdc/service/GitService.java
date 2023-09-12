@@ -65,17 +65,11 @@ public abstract class GitService implements AnalysisInterface {
 	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
 		Map<String, List<MetricModel>> metricsByPath = metricsByPath(component);
 
-		return metricsByPath.entrySet().parallelStream().map(entry -> {
-			ContentDTO gitData = retrieveGitData(component, entry.getKey());
-
-			if (gitData == null) {
-				log.error(String.format("Not git info for component %s", component.getName()));
-				return new ArrayList<ComponentAnalysisModel>();
-			}
-
-			SdcDocument docuemnt = sdcDocument(gitData);
-			return getResponse(component, entry.getValue(), docuemnt);
-		}).flatMap(List::stream).collect(Collectors.toList());
+		return metricsByPath.entrySet().parallelStream().map(entry -> retrieveGitData(component, entry.getKey())
+				.map(data -> getResponse(component, entry.getValue(), sdcDocument(data))).orElseGet(() -> {
+					log.error(String.format("Not git info for component %s", component.getName()));
+					return new ArrayList<>();
+				})).flatMap(List::stream).collect(Collectors.toList());
 	}
 
 	@Override
@@ -98,7 +92,7 @@ public abstract class GitService implements AnalysisInterface {
 		return metrics.stream().map(execute(component, docuemnt)).collect(Collectors.toList());
 	}
 
-	private ContentDTO retrieveGitData(ComponentModel component, String path) {
+	private Optional<ContentDTO> retrieveGitData(ComponentModel component, String path) {
 		Optional<UriModel> uri = uri(component, path);
 
 		if (uri.isPresent()) {
@@ -108,10 +102,10 @@ public abstract class GitService implements AnalysisInterface {
 					? gitClient.repoFile(URI.create(uri.get().getValue()), authorizationHeader.get())
 					: gitClient.repoFile(URI.create(uri.get().getValue()));
 
-			return UrlUtils.mapResponse(response, ContentDTO.class);
+			return Optional.ofNullable(UrlUtils.mapResponse(response, ContentDTO.class));
 		}
 
-		return null;
+		return Optional.empty();
 	}
 
 	private Optional<String> authorization(UriModel uriModel) {

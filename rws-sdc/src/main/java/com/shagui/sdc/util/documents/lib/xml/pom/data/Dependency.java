@@ -22,6 +22,8 @@ public class Dependency implements Serializable {
 
 	private String groupId;
 	private String artifactId;
+	private String scope;
+	private String version;
 
 	@Override
 	public boolean equals(Object o) {
@@ -35,11 +37,12 @@ public class Dependency implements Serializable {
 
 		Dependency d = (Dependency) o;
 
-		return d.getArtifactId().equals(this.artifactId) && d.getGroupId().equals(this.groupId);
+		return Objects.equals(d.getArtifactId(), this.artifactId) && Objects.equals(d.getGroupId(), this.groupId)
+				&& Objects.equals(d.getScope(), this.scope) && Objects.equals(d.getVersion(), this.version);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(groupId, artifactId);
+		return Objects.hash(groupId, artifactId, scope, version);
 	}
 }
