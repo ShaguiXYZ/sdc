@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.shagui.sdc.api.dto.security.UserDTO;
 import com.shagui.sdc.util.HttpServletRequestUtils;
 
-@FeignClient(name = "security-service", url = "${services.security.uri}", primary = false)
+@FeignClient(name = "security-service", url = "${rest.security.issuerUri}", primary = false)
 public interface SecurityClient {
 	@GetMapping("ping")
 	UserDTO ping(

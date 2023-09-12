@@ -18,10 +18,9 @@ spring:
 server:
    port: 9090
    
-services:
-   security: 
-      enabled: false
-      uri: http://localhost:9092/rws-security
+rest:
+   security:
+      issuerUri: http://localhost:9092/rws-security
 
 sdc:
    dictionary:
@@ -32,8 +31,8 @@ sdc:
       pom:
          deprecated-libs:
             -
-               group-id: group-lib1
-               artifact-id: artifact-lib1
+               group-id: com.mysql
+               artifact-id: mysql-connector-j
             -
                group-id: group-lib2
          

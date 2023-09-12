@@ -13,6 +13,8 @@ import javax.xml.xpath.XPathExpressionException;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
+import com.shagui.sdc.util.documents.lib.xml.XmlDocument;
+
 class XmlDocumentTest {
 	@Test
 	void urlConstructorTest() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
