@@ -36,11 +36,10 @@ import com.shagui.sdc.util.documents.JsonDocument;
 import com.shagui.sdc.util.documents.SdcDocument;
 import com.shagui.sdc.util.documents.SdcDocumentFactory;
 import com.shagui.sdc.util.documents.XmlDocument;
+import com.shagui.sdc.util.documents.data.ServiceData;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 import feign.Response;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -199,14 +198,6 @@ public abstract class GitService implements AnalysisInterface {
 	private boolean isGenericFn(String fn) {
 		return Arrays.stream(MetricLibrary.Library.values())
 				.anyMatch(libraryValue -> libraryValue.name().equals(fn.toUpperCase()));
-	}
-
-	@Getter
-	@AllArgsConstructor
-	protected static class ServiceData {
-		private ComponentModel component;
-		private MetricModel metric;
-		private SdcDocument docuemnt;
 	}
 
 	private static class MetricLibrary {

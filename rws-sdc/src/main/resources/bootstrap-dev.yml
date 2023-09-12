@@ -27,6 +27,13 @@ sdc:
    dictionary:
       secret:
          git-authorization-type: token
-         git-authorization: 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
-         generic-authorization: ghp_GenericT1LU4Mh5HhoxckHaK0LJ1ev2pK4CU
+         git-authorization: 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
+   document:
+      pom:
+         deprecated-libs:
+            -
+               group-id: group-lib1
+               artifact-id: artifact-lib1
+            -
+               group-id: group-lib2
          

@@ -1,11 +1,7 @@
 package com.shagui.sdc.service.impl;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +13,8 @@ import com.shagui.sdc.service.GitService;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.documents.SdcDocument;
 import com.shagui.sdc.util.documents.XmlDocument;
+import com.shagui.sdc.util.documents.data.ServiceData;
+import com.shagui.sdc.util.documents.lib.xml.pom.PomLib;
 
 @Service(Ctes.ANALYSIS_SERVICES_TYPES.GIT_XML)
 public final class GitXmlServiceImpl extends GitService {
@@ -36,8 +34,8 @@ public final class GitXmlServiceImpl extends GitService {
 			return new ComponentAnalysisModel(component, metric, value);
 		}
 
-		throw new SdcCustomException(String.format("%s function is not available for %s service", fn,
-				Ctes.ANALYSIS_SERVICES_TYPES.GIT_XML));
+		throw new SdcCustomException(
+				String.format("%s function is not available for %s service", fn, Ctes.ANALYSIS_SERVICES_TYPES.GIT_XML));
 	}
 
 	private boolean isServiceFn(String fn) {
@@ -47,7 +45,7 @@ public final class GitXmlServiceImpl extends GitService {
 
 	private static class MetricLibrary {
 		enum Library {
-			DEPRECATED_LIBRARY(hasDeprecatedLibrary);
+			DEPRECATED_LIBRARY(PomLib.hasDeprecatedLibrary);
 
 			private Function<ServiceData, String> fn;
 
@@ -62,21 +60,5 @@ public final class GitXmlServiceImpl extends GitService {
 
 		private MetricLibrary() {
 		}
-
-		// Metric library fn's
-		private static Function<ServiceData, String> hasDeprecatedLibrary = serviceData -> {
-			List<String> depencencies = ((XmlDocument) serviceData.getDocuemnt())
-					.values("dependencies/dependency");
-
-			Boolean result = depencencies.stream().anyMatch(data -> {
-				Pattern p = Pattern.compile("(?<=<groupId>)(.*)(?=</groupId>)");
-				Matcher m = p.matcher(data);
-
-				Optional<String> group = m.find() ? Optional.of(m.group()) : Optional.empty();
-				return group.isEmpty() || !"deprecated lib".equals(group.get());
-			});
-
-			return result.toString();
-		};
 	}
 }

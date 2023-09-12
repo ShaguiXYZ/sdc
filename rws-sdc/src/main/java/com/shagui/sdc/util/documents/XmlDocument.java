@@ -9,6 +9,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,7 +21,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.Element;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -29,13 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class XmlDocument implements SdcDocument {
-	private Element root;
+	private Document document;
 
 	@Override
 	public void input(InputStream data) throws IOException {
 		try {
 			DocumentBuilder builder = documentBuilder();
-			this.root = builder.parse(data).getDocumentElement();
+			this.document = builder.parse(data);
 		} catch (SAXException | ParserConfigurationException e) {
 			throw new SdcCustomException(e.getMessage());
 		}
@@ -49,22 +52,45 @@ public class XmlDocument implements SdcDocument {
 	public List<String> values(String path) {
 		return streamFromPath(path).collect(Collectors.toList());
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public <T> List<T> values(String path, Class<T> clazz) {
+		return (List<T>) nodeStream(path).map(node -> {
+			try {
+				return value(node, clazz);
+			} catch (JAXBException e) {
+				log.error(String.format("Error procesing XML path: %s", path), e);
+				return Optional.empty();
+			}
+		}).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> Optional<T> value(Node node, Class<T> clazz) throws JAXBException {
+		JAXBContext jc = JAXBContext.newInstance(clazz);
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+
+		T data = (T) unmarshaller.unmarshal(node);
+		return Optional.ofNullable(data);
+	}
+
 	private Stream<String> streamFromPath(String path) {
+		return nodeStream(path).filter(n -> n.getNodeType() == Node.ELEMENT_NODE).map(Node::getTextContent);
+	}
+
+	private Stream<Node> nodeStream(String path) {
 		try {
 			XPathFactory xPathfactory = XPathFactory.newInstance();
 			XPath xpath = xPathfactory.newXPath();
 			XPathExpression expr = xpath.compile(path);
-			NodeList list = (NodeList) expr.evaluate(this.root, XPathConstants.NODESET);
+			NodeList list = (NodeList) expr.evaluate(this.document.getDocumentElement(), XPathConstants.NODESET);
 
 			log.debug("Num nodes from '{}': {}", path, list.getLength());
 
-			Stream<Node> nodeStream = IntStream.range(0, list.getLength()).mapToObj(list::item);
-			return nodeStream.filter(n -> n.getNodeType() == Node.ELEMENT_NODE).map(Node::getTextContent);
+			return IntStream.range(0, list.getLength()).mapToObj(list::item);
 		} catch (XPathExpressionException e) {
 			throw new SdcCustomException(String.format("ERROR in metric '%s'.", path), e);
 		}
-
 	}
 
 	private DocumentBuilder documentBuilder() throws ParserConfigurationException {
