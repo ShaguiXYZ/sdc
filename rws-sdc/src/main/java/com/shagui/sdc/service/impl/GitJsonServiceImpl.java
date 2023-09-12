@@ -8,8 +8,8 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.service.GitService;
 import com.shagui.sdc.util.Ctes;
-import com.shagui.sdc.util.documents.JsonDocument;
 import com.shagui.sdc.util.documents.SdcDocument;
+import com.shagui.sdc.util.documents.lib.json.JsonDocument;
 
 @Service(Ctes.ANALYSIS_SERVICES_TYPES.GIT_JSON)
 public final class GitJsonServiceImpl extends GitService {

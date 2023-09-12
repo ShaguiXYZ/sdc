@@ -3,8 +3,8 @@ package com.shagui.sdc.util.documents.lib.xml.pom;
 import java.util.List;
 import java.util.function.Function;
 
-import com.shagui.sdc.util.documents.XmlDocument;
 import com.shagui.sdc.util.documents.data.ServiceData;
+import com.shagui.sdc.util.documents.lib.xml.XmlDocument;
 import com.shagui.sdc.util.documents.lib.xml.pom.data.Dependency;
 
 public class PomLib {

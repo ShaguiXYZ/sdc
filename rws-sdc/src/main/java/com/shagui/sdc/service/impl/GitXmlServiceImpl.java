@@ -12,8 +12,8 @@ import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.service.GitService;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.documents.SdcDocument;
-import com.shagui.sdc.util.documents.XmlDocument;
 import com.shagui.sdc.util.documents.data.ServiceData;
+import com.shagui.sdc.util.documents.lib.xml.XmlDocument;
 import com.shagui.sdc.util.documents.lib.xml.pom.PomLib;
 
 @Service(Ctes.ANALYSIS_SERVICES_TYPES.GIT_XML)

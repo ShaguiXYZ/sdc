@@ -1,4 +1,4 @@
-package com.shagui.sdc.util.documents;
+package com.shagui.sdc.util.documents.lib.xml;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
+import com.shagui.sdc.util.documents.SdcDocument;
 
 import lombok.extern.slf4j.Slf4j;
 

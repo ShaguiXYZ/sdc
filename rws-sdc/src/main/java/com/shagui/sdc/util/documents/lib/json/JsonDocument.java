@@ -1,4 +1,4 @@
-package com.shagui.sdc.util.documents;
+package com.shagui.sdc.util.documents.lib.json;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.shagui.sdc.core.exception.SdcCustomException;
+import com.shagui.sdc.util.documents.SdcDocument;
 
 public class JsonDocument implements SdcDocument {
 	private static final JsonFactory JSON_FACTORY = new JsonFactory();

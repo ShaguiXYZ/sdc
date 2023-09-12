@@ -32,11 +32,11 @@ import com.shagui.sdc.util.DictioraryReplacement;
 import com.shagui.sdc.util.DictioraryReplacement.Replacement;
 import com.shagui.sdc.util.IOUtils;
 import com.shagui.sdc.util.UrlUtils;
-import com.shagui.sdc.util.documents.JsonDocument;
 import com.shagui.sdc.util.documents.SdcDocument;
 import com.shagui.sdc.util.documents.SdcDocumentFactory;
-import com.shagui.sdc.util.documents.XmlDocument;
 import com.shagui.sdc.util.documents.data.ServiceData;
+import com.shagui.sdc.util.documents.lib.json.JsonDocument;
+import com.shagui.sdc.util.documents.lib.xml.XmlDocument;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 import feign.Response;
