@@ -37,12 +37,18 @@ public class Dependency implements Serializable {
 
 		Dependency d = (Dependency) o;
 
-		return Objects.equals(d.getArtifactId(), this.artifactId) && Objects.equals(d.getGroupId(), this.groupId)
-				&& Objects.equals(d.getScope(), this.scope) && Objects.equals(d.getVersion(), this.version);
+		// artifactId is mandatory the rest of the fields are only compared if the
+		// object property has a value
+		return Objects.equals(this.artifactId, d.getArtifactId()) && equalsNotNull(this.groupId, d.getGroupId())
+				&& equalsNotNull(this.scope, d.getScope()) && equalsNotNull(this.version, d.getVersion());
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(groupId, artifactId, scope, version);
+	}
+
+	private boolean equalsNotNull(Object a, Object b) {
+		return a == null || a.equals(b);
 	}
 }
