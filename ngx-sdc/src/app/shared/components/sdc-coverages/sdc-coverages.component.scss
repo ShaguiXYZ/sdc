@@ -24,7 +24,8 @@
       overflow-y: auto;
       position: absolute;
       top: 75px;
-      width: inherit;
+      width: -webkit-fill-available;
+      width: -moz-available;
     }
 
     .card-header {

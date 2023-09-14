@@ -1,7 +1,7 @@
 <div *ngFor="let notification of notifications; let i = index" class="message-content">
   <nx-message
       closable="{{ notification.closable }}"
-      [nxContext]="notification.type"
+      [context]="notification.type"
       (close)="close(notification.id)"
   >
       <strong>

@@ -1,9 +1,9 @@
 <div class="card-content">
   <nx-card>
-    <div class="card-header nx-margin-2xs nx-margin-x-m nx-margin-top-m">
+    <div class="card-header">
       <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ title }}</h4>
       <div class="align-right">
-        <nx-formfield id="squad-name">
+        <nx-formfield id="data-name">
           <input #searchInput nxInput type="text" autocomplete="off" [(ngModel)]="filter" />
           <span nxFormfieldSuffix>
             <nx-icon name="search" size="s"></nx-icon>
@@ -11,7 +11,7 @@
         </nx-formfield>
       </div>
     </div>
-    <div class="coverages sdc-scrollable nx-margin-x-m nx-margin-bottom-m">
+    <div class="coverages sdc-scrollable nx-margin-right-m nx-margin-bottom-m">
       <ng-container *ngIf="coverages">
         <div *ngFor="let coverage of coverages">
           <sdc-coverage-info

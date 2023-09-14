@@ -4,30 +4,30 @@
       <div nxRow class="search-options">
         <div nxCol="12">
           <div class="nx-margin-right-2xs">
-            <nx-formfield id="squad" [nxLabel]="'Label.Squads' | translate">
+            <nx-formfield id="squad" [label]="'Label.Squads' | translate">
               <nx-dropdown
                 formControlName="squadId"
                 name="allSquads"
-                [nxShowFilter]="true"
-                [nxFilterPlaceholder]="'Dropdown.Filter.Squad' | translate"
-                (nxValueChange)="squadChange($event)"
+                [showFilter]="true"
+                [filterPlaceholder]="'Dropdown.Filter.Squad' | translate"
+                (valueChange)="squadChange($event)"
               >
                 <nx-dropdown-item></nx-dropdown-item>
-                <nx-dropdown-item *ngFor="let item of squads" [nxValue]="item.id">
+                <nx-dropdown-item *ngFor="let item of squads" [value]="item.id">
                   {{ item.name }}
                 </nx-dropdown-item>
               </nx-dropdown>
             </nx-formfield>
           </div>
-          <nx-formfield id="coverage" [nxLabel]="'Label.Coverage' | translate">
+          <nx-formfield id="coverage" [label]="'Label.Coverage' | translate">
             <nx-dropdown
               formControlName="coverage"
               name="coverages"
-              [nxFilterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
-              (nxValueChange)="coverageChange($event)"
+              [filterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
+              (valueChange)="coverageChange($event)"
             >
               <nx-dropdown-item></nx-dropdown-item>
-              <nx-dropdown-item *ngFor="let item of coverages" [nxValue]="item.key">
+              <nx-dropdown-item *ngFor="let item of coverages" [value]="item.key">
                 <nx-icon [name]="'dot'" size="s" class="nx-margin-right-2xs {{ item.style }}"></nx-icon>
                 {{ item.label | translate | titlecase }}
               </nx-dropdown-item>
@@ -35,7 +35,7 @@
           </nx-formfield>
 
           <div class="align-right">
-            <nx-formfield id="component-name" [nxLabel]="'Label.FindByApplicationName' | translate">
+            <nx-formfield id="component-name" [label]="'Label.FindByApplicationName' | translate">
               <input #searchInput nxInput type="text" formControlName="name" autocomplete="off" />
               <span nxFormfieldSuffix>
                 <nx-icon name="search" size="s"></nx-icon>
@@ -56,12 +56,12 @@
       </div>
       <div *ngIf="applicationsInfo.paging.pages > 1" nxCol="12" class="pagination nx-margin-top-2xs">
         <nx-pagination
-          [nxCount]="applicationsInfo.paging.elements"
-          [nxPage]="applicationsInfo.paging.pageIndex + 1"
-          [nxPerPage]="ELEMENTS_BY_PAGE"
-          (nxGoPrev)="prevPage()"
-          (nxGoNext)="nextPage()"
-          (nxGoPage)="goToPage($event)"
+          [count]="applicationsInfo.paging.elements"
+          [page]="applicationsInfo.paging.pageIndex + 1"
+          [perPage]="ELEMENTS_BY_PAGE"
+          (goPrev)="prevPage()"
+          (goNext)="nextPage()"
+          (goPage)="goToPage($event)"
         >
         </nx-pagination>
       </div>
