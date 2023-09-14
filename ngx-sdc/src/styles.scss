@@ -5,6 +5,14 @@
 
 @import '../src/app/shared/styles/colors';
 
+:root {
+  nx-card {
+    .nx-card-inner {
+      padding: 16px !important;
+    }
+  }
+}
+
 .sdc-cut-text {
   text-overflow: ellipsis;
   overflow: hidden;

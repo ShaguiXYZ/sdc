@@ -145,7 +145,8 @@
 				 ('empty',7,42),
 				 ('sdc',9,42),
 				 ('storm:aff3ct:gitlab:master',15,75),
-				 ('cardamom:mmg:github:master',15,75);		
+				 ('cardamom:mmg:github:master',15,75),
+				 ('tadaam:hwloc:github:v2.3',15,75);		
 		</sql>
 	</changeSet>
 				 
@@ -157,7 +158,8 @@
 				 (2,'git-private'),
 				 (2,'dependabot'),
 				 (3,'sonar-repo'),
-				 (4,'sonar-repo');
+				 (4,'sonar-repo'),
+				 (5,'sonar-repo');
 		</sql>
 	</changeSet>
 
