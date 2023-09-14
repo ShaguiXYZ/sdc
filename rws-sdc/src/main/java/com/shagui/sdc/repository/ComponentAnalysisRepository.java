@@ -18,6 +18,10 @@ public interface ComponentAnalysisRepository extends JpaRepository<ComponentAnal
 			+ " AND ca.id.analysisDate = (" + MAX_DATE + ")")
 	Optional<ComponentAnalysisModel> actualMetric(int componentId, int metricId);
 
+	@Query("SELECT ca FROM ComponentAnalysisModel ca WHERE ca.id.componentId = :componentId AND ca.id.metricId = :metricId"
+			+ " AND ca.id.analysisDate = (" + MAX_DATE + " AND ca2.id.analysisDate <= :date)")
+	Optional<ComponentAnalysisModel> historicMetric(int componentId, int metricId, Timestamp date);
+
 	@Query("SELECT pa FROM ComponentAnalysisModel pa WHERE pa.id.componentId = :componentId AND pa.id.metricId = :metricId AND pa.id.analysisDate <= :date")
 	List<ComponentAnalysisModel> metricHistory(int componentId, int metricId, Timestamp date);
 

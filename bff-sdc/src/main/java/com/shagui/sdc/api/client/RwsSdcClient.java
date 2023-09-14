@@ -67,5 +67,4 @@ public interface RwsSdcClient {
 	HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
 			@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer ps);
-
 }

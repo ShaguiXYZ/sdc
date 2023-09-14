@@ -8,4 +8,6 @@ import com.shagui.sdc.model.MetricModel;
 
 public interface MetricRepository extends JpaRepository<MetricModel, Integer> {
 	Optional<MetricModel> findByName(String name);
+
+	Optional<MetricModel> findByValue(String value);
 }
