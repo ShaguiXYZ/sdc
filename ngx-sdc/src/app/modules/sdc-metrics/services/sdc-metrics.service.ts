@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { IMetricAnalysisModel, IMetricModel } from 'src/app/core/models/sdc';
+import { _console } from 'src/app/core/lib';
+import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
+import { IComplianceModel } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
 import { MetricsContextData, MetricsDataModel } from '../models';
-import { IComplianceModel } from 'src/app/shared/components';
-import { logError } from 'src/app/core/lib';
 
 @Injectable()
 export class SdcMetricsService {
@@ -42,7 +42,7 @@ export class SdcMetricsService {
         this.contextDataService.set(ContextDataInfo.METRICS_DATA, { ...this.metricContextData, selected: analysis });
         this.data$.next(this.metricData);
       })
-      .catch(logError);
+      .catch(_console.error);
   }
 
   public historicalComponentData(): void {
@@ -52,7 +52,7 @@ export class SdcMetricsService {
         this.metricData.historical = historical;
         this.data$.next(this.metricData);
       })
-      .catch(logError);
+      .catch(_console.error);
   }
 
   public analyze = (): void => {
@@ -68,13 +68,13 @@ export class SdcMetricsService {
               this.departmentService.clearCache();
               this.squadService.clearCache();
             })
-            .catch(logError);
+            .catch(_console.error);
 
           this.loadInitData();
           this.historicalComponentData();
         }
       })
-      .catch(logError);
+      .catch(_console.error);
   };
 
   private loadInitData(): void {
@@ -92,8 +92,8 @@ export class SdcMetricsService {
         this.analysisService
           .analysis(this.metricData.compliance.id, this.metricContextData.selected?.metric.id ?? availableMetrics[0].id)
           .then(data => this.analysisData(data))
-          .catch(logError);
+          .catch(_console.error);
       })
-      .catch(logError);
+      .catch(_console.error);
   }
 }

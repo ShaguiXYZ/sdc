@@ -62,7 +62,7 @@ export class UiSecurityService {
   }
 
   private changeWindowLocationHref(href: string) {
-    window.location.href = href;
+    globalThis.location.href = href;
   }
 
   public authUser(): Promise<IUserModel> {

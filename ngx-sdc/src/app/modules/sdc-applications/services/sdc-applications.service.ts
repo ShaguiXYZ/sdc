@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
-import { MetricState, emptyFn, logError, styleByName } from 'src/app/core/lib';
+import { MetricState, _console, styleByName } from 'src/app/core/lib';
 import { IPageable, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
@@ -76,6 +76,6 @@ export class SdcApplicationsService {
           paging: pageable.paging
         });
       })
-      .catch(logError);
+      .catch(_console.error);
   }
 }

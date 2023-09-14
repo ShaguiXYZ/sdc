@@ -118,7 +118,7 @@ export class UiContextDataService {
 
   // Load session storage (F5)
   private refreshPageControl = (): void => {
-    window.addEventListener('beforeunload', () => {
+    globalThis.addEventListener('beforeunload', () => {
       const sessionData: GenericDataInfo<IContextData> = {};
 
       Object.keys(this.contextStorage.contextData).forEach(key => {

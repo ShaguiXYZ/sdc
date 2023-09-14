@@ -2,7 +2,7 @@
   "Alerts": {
     "RunProcess": {
       "Title": "¿ Seguro ?",
-      "Description": "¿ Quieres proceder con el analisis del componente ?"
+      "Description": "¿ Quieres proceder con el análisis del componente ?"
     }
   },
   "ComplianceCard": {
@@ -10,7 +10,7 @@
   },
   "Component": {
     "State": {
-      "critical": "critica",
+      "critical": "crítica",
       "with_risk": "con riesgo",
       "acceptable": "aceptable",
       "perfect": "perfecto"
@@ -27,7 +27,7 @@
     "Menu": {
       "Applications": "Aplicaciones",
       "Departments": "Departamentos",
-      "Squads": "Summary"
+      "Squads": "Sumario"
     },
     "Title": "Software Development Console"
   },
@@ -47,7 +47,7 @@
     "No": "No",
     "Of": "de",
     "OptimumValue": "Valor óptimo recomendado",
-    "OtherDepartments": "Other departments",
+    "OtherDepartments": "Otros departamentos",
     "OtherSquads": "Otros squads",
     "SelectedDate": "Fecha seleccionada",
     "ShowAll": "Ver todas",
