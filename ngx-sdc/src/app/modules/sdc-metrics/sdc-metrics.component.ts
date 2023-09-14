@@ -1,10 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
 import { Subscription } from 'rxjs';
 import { UiAlertService } from 'src/app/core/components/alert';
 import { MetricState, stateByCoverage } from 'src/app/core/lib';
 import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
+import { SdcMetricsCardsComponent } from 'src/app/shared/components/sdc-metrics-cards';
 import { MetricsChartConfig, MetricsDataModel } from './models';
 import { SdcMetricsService } from './services';
 
@@ -15,13 +17,21 @@ import { SdcMetricsService } from './services';
   providers: [SdcMetricsService, DatePipe]
 })
 export class SdcMetricsComponent implements OnInit, OnDestroy {
+  @ViewChild('metricsCards') templateRef!: TemplateRef<any>;
+
   public metricsData?: MetricsDataModel;
   public metricChartConfig: MetricsChartConfig = { values: [] };
   public historicalChartConfig: MetricsChartConfig = { values: [] };
 
   private data$!: Subscription;
+  private metricsCardsDialogRef?: NxModalRef<SdcMetricsCardsComponent>;
 
-  constructor(private datePipe: DatePipe, private alertService: UiAlertService, private sdcMetricsService: SdcMetricsService) {}
+  constructor(
+    private datePipe: DatePipe,
+    private readonly dialogService: NxDialogService,
+    private alertService: UiAlertService,
+    private sdcMetricsService: SdcMetricsService
+  ) {}
 
   ngOnInit(): void {
     this.data$ = this.sdcMetricsService.onDataChange().subscribe(metricsData => {
@@ -57,6 +67,16 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
     );
   }
 
+  openMetricsCards(): void {
+    this.metricsCardsDialogRef = this.dialogService.open(this.templateRef, {
+      data: this.metricsData?.compliance.id
+    });
+  }
+
+  closeMetricsCards() {
+    this.metricsCardsDialogRef?.close();
+  }
+
   private metricGraphConfig(analysis?: IMetricAnalysisModel[]) {
     this.metricChartConfig.values =
       analysis?.map(data => ({
@@ -68,7 +88,7 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
   }
 
   private applicationCoverageGraphConfig(historical?: IHistoricalCoverage<IComponentModel>) {
-    const analysis = historical?.historical.page || [];
+    const analysis = historical?.historical.page ?? [];
 
     this.historicalChartConfig.values =
       analysis?.map(data => ({

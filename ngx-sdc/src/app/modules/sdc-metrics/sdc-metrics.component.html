@@ -14,12 +14,21 @@
           </nx-expansion-panel-title>
         </nx-expansion-panel-header>
         <div class="application-graph nx-margin-top-2xs">
-          <div
-            class="run-process"
-            [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
-            (click)="onRunProcess()"
-          >
-            <nx-icon name="product-cog-wheels" size="s"></nx-icon>
+          <div class="chart-ops sdc-scrollable">
+            <div
+              class="chart-op"
+              [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
+              (click)="openMetricsCards()"
+            >
+              <nx-icon name="info-circle-o" size="s"></nx-icon>
+            </div>
+            <div
+              class="chart-op"
+              [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
+              (click)="onRunProcess()"
+            >
+              <nx-icon name="product-cog-wheels" size="s"></nx-icon>
+            </div>
           </div>
           <sdc-time-evolution-chart
             [name]="'Label.Coverage' | translate"
@@ -85,3 +94,15 @@
     </nx-expansion-panel>
   </nx-accordion>
 </div>
+
+<ng-template #metricsCards let-data>
+  <div nxModalContent>
+    <sdc-metrics-cards [componentId]="data"></sdc-metrics-cards>
+  </div>
+  <footer nxModalActions>
+    <button nxButton="small secondary" type="button" (click)="closeMetricsCards()" class="nx-margin-bottom-0 nx-margin-right-xs">
+      Cancel
+    </button>
+    <button nxButton="small" type="button" (click)="closeMetricsCards()" class="nx-margin-bottom-0">Proceed</button>
+  </footer>
+</ng-template>
