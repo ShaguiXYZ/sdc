@@ -2,9 +2,6 @@ package com.shagui.sdc.service.impl;
 
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -30,9 +27,6 @@ import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
 public class ComponentServiceImpl implements ComponentService {
-	@Autowired
-	private EntityManager em;
-
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 
@@ -81,14 +75,15 @@ public class ComponentServiceImpl implements ComponentService {
 	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range) {
 		return componentRepository.repository()
-				.filter(em, name, squadId == null ? null : new SquadModel(squadId), range).stream().map(Mapper::parse)
-				.collect(SdcCollectors.toPageable());
+				.filter(name, squadId == null ? null : new SquadModel(squadId), range.getMin(), range.getMax()).stream()
+				.map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range, RequestPageInfo pageInfo) {
-		Page<ComponentModel> models = componentRepository.repository().filter(em, name,
-				squadId == null ? null : new SquadModel(squadId), range, pageInfo.getPageable());
+		Page<ComponentModel> models = componentRepository.repository().filter(name,
+				squadId == null ? null : new SquadModel(squadId), range.getMin(), range.getMax(),
+				pageInfo.getPageable());
 
 		return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(models));
 	}

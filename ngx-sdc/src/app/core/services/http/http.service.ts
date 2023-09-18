@@ -70,8 +70,8 @@ export class UiHttpService {
 
   public post<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
     const notificationId = this.notificationService.info(
-      this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.text || 'Notifications.ProcesingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.title ?? 'Notifications.Procesing'),
+      this.translateService.instant(requestOptions?.procesingMessage?.text ?? 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -129,8 +129,8 @@ export class UiHttpService {
 
   public delete<T>(url: string, requestOptions?: RequestOptions): Observable<any> {
     const notificationId = this.notificationService.info(
-      this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.text || 'Notifications.ProcesingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.title ?? 'Notifications.Procesing'),
+      this.translateService.instant(requestOptions?.procesingMessage?.text ?? 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -159,8 +159,8 @@ export class UiHttpService {
   private success(message?: MessageModal): void {
     if (message) {
       this.notificationService.success(
-        this.translateService.instant(message.title || 'Notifications.Success'),
-        this.translateService.instant(message.text || ''),
+        this.translateService.instant(message.title ?? 'Notifications.Success'),
+        this.translateService.instant(message.text ?? ''),
         DEFAULT_TIMEOUT_NOTIFICATIONS
       );
     }

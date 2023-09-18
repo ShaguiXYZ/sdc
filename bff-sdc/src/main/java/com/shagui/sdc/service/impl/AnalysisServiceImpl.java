@@ -15,6 +15,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 	private RwsSdcClient rwsSdcClient;
 
 	@Override
+	public PageData<MetricAnalysisDTO> analysis(int componentId) {
+		return rwsSdcClient.analysis(componentId);
+	}
+
+	@Override
 	public MetricAnalysisDTO analysis(int componentId, int metricId) {
 		return rwsSdcClient.analysis(componentId, metricId);
 	}

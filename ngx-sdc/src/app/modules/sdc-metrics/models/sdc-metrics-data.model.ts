@@ -4,8 +4,8 @@ import { IComplianceModel } from 'src/app/shared/components';
 
 export interface MetricsDataModel {
   analysis?: IMetricAnalysisModel[];
+  historicalAnalysis?: IMetricAnalysisModel[];
   compliance: IComplianceModel;
-  metrics?: IMetricModel[];
   historical?: IHistoricalCoverage<IComponentModel>;
   selectedAnalysis?: IMetricAnalysisModel;
 }

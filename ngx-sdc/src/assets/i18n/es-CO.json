@@ -1,6 +1,82 @@
 {
+  "Alerts": {
+    "RunProcess": {
+      "Title": "¿ Seguro ?",
+      "Description": "¿ Quieres proceder con el análisis del componente ?"
+    }
+  },
+  "ComplianceCard": {
+    "ProcessDate": "Fecha de proceso"
+  },
+  "Component": {
+    "State": {
+      "critical": "crítica",
+      "with_risk": "con riesgo",
+      "acceptable": "aceptable",
+      "perfect": "perfecto"
+    }
+  },
+  "Dropdown": {
+    "Filter": {
+      "Coverage": "Grado de cumplimiento",
+      "Squad": "Filtra Squads"
+    }
+  },
   "Header": {
-    "Title": "Título Aplicación",
-    "Help": "Ayuda"
+    "Help": "Ayuda",
+    "Menu": {
+      "Applications": "Aplicaciones",
+      "Departments": "Departamentos",
+      "Squads": "Sumario"
+    },
+    "Title": "Software Development Console"
+  },
+  "Label": {
+    "Applications": "Aplicaciones",
+    "AssociatedSquads": "Squads asociados",
+    "Cancel": "Cancelar",
+    "Continue": "Continuar",
+    "ComplianceState": "Estado cumplimiento / Nº Squads",
+    "ComponentMetrics": "Métricas de {{name}}",
+    "Coverage": "Cobertura",
+    "CurrentValue": "Valor Actual",
+    "FindByApplicationName": "Buscar por aplicación",
+    "ApplicationHistory": "Histórico de la aplicación",
+    "Metrics": "Métricas",
+    "MyApplications": "Mis Aplicaciones",
+    "Name": "Nombre",
+    "No": "No",
+    "NoResults": "Información no encontrada",
+    "Of": "de",
+    "OptimumValue": "Valor óptimo recomendado",
+    "OtherDepartments": "Otros departamentos",
+    "OtherSquads": "Otros squads",
+    "Search": "Buscar",
+    "SelectedDate": "Fecha seleccionada",
+    "ShowAll": "Ver todas",
+    "ShowMore": "Ver mas",
+    "Squads": "Squads",
+    "Yes": "Si"
+  },
+  "Language": {
+    "enGB": "Inglés (en-GB)",
+    "esES": "Castellano (es-ES)",
+    "esCO": "Castellano (es-CO)",
+    "ptBR": "Portugués (pt-BR)",
+    "ptPT": "Portugués (pt-PT)"
+  },
+  "Notifications": {
+    "AnalysisNotFound": "Analysis no encontrado",
+    "ComponentAnalized": "Componente analizado",
+    "ContextParamsNotFound": "Faltan parámetros en el contexto",
+    "Error": "Error",
+    "GeneralError": "Error general",
+    "MetricAbalysisNotFound": "Análisis de la métrica no encontrada",
+    "Procesing": "Procesando",
+    "ProcesingDetail": "Procesando",
+    "Success": "Ok"
+  },
+  "Tooltip": {
+    "RunProcess": "Analiza {{name}}"
   }
 }

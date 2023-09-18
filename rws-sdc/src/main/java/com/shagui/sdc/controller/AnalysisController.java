@@ -24,6 +24,11 @@ public class AnalysisController implements AnalysisRestApi {
 	private AnalysisService analysisService;
 
 	@Override
+	public PageData<MetricAnalysisDTO> analysis(int componentId) {
+		return analysisService.analysis(componentId);
+	}
+
+	@Override
 	public MetricAnalysisDTO analysis(int componentId, int metricId) {
 		return analysisService.analysis(componentId, metricId);
 	}

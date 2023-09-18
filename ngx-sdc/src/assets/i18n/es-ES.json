@@ -37,6 +37,7 @@
     "Cancel": "Cancelar",
     "Continue": "Continuar",
     "ComplianceState": "Estado cumplimiento / Nº Squads",
+    "ComponentMetrics": "Métricas de {{name}}",
     "Coverage": "Cobertura",
     "CurrentValue": "Valor Actual",
     "FindByApplicationName": "Buscar por aplicación",
@@ -45,6 +46,7 @@
     "MyApplications": "Mis Aplicaciones",
     "Name": "Nombre",
     "No": "No",
+    "NoResults": "Información no encontrada",
     "Of": "de",
     "OptimumValue": "Valor óptimo recomendado",
     "OtherDepartments": "Otros departamentos",
@@ -62,6 +64,17 @@
     "esCO": "Castellano (es-CO)",
     "ptBR": "Portugués (pt-BR)",
     "ptPT": "Portugués (pt-PT)"
+  },
+  "Notifications": {
+    "AnalysisNotFound": "Analysis no encontrado",
+    "ComponentAnalized": "Componente analizado",
+    "ContextParamsNotFound": "Faltan parámetros en el contexto",
+    "Error": "Error",
+    "GeneralError": "Error general",
+    "MetricAbalysisNotFound": "Análisis de la métrica no encontrada",
+    "Procesing": "Procesando",
+    "ProcesingDetail": "Procesando",
+    "Success": "Ok"
   },
   "Tooltip": {
     "RunProcess": "Analiza {{name}}"

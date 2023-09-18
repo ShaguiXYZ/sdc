@@ -25,8 +25,6 @@ export class SdcMetricsService {
 
     this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
     this.metricData = { compliance: this.metricContextData.compliance };
-
-    this.loadInitData();
   }
 
   public onDataChange(): Observable<MetricsDataModel> {
@@ -37,7 +35,7 @@ export class SdcMetricsService {
     this.analysisService
       .metricHistory(this.metricData.compliance.id, analysis.metric.id)
       .then(data => {
-        this.metricData = { ...this.metricData, analysis: data.page, selectedAnalysis: analysis };
+        this.metricData = { ...this.metricData, historicalAnalysis: data.page, selectedAnalysis: analysis };
 
         this.contextDataService.set(ContextDataInfo.METRICS_DATA, { ...this.metricContextData, selected: analysis });
         this.data$.next(this.metricData);
@@ -64,35 +62,36 @@ export class SdcMetricsService {
             .component(this.metricData.compliance.id)
             .then(data => {
               this.metricData.compliance = IComplianceModel.fromComponentModel(data);
+              this.analysisService.clearAnalysisCache(this.metricData.compliance.id);
               this.componentService.clearSquadCache(data.squad.id);
               this.departmentService.clearCache();
               this.squadService.clearCache();
+
+              this.loadInitData();
+              this.historicalComponentData();
             })
             .catch(_console.error);
-
-          this.loadInitData();
-          this.historicalComponentData();
         }
       })
       .catch(_console.error);
   };
 
-  private loadInitData(): void {
-    this.componentService
-      .componentMetrics(this.metricData.compliance.id)
-      .then(metrics => {
-        const availableMetrics = metrics.page.filter(metric => metric.validation && metric.valueType);
+  public loadInitData(): void {
+    this.analysisService
+      .componentAnalysis(this.metricData.compliance.id)
+      .then(data => {
+        const analysisToShow = data.page.filter(an => an.metric.validation && an.metric.valueType);
+
         this.metricData = {
           ...this.metricData,
-          metrics: availableMetrics
+          analysis: analysisToShow
         };
 
         this.data$.next(this.metricData);
 
-        this.analysisService
-          .analysis(this.metricData.compliance.id, this.metricContextData.selected?.metric.id ?? availableMetrics[0].id)
-          .then(data => this.analysisData(data))
-          .catch(_console.error);
+        if (analysisToShow.length) {
+          this.analysisData(this.metricContextData.selected ?? analysisToShow[0]);
+        }
       })
       .catch(_console.error);
   }

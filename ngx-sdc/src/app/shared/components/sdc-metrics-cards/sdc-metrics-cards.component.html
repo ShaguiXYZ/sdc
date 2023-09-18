@@ -1,4 +1,11 @@
-<div class="u-text-center">
-  <h3>Modal Dialog from a component</h3>
-  <p>Any content can be included in a modal view and styled as necessary.</p>
-</div>
+<ng-container *ngIf="analysis?.length; else noData">
+  <div class="u-text-center">
+    <div class="analysis">
+      <sdc-metric-info *ngFor="let data of analysis" [analysis]="data"> </sdc-metric-info>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #noData>
+  <sdc-no-data></sdc-no-data>
+</ng-template>

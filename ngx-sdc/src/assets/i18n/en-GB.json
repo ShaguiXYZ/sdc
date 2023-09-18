@@ -37,6 +37,7 @@
     "Cancel": "Cancel",
     "Continue": "Continue",
     "ComplianceState": "Compliance state / Nº Squads",
+    "ComponentMetrics": "{{name}} metrics",
     "Coverage": "Coverage",
     "CurrentValue": "Current value",
     "FindByApplicationName": "Find by application",
@@ -45,6 +46,7 @@
     "MyApplications": "My Applications",
     "Name": "Name",
     "No": "No",
+    "NoResults": "Not result found",
     "Of": "of",
     "OptimumValue": "Recommended optimum value",
     "OtherDepartments": "Other departments",
@@ -62,6 +64,17 @@
     "esCO": "Spanish (es-CO)",
     "ptBR": "Portuguese (pt-BR)",
     "ptPT": "Portuguese (pt-PT)"
+  },
+  "Notifications": {
+    "AnalysisNotFound": "Analysis not found",
+    "ComponentAnalized": "Component analized",
+    "ContextParamsNotFound": "Context params no found",
+    "Error": "Error",
+    "GeneralError": "General error",
+    "MetricAbalysisNotFound": "Metric abalysis not found",
+    "Procesing": "Procesing",
+    "ProcesingDetail": "Procesing",
+    "Success": "Success"
   },
   "Tooltip": {
     "RunProcess": "Analize {{name}}"

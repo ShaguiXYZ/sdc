@@ -19,6 +19,11 @@ public class AnalysisController implements AnalysisRestApi {
 	private AnalysisService analysisService;
 
 	@Override
+	public PageData<MetricAnalysisView> analysis(int componentId) {
+		return Mapper.parse(analysisService.analysis(componentId), MetricAnalysisView.class);
+	}
+
+	@Override
 	public MetricAnalysisView analysis(int componentId, int metricId) {
 		return CastFactory.getInstance(MetricAnalysisView.class).parse(analysisService.analysis(componentId, metricId));
 	}

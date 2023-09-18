@@ -27,19 +27,21 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
   private metricsCardsDialogRef?: NxModalRef<SdcMetricsCardsComponent>;
 
   constructor(
-    private datePipe: DatePipe,
+    private readonly alertService: UiAlertService,
+    private readonly datePipe: DatePipe,
     private readonly dialogService: NxDialogService,
-    private alertService: UiAlertService,
-    private sdcMetricsService: SdcMetricsService
+    private readonly sdcMetricsService: SdcMetricsService
   ) {}
 
   ngOnInit(): void {
     this.data$ = this.sdcMetricsService.onDataChange().subscribe(metricsData => {
       this.metricsData = metricsData;
 
-      this.metricGraphConfig(this.metricsData.analysis);
+      this.metricGraphConfig(this.metricsData.historicalAnalysis);
       this.applicationCoverageGraphConfig(this.metricsData.historical);
     });
+
+    this.sdcMetricsService.loadInitData();
   }
 
   ngOnDestroy(): void {
@@ -69,7 +71,8 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
   openMetricsCards(): void {
     this.metricsCardsDialogRef = this.dialogService.open(this.templateRef, {
-      data: this.metricsData?.compliance.id
+      appearance: 'expert',
+      data: { component: this.metricsData?.compliance }
     });
   }
 
@@ -80,11 +83,11 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
   private metricGraphConfig(analysis?: IMetricAnalysisModel[]) {
     this.metricChartConfig.values =
       analysis?.map(data => ({
-        xAxis: this.datePipe.transform(data.analysisDate, 'dd/MM/yyyy') || '',
+        xAxis: this.datePipe.transform(data.analysisDate, 'dd/MM/yyyy') ?? '',
         data: data.analysisValues.metricValue,
         color: MetricState[stateByCoverage(data.coverage)].color,
         type: data.metric.valueType
-      })) || [];
+      })) ?? [];
   }
 
   private applicationCoverageGraphConfig(historical?: IHistoricalCoverage<IComponentModel>) {
@@ -92,10 +95,10 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
     this.historicalChartConfig.values =
       analysis?.map(data => ({
-        xAxis: this.datePipe.transform(data.analysisDate, 'dd/MM/yyyy') || '',
+        xAxis: this.datePipe.transform(data.analysisDate, 'dd/MM/yyyy') ?? '',
         data: `${data.coverage}`,
         color: MetricState[stateByCoverage(data.coverage)].color,
         type: ValueType.NUMERIC
-      })) || [];
+      })) ?? [];
   }
 }

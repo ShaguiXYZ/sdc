@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.domain.Range;
@@ -29,6 +30,23 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 	public Optional<ComponentModel> findBySquad_IdAndName(int squadId, String name);
 
+	@Query("SELECT cm FROM ComponentModel cm WHERE "
+			+ "(COALESCE(:name) IS NULL OR LOWER(cm.name) like LOWER(:name)) AND "
+			+ "(COALESCE(:squad) IS NULL OR cm.squad IS (:squad)) AND "
+			+ "(COALESCE(:coverageMin) IS NULL OR (:coverageMin) < cm.coverage) AND "
+			+ "(COALESCE(:coverageMax) IS NULL OR (:coverageMax) >= cm.coverage) "
+			+ "ORDER BY cm.coverage, cm.name")
+	public Page<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax,
+			Pageable pageable);
+
+	@Query("SELECT cm FROM ComponentModel cm WHERE "
+			+ "(COALESCE(:name) IS NULL OR LOWER(cm.name) like LOWER(:name)) AND "
+			+ "(COALESCE(:squad) IS NULL OR cm.squad IS (:squad)) AND "
+			+ "(COALESCE(:coverageMin) IS NULL OR (:coverageMin) < cm.coverage) AND "
+			+ "(COALESCE(:coverageMax) IS NULL OR (:coverageMax) >= cm.coverage) "
+			+ "ORDER BY cm.coverage, cm.name")
+	public List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax);
+	
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range,
 			Pageable pageable) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);

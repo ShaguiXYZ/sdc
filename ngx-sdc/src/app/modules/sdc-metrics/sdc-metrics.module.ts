@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SdcComplianceBarCardModule } from 'src/app/shared/components/sdc-compliance-bar-card/sdc-compliance-bar-card.module';
 import { SdcMetricInfoModule } from 'src/app/shared/components/sdc-metric-info/sdc-metric-info.module';
 import { SdcMetricsCardsModule } from 'src/app/shared/components/sdc-metrics-cards/sdc-metrics-cards.module';
+import { SdcNoDataModule } from 'src/app/shared/components/sdc-no-data/sdc-no-data.module';
 import { SdcTimeEvolutionChartModule } from 'src/app/shared/components/sdc-time-evolution-chart/sdc-time-evolution-chart.module';
 import { SdcMetricsRoutingModule } from './sdc-metrics-routing.module';
 import { SdcMetricsComponent } from './sdc-metrics.component';
@@ -28,6 +29,7 @@ import { SdcMetricsComponent } from './sdc-metrics.component';
     SdcMetricsCardsModule,
     SdcMetricsRoutingModule,
     SdcMetricInfoModule,
+    SdcNoDataModule,
     SdcTimeEvolutionChartModule,
     TranslateModule
   ]
