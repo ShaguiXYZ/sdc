@@ -16,8 +16,14 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 
+import io.swagger.v3.oas.annotations.Parameter;
+
 @FeignClient(name = "rws-sdc", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
+	@GetMapping("analysis/get/{componentId}")
+	PageData<MetricAnalysisDTO> analysis(
+			@PathVariable @Parameter(description = "Component identifier") int componentId);
+
 	@GetMapping("analysis/get/{componentId}/{metricId}")
 	MetricAnalysisDTO analysis(@PathVariable int componentId, @PathVariable int metricId);
 
@@ -41,23 +47,19 @@ public interface RwsSdcClient {
 	PageData<SquadDTO> squads(@RequestParam(required = false) Integer page);
 
 	@GetMapping("squads/{departmentId}")
-	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId,
-			@RequestParam(required = false) Integer page);
+	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId, @RequestParam(required = false) Integer page);
 
 	@GetMapping("component/{componentId}")
 	ComponentDTO component(@PathVariable int componentId);
 
 	@GetMapping("components/squad/{squadId}")
-	PageData<ComponentDTO> squadComponents(@PathVariable int squadId,
-			@RequestParam(required = false) Integer page,
+	PageData<ComponentDTO> squadComponents(@PathVariable int squadId, @RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer ps);
 
 	@GetMapping("components/filter")
 	PageData<ComponentDTO> filter(@RequestParam(required = false) String name,
-			@RequestParam(required = false) Integer squadId,
-			@RequestParam(required = false) Float coverageMin,
-			@RequestParam(required = false) Float coverageMax,
-			@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Float coverageMin,
+			@RequestParam(required = false) Float coverageMax, @RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer ps);
 
 	@GetMapping("component/{componentId}/metrics")
@@ -65,6 +67,5 @@ public interface RwsSdcClient {
 
 	@GetMapping("component/historical/{componentId}")
 	HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
-			@RequestParam(required = false) Integer page,
-			@RequestParam(required = false) Integer ps);
+			@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
 }

@@ -24,8 +24,8 @@ export class ContextValidGuard {
 
       if (!canNavigate) {
         this.notificationService.error(
-          this.translateService.instant('Navigation.Error'),
-          this.translateService.instant('Navigation.ConstextParams.Error'),
+          this.translateService.instant('Notifications.Error'),
+          this.translateService.instant('Notifications.ContextParamsNotFound'),
           DEFAULT_TIMEOUT_NOTIFICATIONS,
           true
         );

@@ -53,10 +53,14 @@ export class UiCacheService implements OnDestroy {
     return data && (!data.expiration || data.expiration > new Date().getTime()) ? data.data : undefined;
   }
 
-  public delete = (key: string) => {
-    _console.log(`deleting ${key} from cache`);
-
-    delete this.contextData.cache[key];
+  public delete = (key: string | RegExp): void => {
+    if (typeof key === 'string') {
+      _console.log(`deleting ${key} from cache`);
+      delete this.contextData.cache[key];
+    } else {
+      const keys = Object.keys(this.contextData.cache);
+      keys.filter(k => key.test(k)).forEach(this.delete);
+    }
   };
 
   public asObservable<T>(key: string): Observable<T> {

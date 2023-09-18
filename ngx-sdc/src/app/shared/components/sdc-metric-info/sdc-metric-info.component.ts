@@ -1,42 +1,30 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AvailableMetricStates, DEFAULT_METRIC_STATE, stateByCoverage, styleByCoverage } from 'src/app/core/lib';
-import { IMetricAnalysisModel, IMetricModel, iconByType } from 'src/app/core/models/sdc';
-import { AnalysisService } from 'src/app/core/services/sdc';
+import { IMetricAnalysisModel, iconByType } from 'src/app/core/models/sdc';
 
 @Component({
   selector: 'sdc-metric-info',
   templateUrl: './sdc-metric-info.component.html',
   styleUrls: ['./sdc-metric-info.component.scss']
 })
-export class SdcMetricInfoComponent implements OnInit {
-  @Input()
-  public componentId!: number;
-
-  @Input()
-  public metric!: IMetricModel;
-
+export class SdcMetricInfoComponent {
   @Input()
   public selected = false;
+
+  private _analysis!: IMetricAnalysisModel;
+  public get analysis(): IMetricAnalysisModel {
+    return this._analysis;
+  }
+  @Input()
+  public set analysis(value: IMetricAnalysisModel) {
+    this._analysis = value;
+    this.style = styleByCoverage(this.analysis.coverage);
+  }
 
   @Output()
   public selectMetric: EventEmitter<IMetricAnalysisModel> = new EventEmitter();
 
   public style = '';
-  public analysis?: IMetricAnalysisModel;
-
-  constructor(private analysisService: AnalysisService) {}
-
-  ngOnInit(): void {
-    this.analysisService
-      .analysis(this.componentId, this.metric.id)
-      .then(data => {
-        this.analysis = data;
-        this.style = styleByCoverage(data.coverage);
-      })
-      .catch(() => {
-        this.analysis = { analysisDate: 0, metric: this.metric, coverage: 0, analysisValues: { metricValue: '' } };
-      });
-  }
 
   get icon(): string {
     return {
@@ -48,7 +36,7 @@ export class SdcMetricInfoComponent implements OnInit {
   }
 
   get analysisIcon(): string {
-    return iconByType(this.metric.type);
+    return iconByType(this.analysis.metric.type);
   }
 
   public onClick() {

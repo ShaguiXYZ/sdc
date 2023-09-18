@@ -3,9 +3,9 @@
     <em [class]="icon"></em>
   </div>
   <div class="metric-info nx-margin-left-2xs" metric-info>
-    <div class="metric-name cut-text">{{ metric.name }}</div>
+    <div class="metric-name cut-text">{{ analysis.metric.name }}</div>
     <div class="extra-info">
-      {{ analysis?.analysisValues?.metricValue || '-' }}
+      {{ analysis.analysisValues.metricValue || '-' }}
       <em [class]="analysisIcon"></em>
     </div>
   </div>

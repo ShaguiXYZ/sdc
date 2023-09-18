@@ -32,8 +32,12 @@ describe('SdcMetricInfoComponent', () => {
       name: 'Test',
       type: AnalysisType.GIT_XML
     };
-    component.metric = metric;
-    component.componentId = 1;
+    component.analysis = {
+      metric: { id: 1, name: 'metric 1', type: AnalysisType.SONAR },
+      analysisDate: 0,
+      analysisValues: { metricValue: '0' },
+      coverage: 10
+    };
     fixture.detectChanges();
   });
 
