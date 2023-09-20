@@ -1,11 +1,10 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { EChartsOption } from 'echarts';
 import { BarChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ChartConfig, ChartValue } from './models';
+import { ChartConfig, ChartValue } from '../../models';
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',
@@ -14,14 +13,14 @@ import { ChartConfig, ChartValue } from './models';
   providers: [TitleCasePipe]
 })
 export class SdcHorizontalBarChartComponent {
-  private chartConfig: ChartConfig = { values: [] };
+  private chartConfig!: ChartConfig;
 
   @Input()
   public name!: string;
 
   @Input()
-  set values(value: ChartValue[]) {
-    this.chartConfig = { ...this.chartConfig, values: value || [] };
+  set config(value: ChartConfig) {
+    this.chartConfig = { ...value };
     this.echartsOptions = this.chartOptions(this.chartConfig);
   }
 
@@ -42,20 +41,22 @@ export class SdcHorizontalBarChartComponent {
   public readonly echartsExtentions: any[];
   public echartsOptions: EChartsOption = {};
 
-  constructor(private titleCasePipe: TitleCasePipe, private translateService: TranslateService) {
+  constructor() {
     this.echartsExtentions = [BarChart, GridComponent, TooltipComponent];
   }
 
   private chartOptions(chartConfig: ChartConfig): EChartsOption {
-    const yAxis =
-      chartConfig.values?.map(value => this.titleCasePipe.transform(this.translateService.instant(`Component.State.${value.yAxis}`))) || [];
+    const yAxis = chartConfig.axis?.yAxis;
     const data =
-      chartConfig.values?.map(value => ({
-        value: value.data || 0,
-        itemStyle: {
-          color: value.color
-        }
-      })) || [];
+      chartConfig.data
+        .map(data => data.values)
+        .filter(values => !Array.isArray(values))
+        .map(values => ({
+          value: (values as ChartValue).value ?? 0,
+          itemStyle: {
+            color: (values as ChartValue).color
+          }
+        })) || [];
 
     return {
       animation: false,

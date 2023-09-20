@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
 import { SdcHorizontalBarChartComponent } from '../sdc-horizontal-bar-chart.component';
 
@@ -14,7 +13,7 @@ describe('SdcHorizontalBarChartComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SdcHorizontalBarChartComponent],
-      imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
+      imports: [HttpClientModule, RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents()
@@ -26,7 +25,7 @@ describe('SdcHorizontalBarChartComponent', () => {
     component = fixture.componentInstance;
     component.name = 'test';
     component.size = { height: 1, width: 1 };
-    component.values = [{ data: '', yAxis: '', color: '' }];
+    component.config = { axis: {}, data: [{ values: { value: '0' } }, { values: [] }, { values: [] }] };
     fixture.detectChanges();
   });
 
