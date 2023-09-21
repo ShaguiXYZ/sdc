@@ -49,7 +49,7 @@ export class SdcHorizontalBarChartComponent {
     const yAxis = chartConfig.axis?.yAxis;
     const data =
       chartConfig.data
-        .map(data => data.values)
+        .map(chartConfigData => chartConfigData.values)
         .filter(values => !Array.isArray(values))
         .map(values => ({
           value: (values as ChartValue).value ?? 0,
@@ -68,8 +68,6 @@ export class SdcHorizontalBarChartComponent {
         containLabel: true
       },
       tooltip: {
-        backgroundColor: '#A694BB',
-        textStyle: { color: 'white' },
         trigger: 'axis',
         axisPointer: {
           type: 'cross'

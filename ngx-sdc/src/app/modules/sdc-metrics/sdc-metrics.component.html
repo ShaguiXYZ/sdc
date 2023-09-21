@@ -30,11 +30,7 @@
               <nx-icon name="product-cog-wheels" size="s"></nx-icon>
             </div>
           </div>
-          <sdc-time-evolution-chart
-            [name]="'Label.Coverage' | translate"
-            [values]="historicalChartConfig.values"
-            [size]="{ height: 200 }"
-          ></sdc-time-evolution-chart>
+          <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }"></sdc-time-evolution-chart>
         </div>
       </nx-expansion-panel>
     </nx-accordion>
@@ -85,10 +81,7 @@
                 </span>
               </div>
             </div>
-            <sdc-time-evolution-chart
-              [name]="metricsData.selectedAnalysis?.metric?.name || ''"
-              [values]="metricChartConfig.values"
-            ></sdc-time-evolution-chart>
+            <sdc-time-evolution-chart [config]="metricChartConfig"></sdc-time-evolution-chart>
           </div>
         </div>
       </ng-container>

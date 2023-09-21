@@ -105,7 +105,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<Future<List<ComponentAnalysisModel>>> futureTascs = new ArrayList<>();
 		metricTypes.forEach(type -> futureTascs
 				.add(CompletableFuture.supplyAsync(() -> metricServices.get(type.name()).analyze(component))
-						.thenApply(saveChangesInMetrics)));
+						.thenApply(discardUnmodifiedMetrics)));
 
 		while (futureTascs.stream().anyMatch(task -> !task.isDone() && !task.isCancelled()))
 			;
@@ -129,7 +129,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		return componentAnalysisRepository.repository().saveAll(toSave).stream().collect(Collectors.toList());
 	}
 
-	private UnaryOperator<List<ComponentAnalysisModel>> saveChangesInMetrics = (
+	private UnaryOperator<List<ComponentAnalysisModel>> discardUnmodifiedMetrics = (
 			List<ComponentAnalysisModel> toAnalyze) -> toAnalyze.stream().filter(reg -> {
 				Optional<ComponentAnalysisModel> model = componentAnalysisRepository.repository()
 						.actualMetric(reg.getId().getComponentId(), reg.getId().getMetricId());

@@ -13,6 +13,7 @@ export interface AxiValues {
 
 export interface ChartData {
   name?: string;
+  lineStyle?: 'solid' | 'dashed' | 'dotted';
   values: ChartValue | ChartValue[];
 }
 

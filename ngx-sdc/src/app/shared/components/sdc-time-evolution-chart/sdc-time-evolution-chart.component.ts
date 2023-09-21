@@ -4,7 +4,7 @@ import { LineChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
-import { ChartConfig, ChartValue } from './models';
+import { ChartConfig, ChartData, ChartValue } from '../../models';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
@@ -13,17 +13,10 @@ import { ChartConfig, ChartValue } from './models';
   providers: [SdcValueTypeToNumberPipe]
 })
 export class SdcTimeEvolutionChartComponent {
-  private chartConfig: ChartConfig = { values: [] };
-
+  private chartConfig!: ChartConfig;
   @Input()
-  set name(value: string) {
-    this.chartConfig = { ...this.chartConfig, name: value };
-    this.echartsOptions = this.chartOptions(this.chartConfig);
-  }
-
-  @Input()
-  set values(value: ChartValue[]) {
-    this.chartConfig = { ...this.chartConfig, values: value || [] };
+  set config(value: ChartConfig) {
+    this.chartConfig = { ...value };
     this.echartsOptions = this.chartOptions(this.chartConfig);
   }
 
@@ -49,16 +42,33 @@ export class SdcTimeEvolutionChartComponent {
   }
 
   private chartOptions(chartConfig: ChartConfig): EChartsOption {
-    const xAxis = chartConfig.values?.map(value => value.xAxis) || [];
-    const data = chartConfig.values?.map(value => this.valueTypeToNumberPipe.transform(value.data, value.type) || 0) || [];
-    const pieces =
-      chartConfig.values
-        ?.map((value, index) => ({
-          gte: index,
-          lt: index + 1,
-          color: value.color
-        }))
-        .filter(value => value.color) || [];
+    const xAxis: string[] = chartConfig.axis.xAxis ?? [];
+    const chartData: ChartData[] = chartConfig.data.filter(data => Array.isArray(data.values));
+
+    const chartDataConfig = chartData.map((data, index) => {
+      const serie: ChartValue[] = data.values as ChartValue[];
+
+      return {
+        visualMap: {
+          show: false,
+          dimension: 0,
+          seriesIndex: index,
+          pieces: serie.map((item, pieceIndex) => ({
+            gte: pieceIndex,
+            lt: pieceIndex + 1,
+            color: item.color
+          }))
+        },
+        serie: {
+          name: data.name ?? '',
+          lineStyle: data.lineStyle ?? 'solid',
+          data: serie.map(item => ({
+            sourceData: item.value,
+            value: this.valueTypeToNumberPipe.transform(item.value, chartConfig.type) ?? 0
+          }))
+        }
+      };
+    });
 
     return {
       animation: false,
@@ -70,39 +80,37 @@ export class SdcTimeEvolutionChartComponent {
         containLabel: true
       },
       tooltip: {
-        trigger: 'axis',
         axisPointer: {
           type: 'cross'
-        }
+        },
+        trigger: 'axis'
       },
       xAxis: {
+        axisPointer: {},
         type: 'category',
         boundaryGap: false,
         data: xAxis
       },
       yAxis: {
+        axisPointer: {
+          snap: true
+        },
         type: 'value',
         axisLabel: {
           formatter: '{value}'
+        }
+      },
+      visualMap: chartDataConfig.map(dataConfig => dataConfig.visualMap),
+      series: chartDataConfig.map(dataConfig => ({
+        data: dataConfig.serie.data,
+        lineStyle: {
+          type: dataConfig.serie.lineStyle
         },
-        axisPointer: {
-          snap: true
-        }
-      },
-      visualMap: {
-        show: false,
-        dimension: 0,
-        pieces
-      },
-      series: [
-        {
-          name: chartConfig.name,
-          type: 'line',
-          smooth: false,
-          symbolSize: 15,
-          data
-        }
-      ]
+        name: dataConfig.serie.name,
+        smooth: false,
+        symbolSize: 12,
+        type: 'line'
+      }))
     };
   }
 }
