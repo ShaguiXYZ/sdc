@@ -22,6 +22,8 @@ import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.service.impl.DependabotServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
+import com.shagui.sdc.util.git.GitUtils;
+import com.shagui.sdc.util.git.GitUtilsConfig;
 
 class DependabotServiceImplTest {
 
@@ -44,9 +46,12 @@ class DependabotServiceImplTest {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(RwsTestUtils.uriModelMock(UriType.DEPENDABOT));
+				add(RwsTestUtils.uriModelMock(UriType.GIT));
 			}
 		});
+
+		GitUtils.setConfig(new GitUtilsConfig(gitClient));
+
 	}
 
 	@Test

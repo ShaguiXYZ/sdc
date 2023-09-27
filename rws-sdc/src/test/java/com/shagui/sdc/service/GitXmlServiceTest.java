@@ -37,6 +37,8 @@ import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesReposi
 import com.shagui.sdc.service.impl.GitXmlServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
+import com.shagui.sdc.util.git.GitUtils;
+import com.shagui.sdc.util.git.GitUtilsConfig;
 
 class GitXmlServiceTest {
 
@@ -68,6 +70,8 @@ class GitXmlServiceTest {
 				add(RwsTestUtils.uriModelMock(UriType.GIT));
 			}
 		});
+
+		GitUtils.setConfig(new GitUtilsConfig(gitClient));
 	}
 
 	@Test

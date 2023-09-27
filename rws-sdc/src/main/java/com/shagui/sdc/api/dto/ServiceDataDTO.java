@@ -1,16 +1,14 @@
-package com.shagui.sdc.util.documents.data;
+package com.shagui.sdc.api.dto;
 
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.util.documents.SdcDocument;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ServiceData {
+public class ServiceDataDTO {
 	private ComponentModel component;
 	private MetricModel metric;
-	private SdcDocument docuemnt;
 }

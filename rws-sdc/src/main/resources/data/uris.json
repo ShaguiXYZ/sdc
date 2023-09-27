@@ -1,25 +1,14 @@
 [
 	{
 		"name": "git-public",
-		"value": "https://api.github.com/repos/#{organization}/#{$name}/contents",
+		"value": "https://api.github.com/repos/#{organization}/#{$name}",
 		"type": "GIT",
 		"properties": []
 	},
 	{
 		"name": "git-private",
-		"value": "https://api.github.com/repos/#{organization}/#{$name}/contents",
+		"value": "https://api.github.com/repos/#{organization}/#{$name}",
 		"type": "GIT",
-		"properties": [
-			{
-				"name": "Authorization",
-				"value": "#{git-authorization-type} #{git-authorization}"
-			}
-		]
-	},
-	{
-		"name": "dependabot",
-		"value": "https://api.github.com/repos/#{organization}/#{$name}/dependabot/alerts?state=open",
-		"type": "DEPENDABOT",
 		"properties": [
 			{
 				"name": "Authorization",

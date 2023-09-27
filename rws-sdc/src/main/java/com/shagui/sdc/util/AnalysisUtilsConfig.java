@@ -16,11 +16,11 @@ import lombok.AllArgsConstructor;
 public class AnalysisUtilsConfig {
 	@Autowired
 	private MetricValueRepository metricValuesRepository;
-	
+
 	public JpaCommonRepository<MetricValueRepository, MetricValuesModel, Integer> metricValuesRepository() {
 		return () -> metricValuesRepository;
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		AnalysisUtils.setConfig(this);

@@ -4,17 +4,31 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.api.dto.ServiceDataDTO;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.MetricValuesModel;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class AnalysisUtils {
 	private static AnalysisUtilsConfig config;
 
 	private AnalysisUtils() {
+	}
+
+	public static Supplier<String> notDataFound(ServiceDataDTO serviceData) {
+		return () -> {
+			log.debug("There is no analysis data for component '{0}' and metric '{1}'",
+					serviceData.getComponent().getName(), serviceData.getMetric().getName());
+
+			return "N/A";
+		};
 	}
 
 	public static void setConfig(AnalysisUtilsConfig config) {

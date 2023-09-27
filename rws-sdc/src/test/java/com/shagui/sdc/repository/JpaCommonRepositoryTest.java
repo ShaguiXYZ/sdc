@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -25,10 +23,6 @@ import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 class JpaCommonRepositoryTest {
-
-	@Mock
-	private EntityManager em;
-
 	@Mock
 	private JpaRepository<ModelMock, Integer> jpaRespository;
 

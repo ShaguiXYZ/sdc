@@ -35,6 +35,8 @@ import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesReposi
 import com.shagui.sdc.service.impl.GitJsonServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
+import com.shagui.sdc.util.git.GitUtils;
+import com.shagui.sdc.util.git.GitUtilsConfig;
 
 class GitJsonServiceTest {
 
@@ -66,6 +68,8 @@ class GitJsonServiceTest {
 				add(RwsTestUtils.uriModelMock(UriType.GIT));
 			}
 		});
+		
+		GitUtils.setConfig(new GitUtilsConfig(gitClient));
 	}
 
 	@Test

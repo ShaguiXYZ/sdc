@@ -54,7 +54,9 @@ public class MetricValidations {
 	private static <T extends Comparable<T>> Float validate(MetricAnalysisDTO analysis, Class<T> clazz) {
 		Float coverage = null;
 		T value = cast(analysis.getAnalysisValues().getMetricValue(), clazz);
-		MetricValidation validation = value == null ? MetricValidation.NA : analysis.getMetric().getValidation();
+		MetricValidation validation = (value == null || analysis.getMetric().getValidation() == null)
+				? MetricValidation.NA
+				: analysis.getMetric().getValidation();
 		List<MetricControl<T>> control = controlValues(analysis, clazz);
 
 		switch (validation) {
@@ -67,12 +69,12 @@ public class MetricValidations {
 					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
 		case GT:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) > 0)
-					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+			coverage = control.stream().filter(c -> c.getControl().compareTo(value) > 0).map(MetricControl::getCoverage)
+					.findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
 		case LT:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) < 0)
-					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+			coverage = control.stream().filter(c -> c.getControl().compareTo(value) < 0).map(MetricControl::getCoverage)
+					.findFirst().orElse(MetricState.CRITICAL.coverage());
 			break;
 		case GTE:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) >= 0)

@@ -6,6 +6,7 @@ public class Ctes {
 	}
 
 	public static class ANALYSIS_SERVICES_TYPES {
+		public static final String GIT = "GIT"; // = AnalysisType.GIT
 		public static final String GIT_JSON = "GIT_JSON"; // = AnalysisType.GIT_JSON
 		public static final String GIT_XML = "GIT_XML"; // = AnalysisType.GIT_XML
 		public static final String SONAR = "SONAR"; // = AnalysisType.SONAR

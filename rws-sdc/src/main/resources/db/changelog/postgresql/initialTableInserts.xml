@@ -48,11 +48,11 @@
 				 ('Recurity Hotspots Reviewed','security_hotspots_reviewed','SONAR',NULL,NULL),
 				 ('Security Review Rating','security_review_rating','SONAR',NULL,NULL),
 				 ('Code Smells','code_smells','SONAR',NULL,NULL),
-				 ('Sqale Index','sqale_index','SONAR',NULL,NULL);
+				 ('Technical Debt','sqale_index','SONAR',NULL,NULL);
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
 				 ('Duplicated Lines Density','duplicated_lines_density','SONAR','NUMERIC','GTE'),
 				 ('ncloc','ncloc','SONAR',NULL,NULL),
-				 ('ncloc language distribution','ncloc_language_distribution','SONAR',NULL,NULL),
+				 ('Language Distribution (SONAR)','ncloc_language_distribution','SONAR',NULL,NULL),
 				 ('Projects','projects','SONAR',NULL,NULL),
 				 ('Info Violations','info_violations','SONAR','NUMERIC','GTE'),
 				 ('Minor Errors','minor_violations','SONAR','NUMERIC','GTE'),
@@ -70,9 +70,11 @@
 				 ('High Vulnerabilites','high_severity','DEPENDABOT','NUMERIC','GTE'),
 				 ('Critical Vulnerabilities','critical_severity','DEPENDABOT','NUMERIC','GTE');
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
-				 ('Code Lines','lines','SONAR','NUMERIC',NULL);
+				 ('Code Lines (SONAR)','lines','SONAR','NUMERIC',NULL);
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
-				 ('Deprecated Libraries','deprecated_library','GIT_XML','BOOLEAN','EQ');
+				 ('Deprecated Libraries','deprecated_library','GIT_XML','BOOLEAN','EQ'),
+				 ('Code Lines (GIT)','lines','GIT','NUMERIC',NULL),
+				 ('Language Distribution (GIT)','ncloc_language_distribution','GIT',NULL,NULL);
 		</sql>
 	</changeSet>
 
@@ -154,9 +156,7 @@
 		<sql dbms="postgresql">
 			INSERT INTO component_uris (component_id,uri_name) VALUES
 				 (1,'git-public'),
-				 (1,'dependabot'),
 				 (2,'git-private'),
-				 (2,'dependabot'),
 				 (3,'sonar-repo'),
 				 (4,'sonar-repo'),
 				 (5,'sonar-repo');
@@ -170,12 +170,15 @@
 				 (7,21),
 				 (7,22),
 				 (7,23),
-				 (7,29);
+				 (7,29),
+				 (7,30);
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (9,21),
 				 (9,22),
 				 (9,23),
-				 (9,24);
+				 (9,24),
+				 (9,30),
+				 (9,31);
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
 				 (15,1),
 				 (15,2),
@@ -194,7 +197,8 @@
 				 (15,16),
 				 (15,17),
 				 (15,18),
-				 (15,19);
+				 (15,19),
+				 (15,28);
 		</sql>
 	</changeSet>
 
