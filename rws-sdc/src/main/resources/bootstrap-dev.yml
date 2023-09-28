@@ -26,7 +26,7 @@ sdc:
    dictionary:
       secret:
          git-authorization-type: token
-         git-authorization: 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
+         git-authorization: ${GIT_TOKEN}
    document:
       pom:
          deprecated-libs:
