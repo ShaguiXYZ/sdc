@@ -102,10 +102,12 @@ public class ComponentUtils {
 
 		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
 
-		component.setCoverage(coverage);
-		component = config.componentRepository().update(component.getId(), component);
+		if (!coverage.equals(component.getCoverage())) {
+			component.setCoverage(coverage);
+			component = config.componentRepository().update(component.getId(), component);
 
-		saveHistoricalCoverage(component, date, coverage);
+			saveHistoricalCoverage(component, date, coverage);
+		}
 	}
 
 	private static void updateSquadComponent(ComponentModel component) {

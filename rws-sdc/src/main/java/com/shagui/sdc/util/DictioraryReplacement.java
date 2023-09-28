@@ -59,10 +59,10 @@ public class DictioraryReplacement {
 								dictionary.get(key));
 					} else {
 						if (strict) {
-							throw new SdcCustomException(String.format("[STRICT] Not key %s found in repository", key));
+							throw new SdcCustomException(String.format("[STRICT] Not key '%s' found in repository", key));
 						}
 
-						log.debug(String.format("Not key %s found in repository", key));
+						log.debug(String.format("Not key '%s' found in repository", key));
 
 						if (defaultValue != null) {
 							result = result.replaceAll(PRE_EXP.apply(null) + key + POST_EXP, defaultValue);
