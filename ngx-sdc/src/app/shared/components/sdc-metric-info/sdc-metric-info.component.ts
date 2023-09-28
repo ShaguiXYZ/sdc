@@ -32,7 +32,7 @@ export class SdcMetricInfoComponent {
       [AvailableMetricStates.WITH_RISK]: 'fa-solid fa-triangle-exclamation fa-lg',
       [AvailableMetricStates.ACCEPTABLE]: 'fa-solid fa-circle-exclamation fa-lg',
       [AvailableMetricStates.PERFECT]: 'fa-solid fa-circle-check fa-lg'
-    }[stateByCoverage(this.analysis?.coverage ?? DEFAULT_METRIC_STATE)];
+    }[stateByCoverage(this.analysis?.coverage)];
   }
 
   get analysisIcon(): string {

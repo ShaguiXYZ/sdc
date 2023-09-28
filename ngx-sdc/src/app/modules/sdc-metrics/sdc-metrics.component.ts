@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/c
 import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
 import { Subscription } from 'rxjs';
 import { UiAlertService } from 'src/app/core/components/alert';
-import { AvailableMetricStates, MetricState, stateByCoverage } from 'src/app/core/lib';
+import { AvailableMetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/core/lib';
 import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 import { SdcMetricsCardsComponent } from 'src/app/shared/components/sdc-metrics-cards';
@@ -94,7 +94,7 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
           name: this.metricsData?.selectedAnalysis?.metric.name,
           values:
             analysis?.map(data => ({
-              color: MetricState[stateByCoverage(data.coverage)].color,
+              color: data.metric.validation ? MetricState[stateByCoverage(data.coverage)].color : MetricState[DEFAULT_METRIC_STATE].color,
               value: data.analysisValues.metricValue
             })) ?? []
         },

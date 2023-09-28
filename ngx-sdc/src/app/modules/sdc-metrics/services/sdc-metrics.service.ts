@@ -80,7 +80,7 @@ export class SdcMetricsService {
     this.analysisService
       .componentAnalysis(this.metricData.compliance.id)
       .then(data => {
-        const analysisToShow = data.page.filter(an => an.metric.validation && an.metric.valueType);
+        const analysisToShow = data.page.filter(an => an.metric.valueType);
 
         this.metricData = {
           ...this.metricData,

@@ -14,7 +14,7 @@ export enum AvailableMetricStates {
   CRITICAL
 }
 
-export const DEFAULT_METRIC_STATE = AvailableMetricStates.CRITICAL;
+export const DEFAULT_METRIC_STATE = AvailableMetricStates.ACCEPTABLE;
 
 export interface MetricConfig {
   value: number;
