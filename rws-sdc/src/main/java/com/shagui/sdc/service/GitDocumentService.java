@@ -117,7 +117,7 @@ public abstract class GitDocumentService implements AnalysisInterface {
 
 		metrics(component).forEach(metric -> {
 			Optional<ComponetTypeArchitectureMetricPropertiesModel> property = componentTypeArchitectureMetricPropertiesRepository
-					.repository().findByComponentTypeArchitectureAndMetricAndName(
+					.repository().findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(
 							component.getComponentTypeArchitecture(), metric, "PATH");
 
 			String path = property.map(p -> replacement.replace(p.getValue(), ""))

@@ -99,7 +99,7 @@ class GitXmlServiceTest {
 	@Test
 	void testAnalyzeRuntimeException() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
-		metrics.add(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
+		metrics.add(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
 
 		List<ComponentUriModel> uris = new ArrayList<>();
 		uris.add(RwsTestUtils.componentUriModelMock());
@@ -115,7 +115,7 @@ class GitXmlServiceTest {
 		component.setUris(uris);
 		component.setProperties(properties);
 
-		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndName(
+		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(
 				any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString()))
 				.thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
 		when(gitClient.repoFile(any(URI.class))).thenReturn(
@@ -152,7 +152,7 @@ class GitXmlServiceTest {
 		component.setUris(uris);
 		component.setProperties(properties);
 
-		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndName(
+		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(
 				any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString()))
 				.thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
 		when(gitClient.repoFile(any(URI.class))).thenReturn(

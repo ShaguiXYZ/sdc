@@ -99,7 +99,7 @@ class GitJsonServiceTest {
 		component.setUris(uris);
 		component.setProperties(properties);
 
-		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndName(
+		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(
 				any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString()))
 				.thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
 		when(gitClient.repoFile(any(URI.class))).thenReturn(

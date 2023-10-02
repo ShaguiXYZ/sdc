@@ -1,0 +1,167 @@
+[
+  {
+    "metricName": "Junit Coverage",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "alert status",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Bugs",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Reliability Rating",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Vulnerabilities",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Security Rating",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Recurity Hotspots Reviewed",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Security Review Rating",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Code Smells",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Technical Debt",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Duplicated Lines Density",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "ncloc",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Language Distribution",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Projects",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Info Violations",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Minor Errors",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Major Errors",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Critical Errors",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Blocker Errors",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Low Vulnerabilites",
+    "type": "DEPENDABOT",
+    "params": {}
+  },
+  {
+    "metricName": "Medium Vulnerabilities",
+    "type": "DEPENDABOT",
+    "params": {}
+  },
+  {
+    "metricName": "High Vulnerabilites",
+    "type": "DEPENDABOT",
+    "params": {}
+  },
+  {
+    "metricName": "Critical Vulnerabilities",
+    "type": "DEPENDABOT",
+    "params": {}
+  },
+  {
+    "metricName": "Code Lines",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
+    "metricName": "Code Lines",
+    "type": "GIT",
+    "params": {}
+  },
+  {
+    "metricName": "Language Distribution",
+    "type": "GIT",
+    "params": {}
+  },
+  {
+    "metricName": "Legacy parent version",
+    "type": "GIT_XML",
+    "params": {
+      "PATH": "pom.xml"
+    }
+  },
+  {
+    "metricName": "Bff Java Version",
+    "type": "GIT_XML",
+    "params": {
+      "PATH": "#{bff_path}/pom.xml"
+    }
+  },
+  {
+    "metricName": "Microservice Parent Version",
+    "type": "GIT_XML",
+    "params": {
+      "PATH": "#{rws_path}/pom.xml"
+    }
+  },
+  {
+    "metricName": "Deprecated Libraries",
+    "type": "GIT_XML",
+    "params": {
+      "PATH": "#{rws_path}/pom.xml"
+    }
+  },
+  {
+    "metricName": "Angular Version",
+    "type": "GIT_JSON",
+    "params": {
+      "PATH": "#{ngx_path}/pom.xml"
+    }
+  }
+]

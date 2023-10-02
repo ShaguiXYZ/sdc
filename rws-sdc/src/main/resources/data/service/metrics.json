@@ -1,0 +1,226 @@
+[
+  {
+    "name": "Junit Coverage",
+    "description": "Junit Coverage",
+    "value": "coverage",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "LTE"
+  },
+  {
+    "name": "Alert Status",
+    "description": "Alert Status",
+    "value": "alert_status",
+    "type": "SONAR"
+  },
+  {
+    "name": "Bugs",
+    "description": "Bugs",
+    "value": "bugs",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Reliability Rating",
+    "description": "Reliability Rating",
+    "value": "reliability_rating",
+    "type": "SONAR"
+  },
+  {
+    "name": "Vulnerabilities",
+    "description": "Vulnerabilities",
+    "value": "vulnerabilities",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Security Rating",
+    "description": "Security Rating",
+    "value": "security_rating",
+    "type": "SONAR"
+  },
+  {
+    "name": "Recurity Hotspots Reviewed",
+    "description": "Recurity Hotspots Reviewed",
+    "value": "security_hotspots_reviewed",
+    "type": "SONAR"
+  },
+  {
+    "name": "Security Review Rating",
+    "description": "Security Review Rating",
+    "value": "security_review_rating",
+    "type": "SONAR"
+  },
+  {
+    "name": "Code Smells",
+    "description": "Code Smells",
+    "value": "code_smells",
+    "type": "SONAR"
+  },
+  {
+    "name": "Technical Debt",
+    "description": "Technical Debt (segs.)",
+    "value": "sqale_index",
+    "type": "SONAR"
+  },
+  {
+    "name": "Duplicated Lines Density",
+    "description": "Duplicated Lines Density",
+    "value": "duplicated_lines_density",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "ncloc",
+    "description": "ncloc",
+    "value": "ncloc",
+    "type": "SONAR"
+  },
+  {
+    "name": "Language Distribution",
+    "description": "Language Distribution (SONAR)",
+    "value": "ncloc_language_distribution",
+    "type": "SONAR"
+  },
+  {
+    "name": "Projects",
+    "description": "Projects",
+    "value": "projects",
+    "type": "SONAR"
+  },
+  {
+    "name": "Info Violations",
+    "description": "Info Violations",
+    "value": "info_violations",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Minor Errors",
+    "description": "Minor Errors",
+    "value": "minor_violations",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Major Errors",
+    "description": "Major Errors",
+    "value": "major_violations",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Critical Errors",
+    "description": "Critical Errors",
+    "value": "critical_violations",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Blocker Errors",
+    "description": "Blocker Errors",
+    "value": "blocker_violations",
+    "type": "SONAR",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Legacy parent version",
+    "description": "Legacy parent version",
+    "value": "#get{parent/version}",
+    "type": "GIT_XML",
+    "valueType": "VERSION",
+    "validation": "LTE"
+  },
+  {
+    "name": "Bff Java Version",
+    "description": "Bff Java Version",
+    "value": "#get{properties/java.version}",
+    "type": "GIT_XML",
+    "valueType": "VERSION",
+    "validation": "LTE"
+  },
+  {
+    "name": "Microservice Parent Version",
+    "description": "Microservice Parent Version",
+    "value": "#get{parent/version}",
+    "type": "GIT_XML",
+    "valueType": "VERSION",
+    "validation": "LTE"
+  },
+  {
+    "name": "Angular Version",
+    "description": "Angular Version",
+    "value": "#get{devDependencies.@angular/cli}",
+    "type": "GIT_JSON",
+    "valueType": "VERSION",
+    "validation": "LTE"
+  },
+  {
+    "name": "Low Vulnerabilites",
+    "description": "Low Vulnerabilites",
+    "value": "low_severity",
+    "type": "DEPENDABOT",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Medium Vulnerabilities",
+    "description": "Medium Vulnerabilities",
+    "value": "medium_severity",
+    "type": "DEPENDABOT",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "High Vulnerabilites",
+    "description": "High Vulnerabilites",
+    "value": "high_severity",
+    "type": "DEPENDABOT",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Critical Vulnerabilities",
+    "description": "Critical Vulnerabilities",
+    "value": "critical_severity",
+    "type": "DEPENDABOT",
+    "valueType": "NUMERIC",
+    "validation": "GTE"
+  },
+  {
+    "name": "Code Lines",
+    "description": "Code Lines (SONAR)",
+    "value": "lines",
+    "type": "SONAR",
+    "valueType": "NUMERIC"
+  },
+  {
+    "name": "Deprecated Libraries",
+    "description": "Deprecated Libraries",
+    "value": "deprecated_library",
+    "type": "GIT_XML",
+    "valueType": "BOOLEAN",
+    "validation": "EQ"
+  },
+  {
+    "name": "Code Lines",
+    "description": "Code Lines (GIT)",
+    "value": "lines",
+    "type": "GIT",
+    "valueType": "NUMERIC"
+  },
+  {
+    "name": "Language Distribution",
+    "description": "Language Distribution (GIT)",
+    "value": "ncloc_language_distribution",
+    "type": "GIT"
+  }
+]

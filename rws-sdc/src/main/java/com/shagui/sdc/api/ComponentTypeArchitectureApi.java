@@ -1,7 +1,6 @@
 package com.shagui.sdc.api;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +12,7 @@ import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.MetricPropertiesDTO;
 import com.shagui.sdc.api.dto.MetricValuesDTO;
 import com.shagui.sdc.api.dto.MetricValuesOutDTO;
+import com.shagui.sdc.enums.AnalysisType;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,12 +24,13 @@ public interface ComponentTypeArchitectureApi {
 	List<ComponentTypeArchitectureDTO> architectureMetrics(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,
 			@RequestParam(required = false) @Parameter(description = "architecture name") String architecture,
-			@RequestBody Map<String, MetricPropertiesDTO> metricProperties);
+			@RequestBody List<MetricPropertiesDTO> metricProperties);
 
 	@PostMapping("metricValues")
 	List<MetricValuesOutDTO> addMetricValues(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,
 			@RequestParam(required = false) @Parameter(description = "architecture name") String architecture,
-			@RequestParam(required = true) @Parameter(description = "metric name") String metric,
+			@RequestParam(required = true) @Parameter(description = "metric name") String metricName,
+			@RequestParam(required = true) @Parameter(description = "metric type") AnalysisType metricType,
 			@RequestBody MetricValuesDTO values);
 }

@@ -52,7 +52,7 @@
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
 				 ('Duplicated Lines Density','duplicated_lines_density','SONAR','NUMERIC','GTE'),
 				 ('ncloc','ncloc','SONAR',NULL,NULL),
-				 ('Language Distribution (SONAR)','ncloc_language_distribution','SONAR',NULL,NULL),
+				 ('Language Distribution','ncloc_language_distribution','SONAR',NULL,NULL),
 				 ('Projects','projects','SONAR',NULL,NULL),
 				 ('Info Violations','info_violations','SONAR','NUMERIC','GTE'),
 				 ('Minor Errors','minor_violations','SONAR','NUMERIC','GTE'),
@@ -70,11 +70,11 @@
 				 ('High Vulnerabilites','high_severity','DEPENDABOT','NUMERIC','GTE'),
 				 ('Critical Vulnerabilities','critical_severity','DEPENDABOT','NUMERIC','GTE');
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
-				 ('Code Lines (SONAR)','lines','SONAR','NUMERIC',NULL);
+				 ('Code Lines','lines','SONAR','NUMERIC',NULL);
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
 				 ('Deprecated Libraries','deprecated_library','GIT_XML','BOOLEAN','EQ'),
-				 ('Code Lines (GIT)','lines','GIT','NUMERIC',NULL),
-				 ('Language Distribution (GIT)','ncloc_language_distribution','GIT',NULL,NULL);
+				 ('Code Lines','lines','GIT','NUMERIC',NULL),
+				 ('Language Distribution','ncloc_language_distribution','GIT',NULL,NULL);
 		</sql>
 	</changeSet>
 

@@ -47,6 +47,22 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			+ "ORDER BY cm.coverage, cm.name")
 	public List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax);
 	
+	/**
+	 * @deprecated (Sonar vulnerability)
+	 * 
+	 * Use:
+	 * 		<strong>Page<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax,Pageable pageable)</strong>
+	 * or
+	 * 		<strong>List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax)</strong>
+	 * 
+	 * 
+	 * @param em
+	 * @param name
+	 * @param squad
+	 * @param range
+	 * @param pageable
+	 * @return
+	 */
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range,
 			Pageable pageable) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);
@@ -63,6 +79,22 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 		return new PageImpl<>(resultList, pageable, totalReords);
 	}
 
+	/**
+	 * @deprecated (Sonar vulnerability)
+	 * 
+	 * Use:
+	 * 		<strong>Page<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax,Pageable pageable)</strong>
+	 * or
+	 * 		<strong>List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax)</strong>
+	 * 
+	 * 
+	 * @param em
+	 * @param name
+	 * @param squad
+	 * @param range
+	 * @param pageable
+	 * @return
+	 */
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);
 

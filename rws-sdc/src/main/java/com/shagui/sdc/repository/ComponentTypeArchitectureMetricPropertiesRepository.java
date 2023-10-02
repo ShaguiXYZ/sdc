@@ -10,6 +10,6 @@ import com.shagui.sdc.model.MetricModel;
 
 public interface ComponentTypeArchitectureMetricPropertiesRepository
 		extends JpaRepository<ComponetTypeArchitectureMetricPropertiesModel, Integer> {
-	Optional<ComponetTypeArchitectureMetricPropertiesModel> findByComponentTypeArchitectureAndMetricAndName(
+	Optional<ComponetTypeArchitectureMetricPropertiesModel> findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(
 			ComponentTypeArchitectureModel componentTypeArchitecture, MetricModel metric, String name);
 }

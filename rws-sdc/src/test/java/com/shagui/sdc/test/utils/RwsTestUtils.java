@@ -133,10 +133,10 @@ public class RwsTestUtils {
 
 	public static ComponentTypeArchitectureModel componentTypeArchitectureModelMock() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
-		metrics.add(metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
-		metrics.add(metricModelMock(2, AnalysisType.GIT_JSON, "git metric"));
-		metrics.add(metricModelMock(3, AnalysisType.DEPENDABOT, "low_severity"));
-		metrics.add(metricModelMock(4, AnalysisType.SONAR, "sonar metric"));
+		metrics.add(metricModelMock(1, AnalysisType.GIT, "metric name 1", "metric name 1"));
+		metrics.add(metricModelMock(2, AnalysisType.GIT_JSON, "metric name 2", "git metric"));
+		metrics.add(metricModelMock(3, AnalysisType.DEPENDABOT, "metric name 3", "low_severity"));
+		metrics.add(metricModelMock(4, AnalysisType.SONAR, "metric name 4", "sonar metric"));
 
 		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
 		componentTypeArchitecture.setId(1);
@@ -192,11 +192,11 @@ public class RwsTestUtils {
 		return source;
 	}
 
-	public static MetricModel metricModelMock(Integer id, AnalysisType type, String value) {
+	public static MetricModel metricModelMock(Integer id, AnalysisType type, String name, String value) {
 
 		MetricModel source = new MetricModel();
 		source.setId(id);
-		source.setName("metric1");
+		source.setName(name);
 		source.setValue(value);
 		source.setType(type);
 		source.setValidation(MetricValidation.EQ);
@@ -250,7 +250,7 @@ public class RwsTestUtils {
 		MetricValuesModel mock = new MetricValuesModel();
 		mock.setId(1);
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
-		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
+		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
 		mock.setMetricValueDate(new Date());
 		mock.setValue("0.0");
 		mock.setGoodValue("10.0");
@@ -264,7 +264,7 @@ public class RwsTestUtils {
 		ComponentAnalysisModel mock = new ComponentAnalysisModel();
 		mock.setId(new ComponentAnalysisPk(1, 1, new Date()));
 		mock.setComponent(componentModelMock());
-		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
+		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
 		mock.setValue(value);
 
@@ -341,7 +341,7 @@ public class RwsTestUtils {
 		ComponetTypeArchitectureMetricPropertiesModel model = new ComponetTypeArchitectureMetricPropertiesModel();
 		model.setId(1);
 		model.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
-		model.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "git metric"));
+		model.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
 		model.setName("PATH");
 		model.setValue("path");
 
