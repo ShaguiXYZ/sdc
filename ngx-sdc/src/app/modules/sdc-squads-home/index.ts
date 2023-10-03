@@ -1,3 +1,4 @@
 export * from './models';
-export * from './services';
 export * from './sdc-squads-home.component';
+export * from './sdc-squads-home.module';
+export * from './services';

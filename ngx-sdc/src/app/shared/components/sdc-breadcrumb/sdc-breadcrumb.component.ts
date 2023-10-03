@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { UiContextDataService } from 'src/app/core/services';
 import { ContextDataInfo } from '../../constants/context-data';
 import { IBreadcrumbConfigModel } from './models';

@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UiCoreComponentsModule } from './core/components/core-components.module';
-import { NX_HEADER_CONFIG } from './core/components/header/models';
+import { NX_HEADER_CONFIG } from './core/components/header';
 import { AppCoreModule } from './core/core.module';
 import { NX_CONTEX_CONFIG } from './core/services/context-data';
 import { NX_LANGUAGE_CONFIG } from './core/services/language';
