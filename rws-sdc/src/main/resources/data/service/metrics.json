@@ -132,6 +132,13 @@
     "validation": "GTE"
   },
   {
+    "name": "Code Lines",
+    "description": "Code Lines (SONAR)",
+    "value": "lines",
+    "type": "SONAR",
+    "valueType": "NUMERIC"
+  },
+  {
     "name": "Legacy parent version",
     "description": "Legacy parent version",
     "value": "#get{parent/version}",
@@ -154,6 +161,14 @@
     "type": "GIT_XML",
     "valueType": "VERSION",
     "validation": "LTE"
+  },
+  {
+    "name": "Deprecated Libraries",
+    "description": "Deprecated Libraries",
+    "value": "deprecated_library",
+    "type": "GIT_XML",
+    "valueType": "BOOLEAN",
+    "validation": "EQ"
   },
   {
     "name": "Angular Version",
@@ -194,21 +209,6 @@
     "type": "DEPENDABOT",
     "valueType": "NUMERIC",
     "validation": "GTE"
-  },
-  {
-    "name": "Code Lines",
-    "description": "Code Lines (SONAR)",
-    "value": "lines",
-    "type": "SONAR",
-    "valueType": "NUMERIC"
-  },
-  {
-    "name": "Deprecated Libraries",
-    "description": "Deprecated Libraries",
-    "value": "deprecated_library",
-    "type": "GIT_XML",
-    "valueType": "BOOLEAN",
-    "validation": "EQ"
   },
   {
     "name": "Code Lines",

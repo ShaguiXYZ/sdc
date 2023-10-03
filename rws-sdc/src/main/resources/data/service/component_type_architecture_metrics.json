@@ -95,6 +95,11 @@
     "params": {}
   },
   {
+    "metricName": "Code Lines",
+    "type": "SONAR",
+    "params": {}
+  },
+  {
     "metricName": "Low Vulnerabilites",
     "type": "DEPENDABOT",
     "params": {}
@@ -112,11 +117,6 @@
   {
     "metricName": "Critical Vulnerabilities",
     "type": "DEPENDABOT",
-    "params": {}
-  },
-  {
-    "metricName": "Code Lines",
-    "type": "SONAR",
     "params": {}
   },
   {
@@ -161,7 +161,7 @@
     "metricName": "Angular Version",
     "type": "GIT_JSON",
     "params": {
-      "PATH": "#{ngx_path}/pom.xml"
+      "PATH": "#{ngx_path}/package.json"
     }
   }
 ]
