@@ -108,7 +108,7 @@ class GitJsonServiceTest {
 		List<ComponentAnalysisModel> analysis = service.analyze(component);
 
 		assertEquals(1, analysis.size());
-		assertEquals("100", analysis.get(0).getValue());
+		assertEquals("100", analysis.get(0).getMetricValue());
 	}
 
 }

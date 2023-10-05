@@ -24,7 +24,6 @@ import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
-import com.shagui.sdc.util.validations.MetricValidations;
 
 import feign.FeignException;
 
@@ -57,15 +56,10 @@ public class Mapper {
 
 	public static MetricAnalysisDTO parse(ComponentAnalysisModel source) {
 		MetricDTO metric = parse(source.getMetric());
-		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(source.getWeight(), source.getValue(),
+		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(source.getWeight(), source.getMetricValue(),
 				source.getExpectedValue(), source.getGoodValue(), source.getPerfectValue());
 
-		MetricAnalysisDTO target = new MetricAnalysisDTO(source.getId().getAnalysisDate(), metric, analysisValues,
-				null);
-
-		target.setCoverage(MetricValidations.validate(target));
-
-		return target;
+		return new MetricAnalysisDTO(source.getId().getAnalysisDate(), metric, analysisValues, source.getCoverage());
 	}
 
 	public static MetricModel parse(MetricDTO source) {

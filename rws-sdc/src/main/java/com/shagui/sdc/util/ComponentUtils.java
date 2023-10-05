@@ -47,10 +47,8 @@ public class ComponentUtils {
 
 	@Transactional
 	public static void updateComponentProperties(ComponentModel component) {
-		Date date = new Date();
-
 		addOrUpdatePropertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE,
-				Long.toString(date.getTime()));
+				Long.toString((new Date()).getTime()));
 	}
 
 	@Transactional

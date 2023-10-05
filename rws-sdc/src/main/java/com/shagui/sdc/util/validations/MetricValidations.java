@@ -8,9 +8,10 @@ import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
-import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.enums.MetricState;
 import com.shagui.sdc.enums.MetricValidation;
+import com.shagui.sdc.model.ComponentAnalysisModel;
 
 public class MetricValidations {
 	private MetricValidations() {
@@ -18,48 +19,26 @@ public class MetricValidations {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Float validate(MetricAnalysisDTO analysis) {
+	public static Float validate(ComponentAnalysisModel analysis) {
 		if (analysis.getMetric().getValueType() != null) {
-			return MetricValidations.validate(analysis, analysis.getMetric().getValueType().clazz());
+			AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(analysis.getWeight(), analysis.getMetricValue(),
+					analysis.getExpectedValue(), analysis.getGoodValue(), analysis.getPerfectValue());
+
+			return MetricValidations.validate(analysisValues, analysis.getMetric().getValidation(),
+					analysis.getMetric().getValueType().clazz());
 		}
 
 		return null;
 	}
 
-	private static <T extends Comparable<T>> List<MetricControl<T>> controlValues(MetricAnalysisDTO analysis,
+	private static <T extends Comparable<T>> Float validate(AnalysisValuesDTO values, MetricValidation validation,
 			Class<T> clazz) {
-
-		T perfectValue = cast(analysis.getAnalysisValues().getPerfectValue(), clazz);
-		T goodValue = cast(analysis.getAnalysisValues().getGoodValue(), clazz);
-		T expectedValue = cast(analysis.getAnalysisValues().getExpectedValue(), clazz);
-
-		List<MetricControl<T>> control = new ArrayList<>();
-
-		if (Objects.nonNull(perfectValue)) {
-			control.add(new MetricControl<>(perfectValue, MetricState.PERFECT.coverage()));
-		}
-
-		if (Objects.nonNull(goodValue)) {
-			control.add(new MetricControl<>(goodValue, MetricState.ACCEPTABLE.coverage()));
-		}
-
-		if (Objects.nonNull(expectedValue)) {
-			control.add(new MetricControl<>(expectedValue, MetricState.WITH_RISK.coverage()));
-		}
-
-		return control;
-
-	}
-
-	private static <T extends Comparable<T>> Float validate(MetricAnalysisDTO analysis, Class<T> clazz) {
 		Float coverage = null;
-		T value = cast(analysis.getAnalysisValues().getMetricValue(), clazz);
-		MetricValidation validation = (value == null || analysis.getMetric().getValidation() == null)
-				? MetricValidation.NA
-				: analysis.getMetric().getValidation();
-		List<MetricControl<T>> control = controlValues(analysis, clazz);
+		T value = cast(values.getMetricValue(), clazz);
+		MetricValidation metricValidation = (value == null || validation == null) ? MetricValidation.NA : validation;
+		List<MetricControl<T>> control = controlValues(values, clazz);
 
-		switch (validation) {
+		switch (metricValidation) {
 		case EQ:
 			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 0)
 					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
@@ -91,6 +70,31 @@ public class MetricValidations {
 		return coverage;
 	}
 
+	private static <T extends Comparable<T>> List<MetricControl<T>> controlValues(AnalysisValuesDTO analysis,
+			Class<T> clazz) {
+
+		T perfectValue = cast(analysis.getPerfectValue(), clazz);
+		T goodValue = cast(analysis.getGoodValue(), clazz);
+		T expectedValue = cast(analysis.getExpectedValue(), clazz);
+
+		List<MetricControl<T>> control = new ArrayList<>();
+
+		if (Objects.nonNull(perfectValue)) {
+			control.add(new MetricControl<>(perfectValue, MetricState.PERFECT.coverage()));
+		}
+
+		if (Objects.nonNull(goodValue)) {
+			control.add(new MetricControl<>(goodValue, MetricState.ACCEPTABLE.coverage()));
+		}
+
+		if (Objects.nonNull(expectedValue)) {
+			control.add(new MetricControl<>(expectedValue, MetricState.WITH_RISK.coverage()));
+		}
+
+		return control;
+
+	}
+
 	private static <T extends Comparable<T>> T cast(String toCast, Class<T> clazz) {
 		try {
 			Constructor<T> constructor = clazz.getConstructor(String.class);
@@ -100,4 +104,5 @@ public class MetricValidations {
 			return null;
 		}
 	}
+
 }

@@ -12,6 +12,7 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.ServiceDataDTO;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.MetricValuesModel;
+import com.shagui.sdc.util.validations.MetricValidations;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +21,10 @@ public class AnalysisUtils {
 	private static AnalysisUtilsConfig config;
 
 	private AnalysisUtils() {
+	}
+
+	public static void setConfig(AnalysisUtilsConfig config) {
+		AnalysisUtils.config = config;
 	}
 
 	public static Supplier<String> notDataFound(ServiceDataDTO serviceData) {
@@ -31,18 +36,14 @@ public class AnalysisUtils {
 		};
 	}
 
-	public static void setConfig(AnalysisUtilsConfig config) {
-		AnalysisUtils.config = config;
-	}
-
 	public static final UnaryOperator<ComponentAnalysisModel> setMetricValues = analysis -> {
+		ComponentAnalysisModel updatedModel = new ComponentAnalysisModel(analysis.getComponent(), analysis.getMetric(),
+				analysis.getMetricValue(), analysis.getId().getAnalysisDate());
+
 		Optional<MetricValuesModel> metricValues = config.metricValuesRepository().repository()
 				.metricValueByDate(analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),
 						new Timestamp(analysis.getId().getAnalysisDate().getTime()))
 				.stream().findFirst();
-
-		ComponentAnalysisModel updatedModel = new ComponentAnalysisModel(analysis.getComponent(), analysis.getMetric(),
-				analysis.getValue(), analysis.getId().getAnalysisDate());
 
 		if (metricValues.isPresent()) {
 			MetricValuesModel value = metricValues.get();
@@ -50,6 +51,7 @@ public class AnalysisUtils {
 			updatedModel.setExpectedValue(value.getValue());
 			updatedModel.setGoodValue(value.getGoodValue());
 			updatedModel.setPerfectValue(value.getPerfectValue());
+			updatedModel.setCoverage(MetricValidations.validate(updatedModel));
 		}
 
 		return updatedModel;

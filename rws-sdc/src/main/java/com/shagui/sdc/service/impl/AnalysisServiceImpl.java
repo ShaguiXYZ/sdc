@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.function.UnaryOperator;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,7 @@ import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
+import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -57,18 +55,19 @@ public class AnalysisServiceImpl implements AnalysisService {
 	public PageData<MetricAnalysisDTO> analysis(int componentId) {
 		List<ComponentAnalysisModel> model = componentAnalysisRepository.repository().componentAnalysis(componentId,
 				new Timestamp(new Date().getTime()));
-		
-		return model.stream().map(data -> Mapper.parse(AnalysisUtils.setMetricValues.apply(data)))
+
+		return model.stream().map(AnalysisUtils.setMetricValues).map(Mapper::parse)
 				.collect(SdcCollectors.toPageable());
 	}
 
 	@Override
 	public MetricAnalysisDTO analysis(int componentId, int metricId) {
 		ComponentAnalysisModel model = componentAnalysisRepository.repository().actualMetric(componentId, metricId)
+				.map(AnalysisUtils.setMetricValues)
 				.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_ANALYSIS,
 						String.format("no result found for metric %s of component %s", metricId, componentId)));
-		
-		return Mapper.parse(AnalysisUtils.setMetricValues.apply(model));
+
+		return Mapper.parse(model);
 	}
 
 	@Override
@@ -76,8 +75,9 @@ public class AnalysisServiceImpl implements AnalysisService {
 	public PageData<MetricAnalysisDTO> analyze(int componentId) {
 		ComponentModel component = componentsRepository.findExistingId(componentId);
 
-		List<ComponentAnalysisModel> analysis = executeAsyncMetricServicesAndWait(component);
-		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(analysis);
+		List<ComponentAnalysisModel> newAnalysis = executeAsyncMetricServicesAndWait(component).stream()
+				.filter(modifiedAnalysis).collect(Collectors.toList());
+		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(newAnalysis);
 
 		if (!savedData.isEmpty()) {
 			ComponentUtils.updateRelatedComponentEntities(component);
@@ -87,8 +87,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 
-		return savedData.stream().map(AnalysisUtils.setMetricValues).map(Mapper::parse)
-				.collect(SdcCollectors.toPageable());
+		return savedData.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
@@ -102,37 +101,29 @@ public class AnalysisServiceImpl implements AnalysisService {
 		Set<AnalysisType> metricTypes = component.getComponentTypeArchitecture().getMetrics().stream()
 				.map(MetricModel::getType).collect(Collectors.toSet());
 
-		List<Future<List<ComponentAnalysisModel>>> futureTascs = new ArrayList<>();
-		metricTypes.forEach(type -> futureTascs
-				.add(CompletableFuture.supplyAsync(() -> metricServices.get(type.name()).analyze(component))
-						.thenApply(discardUnmodifiedMetrics)));
-
-		while (futureTascs.stream().anyMatch(task -> !task.isDone() && !task.isCancelled()))
-			;
-
 		List<ComponentAnalysisModel> toSave = new ArrayList<>();
-		futureTascs.forEach(task -> {
+
+		metricTypes.parallelStream().forEach(type -> {
 			try {
-				toSave.addAll(task.get());
-			} catch (InterruptedException e) {
-				log.error("Error getting task result!!!!!", e);
-				Thread.currentThread().interrupt();
-			} catch (ExecutionException e) {
+				toSave.addAll(metricServices.get(type.name()).analyze(component));
+			} catch (SdcCustomException e) {
 				log.error("Error getting task result!!!!!", e);
 			}
 		});
 
-		return toSave;
+		return toSave.stream().map(AnalysisUtils.setMetricValues).collect(Collectors.toList());
 	}
 
 	private List<ComponentAnalysisModel> saveReturnAnalysis(List<ComponentAnalysisModel> toSave) {
 		return componentAnalysisRepository.repository().saveAll(toSave).stream().collect(Collectors.toList());
 	}
 
-	private UnaryOperator<List<ComponentAnalysisModel>> discardUnmodifiedMetrics = (
-			List<ComponentAnalysisModel> toAnalyze) -> toAnalyze.stream().filter(reg -> {
-				Optional<ComponentAnalysisModel> model = componentAnalysisRepository.repository()
-						.actualMetric(reg.getId().getComponentId(), reg.getId().getMetricId());
-				return model.isEmpty() || !model.get().getValue().equals(reg.getValue());
-			}).collect(Collectors.toList());
+	private Predicate<ComponentAnalysisModel> modifiedAnalysis = reg -> componentAnalysisRepository.repository()
+			.actualMetric(reg.getId().getComponentId(), reg.getId().getMetricId()).map(AnalysisUtils.setMetricValues)
+			.map(model -> !Objects.equals(model.getMetricValue(), reg.getMetricValue())
+					|| !Objects.equals(model.getCoverage(), reg.getCoverage())
+					|| !Objects.equals(model.getExpectedValue(), reg.getExpectedValue())
+					|| !Objects.equals(model.getGoodValue(), reg.getGoodValue())
+					|| !Objects.equals(model.getPerfectValue(), reg.getPerfectValue()))
+			.orElse(true);
 }

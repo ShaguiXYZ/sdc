@@ -63,6 +63,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	 * @param pageable
 	 * @return
 	 */
+	@Deprecated(forRemoval=true)
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range,
 			Pageable pageable) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);
@@ -95,6 +96,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	 * @param pageable
 	 * @return
 	 */
+	@Deprecated(forRemoval=true)
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);
 

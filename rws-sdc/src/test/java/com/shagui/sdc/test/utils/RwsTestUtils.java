@@ -266,7 +266,11 @@ public class RwsTestUtils {
 		mock.setComponent(componentModelMock());
 		mock.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
 		mock.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
-		mock.setValue(value);
+		mock.setMetricValue(value);
+		mock.setWeight(10);
+		mock.setExpectedValue(("50"));
+		mock.setGoodValue("75");
+		mock.setPerfectValue("100");
 
 		return mock;
 	}
