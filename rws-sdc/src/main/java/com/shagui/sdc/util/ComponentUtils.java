@@ -75,8 +75,8 @@ public class ComponentUtils {
 	}
 
 	private static void addOrUpdatePropertyValue(ComponentModel component, String propertyName, String propertyValue) {
-		Optional<ComponentPropertyModel> propertyModel = component.getProperties().stream()
-				.filter(property -> propertyName.equals(property.getName())).findFirst();
+		Optional<ComponentPropertyModel> propertyModel = config.componentPropertyRepository().repository()
+				.findByComponent_IdAndName(component.getId(), propertyName);
 
 		if (propertyModel.isPresent()) {
 			propertyModel.get().setValue(propertyValue);
