@@ -12,6 +12,7 @@ import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.ebs.ComponentInput;
+import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.service.ComponentService;
 import com.shagui.sdc.service.DataMaintenanceService;
 
@@ -20,6 +21,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @Tag(name = "components", description = "API to maintain Components")
 public class ComponentController implements ComponentRestApi {
+	
+	@Autowired
+	private AnalysisService analysisService;
 
 	@Autowired
 	private ComponentService componentService;
@@ -34,7 +38,10 @@ public class ComponentController implements ComponentRestApi {
 
 	@Override
 	public ComponentDTO create(ComponentInput data) {
-		return dataMaintenanceService.componentData(data);
+		ComponentDTO dto = dataMaintenanceService.componentData(data);
+		analysisService.analyze(dto.getId());
+		
+		return dto;
 	}
 
 	@Override
