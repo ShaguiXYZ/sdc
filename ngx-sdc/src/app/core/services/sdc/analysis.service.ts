@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UiCacheService, UiHttpService } from '..';
-import { IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
+import { IMetricAnalysisDTO, IMetricAnalysisModel, IPageable, sortCoverageData } from '../../models/sdc';
 import { HttpStatus } from '../http';
 import { METRICS_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
 
@@ -26,7 +26,7 @@ export class AnalysisService {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricAnalysisModel.toModel)
+              page: dto.page.map(IMetricAnalysisModel.toModel).sort(sortCoverageData)
             };
 
             return result;
@@ -89,7 +89,7 @@ export class AnalysisService {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricAnalysisModel.toModel)
+              page: dto.page.map(IMetricAnalysisModel.toModel).sort(sortCoverageData)
             };
 
             return result;

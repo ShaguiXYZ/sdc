@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-redeclare */
 import { IAnalysisValuesDTO, IAnalysisValuesModel } from './analysis-values.model';
+import { ICoverageModel } from './coverage.model';
 import { IMetricDTO, IMetricModel } from './metric.model';
 
 export interface IMetricAnalysisDTO {
@@ -10,7 +11,7 @@ export interface IMetricAnalysisDTO {
   analysisValues: IAnalysisValuesDTO;
 }
 
-export interface IMetricAnalysisModel {
+export interface IMetricAnalysisModel extends Omit<ICoverageModel, 'id'> {
   analysisDate: number;
   coverage: number;
   metric: IMetricModel;
@@ -23,6 +24,7 @@ export namespace IMetricAnalysisModel {
       dto.analysisDate,
       dto.coverage,
       IMetricModel.toModel(dto.metric),
+      dto.metric.name,
       IAnalysisValuesModel.toModel(dto.analysisValues)
     );
   export const toDTO = (model: IMetricAnalysisModel): IMetricAnalysisDTO => ({
@@ -37,6 +39,7 @@ export class MetricAnalysisModel implements IMetricAnalysisModel {
     public analysisDate: number,
     public coverage: number,
     public metric: IMetricModel,
+    public name: string,
     public analysisValues: IAnalysisValuesModel
   ) {}
 }

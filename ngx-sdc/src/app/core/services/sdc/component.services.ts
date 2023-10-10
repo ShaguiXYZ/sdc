@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { deepCopy, hasValue } from '../../lib';
-import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
+import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable, sortCoverageData } from '../../models/sdc';
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
 import { UiCacheService } from '../context-data';
 import { ELEMENTS_BY_PAGE, HttpStatus, UiHttpService } from '../http';
@@ -116,7 +116,7 @@ export class ComponentService {
         .pipe(
           tap(res => {
             const dto = res as IPageable<IMetricDTO>;
-            dto.page.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+            dto.page.sort(sortCoverageData);
           }),
           map(res => {
             const dto = res as IPageable<IMetricDTO>;

@@ -1,8 +1,10 @@
 package com.shagui.sdc.util;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 
@@ -95,11 +97,13 @@ public class Mapper {
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {
-		int numSquads = source.getSquads().size();
-		Float coverage = source.getSquads().stream().map(SquadModel::getCoverage).filter(Objects::nonNull).reduce(0f,
-				(a, b) -> a + b);
+		List<Float> coverages = source.getSquads().stream().map(SquadModel::getCoverage).filter(Objects::nonNull)
+				.collect(Collectors.toList());
+		
+		int numSquads = coverages.size();
 
-		return new DepartmentDTO(source.getId(), source.getName(), numSquads > 0 ? coverage / numSquads : 0);
+		Float coverage = coverages.stream().reduce(0f, (a, b) -> a + b);
+		return new DepartmentDTO(source.getId(), source.getName(), numSquads > 0 ? coverage / numSquads : null);
 	}
 
 	public static SquadDTO parse(SquadModel source) {
