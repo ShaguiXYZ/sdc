@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UiCacheService, UiHttpService } from '..';
-import { IDepartmentModel, IPageable, ISquadDTO, ISquadModel, sortCoverageData } from '../../models/sdc';
+import { sortCoverageData } from '../../lib';
+import { IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
 import { HttpStatus } from '../http';
 import { SQUADS_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
 

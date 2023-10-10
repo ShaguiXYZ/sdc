@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IDepartmentDTO, IDepartmentModel, IPageable, sortCoverageData } from '../../models/sdc';
+import { sortCoverageData } from '../../lib';
+import { IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
 import { UiCacheService } from '../context-data';
 import { HttpStatus, UiHttpService } from '../http';
 import { DEPARTMENTS_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';

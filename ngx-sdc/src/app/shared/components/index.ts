@@ -13,3 +13,4 @@ export * from './sdc-no-data';
 export * from './sdc-squad-summary';
 export * from './sdc-state-count';
 export * from './sdc-time-evolution-chart';
+export * from './sdc-time-evolution-multichart';

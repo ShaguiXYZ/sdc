@@ -1,8 +1,9 @@
 import { environment } from 'src/environments/environment';
 
-export * from './keys';
-export * from './metric-state-utils';
-export * from './object-utils';
+export * from './keys.lib';
+export * from './metric-state-utils.lib';
+export * from './object-utils.lib';
+export * from './sdc-data.lib';
 
 export const emptyFn = (): void => {
   /* Empty fn */

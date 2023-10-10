@@ -49,7 +49,7 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
   }
 
   public onClickDepartment(event: ICoverageModel) {
-    this.squadsByDepartmernt(event as IDepartmentModel, this.departmentsData?.squadFilter);
+    this.squadsByDepartmernt(event, this.departmentsData?.squadFilter);
   }
 
   public onClickSquad(squad: ICoverageModel) {

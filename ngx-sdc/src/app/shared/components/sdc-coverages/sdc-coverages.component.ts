@@ -42,7 +42,7 @@ export class SdcCoveragesComponent implements OnInit, OnDestroy {
     this.subscription$.unsubscribe();
   }
 
-  public onClickCoverage(coverage: ICoverageModel) {
+  public onClickCoverage(coverage: ICoverageModel): void {
     this.selected = coverage.id;
     this.selectCoverage.emit(coverage);
   }

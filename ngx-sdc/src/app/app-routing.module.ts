@@ -24,6 +24,11 @@ const routes: Routes = configContextRoutes([
     path: AppUrls.metrics,
     loadChildren: () => import('./modules/sdc-metrics/sdc-metrics.module').then(m => m.SdcMetricsModule),
     canDeactivate: []
+  },
+  {
+    path: AppUrls.test,
+    loadComponent: () => import('./modules/sdc-test-page/sdc-test-page.component').then(m => m.SdcTestComponent),
+    canDeactivate: []
   }
 ]);
 
