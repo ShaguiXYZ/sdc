@@ -1,4 +1,4 @@
-import { DatePipe, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
 import { Subscription } from 'rxjs';
@@ -11,12 +11,13 @@ import { ChartConfig } from 'src/app/shared/models';
 import { MetricsDataModel } from './models';
 import { SdcMetricsService } from './services';
 import { TranslateService } from '@ngx-translate/core';
+import { UiDateService, UiLanguageService } from 'src/app/core/services';
 
 @Component({
   selector: 'sdc-metrics',
   templateUrl: './sdc-metrics.component.html',
   styleUrls: ['./sdc-metrics.component.scss'],
-  providers: [DatePipe, SdcMetricsService, TitleCasePipe]
+  providers: [SdcMetricsService, TitleCasePipe]
 })
 export class SdcMetricsComponent implements OnInit, OnDestroy {
   @ViewChild('metricsCards') templateRef!: TemplateRef<any>;
@@ -30,8 +31,8 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly alertService: UiAlertService,
-    private readonly datePipe: DatePipe,
     private readonly dialogService: NxDialogService,
+    private readonly dateService: UiDateService,
     private readonly sdcMetricsService: SdcMetricsService,
     private readonly titleCasePipe: TitleCasePipe,
     private readonly translateService: TranslateService
@@ -87,7 +88,7 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
   private metricGraphConfig(analysis?: IMetricAnalysisModel[]): void {
     this.metricChartConfig = {
       axis: {
-        xAxis: analysis?.map(data => this.datePipe.transform(data.analysisDate, 'dd/MM/yyyy') ?? '')
+        xAxis: analysis?.map(data => this.dateService.dateFormat(data.analysisDate))
       },
       data: [
         {
@@ -141,7 +142,7 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
     this.historicalChartConfig = {
       axis: {
-        xAxis: analysis?.map(data => this.datePipe.transform(data.analysisDate, 'dd/MM/yyyy') ?? '')
+        xAxis: analysis?.map(data => this.dateService.dateFormat(data.analysisDate))
       },
       data: [
         {

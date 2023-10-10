@@ -3,7 +3,7 @@ import { EventEmitter, Inject, Injectable, LOCALE_ID, Optional } from '@angular/
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Languages, NX_LANGUAGE_CONFIG, SESSION_LANGUAGE_KEY } from './constants';
-import { LanguageConfig } from './models/language.model';
+import { LanguageConfig } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class UiLanguageService {
     private translateService: TranslateService
   ) {
     this.configureService();
-    this.i18n(this.getLang() || this.locale);
+    this.i18n(this.getLangKey() || this.locale);
   }
 
   public i18n(key: string): void {
@@ -36,6 +36,10 @@ export class UiLanguageService {
   }
 
   public getLang(): string {
+    return this.languageConfig.languages[this.languageConfig.value];
+  }
+
+  public getLangKey(): string {
     return this.languageConfig.value;
   }
 

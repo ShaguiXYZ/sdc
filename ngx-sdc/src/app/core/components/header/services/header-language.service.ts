@@ -13,7 +13,7 @@ export class HeaderLanguageService implements OnDestroy {
   constructor(private languageService: UiLanguageService) {
     this.languageChange$ = new Subject<ILanguageHeader>();
 
-    this._languageInfo.currentLanguage = this.languageService.getLang();
+    this._languageInfo.currentLanguage = this.languageService.getLangKey();
     this.languageOptions();
 
     this.language$ = this.languageService.asObservable().subscribe(key => {
