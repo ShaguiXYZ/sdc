@@ -11,7 +11,8 @@ import com.shagui.sdc.model.pk.ComponentHistoricalCoveragePk;
 
 public interface ComponentHistoricalCoverageRepository
 		extends JpaRepository<ComponentHistoricalCoverageModel, ComponentHistoricalCoveragePk> {
-	public List<ComponentHistoricalCoverageModel> findById_ComponentId(int componentId);
+	List<ComponentHistoricalCoverageModel> findById_ComponentIdOrderById_AnalysisDateAsc(int componentId);
 
-	public Page<ComponentHistoricalCoverageModel> findById_ComponentId(int componentId, Pageable pageable);
+	Page<ComponentHistoricalCoverageModel> findById_ComponentIdOrderById_AnalysisDateAsc(int componentId,
+			Pageable pageable);
 }

@@ -23,7 +23,6 @@ import com.shagui.sdc.api.dto.ebs.ComponentInput;
 import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.service.ComponentService;
 import com.shagui.sdc.service.DataMaintenanceService;
-import com.shagui.sdc.test.utils.RwsTestUtils;
 
 class ComponentControllerTest {
 

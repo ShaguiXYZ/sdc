@@ -22,19 +22,23 @@ public interface ComponentAnalysisRepository extends JpaRepository<ComponentAnal
 			+ " AND ca.id.analysisDate = (" + MAX_DATE + " AND ca2.id.analysisDate <= :date)")
 	Optional<ComponentAnalysisModel> historicMetric(int componentId, int metricId, Timestamp date);
 
-	@Query("SELECT pa FROM ComponentAnalysisModel pa WHERE pa.id.componentId = :componentId AND pa.id.metricId = :metricId AND pa.id.analysisDate <= :date")
+	@Query("SELECT ca FROM ComponentAnalysisModel ca WHERE ca.id.componentId = :componentId AND ca.id.metricId = :metricId AND ca.id.analysisDate <= :date"
+			+ " ORDER BY ca.id.analysisDate ASC")
 	List<ComponentAnalysisModel> metricHistory(int componentId, int metricId, Timestamp date);
 
 	@Query("SELECT ca FROM ComponentAnalysisModel ca WHERE ca.id.componentId = :componentId"
-			+ " AND ca.id.analysisDate = (" + MAX_DATE + " AND ca2.id.analysisDate <= :date)")
+			+ " AND ca.id.analysisDate = (" + MAX_DATE + " AND ca2.id.analysisDate <= :date)"
+			+ " ORDER BY ca.id.analysisDate ASC")
 	List<ComponentAnalysisModel> componentAnalysis(int componentId, Timestamp date);
 
 	@Query("SELECT ca FROM ComponentAnalysisModel ca INNER JOIN ca.component c ON c.squad.id = :squadId"
-			+ " WHERE ca.id.analysisDate = (" + MAX_DATE + " AND ca2.id.analysisDate <= :date)")
+			+ " WHERE ca.id.analysisDate = (" + MAX_DATE + " AND ca2.id.analysisDate <= :date)"
+			+ " ORDER BY ca.id.analysisDate ASC")
 	List<ComponentAnalysisModel> squadAnalysis(int squadId, Timestamp date);
 
 	@Query("SELECT ca FROM ComponentAnalysisModel ca INNER JOIN ca.component c"
 			+ " INNER JOIN c.squad s ON s.department.id = :departmentId WHERE ca.id.analysisDate = (" + MAX_DATE
-			+ " AND ca2.id.analysisDate <= :date)")
+			+ " AND ca2.id.analysisDate <= :date)"
+			+ " ORDER BY ca.id.analysisDate ASC")
 	List<ComponentAnalysisModel> departmentAnalysis(int departmentId, Timestamp date);
 }

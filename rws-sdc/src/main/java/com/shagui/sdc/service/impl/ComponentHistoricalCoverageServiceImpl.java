@@ -36,7 +36,7 @@ public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoric
 	public HistoricalCoverageDTO<ComponentDTO> historicalCoverage(int componentId) {
 		ComponentModel component = componentRepository.findExistingId(componentId);
 		List<ComponentHistoricalCoverageModel> historical = componentHistoricalCoverageRepository.repository()
-				.findById_ComponentId(component.getId());
+				.findById_ComponentIdOrderById_AnalysisDateAsc(component.getId());
 
 		PageData<TimeCoverageDTO> timeCoverage = historical.stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable());
@@ -47,7 +47,7 @@ public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoric
 	public HistoricalCoverageDTO<ComponentDTO> historicalCoverage(int componentId, RequestPageInfo pageInfo) {
 		ComponentModel component = componentRepository.findExistingId(componentId);
 		Page<ComponentHistoricalCoverageModel> historical = componentHistoricalCoverageRepository.repository()
-				.findById_ComponentId(component.getId(), pageInfo.getPageable());
+				.findById_ComponentIdOrderById_AnalysisDateAsc(component.getId(), pageInfo.getPageable());
 
 		PageData<TimeCoverageDTO> timeCoverage = historical.stream().map(Mapper::parse)
 				.collect(SdcCollectors.toPageable(historical));
