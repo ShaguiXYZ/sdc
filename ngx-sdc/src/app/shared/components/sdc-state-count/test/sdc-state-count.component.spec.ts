@@ -3,11 +3,10 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AvailableMetricStates } from 'src/app/core/lib/metric-state-utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { AvailableMetricStates, emptyFn } from 'src/app/core/lib';
 import { IStateCount } from '../model/state-count.model';
 import { SdcStateCountComponent } from '../sdc-state-count.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { emptyFn } from 'src/app/core/lib';
 
 describe('SdcStateCountComponent', () => {
   let component: SdcStateCountComponent;

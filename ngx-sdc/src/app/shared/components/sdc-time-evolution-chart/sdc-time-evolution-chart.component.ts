@@ -13,11 +13,9 @@ import { ChartConfig, ChartData, ChartValue } from '../../models';
   providers: [SdcValueTypeToNumberPipe]
 })
 export class SdcTimeEvolutionChartComponent {
-  private chartConfig!: ChartConfig;
   @Input()
   set config(value: ChartConfig) {
-    this.chartConfig = { ...value };
-    this.echartsOptions = this.chartOptions(this.chartConfig);
+    this.echartsOptions = this.chartOptions({ ...value });
   }
 
   public styleSize: GenericDataInfo<number> = {};
@@ -34,10 +32,13 @@ export class SdcTimeEvolutionChartComponent {
     }
   }
 
+  @Input()
+  public showVisualMap = true;
+
   public readonly echartsExtentions: any[];
   public echartsOptions: EChartsOption = {};
 
-  constructor(private valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
+  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
     this.echartsExtentions = [LineChart, GridComponent, TooltipComponent, VisualMapComponent];
   }
 
@@ -70,7 +71,7 @@ export class SdcTimeEvolutionChartComponent {
       };
     });
 
-    return {
+    const echartsOptions: EChartsOption = {
       animation: false,
       grid: {
         left: '3%',
@@ -99,18 +100,24 @@ export class SdcTimeEvolutionChartComponent {
         axisLabel: {
           formatter: '{value}'
         }
-      },
-      visualMap: chartDataConfig.map(dataConfig => dataConfig.visualMap),
-      series: chartDataConfig.map(dataConfig => ({
-        data: dataConfig.serie.data,
-        lineStyle: {
-          type: dataConfig.serie.lineStyle
-        },
-        name: dataConfig.serie.name,
-        smooth: false,
-        symbolSize: 12,
-        type: 'line'
-      }))
+      }
     };
+
+    if (this.showVisualMap) {
+      echartsOptions.visualMap = chartDataConfig.map(dataConfig => dataConfig.visualMap);
+    }
+
+    echartsOptions.series = chartDataConfig.map(dataConfig => ({
+      data: dataConfig.serie.data,
+      lineStyle: {
+        type: dataConfig.serie.lineStyle
+      },
+      name: dataConfig.serie.name,
+      smooth: false,
+      symbolSize: 12,
+      type: 'line'
+    }));
+
+    return echartsOptions;
   }
 }

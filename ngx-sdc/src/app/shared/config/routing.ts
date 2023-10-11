@@ -6,7 +6,8 @@ export enum AppUrls {
   departments = 'departments',
   squads = 'squads',
   applications = 'applications',
-  metrics = 'metrics'
+  metrics = 'metrics',
+  test = 'test'
 }
 
 export const urls: RouteConfig = {
@@ -14,5 +15,6 @@ export const urls: RouteConfig = {
   [AppUrls.departments]: { resetContext: true },
   [AppUrls.squads]: { resetContext: true },
   [AppUrls.applications]: { resetContext: false, resetData: [ContextDataInfo.METRICS_DATA] },
-  [AppUrls.metrics]: { resetContext: false, requiredData: [ContextDataInfo.METRICS_DATA] }
+  [AppUrls.metrics]: { resetContext: false, requiredData: [ContextDataInfo.METRICS_DATA] },
+  [AppUrls.test]: { resetContext: false }
 };

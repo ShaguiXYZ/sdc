@@ -27,7 +27,8 @@
     "Menu": {
       "Applications": "Aplicaciones",
       "Departments": "Departamentos",
-      "Squads": "Sumario"
+      "Squads": "Sumario",
+      "TestPage": "Test page"
     },
     "Title": "Software Development Console"
   },

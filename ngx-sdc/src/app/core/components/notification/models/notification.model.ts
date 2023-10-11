@@ -1,5 +1,5 @@
 import { CONTEXT } from '@aposin/ng-aquila/message';
-import { UniqueIds } from 'src/app/core/lib/keys';
+import { UniqueIds } from 'src/app/core/lib';
 import { ButtonModel } from '../../../models/button.model';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS } from '../constants';
 

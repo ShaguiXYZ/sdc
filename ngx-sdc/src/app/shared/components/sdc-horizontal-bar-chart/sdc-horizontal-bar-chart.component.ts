@@ -5,12 +5,13 @@ import { BarChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { ChartConfig, ChartValue } from '../../models';
+import { SdcValueTypeToNumberPipe } from '../../pipes';
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',
   templateUrl: './sdc-horizontal-bar-chart.component.html',
   styleUrls: ['./sdc-horizontal-bar-chart.component.scss'],
-  providers: [TitleCasePipe]
+  providers: [SdcValueTypeToNumberPipe, TitleCasePipe]
 })
 export class SdcHorizontalBarChartComponent {
   private chartConfig!: ChartConfig;
@@ -41,7 +42,7 @@ export class SdcHorizontalBarChartComponent {
   public readonly echartsExtentions: any[];
   public echartsOptions: EChartsOption = {};
 
-  constructor() {
+  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
     this.echartsExtentions = [BarChart, GridComponent, TooltipComponent];
   }
 
@@ -52,13 +53,13 @@ export class SdcHorizontalBarChartComponent {
         .map(chartConfigData => chartConfigData.values)
         .filter(values => !Array.isArray(values))
         .map(values => ({
-          value: (values as ChartValue).value ?? 0,
+          value: this.valueTypeToNumberPipe.transform((values as ChartValue).value) ?? 0,
           itemStyle: {
             color: (values as ChartValue).color
           }
         })) || [];
 
-    return {
+    const echartsOptions: EChartsOption = {
       animation: false,
       grid: {
         left: '5%',
@@ -79,13 +80,16 @@ export class SdcHorizontalBarChartComponent {
       },
       xAxis: {
         type: 'value'
-      },
-      series: [
-        {
-          type: 'bar',
-          data
-        }
-      ]
+      }
     };
+
+    echartsOptions.series = [
+      {
+        type: 'bar',
+        data
+      }
+    ];
+
+    return echartsOptions;
   }
 }

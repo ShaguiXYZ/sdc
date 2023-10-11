@@ -23,6 +23,12 @@ export const SDC_HEADER_MENU = {
       //     name: 'Header.Test.1',
       //   }
       // ]
+    },
+    {
+      id: 'test',
+      name: 'Header.Menu.TestPage',
+      collapsed: true,
+      routerLink: AppUrls.test
     }
   ],
   activeParent: ''
