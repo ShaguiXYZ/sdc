@@ -36,7 +36,7 @@
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
+              "includePaths": ["src/styles", "src/app/core/styles"]
             },
             "scripts": []
           },
@@ -127,7 +127,7 @@
               "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
+              "includePaths": ["src/styles", "src/app/core/styles"]
             },
             "scripts": []
           }
