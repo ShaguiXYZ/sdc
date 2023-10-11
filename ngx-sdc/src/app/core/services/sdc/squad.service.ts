@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UiCacheService, UiHttpService } from '..';
-import { sortCoverageData } from '../../lib';
+import { hasValue, sortCoverageData } from '../../lib';
 import { IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
 import { HttpStatus } from '../http';
 import { SQUADS_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
@@ -29,6 +29,7 @@ export class SquadService {
               paging: { ...dto.paging },
               page: dto.page
                 .map(ISquadModel.toModel)
+                .filter(data => hasValue(data.coverage))
                 .filter(data => !department || data.department.id === department.id)
                 .sort(sortCoverageData)
             };

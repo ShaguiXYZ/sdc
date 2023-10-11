@@ -42,7 +42,7 @@ export class ComponentService {
             const dto = res as IPageable<IComponentDTO>;
             const result: IPageable<IComponentModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IComponentModel.toModel)
+              page: dto.page.filter(data => hasValue(data.coverage)).map(IComponentModel.toModel)
             };
 
             return result;

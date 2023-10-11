@@ -1,3 +1,5 @@
+import { hasValue } from './object-utils.lib';
+
 const COLOR_PREFIX = 'color--';
 
 export enum StateColors {
@@ -32,14 +34,16 @@ export const MetricState: { [key: string]: MetricConfig } = {
 export const stateByCoverage = (coverage: number): AvailableMetricStates => {
   let _class = DEFAULT_METRIC_STATE;
 
-  if (coverage < MetricState[AvailableMetricStates.CRITICAL].value) {
-    _class = AvailableMetricStates.CRITICAL;
-  } else if (coverage < MetricState[AvailableMetricStates.WITH_RISK].value) {
-    _class = AvailableMetricStates.WITH_RISK;
-  } else if (coverage < MetricState[AvailableMetricStates.ACCEPTABLE].value) {
-    _class = AvailableMetricStates.ACCEPTABLE;
-  } else if (coverage <= MetricState[AvailableMetricStates.PERFECT].value) {
-    _class = AvailableMetricStates.PERFECT;
+  if (hasValue(coverage)) {
+    if (coverage < MetricState[AvailableMetricStates.CRITICAL].value) {
+      _class = AvailableMetricStates.CRITICAL;
+    } else if (coverage < MetricState[AvailableMetricStates.WITH_RISK].value) {
+      _class = AvailableMetricStates.WITH_RISK;
+    } else if (coverage < MetricState[AvailableMetricStates.ACCEPTABLE].value) {
+      _class = AvailableMetricStates.ACCEPTABLE;
+    } else if (coverage <= MetricState[AvailableMetricStates.PERFECT].value) {
+      _class = AvailableMetricStates.PERFECT;
+    }
   }
 
   return _class;

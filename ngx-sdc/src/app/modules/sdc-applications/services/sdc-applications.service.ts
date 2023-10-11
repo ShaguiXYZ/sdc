@@ -7,7 +7,13 @@ import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
 import { IComplianceModel } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants/context-data';
-import { ApplicationsContextData, ApplicationsFilter, SdcApplicationsCoverage, SdcApplicationsDataModel } from '../models';
+import {
+  ApplicationsContextData,
+  ApplicationsFilter,
+  SdcApplicationsCoverage,
+  SdcApplicationsDataModel,
+  SdcCoverageRange
+} from '../models';
 
 @Injectable()
 export class SdcApplicationsService {
@@ -57,10 +63,10 @@ export class SdcApplicationsService {
   }
 
   private squadData(name?: string, squadId?: number, coverage?: string, page?: number, ps?: number): void {
-    const range = coverage ? SdcApplicationsCoverage[coverage] : undefined;
+    const range: Partial<SdcCoverageRange> = coverage ? { ...{ min: -1 }, ...SdcApplicationsCoverage[coverage] } : { min: -1 };
 
     this.componetService
-      .filter(name, squadId, range?.min, range?.max, page, ps)
+      .filter(name, squadId, range.min, range.max, page, ps)
       .then(pageable => {
         this.contextDataService.set(
           ContextDataInfo.APPLICATIONS_DATA,

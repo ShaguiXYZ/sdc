@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { sortCoverageData } from '../../lib';
+import { hasValue, sortCoverageData } from '../../lib';
 import { IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
 import { UiCacheService } from '../context-data';
 import { HttpStatus, UiHttpService } from '../http';
@@ -27,7 +27,10 @@ export class DepartmentService {
             const dto = res as IPageable<IDepartmentDTO>;
             const result: IPageable<IDepartmentModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IDepartmentModel.toModel).sort(sortCoverageData)
+              page: dto.page
+                .filter(data => hasValue(data.coverage))
+                .map(IDepartmentModel.toModel)
+                .sort(sortCoverageData)
             };
 
             return result;
