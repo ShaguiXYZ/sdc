@@ -21,3 +21,8 @@ export interface ChartValue {
   color?: string;
   value: string;
 }
+
+export interface ChartOptions {
+  smooth?: boolean;
+  showVisualMap?: boolean;
+}

@@ -4,7 +4,7 @@ import { LineChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
 import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
-import { ChartConfig, ChartData, ChartValue } from '../../models';
+import { ChartConfig, ChartData, ChartOptions, ChartValue } from '../../models';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
@@ -33,7 +33,7 @@ export class SdcTimeEvolutionChartComponent {
   }
 
   @Input()
-  public showVisualMap = true;
+  public options: ChartOptions = {};
 
   public readonly echartsExtentions: any[];
   public echartsOptions: EChartsOption = {};
@@ -103,7 +103,7 @@ export class SdcTimeEvolutionChartComponent {
       }
     };
 
-    if (this.showVisualMap) {
+    if (this.options.showVisualMap) {
       echartsOptions.visualMap = chartDataConfig.map(dataConfig => dataConfig.visualMap);
     }
 
@@ -113,7 +113,7 @@ export class SdcTimeEvolutionChartComponent {
         type: dataConfig.serie.lineStyle
       },
       name: dataConfig.serie.name,
-      smooth: false,
+      smooth: this.options.smooth,
       symbolSize: 12,
       type: 'line'
     }));
