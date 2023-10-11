@@ -33,7 +33,8 @@ describe('SdcMetricInfoComponent', () => {
       type: AnalysisType.GIT_XML
     };
     component.analysis = {
-      metric: { id: 1, name: 'metric 1', type: AnalysisType.SONAR },
+      metric: metric,
+      name: metric.name,
       analysisDate: 0,
       analysisValues: { metricValue: '0' },
       coverage: 10

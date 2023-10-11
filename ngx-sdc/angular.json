@@ -126,6 +126,9 @@
               "node_modules/@allianz/ngx-ndbx/css/ndbx-base.css",
               "node_modules/@allianz/ngx-ndbx/css/themes/ndbx.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            },
             "scripts": []
           }
         },
