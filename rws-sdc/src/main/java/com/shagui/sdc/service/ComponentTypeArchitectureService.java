@@ -9,6 +9,13 @@ import com.shagui.sdc.api.dto.MetricValuesOutDTO;
 import com.shagui.sdc.enums.AnalysisType;
 
 public interface ComponentTypeArchitectureService {
+	List<ComponentTypeArchitectureDTO> findBy(String componentType, String architecture, String network,
+			String deploymentType, String platform, String language);
+
+	ComponentTypeArchitectureDTO update(int componentTypeArchitectureId, ComponentTypeArchitectureDTO data);
+
+	List<ComponentTypeArchitectureDTO> create(List<ComponentTypeArchitectureDTO> data);
+
 	List<ComponentTypeArchitectureDTO> componentTypeArchitectureMetrics(String componentType, String architecture,
 			List<MetricPropertiesDTO> metricProperties);
 

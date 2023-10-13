@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
@@ -47,6 +48,28 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	}
 
 	@Override
+	public List<ComponentTypeArchitectureDTO> findBy(String componentType, String architecture, String network,
+			String deploymentType, String platform, String language) {
+		return componentTypeArchitectureRepository.repository()
+				.findBy(componentType, architecture, network, deploymentType, platform, language).stream()
+				.map(Mapper::parse).collect(Collectors.toList());
+	}
+
+	@Override
+	public ComponentTypeArchitectureDTO update(int componentTypeArchitectureId, ComponentTypeArchitectureDTO data) {
+		return Mapper
+				.parse(componentTypeArchitectureRepository.update(componentTypeArchitectureId, Mapper.parse(data)));
+
+	}
+
+	@Transactional
+	@Override
+	public List<ComponentTypeArchitectureDTO> create(List<ComponentTypeArchitectureDTO> data) {
+		return data.stream().map(Mapper::parse).map(componentTypeArchitectureRepository::create).map(Mapper::parse)
+				.collect(Collectors.toList());
+	}
+
+	@Override
 	public List<ComponentTypeArchitectureDTO> componentTypeArchitectureMetrics(String componentType,
 			String architecture, List<MetricPropertiesDTO> metricProperties) {
 		List<ComponentTypeArchitectureModel> componentTypeArchitectures = componentTypeArchitectures(componentType,
@@ -70,7 +93,7 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 			AnalysisType metricType, MetricValuesDTO values) {
 		MetricModel metric = metricRepository.repository().findByNameIgnoreCaseAndType(metricName, metricType)
 				.orElseThrow(() -> new SdcCustomException(String.format("Metric '%s' Not found", metricName)));
-		
+
 		List<ComponentTypeArchitectureModel> componentTypeArchitectures = componentTypeArchitectures(componentType,
 				architecture).stream()
 				.filter(componentTypeArchitecture -> componentTypeArchitecture.getMetrics().stream()

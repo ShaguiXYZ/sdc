@@ -23,9 +23,27 @@ public class ComponentTypeArchitectureController implements ComponentTypeArchite
 	private ComponentTypeArchitectureService componentTypeArchitectureService;
 
 	@Override
+	public List<ComponentTypeArchitectureDTO> componentTypeArchitecture(String componentType, String architecture,
+			String network, String deploymentType, String platform, String language) {
+		return componentTypeArchitectureService
+				.findBy(componentType, architecture, network, deploymentType, platform, language);
+	}
+
+	@Override
+	public ComponentTypeArchitectureDTO update(int componentTypeArchitectureId, ComponentTypeArchitectureDTO data) {
+		return componentTypeArchitectureService.update(componentTypeArchitectureId, data);
+	}
+
+	@Override
+	public List<ComponentTypeArchitectureDTO> create(List<ComponentTypeArchitectureDTO> data) {
+		return componentTypeArchitectureService.create(data);
+	}
+
+	@Override
 	public List<ComponentTypeArchitectureDTO> architectureMetrics(String componentType, String architecture,
 			List<MetricPropertiesDTO> metricProperties) {
-		return componentTypeArchitectureService.componentTypeArchitectureMetrics(componentType, architecture, metricProperties);
+		return componentTypeArchitectureService.componentTypeArchitectureMetrics(componentType, architecture,
+				metricProperties);
 	}
 
 	@Override
