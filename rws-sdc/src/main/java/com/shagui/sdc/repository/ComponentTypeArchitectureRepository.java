@@ -20,13 +20,13 @@ public interface ComponentTypeArchitectureRepository extends JpaRepository<Compo
 	List<ComponentTypeArchitectureModel> findByComponentTypeAndArchitecture(String componentType, String architecture);
 
 	@Query("SELECT cta FROM ComponentTypeArchitectureModel cta WHERE "
-			+ "(COALESCE(:componentType) IS NULL OR LOWER(cta.componentType) like LOWER(:componentType)) AND "
-			+ "(COALESCE(:architecture) IS NULL OR cta.architecture IS (:architecture)) AND "
-			+ "(COALESCE(:network) IS NULL OR (:network) < cta.network) AND "
-			+ "(COALESCE(:deploymentType) IS NULL OR (:deploymentType) >= cta.deploymentType) AND "
-			+ "(COALESCE(:platform) IS NULL OR (:platform) >= cta.platform) AND "
-			+ "(COALESCE(:language) IS NULL OR (:language) >= cta.language) "
-			+ "ORDER BY cta.componentType, cta.architecture, cta.network, cta.deploymentType, cta.architecture")
+			+ "(:componentType IS NULL OR LOWER(cta.componentType) LIKE LOWER(:componentType)) AND "
+			+ "(:architecture IS NULL OR LOWER(cta.architecture) LIKE LOWER(:architecture)) AND "
+			+ "(:network IS NULL OR LOWER(cta.network) LIKE LOWER(:network)) AND "
+			+ "(:deploymentType IS NULL OR LOWER(cta.deploymentType) LIKE LOWER(:deploymentType)) AND "
+			+ "(:platform IS NULL OR LOWER(cta.platform) LIKE LOWER(:platform)) AND "
+			+ "(:language IS NULL OR LOWER(cta.language) LIKE LOWER(:language)) "
+			+ "ORDER BY cta.componentType, cta.architecture, cta.network, cta.deploymentType, cta.architecture, cta.language")
 	List<ComponentTypeArchitectureModel> findBy(String componentType, String architecture, String network,
 			String deploymentType, String platform, String language);
 }
