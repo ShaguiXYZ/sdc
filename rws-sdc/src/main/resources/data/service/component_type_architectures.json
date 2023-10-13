@@ -1,0 +1,418 @@
+[
+  {
+    "componentType": "backend::batch",
+    "architecture": "batch::legacy",
+    "network": "business-logic",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::batch",
+    "architecture": "batch::legacy",
+    "network": "business-logic",
+    "deploymentType": "standalone",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::batch",
+    "architecture": "rws",
+    "network": "business-logic",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::batch",
+    "architecture": "rws",
+    "network": "business-logic",
+    "deploymentType": "standalone",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::ebs",
+    "architecture": "rws",
+    "network": "business-logic",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::ebs",
+    "architecture": "rws",
+    "network": "business-logic",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::library",
+    "architecture": "module::legacy",
+    "network": "business-logic",
+    "deploymentType": "jboss",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::library",
+    "architecture": "module::legacy",
+    "network": "business-logic",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::library",
+    "architecture": "rws",
+    "network": "none",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::library",
+    "architecture": "rws",
+    "network": "none",
+    "deploymentType": "none",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::library",
+    "architecture": "shared::legacy",
+    "network": "business-logic",
+    "deploymentType": "jboss",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::library",
+    "architecture": "shared::legacy",
+    "network": "business-logic",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::rest",
+    "architecture": "rws",
+    "network": "business-logic",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::rest",
+    "architecture": "rws",
+    "network": "business-logic",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::rest",
+    "architecture": "rws::legacy",
+    "network": "business-logic",
+    "deploymentType": "jboss",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::rest",
+    "architecture": "rws::legacy",
+    "network": "business-logic",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::starter",
+    "architecture": "rws",
+    "network": "none",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "backend::starter",
+    "architecture": "rws",
+    "network": "none",
+    "deploymentType": "none",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::angular",
+    "architecture": "rws",
+    "network": "user-integration::private",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "typescript"
+  },
+  {
+    "componentType": "frontend::angular",
+    "architecture": "rws",
+    "network": "user-integration::private",
+    "deploymentType": "static",
+    "platform": "on-premises",
+    "language": "typescript"
+  },
+  {
+    "componentType": "frontend::angular",
+    "architecture": "rws",
+    "network": "user-integration::public",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "typescript"
+  },
+  {
+    "componentType": "frontend::angular",
+    "architecture": "rws",
+    "network": "user-integration::public",
+    "deploymentType": "static",
+    "platform": "on-premises",
+    "language": "typescript"
+  },
+  {
+    "componentType": "frontend::anonymous",
+    "architecture": "rws",
+    "network": "user-integration",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::anonymous",
+    "architecture": "rws",
+    "network": "user-integration",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "typescript"
+  },
+  {
+    "componentType": "frontend::anonymous",
+    "architecture": "rws",
+    "network": "user-integration",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::anonymous",
+    "architecture": "rws",
+    "network": "user-integration",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "typescript"
+  },
+  {
+    "componentType": "frontend::bff",
+    "architecture": "rws",
+    "network": "user-integration::private",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::bff",
+    "architecture": "rws",
+    "network": "user-integration::private",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::bff",
+    "architecture": "rws",
+    "network": "user-integration::public",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::bff",
+    "architecture": "rws",
+    "network": "user-integration::public",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::library",
+    "architecture": "rws",
+    "network": "none",
+    "deploymentType": "none",
+    "platform": "cloud",
+    "language": "typescript"
+  },
+  {
+    "componentType": "frontend::library",
+    "architecture": "rws",
+    "network": "none",
+    "deploymentType": "none",
+    "platform": "on-premises",
+    "language": "typescript"
+  },
+  {
+    "componentType": "frontend::library",
+    "architecture": "sea::legacy",
+    "network": "user-integration",
+    "deploymentType": "jboss",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::library",
+    "architecture": "sea::legacy",
+    "network": "user-integration",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::library",
+    "architecture": "sea::legacy",
+    "network": "user-integration",
+    "deploymentType": "static",
+    "platform": "cloud",
+    "language": "javascript"
+  },
+  {
+    "componentType": "frontend::library",
+    "architecture": "sea::legacy",
+    "network": "user-integration",
+    "deploymentType": "static",
+    "platform": "on-premises",
+    "language": "javascript"
+  },
+  {
+    "componentType": "frontend::ssr",
+    "architecture": "sea::legacy",
+    "network": "user-integration::private",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::ssr",
+    "architecture": "sea::legacy",
+    "network": "user-integration::private",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::ssr",
+    "architecture": "sea::legacy",
+    "network": "user-integration::public",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "frontend::ssr",
+    "architecture": "sea::legacy",
+    "network": "user-integration::public",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::rest",
+    "architecture": "rws",
+    "network": "third-party-integration::private",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::rest",
+    "architecture": "rws",
+    "network": "third-party-integration::private",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::rest",
+    "architecture": "rws",
+    "network": "third-party-integration::public",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::rest",
+    "architecture": "rws",
+    "network": "third-party-integration::public",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::soap",
+    "architecture": "axis::legacy",
+    "network": "third-party-integration::private",
+    "deploymentType": "jboss",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::soap",
+    "architecture": "axis::legacy",
+    "network": "third-party-integration::private",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::soap",
+    "architecture": "axis::legacy",
+    "network": "third-party-integration::public",
+    "deploymentType": "jboss",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::soap",
+    "architecture": "axis::legacy",
+    "network": "third-party-integration::public",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::soap",
+    "architecture": "rws",
+    "network": "third-party-integration::private",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::soap",
+    "architecture": "rws",
+    "network": "third-party-integration::private",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::soap",
+    "architecture": "rws",
+    "network": "third-party-integration::public",
+    "deploymentType": "container",
+    "platform": "cloud",
+    "language": "java"
+  },
+  {
+    "componentType": "integration::soap",
+    "architecture": "rws",
+    "network": "third-party-integration::public",
+    "deploymentType": "jboss",
+    "platform": "on-premises",
+    "language": "java"
+  }
+]
