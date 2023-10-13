@@ -3,6 +3,11 @@
 .coverage-content {
   display: flex;
   align-items: center;
+
+  .coverage-chart {
+    height: 55px;
+    width: 55px;
+  }
 }
 
 .name {

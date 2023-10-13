@@ -42,7 +42,7 @@ export class SdcCoverageChartComponent implements OnInit {
     const name = value.name?.trim() ? [`${Math.floor(coverage || 0)}%`, value.name].join('\n') : `${Math.floor(coverage)}%`;
     const color = MetricState[stateByCoverage(coverage)].color;
 
-    return {
+    const option: EChartsOption = {
       animation: this.animation,
       series: [
         {
@@ -83,5 +83,7 @@ export class SdcCoverageChartComponent implements OnInit {
         }
       ]
     };
+
+    return option;
   }
 }

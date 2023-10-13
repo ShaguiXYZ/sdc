@@ -24,7 +24,7 @@ export class SdcComplianceBarCardComponent {
   @Input()
   set compliance(compliance: IComplianceModel) {
     this._compliance = compliance;
-    this.coverage = Math.round(this._compliance.coverage || 0);
+    this.coverage = Math.round(this._compliance.coverage ?? 0);
     this.coverageStyle = styleByCoverage(this.coverage);
     this.barCoverage = this.coverage / 100;
   }
