@@ -1,11 +1,8 @@
-<div>
-  <nx-header></nx-header>
+<nx-header></nx-header>
+<nx-loading></nx-loading>
+<nx-alert></nx-alert>
+<nx-notification></nx-notification>
 
-  <div nxLayout="grid maxwidth nogutters">
-    <nx-loading></nx-loading>
-    <nx-alert></nx-alert>
-    <nx-notification></nx-notification>
-
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<main nxLayout="grid maxwidth nogutters" [@routeAnimations]="getRouteAnimationData()">
+  <router-outlet></router-outlet>
+</main>

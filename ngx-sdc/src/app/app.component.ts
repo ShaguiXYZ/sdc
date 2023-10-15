@@ -1,14 +1,17 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { UiStorageService } from './core/services/context-data';
 import { ContextDataInfo } from './shared/constants/context-data';
+import { ChildrenOutletContexts } from '@angular/router';
+import { slideInAnimation } from './animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [slideInAnimation]
 })
 export class AppComponent implements OnInit {
-  constructor(private storageService: UiStorageService) {}
+  constructor(private contexts: ChildrenOutletContexts, private storageService: UiStorageService) {}
 
   ngOnInit(): void {
     this.storageService.retrieve(ContextDataInfo.SQUADS_DATA);
@@ -36,6 +39,10 @@ export class AppComponent implements OnInit {
     } else {
       this.handleMacKeyEvents(event);
     }
+  }
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
   }
 
   private handleMacKeyEvents(event: KeyboardEvent) {
