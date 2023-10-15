@@ -19,18 +19,18 @@ public class SecurityConfig {
 		this.securityProperties = securityProperties;
 	}
 
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // Enable CORS and disable CSRF
-        http = http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable();
-        http.headers().frameOptions().disable();
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		// Enable CORS and disable CSRF
+		http = http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(csrf -> csrf.disable());
+		http.headers(headers -> headers.frameOptions().disable());
 
-        // Set permissions on endpoints
-        http.authorizeHttpRequests().antMatchers(securityProperties.getApiMatcher()).permitAll();
+		// Set permissions on endpoints
+		http.authorizeHttpRequests().antMatchers(securityProperties.getApiMatcher()).permitAll();
 
-        return http.build();
-    }
-	
+		return http.build();
+	}
+
 	private CorsConfigurationSource corsConfigurationSource() {
 		UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
 

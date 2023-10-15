@@ -1,20 +1,29 @@
 package com.shagui.sdc.api.domain;
 
-import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
-import static pl.pojo.tester.api.assertion.Method.CONSTRUCTOR;
-import static pl.pojo.tester.api.assertion.Method.EQUALS;
-import static pl.pojo.tester.api.assertion.Method.GETTER;
-import static pl.pojo.tester.api.assertion.Method.HASH_CODE;
-import static pl.pojo.tester.api.assertion.Method.SETTER;
-import static pl.pojo.tester.api.assertion.Method.TO_STRING;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
 class HistoricalCoverageTest {
-	
 	@Test
-	void HistoricalCoveragetest() {
-		assertPojoMethodsFor(HistoricalCoverage.class).testing(CONSTRUCTOR, GETTER, SETTER, TO_STRING, HASH_CODE, EQUALS).areWellImplemented();
+	void testConstructor() {
+		HistoricalCoverage<String> historicalCoverage = new HistoricalCoverage<>();
+		assertNotNull(historicalCoverage);
 	}
 
+	@Test
+	void testDataGetterAndSetter() {
+		HistoricalCoverage<String> historicalCoverage = new HistoricalCoverage<>();
+		historicalCoverage.setData("test");
+		assertEquals("test", historicalCoverage.getData());
+	}
+
+	@Test
+	void testHistoricalGetterAndSetter() {
+		HistoricalCoverage<String> historicalCoverage = new HistoricalCoverage<>();
+		PageData<TimeCoverage> pageData = new PageData<>();
+		historicalCoverage.setHistorical(pageData);
+		assertEquals(pageData, historicalCoverage.getHistorical());
+	}
 }

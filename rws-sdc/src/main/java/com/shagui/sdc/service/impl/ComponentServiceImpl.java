@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.Range;
@@ -75,15 +76,16 @@ public class ComponentServiceImpl implements ComponentService {
 	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range) {
 		return componentRepository.repository()
-				.filter(name, squadId == null ? null : new SquadModel(squadId), range.getMin(), range.getMax()).stream()
-				.map(Mapper::parse).collect(SdcCollectors.toPageable());
+				.filter(StringUtils.hasText(name) ? name.toLowerCase() : name,
+						squadId == null ? null : new SquadModel(squadId), range.getMin(), range.getMax())
+				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range, RequestPageInfo pageInfo) {
-		Page<ComponentModel> models = componentRepository.repository().filter(name,
-				squadId == null ? null : new SquadModel(squadId), range.getMin(), range.getMax(),
-				pageInfo.getPageable());
+		Page<ComponentModel> models = componentRepository.repository().filter(
+				StringUtils.hasText(name) ? name.toLowerCase() : name, squadId == null ? null : new SquadModel(squadId),
+				range.getMin(), range.getMax(), pageInfo.getPageable());
 
 		return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(models));
 	}

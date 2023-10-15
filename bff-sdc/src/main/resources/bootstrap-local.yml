@@ -1,4 +1,5 @@
 server:
    port: 8080
+   
 services:
    rws-sdc: http://localhost:9090/rws-sdc/api

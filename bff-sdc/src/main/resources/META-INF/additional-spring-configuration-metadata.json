@@ -38,5 +38,10 @@
     "name": "rest.security.enabled",
     "type": "java.lang.String",
     "description": "A description for 'rest.security.enabled'"
+  },
+  {
+    "name": "services.rws-sdc",
+    "type": "java.lang.String",
+    "description": "A description for 'services.rws-sdc'"
   }
 ]}

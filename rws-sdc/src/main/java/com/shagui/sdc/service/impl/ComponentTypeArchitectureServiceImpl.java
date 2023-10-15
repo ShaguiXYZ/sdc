@@ -51,7 +51,8 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	public List<ComponentTypeArchitectureDTO> findBy(String componentType, String architecture, String network,
 			String deploymentType, String platform, String language) {
 		return componentTypeArchitectureRepository.repository()
-				.findBy(componentType, architecture, network, deploymentType, platform, language).stream()
+				.findBy(componentType, architecture, network, deploymentType, platform, language)
+				.stream()
 				.map(Mapper::parse).collect(Collectors.toList());
 	}
 

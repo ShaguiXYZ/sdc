@@ -31,29 +31,32 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	public Optional<ComponentModel> findBySquad_IdAndName(int squadId, String name);
 
 	@Query("SELECT cm FROM ComponentModel cm WHERE "
-			+ "(COALESCE(:name) IS NULL OR LOWER(cm.name) like LOWER(:name)) AND "
-			+ "(COALESCE(:squad) IS NULL OR cm.squad IS (:squad)) AND "
-			+ "(COALESCE(:coverageMin) IS NULL OR (:coverageMin) < cm.coverage) AND "
-			+ "(COALESCE(:coverageMax) IS NULL OR (:coverageMax) >= cm.coverage) "
+			+ "(:name IS NULL OR LOWER(cm.name) like %:name%) AND "
+			+ "(:squad IS NULL OR cm.squad = :squad) AND "
+			+ "(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND "
+			+ "(:coverageMax IS NULL OR :coverageMax >= cm.coverage) "
 			+ "ORDER BY cm.coverage, cm.name")
 	public Page<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax,
 			Pageable pageable);
 
 	@Query("SELECT cm FROM ComponentModel cm WHERE "
-			+ "(COALESCE(:name) IS NULL OR LOWER(cm.name) like LOWER(:name)) AND "
-			+ "(COALESCE(:squad) IS NULL OR cm.squad IS (:squad)) AND "
-			+ "(COALESCE(:coverageMin) IS NULL OR (:coverageMin) < cm.coverage) AND "
-			+ "(COALESCE(:coverageMax) IS NULL OR (:coverageMax) >= cm.coverage) "
+			+ "(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND "
+			+ "(:squad IS NULL OR cm.squad = :squad) AND "
+			+ "(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND "
+			+ "(:coverageMax IS NULL OR :coverageMax >= cm.coverage) "
 			+ "ORDER BY cm.coverage, cm.name")
 	public List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax);
-	
+
 	/**
 	 * @deprecated (Sonar vulnerability)
 	 * 
-	 * Use:
-	 * 		<strong>Page<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax,Pageable pageable)</strong>
-	 * or
-	 * 		<strong>List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax)</strong>
+	 *             Use:
+	 *             <strong>Page<ComponentModel> filter(String name, SquadModel
+	 *             squad, Float coverageMin, Float coverageMax,Pageable
+	 *             pageable)</strong>
+	 *             or
+	 *             <strong>List<ComponentModel> filter(String name, SquadModel
+	 *             squad, Float coverageMin, Float coverageMax)</strong>
 	 * 
 	 * 
 	 * @param em
@@ -63,7 +66,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	 * @param pageable
 	 * @return
 	 */
-	@Deprecated(forRemoval=true)
+	@Deprecated(forRemoval = true)
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range,
 			Pageable pageable) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);
@@ -83,10 +86,13 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	/**
 	 * @deprecated (Sonar vulnerability)
 	 * 
-	 * Use:
-	 * 		<strong>Page<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax,Pageable pageable)</strong>
-	 * or
-	 * 		<strong>List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax)</strong>
+	 *             Use:
+	 *             <strong>Page<ComponentModel> filter(String name, SquadModel
+	 *             squad, Float coverageMin, Float coverageMax,Pageable
+	 *             pageable)</strong>
+	 *             or
+	 *             <strong>List<ComponentModel> filter(String name, SquadModel
+	 *             squad, Float coverageMin, Float coverageMax)</strong>
 	 * 
 	 * 
 	 * @param em
@@ -96,7 +102,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	 * @param pageable
 	 * @return
 	 */
-	@Deprecated(forRemoval=true)
+	@Deprecated(forRemoval = true)
 	default Page<ComponentModel> filter(EntityManager em, String name, SquadModel squad, Range range) {
 		TypedQuery<ComponentModel> query = findByQuery(em, name, squad, range);
 
