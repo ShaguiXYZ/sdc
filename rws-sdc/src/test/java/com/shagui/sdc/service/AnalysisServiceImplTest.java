@@ -1,6 +1,11 @@
 package com.shagui.sdc.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.repository.ComponentAnalysisRepository;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
@@ -29,6 +35,9 @@ class AnalysisServiceImplTest {
 	@Mock
 	private MetricValueRepository metricValuesRepository;
 
+	@Mock
+	private ComponentAnalysisRepository componentAnalysisRepositoryMock;
+
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
@@ -42,6 +51,18 @@ class AnalysisServiceImplTest {
 		AnalysisServiceImpl service = new AnalysisServiceImpl(componentRepositoryMock, componentAnalysisRepository);
 		assertNotNull(service);
 
+	}
+
+	@Test
+	void analysisWithMetricIdNotFoundTest() {
+		// given
+		int componentId = 1;
+		int metricId = 2;
+		when(componentAnalysisRepositoryMock.actualMetric(anyInt(), anyInt()))
+				.thenReturn(Optional.empty());
+
+		// then
+		assertThrows(JpaNotFoundException.class, () -> service.analysis(componentId, metricId));
 	}
 
 }
