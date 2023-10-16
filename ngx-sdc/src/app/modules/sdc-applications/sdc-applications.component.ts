@@ -34,7 +34,6 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   public applicationsInfo?: SdcApplicationsDataModel;
 
   private subscription$: Array<Subscription> = [];
-  private loaded = false;
 
   constructor(
     private fb: FormBuilder,
@@ -44,26 +43,16 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.createForm();
-    this.loadData();
+    this.subscription$.push(
+      this.sdcApplicationsService.onDataChange().subscribe(info => {
+        this.applicationsInfo = info;
+      })
+    );
 
     this.subscription$.push(this.searchBoxConfig());
 
-    this.subscription$.push(
-      this.sdcApplicationsService
-        .onDataChange()
-        .pipe(
-          tap(data => {
-            if (!this.loaded) {
-              this.form.controls['squadId'].setValue(data.squadId);
-              this.loaded = true;
-            }
-          })
-        )
-        .subscribe(info => {
-          this.applicationsInfo = info;
-        })
-    );
+    this.createForm();
+    this.loadData();
   }
 
   ngOnDestroy(): void {
@@ -144,21 +133,21 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private loadData(): void {
-    this.sdcApplicationsService.availableCoverages().then(data => {
-      this.coverages = data;
-    });
+  private async loadData() {
+    const [coverages, squads] = await Promise.all([
+      this.sdcApplicationsService.availableCoverages(),
+      this.sdcApplicationsService.availableSquads()
+    ]);
 
-    this.sdcApplicationsService.availableSquads().then(data => {
-      this.squads = data.page;
-    });
+    this.coverages = coverages;
+    this.squads = squads.page;
   }
 
   private createForm(): void {
     this.form = this.fb.group({
       coverage: [this.sdcApplicationsService.contextData?.filter?.coverage],
       name: [this.sdcApplicationsService.contextData?.filter?.name],
-      squadId: [this.sdcApplicationsService.contextData?.filter?.squad || '']
+      squadId: [this.sdcApplicationsService.contextData?.filter?.squad]
     });
   }
 

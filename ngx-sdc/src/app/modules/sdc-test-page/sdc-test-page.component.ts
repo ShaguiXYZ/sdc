@@ -19,8 +19,6 @@ export class SdcTestComponent implements OnInit {
 
   ngOnInit(): void {
     this.analysisService.metricHistory(2, 31).then(data => {
-      console.log('metric history', data);
-
       this.data = {
         graph: data.page.map(analysis => ({
           axis: this.dateService.dateFormat(analysis.analysisDate),

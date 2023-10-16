@@ -13,7 +13,7 @@ describe('SdcValueTypeToNumberPipe', () => {
   });
 
   it('should transform a string to a version', () => {
-    expect(pipe.transform('0.0.1', ValueType.VERSION)).toBe(0.01);
+    expect(pipe.transform('0.0.1', ValueType.VERSION)).toBe(0.000001);
   });
 
   it('should transform a string to a version case one', () => {

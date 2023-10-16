@@ -10,6 +10,7 @@ import { UiNotificationModule } from '../core/components/notification/notificati
 import { TranslateServiceMock } from '../core/mock/services';
 import { UiStorageServiceMock } from '../core/mock/services/storage-service.mock';
 import { UiStorageService } from '../core/services/context-data';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
   let services: any;
@@ -19,7 +20,7 @@ describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
-      imports: [HttpClientModule, RouterTestingModule, UiLoadingModule, UiAlertModule, UiNotificationModule],
+      imports: [BrowserAnimationsModule, HttpClientModule, RouterTestingModule, UiLoadingModule, UiAlertModule, UiNotificationModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: TranslateService, useClass: TranslateServiceMock },

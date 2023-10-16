@@ -1,17 +1,17 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { UiAlertService } from 'src/app/core/components/alert';
 import { AvailableMetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/core/lib';
 import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
+import { UiDateService } from 'src/app/core/services';
 import { SdcMetricsCardsComponent } from 'src/app/shared/components/sdc-metrics-cards';
-import { ChartConfig } from 'src/app/shared/models';
+import { ChartConfig, ChartData } from 'src/app/shared/models';
 import { MetricsDataModel } from './models';
 import { SdcMetricsService } from './services';
-import { TranslateService } from '@ngx-translate/core';
-import { UiDateService, UiLanguageService } from 'src/app/core/services';
 
 @Component({
   selector: 'sdc-metrics',
@@ -31,8 +31,8 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly alertService: UiAlertService,
-    private readonly dialogService: NxDialogService,
     private readonly dateService: UiDateService,
+    private readonly dialogService: NxDialogService,
     private readonly sdcMetricsService: SdcMetricsService,
     private readonly titleCasePipe: TitleCasePipe,
     private readonly translateService: TranslateService
@@ -86,58 +86,73 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
   }
 
   private metricGraphConfig(analysis?: IMetricAnalysisModel[]): void {
+    const data: Array<ChartData> = [
+      {
+        name: this.metricsData?.selectedAnalysis?.metric.name,
+        values:
+          analysis?.map(value => ({
+            color: value.metric.validation ? MetricState[stateByCoverage(value.coverage)].color : MetricState[DEFAULT_METRIC_STATE].color,
+            value: value.analysisValues.metricValue
+          })) ?? []
+      }
+    ];
+
+    if (analysis?.some(data => data.analysisValues.expectedValue)) {
+      data.push({
+        lineStyle: 'dotted',
+        smooth: true,
+        name: this.titleCasePipe.transform(
+          this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.WITH_RISK].style}`)
+        ),
+        values:
+          analysis?.map(value => ({
+            color: MetricState[AvailableMetricStates.WITH_RISK].color,
+            value: value.analysisValues.expectedValue ?? ''
+          })) ?? []
+      });
+    }
+
+    if (analysis?.some(data => data.analysisValues.goodValue)) {
+      data.push({
+        lineStyle: 'dotted',
+        smooth: true,
+        name: this.titleCasePipe.transform(
+          this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.ACCEPTABLE].style}`)
+        ),
+        values:
+          analysis?.map(value => ({
+            color: MetricState[AvailableMetricStates.ACCEPTABLE].color,
+            value: value.analysisValues.goodValue ?? ''
+          })) ?? []
+      });
+    }
+
+    if (analysis?.some(data => data.analysisValues.perfectValue)) {
+      data.push({
+        lineStyle: 'dotted',
+        smooth: true,
+        name: this.titleCasePipe.transform(
+          this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.PERFECT].style}`)
+        ),
+        values:
+          analysis?.map(value => ({
+            color: MetricState[AvailableMetricStates.PERFECT].color,
+            value: value.analysisValues.perfectValue ?? ''
+          })) ?? []
+      });
+    }
+
     this.metricChartConfig = {
       axis: {
-        xAxis: analysis?.map(data => this.dateService.dateFormat(data.analysisDate))
+        xAxis: analysis?.map(value => this.dateService.dateFormat(value.analysisDate))
       },
-      data: [
-        {
-          name: this.metricsData?.selectedAnalysis?.metric.name,
-          values:
-            analysis?.map(data => ({
-              color: data.metric.validation ? MetricState[stateByCoverage(data.coverage)].color : MetricState[DEFAULT_METRIC_STATE].color,
-              value: data.analysisValues.metricValue
-            })) ?? []
-        },
-        {
-          lineStyle: 'dotted',
-          name: this.titleCasePipe.transform(
-            this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.WITH_RISK].style}`)
-          ),
-          values:
-            analysis?.map(data => ({
-              color: MetricState[AvailableMetricStates.WITH_RISK].color,
-              value: data.analysisValues.expectedValue ?? ''
-            })) ?? []
-        },
-        {
-          lineStyle: 'dotted',
-          name: this.titleCasePipe.transform(
-            this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.ACCEPTABLE].style}`)
-          ),
-          values:
-            analysis?.map(data => ({
-              color: MetricState[AvailableMetricStates.ACCEPTABLE].color,
-              value: data.analysisValues.expectedValue ?? ''
-            })) ?? []
-        },
-        {
-          lineStyle: 'dotted',
-          name: this.titleCasePipe.transform(
-            this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.PERFECT].style}`)
-          ),
-          values:
-            analysis?.map(data => ({
-              color: MetricState[AvailableMetricStates.PERFECT].color,
-              value: data.analysisValues.perfectValue ?? ''
-            })) ?? []
-        }
-      ],
-      type: analysis?.find(data => data.metric.valueType)?.metric.valueType
+      data,
+      options: { showVisualMap: true },
+      type: analysis?.find(value => value.metric.valueType)?.metric.valueType
     };
   }
 
-  private applicationCoverageGraphConfig(historical?: IHistoricalCoverage<IComponentModel>) {
+  private applicationCoverageGraphConfig(historical?: IHistoricalCoverage<IComponentModel>): void {
     const analysis = historical?.historical.page ?? [];
 
     this.historicalChartConfig = {
@@ -147,12 +162,13 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
       data: [
         {
           values:
-            analysis?.map(data => ({
-              value: `${data.coverage}`,
-              color: MetricState[stateByCoverage(data.coverage)].color
+            analysis?.map(value => ({
+              value: `${value.coverage}`,
+              color: MetricState[stateByCoverage(value.coverage)].color
             })) ?? []
         }
       ],
+      options: { showVisualMap: true },
       type: ValueType.NUMERIC
     };
   }

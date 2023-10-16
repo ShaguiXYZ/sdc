@@ -1,7 +1,7 @@
 import { animate, animateChild, group, query, style, transition, trigger } from '@angular/animations';
 import { AppUrls } from './shared/config/routing';
 
-const slideTo = (direction: string) => {
+const horizontalSlideTo = (direction: 'left' | 'right') => {
   const optional = { optional: true };
 
   return [
@@ -72,10 +72,10 @@ const animationFade = [
 export const routingAnimation = trigger('routeAnimations', [
   transition(`* => ${AppUrls.metrics}`, animationFade),
   transition(`${AppUrls.metrics} => *`, animationFade),
-  transition(`${AppUrls.departments} => *`, slideTo('right')),
-  transition(`${AppUrls.squads} => ${AppUrls.departments}`, slideTo('left')),
-  transition(`${AppUrls.squads} => ${AppUrls.applications}`, slideTo('right')),
-  transition(`${AppUrls.applications} => ${AppUrls.squads}`, slideTo('left')),
-  transition(`${AppUrls.applications} => *`, slideTo('left')),
+  transition(`${AppUrls.departments} => *`, horizontalSlideTo('right')),
+  transition(`${AppUrls.squads} => ${AppUrls.departments}`, horizontalSlideTo('left')),
+  transition(`${AppUrls.squads} => ${AppUrls.applications}`, horizontalSlideTo('right')),
+  transition(`${AppUrls.applications} => ${AppUrls.squads}`, horizontalSlideTo('left')),
+  transition(`${AppUrls.applications} => *`, horizontalSlideTo('left')),
   transition('* <=> *', animationFade)
 ]);

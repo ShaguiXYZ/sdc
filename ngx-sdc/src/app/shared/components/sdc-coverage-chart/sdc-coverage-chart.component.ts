@@ -12,11 +12,6 @@ import { ICoverageModel } from 'src/app/core/models/sdc';
 })
 export class SdcCoverageChartComponent implements OnInit {
   private _coverage!: ICoverageModel;
-  @Input()
-  public set coverage(value: ICoverageModel) {
-    this._coverage = value;
-    this.echartsOptions = this.chartOptions(value);
-  }
 
   @Input()
   public animation = false;
@@ -32,14 +27,20 @@ export class SdcCoverageChartComponent implements OnInit {
     this.echartsExtentions = [PieChart];
   }
 
+  @Input()
+  public set coverage(value: ICoverageModel) {
+    this._coverage = value;
+    this.echartsOptions = this.chartOptions(value);
+  }
+
   ngOnInit(): void {
     this.echartsOptions = this.chartOptions(this._coverage);
   }
 
   private chartOptions(value: ICoverageModel): EChartsOption {
     const center = this.size / 2;
-    const coverage = value.coverage || 0;
-    const name = value.name?.trim() ? [`${Math.floor(coverage || 0)}%`, value.name].join('\n') : `${Math.floor(coverage)}%`;
+    const coverage = value.coverage ?? 0;
+    const name = value.name.trim() ? [`${Math.floor(coverage)}%`, value.name].join('\n') : `${Math.floor(coverage)}%`;
     const color = MetricState[stateByCoverage(coverage)].color;
 
     const option: EChartsOption = {

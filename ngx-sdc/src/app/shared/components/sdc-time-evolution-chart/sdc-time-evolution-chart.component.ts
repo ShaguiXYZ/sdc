@@ -13,12 +13,22 @@ import { ChartConfig, ChartData, ChartOptions, ChartValue } from '../../models';
   providers: [SdcValueTypeToNumberPipe]
 })
 export class SdcTimeEvolutionChartComponent {
+  public readonly echartsExtentions: any[];
+  public echartsOptions: EChartsOption = {};
+  public styleSize: GenericDataInfo<number> = {};
+
+  private options: ChartOptions = {};
+
+  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
+    this.echartsExtentions = [LineChart, GridComponent, TooltipComponent, VisualMapComponent];
+  }
+
   @Input()
   set config(value: ChartConfig) {
     this.echartsOptions = this.chartOptions({ ...value });
+    this.options = value.options ?? {};
   }
 
-  public styleSize: GenericDataInfo<number> = {};
   @Input()
   public set size(value: { height?: number; width?: number }) {
     delete this.styleSize['height.px'];
@@ -30,16 +40,6 @@ export class SdcTimeEvolutionChartComponent {
     if (value.width) {
       this.styleSize['width.px'] = value.width;
     }
-  }
-
-  @Input()
-  public options: ChartOptions = {};
-
-  public readonly echartsExtentions: any[];
-  public echartsOptions: EChartsOption = {};
-
-  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
-    this.echartsExtentions = [LineChart, GridComponent, TooltipComponent, VisualMapComponent];
   }
 
   private chartOptions(chartConfig: ChartConfig): EChartsOption {
@@ -63,6 +63,7 @@ export class SdcTimeEvolutionChartComponent {
         serie: {
           name: data.name ?? '',
           lineStyle: data.lineStyle ?? 'solid',
+          smooth: data.smooth,
           data: serie.map(item => ({
             sourceData: item.value,
             value: this.valueTypeToNumberPipe.transform(item.value, chartConfig.type) ?? 0
@@ -113,7 +114,7 @@ export class SdcTimeEvolutionChartComponent {
         type: dataConfig.serie.lineStyle
       },
       name: dataConfig.serie.name,
-      smooth: this.options.smooth,
+      smooth: dataConfig.serie.smooth,
       symbolSize: 12,
       type: 'line'
     }));

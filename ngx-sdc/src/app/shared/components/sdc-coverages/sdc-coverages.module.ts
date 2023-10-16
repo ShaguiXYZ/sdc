@@ -11,16 +11,7 @@ import { SdcCoveragesComponent } from './sdc-coverages.component';
 
 @NgModule({
   declarations: [SdcCoveragesComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    NxCardModule,
-    NxHeadlineModule,
-    NxIconModule,
-    NxInputModule,
-    SdcCoverageInfoModule,
-    TranslateModule
-  ],
+  imports: [CommonModule, FormsModule, NxCardModule, NxHeadlineModule, NxIconModule, NxInputModule, SdcCoverageInfoModule, TranslateModule],
   exports: [SdcCoveragesComponent]
 })
 export class SdcCoveragesModule {}

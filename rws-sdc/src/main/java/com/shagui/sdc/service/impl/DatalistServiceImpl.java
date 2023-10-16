@@ -3,7 +3,6 @@ package com.shagui.sdc.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -24,10 +23,4 @@ public class DatalistServiceImpl implements DatalistService {
 		return StaticRepository.datalists().stream().filter(data -> Objects.equals(data.getName(), name)).findFirst()
 				.map(DataListModel::getValues).orElseGet(ArrayList::new);
 	}
-
-	@Override
-	public Optional<String> datalistValue(String dataList, String value) {
-		return datalistValues(dataList).stream().filter(data -> Objects.equals(data, value)).findFirst();
-	}
-
 }

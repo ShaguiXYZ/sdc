@@ -39,7 +39,7 @@ export class SdcApplicationsService {
   }
 
   public populateData(filter: ApplicationsFilter, page?: number): void {
-    this.squadData(filter.name, filter.squad, filter.coverage, page || 0, ELEMENTS_BY_PAGE);
+    this.squadData(filter.name, filter.squad, filter.coverage, page ?? 0, ELEMENTS_BY_PAGE);
   }
 
   public onDataChange(): Observable<SdcApplicationsDataModel> {

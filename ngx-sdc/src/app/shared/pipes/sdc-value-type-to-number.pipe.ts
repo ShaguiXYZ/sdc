@@ -6,6 +6,8 @@ import { ValueType } from 'src/app/core/models/sdc';
   name: 'sdcValueTypeToNumber'
 })
 export class SdcValueTypeToNumberPipe implements PipeTransform {
+  private DEC_SUB = 3;
+
   transform(value?: string, type: ValueType = ValueType.NUMERIC): number | undefined {
     switch (type) {
       case ValueType.NUMERIC:
@@ -27,21 +29,16 @@ export class SdcValueTypeToNumberPipe implements PipeTransform {
     return /true/i.test(value || 'false') ? 1 : 0;
   }
 
-  private versionValue(value?: string): number | undefined {
-    const segments = value?.split('.');
+  private versionValue(value: string = ''): number | undefined {
+    const [version, ...segments] = value.split('.');
+    const integerPart = isNumeric(version) ? version : '0';
+    let decimalPart = '';
 
-    if (segments?.length) {
-      const integerPart = isNumeric(segments[0]) ? segments[0] : '0';
-      let decimalPart = '';
+    segments?.forEach(segment => {
+      const padSegment = isNumeric(segment) ? segment.padStart(this.DEC_SUB, '0') : ''.padStart(this.DEC_SUB, '0');
+      decimalPart = `${decimalPart}${padSegment}`;
+    });
 
-      segments.splice(1, segments.length - 1).forEach(segment => {
-        const padSegment = segment.padEnd(3, '0');
-        decimalPart = `${decimalPart}${isNumeric(padSegment) ? Number(padSegment) : 0}`;
-      });
-
-      return Number(`${integerPart}.${decimalPart}`);
-    }
-
-    return undefined;
+    return Number(`${integerPart}.${decimalPart ?? 0}`);
   }
 }
