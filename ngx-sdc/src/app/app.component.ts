@@ -2,13 +2,13 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { UiStorageService } from './core/services/context-data';
 import { ContextDataInfo } from './shared/constants/context-data';
 import { ChildrenOutletContexts } from '@angular/router';
-import { slideInAnimation } from './animations';
+import { routingAnimation } from './app-routing-animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [slideInAnimation]
+  animations: [routingAnimation]
 })
 export class AppComponent implements OnInit {
   constructor(private contexts: ChildrenOutletContexts, private storageService: UiStorageService) {}
