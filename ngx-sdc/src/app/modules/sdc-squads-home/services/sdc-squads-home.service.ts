@@ -4,7 +4,7 @@ import { _console, filterByProperties } from 'src/app/core/lib';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
-import { ContextDataInfo } from 'src/app/shared/constants/context-data';
+import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcSquadsContextData, SdcSquadsDataModel } from '../models';
 
 @Injectable()

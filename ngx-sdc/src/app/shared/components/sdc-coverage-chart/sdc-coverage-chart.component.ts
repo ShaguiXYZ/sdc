@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { EChartsOption } from 'echarts';
 import { PieChart } from 'echarts/charts';
-import { MetricState, stateByCoverage } from 'src/app/core/lib';
 import { ICoverageModel } from 'src/app/core/models/sdc';
+import { MetricState, stateByCoverage } from '../../lib';
 
 @Component({
   selector: 'sdc-coverage-chart',

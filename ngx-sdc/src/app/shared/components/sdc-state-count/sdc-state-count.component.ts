@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MetricConfig, MetricState, styleByMetricState } from 'src/app/core/lib';
+import { MetricConfig, MetricState, styleByMetricState } from '../../lib';
 import { IStateCount } from './model';
 
 @Component({

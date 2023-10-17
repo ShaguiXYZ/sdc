@@ -1,4 +1,4 @@
-import { AvailableMetricStates, MetricState } from 'src/app/core/lib';
+import { AvailableMetricStates, MetricState } from 'src/app/shared/lib';
 
 export interface SdcCoverageRange {
   min: number;

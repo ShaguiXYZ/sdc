@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { styleByCoverage } from 'src/app/core/lib';
+import { styleByCoverage } from '../../lib';
 import { IComplianceModel } from './models';
 
 @Component({

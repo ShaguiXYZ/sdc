@@ -1,13 +1,5 @@
-import { hasValue } from './object-utils.lib';
-
-const COLOR_PREFIX = 'color--';
-
-export enum StateColors {
-  CRITICAL = '#EE4266',
-  RISK = '#EFBE25',
-  ACCEPTABLE = '#1E8927',
-  PERFECT = '#006192'
-}
+import { hasValue } from '../../core/lib/object-utils.lib';
+import { StateColors, COLOR_PREFIX } from '../constants';
 
 export enum AvailableMetricStates {
   PERFECT,

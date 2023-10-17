@@ -21,7 +21,7 @@ import { AuthInterceptor } from './core/services/security';
 import { SDC_HEADER_MENU } from './shared/config/menu';
 import { AppUrls, urls } from './shared/config/routing';
 import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
-import { SCHEDULER_PERIOD } from './shared/constants/context-data';
+import { SCHEDULER_PERIOD } from './shared/constants';
 
 const SdcLanguages = {
   ['enGB']: 'en-GB',

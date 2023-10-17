@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AvailableMetricStates, DEFAULT_METRIC_STATE, hasValue, stateByCoverage, styleByCoverage } from 'src/app/core/lib';
+import { hasValue } from 'src/app/core/lib';
 import { IMetricAnalysisModel, iconByType } from 'src/app/core/models/sdc';
+import { AvailableMetricStates, stateByCoverage, styleByCoverage } from '../../lib';
 
 @Component({
   selector: 'sdc-metric-info',

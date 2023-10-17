@@ -5,7 +5,7 @@ import { ICoverageModel, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { IComplianceModel, IStateCount } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
-import { ContextDataInfo } from 'src/app/shared/constants/context-data';
+import { ContextDataInfo } from 'src/app/shared/constants';
 import { ApplicationsContextData } from '../sdc-applications';
 import { SdcSquadsDataModel } from './models';
 import { SdcSquadsService } from './services';

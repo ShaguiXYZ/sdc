@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
-import { MetricState, _console, styleByName } from 'src/app/core/lib';
+import { _console } from 'src/app/core/lib';
 import { IPageable, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
 import { IComplianceModel } from 'src/app/shared/components';
-import { ContextDataInfo } from 'src/app/shared/constants/context-data';
+import { ContextDataInfo } from 'src/app/shared/constants';
+import { MetricState, styleByName } from 'src/app/shared/lib';
 import {
   ApplicationsContextData,
   ApplicationsFilter,

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { BACKGROUND_GRAPH_COLOR } from '../../constants';
 import { IStateCount } from '../sdc-state-count';
-import { BACKGROUND_GRAPH_COLOR } from '../../constants/colors';
 
 @Component({
   selector: 'sdc-squad-summary',

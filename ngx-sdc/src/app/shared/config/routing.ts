@@ -1,5 +1,5 @@
 import { RouteConfig } from 'src/app/core/services/context-data/models';
-import { ContextDataInfo } from '../constants/context-data';
+import { ContextDataInfo } from '../constants';
 
 export enum AppUrls {
   root = '',

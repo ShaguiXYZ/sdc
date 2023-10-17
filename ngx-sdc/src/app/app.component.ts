@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { UiStorageService } from './core/services/context-data';
-import { ContextDataInfo } from './shared/constants/context-data';
 import { ChildrenOutletContexts } from '@angular/router';
 import { routingAnimation } from './app-routing-animations';
+import { UiStorageService } from './core/services/context-data';
+import { ContextDataInfo } from './shared/constants';
 
 @Component({
   selector: 'app-root',

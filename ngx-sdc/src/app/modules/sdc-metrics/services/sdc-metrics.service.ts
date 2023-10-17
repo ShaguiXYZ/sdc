@@ -5,7 +5,7 @@ import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { IComplianceModel } from 'src/app/shared/components';
-import { ContextDataInfo } from 'src/app/shared/constants/context-data';
+import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricsContextData, MetricsDataModel } from '../models';
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { AvailableMetricStates, MetricState, stateByCoverage } from 'src/app/core/lib';
-import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { ChartConfig, ChartData, ChartValue } from '../../models';
 import { TranslateService } from '@ngx-translate/core';
+import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { AvailableMetricStates, MetricState, stateByCoverage } from '../../lib';
+import { ChartConfig } from '../../models';
 
 @Component({
   selector: 'sdc-department-summary',

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AvailableMetricStates, stateByCoverage } from 'src/app/core/lib';
 import { ICoverageModel } from 'src/app/core/models/sdc';
+import { AvailableMetricStates, stateByCoverage } from '../../lib';
 import { IStateCount } from '../sdc-state-count/model/state-count.model';
 @Component({
   selector: 'sdc-components-state-count',

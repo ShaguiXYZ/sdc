@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { AppUrls } from 'src/app/shared/config/routing';
-import { ContextDataInfo } from 'src/app/shared/constants/context-data';
+import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcSquadsContextData } from '../sdc-squads-home';
 import { SdcDepartmentsDataModel } from './models';
 import { SdcDepartmentsService } from './services';

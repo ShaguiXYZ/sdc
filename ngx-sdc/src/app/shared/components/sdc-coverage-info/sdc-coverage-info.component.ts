@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ICoverageModel } from 'src/app/core/models/sdc';
-import { BACKGROUND_GRAPH_COLOR } from '../../constants/colors';
+import { BACKGROUND_GRAPH_COLOR } from '../../constants';
 
 @Component({
   selector: 'sdc-coverage-info',
