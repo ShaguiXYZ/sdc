@@ -30,7 +30,7 @@ export class SdcValueTypeToNumberPipe implements PipeTransform {
   }
 
   private versionValue(value: string = ''): number | undefined {
-    const [version, ...segments] = value.split('.');
+    const [version, ...segments] = value.replace(/[^0-9.]/g, '').split('.');
     const integerPart = isNumeric(version) ? version : '0';
     let decimalPart = '';
 
