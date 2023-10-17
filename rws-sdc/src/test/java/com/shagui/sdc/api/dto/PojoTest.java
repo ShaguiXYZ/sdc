@@ -34,7 +34,6 @@ class PojoTest {
 		assertPojoMethodsFor(DepartmentDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(HistoricalCoverageDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 		assertPojoMethodsFor(TimeCoverageDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
-		assertPojoMethodsFor(UriDTO.class).testing(GETTER, SETTER, CONSTRUCTOR).areWellImplemented();
 	}
 
 	@Test
