@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.MetricPropertiesDTO;
 import com.shagui.sdc.api.dto.MetricValuesDTO;
@@ -28,7 +29,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 public interface ComponentTypeArchitectureApi {
 	@Operation(summary = "Retrieve component type - architecture list")
 	@GetMapping
-	List<ComponentTypeArchitectureDTO> componentTypeArchitecture(
+	PageData<ComponentTypeArchitectureDTO> componentTypeArchitecture(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,
 			@RequestParam(required = false) @Parameter(description = "architecture") String architecture,
 			@RequestParam(required = false) @Parameter(description = "network") String network,

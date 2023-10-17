@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.MetricPropertiesDTO;
 import com.shagui.sdc.api.dto.MetricValuesDTO;
@@ -28,6 +29,7 @@ import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.service.ComponentTypeArchitectureService;
 import com.shagui.sdc.util.Mapper;
+import com.shagui.sdc.util.collector.SdcCollectors;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
@@ -48,12 +50,12 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	}
 
 	@Override
-	public List<ComponentTypeArchitectureDTO> findBy(String componentType, String architecture, String network,
+	public PageData<ComponentTypeArchitectureDTO> filter(String componentType, String architecture, String network,
 			String deploymentType, String platform, String language) {
 		return componentTypeArchitectureRepository.repository()
 				.findBy(componentType, architecture, network, deploymentType, platform, language)
 				.stream()
-				.map(Mapper::parse).collect(Collectors.toList());
+				.map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	@Override

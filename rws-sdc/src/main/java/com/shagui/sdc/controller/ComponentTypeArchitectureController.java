@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.ComponentTypeArchitectureApi;
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.MetricPropertiesDTO;
 import com.shagui.sdc.api.dto.MetricValuesDTO;
@@ -23,10 +24,10 @@ public class ComponentTypeArchitectureController implements ComponentTypeArchite
 	private ComponentTypeArchitectureService componentTypeArchitectureService;
 
 	@Override
-	public List<ComponentTypeArchitectureDTO> componentTypeArchitecture(String componentType, String architecture,
+	public PageData<ComponentTypeArchitectureDTO> componentTypeArchitecture(String componentType, String architecture,
 			String network, String deploymentType, String platform, String language) {
 		return componentTypeArchitectureService
-				.findBy(componentType, architecture, network, deploymentType, platform, language);
+				.filter(componentType, architecture, network, deploymentType, platform, language);
 	}
 
 	@Override
