@@ -5,13 +5,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AvailableMetricStates, emptyFn } from 'src/app/core/lib';
+import { emptyFn } from 'src/app/core/lib';
+import { RouterMock } from 'src/app/core/mock/router.mock';
 import { UiContextDataServiceMock } from 'src/app/core/mock/services/context-data-service.mock';
 import { UiContextDataService } from 'src/app/core/services';
+import { AvailableMetricStates } from 'src/app/shared/lib';
 import { SdcSquadsHomeComponent } from '../sdc-squads-home.component';
 import { SdcSquadsService } from '../services';
 import { SdcSquadsServiceMock } from './mock/sdc-squads-service.mock';
-import { RouterMock } from 'src/app/core/mock/router.mock';
 
 describe('SdcSquadsHomeComponent', () => {
   let services: any;

@@ -6,7 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SpyLocation } from '@angular/common/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { AvailableMetricStates, emptyFn } from 'src/app/core/lib';
+import { emptyFn } from 'src/app/core/lib';
+import { AvailableMetricStates } from 'src/app/shared/lib';
 import { SdcComponentsStateCountComponent } from '../sdc-components-state-count.component';
 
 describe('SdcComponentsStateCountComponent', () => {

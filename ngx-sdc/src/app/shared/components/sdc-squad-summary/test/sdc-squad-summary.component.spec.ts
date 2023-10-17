@@ -3,7 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AvailableMetricStates, emptyFn } from 'src/app/core/lib';
+import { emptyFn } from 'src/app/core/lib';
+import { AvailableMetricStates } from 'src/app/shared/lib';
 import { IStateCount } from '../../sdc-state-count/model/state-count.model';
 import { SdcSquadSummaryComponent } from '../sdc-squad-summary.component';
 
