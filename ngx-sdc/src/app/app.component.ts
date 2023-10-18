@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ChildrenOutletContexts } from '@angular/router';
+import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { routingAnimation } from './app-routing-animations';
 import { UiStorageService } from './core/services/context-data';
 import { ContextDataInfo } from './shared/constants';
@@ -41,8 +41,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  getRouteAnimationData() {
-    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
+  prepareRoute(outlet: RouterOutlet) {
+    if (outlet.isActivated) return outlet.activatedRouteData?.['animation'];
   }
 
   private handleMacKeyEvents(event: KeyboardEvent) {

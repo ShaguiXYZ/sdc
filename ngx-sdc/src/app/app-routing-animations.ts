@@ -16,7 +16,7 @@ const horizontalSlideTo = (direction: 'left' | 'right') => {
           width: '100%'
         })
       ],
-      optional
+      { optional: true }
     ),
     query(':enter', [style({ [direction]: '-100%' })]),
     query(':leave', animateChild(), { optional: true }),
