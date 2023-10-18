@@ -1,6 +1,6 @@
 # What is SDC?
 
-SDC, which stands for Software Development Console, serves as a comprehensive platform offering detailed metrics related to technology, quality, and security for Allianz Applications. 
+SDC, which stands for Software Development Console, serves as a comprehensive platform offering detailed metrics related to technology, quality, and security for Applications.
 
 In this project, all users share the same roles, granting them access to all available data. This unique feature empowers users to effortlessly compare statistics among different components or squads, facilitating a simplified and efficient review of the project status.
 

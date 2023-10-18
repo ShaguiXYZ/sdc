@@ -6,7 +6,7 @@ Every metric is assigned a weight, which represents its relative importance comp
 
 Each metric is also assigned a comparison operation, such as Equal, Less than, Greater than, Less than or equal, or Greater than or equal.
 
-## Calculating the coverage of a metric 
+## Calculating the coverage of a metric
 
 The value returned by the API call is compared against the configured range values. Based on the associated comparison operation, a fixed coverage percentage is determined:
 

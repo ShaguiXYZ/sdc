@@ -26,7 +26,6 @@ class JsonDocumentTest {
 				+ "    \"test\": \"ng test\",\r\n" + "    \"coverage\": \"ng test --no-watch --code-coverage\",\r\n"
 				+ "    \"lint\": \"ng lint\"\r\n" + "  },\r\n" + "  \"private\": true,\r\n"
 				+ "  \"dependencies\": {\r\n"
-				+ "    \"@allianz/ngx-ndbx\": \"file:dependencies/ngx-ndbx-15.1.0.tgz\",\r\n"
 				+ "    \"@angular/animations\": \"~15.2.7\",\r\n" + "    \"@angular/cdk\": \"~15.2.7\",\r\n"
 				+ "    \"@angular/common\": \"~15.2.7\",\r\n" + "    \"@angular/compiler\": \"~15.2.7\",\r\n"
 				+ "    \"@angular/core\": \"~15.2.7\",\r\n" + "    \"@angular/forms\": \"~15.2.7\",\r\n"
