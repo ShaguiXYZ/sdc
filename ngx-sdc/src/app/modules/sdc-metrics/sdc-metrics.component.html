@@ -20,14 +20,14 @@
               [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
               (click)="openMetricsCards()"
             >
-              <nx-icon name="info-circle-o" size="s"></nx-icon>
+              <em class="fa-brands fa-stack-exchange fa-lg"></em>
             </div>
             <div
               class="chart-op"
               [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
               (click)="onRunProcess()"
             >
-              <nx-icon name="product-cog-wheels" size="s"></nx-icon>
+              <em class="fa-solid fa-wand-magic-sparkles fa-lg"></em>
             </div>
           </div>
           <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }"></sdc-time-evolution-chart>

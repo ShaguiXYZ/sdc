@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 // Ndbx
-import { NdbxIconModule } from '@allianz/ngx-ndbx/icon';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -35,7 +34,6 @@ const SdcLanguages = {
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    NdbxIconModule,
     NxGridModule,
     HttpClientModule,
     RouterModule,
