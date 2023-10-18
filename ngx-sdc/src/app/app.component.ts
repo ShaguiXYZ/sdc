@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { routingAnimation } from './app-routing-animations';
 import { UiStorageService } from './core/services/context-data';
 import { ContextDataInfo } from './shared/constants';
@@ -11,7 +11,7 @@ import { ContextDataInfo } from './shared/constants';
   animations: [routingAnimation]
 })
 export class AppComponent implements OnInit {
-  constructor(private contexts: ChildrenOutletContexts, private storageService: UiStorageService) {}
+  constructor(private storageService: UiStorageService) {}
 
   ngOnInit(): void {
     this.storageService.retrieve(ContextDataInfo.SQUADS_DATA);
