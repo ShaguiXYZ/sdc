@@ -90,6 +90,7 @@
 				expiry_date timestamp,
 				component_type_architecture_id int4 NOT NULL,
 				squad_id int4 NOT NULL,
+				analysis_date timestamp,
 				CONSTRAINT components_pk PRIMARY KEY (id),
 				CONSTRAINT components_squad_component_name_uk UNIQUE (name,squad_id),
 				CONSTRAINT component_component_type_architecture_fk FOREIGN KEY (component_type_architecture_id) REFERENCES component_type_architectures(id),

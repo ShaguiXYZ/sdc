@@ -1,28 +1,28 @@
 spring:
-   datasource:
-#      url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
-      url: jdbc:h2:file:~/db/h2/sdc;DB_CLOSE_ON_EXIT=FALSE
-      username: ${db.user}
-      password: ${db.password}
-      driverClassName: org.h2.Driver
-   jpa:
-      show-sql: true
+  datasource:
+    #      url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:file:~/db/h2/sdc;DB_CLOSE_ON_EXIT=FALSE
+    username: ${db.user}
+    password: ${db.password}
+    driverClassName: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
       hibernate:
-         ddl-auto: update
-      properties:
-         hibernate:
-            dialect: org.hibernate.dialect.H2Dialect
-   h2:
-      console:
-         enabled: true
-         path: /h2-ui
-   liquibase:
-      change-log: classpath:/db/changelog/h2/changelogMaster.xml
-      contexts: ${spring.profiles.active}
-      dropFirst: true
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-ui
+  liquibase:
+    change-log: classpath:/db/changelog/h2/changelogMaster.xml
+    contexts: ${spring.profiles.active}
+    dropFirst: true
 server:
-   port: 9090
-   
+  port: 9090
+
 rest:
-   security:
-      issuerUri: http://localhost:9092/rws-security
+  security:
+    issuerUri: http://localhost:9092/rws-security

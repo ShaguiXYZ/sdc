@@ -1,38 +1,35 @@
 spring:
-   datasource:
-      url: jdbc:postgresql://${db.domain}/analysis?currentSchema=public
-      username: ${db.user}
-      password: ${db.password}
-      driverClassName: org.postgresql.Driver
-   jpa:
-      show-sql: true
+  datasource:
+    url: jdbc:postgresql://${db.domain}/analysis?currentSchema=public
+    username: ${db.user}
+    password: ${db.password}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
       hibernate:
-         ddl-auto: none
-      properties:
-         hibernate:
-            dialect: org.hibernate.dialect.PostgreSQLDialect
-   liquibase:
-      change-log: classpath:/db/changelog/postgresql/changelogMaster.xml
-      contexts: ${spring.profiles.active}
-      dropFirst: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    change-log: classpath:/db/changelog/postgresql/changelogMaster.xml
+    contexts: ${spring.profiles.active}
+    dropFirst: false
 server:
-   port: 9090
-   
+  port: 9090
+
 rest:
-   security:
-      issuerUri: http://localhost:9092/rws-security
+  security:
+    issuerUri: http://localhost:9092/rws-security
 
 sdc:
-   dictionary:
-      secret:
-         git-authorization-type: token
-         git-authorization: ${GIT_TOKEN}
-   document:
-      pom:
-         deprecated-libs:
-            -
-               group-id: com.mysql
-               artifact-id: mysql-connector-j
-            -
-               group-id: group-lib2
-         
+  dictionary:
+    secret:
+      git-authorization-type: token
+      git-authorization: ${GIT_TOKEN}
+  document:
+    pom:
+      deprecated-libs:
+        - group-id: com.mysql
+          artifact-id: mysql-connector-j
+        - group-id: group-lib2
