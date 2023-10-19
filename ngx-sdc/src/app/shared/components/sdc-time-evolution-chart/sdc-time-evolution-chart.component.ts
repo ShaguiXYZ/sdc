@@ -17,8 +17,6 @@ export class SdcTimeEvolutionChartComponent {
   public echartsOptions: EChartsOption = {};
   public styleSize: GenericDataInfo<number> = {};
 
-  private options: ChartOptions = {};
-
   constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
     this.echartsExtentions = [LineChart, GridComponent, TooltipComponent, VisualMapComponent];
   }
@@ -26,7 +24,6 @@ export class SdcTimeEvolutionChartComponent {
   @Input()
   set config(value: ChartConfig) {
     this.echartsOptions = this.chartOptions({ ...value });
-    this.options = value.options ?? {};
   }
 
   @Input()
