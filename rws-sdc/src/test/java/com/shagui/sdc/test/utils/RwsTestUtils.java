@@ -17,6 +17,7 @@ import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
 import com.shagui.sdc.api.dto.cmdb.SquadInput;
 import com.shagui.sdc.api.dto.ebs.ComponentInput;
+import com.shagui.sdc.api.dto.ebs.ComponentPropertyInput;
 import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
@@ -290,6 +291,24 @@ public class RwsTestUtils {
 
 			{
 				add("uri_name");
+			}
+		});
+
+		mock.setProperties(new ArrayList<>() {
+			private static final long serialVersionUID = 1L;
+
+			{
+				ComponentPropertyInput property1 = new ComponentPropertyInput();
+				property1.setName("property_name");
+				property1.setValue("property value 1");
+
+				add(property1);
+
+				ComponentPropertyInput property2 = new ComponentPropertyInput();
+				property2.setName("property name 2");
+				property2.setValue("property value 2");
+
+				add(property2);
 			}
 		});
 

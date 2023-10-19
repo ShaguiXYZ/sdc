@@ -25,6 +25,7 @@ import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponentUriModel;
 import com.shagui.sdc.model.DepartmentModel;
@@ -46,7 +47,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	@Autowired
 	private ObjectMapper mapper;
-	
+
 	@Autowired
 	private ResourceLoader resourceLoader;
 
@@ -66,14 +67,14 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 		this.departmentRepository = () -> departmentRepository;
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
 	}
-	
+
 	@Transactional
 	@Override
 	public List<DepartmentDTO> jsonDepartments() {
 		try {
 			InputStream is = jsonDepartmentsSquads.getInputStream();
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
-			
+
 			return departmentsData(Arrays.asList(input));
 		} catch (IOException e) {
 			throw new SdcCustomException("Error reading departments", e);
@@ -84,11 +85,11 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Override
 	public List<DepartmentDTO> jsonDepartments(String path) {
 		Resource resource = resourceLoader.getResource("classpath:" + path);
-		
+
 		try {
 			InputStream is = resource.getInputStream();
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
-			
+
 			return departmentsData(Arrays.asList(input));
 		} catch (IOException e) {
 			throw new SdcCustomException("Error reading departments", e);
@@ -126,6 +127,18 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 		ComponentModel component = componentRepository.repository()
 				.findBySquad_IdAndName(squadModel.getId(), data.getName()).orElseGet(defaultComponent(data));
+
+		// Update existing properties
+		component.getProperties().forEach(property -> {
+			data.getProperties().stream().filter(input -> input.getName().equals(property.getName()))
+					.findFirst().ifPresent(input -> property.setValue(input.getValue()));
+		});
+
+		// Create non existing properties
+		data.getProperties().stream().filter(input -> component.getProperties().stream()
+				.noneMatch(property -> property.getName().equals(input.getName())))
+				.forEach(input -> component.getProperties().add(new ComponentPropertyModel(component, input.getName(),
+						input.getValue())));
 
 		component.setSquad(squadModel);
 		component.setComponentTypeArchitecture(componentTypeArchitecture);
