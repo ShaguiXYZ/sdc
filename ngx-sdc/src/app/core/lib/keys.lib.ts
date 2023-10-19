@@ -4,3 +4,5 @@ export class UniqueIds {
   public static next = (): number => this.idx++;
   public static uuid = (): string => crypto.randomUUID();
 }
+
+export const key = () => Math.random().toString(36).substring(7);

@@ -3,8 +3,8 @@ import { EChartsOption } from 'echarts';
 import { LineChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
 import { ChartConfig, ChartData, ChartOptions, ChartValue } from '../../models';
+import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
@@ -101,12 +101,9 @@ export class SdcTimeEvolutionChartComponent {
         axisLabel: {
           formatter: '{value}'
         }
-      }
+      },
+      visualMap: chartDataConfig.map(dataConfig => dataConfig.visualMap)
     };
-
-    if (this.options.showVisualMap) {
-      echartsOptions.visualMap = chartDataConfig.map(dataConfig => dataConfig.visualMap);
-    }
 
     echartsOptions.series = chartDataConfig.map(dataConfig => ({
       data: dataConfig.serie.data,
