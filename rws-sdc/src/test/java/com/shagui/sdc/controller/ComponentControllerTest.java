@@ -52,7 +52,7 @@ class ComponentControllerTest {
 	}
 
 	@Test
-	void createTest() {
+	void patchTest() {
 		ComponentInput value = new ComponentInput();
 		ComponentDTO dto = new ComponentDTO();
 		dto.setId(1);
@@ -61,7 +61,7 @@ class ComponentControllerTest {
 		when(analysisService.analyze(anyInt())).thenReturn(null);
 		when(componentService.findBy(anyInt())).thenReturn(dto);
 
-		ComponentDTO result = controller.create(value);
+		ComponentDTO result = controller.patch(value);
 		assertNotNull(result);
 	}
 

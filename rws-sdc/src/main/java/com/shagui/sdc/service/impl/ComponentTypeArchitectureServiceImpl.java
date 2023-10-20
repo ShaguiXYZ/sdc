@@ -62,7 +62,6 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	public ComponentTypeArchitectureDTO update(int componentTypeArchitectureId, ComponentTypeArchitectureDTO data) {
 		return Mapper
 				.parse(componentTypeArchitectureRepository.update(componentTypeArchitectureId, Mapper.parse(data)));
-
 	}
 
 	@Transactional

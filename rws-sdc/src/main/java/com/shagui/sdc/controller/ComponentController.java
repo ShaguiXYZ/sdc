@@ -37,7 +37,7 @@ public class ComponentController implements ComponentRestApi {
 	}
 
 	@Override
-	public ComponentDTO create(ComponentInput data) {
+	public ComponentDTO patch(ComponentInput data) {
 		ComponentDTO dto = dataMaintenanceService.componentUpdateData(data);
 		analysisService.analyze(dto.getId());
 
