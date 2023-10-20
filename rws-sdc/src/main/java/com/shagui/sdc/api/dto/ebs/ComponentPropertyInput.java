@@ -12,6 +12,7 @@ import lombok.Setter;
 public class ComponentPropertyInput {
 	private String name;
 	private String value;
+	private boolean toDelete;
 
 	public ComponentPropertyModel asModel() {
 		ComponentPropertyModel model = new ComponentPropertyModel();

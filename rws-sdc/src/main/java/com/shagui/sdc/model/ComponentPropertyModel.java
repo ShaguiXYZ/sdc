@@ -1,6 +1,5 @@
 package com.shagui.sdc.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +31,7 @@ public class ComponentPropertyModel implements ModelInterface<Integer> {
 
 	private String value;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "component_id")
 	private ComponentModel component;
 

@@ -31,7 +31,7 @@ class ComponentControllerTest {
 
 	@Mock
 	private AnalysisService analysisService;
-	
+
 	@Mock
 	private ComponentService componentService;
 
@@ -56,10 +56,11 @@ class ComponentControllerTest {
 		ComponentInput value = new ComponentInput();
 		ComponentDTO dto = new ComponentDTO();
 		dto.setId(1);
-		
-		when(dataMaintenanceService.componentData(any(ComponentInput.class))).thenReturn(dto);
+
+		when(dataMaintenanceService.componentUpdateData(any(ComponentInput.class))).thenReturn(dto);
 		when(analysisService.analyze(anyInt())).thenReturn(null);
-		
+		when(componentService.findBy(anyInt())).thenReturn(dto);
+
 		ComponentDTO result = controller.create(value);
 		assertNotNull(result);
 	}

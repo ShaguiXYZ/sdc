@@ -21,13 +21,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @Tag(name = "components", description = "API to maintain Components")
 public class ComponentController implements ComponentRestApi {
-	
+
 	@Autowired
 	private AnalysisService analysisService;
 
 	@Autowired
 	private ComponentService componentService;
-	
+
 	@Autowired
 	private DataMaintenanceService dataMaintenanceService;
 
@@ -38,10 +38,10 @@ public class ComponentController implements ComponentRestApi {
 
 	@Override
 	public ComponentDTO create(ComponentInput data) {
-		ComponentDTO dto = dataMaintenanceService.componentData(data);
+		ComponentDTO dto = dataMaintenanceService.componentUpdateData(data);
 		analysisService.analyze(dto.getId());
-		
-		return dto;
+
+		return componentService.findBy(dto.getId());
 	}
 
 	@Override

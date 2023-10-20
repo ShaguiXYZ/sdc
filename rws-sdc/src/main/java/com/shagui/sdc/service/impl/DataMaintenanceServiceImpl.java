@@ -21,6 +21,7 @@ import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
 import com.shagui.sdc.api.dto.cmdb.SquadInput;
 import com.shagui.sdc.api.dto.ebs.ComponentInput;
+import com.shagui.sdc.api.dto.ebs.ComponentPropertyInput;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.json.StaticRepository;
@@ -70,12 +71,12 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	@Transactional
 	@Override
-	public List<DepartmentDTO> jsonDepartments() {
+	public List<DepartmentDTO> jsonUpdateDepartments() {
 		try {
 			InputStream is = jsonDepartmentsSquads.getInputStream();
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
 
-			return departmentsData(Arrays.asList(input));
+			return departmentsUpdateData(Arrays.asList(input));
 		} catch (IOException e) {
 			throw new SdcCustomException("Error reading departments", e);
 		}
@@ -83,14 +84,14 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	@Transactional
 	@Override
-	public List<DepartmentDTO> jsonDepartments(String path) {
+	public List<DepartmentDTO> jsonUpdateDepartments(String path) {
 		Resource resource = resourceLoader.getResource("classpath:" + path);
 
 		try {
 			InputStream is = resource.getInputStream();
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
 
-			return departmentsData(Arrays.asList(input));
+			return departmentsUpdateData(Arrays.asList(input));
 		} catch (IOException e) {
 			throw new SdcCustomException("Error reading departments", e);
 		}
@@ -98,7 +99,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	@Transactional
 	@Override
-	public DepartmentDTO departmentData(DepartmentInput data) {
+	public DepartmentDTO departmentUpdateData(DepartmentInput data) {
 		DepartmentModel model = maintainDepartment(data);
 
 		data.getSquads().forEach(input -> {
@@ -111,13 +112,13 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	@Transactional
 	@Override
-	public List<DepartmentDTO> departmentsData(List<DepartmentInput> departments) {
-		return departments.stream().map(this::departmentData).collect(Collectors.toList());
+	public List<DepartmentDTO> departmentsUpdateData(List<DepartmentInput> departments) {
+		return departments.stream().map(this::departmentUpdateData).collect(Collectors.toList());
 	}
 
 	@Transactional
 	@Override
-	public synchronized ComponentDTO componentData(ComponentInput data) {
+	public synchronized ComponentDTO componentUpdateData(ComponentInput data) {
 		SquadModel squadModel = squadRepository.findExistingId(data.getSquad());
 		ComponentTypeArchitectureModel componentTypeArchitecture = componentTypeArchitectureRepository.repository()
 				.findByComponentTypeAndArchitectureAndNetworkAndDeploymentTypeAndPlatformAndLanguage(
@@ -129,16 +130,21 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 				.findBySquad_IdAndName(squadModel.getId(), data.getName()).orElseGet(defaultComponent(data));
 
 		// Update existing properties
-		component.getProperties().forEach(property -> {
-			data.getProperties().stream().filter(input -> input.getName().equals(property.getName()))
-					.findFirst().ifPresent(input -> property.setValue(input.getValue()));
-		});
+		component.getProperties()
+				.forEach(property -> data.getProperties().stream()
+						.filter(input -> !input.isToDelete() && input.getName().equals(property.getName()))
+						.findFirst().ifPresent(input -> property.setValue(input.getValue())));
 
 		// Create non existing properties
-		data.getProperties().stream().filter(input -> component.getProperties().stream()
+		data.getProperties().stream().filter(input -> !input.isToDelete() && component.getProperties().stream()
 				.noneMatch(property -> property.getName().equals(input.getName())))
 				.forEach(input -> component.getProperties().add(new ComponentPropertyModel(component, input.getName(),
 						input.getValue())));
+
+		// Delete properties
+		data.getProperties().stream().filter(ComponentPropertyInput::isToDelete)
+				.forEach(input -> component.getProperties()
+						.removeIf(property -> property.getName().equals(input.getName())));
 
 		component.setSquad(squadModel);
 		component.setComponentTypeArchitecture(componentTypeArchitecture);

@@ -53,7 +53,7 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentPropertyModel> properties = new ArrayList<>();
 
-	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComponentUriModel> uris = new ArrayList<>();
 
 	@OneToMany(mappedBy = "component", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

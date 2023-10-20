@@ -1,6 +1,5 @@
 package com.shagui.sdc.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +34,7 @@ public class ComponetTypeArchitectureMetricPropertiesModel implements ModelInter
 	@JoinColumn(name = "metric_id")
 	private MetricModel metric;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "component_type_architecture_id")
 	private ComponentTypeArchitectureModel componentTypeArchitecture;
 }

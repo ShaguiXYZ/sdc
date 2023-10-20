@@ -8,13 +8,13 @@ import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
 import com.shagui.sdc.api.dto.ebs.ComponentInput;
 
 public interface DataMaintenanceService {
-	DepartmentDTO departmentData(DepartmentInput data);
+	DepartmentDTO departmentUpdateData(DepartmentInput data);
 
-	List<DepartmentDTO> departmentsData(List<DepartmentInput> data);
+	List<DepartmentDTO> departmentsUpdateData(List<DepartmentInput> data);
 
-	ComponentDTO componentData(ComponentInput data);
+	ComponentDTO componentUpdateData(ComponentInput data);
 
-	List<DepartmentDTO> jsonDepartments();
+	List<DepartmentDTO> jsonUpdateDepartments();
 
-	List<DepartmentDTO> jsonDepartments(String path);
+	List<DepartmentDTO> jsonUpdateDepartments(String path);
 }

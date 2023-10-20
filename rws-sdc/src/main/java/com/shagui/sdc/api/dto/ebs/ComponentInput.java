@@ -35,10 +35,11 @@ public class ComponentInput {
 		ComponentModel model = new ComponentModel();
 		model.setName(this.name);
 
-		this.getProperties().stream().map(ComponentPropertyInput::asModel).forEach(prop -> {
-			prop.setComponent(model);
-			model.getProperties().add(prop);
-		});
+		this.getProperties().stream().filter(property -> !property.isToDelete()).map(ComponentPropertyInput::asModel)
+				.forEach(prop -> {
+					prop.setComponent(model);
+					model.getProperties().add(prop);
+				});
 
 		ComponentParamsModel staticComponentParams = StaticRepository.componentParams().stream()
 				.filter(param -> param.getType().equals(this.componentType)).findFirst()

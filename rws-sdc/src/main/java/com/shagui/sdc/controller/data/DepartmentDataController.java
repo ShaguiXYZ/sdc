@@ -20,21 +20,21 @@ public class DepartmentDataController implements DepartmentDataRestApi {
 
 	@Override
 	public DepartmentDTO department(DepartmentInput data) {
-		return dataMaintenanceService.departmentData(data);
+		return dataMaintenanceService.departmentUpdateData(data);
 	}
 
 	@Override
 	public List<DepartmentDTO> departments(List<DepartmentInput> data) {
-		return dataMaintenanceService.departmentsData(data);
+		return dataMaintenanceService.departmentsUpdateData(data);
 	}
 
 	@Override
 	public List<DepartmentDTO> jsonDepartments() {
-		return dataMaintenanceService.jsonDepartments();
+		return dataMaintenanceService.jsonUpdateDepartments();
 	}
 
 	@Override
 	public List<DepartmentDTO> jsonDepartments(String path) {
-		return dataMaintenanceService.jsonDepartments(path);
+		return dataMaintenanceService.jsonUpdateDepartments(path);
 	}
 }

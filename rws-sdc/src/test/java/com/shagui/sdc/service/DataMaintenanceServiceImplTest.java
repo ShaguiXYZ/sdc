@@ -74,7 +74,7 @@ class DataMaintenanceServiceImplTest {
 		when(squadRepositoryMock.findById(anyInt())).thenReturn(squadOptional);
 		when(squadRepositoryMock.save(any(SquadModel.class))).thenReturn(RwsTestUtils.squadModelMock());
 
-		DepartmentDTO result = dataMaintenanceService.departmentData(RwsTestUtils.departmentInputMock());
+		DepartmentDTO result = dataMaintenanceService.departmentUpdateData(RwsTestUtils.departmentInputMock());
 
 		assertNotNull(result);
 	}
@@ -89,7 +89,7 @@ class DataMaintenanceServiceImplTest {
 		when(squadRepositoryMock.findById(anyInt())).thenReturn(squadOptional);
 		when(squadRepositoryMock.save(any(SquadModel.class))).thenReturn(RwsTestUtils.squadModelMock());
 
-		DepartmentDTO result = dataMaintenanceService.departmentData(RwsTestUtils.departmentInputMock());
+		DepartmentDTO result = dataMaintenanceService.departmentUpdateData(RwsTestUtils.departmentInputMock());
 
 		assertNotNull(result);
 	}
@@ -104,7 +104,7 @@ class DataMaintenanceServiceImplTest {
 		when(squadRepositoryMock.findById(anyInt())).thenReturn(squadOptional);
 		when(squadRepositoryMock.save(any(SquadModel.class))).thenReturn(RwsTestUtils.squadModelMock());
 
-		List<DepartmentDTO> result = dataMaintenanceService.departmentsData(new ArrayList<>() {
+		List<DepartmentDTO> result = dataMaintenanceService.departmentsUpdateData(new ArrayList<>() {
 			/**
 			 * 
 			 */
@@ -149,9 +149,8 @@ class DataMaintenanceServiceImplTest {
 		when(componentUriRepositoryMock.save(any(ComponentUriModel.class)))
 				.thenReturn(RwsTestUtils.componentUriModelMock());
 
-		ComponentDTO dto = dataMaintenanceService.componentData(RwsTestUtils.componentInputMock());
+		ComponentDTO dto = dataMaintenanceService.componentUpdateData(RwsTestUtils.componentInputMock());
 
 		assertNotNull(dto);
 	}
-
 }

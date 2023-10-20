@@ -2,7 +2,6 @@ package com.shagui.sdc.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -30,7 +29,7 @@ public class ComponentHistoricalCoverageModel implements ModelInterface<Componen
 	@Column(name = "historical_coverage_vaue")
 	private float coverage;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("componentId")
 	@JoinColumn(name = "component_id")
 	private ComponentModel component;
