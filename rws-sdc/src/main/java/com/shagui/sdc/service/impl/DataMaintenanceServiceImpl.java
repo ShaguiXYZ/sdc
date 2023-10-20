@@ -2,9 +2,12 @@ package com.shagui.sdc.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -129,22 +132,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 		ComponentModel component = componentRepository.repository()
 				.findBySquad_IdAndName(squadModel.getId(), data.getName()).orElseGet(defaultComponent(data));
 
-		// Update existing properties
-		component.getProperties()
-				.forEach(property -> data.getProperties().stream()
-						.filter(input -> !input.isToDelete() && input.getName().equals(property.getName()))
-						.findFirst().ifPresent(input -> property.setValue(input.getValue())));
-
-		// Create non existing properties
-		data.getProperties().stream().filter(input -> !input.isToDelete() && component.getProperties().stream()
-				.noneMatch(property -> property.getName().equals(input.getName())))
-				.forEach(input -> component.getProperties().add(new ComponentPropertyModel(component, input.getName(),
-						input.getValue())));
-
-		// Delete properties
-		data.getProperties().stream().filter(ComponentPropertyInput::isToDelete)
-				.forEach(input -> component.getProperties()
-						.removeIf(property -> property.getName().equals(input.getName())));
+		maintainComponentProperties(data.getProperties(), component);
 
 		component.setSquad(squadModel);
 		component.setComponentTypeArchitecture(componentTypeArchitecture);
@@ -154,6 +142,27 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 		data.getUriNames().forEach(saveUriComponent(savedComponent));
 
 		return Mapper.parse(savedComponent);
+	}
+
+	private void maintainComponentProperties(List<ComponentPropertyInput> properties, ComponentModel component) {
+		Map<String, ComponentPropertyModel> propertyMap = component.getProperties().stream()
+				.collect(Collectors.toMap(ComponentPropertyModel::getName, Function.identity()));
+
+		properties.forEach(input -> {
+			if (input.isToDelete()) {
+				propertyMap.remove(input.getName());
+			} else {
+				propertyMap.merge(input.getName(),
+						new ComponentPropertyModel(component, input.getName(), input.getValue()),
+						(oldValue, newValue) -> {
+							oldValue.setValue(newValue.getValue());
+							return oldValue;
+						});
+			}
+		});
+
+		component.getProperties().clear();
+		component.getProperties().addAll(new ArrayList<>(propertyMap.values()));
 	}
 
 	private DepartmentModel maintainDepartment(DepartmentInput data) {
