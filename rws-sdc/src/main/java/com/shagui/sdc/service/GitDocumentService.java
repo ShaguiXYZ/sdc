@@ -64,7 +64,7 @@ public abstract class GitDocumentService implements AnalysisInterface {
 								component, String.format("contents/%s", entry.getKey()), Optional.empty(),
 								ContentDTO.class)
 						.map(data -> getResponse(component, entry.getValue(), sdcDocument(data))).orElseGet(() -> {
-							log.error(String.format("Not git info for component %s", component.getName()));
+							log.error("Not git info for component '{}'", component.getName());
 							return new ArrayList<>();
 						}))
 				.flatMap(List::stream).collect(Collectors.toList());
@@ -94,7 +94,7 @@ public abstract class GitDocumentService implements AnalysisInterface {
 		try {
 			return sdcDocument(IOUtils.toInputStream(gitData.getDecodedContent()));
 		} catch (Exception e) {
-			log.error(String.format("ERROR in document '%s'.", gitData.getName()), e);
+			log.error("ERROR in document '{}'.", gitData.getName(), e);
 			return sdcDocument(gitData.getDownloadUrl());
 		}
 	}

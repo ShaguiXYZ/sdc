@@ -60,7 +60,7 @@ public class XmlDocument implements SdcDocument {
 			try {
 				return value(node, clazz);
 			} catch (JAXBException e) {
-				log.error(String.format("Error procesing XML path: %s", path), e);
+				log.error("Error procesing XML path: {}", path, e);
 				return Optional.empty();
 			}
 		}).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());

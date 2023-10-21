@@ -63,14 +63,11 @@ public class StaticRepositoryConfig {
 	}
 
 	private <T> Optional<T> mapResource(Resource resource, Class<T> clazz) {
-		T input = null;
-
 		try (InputStream is = resource.getInputStream()) {
-			input = mapper.readValue(is, clazz);
+			return Optional.of(mapper.readValue(is, clazz));
 		} catch (IOException | IllegalArgumentException e) {
-			log.error(String.format("%s not found.", resource.getFilename()), e);
+			log.error("{} not found.", resource.getFilename(), e);
+			return Optional.empty();
 		}
-
-		return Optional.ofNullable(input);
 	}
 }
