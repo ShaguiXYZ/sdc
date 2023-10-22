@@ -1,5 +1,3 @@
-export const COLOR_PREFIX = 'color--';
-
 export enum StateColors {
   CRITICAL = '#EE4266',
   RISK = '#EFBE25',

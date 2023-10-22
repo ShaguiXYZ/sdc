@@ -22,7 +22,11 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
 
   private summary$!: Subscription;
 
-  constructor(private router: Router, private contextDataService: UiContextDataService, private sdcSummaryService: SdcSquadsService) {}
+  constructor(
+    private readonly router: Router,
+    private readonly contextDataService: UiContextDataService,
+    private readonly sdcSummaryService: SdcSquadsService
+  ) {}
 
   ngOnInit(): void {
     this.summary$ = this.sdcSummaryService.onDataChange().subscribe((data: SdcSquadsDataModel | undefined) => {
@@ -30,6 +34,11 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
       this.componentsInView = this.squadsData?.components
         ? this.squadsData.components.slice(0, 3).map(IComplianceModel.fromComponentModel)
         : [];
+
+      this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
+        ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+        title: `Squads | ${this.squadsData?.squad?.name ?? ''}`
+      });
     });
 
     this.sdcSummaryService.loadData();

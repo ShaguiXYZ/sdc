@@ -1,8 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { routingAnimation } from './app-routing-animations';
-import { UiStorageService } from './core/services/context-data';
+import { UiContextDataService, UiStorageService } from './core/services';
 import { ContextDataInfo } from './shared/constants';
+import { AppConfig } from './shared/models/app.-config.model';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +14,23 @@ import { ContextDataInfo } from './shared/constants';
   animations: [routingAnimation]
 })
 export class AppComponent implements OnInit {
-  constructor(private storageService: UiStorageService) {}
+  constructor(
+    private readonly contextDataService: UiContextDataService,
+    private readonly storageService: UiStorageService,
+    private readonly title: Title
+  ) {}
 
   ngOnInit(): void {
+    this.contextDataService.set(ContextDataInfo.APP_CONFIG, { title: '- S D C -' }, { persistent: true, referenced: false });
+
+    this.contextDataService
+      .onDataChange()
+      .pipe(filter(data => data === ContextDataInfo.APP_CONFIG))
+      .subscribe(data => {
+        const config = this.contextDataService.get(data) as AppConfig;
+        this.title.setTitle(config.title);
+      });
+
     this.storageService.retrieve(ContextDataInfo.SQUADS_DATA);
     this.storageService.retrieve(ContextDataInfo.DEPARTMENTS_DATA);
   }

@@ -1,5 +1,7 @@
 import { hasValue } from '../../core/lib/object-utils.lib';
-import { StateColors, COLOR_PREFIX } from '../constants';
+import { StateColors } from '../constants';
+
+const COLOR_PREFIX = 'color--';
 
 export enum AvailableMetricStates {
   PERFECT,

@@ -21,14 +21,19 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
   private summary$!: Subscription;
 
   constructor(
-    private router: Router,
-    private contextDataService: UiContextDataService,
-    private sdcDepartmentService: SdcDepartmentsService
+    private readonly router: Router,
+    private readonly contextDataService: UiContextDataService,
+    private readonly sdcDepartmentService: SdcDepartmentsService
   ) {}
 
   ngOnInit(): void {
     this.summary$ = this.sdcDepartmentService.onDataChange().subscribe(data => {
       this.departmentsData = data;
+
+      this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
+        ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+        title: `Departments | ${this.departmentsData?.department?.name ?? ''}`
+      });
     });
 
     this.sdcDepartmentService.loadData();

@@ -51,11 +51,9 @@ export class UiContextDataService {
     if (key) {
       const contextData = this.contextStorage.contextData[key];
 
-      if (contextData?.configuration.referenced) {
-        return this.contextStorage.contextData[key]?.data;
-      } else {
-        return deepCopy(this.contextStorage.contextData[key]?.data);
-      }
+      return contextData?.configuration.referenced
+        ? this.contextStorage.contextData[key]?.data
+        : deepCopy(this.contextStorage.contextData[key]?.data);
     } else {
       const contextDataValues: DataInfo = {};
 
@@ -77,14 +75,15 @@ export class UiContextDataService {
    * @param key Key of the variable in context
    * @param data data to save in the storage
    */
-  public set(key: string, data: any, configuration: IContextDataConfigurtion = { persistent: false }): void {
+  public set(key: string, data: any, configuration?: IContextDataConfigurtion): void {
     const contextDataValue = this.contextStorage.contextData[key];
+    const config = configuration ?? contextDataValue?.configuration ?? { persistent: false };
 
-    if (contextDataValue?.configuration.readonly) {
+    if (config.readonly) {
       throw new Error(`${key} is read only`);
     }
 
-    this.addContextData(key, data, configuration);
+    this.addContextData(key, data, config);
 
     _console.log(`${key} added`, this.contextStorage.contextData);
 

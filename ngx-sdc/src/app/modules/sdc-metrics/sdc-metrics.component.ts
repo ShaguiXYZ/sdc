@@ -6,8 +6,9 @@ import { Subscription } from 'rxjs';
 import { UiAlertService } from 'src/app/core/components/alert';
 import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
-import { UiDateService } from 'src/app/core/services';
+import { UiContextDataService, UiDateService } from 'src/app/core/services';
 import { SdcMetricsCardsComponent } from 'src/app/shared/components/sdc-metrics-cards';
+import { ContextDataInfo } from 'src/app/shared/constants';
 import { AvailableMetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig, ChartData } from 'src/app/shared/models';
 import { MetricsDataModel } from './models';
@@ -31,6 +32,7 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly alertService: UiAlertService,
+    private readonly contextDataService: UiContextDataService,
     private readonly dateService: UiDateService,
     private readonly dialogService: NxDialogService,
     private readonly sdcMetricsService: SdcMetricsService,
@@ -44,6 +46,11 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
       this.metricGraphConfig(this.metricsData.historicalAnalysis);
       this.applicationCoverageGraphConfig(this.metricsData.historical);
+
+      this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
+        ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+        title: `Metrics | ${this.metricsData.compliance.name ?? ''}`
+      });
     });
 
     this.sdcMetricsService.loadInitData();

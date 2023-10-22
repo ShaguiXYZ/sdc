@@ -46,6 +46,11 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     this.subscription$.push(
       this.sdcApplicationsService.onDataChange().subscribe(info => {
         this.applicationsInfo = info;
+
+        this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
+          ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+          title: `Applications | ${this.applicationsInfo?.name ?? ''}`
+        });
       })
     );
 
