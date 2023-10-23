@@ -52,9 +52,16 @@ public class ComponentUtils {
 	}
 
 	@Transactional
-	public static void updateRelatedComponentEntities(ComponentModel component) {
-		updateComponent(component);
-		updateSquadComponent(component);
+	public static void updateRelatedComponentEntities(ComponentModel component, boolean hasNewAnalysis) {
+		if (hasNewAnalysis) {
+			updateComponent(component);
+			updateComponentSquad(component);
+		}
+
+		component.setAnalysisDate(new Date());
+
+		config.componentRepository().update(component.getId(), component);
+		config.squadRepository().update(component.getSquad().getId(), component.getSquad());
 	}
 
 	public static Optional<ComponentPropertyModel> propertyValue(ComponentModel component, String key) {
@@ -102,22 +109,17 @@ public class ComponentUtils {
 
 		if (!coverage.equals(component.getCoverage())) {
 			component.setCoverage(coverage);
-			component = config.componentRepository().update(component.getId(), component);
-
 			saveHistoricalCoverage(component, date, coverage);
 		}
 	}
 
-	private static void updateSquadComponent(ComponentModel component) {
+	private static void updateComponentSquad(ComponentModel component) {
 		Date date = new Date();
 		SquadModel squad = component.getSquad();
-
 		List<ComponentAnalysisModel> metricAnalysis = config.componentAnalysisRepository().repository()
 				.squadAnalysis(squad.getId(), new Timestamp(date.getTime()));
-
 		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
 
 		squad.setCoverage(coverage);
-		config.squadRepository().update(squad.getId(), squad);
 	}
 }

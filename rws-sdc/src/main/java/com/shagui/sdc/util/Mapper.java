@@ -1,9 +1,7 @@
 package com.shagui.sdc.util;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -21,7 +19,6 @@ import com.shagui.sdc.core.exception.ApiError;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
@@ -87,19 +84,14 @@ public class Mapper {
 	}
 
 	public static ComponentDTO parse(ComponentModel source) {
-		Optional<ComponentPropertyModel> analysisTimestamp = ComponentUtils.propertyValue(source,
-				Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE);
-
-		Date analysisDate = analysisTimestamp.map(data -> new Date(Long.valueOf(data.getValue()))).orElse(null);
-
 		return new ComponentDTO(source.getId(), source.getName(), parse(source.getComponentTypeArchitecture()),
-				analysisDate, source.getCoverage(), parse(source.getSquad()));
+				source.getAnalysisDate(), source.getCoverage(), parse(source.getSquad()));
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {
 		List<Float> coverages = source.getSquads().stream().map(SquadModel::getCoverage).filter(Objects::nonNull)
 				.collect(Collectors.toList());
-		
+
 		int numSquads = coverages.size();
 
 		Float coverage = coverages.stream().reduce(0f, (a, b) -> a + b);

@@ -42,6 +42,10 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date expiryDate;
 
+	@Column(name = "analysis_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date analysisDate;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "component_type_architecture_id", nullable = false)
 	private ComponentTypeArchitectureModel componentTypeArchitecture;

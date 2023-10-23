@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,14 +76,10 @@ public class AnalysisServiceImpl implements AnalysisService {
 	public PageData<MetricAnalysisDTO> analyze(int componentId) {
 		ComponentModel component = componentsRepository.findExistingId(componentId);
 
-		List<ComponentAnalysisModel> newAnalysis = executeAsyncMetricServicesAndWait(component).stream()
-				.filter(modifiedAnalysis).collect(Collectors.toList());
-		List<ComponentAnalysisModel> savedData = saveReturnAnalysis(newAnalysis);
+		List<ComponentAnalysisModel> savedData = executeAsyncMetricServicesAndWait(component)
+				.filter(modifiedAnalysis).map(componentAnalysisRepository::save).collect(Collectors.toList());
 
-		if (!savedData.isEmpty()) {
-			ComponentUtils.updateRelatedComponentEntities(component);
-		}
-
+		ComponentUtils.updateRelatedComponentEntities(component, !savedData.isEmpty());
 		ComponentUtils.updateComponentProperties(component);
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
@@ -97,7 +94,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
-	private List<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {
+	private Stream<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {
 		Set<AnalysisType> metricTypes = component.getComponentTypeArchitecture().getMetrics().stream()
 				.map(MetricModel::getType).collect(Collectors.toSet());
 
@@ -111,11 +108,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 			}
 		});
 
-		return toSave.stream().map(AnalysisUtils.setMetricValues).collect(Collectors.toList());
-	}
-
-	private List<ComponentAnalysisModel> saveReturnAnalysis(List<ComponentAnalysisModel> toSave) {
-		return componentAnalysisRepository.repository().saveAll(toSave).stream().collect(Collectors.toList());
+		return toSave.stream().map(AnalysisUtils.setMetricValues);
 	}
 
 	private Predicate<ComponentAnalysisModel> modifiedAnalysis = reg -> componentAnalysisRepository.repository()
