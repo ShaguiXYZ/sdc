@@ -69,7 +69,7 @@ export class SdcTimeEvolutionChartComponent {
       };
     });
 
-    const echartsOptions: EChartsOption = {
+    const options: GenericDataInfo<any> = {
       animation: false,
       grid: {
         left: '3%',
@@ -98,9 +98,14 @@ export class SdcTimeEvolutionChartComponent {
         axisLabel: {
           formatter: '{value}'
         }
-      },
-      visualMap: chartDataConfig.map(dataConfig => dataConfig.visualMap)
+      }
     };
+
+    if (chartConfig.options?.showVisualMap) {
+      options['visualMap'] = chartDataConfig.map(dataConfig => dataConfig.visualMap);
+    }
+
+    const echartsOptions: EChartsOption = options;
 
     echartsOptions.series = chartDataConfig.map(dataConfig => ({
       data: dataConfig.serie.data,

@@ -37,7 +37,7 @@ export class UiSchedulerService {
    * @returns scheduleId
    */
   public create<D>(task: () => D, scheduleId?: string, period?: number): string {
-    const id = scheduleId || `${UniqueIds.next()}`;
+    const id = scheduleId ?? `${UniqueIds.next()}`;
 
     if (this.schedulers.get(id)) {
       this.finish(id);

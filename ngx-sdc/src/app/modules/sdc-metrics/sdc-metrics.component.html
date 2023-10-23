@@ -1,4 +1,4 @@
-<div *ngIf="metricsData" id="application-content" class="nx-margin-y-2xs">
+<div *ngIf="metricsData" class="nx-margin-y-2xs">
   <sdc-compliance-bar-card [compliance]="metricsData.compliance" [showMore]="false" [hideBorder]="true"></sdc-compliance-bar-card>
   <div class="application-historic nx-margin-y-2xs">
     <nx-accordion>
@@ -17,17 +17,17 @@
           <div class="chart-ops sdc-scrollable">
             <div
               class="chart-op"
-              [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
+              [nxTooltip]="'Tooltip.ComponentMetrics' | translate : { name: metricsData.compliance.name }"
               (click)="openMetricsCards()"
             >
-              <em class="fa-brands fa-stack-exchange fa-lg"></em>
+              <em class="fa-solid fa-align-justify"></em>
             </div>
             <div
               class="chart-op"
               [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
               (click)="onRunProcess()"
             >
-              <em class="fa-solid fa-wand-magic-sparkles fa-lg"></em>
+              <em class="fa-solid fa-arrows-spin fa-spin"></em>
             </div>
           </div>
           <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }"></sdc-time-evolution-chart>

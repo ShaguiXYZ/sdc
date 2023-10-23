@@ -4,9 +4,6 @@ import { UiLanguageService } from '../../language';
 import { UiDateService } from '../date.service';
 
 describe('UiDateService', () => {
-  let service: UiDateService;
-  let languageService: UiLanguageService;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [{ provide: UiLanguageService, useClass: UiLanguageServiceMock }]

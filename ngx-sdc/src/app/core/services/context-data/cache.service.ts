@@ -34,7 +34,7 @@ export class UiCacheService implements OnDestroy {
     this.scheduleroService.finish(this.schedukerId);
   }
 
-  public expirationDate = (cachedDuring?: number) => (hasValue(cachedDuring) ? new Date().getTime() + (cachedDuring || 0) : undefined);
+  public expirationDate = (cachedDuring?: number) => (hasValue(cachedDuring) ? new Date().getTime() + (cachedDuring ?? 0) : undefined);
 
   public set(key: string, data: any, expiration?: number) {
     this.contextData.cache[key] = { data, expiration };
@@ -73,6 +73,6 @@ export class UiCacheService implements OnDestroy {
 
   private resetContextData = (): void =>
     Object.keys(this.contextData.cache)
-      .filter(key => this.contextData.cache[key].expiration && (this.contextData.cache[key].expiration || 0) < new Date().getTime())
+      .filter(key => this.contextData.cache[key].expiration && (this.contextData.cache[key].expiration ?? 0) < new Date().getTime())
       .forEach(this.delete);
 }

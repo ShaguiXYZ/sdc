@@ -22,10 +22,13 @@
   &.selected {
     background-color: $background-color-1;
     border-radius: 4px;
+    outline-color: darken($background-color-1, 10%);
+    outline-style: auto;
   }
 
   &:hover {
-    background-color: $background-color-1;
+    outline-color: darken($background-color-1, 25%);
+    outline-style: auto;
     cursor: pointer;
   }
 
