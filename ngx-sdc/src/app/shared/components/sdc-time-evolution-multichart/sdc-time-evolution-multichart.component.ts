@@ -23,8 +23,8 @@ export class SdcTimeEvolutionMultichartComponent {
       data: Object.keys(this.graphData).map(key => ({
         name: key,
         smooth: true,
-        values: this.graphData[key].map(value => ({
-          value
+        values: this.graphData[key].map(graphValue => ({
+          value: graphValue
         }))
       })),
       options: { showVisualMap: false },

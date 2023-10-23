@@ -28,7 +28,7 @@
             >
               <nx-dropdown-item></nx-dropdown-item>
               <nx-dropdown-item *ngFor="let item of coverages" [value]="item.key">
-                <nx-icon [name]="'dot'" size="s" class="nx-margin-right-2xs {{ item.style }}"></nx-icon>
+                <nx-icon name="dot" size="s" class="nx-margin-right-2xs {{ item.style }}"></nx-icon>
                 {{ item.label | translate | titlecase }}
               </nx-dropdown-item>
             </nx-dropdown>
@@ -38,7 +38,7 @@
             <nx-formfield id="component-name" [label]="'Label.FindByApplicationName' | translate">
               <input #searchInput nxInput type="text" formControlName="name" autocomplete="off" />
               <span nxFormfieldSuffix>
-                <nx-icon name="search" size="s"></nx-icon>
+                <em class="fa-solid fa-magnifying-glass"></em>
               </span>
             </nx-formfield>
           </div>
