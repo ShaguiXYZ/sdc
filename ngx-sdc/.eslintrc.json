@@ -1,17 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -23,44 +17,28 @@
         "@angular-eslint/component-class-suffix": [
           "error",
           {
-            "suffixes": [
-              "Component",
-              "Page"
-            ]
+            "suffixes": ["Component", "Page"]
           }
         ],
         "@angular-eslint/component-selector": [
           "error",
           {
             "type": "element",
-            "prefix": [
-              "app",
-              "cr",
-              "nx",
-              "sdc"
-            ],
+            "prefix": ["app", "cr", "nx", "sdc"],
             "style": "kebab-case"
           }
         ],
         "@angular-eslint/directive-class-suffix": [
           "error",
           {
-            "suffixes": [
-              "Directive"
-            ]
+            "suffixes": ["Directive"]
           }
         ],
         "@angular-eslint/directive-selector": [
           "error",
           {
             "type": "attribute",
-            "prefix": [
-              "app",
-              "ati",
-              "dir",
-              "cr",
-              "nx"
-            ],
+            "prefix": ["app", "ati", "dir", "cr", "nx"],
             "style": "camelCase"
           }
         ],
@@ -77,31 +55,19 @@
           }
         ],
         "@typescript-eslint/no-var-requires": "error",
-        "brace-style": [
-          "error",
-          "1tbs"
-        ],
+        "brace-style": ["error", "1tbs"],
         "default-case": "error",
-        "eqeqeq": [
-          "error",
-          "always"
-        ],
+        "eqeqeq": ["error", "always"],
         "import/no-default-export": "off",
         "import/order": "off",
-        "max-classes-per-file": [
-          "warn",
-          1
-        ],
+        "max-classes-per-file": ["warn", 1],
         "max-len": [
           "error",
           {
             "code": 150
           }
         ],
-        "max-lines": [
-          "error",
-          600
-        ],
+        "max-lines": ["error", 600],
         "no-duplicate-imports": "warn",
         "no-empty": [
           "error",
@@ -136,22 +102,14 @@
           "error",
           {
             "selector": "enumMember",
-            "format": [
-              "camelCase",
-              "UPPER_CASE",
-              "PascalCase"
-            ]
+            "format": ["camelCase", "UPPER_CASE", "PascalCase"]
           }
         ]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     }
   ]
