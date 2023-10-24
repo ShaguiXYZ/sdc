@@ -10,5 +10,7 @@ public interface AnalysisService {
 
 	PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId);
 
+	PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, String type);
+
 	PageData<MetricAnalysisDTO> analize(int componentId);
 }

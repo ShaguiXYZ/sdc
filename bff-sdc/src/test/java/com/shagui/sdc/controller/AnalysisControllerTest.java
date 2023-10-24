@@ -49,6 +49,13 @@ class AnalysisControllerTest {
 	}
 
 	@Test
+	void metricNameHistoryTest() {
+		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString())).thenReturn(DataUtils.createEmptyPageData());
+		PageData<MetricAnalysisView> result = controller.metricHistory(1, "metricName","GIT");
+		assertNotNull(result);
+	}
+
+	@Test
 	void analyzeTest() {
 		when(analysisService.analize(Mockito.anyInt())).thenReturn(DataUtils.createEmptyPageData());
 		PageData<MetricAnalysisView> result = controller.analyze(1);

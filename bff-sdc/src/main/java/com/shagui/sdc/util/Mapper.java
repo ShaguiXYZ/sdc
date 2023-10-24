@@ -19,7 +19,7 @@ public class Mapper {
 	private Mapper() {
 	}
 
-	public static ApiError parse(FeignException ex) throws JSONException, JsonProcessingException {
+	public static ApiError parse(FeignException ex) {
 		ApiError error = new ApiError();
 		error.setStatus(HttpStatus.valueOf(ex.status()));
 		error.setMessage(ex.getMessage());

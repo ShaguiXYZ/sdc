@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.enums.AnalysisType;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -42,5 +43,12 @@ public interface AnalysisRestApi {
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
+
+	@GetMapping("{componentId}/{metricName}/{type}")
+	PageData<MetricAnalysisDTO> metricHistory(
+			@PathVariable @Parameter(description = "Component identifier") int componentId,
+			@PathVariable @Parameter(description = "Metric name") String metricName,
+			@PathVariable @Parameter(description = "Metric type") AnalysisType type,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
 }

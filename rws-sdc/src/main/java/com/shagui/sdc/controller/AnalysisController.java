@@ -9,6 +9,7 @@ import com.shagui.sdc.api.AnalysisRestApi;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.service.ComponentService;
 
@@ -19,7 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class AnalysisController implements AnalysisRestApi {
 	@Autowired
 	private ComponentService componentService;
-	
+
 	@Autowired
 	private AnalysisService analysisService;
 
@@ -36,7 +37,7 @@ public class AnalysisController implements AnalysisRestApi {
 	@Override
 	public PageData<MetricAnalysisDTO> analyze(int squadId, String componentName) {
 		ComponentDTO component = componentService.findBy(squadId, componentName);
-		
+
 		return analyze(component.getId());
 	}
 
@@ -48,5 +49,10 @@ public class AnalysisController implements AnalysisRestApi {
 	@Override
 	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date from) {
 		return analysisService.metricHistory(componentId, metricId, from == null ? new Date() : from);
+	}
+
+	@Override
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, AnalysisType type, Date from) {
+		return analysisService.metricHistory(componentId, metricName, type, from == null ? new Date() : from);
 	}
 }

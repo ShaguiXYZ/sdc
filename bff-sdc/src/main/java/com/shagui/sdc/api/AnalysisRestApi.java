@@ -30,6 +30,12 @@ public interface AnalysisRestApi {
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
 
+	@GetMapping("{componentId}/{metricName}/{type}")
+	PageData<MetricAnalysisView> metricHistory(
+			@PathVariable @Parameter(description = "Component identifier") int componentId,
+			@PathVariable @Parameter(description = "Metric name") String metricName,
+			@PathVariable @Parameter(description = "Metric type") String type);
+
 	@PostMapping("{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisView> analyze(

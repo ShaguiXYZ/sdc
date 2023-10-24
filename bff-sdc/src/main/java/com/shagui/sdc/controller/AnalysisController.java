@@ -34,6 +34,11 @@ public class AnalysisController implements AnalysisRestApi {
 	}
 
 	@Override
+	public PageData<MetricAnalysisView> metricHistory(int componentId, String metricName, String type) {
+		return Mapper.parse(analysisService.metricHistory(componentId, metricName, type), MetricAnalysisView.class);
+	}
+
+	@Override
 	public PageData<MetricAnalysisView> analyze(int componentId) {
 		return Mapper.parse(analysisService.analize(componentId), MetricAnalysisView.class);
 	}

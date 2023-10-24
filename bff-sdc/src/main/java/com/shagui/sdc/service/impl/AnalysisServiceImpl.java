@@ -30,6 +30,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, String type) {
+		return rwsSdcClient.metricHistory(componentId, metricName, type);
+	}
+
+	@Override
 	public PageData<MetricAnalysisDTO> analize(int componentId) {
 		return rwsSdcClient.analyze(componentId);
 	}

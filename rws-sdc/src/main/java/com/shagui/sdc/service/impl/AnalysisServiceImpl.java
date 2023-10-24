@@ -27,6 +27,7 @@ import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
 import com.shagui.sdc.repository.ComponentAnalysisRepository;
 import com.shagui.sdc.repository.ComponentRepository;
+import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.service.AnalysisInterface;
 import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.util.AnalysisUtils;
@@ -42,14 +43,17 @@ import lombok.extern.slf4j.Slf4j;
 public class AnalysisServiceImpl implements AnalysisService {
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentsRepository;
 	private JpaCommonRepository<ComponentAnalysisRepository, ComponentAnalysisModel, ComponentAnalysisPk> componentAnalysisRepository;
+	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
 
 	@Autowired
 	private Map<String, AnalysisInterface> metricServices;
 
 	public AnalysisServiceImpl(ComponentRepository componentsRepository,
-			ComponentAnalysisRepository componentAnalysisRepository) {
+			ComponentAnalysisRepository componentAnalysisRepository,
+			MetricRepository metricRepository) {
 		this.componentsRepository = () -> componentsRepository;
 		this.componentAnalysisRepository = () -> componentAnalysisRepository;
+		this.metricRepository = () -> metricRepository;
 	}
 
 	@Override
@@ -92,6 +96,13 @@ public class AnalysisServiceImpl implements AnalysisService {
 		return componentAnalysisRepository.repository()
 				.metricHistory(componentId, metricId, new Timestamp(date.getTime())).stream()
 				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, AnalysisType type, Date date) {
+		return metricRepository.repository().findByNameIgnoreCaseAndType(metricName, type)
+				.map(metric -> metricHistory(componentId, metric.getId(), date))
+				.orElseGet(() -> new PageData<>(new ArrayList<>()));
 	}
 
 	private Stream<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {

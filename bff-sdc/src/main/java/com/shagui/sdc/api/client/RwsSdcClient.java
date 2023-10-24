@@ -30,6 +30,10 @@ public interface RwsSdcClient {
 	@GetMapping("analysis/{componentId}/{metricId}")
 	PageData<MetricAnalysisDTO> metricHistory(@PathVariable int componentId, @PathVariable int metricId);
 
+	@GetMapping("analysis/{componentId}/{metricName}/{type}")
+	PageData<MetricAnalysisDTO> metricHistory(@PathVariable int componentId, @PathVariable String metricName,
+			@PathVariable String type);
+
 	@PostMapping("analysis/{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);
