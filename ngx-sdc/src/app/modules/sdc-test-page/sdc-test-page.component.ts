@@ -24,7 +24,7 @@ export class SdcTestComponent implements OnInit {
           axis: this.dateService.dateFormat(analysis.analysisDate),
           data: analysis.analysisValues.metricValue
         })),
-        type: ValueType.NUMERIC
+        type: this.data.type && ValueType.NUMERIC
       };
     });
   }

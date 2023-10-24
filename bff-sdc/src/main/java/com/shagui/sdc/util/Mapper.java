@@ -2,10 +2,8 @@ package com.shagui.sdc.util;
 
 import java.util.stream.Collectors;
 
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.HttpStatus;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.domain.HistoricalCoverage;
 import com.shagui.sdc.api.domain.PageData;
