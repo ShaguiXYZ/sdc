@@ -47,26 +47,6 @@
   }
 }
 
-.evolution-content {
-  display: flex;
-
-  .metrics {
-    max-height: 450px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    width: 270px;
-  }
-
-  .evolution-graph {
-    width: 100%;
-
-    .chart-header {
-      background-color: $grey-lighter-color;
-      padding: 8px;
-    }
-  }
-}
-
 .selected-date {
   font-size: 12px;
   font-weight: normal;

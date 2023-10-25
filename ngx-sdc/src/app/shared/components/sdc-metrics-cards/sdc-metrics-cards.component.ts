@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { _console } from 'src/app/core/lib';
-import { IMetricAnalysisModel, MetricModel } from 'src/app/core/models/sdc';
+import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { AnalysisService } from 'src/app/core/services/sdc';
 
 @Component({

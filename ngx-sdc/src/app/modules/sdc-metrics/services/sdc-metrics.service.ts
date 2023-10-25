@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { _console } from 'src/app/core/lib';
-import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { IComplianceModel } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricsContextData, MetricsDataModel } from '../models';
+import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 
 @Injectable()
 export class SdcMetricsService {
@@ -22,25 +22,21 @@ export class SdcMetricsService {
     private squadService: SquadService
   ) {
     this.data$ = new Subject();
-
     this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
-    this.metricData = { compliance: this.metricContextData.compliance };
+    this.metricData = { compliance: this.metricContextData.compliance, selectedAnalysis: this.metricContextData.selected };
+  }
+
+  public set metricAnalysisSeleted(analysis: IMetricAnalysisModel) {
+    this.metricContextData.selected = analysis;
+    this.contextDataService.set(ContextDataInfo.METRICS_DATA, this.metricContextData);
+  }
+
+  public loadInitData(): void {
+    this.data$.next(this.metricData);
   }
 
   public onDataChange(): Observable<MetricsDataModel> {
     return this.data$.asObservable();
-  }
-
-  public analysisData(analysis: IMetricAnalysisModel): void {
-    this.analysisService
-      .metricHistory(this.metricData.compliance.id, analysis.metric.id)
-      .then(data => {
-        this.metricData = { ...this.metricData, historicalAnalysis: data.page, selectedAnalysis: analysis };
-
-        this.contextDataService.set(ContextDataInfo.METRICS_DATA, { ...this.metricContextData, selected: analysis });
-        this.data$.next(this.metricData);
-      })
-      .catch(_console.error);
   }
 
   public historicalComponentData(): void {
@@ -67,7 +63,6 @@ export class SdcMetricsService {
               this.departmentService.clearCache();
               this.squadService.clearCache();
 
-              this.loadInitData();
               this.historicalComponentData();
             })
             .catch(_console.error);
@@ -75,24 +70,4 @@ export class SdcMetricsService {
       })
       .catch(_console.error);
   };
-
-  public loadInitData(): void {
-    this.analysisService
-      .componentAnalysis(this.metricData.compliance.id)
-      .then(data => {
-        const analysisToShow = data.page.filter(an => an.metric.valueType);
-
-        this.metricData = {
-          ...this.metricData,
-          analysis: analysisToShow
-        };
-
-        this.data$.next(this.metricData);
-
-        if (analysisToShow.length) {
-          this.analysisData(this.metricContextData.selected ?? analysisToShow[0]);
-        }
-      })
-      .catch(_console.error);
-  }
 }
