@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ValueType } from 'src/app/core/models/sdc';
-import { ChartConfig } from '../../models';
+import { ChartConfig, SdcGraphData } from '../../models';
 
 @Component({
   selector: 'sdc-time-evolution-multichart',
@@ -9,16 +8,20 @@ import { ChartConfig } from '../../models';
   styleUrls: ['./sdc-time-evolution-multichart.component.scss']
 })
 export class SdcTimeEvolutionMultichartComponent {
-  public metricChartConfig!: ChartConfig;
+  public metricChartConfig: ChartConfig = { axis: {}, data: [] };
 
   private graphData: GenericDataInfo<string[]> = {};
 
   @Input()
-  set data(value: { graph: { axis: string; data: string }[]; type?: ValueType }) {
+  public set data(value: SdcGraphData) {
+    this.metricChartConfig = this.toChartconfig(value);
+  }
+
+  private toChartconfig(value: SdcGraphData): ChartConfig {
     const data: string[] = value.graph.map(v => v.data);
     this.graphData = this.groupDataInfo(data.map(this.stringGraphToDataInfo));
 
-    this.metricChartConfig = {
+    return {
       axis: { xAxis: value.graph.map(v => v.axis) },
       data: Object.keys(this.graphData).map(key => ({
         name: key,
@@ -27,7 +30,7 @@ export class SdcTimeEvolutionMultichartComponent {
           value: graphValue
         }))
       })),
-      options: { showVisualMap: false },
+      options: { showVisualMap: false, showLegend: true },
       type: value.type
     };
   }

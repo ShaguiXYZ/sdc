@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { LineChart } from 'echarts/charts';
-import { GridComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
+import { GridComponent, LegendComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ChartConfig, ChartData, ChartOptions, ChartValue } from '../../models';
+import { ChartConfig, ChartData, ChartValue } from '../../models';
 import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
 
 @Component({
@@ -18,7 +18,7 @@ export class SdcTimeEvolutionChartComponent {
   public styleSize: GenericDataInfo<number> = {};
 
   constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
-    this.echartsExtentions = [LineChart, GridComponent, TooltipComponent, VisualMapComponent];
+    this.echartsExtentions = [LineChart, LegendComponent, GridComponent, TooltipComponent, VisualMapComponent];
   }
 
   @Input()
@@ -117,6 +117,13 @@ export class SdcTimeEvolutionChartComponent {
       symbolSize: 12,
       type: 'line'
     }));
+
+    if (chartConfig.options?.showLegend) {
+      echartsOptions.legend = {
+        orient: 'horizontal',
+        bottom: -5
+      };
+    }
 
     return echartsOptions;
   }

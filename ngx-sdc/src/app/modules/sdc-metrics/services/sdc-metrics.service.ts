@@ -1,33 +1,48 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { _console } from 'src/app/core/lib';
-import { UiContextDataService } from 'src/app/core/services';
+import { _console, emptyFn } from 'src/app/core/lib';
+import { AnalysisType, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
+import { UiContextDataService, UiDateService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { IComplianceModel } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricsContextData, MetricsDataModel } from '../models';
-import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 
 @Injectable()
 export class SdcMetricsService {
   private metricContextData!: MetricsContextData;
   private metricData!: MetricsDataModel;
   private data$: Subject<MetricsDataModel>;
+  private tabActions: (() => void)[] = [];
 
   constructor(
-    private contextDataService: UiContextDataService,
-    private analysisService: AnalysisService,
-    private componentService: ComponentService,
-    private departmentService: DepartmentService,
-    private squadService: SquadService
+    private readonly contextDataService: UiContextDataService,
+    private readonly analysisService: AnalysisService,
+    private readonly componentService: ComponentService,
+    private readonly dateService: UiDateService,
+    private readonly departmentService: DepartmentService,
+    private readonly squadService: SquadService
   ) {
     this.data$ = new Subject();
     this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
-    this.metricData = { compliance: this.metricContextData.compliance, selectedAnalysis: this.metricContextData.selected };
+    this.metricData = {
+      compliance: this.metricContextData.compliance,
+      selectedAnalysis: this.metricContextData.selected,
+      selectedTabIndex: this.metricContextData.selectedTabIndex
+    };
+    this.tabActions = [emptyFn, this.languageDistribution];
+    this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
   }
 
   public set metricAnalysisSeleted(analysis: IMetricAnalysisModel) {
     this.metricContextData.selected = analysis;
+    this.contextDataService.set(ContextDataInfo.METRICS_DATA, this.metricContextData);
+  }
+
+  public set tabSelected(index: number) {
+    this.tabActions[index]();
+
+    this.metricContextData.selectedTabIndex = index;
     this.contextDataService.set(ContextDataInfo.METRICS_DATA, this.metricContextData);
   }
 
@@ -69,5 +84,27 @@ export class SdcMetricsService {
         }
       })
       .catch(_console.error);
+  };
+
+  private languageDistribution = (): void => {
+    this.analysisService.componentAnalysis(this.metricData.compliance.id).then(data => {
+      const metricAnalysis = data.page.find(
+        analysis => analysis.name.toLowerCase() === 'language distribution' && analysis.metric.type === AnalysisType.GIT
+      );
+
+      if (metricAnalysis) {
+        this.analysisService.metricHistory(this.metricData.compliance.id, metricAnalysis.metric.id).then(history => {
+          this.metricData.languageDistribution = {
+            graph: history.page.map(analysis => ({
+              axis: this.dateService.dateFormat(analysis.analysisDate),
+              data: analysis.analysisValues.metricValue
+            })),
+            type: ValueType.NUMERIC
+          };
+
+          this.data$.next(this.metricData);
+        });
+      }
+    });
   };
 }

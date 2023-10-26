@@ -64,6 +64,10 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
     this.sdcMetricsService.metricAnalysisSeleted = analysis;
   }
 
+  onTabChage(index: number): void {
+    this.sdcMetricsService.tabSelected = index;
+  }
+
   onRunProcess(): void {
     this.alertService.confirm(
       {

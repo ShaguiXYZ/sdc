@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SdcTimeEvolutionMultichartComponent } from '../sdc-time-evolution-multichart.component';
 import { ChartConfig } from 'src/app/shared/models';
 import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
+import { ValueType } from 'src/app/core/models/sdc';
 
 describe('SdcTimeEvolutionMultichartComponent', () => {
   let component: SdcTimeEvolutionMultichartComponent;
@@ -35,7 +36,8 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
       graph: [
         { axis: '', data: 'axis1=value11;axis2=value21' },
         { axis: '', data: 'axis1=value21;axis2=value22' }
-      ]
+      ],
+      type: ValueType.NUMERIC
     };
 
     console.log(component['graphData']);

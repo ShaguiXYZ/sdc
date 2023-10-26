@@ -11,9 +11,6 @@ export class SdcCoverageInfoComponent implements OnDestroy, AfterViewInit {
   @ViewChild('coverageViewRef', { read: ViewContainerRef })
   private coverageRef!: ViewContainerRef;
 
-  private observer!: IntersectionObserver;
-  private coverageChartVisible = false;
-
   @Input()
   public coverage!: ICoverageModel;
 
@@ -25,6 +22,9 @@ export class SdcCoverageInfoComponent implements OnDestroy, AfterViewInit {
 
   @Output()
   public selectCoverage: EventEmitter<ICoverageModel> = new EventEmitter();
+
+  private observer!: IntersectionObserver;
+  private coverageChartVisible = false;
 
   constructor(private readonly element: ElementRef, private readonly vcref: ViewContainerRef) {}
 

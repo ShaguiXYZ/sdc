@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { SdcCoverageChartModule } from '../sdc-coverage-chart/sdc-coverage-chart.module';
-import { SdcHorizontalBarChartModule } from '../sdc-horizontal-bar-chart/sdc-horizontal-bar-chart.module';
+import { SdcCoverageChartModule, SdcHorizontalBarChartModule } from 'src/app/shared/components';
 import { SdcDepartmentSummaryComponent } from './sdc-department-summary.component';
 
 @NgModule({

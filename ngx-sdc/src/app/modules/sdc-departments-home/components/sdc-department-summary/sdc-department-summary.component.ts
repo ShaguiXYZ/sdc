@@ -2,8 +2,8 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { AvailableMetricStates, MetricState, stateByCoverage } from '../../lib';
-import { ChartConfig } from '../../models';
+import { AvailableMetricStates, MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { ChartConfig } from 'src/app/shared/models';
 
 @Component({
   selector: 'sdc-department-summary',

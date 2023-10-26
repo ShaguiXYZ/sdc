@@ -26,7 +26,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   public selectedAnalysis?: IMetricAnalysisModel;
 
   @Output()
-  public onMetricAnalysisSelected: EventEmitter<IMetricAnalysisModel> = new EventEmitter();
+  public selectedAnalysisChange: EventEmitter<IMetricAnalysisModel> = new EventEmitter();
 
   private data$!: Subscription;
 
@@ -53,7 +53,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   loadGraphData(analysis: IMetricAnalysisModel): void {
     this.sdcMetricHistoryGraphsService.analysisHistoryData(this.componentId, analysis);
 
-    this.onMetricAnalysisSelected.emit(analysis);
+    this.selectedAnalysisChange.emit(analysis);
   }
 
   private metricGraphConfig(analysis?: IMetricAnalysisModel[]): void {

@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
-import { SdcComplianceBarCardsModule, SdcCoveragesModule, SdcSquadSummaryModule } from 'src/app/shared/components';
+import { SdcComplianceBarCardsModule, SdcCoveragesModule } from 'src/app/shared/components';
+import { SdcSquadSummaryModule } from './components';
 import { SdcSquadsHomeRoutingModule } from './sdc-squads-home-routing.module';
 import { SdcSquadsHomeComponent } from './sdc-squads-home.component';
 

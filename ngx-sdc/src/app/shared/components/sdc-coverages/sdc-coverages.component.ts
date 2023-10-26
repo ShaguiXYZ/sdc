@@ -9,7 +9,8 @@ import { ICoverageModel } from 'src/app/core/models/sdc';
   styleUrls: ['./sdc-coverages.component.scss']
 })
 export class SdcCoveragesComponent implements OnInit, OnDestroy {
-  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+  @ViewChild('searchInput', { static: true })
+  private searchInput!: ElementRef;
 
   @Input()
   public title = '';

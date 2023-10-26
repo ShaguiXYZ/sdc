@@ -44,6 +44,12 @@
         font-weight: bold;
       }
     }
+
+    nx-tab-group.tiny-tabs {
+      nx-tab-header {
+        background-color: $grey-lighter-color;
+      }
+    }
   }
 }
 

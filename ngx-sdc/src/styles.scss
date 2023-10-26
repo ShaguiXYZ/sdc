@@ -13,6 +13,19 @@
       padding: 16px !important;
     }
   }
+
+  nx-tab-group.tiny-tabs {
+    nx-tab-header {
+      justify-content: left;
+      padding-left: 20px;
+
+      .nx-tab-header__item {
+        font-size: small;
+        margin-top: 0;
+        padding: 0;
+      }
+    }
+  }
 }
 
 .sdc-cut-text {

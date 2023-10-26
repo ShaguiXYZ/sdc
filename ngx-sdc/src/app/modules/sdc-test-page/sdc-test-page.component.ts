@@ -4,6 +4,7 @@ import { UiDateService } from 'src/app/core/services';
 import { AnalysisService } from 'src/app/core/services/sdc';
 import { SdcTimeEvolutionMultichartModule } from 'src/app/shared/components';
 import { SdcTestRoutingModule } from './sdc-test-page-routing.module';
+import { SdcGraphData } from 'src/app/shared/models';
 
 @Component({
   selector: 'sdc-test-page',
@@ -13,7 +14,7 @@ import { SdcTestRoutingModule } from './sdc-test-page-routing.module';
   imports: [SdcTestRoutingModule, SdcTimeEvolutionMultichartModule]
 })
 export class SdcTestComponent implements OnInit {
-  public data: { graph: { axis: string; data: string }[]; type?: ValueType } = { graph: [] };
+  public data: SdcGraphData = { graph: [], type: ValueType.NUMERIC };
 
   constructor(private readonly analysisService: AnalysisService, private readonly dateService: UiDateService) {}
 

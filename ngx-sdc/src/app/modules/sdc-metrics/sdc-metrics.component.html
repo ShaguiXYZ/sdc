@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<div *ngIf="metricsData && metricsData.compliance" class="application-coverages nx-margin-y-2xs">
+<div *ngIf="metricsData" class="application-coverages nx-margin-y-2xs">
   <nx-accordion>
     <nx-expansion-panel [expanded]="true">
       <nx-expansion-panel-header>
@@ -50,12 +50,20 @@
           </div>
         </nx-expansion-panel-title>
       </nx-expansion-panel-header>
-
-      <sdc-metric-history-graphs
-        [componentId]="metricsData.compliance.id"
-        [selectedAnalysis]="metricsData.selectedAnalysis"
-        (onMetricAnalysisSelected)="onMetricAnalysisSelected($event)"
-      ></sdc-metric-history-graphs>
+      <nx-tab-group class="tiny-tabs" [selectedIndex]="metricsData.selectedTabIndex" (selectedIndexChange)="onTabChage($event)">
+        <nx-tab *ngIf="metricsData.compliance" [label]="'Label.MetricsHistoryGraphs' | translate">
+          <sdc-metric-history-graphs
+            [componentId]="metricsData.compliance.id"
+            [selectedAnalysis]="metricsData.selectedAnalysis"
+            (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
+          ></sdc-metric-history-graphs>
+        </nx-tab>
+        <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
+          <ng-container *ngIf="metricsData.languageDistribution; else noData">
+            <sdc-time-evolution-multichart [data]="metricsData.languageDistribution"></sdc-time-evolution-multichart>
+          </ng-container>
+        </nx-tab>
+      </nx-tab-group>
     </nx-expansion-panel>
   </nx-accordion>
 </div>
@@ -73,4 +81,8 @@
       {{ 'Label.Continue' | translate }}
     </button>
   </footer>
+</ng-template>
+
+<ng-template #noData>
+  <sdc-no-data></sdc-no-data>
 </ng-template>

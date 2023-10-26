@@ -1,5 +1,13 @@
 import { ValueType } from 'src/app/core/models/sdc';
 
+export interface SdcGraphData {
+  graph: {
+    axis: string;
+    data: string;
+  }[];
+  type: ValueType;
+}
+
 export interface ChartConfig {
   axis: AxiValues;
   data: ChartData[];
@@ -26,4 +34,5 @@ export interface ChartValue {
 
 export interface ChartOptions {
   showVisualMap?: boolean;
+  showLegend?: boolean;
 }
