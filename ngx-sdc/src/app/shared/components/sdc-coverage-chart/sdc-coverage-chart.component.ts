@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { EChartsOption } from 'echarts';
-import { PieChart } from 'echarts/charts';
 import { ICoverageModel } from 'src/app/core/models/sdc';
+import { _CHART_ID_ } from 'src/app/core/services/sdc';
 import { MetricState, stateByCoverage } from '../../lib';
 
 @Component({
@@ -11,8 +10,6 @@ import { MetricState, stateByCoverage } from '../../lib';
   styleUrls: ['./sdc-coverage-chart.component.scss']
 })
 export class SdcCoverageChartComponent implements OnInit {
-  private _coverage!: ICoverageModel;
-
   @Input()
   public animation = false;
   @Input()
@@ -20,12 +17,10 @@ export class SdcCoverageChartComponent implements OnInit {
   @Input()
   public backgroundColor!: string;
 
-  public readonly echartsExtentions: any[];
+  public chartId = _CHART_ID_();
   public echartsOptions: EChartsOption = {};
 
-  constructor() {
-    this.echartsExtentions = [PieChart];
-  }
+  private _coverage!: ICoverageModel;
 
   @Input()
   public set coverage(value: ICoverageModel) {

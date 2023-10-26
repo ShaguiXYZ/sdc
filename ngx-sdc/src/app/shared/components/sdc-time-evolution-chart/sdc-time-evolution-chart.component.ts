@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { LineChart } from 'echarts/charts';
-import { GridComponent, LegendComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
+import { _CHART_ID_ } from 'src/app/core/services/sdc';
 import { ChartConfig, ChartData, ChartValue } from '../../models';
 import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
 
@@ -13,13 +12,11 @@ import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.p
   providers: [SdcValueTypeToNumberPipe]
 })
 export class SdcTimeEvolutionChartComponent {
-  public readonly echartsExtentions: any[];
+  public chartId = _CHART_ID_();
   public echartsOptions: EChartsOption = {};
   public styleSize: GenericDataInfo<number> = {};
 
-  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
-    this.echartsExtentions = [LineChart, LegendComponent, GridComponent, TooltipComponent, VisualMapComponent];
-  }
+  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {}
 
   @Input()
   set config(value: ChartConfig) {

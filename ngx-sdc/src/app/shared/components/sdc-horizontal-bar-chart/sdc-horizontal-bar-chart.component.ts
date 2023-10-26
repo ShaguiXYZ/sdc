@@ -1,9 +1,8 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { BarChart } from 'echarts/charts';
-import { GridComponent, TooltipComponent } from 'echarts/components';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
+import { _CHART_ID_ } from 'src/app/core/services/sdc';
 import { ChartConfig, ChartValue } from '../../models';
 import { SdcValueTypeToNumberPipe } from '../../pipes';
 
@@ -14,10 +13,16 @@ import { SdcValueTypeToNumberPipe } from '../../pipes';
   providers: [SdcValueTypeToNumberPipe, TitleCasePipe]
 })
 export class SdcHorizontalBarChartComponent {
-  private chartConfig!: ChartConfig;
-
   @Input()
   public name!: string;
+
+  public chartId = _CHART_ID_();
+  public styleSize: GenericDataInfo<number> = {};
+  public echartsOptions: EChartsOption = {};
+
+  private chartConfig!: ChartConfig;
+
+  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {}
 
   @Input()
   set config(value: ChartConfig) {
@@ -25,7 +30,6 @@ export class SdcHorizontalBarChartComponent {
     this.echartsOptions = this.chartOptions(this.chartConfig);
   }
 
-  public styleSize: GenericDataInfo<number> = {};
   @Input()
   public set size(value: { height?: number; width?: number }) {
     delete this.styleSize['height.px'];
@@ -37,13 +41,6 @@ export class SdcHorizontalBarChartComponent {
     if (value.width) {
       this.styleSize['width.px'] = value.width;
     }
-  }
-
-  public readonly echartsExtentions: any[];
-  public echartsOptions: EChartsOption = {};
-
-  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {
-    this.echartsExtentions = [BarChart, GridComponent, TooltipComponent];
   }
 
   private chartOptions(chartConfig: ChartConfig): EChartsOption {

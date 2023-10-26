@@ -1,5 +1,7 @@
 import { UniqueIds } from 'src/app/core/lib';
 
+export const _CHART_ID_ = () => `ch_${UniqueIds.next()}_`;
+
 export const _COMPONENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _DEPARTMENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _METRICS_CACHE_ID_ = `_${UniqueIds.next()}_`;

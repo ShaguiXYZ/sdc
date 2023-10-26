@@ -1,8 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { EchartsxModule } from 'echarts-for-angular';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { emptyFn } from 'src/app/core/lib';
 import { SdcCoverageInfoComponent } from '../sdc-coverage-info.component';
 
@@ -13,7 +12,7 @@ describe('SdcCoverageInfoComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SdcCoverageInfoComponent],
-      imports: [CommonModule, EchartsxModule],
+      imports: [CommonModule, NgxEchartsModule.forRoot({ echarts: () => import('echarts') })],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents()

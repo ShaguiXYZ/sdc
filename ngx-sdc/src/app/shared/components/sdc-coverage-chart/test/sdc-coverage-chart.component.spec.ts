@@ -1,10 +1,9 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { emptyFn } from 'src/app/core/lib';
 import { SdcCoverageChartComponent } from '../sdc-coverage-chart.component';
-import { CommonModule } from '@angular/common';
-import { EchartsxModule } from 'echarts-for-angular';
 
 describe('SdcCoverageChartComponent', () => {
   let component: SdcCoverageChartComponent;
@@ -13,7 +12,7 @@ describe('SdcCoverageChartComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SdcCoverageChartComponent],
-      imports: [CommonModule, EchartsxModule],
+      imports: [CommonModule, NgxEchartsModule.forRoot({ echarts: () => import('echarts') })],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents()

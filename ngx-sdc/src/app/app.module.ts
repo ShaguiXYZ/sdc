@@ -34,8 +34,8 @@ const SdcLanguages = {
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    NxGridModule,
     HttpClientModule,
+    NxGridModule,
     RouterModule,
     TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG),
     UiCoreComponentsModule
