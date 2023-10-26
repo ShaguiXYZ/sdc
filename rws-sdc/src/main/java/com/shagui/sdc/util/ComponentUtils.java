@@ -19,6 +19,9 @@ import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ComponentUtils {
 	private static ComponentUtilsConfig config;
 
@@ -75,7 +78,11 @@ public class ComponentUtils {
 
 	public static Map<String, String> dictionaryOf(ComponentModel component) {
 		Map<String, String> dictionay = component.getProperties().stream()
-				.collect(Collectors.toMap(ComponentPropertyModel::getName, ComponentPropertyModel::getValue));
+				.collect(Collectors.toMap(ComponentPropertyModel::getName, ComponentPropertyModel::getValue,
+						(data1, data2) -> {
+							log.warn("duplicate key founf!");
+							return data2;
+						}));
 		dictionay.put("$name", component.getName());
 
 		return dictionay;

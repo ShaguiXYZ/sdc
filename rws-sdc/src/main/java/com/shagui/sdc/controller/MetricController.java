@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.MetricRestApi;
+import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValidation;
@@ -20,6 +21,16 @@ public class MetricController implements MetricRestApi {
 	private MetricService metricService;
 
 	@Override
+	public MetricDTO metric(int metricId) {
+		return metricService.metric(metricId);
+	}
+
+	@Override
+	public PageData<MetricDTO> metrics() {
+		return metricService.metrics();
+	}
+
+	@Override
 	public MetricDTO create(MetricDTO metric) {
 		return metricService.create(metric);
 	}
@@ -34,5 +45,4 @@ public class MetricController implements MetricRestApi {
 	public MetricDTO update(int metricId, MetricDTO metric) {
 		return metricService.update(metricId, metric);
 	}
-
 }

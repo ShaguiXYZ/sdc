@@ -44,6 +44,9 @@ import com.shagui.sdc.service.DataMaintenanceService;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Value("classpath:data/departments-squads.json")
@@ -146,7 +149,10 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	private void maintainComponentProperties(List<ComponentPropertyInput> properties, ComponentModel component) {
 		Map<String, ComponentPropertyModel> propertyMap = component.getProperties().stream()
-				.collect(Collectors.toMap(ComponentPropertyModel::getName, Function.identity()));
+				.collect(Collectors.toMap(ComponentPropertyModel::getName, Function.identity(), (data1, data2) -> {
+					log.warn("duplicate key founf!");
+					return data2;
+				}));
 
 		properties.forEach(input -> {
 			if (input.isToDelete()) {
