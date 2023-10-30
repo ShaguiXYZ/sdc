@@ -1,70 +1,62 @@
 <div class="nx-margin-y-2xs">
   <form [formGroup]="form">
-    <div nxLayout="grid nogutters">
-      <div nxRow class="search-options">
-        <div nxCol="12">
-          <div class="nx-margin-right-2xs">
-            <nx-formfield id="squad" [label]="'Label.Squads' | translate">
-              <nx-dropdown
-                formControlName="squadId"
-                name="allSquads"
-                [showFilter]="true"
-                [filterPlaceholder]="'Dropdown.Filter.Squad' | translate"
-                (valueChange)="squadChange($event)"
-              >
-                <nx-dropdown-item></nx-dropdown-item>
-                <nx-dropdown-item *ngFor="let item of squads" [value]="item.id">
-                  {{ item.name }}
-                </nx-dropdown-item>
-              </nx-dropdown>
-            </nx-formfield>
-          </div>
-          <nx-formfield id="coverage" [label]="'Label.Coverage' | translate">
-            <nx-dropdown
-              formControlName="coverage"
-              name="coverages"
-              [filterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
-              (valueChange)="coverageChange($event)"
-            >
-              <nx-dropdown-item></nx-dropdown-item>
-              <nx-dropdown-item *ngFor="let item of coverages" [value]="item.key">
-                <nx-icon name="dot" size="s" class="nx-margin-right-2xs {{ item.style }}"></nx-icon>
-                {{ item.label | translate | titlecase }}
-              </nx-dropdown-item>
-            </nx-dropdown>
-          </nx-formfield>
+    <div class="search-options">
+      <div class="nx-margin-right-2xs">
+        <nx-formfield id="squad" [label]="'Label.Squads' | translate">
+          <nx-dropdown
+            formControlName="squadId"
+            name="allSquads"
+            [showFilter]="true"
+            [filterPlaceholder]="'Dropdown.Filter.Squad' | translate"
+            (valueChange)="squadChange($event)"
+          >
+            <nx-dropdown-item></nx-dropdown-item>
+            <nx-dropdown-item *ngFor="let item of squads" [value]="item.id">
+              {{ item.name }}
+            </nx-dropdown-item>
+          </nx-dropdown>
+        </nx-formfield>
+      </div>
+      <nx-formfield id="coverage" [label]="'Label.Coverage' | translate">
+        <nx-dropdown
+          formControlName="coverage"
+          name="coverages"
+          [filterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
+          (valueChange)="coverageChange($event)"
+        >
+          <nx-dropdown-item></nx-dropdown-item>
+          <nx-dropdown-item *ngFor="let item of coverages" [value]="item.key">
+            <nx-icon name="dot" size="s" class="nx-margin-right-2xs {{ item.style }}"></nx-icon>
+            {{ item.label | translate | titlecase }}
+          </nx-dropdown-item>
+        </nx-dropdown>
+      </nx-formfield>
 
-          <div class="align-right">
-            <nx-formfield id="component-name" [label]="'Label.FindByApplicationName' | translate">
-              <input #searchInput nxInput type="text" formControlName="name" autocomplete="off" />
-              <span nxFormfieldSuffix>
-                <em class="fa-solid fa-magnifying-glass"></em>
-              </span>
-            </nx-formfield>
-          </div>
-        </div>
+      <div class="align-right">
+        <nx-formfield id="component-name" [label]="'Label.FindByApplicationName' | translate">
+          <input #searchInput nxInput type="text" formControlName="name" autocomplete="off" />
+          <span nxFormfieldSuffix>
+            <em class="fa-solid fa-magnifying-glass"></em>
+          </span>
+        </nx-formfield>
       </div>
     </div>
   </form>
-  <div *ngIf="applicationsInfo" nxLayout="grid nogutters">
-    <div nxRow>
-      <div nxCol="12">
-        <sdc-compliance-bar-cards
-          [compliances]="applicationsInfo.compliances"
-          (clickLink)="complianceClicked($event)"
-        ></sdc-compliance-bar-cards>
-      </div>
-      <div *ngIf="applicationsInfo.paging.pages > 1" nxCol="12" class="pagination nx-margin-top-2xs">
-        <nx-pagination
-          [count]="applicationsInfo.paging.elements"
-          [page]="applicationsInfo.paging.pageIndex + 1"
-          [perPage]="ELEMENTS_BY_PAGE"
-          (goPrev)="prevPage()"
-          (goNext)="nextPage()"
-          (goPage)="goToPage($event)"
-        >
-        </nx-pagination>
-      </div>
+  <div *ngIf="applicationsInfo">
+    <sdc-compliance-bar-cards
+      [compliances]="applicationsInfo.compliances"
+      (clickLink)="complianceClicked($event)"
+    ></sdc-compliance-bar-cards>
+    <div *ngIf="applicationsInfo.paging.pages > 1" class="pagination nx-margin-top-2xs">
+      <nx-pagination
+        [count]="applicationsInfo.paging.elements"
+        [page]="applicationsInfo.paging.pageIndex + 1"
+        [perPage]="ELEMENTS_BY_PAGE"
+        (goPrev)="prevPage()"
+        (goNext)="nextPage()"
+        (goPage)="goToPage($event)"
+      >
+      </nx-pagination>
     </div>
   </div>
 </div>

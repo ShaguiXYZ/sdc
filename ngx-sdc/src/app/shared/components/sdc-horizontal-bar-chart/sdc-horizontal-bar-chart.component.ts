@@ -2,7 +2,6 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { _CHART_ID_ } from 'src/app/core/services/sdc';
 import { ChartConfig, ChartValue } from '../../models';
 import { SdcValueTypeToNumberPipe } from '../../pipes';
 
@@ -16,7 +15,6 @@ export class SdcHorizontalBarChartComponent {
   @Input()
   public name!: string;
 
-  public chartId = _CHART_ID_();
   public styleSize: GenericDataInfo<number> = {};
   public echartsOptions: EChartsOption = {};
 

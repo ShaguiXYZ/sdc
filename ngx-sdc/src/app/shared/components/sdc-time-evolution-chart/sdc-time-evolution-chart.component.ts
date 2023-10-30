@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { _CHART_ID_ } from 'src/app/core/services/sdc';
+import { legendPosition } from '../../lib';
 import { ChartConfig, ChartData, ChartValue } from '../../models';
 import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
 
@@ -12,7 +12,6 @@ import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.p
   providers: [SdcValueTypeToNumberPipe]
 })
 export class SdcTimeEvolutionChartComponent {
-  public chartId = _CHART_ID_();
   public echartsOptions: EChartsOption = {};
   public styleSize: GenericDataInfo<number> = {};
 
@@ -39,6 +38,7 @@ export class SdcTimeEvolutionChartComponent {
   private chartOptions(chartConfig: ChartConfig): EChartsOption {
     const xAxis: string[] = chartConfig.axis.xAxis ?? [];
     const chartData: ChartData[] = chartConfig.data.filter(data => Array.isArray(data.values));
+    const legendPos = chartConfig.options?.legendPosition;
 
     const chartDataConfig = chartData.map((data, index) => {
       const serie: ChartValue[] = data.values as ChartValue[];
@@ -66,15 +66,8 @@ export class SdcTimeEvolutionChartComponent {
       };
     });
 
-    const options: GenericDataInfo<any> = {
+    let options: GenericDataInfo<any> = {
       animation: false,
-      grid: {
-        left: '3%',
-        right: '5%',
-        bottom: '5%',
-        top: '5%',
-        containLabel: true
-      },
       tooltip: {
         axisPointer: {
           type: 'cross'
@@ -98,6 +91,8 @@ export class SdcTimeEvolutionChartComponent {
       }
     };
 
+    options = Object.assign(options, legendPosition(legendPos));
+
     if (chartConfig.options?.showVisualMap) {
       options['visualMap'] = chartDataConfig.map(dataConfig => dataConfig.visualMap);
     }
@@ -114,13 +109,6 @@ export class SdcTimeEvolutionChartComponent {
       symbolSize: 12,
       type: 'line'
     }));
-
-    if (chartConfig.options?.showLegend) {
-      echartsOptions.legend = {
-        orient: 'horizontal',
-        bottom: -5
-      };
-    }
 
     return echartsOptions;
   }

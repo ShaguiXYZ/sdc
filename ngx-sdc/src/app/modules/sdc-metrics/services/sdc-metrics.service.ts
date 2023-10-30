@@ -99,6 +99,7 @@ export class SdcMetricsService {
               axis: this.dateService.dateFormat(analysis.analysisDate),
               data: analysis.analysisValues.metricValue
             })),
+            legendPosition: 'right',
             type: ValueType.NUMERIC
           };
 

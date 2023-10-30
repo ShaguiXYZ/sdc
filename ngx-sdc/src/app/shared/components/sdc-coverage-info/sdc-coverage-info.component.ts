@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ICoverageModel } from 'src/app/core/models/sdc';
-import { BACKGROUND_GRAPH_COLOR } from '../../constants';
+import { BACKGROUND_CHART_COLOR } from '../../constants';
 
 @Component({
   selector: 'sdc-coverage-info',
@@ -26,22 +26,28 @@ export class SdcCoverageInfoComponent implements OnDestroy, AfterViewInit {
   private observer!: IntersectionObserver;
   private coverageChartVisible = false;
 
-  constructor(private readonly element: ElementRef, private readonly vcref: ViewContainerRef) {}
+  constructor(private readonly element: ElementRef) {}
 
   ngOnDestroy(): void {
-    this.observer.unobserve(this.element.nativeElement);
+    this.observer.disconnect();
   }
 
   ngAfterViewInit(): void {
     this.observer = new IntersectionObserver(
-      entries => {
+      (entries: IntersectionObserverEntry[]) => {
         entries.forEach(entry => {
-          if (!this.coverageChartVisible && entry.isIntersecting) {
-            this.createCoverageComponent().then(() => (this.coverageChartVisible = true));
-          }
+          !this.coverageChartVisible &&
+            entry.isIntersecting &&
+            this.createCoverageComponent(this.coverageRef)
+              .then(() => {
+                this.coverageChartVisible = true;
+              })
+              .finally(() => {
+                this.observer.unobserve(this.element.nativeElement);
+              });
         });
       },
-      { rootMargin: '0px', threshold: 0.5 }
+      { rootMargin: '0px', threshold: 0 }
     );
 
     this.observer.observe(this.element.nativeElement);
@@ -51,20 +57,21 @@ export class SdcCoverageInfoComponent implements OnDestroy, AfterViewInit {
     this.selectCoverage.emit(this.coverage);
   }
 
-  private async createCoverageComponent() {
-    this.vcref.clear();
-    this.lazyCoverageChart(this.coverageRef, { coverage: this.coverage, size: 55 });
+  private async createCoverageComponent(viewContainerRef: ViewContainerRef): Promise<void> {
+    viewContainerRef.clear();
+    return this.lazyCoverageChart(viewContainerRef, {
+      backgroundColor: BACKGROUND_CHART_COLOR,
+      coverage: { id: this.coverage.id, name: '', coverage: this.coverage.coverage },
+      size: 55
+    });
   }
 
-  private lazyCoverageChart = async (
-    viewContainerRef: ViewContainerRef,
-    options: { backgroundColor?: string; coverage: ICoverageModel; size: number }
-  ) => {
+  private lazyCoverageChart = async (viewContainerRef: ViewContainerRef, options: { [key: string]: any }) => {
     const { SdcCoverageChartComponent } = await import('../sdc-coverage-chart/sdc-coverage-chart.component');
-    const coverageChart = viewContainerRef.createComponent(SdcCoverageChartComponent);
+    const component = viewContainerRef.createComponent(SdcCoverageChartComponent);
 
-    coverageChart.instance.backgroundColor = options.backgroundColor ?? BACKGROUND_GRAPH_COLOR;
-    coverageChart.instance.coverage = { id: options.coverage.id, name: '', coverage: options.coverage.coverage };
-    coverageChart.instance.size = options.size;
+    Object.keys(options).forEach(key => {
+      (component.instance as { [key: string]: any })[key] = options[key];
+    });
   };
 }

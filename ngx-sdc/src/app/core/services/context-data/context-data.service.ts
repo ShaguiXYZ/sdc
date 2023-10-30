@@ -47,22 +47,12 @@ export class UiContextDataService {
    *
    * @param key Key of the variable in context
    */
-  public get(key?: string): any {
-    if (key) {
-      const contextData = this.contextStorage.contextData[key];
+  public get(key: string): any {
+    const contextData = this.contextStorage.contextData[key];
 
-      return contextData?.configuration.referenced
-        ? this.contextStorage.contextData[key]?.data
-        : deepCopy(this.contextStorage.contextData[key]?.data);
-    } else {
-      const contextDataValues: DataInfo = {};
-
-      Object.keys(this.contextStorage.contextData).forEach(
-        contextKey => (contextDataValues[contextKey] = deepCopy(this.contextStorage.contextData[contextKey].data))
-      );
-
-      return contextDataValues;
-    }
+    return contextData?.configuration.referenced
+      ? this.contextStorage.contextData[key]?.data
+      : deepCopy(this.contextStorage.contextData[key]?.data);
   }
 
   public getConfiguration(key: string): IContextDataConfigurtion {

@@ -2,15 +2,17 @@
 
 .squad-summary {
   background-color: $background-color-1;
-  display: flex;
 
-  .summary-content {
-    width: 100%;
+  .summary-charts,
+  .language-distribution {
+    align-items: center;
+    display: flex;
+  }
 
-    .summary-count {
-      align-items: center;
-      display: grid;
-      height: 100%;
+  .summary-charts {
+    .summary-bar-chart {
+      padding: 25px;
+      width: 60%;
     }
   }
 }

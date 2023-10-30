@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ChartConfig, SdcGraphData } from '../../models';
+import { ChartConfig, ChartData, SdcGraphData } from '../../models';
 
 @Component({
   selector: 'sdc-time-evolution-multichart',
@@ -23,14 +23,16 @@ export class SdcTimeEvolutionMultichartComponent {
 
     return {
       axis: { xAxis: value.graph.map(v => v.axis) },
-      data: Object.keys(this.graphData).map(key => ({
-        name: key,
-        smooth: true,
-        values: this.graphData[key].map(graphValue => ({
-          value: graphValue
-        }))
-      })),
-      options: { showVisualMap: false, showLegend: true },
+      data: Object.keys(this.graphData).map(
+        (key): ChartData => ({
+          name: key,
+          smooth: true,
+          values: this.graphData[key].map(graphValue => ({
+            value: graphValue
+          }))
+        })
+      ),
+      options: { showVisualMap: false, legendPosition: value.legendPosition },
       type: value.type
     };
   }
@@ -40,7 +42,7 @@ export class SdcTimeEvolutionMultichartComponent {
 
     data
       .split(';')
-      // .filter(/(\w+)=(\d+)(.?(\d+))?/.test)
+      .filter(value => /(\w+)=(\d+)(.?(\d+))?/.test(value))
       .forEach(eq => {
         const [key, ...value] = eq.split('=');
         dataInfo[key] = value.join('=');

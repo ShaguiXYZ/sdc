@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NxDropdownModule } from '@aposin/ng-aquila/dropdown';
 import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
-import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { NxIconModule } from '@aposin/ng-aquila/icon';
 import { NxInputModule } from '@aposin/ng-aquila/input';
 import { NxPaginationModule } from '@aposin/ng-aquila/pagination';
@@ -20,7 +19,6 @@ import { SdcApplicationsComponent } from './sdc-applications.component';
     FormsModule,
     NxDropdownModule,
     NxFormfieldModule,
-    NxGridModule,
     NxIconModule,
     NxInputModule,
     NxPaginationModule,

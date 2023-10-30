@@ -18,44 +18,40 @@
   @include define-custom-property($name, $value);
 }
 
-.card-content {
-  .flex-info {
-    display: flex;
+nx-card {
+  border-radius: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  position: relative;
+  width: -webkit-fill-available;
+  width: -moz-available;
+
+  nx-badge {
+    font-size: 12px;
   }
 
-  .position-end {
-    padding: 0;
-    position: absolute;
-    right: 0;
-  }
-
-  nx-card {
-    border-radius: 4px;
-    padding-top: 0;
-    padding-bottom: 0;
-    position: relative;
-    width: -webkit-fill-available;
-    width: -moz-available;
-
-    nx-badge {
-      font-size: 12px;
+  .card-content {
+    .flex-info {
+      display: flex;
     }
 
-    span {
-      font-size: 15px;
+    .component-name {
+      width: 100%;
     }
 
-    &.hide-border {
-      border-style: none;
+    .position-end {
       padding: 0;
+      text-align: end;
+      width: 100%;
     }
   }
-}
 
-.colum-right {
-  text-align: end;
-}
+  span {
+    font-size: 15px;
+  }
 
-.nx-grid__row {
-  margin-bottom: 10px;
+  &.hide-border {
+    border-style: none;
+    padding: 0;
+  }
 }

@@ -1,19 +1,17 @@
 <ng-template #alertBody>
-  <div nxModalContent nxLayout="grid nogutters">
-    <div nxRow>
-      <div nxCol="12">
-        <h3 nxHeadline="subsection-small" class="nx-modal-margin-bottom">{{ alert?.title }}</h3>
-      </div>
-    </div>
+  <article nxModalContent>
+    <header>
+      <h3 nxHeadline="subsection-small" class="nx-modal-margin-bottom">{{ alert?.title }}</h3>
+    </header>
 
-    <div nxRow class="nx-margin-bottom-2m">
-      <div *ngFor="let description of alert?.desctiptions" nxCol="12">
+    <section class="nx-margin-bottom-2m">
+      <p *ngFor="let description of alert?.desctiptions">
         <span nxCopytext>{{ description }}</span>
-      </div>
-    </div>
-  </div>
+      </p>
+    </section>
+  </article>
 
-  <div class="footer" nxModalActions>
+  <footer nxModalActions>
     <button
       *ngFor="let button of alert?.buttons; first as isFirst; last as isLast; index as index"
       class="nx-margin-bottom-0"
@@ -24,5 +22,5 @@
     >
       {{ button.text }}
     </button>
-  </div>
+  </footer>
 </ng-template>

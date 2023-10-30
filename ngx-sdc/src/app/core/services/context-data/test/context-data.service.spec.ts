@@ -26,12 +26,6 @@ describe('UiContextDataService', () => {
     service.get('key');
   });
 
-  it('should set and get the context data', () => {
-    const service: UiContextDataService = TestBed.inject(UiContextDataService);
-    service.set('key', { name: 'test' });
-    service.get();
-  });
-
   it('should delete the context data', () => {
     const service: UiContextDataService = TestBed.inject(UiContextDataService);
     service.set('key', { name: 'test' });

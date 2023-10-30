@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { IStateCount } from 'src/app/shared/components';
-import { BACKGROUND_GRAPH_COLOR } from 'src/app/shared/constants';
+import { BACKGROUND_SQUAD_COLOR } from 'src/app/shared/constants';
 
 @Component({
   selector: 'sdc-squad-summary',
@@ -18,7 +18,7 @@ export class SdcSquadSummaryComponent {
   @Output()
   public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
 
-  public BACKGROUND_GRAPH_COLOR = BACKGROUND_GRAPH_COLOR;
+  public readonly BACKGROUND_SQUAD_COLOR = BACKGROUND_SQUAD_COLOR;
 
   public onClickStateCount(event: IStateCount) {
     this.clickStateCount.emit(event);

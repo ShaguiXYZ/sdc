@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { ICoverageModel } from 'src/app/core/models/sdc';
-import { _CHART_ID_ } from 'src/app/core/services/sdc';
 import { MetricState, stateByCoverage } from '../../lib';
 
 @Component({
@@ -17,7 +16,6 @@ export class SdcCoverageChartComponent implements OnInit {
   @Input()
   public backgroundColor!: string;
 
-  public chartId = _CHART_ID_();
   public echartsOptions: EChartsOption = {};
 
   private _coverage!: ICoverageModel;

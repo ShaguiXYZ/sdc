@@ -1,32 +1,28 @@
-<div class="card-content">
-  <nx-card [ngClass]="{ 'hide-border': hideBorder }">
-    <div nxLayout="grid nogutters">
-      <div nxRow class="{{ coverageStyle }}">
-        <div nxCol="12" class="sdc-center colum-right">
-          <nx-progressbar [value]="barCoverage"></nx-progressbar>
-          <span class="coverage">{{ coverage }}%</span>
-        </div>
-      </div>
-      <div nxRow>
-        <div nxCol="12" class="flex-info nx-margin-bottom-xs">
-          <span class="nx-font-weight-bold">{{ compliance.name }}</span>
-          <div class="position-end">
-            <span class="nx-font-weight-semibold"
-              >{{ 'ComplianceCard.ProcessDate' | translate }}: {{ compliance.analysisDate | date }}</span
-            >
-          </div>
-        </div>
-      </div>
-      <div nxRow>
-        <div nxCol="12" class="flex-info">
-          <nx-badge type="active">SQUAD {{ compliance.parentName }}</nx-badge>
-          <div *ngIf="showMore" class="colum-right position-end">
-            <nx-link>
-              <a (click)="onClick()">{{ 'Label.ShowMore' | translate }}</a>
-            </nx-link>
-          </div>
-        </div>
+<nx-card [ngClass]="{ 'hide-border': hideBorder }">
+  <div class="card-content">
+    <div class="{{ coverageStyle }} nx-margin-bottom-xs">
+      <div class="sdc-center">
+        <nx-progressbar [value]="barCoverage"></nx-progressbar>
+        <span class="coverage">{{ coverage }}%</span>
       </div>
     </div>
-  </nx-card>
-</div>
+    <div class="flex-info nx-margin-bottom-xs">
+      <div class="component-name">
+        <span class="nx-font-weight-bold">{{ compliance.name }}</span>
+      </div>
+      <div class="position-end">
+        <span class="nx-font-weight-semibold">{{ 'ComplianceCard.ProcessDate' | translate }}: {{ compliance.analysisDate | date }}</span>
+      </div>
+    </div>
+    <div class="flex-info">
+      <div class="squad">
+        <nx-badge type="active">SQUAD {{ compliance.parentName }}</nx-badge>
+      </div>
+      <div *ngIf="showMore" class="position-end">
+        <nx-link>
+          <a (click)="onClick()">{{ 'Label.ShowMore' | translate }}</a>
+        </nx-link>
+      </div>
+    </div>
+  </div>
+</nx-card>

@@ -1,8 +1,31 @@
 <div *ngIf="squad" class="squad-summary">
-  <sdc-coverage-chart [animation]="true" [backgroundColor]="BACKGROUND_GRAPH_COLOR" [coverage]="squad" [size]="300"></sdc-coverage-chart>
-  <div class="summary-content">
-    <div class="summary-count">
-      <sdc-components-state-count [components]="components" (clickStateCount)="onClickStateCount($event)"></sdc-components-state-count>
-    </div>
-  </div>
+  <nx-tab-group class="tiny-tabs">
+    <nx-tab [label]="'Label.SquadSumary' | translate">
+      <div class="summary-charts">
+        <sdc-coverage-chart
+          [animation]="true"
+          [backgroundColor]="BACKGROUND_SQUAD_COLOR"
+          [coverage]="squad"
+          [size]="300"
+        ></sdc-coverage-chart>
+        <div class="summary-content">
+          <div class="summary-count">
+            <sdc-components-state-count
+              [components]="components"
+              (clickStateCount)="onClickStateCount($event)"
+            ></sdc-components-state-count>
+          </div>
+        </div>
+      </div>
+    </nx-tab>
+    <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
+      <div class="language-distribution sdc-center">
+        <ng-container *ngIf="!squad; else noData"> </ng-container>
+      </div>
+    </nx-tab>
+  </nx-tab-group>
 </div>
+
+<ng-template #noData>
+  <sdc-no-data></sdc-no-data>
+</ng-template>

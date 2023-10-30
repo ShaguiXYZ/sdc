@@ -2,6 +2,7 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { BACKGROUND_DEPARTMENT_COLOR } from 'src/app/shared/constants';
 import { AvailableMetricStates, MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
 
@@ -12,19 +13,21 @@ import { ChartConfig } from 'src/app/shared/models';
   providers: [TitleCasePipe]
 })
 export class SdcDepartmentSummaryComponent {
-  public chartConfig!: ChartConfig;
-
   @Input()
   public department!: IDepartmentModel;
 
+  public readonly BACKGROUND_DEPARTMENT_COLOR = BACKGROUND_DEPARTMENT_COLOR;
+  public chartConfig!: ChartConfig;
+
   private _squads!: ISquadModel[];
+
+  constructor(private readonly titleCasePipe: TitleCasePipe, private readonly translateService: TranslateService) {}
+
   @Input()
   public set squads(values: ISquadModel[]) {
     this._squads = [...values];
     this.chartConfig = this.stateCounts();
   }
-
-  constructor(private titleCasePipe: TitleCasePipe, private translateService: TranslateService) {}
 
   private stateCounts(): ChartConfig {
     const counts: { [key: string]: { value: number; color: string } } = {};

@@ -1,12 +1,32 @@
 <div *ngIf="department" class="departments-summary">
-  <div class="summary-pie-chart sdc-center">
-    <sdc-coverage-chart [animation]="true" backgroundColor="#CEC3D9" [coverage]="department" [size]="300"></sdc-coverage-chart>
-  </div>
-  <div class="summary-bar-chart">
-    <sdc-horizontal-bar-chart
-      [name]="'Label.ComplianceState' | translate"
-      [config]="chartConfig"
-      [size]="{ height: 250 }"
-    ></sdc-horizontal-bar-chart>
-  </div>
+  <nx-tab-group class="tiny-tabs">
+    <nx-tab [label]="'Label.DepartmentSumary' | translate">
+      <div class="summary-charts">
+        <div class="summary-pie-chart sdc-center">
+          <sdc-coverage-chart
+            [animation]="true"
+            [backgroundColor]="BACKGROUND_DEPARTMENT_COLOR"
+            [coverage]="department"
+            [size]="300"
+          ></sdc-coverage-chart>
+        </div>
+        <div class="summary-bar-chart">
+          <sdc-horizontal-bar-chart
+            [name]="'Label.ComplianceState' | translate"
+            [config]="chartConfig"
+            [size]="{ height: 250 }"
+          ></sdc-horizontal-bar-chart>
+        </div>
+      </div>
+    </nx-tab>
+    <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
+      <div class="language-distribution sdc-center">
+        <ng-container *ngIf="!department; else noData"> </ng-container>
+      </div>
+    </nx-tab>
+  </nx-tab-group>
 </div>
+
+<ng-template #noData>
+  <sdc-no-data></sdc-no-data>
+</ng-template>

@@ -2,8 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
-import { routingAnimation } from './app-routing-animations';
 import { UiContextDataService, UiStorageService } from './core/services';
+import { routingAnimation } from './shared/animations';
 import { ContextDataInfo } from './shared/constants';
 import { AppConfig } from './shared/models/app.-config.model';
 

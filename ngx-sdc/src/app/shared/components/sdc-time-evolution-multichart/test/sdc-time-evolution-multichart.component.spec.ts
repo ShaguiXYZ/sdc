@@ -31,11 +31,11 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
   });
 
   it('should set graphData', () => {
-    const graphData: GenericDataInfo<string[]> = { axis1: ['value11', 'value21'], axis2: ['value21', 'value22'] };
+    const graphData: GenericDataInfo<string[]> = { axis1: ['11', '21'], axis2: ['21', '22'] };
     component.data = {
       graph: [
-        { axis: '', data: 'axis1=value11;axis2=value21' },
-        { axis: '', data: 'axis1=value21;axis2=value22' }
+        { axis: '', data: 'axis1=11;axis2=21' },
+        { axis: '', data: 'axis1=21;axis2=22' }
       ],
       type: ValueType.NUMERIC
     };
@@ -46,10 +46,10 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
   });
 
   it('should convert string graph data to DataInfo', () => {
-    const stringGraphData = 'axis1=value11;axis2=value21';
+    const stringGraphData = 'axis1=11;axis2=21';
     const dataInfo = {
-      axis1: 'value11',
-      axis2: 'value21'
+      axis1: '11',
+      axis2: '21'
     };
     expect(component['stringGraphToDataInfo'](stringGraphData)).toEqual(dataInfo);
   });
@@ -57,15 +57,15 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
   it('should group DataInfo', () => {
     const dataInfo: DataInfo[] = [
       {
-        axis1: 'value11',
-        axis2: 'value21'
+        axis1: '11',
+        axis2: '21'
       },
       {
-        axis1: 'value21',
-        axis2: 'value22'
+        axis1: '21',
+        axis2: '22'
       }
     ];
-    const groupedDataInfo: GenericDataInfo<string[]> = { axis1: ['value11', 'value21'], axis2: ['value21', 'value22'] };
+    const groupedDataInfo: GenericDataInfo<string[]> = { axis1: ['11', '21'], axis2: ['21', '22'] };
 
     expect(component['groupDataInfo'](dataInfo)).toEqual(groupedDataInfo);
   });

@@ -1,7 +1,8 @@
-<div *ngIf="compliances" nxLayout="grid nogutters">
-  <div nxRow>
-    <div nxCol="12" *ngFor="let compliance of compliances; first as isFirst; last as isLast; index as index" [ngClass]="{ 'nx-margin-bottom-3xs': !isLast }">
-      <sdc-compliance-bar-card [compliance]="compliance" (clickLink)="onClick($event)"></sdc-compliance-bar-card>
-    </div>
+<div *ngIf="compliances">
+  <div
+    *ngFor="let compliance of compliances; first as isFirst; last as isLast; index as index"
+    [ngClass]="{ 'nx-margin-bottom-3xs': !isLast }"
+  >
+    <sdc-compliance-bar-card [compliance]="compliance" (clickLink)="onClick($event)"></sdc-compliance-bar-card>
   </div>
 </div>

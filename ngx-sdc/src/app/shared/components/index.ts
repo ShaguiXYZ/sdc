@@ -6,7 +6,7 @@ export * from './sdc-coverage-chart';
 export * from './sdc-coverage-info';
 export * from './sdc-coverages';
 export * from './sdc-horizontal-bar-chart';
-export * from './sdc-lazy-component-loader';
+export * from './sdc-lazy-loader';
 export * from './sdc-metric-info';
 export * from './sdc-metrics-cards';
 export * from './sdc-no-data';

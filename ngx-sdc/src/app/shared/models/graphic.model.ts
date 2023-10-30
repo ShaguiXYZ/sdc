@@ -1,10 +1,13 @@
 import { ValueType } from 'src/app/core/models/sdc';
 
+export type LegendPosition = 'bottom' | 'left' | 'top' | 'right';
+
 export interface SdcGraphData {
   graph: {
     axis: string;
     data: string;
   }[];
+  legendPosition?: LegendPosition;
   type: ValueType;
 }
 
@@ -33,6 +36,6 @@ export interface ChartValue {
 }
 
 export interface ChartOptions {
+  legendPosition?: LegendPosition;
   showVisualMap?: boolean;
-  showLegend?: boolean;
 }

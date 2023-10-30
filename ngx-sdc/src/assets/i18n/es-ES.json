@@ -42,6 +42,7 @@
     "ComponentMetrics": "Métricas de {{name}}",
     "Coverage": "Cobertura",
     "CurrentValue": "Valor Actual",
+    "DepartmentSumary": "Resumen del departamento",
     "FindByApplicationName": "Buscar por aplicación",
     "ApplicationHistory": "Histórico de la aplicación",
     "Metrics": "Métricas",
@@ -59,6 +60,7 @@
     "ShowAll": "Ver todas",
     "ShowMore": "Ver mas",
     "Squads": "Squads",
+    "SquadSumary": "Resumen del squad",
     "Yes": "Si"
   },
   "Language": {
