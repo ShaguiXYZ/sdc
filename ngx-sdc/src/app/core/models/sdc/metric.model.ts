@@ -5,8 +5,17 @@ import { AnalysisType } from './analysis-type.model';
 
 export enum ValueType {
   NUMERIC = 'NUMERIC',
+  NUMERIC_MAP = 'NUMERIC_MAP',
   BOOLEAN = 'BOOLEAN',
   VERSION = 'VERSION'
+}
+
+const EVALUABLEVALUETYPE = [ValueType.NUMERIC, ValueType.BOOLEAN, ValueType.VERSION] as const;
+export type EvaluableValueType = (typeof EVALUABLEVALUETYPE)[number];
+
+export namespace EvaluableValueType {
+  export const isEvaluableValueType = (value: ValueType): value is EvaluableValueType =>
+    EVALUABLEVALUETYPE.includes(value as EvaluableValueType);
 }
 
 export enum ValidationType {

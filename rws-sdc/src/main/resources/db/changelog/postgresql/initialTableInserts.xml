@@ -52,7 +52,7 @@
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
 				 ('Duplicated Lines Density','duplicated_lines_density','SONAR','NUMERIC','GTE'),
 				 ('ncloc','ncloc','SONAR',NULL,NULL),
-				 ('Language Distribution','ncloc_language_distribution','SONAR',NULL,NULL),
+				 ('Language Distribution','ncloc_language_distribution','SONAR','NUMERIC_MAP',NULL),
 				 ('Projects','projects','SONAR',NULL,NULL),
 				 ('Info Violations','info_violations','SONAR','NUMERIC','GTE'),
 				 ('Minor Errors','minor_violations','SONAR','NUMERIC','GTE'),
@@ -74,7 +74,7 @@
 			INSERT INTO metrics (name,value,type,metric_value_type,metric_validation) VALUES
 				 ('Deprecated Libraries','deprecated_library','GIT_XML','BOOLEAN','EQ'),
 				 ('Code Lines','lines','GIT','NUMERIC',NULL),
-				 ('Language Distribution','ncloc_language_distribution','GIT',NULL,NULL);
+				 ('Language Distribution','ncloc_language_distribution','GIT','NUMERIC_MAP',NULL);
 		</sql>
 	</changeSet>
 

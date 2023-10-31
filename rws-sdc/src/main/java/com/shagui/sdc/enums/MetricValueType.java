@@ -2,10 +2,11 @@ package com.shagui.sdc.enums;
 
 import com.shagui.sdc.util.validations.Bool;
 import com.shagui.sdc.util.validations.Numeric;
+import com.shagui.sdc.util.validations.NumericMap;
 import com.shagui.sdc.util.validations.Version;
 
 public enum MetricValueType {
-	NUMERIC(Numeric.class), VERSION(Version.class), BOOLEAN(Bool.class);
+	NUMERIC(Numeric.class), NUMERIC_MAP(NumericMap.class), VERSION(Version.class), BOOLEAN(Bool.class);
 
 	@SuppressWarnings("rawtypes")
 	private Class clazz;

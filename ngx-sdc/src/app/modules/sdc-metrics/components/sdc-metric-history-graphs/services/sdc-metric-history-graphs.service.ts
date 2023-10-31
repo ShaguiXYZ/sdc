@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { _console } from 'src/app/core/lib';
-import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
+import { IMetricAnalysisModel, EvaluableValueType } from 'src/app/core/models/sdc';
 import { AnalysisService } from 'src/app/core/services/sdc';
 import { MetricsHistoryDataModel } from '../models';
 
@@ -32,7 +32,9 @@ export class SdcMetricHistoryGraphsService {
     this.analysisService
       .componentAnalysis(componentId)
       .then(data => {
-        const componentAnalysis = data.page.filter(an => an.metric.valueType);
+        const componentAnalysis = data.page.filter(
+          an => an.metric.valueType && EvaluableValueType.isEvaluableValueType(an.metric.valueType)
+        );
 
         this.metricData = {
           ...this.metricData,
