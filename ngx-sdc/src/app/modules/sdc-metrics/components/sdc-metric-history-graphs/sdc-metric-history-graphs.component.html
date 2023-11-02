@@ -10,24 +10,20 @@
       </sdc-metric-info>
     </div>
     <div *ngIf="metricsData?.selectedAnalysis" class="evolution-graph">
-      <div class="chart-header">
-        <div class="sdc-center">
-          <span *ngIf="metricsData.selectedAnalysis" nxCopytext="medium">
-            {{ 'Label.CurrentValue' | translate }}
-            {{ metricsData.selectedAnalysis.analysisValues.metricValue }}
-          </span>
-        </div>
-        <div class="sdc-center">
-          <span *ngIf="metricsData.selectedAnalysis" nxCopytext="medium">
-            {{ 'Label.OptimumValue' | translate }}
-            {{
-              metricsData.selectedAnalysis.analysisValues.perfectValue ||
-                metricsData.selectedAnalysis.analysisValues.goodValue ||
-                metricsData.selectedAnalysis.analysisValues.expectedValue
-            }}
-          </span>
-        </div>
-      </div>
+      <header class="chart-header sdc-center">
+        <p *ngIf="metricsData.selectedAnalysis" nxCopytext="medium">
+          {{ 'Label.CurrentValue' | translate }}
+          {{ metricsData.selectedAnalysis.analysisValues.metricValue }}
+        </p>
+        <p *ngIf="metricsData.selectedAnalysis" nxCopytext="medium">
+          {{ 'Label.OptimumValue' | translate }}
+          {{
+            metricsData.selectedAnalysis.analysisValues.perfectValue ||
+              metricsData.selectedAnalysis.analysisValues.goodValue ||
+              metricsData.selectedAnalysis.analysisValues.expectedValue
+          }}
+        </p>
+      </header>
       <sdc-time-evolution-chart [config]="metricChartConfig"></sdc-time-evolution-chart>
     </div>
   </div>

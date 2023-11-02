@@ -1,5 +1,5 @@
 <div *ngIf="squad" class="squad-summary">
-  <nx-tab-group class="tiny-tabs">
+  <nx-tab-group class="tiny-tabs" (selectedIndexChange)="onTabChage($event)">
     <nx-tab [label]="'Label.SquadSumary' | translate">
       <div class="summary-charts">
         <sdc-coverage-chart
@@ -8,19 +8,19 @@
           [coverage]="squad"
           [size]="300"
         ></sdc-coverage-chart>
-        <div class="summary-content">
-          <div class="summary-count">
-            <sdc-components-state-count
-              [components]="components"
-              (clickStateCount)="onClickStateCount($event)"
-            ></sdc-components-state-count>
-          </div>
+        <div class="summary-count">
+          <sdc-components-state-count [components]="components" (clickStateCount)="onClickStateCount($event)"></sdc-components-state-count>
         </div>
       </div>
     </nx-tab>
     <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
       <div class="language-distribution sdc-center">
-        <ng-container *ngIf="!squad; else noData"> </ng-container>
+        <ng-container *ngIf="squadSummaryData.languageDistribution; else noData">
+          <sdc-time-evolution-multichart
+            [data]="squadSummaryData.languageDistribution"
+            [size]="{ height: 330 }"
+          ></sdc-time-evolution-multichart>
+        </ng-container>
       </div>
     </nx-tab>
   </nx-tab-group>

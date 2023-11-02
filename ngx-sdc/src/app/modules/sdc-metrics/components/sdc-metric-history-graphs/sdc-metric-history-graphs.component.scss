@@ -15,7 +15,13 @@
 
     .chart-header {
       background-color: $grey-lighter-color;
+      flex-direction: column;
       padding: 8px;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 }

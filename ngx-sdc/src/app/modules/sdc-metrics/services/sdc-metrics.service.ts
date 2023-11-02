@@ -13,7 +13,7 @@ export class SdcMetricsService {
   private metricContextData!: MetricsContextData;
   private metricData!: MetricsDataModel;
   private data$: Subject<MetricsDataModel>;
-  private tabActions: (() => void)[] = [];
+  private tabActions: { fn: () => void }[] = [];
 
   constructor(
     private readonly contextDataService: UiContextDataService,
@@ -30,7 +30,7 @@ export class SdcMetricsService {
       selectedAnalysis: this.metricContextData.selected,
       selectedTabIndex: this.metricContextData.selectedTabIndex
     };
-    this.tabActions = [emptyFn, this.languageDistribution];
+    this.tabActions = [{ fn: emptyFn }, { fn: this.languageDistribution }];
     this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
   }
 
@@ -40,7 +40,7 @@ export class SdcMetricsService {
   }
 
   public set tabSelected(index: number) {
-    this.tabActions[index]();
+    this.tabActions[index]?.fn();
 
     this.metricContextData.selectedTabIndex = index;
     this.contextDataService.set(ContextDataInfo.METRICS_DATA, this.metricContextData);
@@ -89,7 +89,8 @@ export class SdcMetricsService {
   private languageDistribution = (): void => {
     this.analysisService.componentAnalysis(this.metricData.compliance.id).then(data => {
       const metricAnalysis = data.page.find(
-        analysis => analysis.name.toLowerCase() === 'language distribution' && analysis.metric.type === AnalysisType.GIT
+        analysis =>
+          analysis.name.toLowerCase() === 'language distribution' && [AnalysisType.GIT, AnalysisType.SONAR].includes(analysis.metric.type)
       );
 
       if (metricAnalysis) {

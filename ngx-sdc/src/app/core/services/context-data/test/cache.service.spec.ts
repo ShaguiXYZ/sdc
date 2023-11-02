@@ -1,7 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { UiCacheService } from './cache.service';
+import { UiCacheService } from '../cache.service';
 
 describe('UiCacheService', () => {
   beforeEach(() =>

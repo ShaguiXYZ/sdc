@@ -10,12 +10,15 @@ import { ChartConfig, ChartData, SdcGraphData } from '../../models';
 export class SdcTimeEvolutionMultichartComponent {
   public metricChartConfig: ChartConfig = { axis: {}, data: [] };
 
-  private graphData: GenericDataInfo<string[]> = {};
+  @Input()
+  public size: { height?: number; width?: number } = {};
 
   @Input()
   public set data(value: SdcGraphData) {
     this.metricChartConfig = this.toChartconfig(value);
   }
+
+  private graphData: GenericDataInfo<string[]> = {};
 
   private toChartconfig(value: SdcGraphData): ChartConfig {
     const data: string[] = value.graph.map(v => v.data);
@@ -42,10 +45,10 @@ export class SdcTimeEvolutionMultichartComponent {
 
     data
       .split(';')
-      .filter(value => /(\w+)=(\d+)(.?(\d+))?/.test(value))
+      .filter(value => /([^=]+)=(\d+)(.?(\d+))?/.test(value))
       .forEach(eq => {
         const [key, ...value] = eq.split('=');
-        dataInfo[key] = value.join('=');
+        dataInfo[key] = value[0];
       });
 
     return dataInfo;

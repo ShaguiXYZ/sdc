@@ -40,8 +40,6 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
       type: ValueType.NUMERIC
     };
 
-    console.log(component['graphData']);
-
     expect(component['graphData']).toEqual(graphData);
   });
 
@@ -51,6 +49,7 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
       axis1: '11',
       axis2: '21'
     };
+
     expect(component['stringGraphToDataInfo'](stringGraphData)).toEqual(dataInfo);
   });
 

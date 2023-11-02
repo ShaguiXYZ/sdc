@@ -6,13 +6,19 @@
   .summary-charts,
   .language-distribution {
     align-items: center;
-    display: flex;
+    height: 350px;
+    width: 100%;
+  }
+
+  .language-distribution {
+    display: block;
   }
 
   .summary-charts {
-    .summary-bar-chart {
-      padding: 25px;
-      width: 60%;
+    display: flex;
+
+    .summary-count {
+      flex: 1;
     }
   }
 }

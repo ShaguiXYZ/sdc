@@ -6,13 +6,24 @@
   .summary-charts,
   .language-distribution {
     align-items: center;
-    display: flex;
+    height: 350px;
+    width: 100%;
+  }
+
+  .language-distribution {
+    display: block;
   }
 
   .summary-charts {
+    display: flex;
+
     .summary-bar-chart {
-      padding: 25px;
+      padding: 0 25px;
       width: 60%;
+
+      .title {
+        text-align: center;
+      }
     }
 
     .summary-pie-chart {

@@ -1,5 +1,5 @@
 <div *ngIf="department" class="departments-summary">
-  <nx-tab-group class="tiny-tabs">
+  <nx-tab-group class="tiny-tabs" (selectedIndexChange)="onTabChage($event)">
     <nx-tab [label]="'Label.DepartmentSumary' | translate">
       <div class="summary-charts">
         <div class="summary-pie-chart sdc-center">
@@ -10,19 +10,29 @@
             [size]="300"
           ></sdc-coverage-chart>
         </div>
-        <div class="summary-bar-chart">
-          <sdc-horizontal-bar-chart
-            [name]="'Label.ComplianceState' | translate"
-            [config]="chartConfig"
-            [size]="{ height: 250 }"
-          ></sdc-horizontal-bar-chart>
-        </div>
+        <article class="summary-bar-chart">
+          <header class="title">
+            <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ 'Label.ComplianceState' | translate }}</h4>
+          </header>
+          <section class="chart">
+            <sdc-horizontal-bar-chart
+              [name]="'Label.ComplianceState' | translate"
+              [config]="chartConfig"
+              [size]="{ height: 250 }"
+            ></sdc-horizontal-bar-chart>
+          </section>
+        </article>
       </div>
     </nx-tab>
     <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
-      <div class="language-distribution sdc-center">
-        <ng-container *ngIf="!department; else noData"> </ng-container>
-      </div>
+      <section class="language-distribution">
+        <ng-container *ngIf="departmentSummaryData.languageDistribution; else noData">
+          <sdc-time-evolution-multichart
+            [data]="departmentSummaryData.languageDistribution"
+            [size]="{ height: 330 }"
+          ></sdc-time-evolution-multichart>
+        </ng-container>
+      </section>
     </nx-tab>
   </nx-tab-group>
 </div>

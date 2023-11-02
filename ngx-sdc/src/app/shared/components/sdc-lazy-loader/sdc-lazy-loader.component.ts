@@ -13,7 +13,7 @@ export class SdcLazyLoaderComponent implements OnDestroy, AfterViewInit {
 
   public readonly id = `_${UniqueIds.next()}_`;
   public loaded = false;
-  public styleSize: GenericDataInfo<number> = {};
+  public size: GenericDataInfo<number> = {};
 
   private observer!: IntersectionObserver;
   private elementObserved!: Element;
@@ -21,15 +21,15 @@ export class SdcLazyLoaderComponent implements OnDestroy, AfterViewInit {
   constructor(private readonly element: ElementRef) {}
 
   @Input()
-  public set size(value: { height?: number; width?: number }) {
-    delete this.styleSize['height.px'];
+  public set reservedSize(value: { height?: number; width?: number }) {
+    delete this.size['height.px'];
     if (value.height) {
-      this.styleSize['height.px'] = value.height;
+      this.size['height.px'] = value.height;
     }
 
-    delete this.styleSize['width.px'];
+    delete this.size['width.px'];
     if (value.width) {
-      this.styleSize['width.px'] = value.width;
+      this.size['width.px'] = value.width;
     }
   }
 
@@ -53,7 +53,7 @@ export class SdcLazyLoaderComponent implements OnDestroy, AfterViewInit {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         this.loaded = true;
-        this.styleSize = {};
+        this.size = {};
         this.inView.emit(entry.target);
         observer.unobserve(this.elementObserved);
       }

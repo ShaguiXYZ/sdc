@@ -43,16 +43,4 @@
   #squad {
     width: 305px;
   }
-
-  nx-formfield {
-    .clear-box {
-      display: none;
-    }
-  }
-
-  nx-formfield:hover {
-    .clear-box {
-      display: block;
-    }
-  }
 }

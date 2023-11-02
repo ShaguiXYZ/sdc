@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { SdcHorizontalBarChartComponent } from './sdc-horizontal-bar-chart.component';
 
@@ -10,8 +9,7 @@ import { SdcHorizontalBarChartComponent } from './sdc-horizontal-bar-chart.compo
     CommonModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
-    }),
-    NxHeadlineModule
+    })
   ],
   exports: [SdcHorizontalBarChartComponent]
 })

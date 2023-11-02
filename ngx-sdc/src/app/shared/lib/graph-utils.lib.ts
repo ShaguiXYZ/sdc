@@ -5,8 +5,8 @@ export const legendPosition = (position?: LegendPosition) =>
     ? {
         ['bottom']: {
           grid: {
-            left: '5%',
-            right: '5%',
+            left: '2%',
+            right: '2%',
             bottom: '10%',
             top: '5%',
             containLabel: true
@@ -18,7 +18,7 @@ export const legendPosition = (position?: LegendPosition) =>
         },
         ['left']: {
           grid: {
-            right: '5%',
+            right: '2%',
             bottom: '5%',
             top: '5%',
             containLabel: true
@@ -31,8 +31,8 @@ export const legendPosition = (position?: LegendPosition) =>
         },
         ['top']: {
           grid: {
-            left: '5%',
-            right: '5%',
+            left: '2%',
+            right: '2%',
             bottom: '5%',
             top: '10%',
             containLabel: true
@@ -43,7 +43,7 @@ export const legendPosition = (position?: LegendPosition) =>
         },
         ['right']: {
           grid: {
-            left: '5%',
+            left: '2%',
             bottom: '5%',
             top: '5%',
             containLabel: true
@@ -57,8 +57,8 @@ export const legendPosition = (position?: LegendPosition) =>
       }[position]
     : {
         grid: {
-          left: '5%',
-          right: '5%',
+          left: '2%',
+          right: '2%',
           bottom: '5%',
           top: '5%',
           containLabel: true
