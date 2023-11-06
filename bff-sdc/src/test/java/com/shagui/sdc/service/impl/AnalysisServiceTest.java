@@ -1,6 +1,7 @@
 package com.shagui.sdc.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -9,11 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.shagui.sdc.api.client.RwsSdcClient;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.api.view.MetricAnalysisView;
+import com.shagui.sdc.test.utils.DataUtils;
 
 class AnalysisServiceTest {
 
@@ -60,6 +64,15 @@ class AnalysisServiceTest {
 		PageData<MetricAnalysisDTO> value = new PageData<MetricAnalysisDTO>();
 		when(rwsSdcClient.analyze(anyInt())).thenReturn(value);
 		PageData<MetricAnalysisDTO> result = service.analize(1);
+
+		assertEquals(result, value);
+	}
+
+	@Test
+	void annualSum() {
+		PageData<MetricAnalysisDTO> value = new PageData<MetricAnalysisDTO>();
+		when(rwsSdcClient.annualSum(anyString(), anyString(), anyInt(), anyInt(), anyInt())).thenReturn(value);
+		PageData<MetricAnalysisDTO> result = service.annualSum("metricName", "GIT", 1, 1, 1);
 
 		assertEquals(result, value);
 	}

@@ -62,4 +62,10 @@ class AnalysisControllerTest {
 		assertNotNull(result);
 	}
 
+	@Test
+	void annualSum() {
+		when(analysisService.annualSum(Mockito.anyString(), Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(DataUtils.createEmptyPageData());
+		PageData<MetricAnalysisView> result = controller.annualSum("metricName", "GIT", 1, 1, 1);
+		assertNotNull(result);
+	}
 }

@@ -1,5 +1,7 @@
 package com.shagui.sdc.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,12 @@ public class AnalysisServiceImpl implements AnalysisService {
 	@Override
 	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, String type) {
 		return rwsSdcClient.metricHistory(componentId, metricName, type);
+	}
+
+	@Override
+	public PageData<MetricAnalysisDTO> annualSum(String metricName, String metricType, Integer componentId,
+			Integer squadId, Integer departmentId) {
+		return rwsSdcClient.annualSum(metricName, metricType, componentId, squadId, departmentId);
 	}
 
 	@Override

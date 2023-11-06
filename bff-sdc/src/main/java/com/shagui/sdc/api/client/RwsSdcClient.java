@@ -34,6 +34,12 @@ public interface RwsSdcClient {
 	PageData<MetricAnalysisDTO> metricHistory(@PathVariable int componentId, @PathVariable String metricName,
 			@PathVariable String type);
 
+	@GetMapping("analysis/annualSum")
+	PageData<MetricAnalysisDTO> annualSum(@RequestParam(required = true) String metricName,
+			@RequestParam(required = true) String metricType,
+			@RequestParam(required = false) Integer componentId,
+			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Integer departmentId);
+
 	@PostMapping("analysis/{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);

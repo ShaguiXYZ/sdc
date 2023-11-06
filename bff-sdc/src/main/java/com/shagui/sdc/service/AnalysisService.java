@@ -12,5 +12,8 @@ public interface AnalysisService {
 
 	PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, String type);
 
+	PageData<MetricAnalysisDTO> annualSum(String metricName, String metricType, Integer componentId,
+			Integer squadId, Integer departmentId);
+
 	PageData<MetricAnalysisDTO> analize(int componentId);
 }

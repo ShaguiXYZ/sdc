@@ -42,4 +42,12 @@ public class AnalysisController implements AnalysisRestApi {
 	public PageData<MetricAnalysisView> analyze(int componentId) {
 		return Mapper.parse(analysisService.analize(componentId), MetricAnalysisView.class);
 	}
+
+	@Override
+	public PageData<MetricAnalysisView> annualSum(String metricName, String metricType, Integer componentId,
+			Integer squadId, Integer departmentId) {
+		return Mapper.parse(
+				analysisService.annualSum(metricName, metricType, componentId, squadId, departmentId),
+				MetricAnalysisView.class);
+	}
 }
