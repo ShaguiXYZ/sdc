@@ -10,30 +10,25 @@ import { SdcDepartmentsContextData, SdcDepartmentsDataModel } from '../models';
 @Injectable()
 export class SdcDepartmentsService {
   private contextData!: SdcDepartmentsContextData;
-  private summary$: Subject<SdcDepartmentsDataModel>;
-  private data!: SdcDepartmentsDataModel;
+  private data$: Subject<Partial<SdcDepartmentsDataModel>>;
 
   constructor(
     private contextDataService: UiContextDataService,
     private departmentService: DepartmentService,
     private squadService: SquadService
   ) {
-    this.summary$ = new Subject();
+    this.data$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.DEPARTMENTS_DATA);
-    this.data = {
+
+    this.data$.next({
       departmentFilter: this.contextData?.departmentFilter,
       squadFilter: this.contextData?.squadFilter,
-      department: this.contextData?.department,
-      squads: [],
-      squadsInView: [],
-      departments: []
-    };
-
-    this.summary$.next(this.data);
+      department: this.contextData?.department
+    });
   }
 
-  public onDataChange(): Observable<SdcDepartmentsDataModel> {
-    return this.summary$.asObservable();
+  public onDataChange(): Observable<Partial<SdcDepartmentsDataModel>> {
+    return this.data$.asObservable();
   }
 
   public availableDepartments(filter?: string): void {
@@ -49,11 +44,10 @@ export class SdcDepartmentsService {
           departments = pageable.page;
         }
 
-        this.data = { ...this.data, department, departments, departmentFilter: filter };
         this.contextData = { ...this.contextData, department, departmentFilter: filter };
         this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, this.contextData, { persistent: true });
 
-        this.summary$.next(this.data);
+        this.data$.next({ department, departments, departmentFilter: filter });
       })
       .catch(_console.error);
   }
@@ -65,11 +59,10 @@ export class SdcDepartmentsService {
         const squads: ISquadModel[] = pageable.page.filter(squad => squad.department.id === department.id);
         const squadsInView: ISquadModel[] = filter?.trim().length ? filterByProperties(squads, ['id', 'name'], filter) : squads;
 
-        this.data = { ...this.data, department, squads, squadsInView, squadFilter: filter };
         this.contextData = { ...this.contextData, department, squadFilter: filter };
         this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, this.contextData, { persistent: true });
 
-        this.summary$.next(this.data);
+        this.data$.next({ department, squads, squadsInView, squadFilter: filter });
       })
       .catch(_console.error);
   }

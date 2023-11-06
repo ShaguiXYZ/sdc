@@ -8,6 +8,7 @@ import { HttpStatus, UiHttpService } from '../http';
 import { CONTEXT_SECURITY_KEY } from './constants';
 import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISecurityModel, ISessionModel, IUserDTO, IUserModel } from './models';
 import { _console } from '../../lib';
+import { SecurityError } from '../../errors';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,7 @@ export class UiSecurityService {
     if (securityInfo) {
       this.contextData.set(CONTEXT_SECURITY_KEY, { ...securityInfo, user }, { persistent: true });
     } else {
-      throw new Error('Valid token not returned');
+      throw new SecurityError('Valid token not returned');
     }
   }
 

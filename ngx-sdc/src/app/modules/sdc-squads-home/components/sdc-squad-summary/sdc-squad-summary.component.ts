@@ -13,18 +13,24 @@ import { SdcSquadSummaryService } from './services';
   providers: [SdcSquadSummaryService]
 })
 export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
-  @Input()
-  public squad!: ISquadModel;
-
   @Output()
   public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
 
   public readonly BACKGROUND_SQUAD_COLOR = BACKGROUND_SQUAD_COLOR;
-  public squadSummaryData: SquadSummaryModel = {};
+  public squadSummaryData!: SquadSummaryModel;
 
   private data$!: Subscription;
 
   constructor(private readonly squadSummaryService: SdcSquadSummaryService) {}
+
+  public get squad(): ISquadModel {
+    return this.squadSummaryData.squad;
+  }
+  @Input()
+  public set squad(value: ISquadModel) {
+    this.squadSummaryData = { ...this.squadSummaryData, squad: value };
+    this.onSquadChage(this.squadSummaryData.selectedTabIndex ?? 0);
+  }
 
   public get components(): IComponentModel[] {
     return this.squadSummaryData.components ?? [];
@@ -39,6 +45,7 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
       this.squadSummaryData = { ...this.squadSummaryData, ...data };
     });
   }
+
   ngOnDestroy(): void {
     this.data$.unsubscribe();
   }
@@ -47,7 +54,8 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
     this.clickStateCount.emit(event);
   }
 
-  onTabChage(index: number): void {
-    this.squadSummaryService.tabSelected = index;
+  public onSquadChage(index: number): void {
+    this.squadSummaryData.selectedTabIndex = index;
+    this.squadSummaryService.tabIndexChange(index, this.squadSummaryData.squad.id);
   }
 }

@@ -74,7 +74,7 @@ public class AnalysisController implements AnalysisRestApi {
 			List<Date> lastTwelveMonths = DateUtils.getLastMounth(12);
 
 			return lastTwelveMonths.stream().flatMap(date -> {
-				PageData<MetricAnalysisDTO> pageData = analysisService.filterAnalysis(metric.getId(), metricType,
+				PageData<MetricAnalysisDTO> pageData = analysisService.filterAnalysis(metric.getId(),
 						componentId, squadId, departmentId, date);
 
 				return Optional.ofNullable(merge(pageData.getPage(), metric.getValueType().clazz()))

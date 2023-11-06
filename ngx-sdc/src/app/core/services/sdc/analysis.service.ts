@@ -1,11 +1,12 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UiCacheService, UiHttpService } from '..';
-import { sortCoverageData } from '../../lib';
-import { IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
+import { hasValue, sortCoverageData } from '../../lib';
+import { AnalysisType, IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
 import { HttpStatus } from '../http';
-import { METRICS_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
+import { LONG_EXPIRATON_TIME, METRICS_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {
@@ -79,6 +80,52 @@ export class AnalysisService {
     );
   }
 
+  public annualSummary(
+    metricName: string,
+    metricType: AnalysisType,
+    componentId?: number,
+    squadId?: number,
+    departmentId?: number
+  ): Promise<IPageable<IMetricAnalysisModel>> {
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append('metricName', metricName);
+    httpParams = httpParams.append('metricType', metricType);
+
+    if (hasValue(componentId)) {
+      httpParams = httpParams.append('componentId', String(componentId));
+    }
+
+    if (hasValue(squadId)) {
+      httpParams = httpParams.append('squadId', String(squadId));
+    }
+
+    if (hasValue(departmentId)) {
+      httpParams = httpParams.append('departmentId', String(departmentId));
+    }
+
+    return firstValueFrom(
+      this.http
+        .get<IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/annualSum`, {
+          clientOptions: { params: httpParams },
+          cache: {
+            id: this.annualSumCacheId(metricName, metricType, componentId, squadId, departmentId),
+            cachedDuring: LONG_EXPIRATON_TIME
+          }
+        })
+        .pipe(
+          map(res => {
+            const dto = res as IPageable<IMetricAnalysisDTO>;
+            const result: IPageable<IMetricAnalysisModel> = {
+              paging: { ...dto.paging },
+              page: dto.page.map(IMetricAnalysisModel.toModel)
+            };
+
+            return result;
+          })
+        )
+    );
+  }
+
   public analize(componentId: number): Promise<IPageable<IMetricAnalysisModel>> {
     return firstValueFrom(
       this.http
@@ -108,4 +155,11 @@ export class AnalysisService {
     metricId ? `${_METRICS_CACHE_ID_}_AN_${componentId}_${metricId}_` : `${_METRICS_CACHE_ID_}_AN_${componentId}_`;
   private historyCacheId = (componentId: number, metricId?: number): string =>
     metricId ? `${_METRICS_CACHE_ID_}_HT_${componentId}_${metricId}_` : `${_METRICS_CACHE_ID_}_HT_${componentId}_`;
+  private annualSumCacheId = (
+    metricName: string,
+    metricType: AnalysisType,
+    componentId?: number,
+    squadId?: number,
+    departmentId?: number
+  ): string => `${_METRICS_CACHE_ID_}_AS_${metricName}_${metricType}_c${componentId}_s${squadId}_d${departmentId}_`;
 }

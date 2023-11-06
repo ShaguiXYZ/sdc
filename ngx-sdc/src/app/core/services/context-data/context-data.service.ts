@@ -7,6 +7,7 @@ import { deepCopy, _console } from '../../lib';
 import { NX_CONTEX_CONFIG, contextStorageID } from './constatnts';
 import { routerData } from './lib';
 import { CacheData, ContextConfig, ContextData, ContextInfo, IContextData, IContextDataConfigurtion, UrlInfo } from './models';
+import { ContextDataError } from '../../errors';
 
 /**
  * Data persistence service between screens
@@ -70,7 +71,7 @@ export class UiContextDataService {
     const config = configuration ?? contextDataValue?.configuration ?? { persistent: false };
 
     if (config.readonly) {
-      throw new Error(`${key} is read only`);
+      throw new ContextDataError(`${key} is read only`);
     }
 
     this.addContextData(key, data, config);

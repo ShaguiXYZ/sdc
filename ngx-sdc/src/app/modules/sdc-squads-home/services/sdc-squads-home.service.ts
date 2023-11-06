@@ -10,8 +10,7 @@ import { SdcSquadsContextData, SdcSquadsDataModel } from '../models';
 @Injectable()
 export class SdcSquadsService {
   private contextData!: SdcSquadsContextData;
-  private summary$: Subject<SdcSquadsDataModel>;
-  private data!: SdcSquadsDataModel;
+  private summary$: Subject<Partial<SdcSquadsDataModel>>;
 
   constructor(
     private contextDataService: UiContextDataService,
@@ -20,12 +19,10 @@ export class SdcSquadsService {
   ) {
     this.summary$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.SQUADS_DATA);
-    this.data = { filter: this.contextData?.filter, squad: this.contextData?.squad, components: [], squads: [] };
-
-    this.summary$.next(this.data);
+    this.summary$.next({ filter: this.contextData?.filter, squad: this.contextData?.squad });
   }
 
-  public onDataChange(): Observable<SdcSquadsDataModel> {
+  public onDataChange(): Observable<Partial<SdcSquadsDataModel>> {
     return this.summary$.asObservable();
   }
 
@@ -42,11 +39,10 @@ export class SdcSquadsService {
           squads = pageable.page;
         }
 
-        this.data = { ...this.data, squad, squads, filter };
         this.contextData = { ...this.contextData, squad, filter };
         this.contextDataService.set(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
 
-        this.summary$.next(this.data);
+        this.summary$.next({ squad, squads, filter });
       })
       .catch(_console.error);
   }
@@ -55,11 +51,10 @@ export class SdcSquadsService {
     this.componetService
       .squadComponents(squad.id)
       .then(pageable => {
-        this.data = { ...this.data, squad, components: pageable.page };
         this.contextData = { ...this.contextData, squad };
         this.contextDataService.set(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
 
-        this.summary$.next(this.data);
+        this.summary$.next({ squad, components: pageable.page });
       })
       .catch(_console.error);
   }

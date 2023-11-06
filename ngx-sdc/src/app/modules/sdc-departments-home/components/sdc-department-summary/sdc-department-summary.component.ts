@@ -6,8 +6,8 @@ import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { BACKGROUND_DEPARTMENT_COLOR } from 'src/app/shared/constants';
 import { AvailableMetricStates, MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
-import { SdcDepartmentSummaryService } from './services';
 import { DepartmentSummaryModel } from './models';
+import { SdcDepartmentSummaryService } from './services';
 
 @Component({
   selector: 'sdc-department-summary',
@@ -16,11 +16,8 @@ import { DepartmentSummaryModel } from './models';
   providers: [SdcDepartmentSummaryService, TitleCasePipe]
 })
 export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
-  @Input()
-  public department!: IDepartmentModel;
-
   public readonly BACKGROUND_DEPARTMENT_COLOR = BACKGROUND_DEPARTMENT_COLOR;
-  public departmentSummaryData: DepartmentSummaryModel = {};
+  public departmentSummaryData!: DepartmentSummaryModel;
   public chartConfig!: ChartConfig;
 
   private data$!: Subscription;
@@ -30,6 +27,15 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
     private readonly titleCasePipe: TitleCasePipe,
     private readonly translateService: TranslateService
   ) {}
+
+  public get department(): IDepartmentModel {
+    return this.departmentSummaryData.department;
+  }
+  @Input()
+  public set department(value: IDepartmentModel) {
+    this.departmentSummaryData = { ...this.departmentSummaryData, department: value };
+    this.onDepartmentChage(this.departmentSummaryData.selectedTabIndex ?? 0);
+  }
 
   ngOnInit(): void {
     this.data$ = this.departmentSummaryService.onDataChange().subscribe(data => {
@@ -47,8 +53,9 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
     this.chartConfig = this.stateCounts();
   }
 
-  onTabChage(index: number): void {
-    this.departmentSummaryService.tabSelected = index;
+  onDepartmentChage(index: number): void {
+    this.departmentSummaryData.selectedTabIndex = index;
+    this.departmentSummaryService.tabIndexChange(index, this.departmentSummaryData.department.id);
   }
 
   private stateCounts(): ChartConfig {

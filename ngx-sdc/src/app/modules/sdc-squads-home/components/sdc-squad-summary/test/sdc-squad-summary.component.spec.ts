@@ -30,6 +30,7 @@ describe('SdcSquadSummaryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SdcSquadSummaryComponent);
     component = fixture.componentInstance;
+    component.squad = { id: 1, name: 'squad1', department: { id: 1, name: 'department1' } };
     fixture.detectChanges();
   });
 

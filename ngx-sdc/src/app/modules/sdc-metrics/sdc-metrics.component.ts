@@ -54,21 +54,21 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
     this.data$.unsubscribe();
   }
 
-  onOpenPanel(): void {
+  public onOpenPanel(): void {
     if (!this.metricsData?.historical) {
       this.sdcMetricsService.historicalComponentData();
     }
   }
 
-  onMetricAnalysisSelected(analysis: IMetricAnalysisModel): void {
+  public onMetricAnalysisSelected(analysis: IMetricAnalysisModel): void {
     this.sdcMetricsService.metricAnalysisSeleted = analysis;
   }
 
-  onTabChage(index: number): void {
+  public onTabChage(index: number): void {
     this.sdcMetricsService.tabSelected = index;
   }
 
-  onRunProcess(): void {
+  public onRunProcess(): void {
     this.alertService.confirm(
       {
         title: 'Alerts.RunProcess.Title',
@@ -79,14 +79,14 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
     );
   }
 
-  openMetricsCards(): void {
+  public openMetricsCards(): void {
     this.metricsCardsDialogRef = this.dialogService.open(this.templateRef, {
       appearance: 'expert',
       data: { component: this.metricsData?.compliance }
     });
   }
 
-  closeMetricsCards(): void {
+  public closeMetricsCards(): void {
     this.metricsCardsDialogRef?.close();
   }
 

@@ -17,7 +17,7 @@ import { SdcSquadsService } from './services';
   providers: [SdcSquadsService]
 })
 export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
-  public squadsData?: SdcSquadsDataModel;
+  public squadsData!: SdcSquadsDataModel;
   public componentsInView: IComplianceModel[] = [];
 
   private summary$!: Subscription;
@@ -29,8 +29,8 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.summary$ = this.sdcSummaryService.onDataChange().subscribe((data: SdcSquadsDataModel | undefined) => {
-      this.squadsData = data;
+    this.summary$ = this.sdcSummaryService.onDataChange().subscribe((data: Partial<SdcSquadsDataModel>) => {
+      this.squadsData = { ...this.squadsData, ...data };
       this.componentsInView = this.squadsData?.components
         ? this.squadsData.components.slice(0, 3).map(IComplianceModel.fromComponentModel)
         : [];

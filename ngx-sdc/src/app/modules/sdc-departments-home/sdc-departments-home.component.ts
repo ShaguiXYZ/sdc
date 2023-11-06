@@ -16,7 +16,7 @@ import { SdcDepartmentsService } from './services';
   providers: [SdcDepartmentsService]
 })
 export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
-  public departmentsData?: SdcDepartmentsDataModel;
+  public departmentsData!: SdcDepartmentsDataModel;
 
   private summary$!: Subscription;
 
@@ -28,7 +28,7 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.summary$ = this.sdcDepartmentService.onDataChange().subscribe(data => {
-      this.departmentsData = data;
+      this.departmentsData = { ...this.departmentsData, ...data };
 
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
         ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),

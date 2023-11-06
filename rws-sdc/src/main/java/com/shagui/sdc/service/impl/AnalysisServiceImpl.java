@@ -104,10 +104,10 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public PageData<MetricAnalysisDTO> filterAnalysis(Integer metricId, AnalysisType metricType, Integer componentId,
+	public PageData<MetricAnalysisDTO> filterAnalysis(Integer metricId, Integer componentId,
 			Integer squadId, Integer departmentId, Date date) {
 		return componentAnalysisRepository.repository()
-				.filterAnalysis(metricId, metricType, componentId, squadId, departmentId, new Timestamp(date.getTime()))
+				.filterAnalysis(metricId, componentId, squadId, departmentId, new Timestamp(date.getTime()))
 				.stream()
 				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}

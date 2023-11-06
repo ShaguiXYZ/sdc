@@ -5,7 +5,7 @@ import { AnalysisType, IMetricAnalysisModel, ValueType } from 'src/app/core/mode
 import { UiContextDataService, UiDateService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { IComplianceModel } from 'src/app/shared/components';
-import { ContextDataInfo } from 'src/app/shared/constants';
+import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
 import { MetricsContextData, MetricsDataModel } from '../models';
 
 @Injectable()
@@ -90,7 +90,8 @@ export class SdcMetricsService {
     this.analysisService.componentAnalysis(this.metricData.compliance.id).then(data => {
       const metricAnalysis = data.page.find(
         analysis =>
-          analysis.name.toLowerCase() === 'language distribution' && [AnalysisType.GIT, AnalysisType.SONAR].includes(analysis.metric.type)
+          analysis.name.toLowerCase() === LANGUAGE_DISTIBUTION_METRIC.name.toLowerCase() &&
+          LANGUAGE_DISTIBUTION_METRIC.type === analysis.metric.type
       );
 
       if (metricAnalysis) {
