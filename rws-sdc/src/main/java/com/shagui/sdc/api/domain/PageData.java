@@ -15,4 +15,8 @@ public class PageData<T> {
 		this.page = page;
 		this.paging = new PageInfo(0, this.page.size(), 1, this.page.size());
 	}
+
+	public static <T> PageData<T> empty() {
+		return new PageData<>(new PageInfo(0, 0, 0, 0), List.of());
+	}
 }

@@ -4,6 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricDTO;
+import com.shagui.sdc.core.exception.ExceptionCodes;
+import com.shagui.sdc.core.exception.JpaNotFoundException;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.service.MetricService;
@@ -22,6 +25,15 @@ public class MetricServiceImpl implements MetricService {
 	@Override
 	public MetricDTO metric(int metricId) {
 		return Mapper.parse(metricRepository.findExistingId(metricId));
+	}
+
+	@Override
+	public MetricDTO metric(String metricName, AnalysisType metricType) {
+		return Mapper
+				.parse(metricRepository.repository().findByNameIgnoreCaseAndType(metricName, metricType)
+						.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_METRIC,
+								String.format("no result found for metric '%s' and type '%s'", metricName,
+										metricType.name()))));
 	}
 
 	@Override

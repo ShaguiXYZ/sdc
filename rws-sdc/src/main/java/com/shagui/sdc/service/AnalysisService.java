@@ -16,4 +16,7 @@ public interface AnalysisService {
 	PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date);
 
 	PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, AnalysisType type, Date date);
+
+	PageData<MetricAnalysisDTO> filterAnalysis(Integer metricId, AnalysisType metricType, Integer componentId,
+			Integer squadId, Integer departmentId, Date date);
 }

@@ -51,4 +51,10 @@ public interface AnalysisRestApi {
 			@PathVariable @Parameter(description = "Metric name") String metricName,
 			@PathVariable @Parameter(description = "Metric type") AnalysisType type,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
+
+	@GetMapping("annualSum")
+	PageData<MetricAnalysisDTO> annualSum(@RequestParam(required = true) String metricName,
+			@RequestParam(required = true) AnalysisType metricType,
+			@RequestParam(required = false) Integer componentId,
+			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Integer departmentId);
 }

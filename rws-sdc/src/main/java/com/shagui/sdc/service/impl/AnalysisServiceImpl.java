@@ -11,7 +11,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,16 +40,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class AnalysisServiceImpl implements AnalysisService {
+	private Map<String, AnalysisInterface> metricServices;
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentsRepository;
 	private JpaCommonRepository<ComponentAnalysisRepository, ComponentAnalysisModel, ComponentAnalysisPk> componentAnalysisRepository;
 	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
 
-	@Autowired
-	private Map<String, AnalysisInterface> metricServices;
-
-	public AnalysisServiceImpl(ComponentRepository componentsRepository,
+	public AnalysisServiceImpl(Map<String, AnalysisInterface> metricServices, ComponentRepository componentsRepository,
 			ComponentAnalysisRepository componentAnalysisRepository,
 			MetricRepository metricRepository) {
+		this.metricServices = metricServices;
 		this.componentsRepository = () -> componentsRepository;
 		this.componentAnalysisRepository = () -> componentAnalysisRepository;
 		this.metricRepository = () -> metricRepository;
@@ -102,7 +100,16 @@ public class AnalysisServiceImpl implements AnalysisService {
 	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, AnalysisType type, Date date) {
 		return metricRepository.repository().findByNameIgnoreCaseAndType(metricName, type)
 				.map(metric -> metricHistory(componentId, metric.getId(), date))
-				.orElseGet(() -> new PageData<>(new ArrayList<>()));
+				.orElseGet(PageData::empty);
+	}
+
+	@Override
+	public PageData<MetricAnalysisDTO> filterAnalysis(Integer metricId, AnalysisType metricType, Integer componentId,
+			Integer squadId, Integer departmentId, Date date) {
+		return componentAnalysisRepository.repository()
+				.filterAnalysis(metricId, metricType, componentId, squadId, departmentId, new Timestamp(date.getTime()))
+				.stream()
+				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	private Stream<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {

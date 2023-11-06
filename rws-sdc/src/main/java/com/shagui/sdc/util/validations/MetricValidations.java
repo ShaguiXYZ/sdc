@@ -1,12 +1,8 @@
 package com.shagui.sdc.util.validations;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.enums.MetricState;
@@ -34,37 +30,39 @@ public class MetricValidations {
 	private static <T extends Comparable<T>> Float validate(AnalysisValuesDTO values, MetricValidation validation,
 			Class<T> clazz) {
 		Float coverage = null;
-		T value = cast(values.getMetricValue(), clazz);
+		T value = ValidationsUtils.cast(values.getMetricValue(), clazz);
 		MetricValidation metricValidation = (value == null || validation == null) ? MetricValidation.NA : validation;
 		List<MetricControl<T>> control = controlValues(values, clazz);
 
 		switch (metricValidation) {
-		case EQ:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 0)
-					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
-			break;
-		case NEQ:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) != 0)
-					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
-			break;
-		case GT:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) > 0).map(MetricControl::getCoverage)
-					.findFirst().orElse(MetricState.CRITICAL.coverage());
-			break;
-		case LT:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) < 0).map(MetricControl::getCoverage)
-					.findFirst().orElse(MetricState.CRITICAL.coverage());
-			break;
-		case GTE:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) >= 0)
-					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
-			break;
-		case LTE:
-			coverage = control.stream().filter(c -> c.getControl().compareTo(value) <= 0)
-					.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
-			break;
-		default:
-			return null;
+			case EQ:
+				coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 0)
+						.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+				break;
+			case NEQ:
+				coverage = control.stream().filter(c -> c.getControl().compareTo(value) != 0)
+						.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+				break;
+			case GT:
+				coverage = control.stream().filter(c -> c.getControl().compareTo(value) > 0)
+						.map(MetricControl::getCoverage)
+						.findFirst().orElse(MetricState.CRITICAL.coverage());
+				break;
+			case LT:
+				coverage = control.stream().filter(c -> c.getControl().compareTo(value) < 0)
+						.map(MetricControl::getCoverage)
+						.findFirst().orElse(MetricState.CRITICAL.coverage());
+				break;
+			case GTE:
+				coverage = control.stream().filter(c -> c.getControl().compareTo(value) >= 0)
+						.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+				break;
+			case LTE:
+				coverage = control.stream().filter(c -> c.getControl().compareTo(value) <= 0)
+						.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+				break;
+			default:
+				return null;
 		}
 
 		return coverage;
@@ -73,9 +71,9 @@ public class MetricValidations {
 	private static <T extends Comparable<T>> List<MetricControl<T>> controlValues(AnalysisValuesDTO analysis,
 			Class<T> clazz) {
 
-		T perfectValue = cast(analysis.getPerfectValue(), clazz);
-		T goodValue = cast(analysis.getGoodValue(), clazz);
-		T expectedValue = cast(analysis.getExpectedValue(), clazz);
+		T perfectValue = ValidationsUtils.cast(analysis.getPerfectValue(), clazz);
+		T goodValue = ValidationsUtils.cast(analysis.getGoodValue(), clazz);
+		T expectedValue = ValidationsUtils.cast(analysis.getExpectedValue(), clazz);
 
 		List<MetricControl<T>> control = new ArrayList<>();
 
@@ -94,15 +92,4 @@ public class MetricValidations {
 		return control;
 
 	}
-
-	private static <T extends Comparable<T>> T cast(String toCast, Class<T> clazz) {
-		try {
-			Constructor<T> constructor = clazz.getConstructor(String.class);
-			return StringUtils.hasText(toCast) ? constructor.newInstance(toCast) : null;
-		} catch (IllegalArgumentException | NoSuchMethodException | SecurityException | InstantiationException
-				| IllegalAccessException | InvocationTargetException e) {
-			return null;
-		}
-	}
-
 }

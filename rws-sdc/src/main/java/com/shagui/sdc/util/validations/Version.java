@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.apache.commons.lang3.StringUtils;
+import com.shagui.sdc.util.SdcStringUtils;
 
 import lombok.EqualsAndHashCode;
 
@@ -31,7 +31,8 @@ public class Version implements Comparable<Version> {
 
 	private List<Integer> cast(String toCast) {
 		String version = toCast.replaceAll("[^0-9.]", "");
-		return Arrays.stream(version.split("\\.")).map(item -> StringUtils.isNumeric(item) ? Integer.valueOf(item) : 0)
+		return Arrays.stream(version.split("\\."))
+				.map(item -> SdcStringUtils.isNumeric(item) ? Integer.valueOf(item) : 0)
 				.collect(Collectors.toList());
 	}
 

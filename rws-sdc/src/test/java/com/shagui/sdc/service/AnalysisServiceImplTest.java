@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,8 @@ class AnalysisServiceImplTest {
 
 	@Test
 	void constructorTest() {
-		AnalysisServiceImpl service = new AnalysisServiceImpl(componentRepositoryMock, componentAnalysisRepositoryMock,
+		AnalysisServiceImpl service = new AnalysisServiceImpl(new HashMap<>(), componentRepositoryMock,
+				componentAnalysisRepositoryMock,
 				metricRepositoryMock);
 		assertNotNull(service);
 	}
