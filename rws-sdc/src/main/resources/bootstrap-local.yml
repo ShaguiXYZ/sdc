@@ -26,3 +26,15 @@ server:
 rest:
   security:
     issuerUri: http://localhost:9092/rws-security
+
+sdc:
+  dictionary:
+    secret:
+      git-authorization-type: token
+      git-authorization: ${git.token}
+  document:
+    pom:
+      deprecated-libs:
+        - group-id: com.mysql
+          artifact-id: mysql-connector-j
+        - group-id: group-lib2
