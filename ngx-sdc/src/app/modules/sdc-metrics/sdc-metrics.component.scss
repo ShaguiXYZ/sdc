@@ -1,24 +1,20 @@
 @import 'core-colors';
 @import 'core-globals';
 
-.application-graph {
-  position: relative;
+.history-component {
+  display: flex;
+
+  .application-graph {
+    flex-grow: 1;
+  }
 
   .chart-ops {
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: absolute;
-    right: 15px;
-    top: 0px;
-    width: 30px;
-    z-index: $z-index-bottom;
+    display: flex;
+    flex-direction: column;
 
     .chart-op {
       cursor: pointer;
       margin-top: 10px;
-      height: 25px;
-      text-align: right;
 
       &:hover {
         color: var(--link-hover-color);

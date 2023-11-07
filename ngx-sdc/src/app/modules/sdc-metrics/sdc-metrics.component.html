@@ -1,20 +1,23 @@
 <div *ngIf="metricsData" class="nx-margin-y-2xs">
   <sdc-compliance-bar-card [compliance]="metricsData.compliance" [showMore]="false" [hideBorder]="true"></sdc-compliance-bar-card>
-  <div class="application-historic nx-margin-y-2xs">
+  <article class="application-historic nx-margin-y-2xs">
     <nx-accordion>
       <nx-expansion-panel (opened)="onOpenPanel()">
         <nx-expansion-panel-header>
           <nx-expansion-panel-title>
-            <div>
+            <header>
               {{ 'Label.ApplicationHistory' | translate }}
               <span class="selected-date nx-margin-left-s"
                 >{{ 'Label.SelectedDate' | translate }}: {{ metricsData.compliance.analysisDate | date }}</span
               >
-            </div>
+            </header>
           </nx-expansion-panel-title>
         </nx-expansion-panel-header>
-        <div class="application-graph nx-margin-top-2xs">
-          <div class="chart-ops sdc-scrollable">
+        <section class="history-component">
+          <section class="application-graph nx-margin-top-2xs">
+            <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }"></sdc-time-evolution-chart>
+          </section>
+          <section class="chart-ops sdc-scrollable">
             <div
               class="chart-op"
               [nxTooltip]="'Tooltip.ComponentMetrics' | translate : { name: metricsData.compliance.name }"
@@ -29,25 +32,24 @@
             >
               <em class="fa-solid fa-arrows-spin"></em>
             </div>
-          </div>
-          <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }"></sdc-time-evolution-chart>
-        </div>
+          </section>
+        </section>
       </nx-expansion-panel>
     </nx-accordion>
-  </div>
+  </article>
 </div>
 
-<div *ngIf="metricsData" class="application-coverages nx-margin-y-2xs">
+<article *ngIf="metricsData" class="application-coverages nx-margin-y-2xs">
   <nx-accordion>
     <nx-expansion-panel [expanded]="true">
       <nx-expansion-panel-header>
         <nx-expansion-panel-title>
-          <div>
+          <header>
             {{ 'Label.Metrics' | translate }}
             <span class="selected-date nx-margin-left-s"
               >{{ 'Label.Coverage' | translate }}: {{ metricsData.compliance.coverage || 0 }} %</span
             >
-          </div>
+          </header>
         </nx-expansion-panel-title>
       </nx-expansion-panel-header>
       <nx-tab-group class="tiny-tabs" [selectedIndex]="metricsData.selectedTabIndex" (selectedIndexChange)="onTabChage($event)">
@@ -66,7 +68,7 @@
       </nx-tab-group>
     </nx-expansion-panel>
   </nx-accordion>
-</div>
+</article>
 
 <ng-template #metricsCards let-data>
   <header nxModalTitle>
