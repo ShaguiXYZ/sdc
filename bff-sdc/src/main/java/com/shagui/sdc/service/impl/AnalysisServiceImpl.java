@@ -1,8 +1,5 @@
 package com.shagui.sdc.service.impl;
 
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.client.RwsSdcClient;
@@ -10,10 +7,11 @@ import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.service.AnalysisService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class AnalysisServiceImpl implements AnalysisService {
-
-	@Autowired
 	private RwsSdcClient rwsSdcClient;
 
 	@Override

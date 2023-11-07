@@ -1,6 +1,5 @@
 package com.shagui.sdc.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.DepartmentRestApi;
@@ -11,12 +10,12 @@ import com.shagui.sdc.service.DepartmentService;
 import com.shagui.sdc.util.Mapper;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @RestController
 @Tag(name = "departments", description = "API to maintain Departments")
 public class DepartmentController implements DepartmentRestApi {
-
-	@Autowired
 	private DepartmentService departmentService;
 
 	@Override

@@ -10,7 +10,6 @@ import lombok.Data;
 
 @Data
 public class ApiError {
-
 	private HttpStatus status;
 	private String message;
 	private List<String> errors;
@@ -29,7 +28,7 @@ public class ApiError {
 
 	public ApiError(HttpStatus status, String message, List<String> errors) {
 		super();
-		
+
 		this.status = status;
 		this.message = message;
 		this.errors = new ArrayList<>(errors);

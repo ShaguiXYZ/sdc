@@ -1,6 +1,5 @@
 package com.shagui.sdc.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.client.RwsSdcClient;
@@ -10,10 +9,11 @@ import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.service.ComponentService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class ComponentServiceImpl implements ComponentService {
-
-	@Autowired
 	private RwsSdcClient rwsSdcClient;
 
 	@Override

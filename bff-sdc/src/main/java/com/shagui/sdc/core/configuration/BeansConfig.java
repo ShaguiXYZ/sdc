@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class BeansConfig {
 	@Bean
 	@Primary
-	public ObjectMapper getObjectMapper() {
+	ObjectMapper getObjectMapper() {
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

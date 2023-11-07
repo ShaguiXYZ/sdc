@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @ConfigurationProperties(prefix = "rest.security")
 public class SecurityProperties {
-
 	private boolean enabled;
 	private String apiMatcher;
 	private Cors cors;
@@ -24,7 +23,7 @@ public class SecurityProperties {
 
 	public CorsConfiguration getCorsConfiguration() {
 		log.debug("getCorsConfiguration");
-		
+
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowedOrigins(cors.getAllowedOrigins());
 		corsConfiguration.setAllowedMethods(cors.getAllowedMethods());
