@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.jmx.support.MetricType;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
@@ -124,7 +122,7 @@ class AnalysisControllerTest {
 
 		when(metricService.metric(metricName, metricType)).thenReturn(metric);
 
-		when(analysisService.filterAnalysis(anyInt(), any(AnalysisType.class), anyInt(), anyInt(), anyInt(),
+		when(analysisService.filterAnalysis(anyInt(), anyInt(), anyInt(), anyInt(),
 				any(Date.class))).thenReturn(new PageData<>(
 						Arrays.asList(
 								new MetricAnalysisDTO(new Date(), metric,
