@@ -54,8 +54,7 @@ public interface ComponentAnalysisRepository extends JpaRepository<ComponentAnal
 			+ " INNER JOIN ca.component c ON (:componentId IS NULL OR c.id = :componentId)"
 			+ " INNER JOIN c.squad s ON (:squadId IS NULL OR s.id = :squadId)"
 			+ " INNER JOIN s.department d ON (:departmentId IS NULL OR d.id = :departmentId)"
-			+ " WHERE ca.id.analysisDate = (" + MAX_DATE + " AND ca2.id.analysisDate <= :date)"
-			+ " GROUP BY ca.id.componentId, ca.id.metricId, ca.id.analysisDate")
+			+ " WHERE ca.id.analysisDate = (" + MAX_DATE + " AND ca2.id.analysisDate <= :date)")
 	List<ComponentAnalysisModel> filterAnalysis(Integer metricId, Integer componentId,
 			Integer squadId, Integer departmentId, Timestamp date);
 }
