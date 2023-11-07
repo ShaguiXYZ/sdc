@@ -5,7 +5,7 @@ import { UiCacheService, UiHttpService } from '..';
 import { hasValue, sortCoverageData } from '../../lib';
 import { IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
 import { HttpStatus } from '../http';
-import { SQUADS_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
+import { S_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class SquadService {
@@ -20,7 +20,7 @@ export class SquadService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.SquadsNotFound' }
           },
-          cache: { id: _SQUADS_CACHE_ID_, cachedDuring: SQUADS_EXPIRATON_TIME }
+          cache: { id: _SQUADS_CACHE_ID_, cachedDuring: S_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {

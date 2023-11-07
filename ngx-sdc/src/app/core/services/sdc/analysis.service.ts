@@ -6,7 +6,7 @@ import { UiCacheService, UiHttpService } from '..';
 import { hasValue, sortCoverageData } from '../../lib';
 import { AnalysisType, IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
 import { HttpStatus } from '../http';
-import { LONG_EXPIRATON_TIME, METRICS_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
+import { XL_EXPIRATON_TIME, L_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {
@@ -21,7 +21,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.AnalysisNotFound' }
           },
-          cache: { id: this.analysisCacheId(componentId), cachedDuring: METRICS_EXPIRATON_TIME }
+          cache: { id: this.analysisCacheId(componentId), cachedDuring: L_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
@@ -44,7 +44,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.AnalysisNotFound' }
           },
-          cache: { id: this.analysisCacheId(componentId, metricId), cachedDuring: METRICS_EXPIRATON_TIME }
+          cache: { id: this.analysisCacheId(componentId, metricId), cachedDuring: L_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
@@ -64,7 +64,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.MetricAbalysisNotFound' }
           },
-          cache: { id: this.historyCacheId(componentId, metricId), cachedDuring: METRICS_EXPIRATON_TIME }
+          cache: { id: this.historyCacheId(componentId, metricId), cachedDuring: L_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
@@ -109,7 +109,7 @@ export class AnalysisService {
           clientOptions: { params: httpParams },
           cache: {
             id: this.annualSumCacheId(metricName, metricType, componentId, squadId, departmentId),
-            cachedDuring: LONG_EXPIRATON_TIME
+            cachedDuring: XL_EXPIRATON_TIME
           }
         })
         .pipe(

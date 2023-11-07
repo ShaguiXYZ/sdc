@@ -5,7 +5,7 @@ import { hasValue, sortCoverageData } from '../../lib';
 import { IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
 import { UiCacheService } from '../context-data';
 import { HttpStatus, UiHttpService } from '../http';
-import { DEPARTMENTS_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';
+import { L_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class DepartmentService {
@@ -20,7 +20,7 @@ export class DepartmentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.DepartmentsNotFound' }
           },
-          cache: { id: _DEPARTMENT_CACHE_ID_, cachedDuring: DEPARTMENTS_EXPIRATON_TIME }
+          cache: { id: _DEPARTMENT_CACHE_ID_, cachedDuring: L_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {

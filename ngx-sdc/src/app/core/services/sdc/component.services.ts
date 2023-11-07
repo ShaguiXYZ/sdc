@@ -7,7 +7,7 @@ import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable } f
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
 import { UiCacheService } from '../context-data';
 import { ELEMENTS_BY_PAGE, HttpStatus, UiHttpService } from '../http';
-import { COMPONENT_EXPIRATON_TIME, _COMPONENT_CACHE_ID_ } from './constants';
+import { XS_EXPIRATON_TIME, _COMPONENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class ComponentService {
@@ -35,7 +35,7 @@ export class ComponentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.ComponentsNotFound' }
           },
-          cache: { id: this.squadCacheId(squadId), cachedDuring: COMPONENT_EXPIRATON_TIME }
+          cache: { id: this.squadCacheId(squadId), cachedDuring: XS_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
