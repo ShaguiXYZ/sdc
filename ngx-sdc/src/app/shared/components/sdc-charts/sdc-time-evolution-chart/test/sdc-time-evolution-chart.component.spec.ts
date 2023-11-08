@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { SdcTimeEvolutionChartComponent } from '../sdc-time-evolution-chart.component';
 
 describe('SdcBreadcrumbComponent', () => {
@@ -13,7 +13,7 @@ describe('SdcBreadcrumbComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SdcTimeEvolutionChartComponent],
       imports: [HttpClientModule, RouterTestingModule],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

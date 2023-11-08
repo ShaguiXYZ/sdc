@@ -1,8 +1,9 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SdcTimeEvolutionMultichartComponent } from '../sdc-time-evolution-multichart.component';
-import { ChartConfig } from 'src/app/shared/models';
-import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
+import { DataInfo, GenericDataInfo } from 'src/app/core/models';
 import { ValueType } from 'src/app/core/models/sdc';
+import { ChartConfig } from '../../sdc-charts';
+import { SdcTimeEvolutionMultichartComponent } from '../sdc-time-evolution-multichart.component';
 
 describe('SdcTimeEvolutionMultichartComponent', () => {
   let component: SdcTimeEvolutionMultichartComponent;
@@ -10,6 +11,7 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [SdcTimeEvolutionMultichartComponent]
     }).compileComponents();
   });

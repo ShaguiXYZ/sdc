@@ -4,10 +4,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { UiDateService } from 'src/app/core/services';
+import { ChartConfig, ChartData } from 'src/app/shared/components/sdc-charts';
 import { AvailableMetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/shared/lib';
-import { ChartConfig, ChartData } from 'src/app/shared/models';
-import { SdcMetricHistoryGraphsService } from './services';
 import { MetricsHistoryDataModel } from './models';
+import { SdcMetricHistoryGraphsService } from './services';
 
 @Component({
   selector: 'sdc-metric-history-graphs',

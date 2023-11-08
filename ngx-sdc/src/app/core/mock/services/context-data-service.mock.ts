@@ -1,4 +1,4 @@
-import { GenericDataInfo } from '../../interfaces/dataInfo';
+import { GenericDataInfo } from '../../models';
 import { CacheData } from '../../services/context-data';
 
 export class UiContextDataServiceMock {

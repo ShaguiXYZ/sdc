@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { legendPosition } from '../../lib';
-import { ChartConfig, ChartData, ChartValue } from '../../models';
-import { SdcValueTypeToNumberPipe } from '../../pipes/sdc-value-type-to-number.pipe';
+import { GenericDataInfo } from 'src/app/core/models';
+import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
+import { legendPosition } from '../lib';
+import { ChartConfig, ChartData, ChartValue } from '../models';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
-  templateUrl: './sdc-time-evolution-chart.component.html',
-  styleUrls: ['./sdc-time-evolution-chart.component.scss'],
+  templateUrl: '../sdc-chart.component.html',
+  styleUrls: ['../sdc-chart.component.scss'],
   providers: [SdcValueTypeToNumberPipe]
 })
 export class SdcTimeEvolutionChartComponent {

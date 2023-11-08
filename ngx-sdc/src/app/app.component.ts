@@ -5,7 +5,7 @@ import { filter } from 'rxjs';
 import { UiContextDataService, UiStorageService } from './core/services';
 import { routingAnimation } from './shared/animations';
 import { ContextDataInfo } from './shared/constants';
-import { AppConfig } from './shared/models/app.-config.model';
+import { AppConfig } from './shared/models';
 
 @Component({
   selector: 'app-root',

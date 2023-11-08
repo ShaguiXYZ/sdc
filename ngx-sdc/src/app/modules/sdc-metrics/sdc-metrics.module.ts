@@ -11,9 +11,9 @@ import {
   SdcMetricInfoModule,
   SdcMetricsCardsModule,
   SdcNoDataModule,
-  SdcTimeEvolutionChartModule,
   SdcTimeEvolutionMultichartModule
 } from 'src/app/shared/components';
+import { SdcTimeEvolutionChartModule } from 'src/app/shared/components/sdc-charts';
 import { SdcMetricHistoryGraphsModule } from './components';
 import { SdcMetricsRoutingModule } from './sdc-metrics-routing.module';
 import { SdcMetricsComponent } from './sdc-metrics.component';

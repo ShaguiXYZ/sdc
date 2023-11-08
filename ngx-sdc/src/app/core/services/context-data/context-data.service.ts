@@ -2,12 +2,12 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { deepCopy, _console } from '../../lib';
+import { ContextDataError } from '../../errors';
+import { _console, deepCopy } from '../../lib';
+import { GenericDataInfo } from '../../models';
 import { NX_CONTEX_CONFIG, contextStorageID } from './constatnts';
 import { routerData } from './lib';
 import { CacheData, ContextConfig, ContextData, ContextInfo, IContextData, IContextDataConfigurtion, UrlInfo } from './models';
-import { ContextDataError } from '../../errors';
 
 /**
  * Data persistence service between screens

@@ -1,5 +1,5 @@
 import { Params, UrlSegment, UrlTree } from '@angular/router';
-import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
+import { GenericDataInfo } from 'src/app/core/models';
 import { CacheData } from './cache-data.model';
 import { ContextData } from './context-data';
 

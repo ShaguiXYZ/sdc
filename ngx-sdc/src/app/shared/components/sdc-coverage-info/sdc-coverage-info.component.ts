@@ -67,7 +67,7 @@ export class SdcCoverageInfoComponent implements OnDestroy, AfterViewInit {
   }
 
   private lazyCoverageChart = async (viewContainerRef: ViewContainerRef, options: { [key: string]: any }) => {
-    const { SdcCoverageChartComponent } = await import('../sdc-coverage-chart/sdc-coverage-chart.component');
+    const { SdcCoverageChartComponent } = await import('../sdc-charts/sdc-coverage-chart/sdc-coverage-chart.component');
     const component = viewContainerRef.createComponent(SdcCoverageChartComponent);
 
     Object.keys(options).forEach(key => {

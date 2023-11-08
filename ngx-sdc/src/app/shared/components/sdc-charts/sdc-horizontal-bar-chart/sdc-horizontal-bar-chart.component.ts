@@ -1,14 +1,14 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ChartConfig, ChartValue } from '../../models';
-import { SdcValueTypeToNumberPipe } from '../../pipes';
+import { GenericDataInfo } from 'src/app/core/models';
+import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
+import { ChartConfig, ChartValue } from '../models';
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',
-  templateUrl: './sdc-horizontal-bar-chart.component.html',
-  styleUrls: ['./sdc-horizontal-bar-chart.component.scss'],
+  templateUrl: '../sdc-chart.component.html',
+  styleUrls: ['../sdc-chart.component.scss'],
   providers: [SdcValueTypeToNumberPipe, TitleCasePipe]
 })
 export class SdcHorizontalBarChartComponent {

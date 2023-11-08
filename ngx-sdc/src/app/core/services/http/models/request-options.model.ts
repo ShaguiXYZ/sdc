@@ -1,5 +1,4 @@
-import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { MessageModal } from 'src/app/core/interfaces/modal';
+import { GenericDataInfo, MessageModal } from 'src/app/core/models';
 
 export interface RequestOptions {
   clientOptions?: any;

@@ -7,9 +7,9 @@ import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/m
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 import { UiContextDataService, UiDateService } from 'src/app/core/services';
 import { SdcMetricsCardsComponent } from 'src/app/shared/components';
+import { ChartConfig } from 'src/app/shared/components/sdc-charts';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
-import { ChartConfig } from 'src/app/shared/models';
 import { MetricsDataModel } from './models';
 import { SdcMetricsService } from './services';
 

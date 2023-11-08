@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
-import { MessageModal } from 'src/app/core/interfaces/modal';
 import { AlertModel } from 'src/app/core/components/alert/models/alert.model';
-import { ButtonModel, TypeButton } from 'src/app/core/models/button.model';
+import { ButtonModel, MessageModal, TypeButton } from 'src/app/core/models';
 
 @Injectable({
   providedIn: 'root'

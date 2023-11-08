@@ -3,8 +3,8 @@ import { ValueType } from 'src/app/core/models/sdc';
 import { UiDateService } from 'src/app/core/services';
 import { AnalysisService } from 'src/app/core/services/sdc';
 import { SdcTimeEvolutionMultichartModule } from 'src/app/shared/components';
+import { SdcGraphData } from 'src/app/shared/components/sdc-charts';
 import { SdcTestRoutingModule } from './sdc-test-page-routing.module';
-import { SdcGraphData } from 'src/app/shared/models';
 
 @Component({
   selector: 'sdc-test-page',

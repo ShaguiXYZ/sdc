@@ -1,18 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
+import { GenericDataInfo } from 'src/app/core/models';
 import { ICoverageModel } from 'src/app/core/models/sdc';
-import { MetricState, stateByCoverage } from '../../lib';
+import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 
 @Component({
   selector: 'sdc-coverage-chart',
-  templateUrl: './sdc-coverage-chart.component.html',
-  styleUrls: ['./sdc-coverage-chart.component.scss']
+  templateUrl: '../sdc-chart.component.html',
+  styleUrls: ['../sdc-chart.component.scss']
 })
 export class SdcCoverageChartComponent implements OnInit {
   @Input()
   public animation = false;
+
   @Input()
   public size!: number;
+
   @Input()
   public backgroundColor!: string;
 
@@ -28,6 +31,10 @@ export class SdcCoverageChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.echartsOptions = this.chartOptions(this._coverage);
+  }
+
+  public get styleSize(): GenericDataInfo<number> {
+    return { 'height.px': this.size, 'width.px': this.size };
   }
 
   private chartOptions(value: ICoverageModel): EChartsOption {

@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { UniqueIds } from 'src/app/core/lib';
+import { GenericDataInfo } from 'src/app/core/models';
 
 @Component({
   selector: 'sdc-lazy-loader',

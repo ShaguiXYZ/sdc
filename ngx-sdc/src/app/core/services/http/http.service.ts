@@ -3,11 +3,10 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of, take } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { MessageModal } from 'src/app/core/interfaces/modal';
 import { UiLoadingService } from '../../components/loading/services';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS } from '../../components/notification';
 import { UiNotificationService } from '../../components/notification/services';
+import { GenericDataInfo, MessageModal } from '../../models';
 import { UiCacheService } from '../context-data';
 import { HttpStatus } from './constants';
 import { CacheRequestOptions, RequestOptions } from './models';
@@ -92,8 +91,8 @@ export class UiHttpService {
 
   public put<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
     const notificationId = this.notificationService.info(
-      this.translateService.instant(requestOptions?.procesingMessage?.title || 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.text || 'Notifications.ProcesingDetail'),
+      this.translateService.instant(requestOptions?.procesingMessage?.title ?? 'Notifications.Procesing'),
+      this.translateService.instant(requestOptions?.procesingMessage?.text ?? 'Notifications.ProcesingDetail'),
       0,
       false
     );
@@ -174,7 +173,7 @@ export class UiHttpService {
       switch (err.status) {
         case HttpStatus.notFound:
         case HttpStatus.conflict:
-          title = responseStatusMessage[err.status].title || '';
+          title = responseStatusMessage[err.status].title ?? '';
           message = responseStatusMessage[err.status].text as string;
           break;
         default:
@@ -182,7 +181,7 @@ export class UiHttpService {
       }
 
       this.notificationService.error(
-        this.translateService.instant(title || 'Notifications.Error'),
+        this.translateService.instant(title ?? 'Notifications.Error'),
         message?.trim() ? this.translateService.instant(message) : message,
         DEFAULT_TIMEOUT_NOTIFICATIONS,
         true

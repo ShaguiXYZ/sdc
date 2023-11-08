@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DataInfo, GenericDataInfo } from 'src/app/core/interfaces/dataInfo';
-import { ChartConfig, ChartData, SdcGraphData } from '../../models';
+import { DataInfo, GenericDataInfo } from 'src/app/core/models';
+import { ChartConfig, ChartData, SdcGraphData } from '../sdc-charts';
 
 @Component({
   selector: 'sdc-time-evolution-multichart',

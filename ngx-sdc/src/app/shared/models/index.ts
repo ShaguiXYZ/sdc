@@ -1,1 +1,1 @@
-export * from './graphic.model';
+export * from './app.-config.model';
