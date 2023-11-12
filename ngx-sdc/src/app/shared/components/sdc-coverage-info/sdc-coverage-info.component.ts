@@ -1,11 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { BACKGROUND_CHART_COLOR } from '../../constants';
 
 @Component({
   selector: 'sdc-coverage-info',
   templateUrl: './sdc-coverage-info.component.html',
-  styleUrls: ['./sdc-coverage-info.component.scss']
+  styleUrls: ['./sdc-coverage-info.component.scss'],
+  standalone: true,
+  imports: [CommonModule, NxCopytextModule]
 })
 export class SdcCoverageInfoComponent implements OnDestroy, AfterViewInit {
   @ViewChild('coverageViewRef', { read: ViewContainerRef })

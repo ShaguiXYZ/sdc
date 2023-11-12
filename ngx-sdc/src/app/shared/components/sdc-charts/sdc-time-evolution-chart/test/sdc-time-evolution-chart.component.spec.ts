@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { SdcTimeEvolutionChartComponent } from '../sdc-time-evolution-chart.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 describe('SdcBreadcrumbComponent', () => {
   let component: SdcTimeEvolutionChartComponent;
@@ -11,8 +12,14 @@ describe('SdcBreadcrumbComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcTimeEvolutionChartComponent],
-      imports: [HttpClientModule, RouterTestingModule],
+      imports: [
+        SdcTimeEvolutionChartComponent,
+        HttpClientModule,
+        RouterTestingModule,
+        NgxEchartsModule.forRoot({
+          echarts: () => import('echarts')
+        })
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));

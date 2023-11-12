@@ -1,0 +1,107 @@
+<form [formGroup]="form">
+  <section class="component">
+    <nx-card highlight class="nx-margin-top-2m">
+      <header nxHighlightHeader>{{ 'Label.componentTypeArchitecture.header' | translate }}</header>
+      <div class="component-data" formGroupName="componentData">
+        <nx-formfield id="component-name" [label]="'Label.ComponentName' | translate">
+          <input nxInput type="text" formControlName="name" autocomplete="off" />
+        </nx-formfield>
+        <nx-formfield id="component-description" [label]="'Label.ComponentDescription' | translate">
+          <input nxInput type="text" formControlName="description" autocomplete="off" />
+        </nx-formfield>
+      </div>
+    </nx-card>
+  </section>
+
+  <section class="component-type-architecture">
+    <nx-card highlight class="nx-margin-top-2m">
+      <header nxHighlightHeader>{{ 'Label.componentTypeArchitecture.header' | translate }}</header>
+      <div class="component-type-architecture-data" formGroupName="componentTypeArchitecture">
+        <nx-formfield id="componentType" [label]="'Label.componentType' | translate">
+          <input
+            nxInput
+            type="text"
+            autocomplete="off"
+            formControlName="componentType"
+            [nxAutocomplete]="autoComponentTypes"
+            [nxAutocompleteItems]="dataListByName('component_types')"
+          />
+          <nx-autocomplete #autoComponentTypes></nx-autocomplete>
+        </nx-formfield>
+        <nx-formfield id="network" [label]="'Label.network' | translate">
+          <input
+            nxInput
+            type="text"
+            formControlName="network"
+            autocomplete="off"
+            [nxAutocomplete]="autoNetworks"
+            [nxAutocompleteItems]="dataListByName('networks')"
+          />
+          <nx-autocomplete #autoNetworks></nx-autocomplete>
+        </nx-formfield>
+        <nx-formfield id="deploymentType" [label]="'Label.deploymentType' | translate">
+          <input
+            nxInput
+            type="text"
+            formControlName="deploymentType"
+            autocomplete="off"
+            [nxAutocomplete]="autoDeploymentTypes"
+            [nxAutocompleteItems]="dataListByName('deployment_types')"
+          />
+          <nx-autocomplete #autoDeploymentTypes></nx-autocomplete>
+        </nx-formfield>
+        <nx-formfield id="platform" [label]="'Label.platform' | translate">
+          <input
+            nxInput
+            type="text"
+            formControlName="platform"
+            autocomplete="off"
+            [nxAutocomplete]="autoPlatforms"
+            [nxAutocompleteItems]="dataListByName('platforms')"
+          />
+          <nx-autocomplete #autoPlatforms></nx-autocomplete>
+        </nx-formfield>
+        <nx-formfield id="architecture" [label]="'Label.architecture' | translate">
+          <input
+            nxInput
+            type="text"
+            formControlName="architecture"
+            autocomplete="off"
+            [nxAutocomplete]="autoArchitectures"
+            [nxAutocompleteItems]="dataListByName('architectures')"
+          />
+          <nx-autocomplete #autoArchitectures></nx-autocomplete>
+        </nx-formfield>
+        <nx-formfield id="language" [label]="'Label.language' | translate">
+          <input
+            nxInput
+            type="text"
+            formControlName="language"
+            autocomplete="off"
+            [nxAutocomplete]="autoLanguages"
+            [nxAutocompleteItems]="dataListByName('languages')"
+          />
+          <nx-autocomplete #autoLanguages></nx-autocomplete>
+        </nx-formfield>
+      </div>
+    </nx-card>
+  </section>
+
+  <section class="component-properties">
+    <nx-card highlight class="nx-margin-top-2m">
+      <header nxHighlightHeader>{{ 'Label.componentProperties.header' | translate }}</header>
+      <div class="properties-data" formGroupName="properties"></div>
+    </nx-card>
+  </section>
+
+  <section class="component-uris">
+    <nx-card highlight class="nx-margin-top-2m">
+      <header nxHighlightHeader>{{ 'Label.uris.header' | translate }}</header>
+      <div class="properties-data" formGroupName="uris"></div>
+    </nx-card>
+  </section>
+
+  <footer class="nx-margin-top-2m">
+    <button type="button" nxButton="primary small" type="button" (click)="onSubmit()" [disabled]="!form.valid">Aceptar</button>
+  </footer>
+</form>

@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api/component/historical" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface ComponentHistoricalCoverageApi {
 	@GetMapping("{componentId}")
-	public HistoricalCoverageDTO<ComponentDTO> historicalCoverage(
+	HistoricalCoverageDTO<ComponentDTO> historicalCoverage(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);

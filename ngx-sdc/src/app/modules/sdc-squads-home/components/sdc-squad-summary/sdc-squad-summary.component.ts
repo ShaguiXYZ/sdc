@@ -1,7 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { NxTabsModule } from '@aposin/ng-aquila/tabs';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { IStateCount } from 'src/app/shared/components';
+import { SdcComponentsStateCountComponent, SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
+import { SdcCoverageChartComponent } from 'src/app/shared/components/sdc-charts';
+import { IStateCount } from 'src/app/shared/components/sdc-state-count/model';
 import { BACKGROUND_SQUAD_COLOR } from 'src/app/shared/constants';
 import { SquadSummaryModel } from './models';
 import { SdcSquadSummaryService } from './services';
@@ -10,7 +15,17 @@ import { SdcSquadSummaryService } from './services';
   selector: 'sdc-squad-summary',
   templateUrl: './sdc-squad-summary.component.html',
   styleUrls: ['./sdc-squad-summary.component.scss'],
-  providers: [SdcSquadSummaryService]
+  providers: [SdcSquadSummaryService],
+  standalone: true,
+  imports: [
+    SdcComponentsStateCountComponent,
+    SdcCoverageChartComponent,
+    SdcTimeEvolutionMultichartComponent,
+    SdcNoDataComponent,
+    CommonModule,
+    NxTabsModule,
+    TranslateModule
+  ]
 })
 export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
   @Output()

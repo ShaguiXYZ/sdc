@@ -1,12 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NxCardModule } from '@aposin/ng-aquila/card';
+import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { NxInputModule } from '@aposin/ng-aquila/input';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { ICoverageModel } from 'src/app/core/models/sdc';
+import { SdcCoverageInfoComponent } from '../sdc-coverage-info';
 
 @Component({
   selector: 'sdc-coverages',
   templateUrl: './sdc-coverages.component.html',
-  styleUrls: ['./sdc-coverages.component.scss']
+  styleUrls: ['./sdc-coverages.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, NxCardModule, NxHeadlineModule, NxInputModule, TranslateModule, SdcCoverageInfoComponent]
 })
 export class SdcCoveragesComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true })

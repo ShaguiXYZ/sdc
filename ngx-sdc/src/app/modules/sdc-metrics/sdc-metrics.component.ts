@@ -1,23 +1,55 @@
-import { TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
+import { NxAccordionModule } from '@aposin/ng-aquila/accordion';
+import { NxButtonModule } from '@aposin/ng-aquila/button';
+import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
+import { NxTabsModule } from '@aposin/ng-aquila/tabs';
+import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { UiAlertService } from 'src/app/core/components/alert';
 import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 import { UiContextDataService, UiDateService } from 'src/app/core/services';
-import { SdcMetricsCardsComponent } from 'src/app/shared/components';
-import { ChartConfig } from 'src/app/shared/components/sdc-charts';
+import {
+  SdcComplianceBarCardComponent,
+  SdcMetricInfoComponent,
+  SdcMetricsCardsComponent,
+  SdcNoDataComponent,
+  SdcTimeEvolutionMultichartComponent
+} from 'src/app/shared/components';
+import { SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { ChartConfig } from 'src/app/shared/models';
+import { SdcMetricHistoryGraphsComponent } from './components';
 import { MetricsDataModel } from './models';
+import { SdcMetricsRoutingModule } from './sdc-metrics-routing.module';
 import { SdcMetricsService } from './services';
 
 @Component({
   selector: 'sdc-metrics',
   templateUrl: './sdc-metrics.component.html',
   styleUrls: ['./sdc-metrics.component.scss'],
-  providers: [SdcMetricsService, TitleCasePipe]
+  providers: [SdcMetricsService, TitleCasePipe],
+  standalone: true,
+  imports: [
+    SdcComplianceBarCardComponent,
+    SdcMetricsCardsComponent,
+    SdcMetricInfoComponent,
+    SdcMetricHistoryGraphsComponent,
+    SdcNoDataComponent,
+    SdcTimeEvolutionChartComponent,
+    SdcTimeEvolutionMultichartComponent,
+    CommonModule,
+    NxAccordionModule,
+    NxButtonModule,
+    NxModalModule,
+    NxTabsModule,
+    NxTooltipModule,
+    SdcMetricsRoutingModule,
+    TranslateModule
+  ]
 })
 export class SdcMetricsComponent implements OnInit, OnDestroy {
   @ViewChild('metricsCards') templateRef!: TemplateRef<any>;

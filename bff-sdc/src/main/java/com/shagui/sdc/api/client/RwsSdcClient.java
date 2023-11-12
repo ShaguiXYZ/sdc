@@ -1,5 +1,7 @@
 package com.shagui.sdc.api.client;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +46,32 @@ public interface RwsSdcClient {
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);
 
+	@GetMapping("component/{componentId}")
+	ComponentDTO component(@PathVariable int componentId);
+
+	@GetMapping("component/{componentId}/metrics")
+	PageData<MetricDTO> componentMetrics(@PathVariable int componentId);
+
+	@GetMapping("component/historical/{componentId}")
+	HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
+			@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
+
+	@GetMapping("datalist")
+	List<String> dataLists();
+
+	@GetMapping("datalist/{datalist}")
+	List<String> dataListValues(@PathVariable String datalist);
+
+	@GetMapping("components/squad/{squadId}")
+	PageData<ComponentDTO> squadComponents(@PathVariable int squadId, @RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer ps);
+
+	@GetMapping("components/filter")
+	PageData<ComponentDTO> filter(@RequestParam(required = false) String name,
+			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Float coverageMin,
+			@RequestParam(required = false) Float coverageMax, @RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer ps);
+
 	@GetMapping("department/{departmentId}")
 	DepartmentDTO department(@PathVariable int departmentId);
 
@@ -58,24 +86,4 @@ public interface RwsSdcClient {
 
 	@GetMapping("squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId, @RequestParam(required = false) Integer page);
-
-	@GetMapping("component/{componentId}")
-	ComponentDTO component(@PathVariable int componentId);
-
-	@GetMapping("components/squad/{squadId}")
-	PageData<ComponentDTO> squadComponents(@PathVariable int squadId, @RequestParam(required = false) Integer page,
-			@RequestParam(required = false) Integer ps);
-
-	@GetMapping("components/filter")
-	PageData<ComponentDTO> filter(@RequestParam(required = false) String name,
-			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Float coverageMin,
-			@RequestParam(required = false) Float coverageMax, @RequestParam(required = false) Integer page,
-			@RequestParam(required = false) Integer ps);
-
-	@GetMapping("component/{componentId}/metrics")
-	PageData<MetricDTO> componentMetrics(@PathVariable int componentId);
-
-	@GetMapping("component/historical/{componentId}")
-	HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
-			@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
 }

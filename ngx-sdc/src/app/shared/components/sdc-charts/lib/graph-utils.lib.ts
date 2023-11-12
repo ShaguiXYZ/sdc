@@ -1,4 +1,4 @@
-import { LegendPosition } from '../models';
+import { LegendPosition } from 'src/app/shared/models';
 
 export const legendPosition = (position?: LegendPosition) =>
   position

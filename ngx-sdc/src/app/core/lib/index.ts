@@ -16,3 +16,5 @@ export const _console = {
   },
   error: (reason: any, ...optionalParams: any[]): void => console.error(reason, optionalParams)
 };
+
+export const $ = (selector: string): HTMLElement | null => document.querySelector(selector);

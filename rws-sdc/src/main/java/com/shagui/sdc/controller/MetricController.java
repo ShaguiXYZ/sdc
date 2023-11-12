@@ -1,6 +1,5 @@
 package com.shagui.sdc.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.MetricRestApi;
@@ -12,12 +11,12 @@ import com.shagui.sdc.enums.MetricValueType;
 import com.shagui.sdc.service.MetricService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @RestController
 @Tag(name = "metrics", description = "API to maintain Metrics")
 public class MetricController implements MetricRestApi {
-
-	@Autowired
 	private MetricService metricService;
 
 	@Override

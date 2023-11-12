@@ -1,5 +1,5 @@
 export class NxDialogServiceMock {
-  open() {
+  open(componentOrTemplateRef: any, config?: any) {
     /* Mock method */
   }
 }

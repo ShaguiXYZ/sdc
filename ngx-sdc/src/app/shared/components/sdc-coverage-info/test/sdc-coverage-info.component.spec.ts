@@ -11,8 +11,7 @@ describe('SdcCoverageInfoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcCoverageInfoComponent],
-      imports: [CommonModule, NgxEchartsModule.forRoot({ echarts: () => import('echarts') })],
+      imports: [SdcCoverageInfoComponent, CommonModule, NgxEchartsModule.forRoot({ echarts: () => import('echarts') })],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents()

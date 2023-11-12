@@ -13,8 +13,7 @@ describe('SdcComplianceBarCardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcComplianceBarCardComponent],
-      imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
+      imports: [SdcComplianceBarCardComponent, HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA],
       providers: []
     })

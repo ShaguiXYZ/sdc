@@ -37,6 +37,9 @@ class AnalysisControllerTest {
 	private AnalysisService analysisService;
 
 	@Mock
+	private ComponentService componentService;
+
+	@Mock
 	private MetricService metricService;
 
 	@Mock
@@ -44,9 +47,6 @@ class AnalysisControllerTest {
 
 	@Mock
 	private MetricAnalysisDTO metricAnalysisDTO;
-
-	@Mock
-	private ComponentService componentService;
 
 	@BeforeEach
 	void init() {

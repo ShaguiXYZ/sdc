@@ -26,13 +26,5 @@ export namespace IComponentModel {
 }
 
 export class ComponentModel implements IComponentModel {
-  constructor(
-    public id: number,
-    public name: string,
-    // public architecture: IArchitectureModel,
-    // public componentType: IComponentTypeModel,
-    public squad: ISquadModel,
-    public analysisDate?: number,
-    public coverage?: number
-  ) {}
+  constructor(public id: number, public name: string, public squad: ISquadModel, public analysisDate?: number, public coverage?: number) {}
 }

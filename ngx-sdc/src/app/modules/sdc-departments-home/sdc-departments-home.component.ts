@@ -5,15 +5,33 @@ import { ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/mode
 import { UiContextDataService } from 'src/app/core/services';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
-import { SdcSquadsContextData } from '../sdc-squads-home';
+import { SdcSquadsContextData } from 'src/app/shared/models';
 import { SdcDepartmentsDataModel } from './models';
 import { SdcDepartmentsService } from './services';
+import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
+import { SdcDepartmentSummaryComponent } from './components';
+import { CommonModule } from '@angular/common';
+import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { SdcDepartmentsHomeRoutingModule } from './sdc-departments-home-routing.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'sdc-departments-home',
   templateUrl: './sdc-departments-home.component.html',
   styleUrls: ['./sdc-departments-home.component.scss'],
-  providers: [SdcDepartmentsService]
+  providers: [SdcDepartmentsService],
+  standalone: true,
+  imports: [
+    SdcComplianceBarCardsComponent,
+    SdcCoveragesComponent,
+    SdcDepartmentSummaryComponent,
+    CommonModule,
+    NxHeadlineModule,
+    NxLinkModule,
+    SdcDepartmentsHomeRoutingModule,
+    TranslateModule
+  ]
 })
 export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
   public departmentsData!: SdcDepartmentsDataModel;

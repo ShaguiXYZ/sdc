@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { GenericDataInfo } from 'src/app/core/models';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
@@ -7,7 +9,9 @@ import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 @Component({
   selector: 'sdc-coverage-chart',
   templateUrl: '../sdc-chart.component.html',
-  styleUrls: ['../sdc-chart.component.scss']
+  styleUrls: ['../sdc-chart.component.scss'],
+  standalone: true,
+  imports: [CommonModule, NgxEchartsModule]
 })
 export class SdcCoverageChartComponent implements OnInit {
   @Input()

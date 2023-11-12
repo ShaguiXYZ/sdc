@@ -1,5 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
+import { NxButtonModule } from '@aposin/ng-aquila/button';
+import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
+import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
 import { Subscription } from 'rxjs';
 import { AlertModel } from './models';
 import { UiAlertService } from './services';
@@ -7,7 +11,9 @@ import { UiAlertService } from './services';
 @Component({
   selector: 'nx-alert',
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+  styleUrls: ['./alert.component.scss'],
+  standalone: true,
+  imports: [CommonModule, NxButtonModule, NxCopytextModule, NxHeadlineModule, NxModalModule]
 })
 export class UiAlertComponent implements OnInit, OnDestroy {
   @ViewChild('alertBody') templateAlertRef!: TemplateRef<any>;

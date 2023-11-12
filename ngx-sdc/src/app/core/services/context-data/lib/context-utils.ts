@@ -21,13 +21,13 @@ export const routerData = (router: Router, contextConfig: ContextConfig): Router
 
 export const configContextRoutes = (routes: Route[]): Route[] => {
   routes.push({
-    path: `signin/:sid/:token`,
-    loadChildren: () => import('src/app/core/components/signin/signin.module').then(m => m.SigninModule)
+    path: 'signin/:sid/:token',
+    loadComponent: () => import('src/app/core/components/signin/signin.component').then(c => c.SigninComponent)
   });
 
   return routes.map(route => {
     if (!hasValue(route.redirectTo)) {
-      route.canActivate = Object.assign([], route.canActivate || []);
+      route.canActivate = Object.assign([], route.canActivate ?? []);
       route.canActivate.push(ContextValidGuard);
     }
 

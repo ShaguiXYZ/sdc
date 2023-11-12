@@ -1,6 +1,5 @@
 package com.shagui.sdc.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.ComponentHistoricalCoverageApi;
@@ -10,11 +9,12 @@ import com.shagui.sdc.api.dto.HistoricalCoverageDTO;
 import com.shagui.sdc.service.ComponentHistoricalCoverageService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @RestController
 @Tag(name = "historical", description = "API to retirieve historical coverages")
 public class ComponentHistoricalCoverageController implements ComponentHistoricalCoverageApi {
-	@Autowired
 	private ComponentHistoricalCoverageService componentHistoricalCoverageService;
 
 	@Override

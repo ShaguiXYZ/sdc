@@ -1,6 +1,6 @@
 <div *ngIf="metricsData" class="nx-margin-y-2xs">
   <sdc-compliance-bar-card [compliance]="metricsData.compliance" [showMore]="false" [hideBorder]="true"></sdc-compliance-bar-card>
-  <article class="application-historic nx-margin-y-2xs">
+  <div class="application-historic nx-margin-y-2xs">
     <nx-accordion>
       <nx-expansion-panel (opened)="onOpenPanel()">
         <nx-expansion-panel-header>
@@ -13,11 +13,11 @@
             </header>
           </nx-expansion-panel-title>
         </nx-expansion-panel-header>
-        <section class="history-component">
-          <section class="application-graph nx-margin-top-2xs">
+        <div class="history-component">
+          <div class="application-graph nx-margin-top-2xs">
             <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }"></sdc-time-evolution-chart>
-          </section>
-          <section class="chart-ops sdc-scrollable">
+          </div>
+          <div class="chart-ops sdc-scrollable">
             <div
               class="chart-op"
               [nxTooltip]="'Tooltip.ComponentMetrics' | translate : { name: metricsData.compliance.name }"
@@ -32,14 +32,14 @@
             >
               <em class="fa-solid fa-arrows-spin"></em>
             </div>
-          </section>
-        </section>
+          </div>
+        </div>
       </nx-expansion-panel>
     </nx-accordion>
-  </article>
+  </div>
 </div>
 
-<article *ngIf="metricsData" class="application-coverages nx-margin-y-2xs">
+<div *ngIf="metricsData" class="application-coverages nx-margin-y-2xs">
   <nx-accordion>
     <nx-expansion-panel [expanded]="true">
       <nx-expansion-panel-header>
@@ -68,16 +68,16 @@
       </nx-tab-group>
     </nx-expansion-panel>
   </nx-accordion>
-</article>
+</div>
 
 <ng-template #metricsCards let-data>
   <header nxModalTitle>
     <em class="fa-solid fa-bars nx-margin-right-s" aria-hidden="true"></em>
     {{ 'Label.ComponentMetrics' | translate : { name: data.component.name } }}
   </header>
-  <section nxModalContent>
+  <div nxModalContent>
     <sdc-metrics-cards [componentId]="data.component.id"></sdc-metrics-cards>
-  </section>
+  </div>
   <footer nxModalActions>
     <button nxButton="small secondary" type="button" (click)="closeMetricsCards()" class="nx-margin-bottom-0 nx-margin-right-xs">
       {{ 'Label.Continue' | translate }}
@@ -86,7 +86,7 @@
 </ng-template>
 
 <ng-template #noData>
-  <section class="nx-margin-top-m">
+  <div class="nx-margin-top-m">
     <sdc-no-data></sdc-no-data>
-  </section>
+  </div>
 </ng-template>

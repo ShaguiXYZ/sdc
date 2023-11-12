@@ -1,11 +1,14 @@
-import { TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { UiDateService } from 'src/app/core/services';
-import { ChartConfig, ChartData } from 'src/app/shared/components/sdc-charts';
+import { SdcMetricInfoComponent, SdcNoDataComponent } from 'src/app/shared/components';
+import { SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
 import { AvailableMetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { ChartConfig, ChartData } from 'src/app/shared/models';
 import { MetricsHistoryDataModel } from './models';
 import { SdcMetricHistoryGraphsService } from './services';
 
@@ -13,7 +16,9 @@ import { SdcMetricHistoryGraphsService } from './services';
   selector: 'sdc-metric-history-graphs',
   templateUrl: './sdc-metric-history-graphs.component.html',
   styleUrls: ['./sdc-metric-history-graphs.component.scss'],
-  providers: [SdcMetricHistoryGraphsService]
+  providers: [SdcMetricHistoryGraphsService],
+  standalone: true,
+  imports: [SdcMetricInfoComponent, SdcNoDataComponent, SdcTimeEvolutionChartComponent, CommonModule, NxCopytextModule, TranslateModule]
 })
 export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   public metricsData?: MetricsHistoryDataModel;

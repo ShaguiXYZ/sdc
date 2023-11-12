@@ -22,10 +22,11 @@ import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.UrlUtils;
 
 import feign.Response;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Service(Ctes.ANALYSIS_SERVICES_TYPES.SONAR)
 public class SonarServiceImpl implements SonarService {
-	@Autowired
 	private SonarClient sonarClient;
 
 	@Override

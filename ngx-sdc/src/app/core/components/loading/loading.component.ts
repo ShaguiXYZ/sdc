@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NxDialogService, NxModalRef } from '@aposin/ng-aquila/modal';
+import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
+import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { Subscription } from 'rxjs';
 import { UiLoadingService } from './services';
 
 @Component({
   selector: 'nx-loading',
   templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss']
+  styleUrls: ['./loading.component.scss'],
+  standalone: true,
+  imports: [CommonModule, NxModalModule, NxSpinnerModule]
 })
 export class UiLoadingComponent implements OnInit, OnDestroy {
   @ViewChild('loadingBody') templateLoadingRef!: TemplateRef<any>;

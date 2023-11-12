@@ -6,11 +6,12 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
 import { UiDateService } from 'src/app/core/services';
-import { IStateCount } from 'src/app/shared/components';
+import { IStateCount } from 'src/app/shared/components/sdc-state-count/model';
 import { AvailableMetricStates } from 'src/app/shared/lib';
 import { SdcSquadSummaryComponent } from '../sdc-squad-summary.component';
 import { SdcSquadSummaryService } from '../services';
 import { SdcSquadSummaryServiceMock } from './mock/sdc-squad-summary.service.mock';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 describe('SdcSquadSummaryComponent', () => {
   let component: SdcSquadSummaryComponent;
@@ -18,8 +19,15 @@ describe('SdcSquadSummaryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcSquadSummaryComponent],
-      imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
+      imports: [
+        SdcSquadSummaryComponent,
+        HttpClientModule,
+        RouterTestingModule,
+        TranslateModule.forRoot(),
+        NgxEchartsModule.forRoot({
+          echarts: () => import('echarts')
+        })
+      ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [UiDateService, { provide: SdcSquadSummaryService, useClass: SdcSquadSummaryServiceMock }]
     })

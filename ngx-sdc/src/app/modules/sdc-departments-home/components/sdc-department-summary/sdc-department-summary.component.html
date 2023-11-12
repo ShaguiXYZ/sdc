@@ -10,22 +10,22 @@
             [size]="300"
           ></sdc-coverage-chart>
         </div>
-        <article class="summary-bar-chart">
+        <div class="summary-bar-chart">
           <header class="title">
             <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ 'Label.ComplianceState' | translate }}</h4>
           </header>
-          <section class="chart">
+          <div class="chart">
             <sdc-horizontal-bar-chart
               [name]="'Label.ComplianceState' | translate"
               [config]="chartConfig"
               [size]="{ height: 250 }"
             ></sdc-horizontal-bar-chart>
-          </section>
-        </article>
+          </div>
+        </div>
       </div>
     </nx-tab>
     <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
-      <section class="language-distribution">
+      <div class="language-distribution">
         <ng-container
           *ngIf="departmentSummaryData.languageDistribution && departmentSummaryData.languageDistribution.graph.length; else noData"
         >
@@ -34,7 +34,7 @@
             [size]="{ height: 330 }"
           ></sdc-time-evolution-multichart>
         </ng-container>
-      </section>
+      </div>
     </nx-tab>
   </nx-tab-group>
 </div>

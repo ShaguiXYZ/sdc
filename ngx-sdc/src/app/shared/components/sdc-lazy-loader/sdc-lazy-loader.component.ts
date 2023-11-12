@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { UniqueIds } from 'src/app/core/lib';
 import { GenericDataInfo } from 'src/app/core/models';
@@ -5,7 +6,9 @@ import { GenericDataInfo } from 'src/app/core/models';
 @Component({
   selector: 'sdc-lazy-loader',
   templateUrl: './sdc-lazy-loader.component.html',
-  styleUrls: ['./sdc-lazy-loader.component.scss']
+  styleUrls: ['./sdc-lazy-loader.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class SdcLazyLoaderComponent implements OnDestroy, AfterViewInit {
   @Output()

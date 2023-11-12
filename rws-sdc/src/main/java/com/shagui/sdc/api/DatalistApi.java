@@ -19,6 +19,6 @@ public interface DatalistApi {
 	List<String> availables();
 
 	@Operation(summary = "Retrieves the datalist values")
-	@GetMapping("{datalist}/values")
-	List<String> datalistValues(@PathVariable @Parameter(description = "Datalist name") String datalist);
+	@GetMapping("{datalistName}")
+	List<String> datalistValues(@PathVariable @Parameter(description = "Datalist name") String datalistName);
 }

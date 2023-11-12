@@ -15,8 +15,7 @@ describe('SdcMetricInfoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcMetricInfoComponent],
-      imports: [CommonModule],
+      imports: [SdcMetricInfoComponent, CommonModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [{ provide: AnalysisService, useClass: AnalysisServiceMock }]
     })

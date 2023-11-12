@@ -1,5 +1,5 @@
 import { IPaging } from 'src/app/core/models/sdc';
-import { IComplianceModel } from 'src/app/shared/components';
+import { IComplianceModel } from 'src/app/shared/models';
 
 export interface SdcApplicationsDataModel {
   compliances: IComplianceModel[];

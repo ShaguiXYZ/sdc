@@ -50,24 +50,23 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Value("classpath:data/departments-squads.json")
-	Resource jsonDepartmentsSquads;
+	private Resource jsonDepartmentsSquads;
 
-	@Autowired
 	private ObjectMapper mapper;
-
-	@Autowired
 	private ResourceLoader resourceLoader;
-
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 	private JpaCommonRepository<ComponentUriRepository, ComponentUriModel, ComponentUriPk> componentUriRepository;
 	private JpaCommonRepository<SquadRepository, SquadModel, Integer> squadRepository;
 	private JpaCommonRepository<DepartmentRepository, DepartmentModel, Integer> departmentRepository;
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 
-	public DataMaintenanceServiceImpl(ComponentRepository componentRepository,
+	public DataMaintenanceServiceImpl(ObjectMapper mapper, ResourceLoader resourceLoader,
+			ComponentRepository componentRepository,
 			ComponentUriRepository componentUriRepository, SquadRepository squadRepository,
 			DepartmentRepository departmentRepository,
 			ComponentTypeArchitectureRepository componentTypeArchitectureRepository) {
+		this.mapper = mapper;
+		this.resourceLoader = resourceLoader;
 		this.componentRepository = () -> componentRepository;
 		this.componentUriRepository = () -> componentUriRepository;
 		this.squadRepository = () -> squadRepository;

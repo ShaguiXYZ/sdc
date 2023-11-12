@@ -15,8 +15,7 @@ describe('SdcStateCountComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcStateCountComponent],
-      imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
+      imports: [SdcStateCountComponent, HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents()

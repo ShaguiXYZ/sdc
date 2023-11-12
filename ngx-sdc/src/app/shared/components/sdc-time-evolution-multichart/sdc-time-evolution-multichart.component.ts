@@ -1,11 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DataInfo, GenericDataInfo } from 'src/app/core/models';
-import { ChartConfig, ChartData, SdcGraphData } from '../sdc-charts';
+import { ChartConfig, ChartData, SdcGraphData } from '../../models';
+import { SdcTimeEvolutionChartComponent } from '../sdc-charts';
 
 @Component({
   selector: 'sdc-time-evolution-multichart',
   templateUrl: './sdc-time-evolution-multichart.component.html',
-  styleUrls: ['./sdc-time-evolution-multichart.component.scss']
+  styleUrls: ['./sdc-time-evolution-multichart.component.scss'],
+  standalone: true,
+  imports: [SdcTimeEvolutionChartComponent, CommonModule]
 })
 export class SdcTimeEvolutionMultichartComponent {
   public metricChartConfig: ChartConfig = { axis: {}, data: [] };

@@ -1,6 +1,5 @@
 package com.shagui.sdc.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.SquadRestApi;
@@ -10,12 +9,12 @@ import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.service.SquadService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @RestController
 @Tag(name = "squads", description = "API to maintain Squads")
 public class SquadController implements SquadRestApi {
-
-	@Autowired
 	private SquadService squadService;
 
 	@Override

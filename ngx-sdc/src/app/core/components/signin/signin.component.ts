@@ -4,8 +4,10 @@ import { Subscription } from 'rxjs';
 import { UiSecurityService } from 'src/app/core/services';
 import { UiLoadingService } from '../loading';
 import { _console } from '../../lib';
+import { CommonModule } from '@angular/common';
+import { SigninRoutingModule } from './signin-routing.module';
 
-@Component({ template: '' })
+@Component({ template: '', standalone: true, imports: [CommonModule, SigninRoutingModule] })
 export class SigninComponent implements OnInit, OnDestroy {
   private params$!: Subscription;
 

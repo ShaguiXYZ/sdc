@@ -14,7 +14,7 @@ describe('UiNotificationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UiNotificationComponent],
+      imports: [UiNotificationComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [{ provide: UiNotificationService, useClass: UiNotificationServiceMock }]
     })

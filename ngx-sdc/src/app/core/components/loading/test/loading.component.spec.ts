@@ -17,8 +17,7 @@ describe('UiLoadingComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UiLoadingComponent],
-      imports: [NxModalModule.forRoot(), TranslateModule.forRoot()],
+      imports: [UiLoadingComponent, NxModalModule.forRoot(), TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: UiLoadingService, useClass: UiLoadingServiceMock },

@@ -15,7 +15,7 @@ body {
   nx-card {
     padding: 0;
 
-    > div:first-child {
+    > div.nx-card-inner {
       padding: 16px !important;
     }
   }

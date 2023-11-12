@@ -21,6 +21,7 @@ import { SDC_HEADER_MENU } from './shared/config/menu';
 import { AppUrls, urls } from './shared/config/routing';
 import { TRANSLATE_MODULE_CONFIG } from './shared/config/translate-utils';
 import { SCHEDULER_PERIOD } from './shared/constants';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 const SdcLanguages = {
   ['enGB']: 'en-GB',
@@ -35,6 +36,9 @@ const SdcLanguages = {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
     NxGridModule,
     RouterModule,
     TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG),

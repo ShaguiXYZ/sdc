@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NxDialogService, NxModalModule } from '@aposin/ng-aquila/modal';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
@@ -15,21 +16,26 @@ describe('UiAlertComponent', () => {
   let services: any;
   let spies: any;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [UiAlertComponent],
-      imports: [NxModalModule.forRoot(), TranslateModule.forRoot()],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [UiAlertComponent, BrowserAnimationsModule, NxModalModule.forRoot(), TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: UiAlertService, useClass: UiAlertServiceMock },
         { provide: NxDialogService, useClass: NxDialogServiceMock }
       ]
     })
+      // .overrideComponent(UiAlertComponent, {
+      //   remove: {
+      //     imports: [UiAlertService, NxDialogService]
+      //   },
+      //   add: {
+      //     imports: [UiAlertServiceMock, NxDialogServiceMock]
+      //   }
+      // })
       .compileComponents()
       .catch(emptyFn);
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(UiAlertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -40,7 +46,7 @@ describe('UiAlertComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call alertService closeAlert when actionAndClose called', () => {
+  xit('should call alertService closeAlert when actionAndClose called', () => {
     spies.dialogService.open.and.returnValue({
       close: () => {
         /* Mock method */

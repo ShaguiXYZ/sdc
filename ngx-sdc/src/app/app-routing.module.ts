@@ -7,31 +7,31 @@ const routes: Routes = configContextRoutes([
   { path: AppUrls.root, redirectTo: AppUrls.squads, pathMatch: 'full' },
   {
     path: AppUrls.departments,
-    loadChildren: () => import('./modules/sdc-departments-home/sdc-departments-home.module').then(m => m.SdcDepartmentsHomeModule),
+    loadComponent: () => import('./modules/sdc-departments-home/sdc-departments-home.component').then(c => c.SdcDepartmentsHomeComponent),
     data: { animation: AppUrls.departments },
     canDeactivate: []
   },
   {
     path: AppUrls.squads,
-    loadChildren: () => import('./modules/sdc-squads-home/sdc-squads-home.module').then(m => m.SdcSquadsHomeModule),
+    loadComponent: () => import('./modules/sdc-squads-home/sdc-squads-home.component').then(c => c.SdcSquadsHomeComponent),
     data: { animation: AppUrls.squads },
     canDeactivate: []
   },
   {
     path: AppUrls.applications,
-    loadChildren: () => import('./modules/sdc-applications/sdc-applications.module').then(m => m.SdcApplicationsModule),
+    loadComponent: () => import('./modules/sdc-applications/sdc-applications.component').then(c => c.SdcApplicationsComponent),
     data: { animation: AppUrls.applications },
     canDeactivate: []
   },
   {
     path: AppUrls.metrics,
-    loadChildren: () => import('./modules/sdc-metrics/sdc-metrics.module').then(m => m.SdcMetricsModule),
+    loadComponent: () => import('./modules/sdc-metrics/sdc-metrics.component').then(c => c.SdcMetricsComponent),
     data: { animation: AppUrls.metrics },
     canDeactivate: []
   },
   {
     path: AppUrls.test,
-    loadComponent: () => import('./modules/sdc-test-page/sdc-test-page.component').then(m => m.SdcTestComponent),
+    loadComponent: () => import('./modules/sdc-test-page/sdc-test-page.component').then(c => c.SdcTestComponent),
     data: { animation: AppUrls.test },
     canDeactivate: []
   }

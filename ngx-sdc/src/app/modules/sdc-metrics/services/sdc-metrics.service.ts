@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { _console, emptyFn } from 'src/app/core/lib';
-import { AnalysisType, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
+import { IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
 import { UiContextDataService, UiDateService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
-import { IComplianceModel } from 'src/app/shared/components';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
-import { MetricsContextData, MetricsDataModel } from '../models';
+import { IComplianceModel, MetricsContextData } from 'src/app/shared/models';
+import { MetricsDataModel } from '../models';
 
 @Injectable()
 export class SdcMetricsService {

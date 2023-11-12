@@ -1,15 +1,15 @@
 <ng-template #alertBody>
-  <article nxModalContent>
+  <div nxModalContent>
     <header>
       <h3 nxHeadline="subsection-small" class="nx-modal-margin-bottom">{{ alert?.title }}</h3>
     </header>
 
-    <section class="nx-margin-bottom-2m">
+    <div class="nx-margin-bottom-2m">
       <p *ngFor="let description of alert?.desctiptions">
         <span nxCopytext>{{ description }}</span>
       </p>
-    </section>
-  </article>
+    </div>
+  </div>
 
   <footer nxModalActions>
     <button

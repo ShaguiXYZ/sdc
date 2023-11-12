@@ -5,7 +5,8 @@ import { ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants';
-import { SdcSquadsContextData, SdcSquadsDataModel } from '../models';
+import { SdcSquadsContextData } from 'src/app/shared/models';
+import { SdcSquadsDataModel } from '../models';
 
 @Injectable()
 export class SdcSquadsService {

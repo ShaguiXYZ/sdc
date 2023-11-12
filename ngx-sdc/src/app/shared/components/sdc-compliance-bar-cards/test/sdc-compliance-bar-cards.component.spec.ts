@@ -14,8 +14,7 @@ describe('SdcComplianceBarCardsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcComplianceBarCardsComponent],
-      imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
+      imports: [SdcComplianceBarCardsComponent, HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [{ provide: Location, useClass: SpyLocation }]
     })

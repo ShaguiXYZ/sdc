@@ -1,10 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IComplianceModel } from '../sdc-compliance-bar-card/models';
+import { TranslateModule } from '@ngx-translate/core';
+import { IComplianceModel } from '../../models';
+import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card/sdc-compliance-bar-card.component';
 
 @Component({
   selector: 'sdc-compliance-bar-cards',
   templateUrl: './sdc-compliance-bar-cards.component.html',
-  styleUrls: ['./sdc-compliance-bar-cards.component.scss']
+  styleUrls: ['./sdc-compliance-bar-cards.component.scss'],
+  standalone: true,
+  imports: [CommonModule, SdcComplianceBarCardComponent, TranslateModule]
 })
 export class SdcComplianceBarCardsComponent {
   @Input()

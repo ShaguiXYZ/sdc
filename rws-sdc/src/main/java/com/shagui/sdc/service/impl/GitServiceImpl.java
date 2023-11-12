@@ -19,7 +19,6 @@ import com.shagui.sdc.util.git.lib.GitLib;
 
 @Service(Ctes.ANALYSIS_SERVICES_TYPES.GIT)
 public class GitServiceImpl implements GitService {
-
 	@Override
 	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
 		List<ComponentAnalysisModel> analysisList = new ArrayList<>();

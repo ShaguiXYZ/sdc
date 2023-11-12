@@ -5,29 +5,23 @@ import { IPageable, ISquadModel } from 'src/app/core/models/sdc';
 import { UiContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
-import { IComplianceModel } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricState, styleByName } from 'src/app/shared/lib';
-import {
-  ApplicationsContextData,
-  ApplicationsFilter,
-  SdcApplicationsCoverage,
-  SdcApplicationsDataModel,
-  SdcCoverageRange
-} from '../models';
+import { ApplicationsContextData, ApplicationsFilter, IComplianceModel } from 'src/app/shared/models';
+import { SdcApplicationsCoverage, SdcApplicationsDataModel, SdcCoverageRange } from '../models';
 
 @Injectable()
 export class SdcApplicationsService {
   public contextData?: ApplicationsContextData;
 
-  private subject$: Subject<SdcApplicationsDataModel>;
+  private data$: Subject<SdcApplicationsDataModel>;
 
   constructor(
     private contextDataService: UiContextDataService,
     private componetService: ComponentService,
     private squadService: SquadService
   ) {
-    this.subject$ = new Subject();
+    this.data$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.APPLICATIONS_DATA);
 
     this.squadData(
@@ -44,7 +38,7 @@ export class SdcApplicationsService {
   }
 
   public onDataChange(): Observable<SdcApplicationsDataModel> {
-    return this.subject$.asObservable();
+    return this.data$.asObservable();
   }
 
   public availableSquads(): Promise<IPageable<ISquadModel>> {
@@ -75,7 +69,7 @@ export class SdcApplicationsService {
           { persistent: true }
         );
 
-        this.subject$.next({
+        this.data$.next({
           squadId,
           name,
           coverage,

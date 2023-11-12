@@ -1,4 +1,4 @@
-<article *ngFor="let notification of notifications; let i = index" class="message-content">
+<div *ngFor="let notification of notifications; let i = index" class="message-content">
   <nx-message closable="{{ notification.closable }}" [context]="notification.type" (close)="close(notification.id)">
     <strong>
       {{ notification.title }}
@@ -16,4 +16,4 @@
       {{ notification.button.text }}
     </button>
   </nx-message>
-</article>
+</div>

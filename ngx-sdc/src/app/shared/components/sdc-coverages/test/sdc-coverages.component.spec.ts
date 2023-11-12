@@ -15,8 +15,7 @@ describe('SdcCoveragesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcCoveragesComponent],
-      imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
+      imports: [SdcCoveragesComponent, HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [{ provide: Location, useClass: SpyLocation }]
     })

@@ -1,11 +1,15 @@
-import { TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { NxTabsModule } from '@aposin/ng-aquila/tabs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { ChartConfig } from 'src/app/shared/components/sdc-charts';
+import { SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
+import { SdcCoverageChartComponent, SdcHorizontalBarChartComponent } from 'src/app/shared/components/sdc-charts';
 import { BACKGROUND_DEPARTMENT_COLOR } from 'src/app/shared/constants';
 import { AvailableMetricStates, MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { ChartConfig } from 'src/app/shared/models';
 import { DepartmentSummaryModel } from './models';
 import { SdcDepartmentSummaryService } from './services';
 
@@ -13,7 +17,18 @@ import { SdcDepartmentSummaryService } from './services';
   selector: 'sdc-department-summary',
   templateUrl: './sdc-department-summary.component.html',
   styleUrls: ['./sdc-department-summary.component.scss'],
-  providers: [SdcDepartmentSummaryService, TitleCasePipe]
+  providers: [SdcDepartmentSummaryService, TitleCasePipe],
+  standalone: true,
+  imports: [
+    SdcCoverageChartComponent,
+    SdcHorizontalBarChartComponent,
+    SdcNoDataComponent,
+    SdcTimeEvolutionMultichartComponent,
+    CommonModule,
+    NxHeadlineModule,
+    NxTabsModule,
+    TranslateModule
+  ]
 })
 export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
   public readonly BACKGROUND_DEPARTMENT_COLOR = BACKGROUND_DEPARTMENT_COLOR;

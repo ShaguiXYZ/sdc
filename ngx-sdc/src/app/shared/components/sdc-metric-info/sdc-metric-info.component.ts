@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { hasValue } from 'src/app/core/lib';
 import { IMetricAnalysisModel, iconByType } from 'src/app/core/models/sdc';
@@ -6,7 +7,9 @@ import { AvailableMetricStates, stateByCoverage, styleByCoverage } from '../../l
 @Component({
   selector: 'sdc-metric-info',
   templateUrl: './sdc-metric-info.component.html',
-  styleUrls: ['./sdc-metric-info.component.scss']
+  styleUrls: ['./sdc-metric-info.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class SdcMetricInfoComponent {
   @Input()

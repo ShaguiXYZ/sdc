@@ -1,11 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { TranslateModule } from '@ngx-translate/core';
 import { MetricConfig, MetricState, styleByMetricState } from '../../lib';
 import { IStateCount } from './model';
 
 @Component({
   selector: 'sdc-state-count',
   templateUrl: './sdc-state-count.component.html',
-  styleUrls: ['./sdc-state-count.component.scss']
+  styleUrls: ['./sdc-state-count.component.scss'],
+  standalone: true,
+  imports: [CommonModule, NxLinkModule, TranslateModule]
 })
 export class SdcStateCountComponent implements OnInit {
   @Input()

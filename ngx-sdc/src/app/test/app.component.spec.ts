@@ -1,16 +1,14 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { AppComponent } from '../app.component';
-import { UiAlertModule } from '../core/components/alert/alert.module';
-import { UiLoadingModule } from '../core/components/loading/loading.module';
-import { UiNotificationModule } from '../core/components/notification/notification.module';
+import { UiAlertComponent, UiLoadingComponent, UiNotificationComponent } from '../core/components';
 import { TranslateServiceMock } from '../core/mock/services';
 import { UiStorageServiceMock } from '../core/mock/services/storage-service.mock';
 import { UiStorageService } from '../core/services/context-data';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
   let services: any;
@@ -20,7 +18,14 @@ describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
-      imports: [BrowserAnimationsModule, HttpClientModule, RouterTestingModule, UiLoadingModule, UiAlertModule, UiNotificationModule],
+      imports: [
+        UiAlertComponent,
+        UiLoadingComponent,
+        UiNotificationComponent,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        RouterTestingModule
+      ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: TranslateService, useClass: TranslateServiceMock },

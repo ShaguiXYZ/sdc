@@ -22,7 +22,6 @@ import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 @Service
 public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoricalCoverageService {
-
 	private JpaCommonRepository<ComponentHistoricalCoverageRepository, ComponentHistoricalCoverageModel, ComponentHistoricalCoveragePk> componentHistoricalCoverageRepository;
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 

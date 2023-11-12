@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ValueType } from 'src/app/core/models/sdc';
-import { UiDateService } from 'src/app/core/services';
-import { AnalysisService } from 'src/app/core/services/sdc';
-import { SdcTimeEvolutionMultichartModule } from 'src/app/shared/components';
-import { SdcGraphData } from 'src/app/shared/components/sdc-charts';
+import { SdcComponentFormComponent } from 'src/app/shared/components/sdc-forms/sdc-component-form';
 import { SdcTestRoutingModule } from './sdc-test-page-routing.module';
 
 @Component({
@@ -11,22 +7,10 @@ import { SdcTestRoutingModule } from './sdc-test-page-routing.module';
   templateUrl: './sdc-test-page.component.html',
   styleUrls: ['./sdc-test-page.component.scss'],
   standalone: true,
-  imports: [SdcTestRoutingModule, SdcTimeEvolutionMultichartModule]
+  imports: [SdcTestRoutingModule, SdcComponentFormComponent]
 })
 export class SdcTestComponent implements OnInit {
-  public data: SdcGraphData = { graph: [], type: ValueType.NUMERIC };
+  constructor() {}
 
-  constructor(private readonly analysisService: AnalysisService, private readonly dateService: UiDateService) {}
-
-  ngOnInit(): void {
-    this.analysisService.metricHistory(2, 31).then(data => {
-      this.data = {
-        graph: data.page.map(analysis => ({
-          axis: this.dateService.dateFormat(analysis.analysisDate),
-          data: analysis.analysisValues.metricValue
-        })),
-        type: this.data.type && ValueType.NUMERIC
-      };
-    });
-  }
+  ngOnInit(): void {}
 }

@@ -1,4 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NxButtonModule } from '@aposin/ng-aquila/button';
+import { NxIconModule } from '@aposin/ng-aquila/icon';
+import { NxMessageModule } from '@aposin/ng-aquila/message';
 import { Subscription } from 'rxjs';
 import { NotificationModel } from './models';
 import { UiNotificationService } from './services';
@@ -6,7 +10,9 @@ import { UiNotificationService } from './services';
 @Component({
   selector: 'nx-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  styleUrls: ['./notification.component.scss'],
+  standalone: true,
+  imports: [CommonModule, NxButtonModule, NxMessageModule, NxIconModule]
 })
 export class UiNotificationComponent implements OnInit, OnDestroy {
   public notifications: NotificationModel[] = [];
