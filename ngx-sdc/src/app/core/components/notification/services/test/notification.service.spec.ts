@@ -1,18 +1,18 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { UiNotificationService } from '../notification.service';
+import { NotificationService } from '../notification.service';
 
-describe(`UiNotificationService`, () => {
+describe('NotificationService', () => {
   let service: any;
   let spies: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [UiNotificationService]
+      providers: [NotificationService]
     });
 
-    service = TestBed.inject(UiNotificationService);
+    service = TestBed.inject(NotificationService);
     initSpies();
   });
 

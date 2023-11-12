@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UiContextDataService } from './context-data.service';
+import { ContextDataService } from './context-data.service';
 import { IContextData, storageKey } from './models';
 import { _console } from '../../lib';
 
@@ -9,8 +9,8 @@ import { _console } from '../../lib';
 @Injectable({
   providedIn: 'root'
 })
-export class UiStorageService {
-  constructor(private contextData: UiContextDataService) {}
+export class StorageService {
+  constructor(private contextData: ContextDataService) {}
 
   public create(key: string): void {
     const name = storageKey(key);

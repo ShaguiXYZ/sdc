@@ -6,7 +6,7 @@ import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ICoverageModel, ISquadModel } from 'src/app/core/models/sdc';
-import { UiContextDataService } from 'src/app/core/services';
+import { ContextDataService } from 'src/app/core/services';
 import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
 import { IStateCount } from 'src/app/shared/components/sdc-state-count/model';
 import { AppUrls } from 'src/app/shared/config/routing';
@@ -42,7 +42,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly router: Router,
-    private readonly contextDataService: UiContextDataService,
+    private readonly contextDataService: ContextDataService,
     private readonly sdcSummaryService: SdcSquadsService
   ) {}
 

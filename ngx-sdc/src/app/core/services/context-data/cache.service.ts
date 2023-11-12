@@ -1,9 +1,9 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { Observable, firstValueFrom, of, take } from 'rxjs';
 import { emptyFn, hasValue, _console } from '../../lib';
-import { UiSchedulerService } from '../task-scheduler';
+import { SchedulerService } from '../task-scheduler';
 import { MIN_CACHE_SCHEDULER_PERIOD, NX_CONTEX_CONFIG } from './constatnts';
-import { UiContextDataService } from './context-data.service';
+import { ContextDataService } from './context-data.service';
 import { ContextConfig } from './models';
 
 /**
@@ -12,14 +12,14 @@ import { ContextConfig } from './models';
 @Injectable({
   providedIn: 'root'
 })
-export class UiCacheService implements OnDestroy {
+export class CacheService implements OnDestroy {
   private schedukerId!: string;
   private schedulerPeriod!: number;
 
   constructor(
     @Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig,
-    private contextData: UiContextDataService,
-    private scheduleroService: UiSchedulerService
+    private contextData: ContextDataService,
+    private scheduleroService: SchedulerService
   ) {
     this.schedulerPeriod =
       contextConfig?.cache?.schedulerPeriod && contextConfig.cache.schedulerPeriod > MIN_CACHE_SCHEDULER_PERIOD

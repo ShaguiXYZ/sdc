@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UiCacheService, UiHttpService } from '..';
+import { CacheService, HttpService } from '..';
 import { hasValue, sortCoverageData } from '../../lib';
 import { IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
 import { HttpStatus } from '../http';
@@ -11,7 +11,7 @@ import { S_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
 export class SquadService {
   private _urlSquads = `${environment.baseUrl}/api`;
 
-  constructor(private cache: UiCacheService, private http: UiHttpService) {}
+  constructor(private cache: CacheService, private http: HttpService) {}
 
   public squads(department?: IDepartmentModel): Promise<IPageable<ISquadModel>> {
     return firstValueFrom(

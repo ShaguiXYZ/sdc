@@ -1,7 +1,7 @@
 export enum StateColors {
-  CRITICAL = '#EE4266',
-  RISK = '#EFBE25',
-  ACCEPTABLE = '#1E8927',
+  CRITICAL = '#dc3149',
+  RISK = '#efbe25',
+  ACCEPTABLE = '#1e8927',
   PERFECT = '#006192'
 }
 

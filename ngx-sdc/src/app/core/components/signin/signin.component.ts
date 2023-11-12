@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UiSecurityService } from 'src/app/core/services';
-import { UiLoadingService } from '../loading';
+import { SecurityService } from 'src/app/core/services';
+import { LoadingService } from '../loading';
 import { _console } from '../../lib';
 import { CommonModule } from '@angular/common';
 import { SigninRoutingModule } from './signin-routing.module';
@@ -14,8 +14,8 @@ export class SigninComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private loadingService: UiLoadingService,
-    private securityService: UiSecurityService
+    private loadingService: LoadingService,
+    private securityService: SecurityService
   ) {}
 
   ngOnInit(): void {

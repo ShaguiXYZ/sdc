@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { UiContextDataService } from 'src/app/core/services';
+import { ContextDataService } from 'src/app/core/services';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcSquadsContextData } from 'src/app/shared/models';
@@ -40,7 +40,7 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly router: Router,
-    private readonly contextDataService: UiContextDataService,
+    private readonly contextDataService: ContextDataService,
     private readonly sdcDepartmentService: SdcDepartmentsService
   ) {}
 

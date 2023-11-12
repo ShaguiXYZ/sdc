@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
-import { UiContextDataService, UiStorageService } from './core/services';
+import { ContextDataService, StorageService } from './core/services';
 import { routingAnimation } from './shared/animations';
 import { ContextDataInfo } from './shared/constants';
 import { AppConfig } from './shared/models';
@@ -15,8 +15,8 @@ import { AppConfig } from './shared/models';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private readonly contextDataService: UiContextDataService,
-    private readonly storageService: UiStorageService,
+    private readonly contextDataService: ContextDataService,
+    private readonly storageService: StorageService,
     private readonly title: Title
   ) {}
 

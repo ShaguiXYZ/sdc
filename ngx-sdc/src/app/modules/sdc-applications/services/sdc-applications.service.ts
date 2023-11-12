@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
 import { _console } from 'src/app/core/lib';
 import { IPageable, ISquadModel } from 'src/app/core/models/sdc';
-import { UiContextDataService } from 'src/app/core/services';
+import { ContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants';
@@ -17,7 +17,7 @@ export class SdcApplicationsService {
   private data$: Subject<SdcApplicationsDataModel>;
 
   constructor(
-    private contextDataService: UiContextDataService,
+    private contextDataService: ContextDataService,
     private componetService: ComponentService,
     private squadService: SquadService
   ) {

@@ -7,7 +7,7 @@ import { ButtonModel, MessageModal, TypeButton } from 'src/app/core/models';
 @Injectable({
   providedIn: 'root'
 })
-export class UiAlertService {
+export class AlertService {
   private alert$ = new Subject<AlertModel | undefined>();
 
   constructor(private translateService: TranslateService) {}

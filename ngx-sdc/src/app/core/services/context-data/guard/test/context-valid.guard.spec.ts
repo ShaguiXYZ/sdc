@@ -1,13 +1,13 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { UiNotificationService } from 'src/app/core/components/notification';
+import { NotificationService } from 'src/app/core/components/notification';
 import { ContextConfigMock } from 'src/app/core/mock/model/context-config.mock';
 import { RouterMock } from 'src/app/core/mock/router.mock';
-import { TranslateServiceMock, UiContextDataServiceMock } from 'src/app/core/mock/services';
+import { TranslateServiceMock, ContextDataServiceMock } from 'src/app/core/mock/services';
 import { NotificationServiceMock } from 'src/app/core/mock/services/notification-service.mock';
 import { NX_CONTEX_CONFIG } from '../../constatnts';
-import { UiContextDataService } from '../../context-data.service';
+import { ContextDataService } from '../../context-data.service';
 import { ContextValidGuard } from '../context-valid.guard';
 
 describe('ContextValidGuard', () => {
@@ -17,8 +17,8 @@ describe('ContextValidGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: Router, useClass: RouterMock },
-        { provide: UiContextDataService, useClass: UiContextDataServiceMock },
-        { provide: UiNotificationService, useClass: NotificationServiceMock },
+        { provide: ContextDataService, useClass: ContextDataServiceMock },
+        { provide: NotificationService, useClass: NotificationServiceMock },
         { provide: TranslateService, useClass: TranslateServiceMock },
         { provide: NX_CONTEX_CONFIG, useClass: ContextConfigMock }
       ]

@@ -1,7 +1,7 @@
 import { GenericDataInfo } from '../../models';
 import { CacheData } from '../../services/context-data';
 
-export class UiContextDataServiceMock {
+export class ContextDataServiceMock {
   cache: GenericDataInfo<CacheData> = {};
 
   set() {

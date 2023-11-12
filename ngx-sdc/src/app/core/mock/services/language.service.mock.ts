@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-export class UiLanguageServiceMock {
+export class LanguageServiceMock {
   public i18n(key: string): void {
     /* Mocked Functionality */
   }

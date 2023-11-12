@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { _console, filterByProperties } from 'src/app/core/lib';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { UiContextDataService } from 'src/app/core/services';
+import { ContextDataService } from 'src/app/core/services';
 import { DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcDepartmentsContextData } from 'src/app/shared/models';
@@ -14,7 +14,7 @@ export class SdcDepartmentsService {
   private data$: Subject<Partial<SdcDepartmentsDataModel>>;
 
   constructor(
-    private contextDataService: UiContextDataService,
+    private contextDataService: ContextDataService,
     private departmentService: DepartmentService,
     private squadService: SquadService
   ) {

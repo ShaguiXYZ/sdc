@@ -3,8 +3,8 @@ import { firstValueFrom, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { contextStorageID } from '../context-data';
-import { UiContextDataService } from '../context-data/context-data.service';
-import { HttpStatus, UiHttpService } from '../http';
+import { ContextDataService } from '../context-data/context-data.service';
+import { HttpStatus, HttpService } from '../http';
 import { CONTEXT_SECURITY_KEY } from './constants';
 import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISecurityModel, ISessionModel, IUserDTO, IUserModel } from './models';
 import { _console } from '../../lib';
@@ -13,11 +13,11 @@ import { SecurityError } from '../../errors';
 @Injectable({
   providedIn: 'root'
 })
-export class UiSecurityService {
+export class SecurityService {
   private _urlSecurity = `${environment.securityUrl}/bff-security/api`;
   private signIn$: Subject<ISessionModel> = new Subject();
 
-  constructor(private contextData: UiContextDataService, private http: UiHttpService) {}
+  constructor(private contextData: ContextDataService, private http: HttpService) {}
 
   public get session(): ISessionModel {
     return this.securityInfo()?.session;

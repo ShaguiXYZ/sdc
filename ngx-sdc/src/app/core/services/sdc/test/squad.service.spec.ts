@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { IPageable, ISquadDTO } from 'src/app/core/models/sdc';
 import { SquadService } from '../squad.service';
-import { UiHttpService } from '../../http';
+import { HttpService } from '../../http';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 
 const pageSquad: IPageable<ISquadDTO> = {
@@ -17,7 +17,7 @@ let spies: any;
 describe('SquadService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: UiHttpService, useClass: HttpServiceMock }]
+      providers: [{ provide: HttpService, useClass: HttpServiceMock }]
     });
     service = TestBed.inject(SquadService);
     initServices();
@@ -35,7 +35,7 @@ describe('SquadService', () => {
 
   const initServices = () => {
     services = {
-      http: TestBed.inject(UiHttpService)
+      http: TestBed.inject(HttpService)
     };
     initSpies();
   };

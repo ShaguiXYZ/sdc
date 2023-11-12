@@ -1,13 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { UiContextDataService } from '../..';
+import { ContextDataService } from '../..';
 import { CONTEXT_SECURITY_KEY } from '../constants';
 import { ISecurityModel } from '../models';
-import { UiSecurityService } from '../security.service';
+import { SecurityService } from '../security.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard {
-  constructor(private securityService: UiSecurityService, private contextData: UiContextDataService) {}
+  constructor(private securityService: SecurityService, private contextData: ContextDataService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const securityInfo = this.contextData.get(CONTEXT_SECURITY_KEY);

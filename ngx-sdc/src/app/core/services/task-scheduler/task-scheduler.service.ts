@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UniqueIds, _console } from '../../lib';
-import { UiTaskScheduler } from './model';
+import { TaskScheduler } from './model';
 
 interface SchedulerSubscription {
   schedulerId: string;
@@ -12,11 +12,11 @@ interface SchedulerSubscription {
 @Injectable({
   providedIn: 'root'
 })
-export class UiSchedulerService {
+export class SchedulerService {
   /**
    * <schedulerId, task scheduler>
    */
-  private schedulers: Map<string, UiTaskScheduler<any>>;
+  private schedulers: Map<string, TaskScheduler<any>>;
   /**
    * <subscriptionId, <schedulerId, subscription>>
    */
@@ -43,7 +43,7 @@ export class UiSchedulerService {
       this.finish(id);
     }
 
-    this.schedulers.set(id, new UiTaskScheduler<D>(task, period));
+    this.schedulers.set(id, new TaskScheduler<D>(task, period));
 
     _console.log(`Scheduler ${id} created...`, this);
 

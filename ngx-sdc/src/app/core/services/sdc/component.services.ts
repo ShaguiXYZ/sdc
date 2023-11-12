@@ -5,15 +5,15 @@ import { environment } from 'src/environments/environment';
 import { deepCopy, hasValue, sortCoverageData } from '../../lib';
 import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
-import { UiCacheService } from '../context-data';
-import { ELEMENTS_BY_PAGE, HttpStatus, UiHttpService } from '../http';
+import { CacheService } from '../context-data';
+import { ELEMENTS_BY_PAGE, HttpStatus, HttpService } from '../http';
 import { XS_EXPIRATON_TIME, _COMPONENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class ComponentService {
   private _urlComponents = `${environment.baseUrl}/api`;
 
-  constructor(private cache: UiCacheService, private http: UiHttpService) {}
+  constructor(private cache: CacheService, private http: HttpService) {}
 
   public component(componentId: number): Promise<IComponentModel> {
     return firstValueFrom(

@@ -1,80 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { TranslateServiceMock } from 'src/app/core/mock/services';
+import { AlertComponent } from '../alert.component';
 
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NxDialogService, NxModalModule } from '@aposin/ng-aquila/modal';
-import { TranslateModule } from '@ngx-translate/core';
-import { emptyFn } from 'src/app/core/lib';
-import { NxDialogServiceMock } from '../../../mock/services/dialog-service.mock';
-import { UiAlertComponent } from '../alert.component';
-import { UiAlertService } from '../services';
-import { UiAlertServiceMock } from './services/alert-service.mock';
-
-describe('UiAlertComponent', () => {
-  let component: UiAlertComponent;
-  let fixture: ComponentFixture<UiAlertComponent>;
-  let services: any;
-  let spies: any;
+describe('AlertComponent', () => {
+  let component: AlertComponent;
+  let fixture: ComponentFixture<AlertComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiAlertComponent, BrowserAnimationsModule, NxModalModule.forRoot(), TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [
-        { provide: UiAlertService, useClass: UiAlertServiceMock },
-        { provide: NxDialogService, useClass: NxDialogServiceMock }
-      ]
-    })
-      // .overrideComponent(UiAlertComponent, {
-      //   remove: {
-      //     imports: [UiAlertService, NxDialogService]
-      //   },
-      //   add: {
-      //     imports: [UiAlertServiceMock, NxDialogServiceMock]
-      //   }
-      // })
-      .compileComponents()
-      .catch(emptyFn);
-
-    fixture = TestBed.createComponent(UiAlertComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    initServices();
+      imports: [AlertComponent],
+      providers: [{ provide: TranslateService, useClass: TranslateServiceMock }]
+    }).compileComponents();
   });
 
-  it('should create the sdc alert component', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AlertComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should call alertService closeAlert when actionAndClose called', () => {
-    spies.dialogService.open.and.returnValue({
-      close: () => {
-        /* Mock method */
-      }
-    });
-    component.openDetailsModal();
-    component.actionAndClose(() => {
-      /* Mock method */
-    });
-    expect(spies.alertService.closeAlert).toHaveBeenCalled();
+  it('should have alertSubscription property', () => {
+    expect(component.alertSubscription).toBeDefined();
   });
 
-  const initServices = () => {
-    services = {
-      alertService: TestBed.inject(UiAlertService),
-      dialogService: TestBed.inject(NxDialogService)
-    };
-    initSpies();
-  };
-
-  const initSpies = () => {
-    spies = {
-      alertService: {
-        closeAlert: spyOn(services.alertService, 'closeAlert')
-      },
-      dialogService: {
-        open: spyOn(services.dialogService, 'open')
-      }
-    };
-  };
+  it('should have alertSubscription property of type Subscription', () => {
+    expect(component.alertSubscription instanceof Subscription).toBeTrue();
+  });
 });

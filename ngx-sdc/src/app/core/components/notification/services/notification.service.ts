@@ -5,7 +5,7 @@ import { NotificationModel, NotificationType } from '../models';
 @Injectable({
   providedIn: 'root'
 })
-export class UiNotificationService {
+export class NotificationService {
   private notification$ = new Subject<NotificationModel>();
   private closeNotification$ = new Subject<string>();
 

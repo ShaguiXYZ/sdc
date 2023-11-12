@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { DepartmentServiceMock } from 'src/app/core/mock/services/sdc/department-service.mock';
 import { SquadServiceMock } from 'src/app/core/mock/services/sdc/squad-service.mock';
 import { IDepartmentModel, IPageable, ISquadModel } from 'src/app/core/models/sdc';
-import { UiContextDataService } from 'src/app/core/services';
+import { ContextDataService } from 'src/app/core/services';
 import { DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { SdcDepartmentsService } from '../sdc-departments-home.service';
-import { ContextDataServiceMock } from './mock/context-data-service.mock';
+import { DepartmentContextDataServiceMock } from './mock/context-data-service.mock';
 
 describe(`SdcDepartmentsService`, () => {
   let service: any;
@@ -26,7 +26,7 @@ describe(`SdcDepartmentsService`, () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         SdcDepartmentsService,
-        { provide: UiContextDataService, useClass: ContextDataServiceMock },
+        { provide: ContextDataService, useClass: DepartmentContextDataServiceMock },
         { provide: DepartmentService, useClass: DepartmentServiceMock },
         { provide: SquadService, useClass: SquadServiceMock }
       ]
@@ -74,7 +74,7 @@ describe(`SdcDepartmentsService`, () => {
 
   const initServices = () => {
     services = {
-      contextDataService: TestBed.inject(UiContextDataService),
+      contextDataService: TestBed.inject(ContextDataService),
       departmentService: TestBed.inject(DepartmentService),
       squadService: TestBed.inject(SquadService)
     };

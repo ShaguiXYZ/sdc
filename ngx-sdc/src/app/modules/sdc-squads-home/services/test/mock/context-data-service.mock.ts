@@ -1,6 +1,6 @@
-import { UiContextDataServiceMock } from 'src/app/core/mock/services';
+import { ContextDataServiceMock } from 'src/app/core/mock/services';
 
-export class ContextDataServiceMock extends UiContextDataServiceMock {
+export class SquadContextDataServiceMock extends ContextDataServiceMock {
   override get() {
     return { squads: undefined };
   }

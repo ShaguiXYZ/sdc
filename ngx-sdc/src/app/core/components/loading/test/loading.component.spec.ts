@@ -5,22 +5,22 @@ import { NxDialogService, NxModalModule } from '@aposin/ng-aquila/modal';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
 import { NxDialogServiceMock } from 'src/app/core/mock/services/dialog-service.mock';
-import { UiLoadingComponent } from '../loading.component';
-import { UiLoadingService } from '../services';
-import { UiLoadingServiceMock } from './service/loading-service.mock';
+import { LoadingComponent } from '../loading.component';
+import { LoadingService } from '../services';
+import { LoadingServiceMock } from './service/loading-service.mock';
 
-describe('UiLoadingComponent', () => {
-  let component: UiLoadingComponent;
-  let fixture: ComponentFixture<UiLoadingComponent>;
+describe('LoadingComponent', () => {
+  let component: LoadingComponent;
+  let fixture: ComponentFixture<LoadingComponent>;
   let services: any;
   let spies: any;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [UiLoadingComponent, NxModalModule.forRoot(), TranslateModule.forRoot()],
+      imports: [LoadingComponent, NxModalModule.forRoot(), TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: UiLoadingService, useClass: UiLoadingServiceMock },
+        { provide: LoadingService, useClass: LoadingServiceMock },
         { provide: NxDialogService, useClass: NxDialogServiceMock }
       ]
     })
@@ -29,7 +29,7 @@ describe('UiLoadingComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UiLoadingComponent);
+    fixture = TestBed.createComponent(LoadingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     initServices();
@@ -38,7 +38,7 @@ describe('UiLoadingComponent', () => {
   const initServices = () => {
     services = {
       dialogService: TestBed.inject(NxDialogService),
-      loadingService: TestBed.inject(UiLoadingService)
+      loadingService: TestBed.inject(LoadingService)
     };
 
     initSpies();

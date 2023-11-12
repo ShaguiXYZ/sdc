@@ -3,15 +3,15 @@ import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { hasValue, sortCoverageData } from '../../lib';
 import { IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
-import { UiCacheService } from '../context-data';
-import { HttpStatus, UiHttpService } from '../http';
+import { CacheService } from '../context-data';
+import { HttpStatus, HttpService } from '../http';
 import { L_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class DepartmentService {
   private _urlDepartments = `${environment.baseUrl}/api`;
 
-  constructor(private cache: UiCacheService, private http: UiHttpService) {}
+  constructor(private cache: CacheService, private http: HttpService) {}
 
   public departments(): Promise<IPageable<IDepartmentModel>> {
     return firstValueFrom(

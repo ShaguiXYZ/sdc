@@ -1,4 +1,4 @@
-export class UiStorageServiceMock {
+export class StorageServiceMock {
   retrieve() {
     /* Mock method */
   }

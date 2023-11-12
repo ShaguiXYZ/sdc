@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
-import { UiDateService } from 'src/app/core/services';
+import { DateService } from 'src/app/core/services';
 import { IStateCount } from 'src/app/shared/components/sdc-state-count/model';
 import { AvailableMetricStates } from 'src/app/shared/lib';
 import { SdcSquadSummaryComponent } from '../sdc-squad-summary.component';
@@ -29,7 +29,7 @@ describe('SdcSquadSummaryComponent', () => {
         })
       ],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [UiDateService, { provide: SdcSquadSummaryService, useClass: SdcSquadSummaryServiceMock }]
+      providers: [DateService, { provide: SdcSquadSummaryService, useClass: SdcSquadSummaryServiceMock }]
     })
       .compileComponents()
       .catch(emptyFn);

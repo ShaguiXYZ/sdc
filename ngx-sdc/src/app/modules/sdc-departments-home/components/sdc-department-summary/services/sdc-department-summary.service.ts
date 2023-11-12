@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { emptyFn } from 'src/app/core/lib';
 import { AnalysisType, ValueType } from 'src/app/core/models/sdc';
-import { UiDateService } from 'src/app/core/services';
+import { DateService } from 'src/app/core/services';
 import { AnalysisService } from 'src/app/core/services/sdc';
 import { LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
 import { DepartmentSummaryModel } from '../models';
@@ -12,7 +12,7 @@ export class SdcDepartmentSummaryService {
   private tabActions: { fn: (param?: any) => void }[] = [];
   private data$: Subject<Partial<DepartmentSummaryModel>>;
 
-  constructor(private readonly analysisService: AnalysisService, private readonly dateService: UiDateService) {
+  constructor(private readonly analysisService: AnalysisService, private readonly dateService: DateService) {
     this.data$ = new Subject();
     this.tabActions = [{ fn: emptyFn }, { fn: this.languageDistribution }];
   }

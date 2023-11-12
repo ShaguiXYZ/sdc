@@ -3,24 +3,24 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of, take } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { UiLoadingService } from '../../components/loading/services';
+import { LoadingService } from '../../components/loading/services';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS } from '../../components/notification';
-import { UiNotificationService } from '../../components/notification/services';
+import { NotificationService } from '../../components/notification/services';
 import { GenericDataInfo, MessageModal } from '../../models';
-import { UiCacheService } from '../context-data';
+import { CacheService } from '../context-data';
 import { HttpStatus } from './constants';
 import { CacheRequestOptions, RequestOptions } from './models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UiHttpService {
+export class HttpService {
   constructor(
     private http: HttpClient,
     private translateService: TranslateService,
-    private cache: UiCacheService,
-    private loadingService: UiLoadingService,
-    private notificationService: UiNotificationService
+    private cache: CacheService,
+    private loadingService: LoadingService,
+    private notificationService: NotificationService
   ) {}
 
   public get<T>(url: string, requestOptions?: CacheRequestOptions): Observable<T | HttpEvent<T>> {

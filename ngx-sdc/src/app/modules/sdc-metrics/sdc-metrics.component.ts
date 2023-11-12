@@ -7,10 +7,10 @@ import { NxTabsModule } from '@aposin/ng-aquila/tabs';
 import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { UiAlertService } from 'src/app/core/components/alert';
+import { AlertService } from 'src/app/core/components/alert';
 import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
-import { UiContextDataService, UiDateService } from 'src/app/core/services';
+import { ContextDataService, DateService } from 'src/app/core/services';
 import {
   SdcComplianceBarCardComponent,
   SdcMetricInfoComponent,
@@ -61,9 +61,9 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
   private metricsCardsDialogRef?: NxModalRef<SdcMetricsCardsComponent>;
 
   constructor(
-    private readonly alertService: UiAlertService,
-    private readonly contextDataService: UiContextDataService,
-    private readonly dateService: UiDateService,
+    private readonly alertService: AlertService,
+    private readonly contextDataService: ContextDataService,
+    private readonly dateService: DateService,
     private readonly dialogService: NxDialogService,
     private readonly sdcMetricsService: SdcMetricsService
   ) {}

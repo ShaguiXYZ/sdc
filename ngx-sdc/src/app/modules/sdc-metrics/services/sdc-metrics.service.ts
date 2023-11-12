@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { _console, emptyFn } from 'src/app/core/lib';
 import { IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
-import { UiContextDataService, UiDateService } from 'src/app/core/services';
+import { ContextDataService, DateService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
 import { IComplianceModel, MetricsContextData } from 'src/app/shared/models';
@@ -16,10 +16,10 @@ export class SdcMetricsService {
   private tabActions: { fn: () => void }[] = [];
 
   constructor(
-    private readonly contextDataService: UiContextDataService,
+    private readonly contextDataService: ContextDataService,
     private readonly analysisService: AnalysisService,
     private readonly componentService: ComponentService,
-    private readonly dateService: UiDateService,
+    private readonly dateService: DateService,
     private readonly departmentService: DepartmentService,
     private readonly squadService: SquadService
   ) {

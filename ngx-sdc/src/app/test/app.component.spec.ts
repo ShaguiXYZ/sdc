@@ -5,10 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { AppComponent } from '../app.component';
-import { UiAlertComponent, UiLoadingComponent, UiNotificationComponent } from '../core/components';
+import { AlertComponent, LoadingComponent, NotificationComponent } from '../core/components';
 import { TranslateServiceMock } from '../core/mock/services';
-import { UiStorageServiceMock } from '../core/mock/services/storage-service.mock';
-import { UiStorageService } from '../core/services/context-data';
+import { StorageServiceMock } from '../core/mock/services/storage-service.mock';
+import { StorageService } from '../core/services/context-data';
 
 describe('AppComponent', () => {
   let services: any;
@@ -18,18 +18,11 @@ describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
-      imports: [
-        UiAlertComponent,
-        UiLoadingComponent,
-        UiNotificationComponent,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        RouterTestingModule
-      ],
+      imports: [AlertComponent, LoadingComponent, NotificationComponent, BrowserAnimationsModule, HttpClientModule, RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: TranslateService, useClass: TranslateServiceMock },
-        { provide: UiStorageService, useClass: UiStorageServiceMock }
+        { provide: StorageService, useClass: StorageServiceMock }
       ]
     }).compileComponents();
   }));
@@ -81,7 +74,7 @@ describe('AppComponent', () => {
 
   const initServices = () => {
     services = {
-      storageService: TestBed.inject(UiStorageService)
+      storageService: TestBed.inject(StorageService)
     };
     initSpies();
   };

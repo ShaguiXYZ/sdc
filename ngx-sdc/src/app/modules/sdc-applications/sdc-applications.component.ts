@@ -6,7 +6,7 @@ import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
 import { ISquadModel } from 'src/app/core/models/sdc';
-import { UiContextDataService } from 'src/app/core/services';
+import { ContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
@@ -62,7 +62,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private contextDataService: UiContextDataService,
+    private contextDataService: ContextDataService,
     private sdcApplicationsService: SdcApplicationsService
   ) {}
 

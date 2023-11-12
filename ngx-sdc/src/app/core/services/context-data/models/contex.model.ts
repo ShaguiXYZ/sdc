@@ -3,7 +3,7 @@ import { GenericDataInfo } from 'src/app/core/models';
 import { CacheData } from './cache-data.model';
 import { ContextData } from './context-data';
 
-export interface ICoreConfig {
+export interface CoreConfig {
   lang: string;
 }
 

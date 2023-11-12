@@ -51,7 +51,7 @@ const imagesIconMenu = {
     TranslateModule
   ]
 })
-export class UiHeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
   public navigation!: INavigation;
   public securityInfo!: ISecurityHeader;
   public languageInfo!: ILanguageHeader;

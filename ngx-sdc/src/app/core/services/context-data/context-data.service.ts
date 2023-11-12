@@ -15,7 +15,7 @@ import { CacheData, ContextConfig, ContextData, ContextInfo, IContextData, ICont
 @Injectable({
   providedIn: 'root'
 })
-export class UiContextDataService {
+export class ContextDataService {
   private _contextConfig: ContextConfig;
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;

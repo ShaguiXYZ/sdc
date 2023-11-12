@@ -1,4 +1,4 @@
-import { UiContextDataServiceMock } from 'src/app/core/mock/services';
+import { ContextDataServiceMock } from 'src/app/core/mock/services';
 import { AppAuthorities, ISecurityModel, IUserModel } from '../../models';
 
 export const securityModel: ISecurityModel = {
@@ -15,7 +15,7 @@ export const user: IUserModel = {
   secondSurname: ''
 };
 
-export class SecurityContextDataServiceMock extends UiContextDataServiceMock {
+export class SecurityContextDataServiceMock extends ContextDataServiceMock {
   override get() {
     return securityModel;
   }

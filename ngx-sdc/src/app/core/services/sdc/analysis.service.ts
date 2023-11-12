@@ -2,7 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UiCacheService, UiHttpService } from '..';
+import { CacheService, HttpService } from '..';
 import { hasValue, sortCoverageData } from '../../lib';
 import { AnalysisType, IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
 import { HttpStatus } from '../http';
@@ -12,7 +12,7 @@ import { XL_EXPIRATON_TIME, L_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './const
 export class AnalysisService {
   private _urlAnalysis = `${environment.baseUrl}/api/analysis`;
 
-  constructor(private cache: UiCacheService, private http: UiHttpService) {}
+  constructor(private cache: CacheService, private http: HttpService) {}
 
   public componentAnalysis(componentId: number): Promise<IPageable<IMetricAnalysisModel>> {
     return firstValueFrom(

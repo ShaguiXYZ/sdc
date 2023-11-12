@@ -1,13 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { SdcSquadsService } from '../sdc-squads-home.service';
-import { UiContextDataService } from 'src/app/core/services';
+import { ContextDataService } from 'src/app/core/services';
 import { ComponentService } from 'src/app/core/services/sdc/component.services';
 import { SquadService } from 'src/app/core/services/sdc';
 import { IComponentModel, ICoverageModel, IPageable, ISquadModel } from 'src/app/core/models/sdc';
 import { ComponentServiceMock } from 'src/app/core/mock/services/sdc/component-service.mock';
 import { SquadServiceMock } from 'src/app/core/mock/services/sdc/squad-service.mock';
-import { ContextDataServiceMock } from './mock/context-data-service.mock';
+import { SquadContextDataServiceMock } from './mock/context-data-service.mock';
 
 describe(`SdcSquadsService`, () => {
   let service: any;
@@ -28,7 +28,7 @@ describe(`SdcSquadsService`, () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         SdcSquadsService,
-        { provide: UiContextDataService, useClass: ContextDataServiceMock },
+        { provide: ContextDataService, useClass: SquadContextDataServiceMock },
         { provide: ComponentService, useClass: ComponentServiceMock },
         { provide: SquadService, useClass: SquadServiceMock }
       ]
@@ -80,7 +80,7 @@ describe(`SdcSquadsService`, () => {
 
   const initServices = () => {
     services = {
-      contextDataService: TestBed.inject(UiContextDataService),
+      contextDataService: TestBed.inject(ContextDataService),
       componetService: TestBed.inject(ComponentService),
       squadService: TestBed.inject(SquadService)
     };

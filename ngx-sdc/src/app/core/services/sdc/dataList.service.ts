@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UiCacheService, UiHttpService } from '..';
+import { CacheService, HttpService } from '..';
 import { XXL_EXPIRATON_TIME, _DATA_LIST_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +17,7 @@ export class DataListService {
         .pipe(map(res => res as string[]))
     );
   }
-  constructor(private cache: UiCacheService, private http: UiHttpService) {}
+  constructor(private cache: CacheService, private http: HttpService) {}
 
   public dataListValues(key: string): Observable<string[]> {
     console.log('dataListValues', key);

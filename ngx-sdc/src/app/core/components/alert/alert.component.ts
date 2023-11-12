@@ -6,7 +6,7 @@ import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
 import { Subscription } from 'rxjs';
 import { AlertModel } from './models';
-import { UiAlertService } from './services';
+import { AlertService } from './services';
 
 @Component({
   selector: 'nx-alert',
@@ -15,7 +15,7 @@ import { UiAlertService } from './services';
   standalone: true,
   imports: [CommonModule, NxButtonModule, NxCopytextModule, NxHeadlineModule, NxModalModule]
 })
-export class UiAlertComponent implements OnInit, OnDestroy {
+export class AlertComponent implements OnInit, OnDestroy {
   @ViewChild('alertBody') templateAlertRef!: TemplateRef<any>;
 
   public alert?: AlertModel;
@@ -23,7 +23,7 @@ export class UiAlertComponent implements OnInit, OnDestroy {
 
   private templateAlertDialogRef!: NxModalRef<any>;
 
-  constructor(private dialogService: NxDialogService, private alertService: UiAlertService) {}
+  constructor(private dialogService: NxDialogService, private alertService: AlertService) {}
 
   ngOnInit(): void {
     this.alertSubscription = this.alertService.onAlert().subscribe((alert?: AlertModel) => {

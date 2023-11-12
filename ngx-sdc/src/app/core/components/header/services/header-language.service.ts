@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { ButtonConfig } from 'src/app/core/models';
-import { UiLanguageService } from 'src/app/core/services';
+import { LanguageService } from 'src/app/core/services';
 import { ILanguageHeader } from '../models';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class HeaderLanguageService implements OnDestroy {
   private languageChange$: Subject<ILanguageHeader>;
   private language$: Subscription;
 
-  constructor(private languageService: UiLanguageService) {
+  constructor(private languageService: LanguageService) {
     this.languageChange$ = new Subject<ILanguageHeader>();
 
     this._languageInfo.currentLanguage = this.languageService.getLangKey();

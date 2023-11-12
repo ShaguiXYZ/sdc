@@ -1,9 +1,9 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { UiContextDataService } from '../context-data.service';
+import { ContextDataService } from '../context-data.service';
 
-describe('UiContextDataService', () => {
+describe('ContextDataService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, TranslateModule.forRoot()]
@@ -11,29 +11,29 @@ describe('UiContextDataService', () => {
   );
 
   it('should create service', () => {
-    const service: UiContextDataService = TestBed.inject(UiContextDataService);
+    const service: ContextDataService = TestBed.inject(ContextDataService);
     expect(service).toBeTruthy();
   });
 
   it('should watch on change', () => {
-    const service: UiContextDataService = TestBed.inject(UiContextDataService);
+    const service: ContextDataService = TestBed.inject(ContextDataService);
     service.onDataChange();
   });
 
   it('should set and get the context data', () => {
-    const service: UiContextDataService = TestBed.inject(UiContextDataService);
+    const service: ContextDataService = TestBed.inject(ContextDataService);
     service.set('key', { name: 'test' });
     service.get('key');
   });
 
   it('should delete the context data', () => {
-    const service: UiContextDataService = TestBed.inject(UiContextDataService);
+    const service: ContextDataService = TestBed.inject(ContextDataService);
     service.set('key', { name: 'test' });
     service.delete('key');
   });
 
   it('should delete the context data', () => {
-    const service: UiContextDataService = TestBed.inject(UiContextDataService);
+    const service: ContextDataService = TestBed.inject(ContextDataService);
     service.set('key', { name: 'test' });
     service.getConfiguration('key');
   });

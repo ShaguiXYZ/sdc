@@ -1,9 +1,9 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { DEFAULT_TIMEOUT_NOTIFICATIONS, UiNotificationService } from 'src/app/core/components/notification';
+import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService } from 'src/app/core/components/notification';
 import { NX_CONTEX_CONFIG } from '../constatnts';
-import { UiContextDataService } from '../context-data.service';
+import { ContextDataService } from '../context-data.service';
 import { urlInfoBykey } from '../lib';
 import { ContextConfig } from '../models';
 
@@ -12,8 +12,8 @@ export class ContextValidGuard {
   constructor(
     @Optional() @Inject(NX_CONTEX_CONFIG) private contextConfig: ContextConfig,
     private router: Router,
-    private contextData: UiContextDataService,
-    private notificationService: UiNotificationService,
+    private contextData: ContextDataService,
+    private notificationService: NotificationService,
     private translateService: TranslateService
   ) {}
 

@@ -8,7 +8,7 @@ import { LanguageConfig } from './models';
 @Injectable({
   providedIn: 'root'
 })
-export class UiLanguageService {
+export class LanguageService {
   private languageChange$: EventEmitter<string> = new EventEmitter();
 
   constructor(

@@ -11,7 +11,7 @@ import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UiCoreComponentsModule } from './core/components/core-components.module';
+import { CoreComponentsModule } from './core/components/core-components.module';
 import { NX_HEADER_CONFIG } from './core/components/header';
 import { AppCoreModule } from './core/core.module';
 import { NX_CONTEX_CONFIG } from './core/services/context-data';
@@ -42,7 +42,7 @@ const SdcLanguages = {
     NxGridModule,
     RouterModule,
     TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG),
-    UiCoreComponentsModule
+    CoreComponentsModule
   ],
   providers: [
     { provide: NX_CONTEX_CONFIG, useValue: { urls, home: AppUrls.squads, cache: { schedulerPeriod: SCHEDULER_PERIOD } } },

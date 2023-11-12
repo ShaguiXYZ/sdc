@@ -5,7 +5,7 @@ import { NxIconModule } from '@aposin/ng-aquila/icon';
 import { NxMessageModule } from '@aposin/ng-aquila/message';
 import { Subscription } from 'rxjs';
 import { NotificationModel } from './models';
-import { UiNotificationService } from './services';
+import { NotificationService } from './services';
 
 @Component({
   selector: 'nx-notification',
@@ -14,12 +14,12 @@ import { UiNotificationService } from './services';
   standalone: true,
   imports: [CommonModule, NxButtonModule, NxMessageModule, NxIconModule]
 })
-export class UiNotificationComponent implements OnInit, OnDestroy {
+export class NotificationComponent implements OnInit, OnDestroy {
   public notifications: NotificationModel[] = [];
   private notificationSubscription!: Subscription;
   private closeNotificationSubscription!: Subscription;
 
-  constructor(private notificationService: UiNotificationService) {}
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.notificationSubscription = this.notificationService.onNotification().subscribe(notification => {

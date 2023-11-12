@@ -3,7 +3,7 @@ import { _console } from 'src/app/core/lib';
 
 const DEFAULT_PERIOD = 15000;
 
-export class UiTaskScheduler<D> {
+export class TaskScheduler<D> {
   private task$: Subject<D>;
   private scheduler$?: Subscription;
 

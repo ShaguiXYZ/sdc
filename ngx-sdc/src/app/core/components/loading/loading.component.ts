@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/c
 import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
 import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { Subscription } from 'rxjs';
-import { UiLoadingService } from './services';
+import { LoadingService } from './services';
 
 @Component({
   selector: 'nx-loading',
@@ -12,13 +12,13 @@ import { UiLoadingService } from './services';
   standalone: true,
   imports: [CommonModule, NxModalModule, NxSpinnerModule]
 })
-export class UiLoadingComponent implements OnInit, OnDestroy {
+export class LoadingComponent implements OnInit, OnDestroy {
   @ViewChild('loadingBody') templateLoadingRef!: TemplateRef<any>;
   private templateLoadingDialogRef!: NxModalRef<any>;
 
   private loadingObs!: Subscription;
 
-  constructor(private dialogService: NxDialogService, private loadingService: UiLoadingService) {}
+  constructor(private dialogService: NxDialogService, private loadingService: LoadingService) {}
 
   ngOnInit(): void {
     this.loadingObs = this.loadingService.uiShowLoading.subscribe((show: boolean) => {

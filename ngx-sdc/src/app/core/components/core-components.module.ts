@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { UiAlertComponent } from './alert';
-import { UiHeaderComponent } from './header';
-import { UiLoadingComponent } from './loading';
-import { UiNotificationComponent } from './notification';
+import { AlertComponent } from './alert';
+import { HeaderComponent } from './header';
+import { LoadingComponent } from './loading';
+import { NotificationComponent } from './notification';
 
 @NgModule({
   declarations: [],
-  imports: [UiAlertComponent, UiHeaderComponent, UiLoadingComponent, UiNotificationComponent],
-  exports: [UiAlertComponent, UiHeaderComponent, UiLoadingComponent, UiNotificationComponent]
+  imports: [AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent],
+  exports: [AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent]
 })
-export class UiCoreComponentsModule {}
+export class CoreComponentsModule {}

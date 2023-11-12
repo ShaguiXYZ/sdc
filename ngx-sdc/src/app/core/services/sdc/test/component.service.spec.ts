@@ -4,8 +4,8 @@ import { CacheServiceMock } from 'src/app/core/mock/services/cache-service.mock'
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 import { AnalysisType, IComponentDTO, IMetricDTO, IPageable, IPaging } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
-import { UiCacheService } from '../../context-data';
-import { UiHttpService } from '../../http';
+import { CacheService } from '../../context-data';
+import { HttpService } from '../../http';
 import { ComponentService } from '../component.services';
 
 const paging: IPaging = { pageIndex: 0, pageSize: 1, pages: 1, elements: 1 };
@@ -25,8 +25,8 @@ describe('ComponentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: UiHttpService, useClass: HttpServiceMock },
-        { provide: UiCacheService, useClass: CacheServiceMock }
+        { provide: HttpService, useClass: HttpServiceMock },
+        { provide: CacheService, useClass: CacheServiceMock }
       ]
     });
     service = TestBed.inject(ComponentService);
@@ -69,7 +69,7 @@ describe('ComponentService', () => {
 
   const initServices = () => {
     services = {
-      http: TestBed.inject(UiHttpService)
+      http: TestBed.inject(HttpService)
     };
     initSpies();
   };

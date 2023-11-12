@@ -2,13 +2,13 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
-import { UiContextDataService } from '../..';
-import { UiHttpService } from '../../http';
+import { ContextDataService } from '../..';
+import { HttpService } from '../../http';
 import { AppAuthorities, ISessionModel } from '../models';
-import { UiSecurityService } from '../security.service';
+import { SecurityService } from '../security.service';
 import { SecurityContextDataServiceMock, securityModel, user } from './mock/context-data-service.mock';
 
-describe(`UiSecurityService`, () => {
+describe('SecurityService', () => {
   let service: any;
   let services: any;
   let spies: any;
@@ -17,13 +17,13 @@ describe(`UiSecurityService`, () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        UiSecurityService,
-        { provide: UiHttpService, useClass: HttpServiceMock },
-        { provide: UiContextDataService, useClass: SecurityContextDataServiceMock }
+        SecurityService,
+        { provide: HttpService, useClass: HttpServiceMock },
+        { provide: ContextDataService, useClass: SecurityContextDataServiceMock }
       ]
     });
 
-    service = TestBed.inject(UiSecurityService);
+    service = TestBed.inject(SecurityService);
     service.session = {};
     service.user = {};
     initServices();
@@ -127,8 +127,8 @@ describe(`UiSecurityService`, () => {
 
   const initServices = () => {
     services = {
-      http: TestBed.inject(UiHttpService),
-      contextData: TestBed.inject(UiContextDataService)
+      http: TestBed.inject(HttpService),
+      contextData: TestBed.inject(ContextDataService)
     };
     initSpies();
   };

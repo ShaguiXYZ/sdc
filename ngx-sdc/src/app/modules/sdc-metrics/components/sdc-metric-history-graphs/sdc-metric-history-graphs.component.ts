@@ -4,7 +4,7 @@ import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
-import { UiDateService } from 'src/app/core/services';
+import { DateService } from 'src/app/core/services';
 import { SdcMetricInfoComponent, SdcNoDataComponent } from 'src/app/shared/components';
 import { SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
 import { AvailableMetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/shared/lib';
@@ -36,7 +36,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   private data$!: Subscription;
 
   constructor(
-    private readonly dateService: UiDateService,
+    private readonly dateService: DateService,
     private readonly sdcMetricHistoryGraphsService: SdcMetricHistoryGraphsService,
     private readonly titleCasePipe: TitleCasePipe,
     private readonly translateService: TranslateService

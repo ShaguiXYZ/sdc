@@ -1,10 +1,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { UiAlertService } from '../alert.service';
+import { AlertService } from '../alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateServiceMock } from 'src/app/core/mock/services';
 
-describe(`UiAlertService`, () => {
+describe('AlertService', () => {
   let service: any;
   let services: any;
   let spies: any;
@@ -12,10 +12,10 @@ describe(`UiAlertService`, () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [UiAlertService, { provide: TranslateService, useClass: TranslateServiceMock }]
+      providers: [AlertService, { provide: TranslateService, useClass: TranslateServiceMock }]
     });
 
-    service = TestBed.inject(UiAlertService);
+    service = TestBed.inject(AlertService);
 
     initServices();
   });
@@ -69,7 +69,6 @@ describe(`UiAlertService`, () => {
     const result = service.onAlert();
     expect(result).not.toBeNull();
   });
-
 
   const initServices = () => {
     services = {

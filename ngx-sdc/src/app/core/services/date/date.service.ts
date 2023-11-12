@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { UiLanguageService } from '../language';
+import { LanguageService } from '../language';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UiDateService {
-  constructor(private readonly languageService: UiLanguageService) {}
+export class DateService {
+  constructor(private readonly languageService: LanguageService) {}
 
   public dateFormat = (timestamp: number): string => new Intl.DateTimeFormat(this.languageService.getLang()).format(new Date(timestamp));
 }

@@ -1,18 +1,18 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { UiLoadingService } from '../loading.service';
+import { LoadingService } from '../loading.service';
 
-describe(`UiLoadingService`, () => {
+describe('LoadingService', () => {
   let service: any;
   let spies: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [UiLoadingService]
+      providers: [LoadingService]
     });
 
-    service = TestBed.inject(UiLoadingService);
+    service = TestBed.inject(LoadingService);
     initSpies();
   });
 

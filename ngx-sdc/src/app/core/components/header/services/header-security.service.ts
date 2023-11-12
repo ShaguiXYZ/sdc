@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from 'src/app/core/lib';
-import { UiSecurityService } from 'src/app/core/services';
+import { SecurityService } from 'src/app/core/services';
 import { ISecurityModel } from 'src/app/core/services/security';
 import { ISecurityHeader } from '../models';
 
@@ -8,7 +8,7 @@ import { ISecurityHeader } from '../models';
 export class HeaderSecurityService {
   private _securityInfo!: ISecurityHeader;
 
-  constructor(private securityService: UiSecurityService) {
+  constructor(private securityService: SecurityService) {
     this._securityInfo = { currentUser: this.securityService.user, isUserLogged: hasValue(this.securityService.user) };
   }
 

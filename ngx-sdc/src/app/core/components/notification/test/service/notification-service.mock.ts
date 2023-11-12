@@ -3,7 +3,7 @@ import { NotificationModel } from '../../models';
 
 export const notification: NotificationModel = { id: '', title: '', description: '', timeout: 1, closable: true, type: 'info' };
 
-export class UiNotificationServiceMock {
+export class NotificationServiceMock {
   onNotification() {
     return of(notification);
   }

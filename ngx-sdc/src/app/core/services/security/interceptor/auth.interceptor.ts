@@ -2,11 +2,11 @@
 import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APP_NAME } from 'src/app/core/constants';
-import { UiSecurityService } from 'src/app/core/services';
+import { SecurityService } from 'src/app/core/services';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private securityService: UiSecurityService) {}
+  constructor(private securityService: SecurityService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     /**

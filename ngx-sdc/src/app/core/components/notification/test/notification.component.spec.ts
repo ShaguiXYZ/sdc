@@ -2,28 +2,28 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { emptyFn } from 'src/app/core/lib';
-import { UiNotificationComponent } from '../notification.component';
-import { UiNotificationService } from '../services';
-import { UiNotificationServiceMock, notification } from './service/notification-service.mock';
+import { NotificationComponent } from '../notification.component';
+import { NotificationService } from '../services';
+import { NotificationServiceMock, notification } from './service/notification-service.mock';
 
-describe('UiNotificationComponent', () => {
-  let component: UiNotificationComponent;
-  let fixture: ComponentFixture<UiNotificationComponent>;
+describe('NotificationComponent', () => {
+  let component: NotificationComponent;
+  let fixture: ComponentFixture<NotificationComponent>;
   let services: any;
   let spies: any;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [UiNotificationComponent],
+      imports: [NotificationComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [{ provide: UiNotificationService, useClass: UiNotificationServiceMock }]
+      providers: [{ provide: NotificationService, useClass: NotificationServiceMock }]
     })
       .compileComponents()
       .catch(emptyFn);
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UiNotificationComponent);
+    fixture = TestBed.createComponent(NotificationComponent);
     component = fixture.componentInstance;
     component.notifications = [notification];
     fixture.detectChanges();
@@ -41,7 +41,7 @@ describe('UiNotificationComponent', () => {
 
   const initServices = () => {
     services = {
-      notificationService: TestBed.inject(UiNotificationService)
+      notificationService: TestBed.inject(NotificationService)
     };
     initSpies();
   };
