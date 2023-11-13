@@ -1,6 +1,6 @@
-$state-critical: v(--danger);
-$state-risk: v(--warning);
-$state-acceptable: v(--success);
+$state-critical: var(--danger);
+$state-risk: var(--warning);
+$state-acceptable: var(--success);
 $state-perfect: #006192;
 
 $coverage-colors: (

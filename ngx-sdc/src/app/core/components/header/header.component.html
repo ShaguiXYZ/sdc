@@ -75,49 +75,47 @@
     <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
       <!-- Parent menu -->
       <div class="menu-item-root">
-        <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink>{{
-          parent.name | translate
-        }}</a>
-        <em
-          *ngIf="!parent.routerLink"
-          [ngClass]="{ 'icon-menu fa-solid': true, 'fa-chevron-down': parent.collapsed, 'fa-chevron-up': !parent.collapsed }"
-        ></em>
+        <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink
+          >{{ parent.name | translate }}
+          <em *ngIf="!parent.routerLink" [ngClass]="{ 'icon-menu fa-solid fa-chevron-down': true }"></em>
+        </a>
+        <div class="child-menu">
+          <!-- Child menu -->
+          <nx-header-row
+            *ngIf="parent.children?.length && parent.id === navigation.activeParent"
+            class="child-row"
+            (mouseleave)="mouseLeaveEvent(parent.id)"
+          >
+            <nx-header-navigation>
+              <nx-header-navigation-item>
+                <div *ngFor="let child of parent.children" class="menu-item-children">
+                  <a
+                    *ngIf="child.routerLink"
+                    [id]="child.id"
+                    [routerLink]="child.routerLink"
+                    routerLinkActive="is-active"
+                    nxHeaderLink
+                    class="nx-margin-0"
+                    >{{ child.name | translate }}</a
+                  >
+                  <a *ngIf="!child.routerLink" [id]="child.id" routerLinkActive="is-active" nxHeaderLink class="nx-margin-0">{{
+                    child.name | translate
+                  }}</a>
+                </div>
+              </nx-header-navigation-item>
+            </nx-header-navigation>
+          </nx-header-row>
+        </div>
       </div>
-
-      <!-- Child menu -->
-      <nx-header-row
-        (mouseleave)="mouseLeaveEvent(parent.id)"
-        class="child-row"
-        *ngIf="parent.children?.length && parent.id === navigation.activeParent"
-      >
-        <nx-header-navigation>
-          <nx-header-navigation-item>
-            <div *ngFor="let child of parent.children" class="menu-item-children">
-              <a
-                *ngIf="child.routerLink"
-                [id]="child.id"
-                [routerLink]="child.routerLink"
-                routerLinkActive="is-active"
-                nxHeaderLink
-                class="nx-margin-0"
-                >{{ child.name | translate }}</a
-              >
-              <a *ngIf="!child.routerLink" [id]="child.id" routerLinkActive="is-active" nxHeaderLink class="nx-margin-0">{{
-                child.name | translate
-              }}</a>
-            </div>
-          </nx-header-navigation-item>
-        </nx-header-navigation>
-      </nx-header-row>
     </nx-header-navigation-item>
   </nx-header-navigation>
 
   <nx-header-actions>
     <nx-link *ngIf="securityInfo.isUserLogged" class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
-      <nx-icon name="user-business-o"></nx-icon>{{ securityInfo.currentUser?.userName }}
+      <em class="fa-solid fa-user"></em>{{ securityInfo.currentUser?.userName }}
     </nx-link>
     <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="language">
-      <nx-icon name="product-world-globe"></nx-icon>{{ 'Language.' + languageInfo.currentLanguage | translate }}
+      <em class="fa-solid fa-globe"></em>{{ 'Language.' + languageInfo.currentLanguage | translate }}
     </nx-link>
   </nx-header-actions>
 </header>
@@ -132,7 +130,7 @@
         [disabled]="!lang.isEnabled()"
         (click)="lang.onClick(lang.options)"
       >
-        <nx-icon aria-hidden="true" [name]="lang.icon()"></nx-icon>
+        <em [class]="lang.icon()"></em>
         {{ lang.text() | translate }}
       </button>
     </ng-container>
@@ -142,7 +140,7 @@
 <nx-context-menu #user="nxContextMenu">
   <ng-template nxContextMenuContent>
     <button nxContextMenuItem type="button" (click)="signout()">
-      <nx-icon aria-hidden="true" name="product-door"></nx-icon>
+      <em class="fa-solid fa-arrow-right-from-bracket"></em>
       {{ 'Security.logout' | translate }}
     </button>
   </ng-template>

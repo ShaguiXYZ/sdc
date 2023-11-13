@@ -4,10 +4,6 @@
 @mixin define-custom-property($name, $value) {
   #{custom-property-color($name)} {
     color: $value;
-    background-color: $value;
-    border-radius: 50%;
-    height: 10px;
-    width: 10px;
   }
 }
 

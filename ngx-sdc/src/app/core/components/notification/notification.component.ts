@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NxButtonModule } from '@aposin/ng-aquila/button';
-import { NxIconModule } from '@aposin/ng-aquila/icon';
 import { NxMessageModule } from '@aposin/ng-aquila/message';
 import { Subscription } from 'rxjs';
 import { NotificationModel } from './models';
@@ -12,7 +11,7 @@ import { NotificationService } from './services';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
   standalone: true,
-  imports: [CommonModule, NxButtonModule, NxMessageModule, NxIconModule]
+  imports: [CommonModule, NxButtonModule, NxMessageModule]
 })
 export class NotificationComponent implements OnInit, OnDestroy {
   public notifications: NotificationModel[] = [];

@@ -26,7 +26,7 @@
         >
           <nx-dropdown-item></nx-dropdown-item>
           <nx-dropdown-item *ngFor="let item of coverages" [value]="item.key">
-            <nx-icon name="dot" size="s" class="nx-margin-right-2xs {{ item.style }}"></nx-icon>
+            <em class="fa-solid fa-circle nx-margin-right-2xs {{ item.style }}"></em>
             {{ item.label | translate | titlecase }}
           </nx-dropdown-item>
         </nx-dropdown>

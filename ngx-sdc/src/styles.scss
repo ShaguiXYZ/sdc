@@ -9,6 +9,12 @@ body {
   height: 100vh;
   overflow-x: hidden;
   user-select: none;
+  -webkit-user-select: none;
+
+  input {
+    user-select: auto;
+    -webkit-user-select: auto;
+  }
 }
 
 :root {

@@ -54,7 +54,7 @@ ol {
 
 html,
 :host {
-  font-family: v(font-family);
+  font-family: var(font-family);
 }
 
 html {
@@ -73,6 +73,6 @@ body {
 
 body,
 :host {
-  background-color: v(ui-background);
-  color: v(text-01);
+  background-color: var(ui-background);
+  color: var(text-01);
 }

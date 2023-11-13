@@ -1,27 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NxDropdownModule } from '@aposin/ng-aquila/dropdown';
+import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
+import { NxInputModule } from '@aposin/ng-aquila/input';
 import { IPaginationTexts, NX_PAGINATION_TEXTS, NxPaginationModule } from '@aposin/ng-aquila/pagination';
+import { NxRadioToggleModule } from '@aposin/ng-aquila/radio-toggle';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
+import { SdcComplianceBarCardsComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { IComplianceModel } from 'src/app/shared/models';
 import { SdcApplicationsDataModel } from './models';
-import { SdcApplicationsService } from './services';
-import { SdcComplianceBarCardsComponent } from 'src/app/shared/components';
-import { CommonModule } from '@angular/common';
-import { NxDropdownModule } from '@aposin/ng-aquila/dropdown';
-import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
-import { NxIconModule } from '@aposin/ng-aquila/icon';
-import { NxInputModule } from '@aposin/ng-aquila/input';
-import { NxRadioToggleModule } from '@aposin/ng-aquila/radio-toggle';
 import { SdcApplicationsRoutingModule } from './sdc-applications-routing.module';
-import { TranslateModule } from '@ngx-translate/core';
+import { SdcApplicationsService } from './services';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'
@@ -39,7 +38,6 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
     FormsModule,
     NxDropdownModule,
     NxFormfieldModule,
-    NxIconModule,
     NxInputModule,
     NxPaginationModule,
     NxRadioToggleModule,

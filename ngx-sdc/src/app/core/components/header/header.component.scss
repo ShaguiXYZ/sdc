@@ -1,44 +1,30 @@
 @import 'core-colors';
 @import 'core-globals';
 
-header {
+.nx-header {
   left: 0;
   position: sticky;
   top: 0;
   z-index: $z-index-over;
-}
 
-nx-link {
-  display: flex;
-}
+  .nx-header__app-title {
+    color: $state-red;
+  }
 
-.child-row {
-  border: 1px solid $grey-light-color;
-  border-color: transparent;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 $backdrop-color;
-  height: auto;
-  position: absolute;
-  z-index: $z-index-over;
-}
+  .nx-header__link {
+    margin-right: 16px;
 
-.nx-header__app-title {
-  color: $state-red;
-}
-
-.nx-header__link {
-  margin-right: 16px;
-
-  :hover {
-    border-color: transparent;
+    :hover {
+      border-color: transparent;
+    }
   }
 }
 
 .menu-item-root {
-  align-items: center;
   color: var(--link-color);
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   font-size: var(--link-small-font-size);
   font-weight: var(--link-small-font-weight);
   justify-content: center;
@@ -46,18 +32,44 @@ nx-link {
   line-height: var(--link-small-line-height);
   max-width: 150px;
   min-width: 120px;
+  text-align: center;
+
+  em {
+    transition: all 0.3s ease-in-out;
+    transform: rotate(0deg);
+  }
 
   :hover {
     color: var(--link-hover-color);
+
+    em {
+      transition: all 0.3s ease-in-out;
+      transform: rotate(180deg);
+    }
   }
-}
 
-.menu-item-children {
-  color: var(--link-color);
-  height: 40px;
-  padding-top: 4px;
+  .child-menu {
+    position: relative;
+    text-align: left;
 
-  :hover {
-    color: var(--hover-primary);
+    .child-row {
+      border: 1px solid $grey-light-color;
+      border-color: transparent;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px 0 $backdrop-color;
+      height: auto;
+      position: absolute;
+      z-index: $z-index-over;
+    }
+
+    .menu-item-children {
+      color: var(--link-color);
+      height: 40px;
+      padding-top: 4px;
+
+      :hover {
+        color: var(--hover-primary);
+      }
+    }
   }
 }

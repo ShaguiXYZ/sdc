@@ -1,6 +1,5 @@
 // import _equal from 'fast-deep-equal/es6';
-import _ from 'lodash';
-import { Dictionary } from 'lodash';
+import _, { Dictionary } from 'lodash';
 
 /**
  * Make a deep copy of a object
