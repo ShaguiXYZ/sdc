@@ -26,19 +26,22 @@ nx-link {
   color: $state-red;
 }
 
-.nx-header__link:hover {
-  border-color: transparent;
-}
+.nx-header__link {
+  margin-right: 16px;
 
-.icon-menu {
-  padding-top: 16px;
+  :hover {
+    border-color: transparent;
+  }
 }
 
 .menu-item-root {
+  align-items: center;
   color: var(--link-color);
   cursor: pointer;
+  display: flex;
   font-size: var(--link-small-font-size);
   font-weight: var(--link-small-font-weight);
+  justify-content: center;
   letter-spacing: var(--link-small-letter-spacing);
   line-height: var(--link-small-line-height);
   max-width: 150px;
@@ -47,10 +50,6 @@ nx-link {
   :hover {
     color: var(--link-hover-color);
   }
-}
-
-.menu-item-with-children {
-  display: flex;
 }
 
 .menu-item-children {

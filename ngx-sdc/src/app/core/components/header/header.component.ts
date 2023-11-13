@@ -26,11 +26,6 @@ import { HeaderLanguageService, HeaderSecurityService } from './services';
  * One menu row is always visible and every item can show the child menu row if any when the mouse enters the parent item.
  * All the ids in NavParentItem and NavChildItem must be different among them.
  */
-const imagesIconMenu = {
-  open: 'chevron-down',
-  close: 'chevron-up'
-};
-
 @Component({
   selector: 'nx-header',
   templateUrl: './header.component.html',
@@ -75,10 +70,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.language$.unsubscribe();
-  }
-
-  public getImatgeNavParent(collapsed?: boolean): string {
-    return collapsed === true ? imagesIconMenu.open : imagesIconMenu.close;
   }
 
   public mouseEnterEvent(id: string): void {

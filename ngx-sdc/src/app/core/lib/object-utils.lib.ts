@@ -1,5 +1,5 @@
 // import _equal from 'fast-deep-equal/es6';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { Dictionary } from 'lodash';
 
 /**
