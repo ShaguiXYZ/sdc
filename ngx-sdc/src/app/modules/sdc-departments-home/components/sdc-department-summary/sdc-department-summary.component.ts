@@ -8,7 +8,7 @@ import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
 import { SdcCoverageChartComponent, SdcHorizontalBarChartComponent } from 'src/app/shared/components/sdc-charts';
 import { BACKGROUND_DEPARTMENT_COLOR } from 'src/app/shared/constants';
-import { AvailableMetricStates, MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { MetricStates, MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
 import { DepartmentSummaryModel } from './models';
 import { SdcDepartmentSummaryService } from './services';
@@ -77,7 +77,7 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
     const counts: { [key: string]: { value: number; color: string } } = {};
 
     this.departmentSummaryData.squads?.forEach(squad => {
-      const state: AvailableMetricStates = stateByCoverage(squad.coverage ?? 0);
+      const state: MetricStates = stateByCoverage(squad.coverage ?? 0);
       counts[state] = { value: counts[state] ? counts[state].value + 1 : 1, color: MetricState[state].color };
     });
 

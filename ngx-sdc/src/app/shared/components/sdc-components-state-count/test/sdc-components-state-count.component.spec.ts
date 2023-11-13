@@ -7,7 +7,7 @@ import { SpyLocation } from '@angular/common/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
-import { AvailableMetricStates } from 'src/app/shared/lib';
+import { MetricStates } from 'src/app/shared/lib';
 import { SdcComponentsStateCountComponent } from '../sdc-components-state-count.component';
 
 describe('SdcComponentsStateCountComponent', () => {
@@ -36,6 +36,6 @@ describe('SdcComponentsStateCountComponent', () => {
   });
 
   it('should select coverage', () => {
-    component.onClick({ count: 1, state: AvailableMetricStates.PERFECT });
+    component.onClick({ count: 1, state: MetricStates.PERFECT });
   });
 });

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { hasValue } from 'src/app/core/lib';
 import { IMetricAnalysisModel, iconByType } from 'src/app/core/models/sdc';
-import { AvailableMetricStates, stateByCoverage, styleByCoverage } from '../../lib';
+import { MetricStates, stateByCoverage, styleByCoverage } from '../../lib';
 
 @Component({
   selector: 'sdc-metric-info',
@@ -33,10 +33,10 @@ export class SdcMetricInfoComponent {
   get icon(): string {
     return hasValue(this.analysis?.coverage)
       ? {
-          [AvailableMetricStates.CRITICAL]: 'fa-solid fa-circle-xmark fa-lg',
-          [AvailableMetricStates.WITH_RISK]: 'fa-solid fa-triangle-exclamation fa-lg',
-          [AvailableMetricStates.ACCEPTABLE]: 'fa-solid fa-circle-exclamation fa-lg',
-          [AvailableMetricStates.PERFECT]: 'fa-solid fa-circle-check fa-lg'
+          [MetricStates.CRITICAL]: 'fa-solid fa-circle-xmark fa-lg',
+          [MetricStates.WITH_RISK]: 'fa-solid fa-triangle-exclamation fa-lg',
+          [MetricStates.ACCEPTABLE]: 'fa-solid fa-circle-exclamation fa-lg',
+          [MetricStates.PERFECT]: 'fa-solid fa-circle-check fa-lg'
         }[stateByCoverage(this.analysis.coverage)]
       : 'fa-solid fa-circle-info fa-lg';
   }

@@ -21,14 +21,11 @@ export class SdcHorizontalBarChartComponent {
   public styleSize: GenericDataInfo<number> = {};
   public echartsOptions: EChartsOption = {};
 
-  private chartConfig!: ChartConfig;
-
   constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {}
 
   @Input()
   set config(value: ChartConfig) {
-    this.chartConfig = { ...value };
-    this.echartsOptions = this.chartOptions(this.chartConfig);
+    this.echartsOptions = this.chartOptions(value);
   }
 
   @Input()

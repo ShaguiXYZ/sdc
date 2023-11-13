@@ -1,6 +1,6 @@
-import { AvailableMetricStates } from 'src/app/shared/lib';
+import { MetricStates } from 'src/app/shared/lib';
 
 export interface IStateCount {
   count: number;
-  state: AvailableMetricStates;
+  state: MetricStates;
 }

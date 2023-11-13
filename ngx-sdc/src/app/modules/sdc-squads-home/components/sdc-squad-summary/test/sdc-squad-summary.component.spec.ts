@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
 import { DateService } from 'src/app/core/services';
 import { IStateCount } from 'src/app/shared/components/sdc-state-count/model';
-import { AvailableMetricStates } from 'src/app/shared/lib';
+import { MetricStates } from 'src/app/shared/lib';
 import { SdcSquadSummaryComponent } from '../sdc-squad-summary.component';
 import { SdcSquadSummaryService } from '../services';
 import { SdcSquadSummaryServiceMock } from './mock/sdc-squad-summary.service.mock';
@@ -49,7 +49,7 @@ describe('SdcSquadSummaryComponent', () => {
   it('should emit a state count', () => {
     const stateCount: IStateCount = {
       count: 1,
-      state: AvailableMetricStates.PERFECT
+      state: MetricStates.PERFECT
     };
 
     component.onClickStateCount(stateCount);

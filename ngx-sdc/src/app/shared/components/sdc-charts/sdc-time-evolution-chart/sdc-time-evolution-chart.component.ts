@@ -23,7 +23,7 @@ export class SdcTimeEvolutionChartComponent {
 
   @Input()
   set config(value: ChartConfig) {
-    this.echartsOptions = this.chartOptions({ ...value });
+    this.echartsOptions = this.chartOptions(value);
   }
 
   @Input()

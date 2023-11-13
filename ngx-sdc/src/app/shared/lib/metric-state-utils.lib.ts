@@ -3,14 +3,14 @@ import { StateColors } from '../constants';
 
 const COLOR_PREFIX = 'color--';
 
-export enum AvailableMetricStates {
+export enum MetricStates {
   PERFECT,
   ACCEPTABLE,
   WITH_RISK,
   CRITICAL
 }
 
-export const DEFAULT_METRIC_STATE = AvailableMetricStates.ACCEPTABLE;
+export const DEFAULT_METRIC_STATE = MetricStates.ACCEPTABLE;
 
 export interface MetricConfig {
   value: number;
@@ -19,24 +19,24 @@ export interface MetricConfig {
 }
 
 export const MetricState: { [key: string]: MetricConfig } = {
-  [AvailableMetricStates.CRITICAL]: { value: 50, style: 'critical', color: StateColors.CRITICAL },
-  [AvailableMetricStates.WITH_RISK]: { value: 75, style: 'with_risk', color: StateColors.RISK },
-  [AvailableMetricStates.ACCEPTABLE]: { value: 95, style: 'acceptable', color: StateColors.ACCEPTABLE },
-  [AvailableMetricStates.PERFECT]: { value: 100, style: 'perfect', color: StateColors.PERFECT }
+  [MetricStates.CRITICAL]: { value: 50, style: 'critical', color: StateColors.CRITICAL },
+  [MetricStates.WITH_RISK]: { value: 75, style: 'with_risk', color: StateColors.RISK },
+  [MetricStates.ACCEPTABLE]: { value: 95, style: 'acceptable', color: StateColors.ACCEPTABLE },
+  [MetricStates.PERFECT]: { value: 100, style: 'perfect', color: StateColors.PERFECT }
 };
 
-export const stateByCoverage = (coverage: number): AvailableMetricStates => {
+export const stateByCoverage = (coverage: number): MetricStates => {
   let _class = DEFAULT_METRIC_STATE;
 
   if (hasValue(coverage)) {
-    if (coverage < MetricState[AvailableMetricStates.CRITICAL].value) {
-      _class = AvailableMetricStates.CRITICAL;
-    } else if (coverage < MetricState[AvailableMetricStates.WITH_RISK].value) {
-      _class = AvailableMetricStates.WITH_RISK;
-    } else if (coverage < MetricState[AvailableMetricStates.ACCEPTABLE].value) {
-      _class = AvailableMetricStates.ACCEPTABLE;
-    } else if (coverage <= MetricState[AvailableMetricStates.PERFECT].value) {
-      _class = AvailableMetricStates.PERFECT;
+    if (coverage < MetricState[MetricStates.CRITICAL].value) {
+      _class = MetricStates.CRITICAL;
+    } else if (coverage < MetricState[MetricStates.WITH_RISK].value) {
+      _class = MetricStates.WITH_RISK;
+    } else if (coverage < MetricState[MetricStates.ACCEPTABLE].value) {
+      _class = MetricStates.ACCEPTABLE;
+    } else if (coverage <= MetricState[MetricStates.PERFECT].value) {
+      _class = MetricStates.PERFECT;
     }
   }
 
@@ -44,19 +44,19 @@ export const stateByCoverage = (coverage: number): AvailableMetricStates => {
 };
 
 export const styleByName = (name: string): string => `${COLOR_PREFIX}${name}`;
-export const styleByMetricState = (state: AvailableMetricStates): string => styleByName(MetricState[state].style);
+export const styleByMetricState = (state: MetricStates): string => styleByName(MetricState[state].style);
 export const styleByCoverage = (coverage: number): string => styleByMetricState(stateByCoverage(coverage));
 
-export const rangeByState = (state: AvailableMetricStates): { min: number; max: number } =>
+export const rangeByState = (state: MetricStates): { min: number; max: number } =>
   ({
-    [AvailableMetricStates.CRITICAL]: { min: 0, max: MetricState[AvailableMetricStates.CRITICAL].value },
-    [AvailableMetricStates.WITH_RISK]: {
-      min: MetricState[AvailableMetricStates.CRITICAL].value,
-      max: MetricState[AvailableMetricStates.WITH_RISK].value
+    [MetricStates.CRITICAL]: { min: 0, max: MetricState[MetricStates.CRITICAL].value },
+    [MetricStates.WITH_RISK]: {
+      min: MetricState[MetricStates.CRITICAL].value,
+      max: MetricState[MetricStates.WITH_RISK].value
     },
-    [AvailableMetricStates.ACCEPTABLE]: {
-      min: MetricState[AvailableMetricStates.WITH_RISK].value,
-      max: MetricState[AvailableMetricStates.ACCEPTABLE].value
+    [MetricStates.ACCEPTABLE]: {
+      min: MetricState[MetricStates.WITH_RISK].value,
+      max: MetricState[MetricStates.ACCEPTABLE].value
     },
-    [AvailableMetricStates.PERFECT]: { min: MetricState[AvailableMetricStates.ACCEPTABLE].value, max: 100 }
+    [MetricStates.PERFECT]: { min: MetricState[MetricStates.ACCEPTABLE].value, max: 100 }
   }[state]);

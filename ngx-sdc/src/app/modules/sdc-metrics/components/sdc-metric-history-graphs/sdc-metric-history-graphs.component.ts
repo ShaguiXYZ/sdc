@@ -7,7 +7,7 @@ import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { DateService } from 'src/app/core/services';
 import { SdcMetricInfoComponent, SdcNoDataComponent } from 'src/app/shared/components';
 import { SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
-import { AvailableMetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { MetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig, ChartData } from 'src/app/shared/models';
 import { MetricsHistoryDataModel } from './models';
 import { SdcMetricHistoryGraphsService } from './services';
@@ -77,12 +77,10 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
       chartData.push({
         lineStyle: 'dotted',
         smooth: true,
-        name: this.titleCasePipe.transform(
-          this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.WITH_RISK].style}`)
-        ),
+        name: this.titleCasePipe.transform(this.translateService.instant(`Component.State.${MetricState[MetricStates.WITH_RISK].style}`)),
         values:
           analysis?.map(value => ({
-            color: MetricState[AvailableMetricStates.WITH_RISK].color,
+            color: MetricState[MetricStates.WITH_RISK].color,
             value: value.analysisValues.expectedValue ?? ''
           })) ?? []
       });
@@ -92,12 +90,10 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
       chartData.push({
         lineStyle: 'dotted',
         smooth: true,
-        name: this.titleCasePipe.transform(
-          this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.ACCEPTABLE].style}`)
-        ),
+        name: this.titleCasePipe.transform(this.translateService.instant(`Component.State.${MetricState[MetricStates.ACCEPTABLE].style}`)),
         values:
           analysis?.map(value => ({
-            color: MetricState[AvailableMetricStates.ACCEPTABLE].color,
+            color: MetricState[MetricStates.ACCEPTABLE].color,
             value: value.analysisValues.goodValue ?? ''
           })) ?? []
       });
@@ -107,12 +103,10 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
       chartData.push({
         lineStyle: 'dotted',
         smooth: true,
-        name: this.titleCasePipe.transform(
-          this.translateService.instant(`Component.State.${MetricState[AvailableMetricStates.PERFECT].style}`)
-        ),
+        name: this.titleCasePipe.transform(this.translateService.instant(`Component.State.${MetricState[MetricStates.PERFECT].style}`)),
         values:
           analysis?.map(value => ({
-            color: MetricState[AvailableMetricStates.PERFECT].color,
+            color: MetricState[MetricStates.PERFECT].color,
             value: value.analysisValues.perfectValue ?? ''
           })) ?? []
       });

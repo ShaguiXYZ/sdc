@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
-import { AvailableMetricStates } from 'src/app/shared/lib';
+import { MetricStates } from 'src/app/shared/lib';
 import { IStateCount } from '../model/state-count.model';
 import { SdcStateCountComponent } from '../sdc-state-count.component';
 
@@ -27,7 +27,7 @@ describe('SdcStateCountComponent', () => {
     component = fixture.componentInstance;
     const stateCount: IStateCount = {
       count: 1,
-      state: AvailableMetricStates.PERFECT
+      state: MetricStates.PERFECT
     };
     component.stateCount = stateCount;
     fixture.detectChanges();
