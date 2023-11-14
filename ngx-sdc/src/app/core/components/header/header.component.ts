@@ -47,9 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.config = this.config || { navigation: DEFAULT_HEADER_MENU };
-
-    this.initNavigation();
+    this.navigation = this.config?.navigation || DEFAULT_HEADER_MENU;
 
     this.securityInfo = this.securityService.info;
     this.languageInfo = this.languageService.info;
@@ -87,9 +85,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public signout() {
     this.securityService.signout();
-  }
-
-  private initNavigation(): void {
-    this.navigation = this.config.navigation;
   }
 }

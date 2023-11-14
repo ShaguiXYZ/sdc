@@ -20,7 +20,7 @@
   }
 }
 
-.menu-item-root {
+.menu-item {
   color: var(--link-color);
   cursor: pointer;
   display: flex;
@@ -39,7 +39,7 @@
     transform: rotate(0deg);
   }
 
-  :hover {
+  &:hover {
     color: var(--link-hover-color);
 
     em {

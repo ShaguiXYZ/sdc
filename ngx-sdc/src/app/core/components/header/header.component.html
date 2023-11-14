@@ -74,7 +74,7 @@
   <nx-header-navigation *ngIf="navigation.routes.length > 0">
     <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
       <!-- Parent menu -->
-      <div class="menu-item-root">
+      <div class="menu-item">
         <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink
           >{{ parent.name | translate }}
           <em *ngIf="!parent.routerLink" [ngClass]="{ 'icon-menu fa-solid fa-chevron-down': true }"></em>
