@@ -1,7 +1,5 @@
 package com.shagui.sdc.util;
 
-import java.util.stream.Collectors;
-
 import org.springframework.http.HttpStatus;
 
 import com.shagui.sdc.api.domain.CastFactory;
@@ -29,8 +27,7 @@ public class Mapper {
 		PageData<V> target = new PageData<>();
 
 		target.setPaging(CastFactory.getInstance(PageInfo.class).parse(source.getPaging()));
-		target.setPage(
-				source.getPage().stream().map(CastFactory.getInstance(clazz)::parse).collect(Collectors.toList()));
+		target.setPage(source.getPage().stream().map(CastFactory.getInstance(clazz)::parse).toList());
 
 		return target;
 	}

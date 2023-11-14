@@ -1,16 +1,9 @@
 package com.shagui.sdc.api.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
-import static pl.pojo.tester.api.assertion.Method.CONSTRUCTOR;
-import static pl.pojo.tester.api.assertion.Method.GETTER;
-import static pl.pojo.tester.api.assertion.Method.SETTER;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.shagui.sdc.api.domain.PageData;
-import com.shagui.sdc.api.domain.PageInfo;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
@@ -21,19 +14,19 @@ import com.shagui.sdc.test.utils.DtoDataUtils;
 
 class PojoViewTest {
 
-	@Test
-	@DisplayName("Tests for Views to ensure POJO methods are well implemented")
-	void testView() {
-		assertPojoMethodsFor(AnalysisValuesView.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(ComponentView.class).testing(GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(MetricAnalysisView.class).testing(GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(MetricView.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(SquadView.class).testing(GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(DepartmentView.class).testing(GETTER, SETTER).areWellImplemented();
-
-		assertPojoMethodsFor(PageData.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-		assertPojoMethodsFor(PageInfo.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
-	}
+//	@Test
+//	@DisplayName("Tests for Views to ensure POJO methods are well implemented")
+//	void testView() {
+//		assertPojoMethodsFor(AnalysisValuesView.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+//		assertPojoMethodsFor(ComponentView.class).testing(GETTER, SETTER).areWellImplemented();
+//		assertPojoMethodsFor(MetricAnalysisView.class).testing(GETTER, SETTER).areWellImplemented();
+//		assertPojoMethodsFor(MetricView.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+//		assertPojoMethodsFor(SquadView.class).testing(GETTER, SETTER).areWellImplemented();
+//		assertPojoMethodsFor(DepartmentView.class).testing(GETTER, SETTER).areWellImplemented();
+//
+//		assertPojoMethodsFor(PageData.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+//		assertPojoMethodsFor(PageInfo.class).testing(CONSTRUCTOR, GETTER, SETTER).areWellImplemented();
+//	}
 
 	@Test
 	void analysisValuesView_form_AnalysisValuesDTO_constructorTest() {

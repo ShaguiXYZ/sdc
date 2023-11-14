@@ -1,6 +1,5 @@
 package com.shagui.sdc.core.exception;
 
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.sdc.util.Mapper;
 
 import feign.FeignException;
@@ -37,8 +35,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(FeignException.class)
-	ResponseEntity<ApiError> exception(FeignException ex, WebRequest request)
-			throws JsonProcessingException, JSONException {
+	ResponseEntity<ApiError> exception(FeignException ex, WebRequest request) {
 		logException(ex);
 
 		ApiError apiError = Mapper.parse(ex);

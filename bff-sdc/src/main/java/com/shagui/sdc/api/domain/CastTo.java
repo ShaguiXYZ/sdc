@@ -31,8 +31,8 @@ public interface CastTo<T> {
 			return target;
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
-			throw new SdcCustomException(String.format("An empty constructor or a %s constructor is needed",
-					source.getClass().getSimpleName()), e);
+			throw new SdcCustomException("An empty constructor or a %s constructor is needed".formatted(
+                    source.getClass().getSimpleName()), e);
 		}
 	}
 }
