@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -61,13 +60,13 @@ public abstract class GitDocumentService implements AnalysisInterface {
 		return metricsByPath.entrySet().parallelStream()
 				.map(entry -> GitUtils
 						.retrieveGitData(
-								component, String.format("contents/%s", entry.getKey()), Optional.empty(),
+								component, "contents/%s".formatted(entry.getKey()), Optional.empty(),
 								ContentDTO.class)
 						.map(data -> getResponse(component, entry.getValue(), sdcDocument(data))).orElseGet(() -> {
 							log.error("Not git info for component '{}'", component.getName());
 							return new ArrayList<>();
 						}))
-				.flatMap(List::stream).collect(Collectors.toList());
+				.flatMap(List::stream).toList();
 	}
 
 	@Override
@@ -87,7 +86,7 @@ public abstract class GitDocumentService implements AnalysisInterface {
 
 	private List<ComponentAnalysisModel> getResponse(ComponentModel component, List<MetricModel> metrics,
 			SdcDocument docuemnt) {
-		return metrics.stream().map(execute(component, docuemnt)).collect(Collectors.toList());
+		return metrics.stream().map(execute(component, docuemnt)).toList();
 	}
 
 	private SdcDocument sdcDocument(ContentDTO gitData) {
@@ -103,7 +102,7 @@ public abstract class GitDocumentService implements AnalysisInterface {
 		try {
 			return sdcDocument(UrlUtils.url(url).openStream());
 		} catch (Exception e) {
-			throw new SdcCustomException(String.format("Error reading document from '%s'", url), e);
+			throw new SdcCustomException("Error reading document from '%s'".formatted(url), e);
 		}
 	}
 

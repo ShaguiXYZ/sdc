@@ -3,7 +3,6 @@ package com.shagui.sdc.util.validations;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.shagui.sdc.util.SdcStringUtils;
@@ -32,8 +31,7 @@ public class Version implements Comparable<Version> {
 	private List<Integer> cast(String toCast) {
 		String version = toCast.replaceAll("[^0-9.]", "");
 		return Arrays.stream(version.split("\\."))
-				.map(item -> SdcStringUtils.isNumeric(item) ? Integer.valueOf(item) : 0)
-				.collect(Collectors.toList());
+				.map(item -> SdcStringUtils.isNumeric(item) ? Integer.valueOf(item) : 0).toList();
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package com.shagui.sdc.util.documents.lib.xml.pom;
 
-import javax.annotation.PostConstruct;
-
+import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 

@@ -8,9 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +22,9 @@ import com.shagui.sdc.api.domain.Range;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.test.utils.RwsTestUtils;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 @ExtendWith(MockitoExtension.class)
 class ComponentRepositoryTest {

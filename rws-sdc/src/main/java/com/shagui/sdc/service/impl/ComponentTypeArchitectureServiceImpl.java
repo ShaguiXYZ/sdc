@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -53,8 +52,7 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	public PageData<ComponentTypeArchitectureDTO> filter(String componentType, String architecture, String network,
 			String deploymentType, String platform, String language) {
 		return componentTypeArchitectureRepository.repository()
-				.findBy(componentType, architecture, network, deploymentType, platform, language)
-				.stream()
+				.findBy(componentType, architecture, network, deploymentType, platform, language).stream()
 				.map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
@@ -68,7 +66,7 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	@Override
 	public List<ComponentTypeArchitectureDTO> create(List<ComponentTypeArchitectureDTO> data) {
 		return data.stream().map(Mapper::parse).map(componentTypeArchitectureRepository::create).map(Mapper::parse)
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	@Override
@@ -81,26 +79,26 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 				.map(property -> metricRepository.repository()
 						.findByNameIgnoreCaseAndType(property.getMetricName(), property.getType())
 						.orElseThrow(notMetricFound(property)))
-				.collect(Collectors.toList());
+				.toList();
 
 		List<ComponentTypeArchitectureModel> models = componentTypeArchitectures.stream()
 				.map(patchComponentTypeArchitectureMetrics(metrics))
-				.map(saveMetricProperties(metricProperties, metrics)).collect(Collectors.toList());
+				.map(saveMetricProperties(metricProperties, metrics)).toList();
 
-		return models.stream().map(Mapper::parse).collect(Collectors.toList());
+		return models.stream().map(Mapper::parse).toList();
 	}
 
 	@Override
 	public List<MetricValuesOutDTO> defineMetricValues(String componentType, String architecture, String metricName,
 			AnalysisType metricType, MetricValuesDTO values) {
 		MetricModel metric = metricRepository.repository().findByNameIgnoreCaseAndType(metricName, metricType)
-				.orElseThrow(() -> new SdcCustomException(String.format("Metric '%s' Not found", metricName)));
+				.orElseThrow(() -> new SdcCustomException("Metric '%s' Not found".formatted(metricName)));
 
 		List<ComponentTypeArchitectureModel> componentTypeArchitectures = componentTypeArchitectures(componentType,
 				architecture).stream()
 				.filter(componentTypeArchitecture -> componentTypeArchitecture.getMetrics().stream()
 						.anyMatch(caMetric -> caMetric.getId().equals(metric.getId())))
-				.collect(Collectors.toList());
+				.toList();
 
 		return componentTypeArchitectures.stream().map(componentTypeArchitecture -> {
 			MetricValuesModel model = new MetricValuesModel();
@@ -109,7 +107,7 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 			BeanUtils.copyProperties(values, model);
 
 			return model;
-		}).map(metricValueRepository::create).map(MetricValuesOutDTO::new).collect(Collectors.toList());
+		}).map(metricValueRepository::create).map(MetricValuesOutDTO::new).toList();
 	}
 
 	private List<ComponentTypeArchitectureModel> componentTypeArchitectures(String componentType, String architecture) {
@@ -129,7 +127,7 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 			List<MetricModel> metrics) {
 		return componentTypeArchitecture -> {
 			List<MetricModel> metricsToSave = metrics.stream().filter(metric -> componentTypeArchitecture.getMetrics()
-					.stream().noneMatch(m -> Objects.equals(m.getId(), metric.getId()))).collect(Collectors.toList());
+					.stream().noneMatch(m -> Objects.equals(m.getId(), metric.getId()))).toList();
 
 			if (metricsToSave.isEmpty()) {
 				return componentTypeArchitecture;

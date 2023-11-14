@@ -73,16 +73,15 @@ public class ComponentUtils {
 
 	public static List<MetricModel> metricsByType(ComponentModel component, AnalysisType type) {
 		return component.getComponentTypeArchitecture().getMetrics().stream()
-				.filter(metric -> type.equals(metric.getType())).collect(Collectors.toList());
+				.filter(metric -> type.equals(metric.getType())).toList();
 	}
 
 	public static Map<String, String> dictionaryOf(ComponentModel component) {
-		Map<String, String> dictionay = component.getProperties().stream()
-				.collect(Collectors.toMap(ComponentPropertyModel::getName, ComponentPropertyModel::getValue,
-						(data1, data2) -> {
-							log.warn("duplicate key founf!");
-							return data2;
-						}));
+		Map<String, String> dictionay = component.getProperties().stream().collect(
+				Collectors.toMap(ComponentPropertyModel::getName, ComponentPropertyModel::getValue, (data1, data2) -> {
+					log.warn("duplicate key found!");
+					return data2;
+				}));
 		dictionay.put("$name", component.getName());
 
 		return dictionay;

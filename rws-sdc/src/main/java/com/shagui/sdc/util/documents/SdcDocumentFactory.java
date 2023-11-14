@@ -25,7 +25,7 @@ public class SdcDocumentFactory {
 			return document;
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
-			throw new SdcCustomException(String.format("ERROR instantiating class '%s'.", clazz.getName()), e);
+			throw new SdcCustomException("ERROR instantiating class '%s'.".formatted(clazz.getName()), e);
 		}
 	}
 }

@@ -117,7 +117,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Transactional
 	@Override
 	public List<DepartmentDTO> departmentsUpdateData(List<DepartmentInput> departments) {
-		return departments.stream().map(this::departmentUpdateData).collect(Collectors.toList());
+		return departments.stream().map(this::departmentUpdateData).toList();
 	}
 
 	@Transactional
@@ -186,7 +186,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	private Consumer<String> saveUriComponent(ComponentModel component) {
 		return (String uri) -> {
 			if (StaticRepository.uris().stream().noneMatch(model -> model.getName().equals(uri))) {
-				throw new SdcCustomException(String.format("Not %s uri present!!!", uri));
+				throw new SdcCustomException("Not %s uri present!!!".formatted(uri));
 			}
 
 			ComponentUriModel uriModel = new ComponentUriModel();

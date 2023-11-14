@@ -20,7 +20,7 @@ public class GitLib {
 		Map<String, Integer> data = languages(serviceData);
 
 		return Optional
-				.of(data.entrySet().stream().map(entry -> String.format("%s=%s", entry.getKey(), entry.getValue()))
+				.of(data.entrySet().stream().map(entry -> "%s=%s".formatted(entry.getKey(), entry.getValue()))
 						.collect(Collectors.joining(";")));
 	};
 

@@ -1,11 +1,9 @@
 package com.shagui.sdc.util.git;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.stereotype.Component;
 
 import com.shagui.sdc.api.client.GitClient;
-
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 
 @Component

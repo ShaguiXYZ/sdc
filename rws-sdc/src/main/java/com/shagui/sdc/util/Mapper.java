@@ -2,7 +2,6 @@ package com.shagui.sdc.util;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 
@@ -90,7 +89,7 @@ public class Mapper {
 
 	public static DepartmentDTO parse(DepartmentModel source) {
 		List<Float> coverages = source.getSquads().stream().map(SquadModel::getCoverage).filter(Objects::nonNull)
-				.collect(Collectors.toList());
+				.toList();
 
 		int numSquads = coverages.size();
 

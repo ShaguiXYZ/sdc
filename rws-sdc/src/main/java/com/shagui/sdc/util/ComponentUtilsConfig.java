@@ -2,9 +2,6 @@ package com.shagui.sdc.util;
 
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.shagui.sdc.core.configuration.DictionaryConfig;
@@ -22,27 +19,17 @@ import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
 public class ComponentUtilsConfig {
-	@Autowired
 	private final DictionaryConfig tokens;
-
-	@Autowired
 	private final ComponentRepository componentRepository;
-
-	@Autowired
 	private final ComponentAnalysisRepository componentAnalysisRepository;
-
-	@Autowired
 	private final ComponentPropertyRepository componentPropertyRepository;
-
-	@Autowired
 	private final ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
-
-	@Autowired
 	private final SquadRepository squadRepository;
 
 	public Map<String, String> tokens() {

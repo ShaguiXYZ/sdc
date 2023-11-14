@@ -7,7 +7,6 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -21,7 +20,7 @@ public class DateUtils {
                 date -> date.plusDays(1))
                 .limit(ChronoUnit.DAYS.between(startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
                         endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) + 1)
-                .map(DateUtils::localDateToDate).collect(Collectors.toList());
+                .map(DateUtils::localDateToDate).toList();
     }
 
     public static List<Date> getLastMounth(int n) {
@@ -33,7 +32,7 @@ public class DateUtils {
                 .mapToObj(i -> DateUtils.dateToLocalDate(start).minusMonths(i))
                 .map(LocalDate::atStartOfDay)
                 .map(DateUtils::loacalDateTimeToInstant)
-                .map(Date::from).collect(Collectors.toList());
+                .map(Date::from).toList();
     }
 
     private static LocalDate dateToLocalDate(Date date) {

@@ -63,5 +63,5 @@ public interface ComponentRestApi {
 	@Operation(summary = "Retrieve component dictionary")
 	@GetMapping("{componentId}/dictionary")
 	Map<String, String> dictionary(
-			@PathVariable(value = "componentId") @Parameter(description = "component identifier") int componentId);
+            @PathVariable @Parameter(description = "component identifier") int componentId);
 }

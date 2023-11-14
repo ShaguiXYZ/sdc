@@ -35,7 +35,7 @@ public final class GitXmlServiceImpl extends GitDocumentService {
 		}
 
 		throw new SdcCustomException(
-				String.format("%s function is not available for %s service", fn, Ctes.ANALYSIS_SERVICES_TYPES.GIT_XML));
+                "%s function is not available for %s service".formatted(fn, Ctes.ANALYSIS_SERVICES_TYPES.GIT_XML));
 	}
 
 	private boolean isServiceFn(String fn) {

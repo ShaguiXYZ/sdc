@@ -46,7 +46,7 @@ public class ComponentServiceImpl implements ComponentService {
 	public ComponentDTO findBy(int squadId, String name) {
 		return Mapper.parse(componentRepository.repository().findBySquad_IdAndName(squadId, name)
 				.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_COMPONENT,
-						String.format("no result found for squad %s and component name %s", squadId, name))));
+                "no result found for squad %s and component name %s".formatted(squadId, name))));
 	}
 
 	@Override

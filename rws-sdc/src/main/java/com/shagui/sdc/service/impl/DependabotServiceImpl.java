@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class DependabotServiceImpl implements DependabotService {
 			String value = MetricLibrary.Library.valueOf(metric.getValue().toUpperCase()).apply(result);
 
 			return new ComponentAnalysisModel(component, metric, value);
-		}).collect(Collectors.toList());
+		}).toList();
 	}
 
 	private static class MetricLibrary {

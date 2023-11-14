@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.ServiceDataDTO;
@@ -58,15 +57,14 @@ public class AnalysisUtils {
 	};
 
 	public static Float metricCoverage(List<ComponentAnalysisModel> metricAnalysis) {
-		List<MetricAnalysisDTO> dtos = metricAnalysis.stream().map(setMetricValues).map(Mapper::parse)
-				.collect(Collectors.toList());
+		List<MetricAnalysisDTO> dtos = metricAnalysis.stream().map(setMetricValues).map(Mapper::parse).toList();
 
 		return calculateMetricCoverage(dtos);
 	}
 
 	private static float calculateMetricCoverage(List<MetricAnalysisDTO> metricAnalysis) {
 		List<MetricAnalysisDTO> analysisWithCoverage = metricAnalysis.stream()
-				.filter(data -> data.getCoverage() != null).collect(Collectors.toList());
+				.filter(data -> data.getCoverage() != null).toList();
 		int totalWeight = analysisWithCoverage.stream().map(data -> data.getAnalysisValues().getWeight()).reduce(0,
 				(a, b) -> a + b);
 		return analysisWithCoverage.stream().map(metricAnalysisRelativeCoverage(totalWeight)).reduce(0f,

@@ -31,11 +31,11 @@ public class JsonDocument implements SdcDocument {
 		try {
 			List<JSONKey> keys = Arrays
 					.stream((path.startsWith("[") ? path : String.valueOf("." + path)).split("(?=[\\[\\]\\.])"))
-					.filter(x -> !"]".equals(x)).map(JSONKey::new).collect(Collectors.toList());
+					.filter(x -> !"]".equals(x)).map(JSONKey::new).toList();
 
 			return getValueAt(JSON_FACTORY.createParser(new ByteArrayInputStream(baos.toByteArray())), keys, 0, false);
 		} catch (IOException e) {
-			throw new SdcCustomException(String.format("ERROR in metric '%s'.", path), e);
+			throw new SdcCustomException("ERROR in metric '%s'.".formatted(path), e);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class JsonDocument implements SdcDocument {
 		} catch (final SdcCustomException e) {
 			if (strict) {
 				throw (null == e.getCause() ? new SdcCustomException(
-						e.getMessage() + String.format(", at path: '%s'", this.toKeyString(keys, idx)), e) : e);
+						e.getMessage() + ", at path: '%s'".formatted(this.toKeyString(keys, idx)), e) : e);
 			}
 
 			return Optional.empty();
@@ -95,7 +95,7 @@ public class JsonDocument implements SdcDocument {
 			final JsonToken token = parser.nextToken();
 			if (!this.startToken.equals(token)) {
 				throw new SdcCustomException(
-						String.format("Expected token of type '%s', got: '%s'", this.startToken, token));
+                        "Expected token of type '%s', got: '%s'".formatted(this.startToken, token));
 			}
 
 			if (JsonToken.START_ARRAY.equals(this.startToken)) {
@@ -149,7 +149,7 @@ public class JsonDocument implements SdcDocument {
 
 		@Override
 		public String toString() {
-			return String.format(this.startToken.equals(JsonToken.START_ARRAY) ? "[%s]" : ".%s", this.key);
+			return (this.startToken.equals(JsonToken.START_ARRAY) ? "[%s]" : ".%s").formatted(this.key);
 		}
 	}
 }

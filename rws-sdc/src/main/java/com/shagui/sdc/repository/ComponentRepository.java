@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,21 +30,25 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 	public Optional<ComponentModel> findBySquad_IdAndName(int squadId, String name);
 
-	@Query("SELECT cm FROM ComponentModel cm WHERE "
-			+ "(:name IS NULL OR LOWER(cm.name) like %:name%) AND "
-			+ "(:squad IS NULL OR cm.squad = :squad) AND "
-			+ "(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND "
-			+ "(:coverageMax IS NULL OR :coverageMax >= cm.coverage) "
-			+ "ORDER BY cm.coverage, cm.name")
+	@Query("""
+            SELECT cm FROM ComponentModel cm WHERE \
+            (:name IS NULL OR LOWER(cm.name) like %:name%) AND \
+            (:squad IS NULL OR cm.squad = :squad) AND \
+            (:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
+            (:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
+            ORDER BY cm.coverage, cm.name\
+            """)
 	public Page<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax,
 			Pageable pageable);
 
-	@Query("SELECT cm FROM ComponentModel cm WHERE "
-			+ "(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND "
-			+ "(:squad IS NULL OR cm.squad = :squad) AND "
-			+ "(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND "
-			+ "(:coverageMax IS NULL OR :coverageMax >= cm.coverage) "
-			+ "ORDER BY cm.coverage, cm.name")
+	@Query("""
+            SELECT cm FROM ComponentModel cm WHERE \
+            (:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
+            (:squad IS NULL OR cm.squad = :squad) AND \
+            (:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
+            (:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
+            ORDER BY cm.coverage, cm.name\
+            """)
 	public List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax);
 
 	/**

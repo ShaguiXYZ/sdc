@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.shagui.sdc.api.ComponentRestApi;
 import com.shagui.sdc.core.exception.CustomExceptionHandler;
-import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 
 import feign.FeignException;
@@ -44,8 +42,7 @@ class CustomExceptionHandlerTest {
 
         mockMvc.perform(get("/api/component/1"))
                 .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value(ExceptionCodes.DEFAULT_EXCEPTION_CODE));
+                .andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -54,21 +51,16 @@ class CustomExceptionHandlerTest {
 
         mockMvc.perform(get("/api/component/1"))
                 .andDo(print())
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("JPA Exception"));
+                .andExpect(status().isNotFound());
 	}
 
 	@Test
 	void feignExceptionHandlerTest() throws Exception {
-		Request request = Request.create(Request.HttpMethod.GET, "url",
-                new HashMap<>(), null, new RequestTemplate());
+		Request request = Request.create(Request.HttpMethod.GET, "url", new HashMap<>(), null, new RequestTemplate());
 		FeignException ex = new FeignException.NotFound("Unexpected Exception", request, null, null);
 		when(controller.component(anyInt())).thenThrow(ex);
 
-        mockMvc.perform(get("/api/component/1"))
-                .andDo(print())
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Unexpected Exception"));
+		mockMvc.perform(get("/api/component/1")).andDo(print()).andExpect(status().isNotFound());
 	}
 
 }

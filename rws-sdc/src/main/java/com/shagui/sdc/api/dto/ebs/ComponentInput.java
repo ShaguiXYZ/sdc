@@ -38,32 +38,24 @@ public class ComponentInput {
 		model.setName(componentName);
 
 		List<ComponentPropertyModel> propertiesToAdd = this.getProperties().stream()
-				.filter(property -> !property.isToDelete())
-				.map(ComponentPropertyInput::asModel)
-				.peek(prop -> prop.setComponent(model))
-				.collect(Collectors.toList());
+				.filter(property -> !property.isToDelete()).map(ComponentPropertyInput::asModel)
+				.peek(prop -> prop.setComponent(model)).toList();
 
-		Set<String> propertyNames = propertiesToAdd.stream()
-				.map(ComponentPropertyModel::getName)
+		Set<String> propertyNames = propertiesToAdd.stream().map(ComponentPropertyModel::getName)
 				.collect(Collectors.toSet());
 
 		ComponentParamsModel staticComponentParams = StaticRepository.componentParams().stream()
-				.filter(param -> param.getType().equals(this.componentType))
-				.findFirst()
+				.filter(param -> param.getType().equals(this.componentType)).findFirst()
 				.orElseGet(this::defaultComponentParams);
 
 		List<ComponentPropertyModel> defaultProperties = staticComponentParams.getParams().stream()
-				.filter(param -> !propertyNames.contains(param.getName()))
-				.map(param -> {
+				.filter(param -> !propertyNames.contains(param.getName())).map(param -> {
 					String value = Arrays
-							.asList(componentName.replaceFirst("^[^\\_\\-]*", param.getPre()), param.getPost())
-							.stream()
-							.filter(StringUtils::hasText)
-							.collect(Collectors.joining("-"));
+							.asList(componentName.replaceFirst("^[^\\_\\-]*", param.getPre()), param.getPost()).stream()
+							.filter(StringUtils::hasText).collect(Collectors.joining("-"));
 
 					return new ComponentPropertyModel(model, param.getName(), value);
-				})
-				.collect(Collectors.toList());
+				}).toList();
 
 		model.getProperties().addAll(propertiesToAdd);
 		model.getProperties().addAll(defaultProperties);

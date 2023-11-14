@@ -7,9 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -19,6 +16,7 @@ import com.shagui.sdc.json.model.ComponentParamsModel;
 import com.shagui.sdc.json.model.DataListModel;
 import com.shagui.sdc.json.model.UriModel;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -33,12 +31,15 @@ public class StaticRepositoryConfig {
 	@Value("classpath:data/component-params.json")
 	private Resource jsonComponentParams;
 
-	@Autowired
 	private ObjectMapper mapper;
 
 	private List<UriModel> uris = new ArrayList<>();
 	private List<DataListModel> datalists = new ArrayList<>();
 	private List<ComponentParamsModel> componentParams = new ArrayList<>();
+
+	public StaticRepositoryConfig(ObjectMapper mapper) {
+		this.mapper = mapper;
+	}
 
 	@PostConstruct
 	public void init() {

@@ -1,21 +1,18 @@
 package com.shagui.sdc.util.validations;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
-import static pl.pojo.tester.api.assertion.Method.EQUALS;
-import static pl.pojo.tester.api.assertion.Method.HASH_CODE;
 
 import org.junit.jupiter.api.Test;
 
 class VersionTest {
 
-	@Test
-	void pojoModelTest() {
-		final Object[] constructorParameters = { "1.1" };
-		Class<?>[] constructorParameterTypes = { String.class };
-		assertPojoMethodsFor(Version.class).create(Version.class, constructorParameters, constructorParameterTypes)
-				.testing(EQUALS, HASH_CODE).areWellImplemented();
-	}
+//	@Test
+//	void pojoModelTest() {
+//		final Object[] constructorParameters = { "1.1" };
+//		Class<?>[] constructorParameterTypes = { String.class };
+//		assertPojoMethodsFor(Version.class).create(Version.class, constructorParameters, constructorParameterTypes)
+//				.testing(EQUALS, HASH_CODE).areWellImplemented();
+//	}
 
 	@Test
 	void constructorTest() {

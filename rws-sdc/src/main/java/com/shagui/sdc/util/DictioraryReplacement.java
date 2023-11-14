@@ -60,7 +60,7 @@ public class DictioraryReplacement {
 					} else {
 						if (strict) {
 							throw new SdcCustomException(
-									String.format("[STRICT] Not key '%s' found in repository", key));
+                                    "[STRICT] Not key '%s' found in repository".formatted(key));
 						}
 
 						log.debug("Not key '{}' found in repository", key);

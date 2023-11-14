@@ -4,14 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,6 +25,9 @@ import org.xml.sax.SAXException;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.util.documents.SdcDocument;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -51,7 +50,7 @@ public class XmlDocument implements SdcDocument {
 	}
 
 	public List<String> values(String path) {
-		return streamFromPath(path).collect(Collectors.toList());
+		return streamFromPath(path).toList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -63,7 +62,7 @@ public class XmlDocument implements SdcDocument {
 				log.error("Error procesing XML path: {}", path, e);
 				return Optional.empty();
 			}
-		}).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+		}).filter(Optional::isPresent).map(Optional::get).toList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -90,7 +89,7 @@ public class XmlDocument implements SdcDocument {
 
 			return IntStream.range(0, list.getLength()).mapToObj(list::item);
 		} catch (XPathExpressionException e) {
-			throw new SdcCustomException(String.format("ERROR in metric '%s'.", path), e);
+			throw new SdcCustomException("ERROR in metric '%s'.".formatted(path), e);
 		}
 	}
 

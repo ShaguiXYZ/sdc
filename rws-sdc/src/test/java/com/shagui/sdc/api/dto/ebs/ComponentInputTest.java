@@ -95,10 +95,22 @@ class ComponentInputTest {
 
 	@Test
 	void testAsModel() {
-		when(config.componentParams()).thenReturn(new ArrayList<>() {{
+		when(config.componentParams()).thenReturn(new ArrayList<>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		{
 			ComponentParamsModel model = new ComponentParamsModel();
 			model.setType("testType");
-			model.setParams(new ArrayList<ParamConfigModel>() {{
+			model.setParams(new ArrayList<>() {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+			{
 				ParamConfigModel param = new ParamConfigModel();
 				param.setName("prop1");
 				add(param);

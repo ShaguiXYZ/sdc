@@ -32,8 +32,8 @@ public class MetricServiceImpl implements MetricService {
 		return Mapper
 				.parse(metricRepository.repository().findByNameIgnoreCaseAndType(metricName, metricType)
 						.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_METRIC,
-								String.format("no result found for metric '%s' and type '%s'", metricName,
-										metricType.name()))));
+                "no result found for metric '%s' and type '%s'".formatted(metricName,
+                        metricType.name()))));
 	}
 
 	@Override

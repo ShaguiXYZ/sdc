@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class GitServiceImpl implements GitService {
 						.orElseGet(AnalysisUtils.notDataFound(new ServiceDataDTO(component, metric)));
 
 				return new ComponentAnalysisModel(component, metric, value);
-			}).collect(Collectors.toList());
+			}).toList();
 		}
 
 		return analysisList;

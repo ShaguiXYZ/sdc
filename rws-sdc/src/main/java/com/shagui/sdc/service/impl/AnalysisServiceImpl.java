@@ -68,7 +68,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		ComponentAnalysisModel model = componentAnalysisRepository.repository().actualMetric(componentId, metricId)
 				.map(AnalysisUtils.setMetricValues)
 				.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_ANALYSIS,
-						String.format("no result found for metric %s of component %s", metricId, componentId)));
+                "no result found for metric %s of component %s".formatted(metricId, componentId)));
 
 		return Mapper.parse(model);
 	}
@@ -79,7 +79,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		ComponentModel component = componentsRepository.findExistingId(componentId);
 
 		List<ComponentAnalysisModel> savedData = executeAsyncMetricServicesAndWait(component)
-				.filter(modifiedAnalysis).map(componentAnalysisRepository::save).collect(Collectors.toList());
+				.filter(modifiedAnalysis).map(componentAnalysisRepository::save).toList();
 
 		ComponentUtils.updateRelatedComponentEntities(component, !savedData.isEmpty());
 		ComponentUtils.updateComponentProperties(component);

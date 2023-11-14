@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Page;
@@ -38,7 +37,7 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 
 	default List<T> findAll(Iterable<K> keys) {
 		return StreamSupport.stream(keys.spliterator(), false).map(id -> repository().findById(id).orElse(null))
-				.filter(Objects::nonNull).collect(Collectors.toList());
+				.filter(Objects::nonNull).toList();
 	}
 
 	default Page<T> findAll(RequestPageInfo pageInfo) {
@@ -75,7 +74,7 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 	default T update(K id, T model) {
 		Optional<T> data = repository().findById(id);
 
-		if (!data.isPresent() || !data.get().getId().equals(model.getId())) {
+		if (data.isEmpty() || !data.get().getId().equals(model.getId())) {
 			throw new JpaNotFoundException();
 		}
 

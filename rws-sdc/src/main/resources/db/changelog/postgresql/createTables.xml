@@ -182,4 +182,13 @@
 			CREATE UNIQUE INDEX comp_type_arch_metr_prop_uidx ON component_type_architecture_metrics_properties USING btree (component_type_architecture_id, metric_id, lower((name)::text));
 		</sql>
 	</changeSet>
+	<changeSet author="initial" id="20230707_10023">
+		<sql dbms="postgresql">
+			CREATE TABLE properties (
+				"name" varchar NULL,
+				value varchar NULL
+			);
+			CREATE UNIQUE INDEX properties_name_idx ON properties (LOWER("name"));
+		</sql>
+	</changeSet>
 </databaseChangeLog>
