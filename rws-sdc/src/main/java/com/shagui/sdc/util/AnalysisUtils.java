@@ -59,7 +59,7 @@ public class AnalysisUtils {
 	public static Float metricCoverage(List<ComponentAnalysisModel> metricAnalysis) {
 		List<MetricAnalysisDTO> dtos = metricAnalysis.stream().map(setMetricValues).map(Mapper::parse).toList();
 
-		return calculateMetricCoverage(dtos);
+		return NumericUtils.round(calculateMetricCoverage(dtos), 2);
 	}
 
 	private static float calculateMetricCoverage(List<MetricAnalysisDTO> metricAnalysis) {
