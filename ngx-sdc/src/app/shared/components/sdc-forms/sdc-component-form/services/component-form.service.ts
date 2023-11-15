@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, filter, firstValueFrom, map, of } from 'rxjs';
+import { Observable, Subject, firstValueFrom, map, of } from 'rxjs';
 import { IComponentModel } from 'src/app/core/models/sdc';
 import { ComponentService, DataListService } from 'src/app/core/services/sdc';
 

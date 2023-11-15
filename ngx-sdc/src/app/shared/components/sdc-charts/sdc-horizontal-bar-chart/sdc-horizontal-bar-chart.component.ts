@@ -8,8 +8,8 @@ import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',
-  templateUrl: '../sdc-chart.component.html',
-  styleUrls: ['../sdc-chart.component.scss'],
+  templateUrl: './sdc-horizontal-bar-chart.component.html',
+  styleUrls: ['./sdc-horizontal-bar-chart.component.scss'],
   providers: [SdcValueTypeToNumberPipe, TitleCasePipe],
   standalone: true,
   imports: [CommonModule, NgxEchartsModule]

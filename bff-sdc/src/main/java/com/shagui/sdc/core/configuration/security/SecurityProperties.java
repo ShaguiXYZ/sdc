@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @ConfigurationProperties(prefix = "rest.security")
 public class SecurityProperties {
 	private boolean enabled;
-	private String apiMatcher;
+	private String[] apiMatcher;
 	private Cors cors;
 	private String issuerUri;
 

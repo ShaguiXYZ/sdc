@@ -9,8 +9,8 @@ import { legendPosition } from '../lib';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
-  templateUrl: '../sdc-chart.component.html',
-  styleUrls: ['../sdc-chart.component.scss'],
+  templateUrl: './sdc-time-evolution-chart.component.html',
+  styleUrls: ['./sdc-time-evolution-chart.component.scss'],
   providers: [SdcValueTypeToNumberPipe],
   standalone: true,
   imports: [CommonModule, NgxEchartsModule]

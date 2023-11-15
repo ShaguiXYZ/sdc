@@ -48,10 +48,10 @@ export class SdcApplicationsService {
   public availableCoverages(): Promise<{ key: string; label: string; style: string }[]> {
     return firstValueFrom(
       of(
-        Object.keys(MetricState).map(key => ({
+        Object.entries(MetricState).map(([key, value]) => ({
           key,
-          label: `Component.State.${MetricState[key].style}`,
-          style: styleByName(MetricState[key].style)
+          label: `Component.State.${value.style}`,
+          style: styleByName(value.style)
         }))
       )
     );

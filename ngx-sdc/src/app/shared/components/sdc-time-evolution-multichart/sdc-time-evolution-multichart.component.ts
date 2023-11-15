@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DataInfo, GenericDataInfo } from 'src/app/core/models';
 import { ChartConfig, ChartData, SdcGraphData } from '../../models';
-import { SdcTimeEvolutionChartComponent } from '../sdc-charts';
+import { SdcTimeEvolutionChartComponent, stringGraphToDataInfo } from '../sdc-charts';
 
 @Component({
   selector: 'sdc-time-evolution-multichart',
@@ -26,37 +26,21 @@ export class SdcTimeEvolutionMultichartComponent {
 
   private toChartconfig(value: SdcGraphData): ChartConfig {
     const data: string[] = value.graph.map(v => v.data);
-    this.graphData = this.groupDataInfo(data.map(this.stringGraphToDataInfo));
+    this.graphData = this.groupDataInfo(data.map(stringGraphToDataInfo));
 
     return {
       axis: { xAxis: value.graph.map(v => v.axis) },
-      data: Object.keys(this.graphData).map(
-        (key): ChartData => ({
-          name: key,
-          smooth: true,
-          values: this.graphData[key].map(graphValue => ({
-            value: graphValue
-          }))
-        })
-      ),
+      data: Object.entries(this.graphData).map(([name, value]) => ({
+        name,
+        smooth: true,
+        values: value.map(graphValue => ({
+          value: graphValue
+        }))
+      })),
       options: { showVisualMap: false, legendPosition: value.legendPosition },
       type: value.type
     };
   }
-
-  private stringGraphToDataInfo = (data: string): DataInfo => {
-    const dataInfo: DataInfo = {};
-
-    data
-      .split(';')
-      .filter(value => /([^=]+)=(\d+)(.?(\d+))?/.test(value))
-      .forEach(eq => {
-        const [key, ...value] = eq.split('=');
-        dataInfo[key] = value[0];
-      });
-
-    return dataInfo;
-  };
 
   private groupDataInfo = (data: DataInfo[]): GenericDataInfo<string[]> => {
     const group: GenericDataInfo<string[]> = {};

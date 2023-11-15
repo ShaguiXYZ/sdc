@@ -120,12 +120,14 @@ public abstract class GitDocumentService implements AnalysisInterface {
 							component.getComponentTypeArchitecture(), metric, "PATH");
 
 			String path = property.map(p -> replacement.replace(p.getValue(), ""))
-					.orElseThrow(() -> new SdcCustomException(String.format(
-							"No path of origin has been defined for metric '%s' (%s) component type %s and architecture %s (%s)",
-							metric.getName(), metric.getId(),
-							component.getComponentTypeArchitecture().getComponentType(),
-							component.getComponentTypeArchitecture().getArchitecture(),
-							component.getComponentTypeArchitecture().getId())));
+					.map(p -> p.replaceFirst("^/+", ""))
+					.orElseThrow(() -> new SdcCustomException(
+							"No path of origin has been defined for metric '%s' (%s) component type %s and architecture %s (%s)"
+									.formatted(
+											metric.getName(), metric.getId(),
+											component.getComponentTypeArchitecture().getComponentType(),
+											component.getComponentTypeArchitecture().getArchitecture(),
+											component.getComponentTypeArchitecture().getId())));
 
 			List<MetricModel> pathMetrics = Optional.ofNullable(paths.get(path)).orElseGet(ArrayList::new);
 

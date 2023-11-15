@@ -74,8 +74,8 @@ export class SdcCoverageInfoComponent implements OnDestroy, AfterViewInit {
     const { SdcCoverageChartComponent } = await import('../sdc-charts/sdc-coverage-chart/sdc-coverage-chart.component');
     const component = viewContainerRef.createComponent(SdcCoverageChartComponent);
 
-    Object.keys(options).forEach(key => {
-      (component.instance as { [key: string]: any })[key] = options[key];
+    Object.entries(options).forEach(([key, value]) => {
+      (component.instance as { [key: string]: any })[key] = value;
     });
   };
 }

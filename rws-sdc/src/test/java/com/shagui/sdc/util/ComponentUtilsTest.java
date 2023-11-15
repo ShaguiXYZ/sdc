@@ -61,17 +61,9 @@ class ComponentUtilsTest {
 	}
 
 	@Test
-	void updateComponentPropertiesTest() {
-		when(componentPropertyRepository.save(any(ComponentPropertyModel.class))).thenReturn(RwsTestUtils.componentProperty(Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE));
-		ComponentUtils.updateComponentProperties(RwsTestUtils.componentModelMock());
-
-		verify(componentPropertyRepository, times(1)).save(any(ComponentPropertyModel.class));
-	}
-
-	@Test
 	void createComponentPropertiesTest() {
 		when(componentPropertyRepository.save(any(ComponentPropertyModel.class))).thenReturn(RwsTestUtils.componentProperty("property_name"));
-		ComponentUtils.updateComponentProperties(RwsTestUtils.componentModelMock());
+		ComponentUtils.addOrUpdatePropertyValue(RwsTestUtils.componentModelMock(), "property_name", "property_value");
 
 		verify(componentPropertyRepository, times(1)).save(any(ComponentPropertyModel.class));
 	}

@@ -1,3 +1,4 @@
+import { DataInfo } from 'src/app/core/models';
 import { LegendPosition } from 'src/app/shared/models';
 
 export const legendPosition = (position?: LegendPosition) =>
@@ -64,3 +65,17 @@ export const legendPosition = (position?: LegendPosition) =>
           containLabel: true
         }
       };
+
+export const stringGraphToDataInfo = (data: string = ''): DataInfo => {
+  const dataInfo: DataInfo = {};
+
+  data
+    .split(';')
+    .filter(value => /([^=]+)=(\d+)(.?(\d+))?/.test(value))
+    .forEach(eq => {
+      const [key, ...value] = eq.split('=');
+      dataInfo[key] = value[0];
+    });
+
+  return dataInfo;
+};

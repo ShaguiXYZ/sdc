@@ -16,13 +16,6 @@ public class Ctes {
 		}
 	}
 
-	public static class COMPONENT_PROPERTIES {
-		public static final String COMPONENT_ANALYSIS_DATE = "component_analysis_date";
-
-		private COMPONENT_PROPERTIES() {
-		}
-	}
-
 	public static class URI_PROPERTIES {
 		public static final String AUTHORIZATION = "Authorization";
 

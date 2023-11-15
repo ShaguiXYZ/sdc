@@ -43,13 +43,13 @@ public class UrlUtils {
 	public static <T> T mapResponse(Response response, Class<T> clazz) {
 		if (response.status() >= 400) {
 			throw new SdcCustomException(
-					String.format("status %s calling %s", response.status(), response.request().url()));
+					"status %s calling %s".formatted(response.status(), response.request().url()));
 		}
 
 		try (InputStream bodyIs = response.body().asInputStream()) {
 			return config.getObjectMapper().readValue(bodyIs, clazz);
 		} catch (IOException ex) {
-			throw new SdcCustomException(String.format("error mapping response to %s", clazz.getName()));
+			throw new SdcCustomException("error mapping response to %s".formatted(clazz.getName()));
 		}
 	}
 

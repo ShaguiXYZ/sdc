@@ -49,12 +49,6 @@ public class ComponentUtils {
 	}
 
 	@Transactional
-	public static void updateComponentProperties(ComponentModel component) {
-		addOrUpdatePropertyValue(component, Ctes.COMPONENT_PROPERTIES.COMPONENT_ANALYSIS_DATE,
-				Long.toString((new Date()).getTime()));
-	}
-
-	@Transactional
 	public static void updateRelatedComponentEntities(ComponentModel component, boolean hasNewAnalysis) {
 		if (hasNewAnalysis) {
 			updateComponent(component);
@@ -87,7 +81,7 @@ public class ComponentUtils {
 		return dictionay;
 	}
 
-	private static void addOrUpdatePropertyValue(ComponentModel component, String propertyName, String propertyValue) {
+	public static void addOrUpdatePropertyValue(ComponentModel component, String propertyName, String propertyValue) {
 		Optional<ComponentPropertyModel> propertyModel = config.componentPropertyRepository().repository()
 				.findByComponent_IdAndName(component.getId(), propertyName);
 

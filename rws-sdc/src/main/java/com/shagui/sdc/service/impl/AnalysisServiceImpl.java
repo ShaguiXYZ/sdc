@@ -68,7 +68,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		ComponentAnalysisModel model = componentAnalysisRepository.repository().actualMetric(componentId, metricId)
 				.map(AnalysisUtils.setMetricValues)
 				.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_ANALYSIS,
-                "no result found for metric %s of component %s".formatted(metricId, componentId)));
+						"no result found for metric %s of component %s".formatted(metricId, componentId)));
 
 		return Mapper.parse(model);
 	}
@@ -82,7 +82,6 @@ public class AnalysisServiceImpl implements AnalysisService {
 				.filter(modifiedAnalysis).map(componentAnalysisRepository::save).toList();
 
 		ComponentUtils.updateRelatedComponentEntities(component, !savedData.isEmpty());
-		ComponentUtils.updateComponentProperties(component);
 
 		log.debug("The {} component analysis has been saved. {} records.", component.getName(), savedData.size());
 

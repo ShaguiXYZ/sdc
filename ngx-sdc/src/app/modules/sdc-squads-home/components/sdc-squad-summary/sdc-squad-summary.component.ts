@@ -33,6 +33,7 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
 
   public readonly BACKGROUND_SQUAD_COLOR = BACKGROUND_SQUAD_COLOR;
   public squadSummaryData!: SquadSummaryModel;
+  public chartToShow: 'line' | 'pie' = 'pie';
 
   private data$!: Subscription;
 
@@ -72,5 +73,9 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
   public onSquadChage(index: number): void {
     this.squadSummaryData.selectedTabIndex = index;
     this.squadSummaryService.tabIndexChange(index, this.squadSummaryData.squad.id);
+  }
+
+  public toggleChart(): void {
+    this.chartToShow = this.chartToShow === 'line' ? 'pie' : 'line';
   }
 }

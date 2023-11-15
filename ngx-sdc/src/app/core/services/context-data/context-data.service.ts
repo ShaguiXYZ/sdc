@@ -111,12 +111,13 @@ export class ContextDataService {
     globalThis.addEventListener('beforeunload', () => {
       const sessionData: GenericDataInfo<IContextData> = {};
 
-      Object.keys(this.contextStorage.contextData).forEach(key => {
-        sessionData[key] = {
-          data: this.contextStorage.contextData[key].data,
-          configuration: this.contextStorage.contextData[key].configuration
-        };
-      });
+      Object.entries(this.contextStorage.contextData).forEach(
+        ([key, value]) =>
+          (sessionData[key] = {
+            data: value.data,
+            configuration: value.configuration
+          })
+      );
 
       sessionStorage.setItem(contextStorageID, JSON.stringify(sessionData));
     });
@@ -129,9 +130,7 @@ export class ContextDataService {
     if (sessionData) {
       const data: GenericDataInfo<IContextData> = JSON.parse(sessionData);
 
-      Object.keys(data).forEach(key => {
-        this.addContextData(key, data[key].data, data[key].configuration);
-      });
+      Object.entries(data).forEach(([key, value]) => this.addContextData(key, value.data, value.configuration));
 
       sessionStorage.removeItem(contextStorageID);
     }

@@ -36,7 +36,8 @@ springdoc:
 rest:
   security:
     enabled: false
-    api-matcher: /api/**
+    api-matcher:
+      - /api/**
     cors:
       allowed-origins: '*'
       allowed-headers: '*'

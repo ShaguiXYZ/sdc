@@ -8,8 +8,8 @@ import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 
 @Component({
   selector: 'sdc-coverage-chart',
-  templateUrl: '../sdc-chart.component.html',
-  styleUrls: ['../sdc-chart.component.scss'],
+  templateUrl: './sdc-coverage-chart.component.html',
+  styleUrls: ['./sdc-coverage-chart.component.scss'],
   standalone: true,
   imports: [CommonModule, NgxEchartsModule]
 })

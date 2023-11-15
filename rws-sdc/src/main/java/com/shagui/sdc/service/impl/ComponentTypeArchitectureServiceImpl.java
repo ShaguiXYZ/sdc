@@ -52,7 +52,13 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	public PageData<ComponentTypeArchitectureDTO> filter(String componentType, String architecture, String network,
 			String deploymentType, String platform, String language) {
 		return componentTypeArchitectureRepository.repository()
-				.findBy(componentType, architecture, network, deploymentType, platform, language).stream()
+				.findBy(componentType == null ? null : componentType.toLowerCase(),
+						architecture == null ? null : architecture.toLowerCase(),
+						network == null ? null : network.toLowerCase(),
+						deploymentType == null ? null : deploymentType.toLowerCase(),
+						platform == null ? null : platform.toLowerCase(),
+						language == null ? null : language.toLowerCase())
+				.stream()
 				.map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
@@ -178,6 +184,6 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 
 	private Supplier<SdcCustomException> notMetricFound(MetricPropertiesDTO property) {
 		return () -> new SdcCustomException(
-				String.format("Not metric '%s' (%s) found", property.getMetricName(), property.getType()));
+				"Not metric '%s' (%s) found".formatted(property.getMetricName(), property.getType()));
 	}
 }

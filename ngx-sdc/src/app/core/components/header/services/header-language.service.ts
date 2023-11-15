@@ -40,11 +40,11 @@ export class HeaderLanguageService implements OnDestroy {
 
     languageKeys
       .filter(lang => lang !== this._languageInfo.currentLanguage)
-      .forEach(key => {
-        const languageButton = new ButtonConfig(`Language.${key}`);
+      .forEach(language => {
+        const languageButton = new ButtonConfig(`Language.${language}`);
 
         languageButton.options = {
-          language: key
+          language
         };
 
         languageButton.callback = (options: any) => this.languageService.i18n(options.language);

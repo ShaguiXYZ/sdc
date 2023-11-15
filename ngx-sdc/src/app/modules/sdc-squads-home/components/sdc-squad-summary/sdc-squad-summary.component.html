@@ -17,11 +17,12 @@
       <div class="language-distribution sdc-center">
         <ng-container *ngIf="squadSummaryData.languageDistribution && squadSummaryData.languageDistribution.graph.length; else noData">
           <sdc-time-evolution-multichart
+            *ngIf="chartToShow === 'pie'"
             [data]="squadSummaryData.languageDistribution"
             [size]="{ height: 330 }"
           ></sdc-time-evolution-multichart>
 
-          <em class="sdc-op toggle-chart fa-solid fa-chart-pie"></em>
+          <em class="sdc-op toggle-chart fa-solid fa-chart-{{ chartToShow }}" (click)="toggleChart()"></em>
         </ng-container>
       </div>
     </nx-tab>
