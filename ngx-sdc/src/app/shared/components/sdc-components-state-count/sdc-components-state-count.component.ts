@@ -36,7 +36,7 @@ export class SdcComponentsStateCountComponent {
     const counts: { [key: string]: IStateCount } = {};
 
     this.components?.forEach(component => {
-      const state: MetricStates = stateByCoverage(component.coverage || 0);
+      const state: MetricStates = stateByCoverage(component.coverage ?? 0);
 
       if (counts[state]) {
         counts[state] = { ...counts[state], count: counts[state].count + 1 };

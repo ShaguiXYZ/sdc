@@ -35,7 +35,7 @@ export const stateByCoverage = (coverage: number): MetricStates => {
       _class = MetricStates.WITH_RISK;
     } else if (coverage < MetricState[MetricStates.ACCEPTABLE].value) {
       _class = MetricStates.ACCEPTABLE;
-    } else if (coverage <= MetricState[MetricStates.PERFECT].value) {
+    } else if (coverage >= MetricState[MetricStates.ACCEPTABLE].value) {
       _class = MetricStates.PERFECT;
     }
   }

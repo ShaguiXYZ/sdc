@@ -40,16 +40,28 @@ body {
   }
 }
 
-.sdc-cut-text {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.sdc-op {
+  cursor: pointer;
+  opacity: 0.2;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    color: var(--link-hover-color);
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+  }
 }
 
 .sdc-center {
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+.sdc-cut-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .sdc-scrollable,

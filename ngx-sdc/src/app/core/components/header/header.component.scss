@@ -1,6 +1,10 @@
 @import 'core-colors';
 @import 'core-globals';
 
+nx-header-navigation-item + nx-header-navigation-item {
+  margin-left: 16px;
+}
+
 .nx-header {
   left: 0;
   position: sticky;
@@ -12,7 +16,7 @@
   }
 
   .nx-header__link {
-    margin-right: 16px;
+    margin: 0;
 
     :hover {
       border-color: transparent;

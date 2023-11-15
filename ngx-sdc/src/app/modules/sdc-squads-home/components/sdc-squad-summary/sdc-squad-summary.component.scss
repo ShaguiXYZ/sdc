@@ -12,6 +12,13 @@
 
   .language-distribution {
     display: block;
+    position: relative;
+
+    .toggle-chart {
+      bottom: 15px;
+      position: absolute;
+      right: 15px;
+    }
   }
 
   .summary-charts {

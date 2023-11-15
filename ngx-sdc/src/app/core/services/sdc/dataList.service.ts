@@ -20,8 +20,6 @@ export class DataListService {
   constructor(private cache: CacheService, private http: HttpService) {}
 
   public dataListValues(key: string): Observable<string[]> {
-    console.log('dataListValues', key);
-
     return this.http
       .get<string[]>(`${this._urlDataLists}/datalist/${key}`, {
         cache: { id: this.dataListCacheId(key), cachedDuring: XXL_EXPIRATON_TIME }
