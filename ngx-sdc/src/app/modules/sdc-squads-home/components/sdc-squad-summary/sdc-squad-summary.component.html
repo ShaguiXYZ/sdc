@@ -15,12 +15,16 @@
     </nx-tab>
     <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
       <div class="language-distribution sdc-center">
-        <ng-container *ngIf="squadSummaryData.languageDistribution && squadSummaryData.languageDistribution.graph.length; else noData">
+        <ng-container *ngIf="squadSummaryData.languageDistribution && lastLanguageDistribution; else noData">
           <sdc-time-evolution-multichart
             *ngIf="chartToShow === 'pie'"
             [data]="squadSummaryData.languageDistribution"
             [size]="{ height: 330 }"
           ></sdc-time-evolution-multichart>
+
+          <ng-container *ngIf="chartToShow === 'line'">
+            <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate"></sdc-pie-chart>
+          </ng-container>
 
           <em class="sdc-op toggle-chart fa-solid fa-chart-{{ chartToShow }}" (click)="toggleChart()"></em>
         </ng-container>

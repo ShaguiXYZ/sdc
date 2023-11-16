@@ -11,8 +11,16 @@
   }
 
   .language-distribution {
+    display: flex;
     position: relative;
-    display: block;
+
+    .actual-language-distribution {
+      width: 400px;
+    }
+
+    .historical-language-distribution {
+      flex-grow: 1;
+    }
   }
 
   .summary-charts {

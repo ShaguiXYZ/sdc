@@ -6,7 +6,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
-import { SdcCoverageChartComponent, SdcHorizontalBarChartComponent } from 'src/app/shared/components/sdc-charts';
+import { SdcCoverageChartComponent, SdcHorizontalBarChartComponent, SdcPieChartComponent } from 'src/app/shared/components/sdc-charts';
 import { BACKGROUND_DEPARTMENT_COLOR } from 'src/app/shared/constants';
 import { MetricStates, MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
@@ -23,6 +23,7 @@ import { SdcDepartmentSummaryService } from './services';
     SdcCoverageChartComponent,
     SdcHorizontalBarChartComponent,
     SdcNoDataComponent,
+    SdcPieChartComponent,
     SdcTimeEvolutionMultichartComponent,
     CommonModule,
     NxHeadlineModule,
@@ -33,6 +34,7 @@ import { SdcDepartmentSummaryService } from './services';
 export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
   public readonly BACKGROUND_DEPARTMENT_COLOR = BACKGROUND_DEPARTMENT_COLOR;
   public departmentSummaryData!: DepartmentSummaryModel;
+  public lastLanguageDistribution?: string;
   public chartConfig!: ChartConfig;
 
   private data$!: Subscription;
@@ -55,6 +57,11 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.data$ = this.departmentSummaryService.onDataChange().subscribe(data => {
       this.departmentSummaryData = { ...this.departmentSummaryData, ...data };
+
+      this.lastLanguageDistribution =
+        (this.departmentSummaryData.languageDistribution?.graph.length &&
+          this.departmentSummaryData.languageDistribution.graph?.[this.departmentSummaryData.languageDistribution.graph.length - 1].data) ||
+        undefined;
     });
   }
 

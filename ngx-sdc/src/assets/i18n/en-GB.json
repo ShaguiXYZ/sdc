@@ -33,6 +33,7 @@
     "Title": "Software Development Console"
   },
   "Label": {
+    "ActualLanguageDistribution": "Actual language distribution",
     "Applications": "Applications",
     "AssociatedSquads": "Associated squads",
     "Cancel": "Cancel",

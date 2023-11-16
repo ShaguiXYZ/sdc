@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { GenericDataInfo } from 'src/app/core/models';
@@ -10,14 +11,14 @@ import { stringGraphToDataInfo } from '../lib';
   templateUrl: './sdc-pie-chart.component.html',
   styleUrls: ['./sdc-pie-chart.component.scss'],
   standalone: true,
-  imports: [CommonModule, NgxEchartsModule]
+  imports: [CommonModule, NgxEchartsModule, NxHeadlineModule]
 })
 export class SdcPieChartComponent implements OnInit {
   @Input()
-  public size!: number;
+  public title?: string;
 
   @Input()
-  public backgroundColor!: string;
+  public size!: number;
 
   public echartsOptions: EChartsOption = {};
 
@@ -41,21 +42,37 @@ export class SdcPieChartComponent implements OnInit {
     const dataInfo = stringGraphToDataInfo(value);
 
     const option: EChartsOption = {
+      grid: {
+        left: '2%',
+        right: '2%',
+        bottom: '5%',
+        top: '5%',
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b}: ({d}%)'
+      },
       series: [
         {
           type: 'pie',
           radius: '50%',
           data: Object.entries(dataInfo).map(([name, value]) => ({ name, value })),
           emphasis: {
+            focus: 'self',
             itemStyle: {
               shadowBlur: 10,
               shadowOffsetX: 0,
               shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
+          },
+          label: {
+            formatter: '{b}: ({d}%)'
           }
         }
       ]
     };
+
     return option;
   }
 }

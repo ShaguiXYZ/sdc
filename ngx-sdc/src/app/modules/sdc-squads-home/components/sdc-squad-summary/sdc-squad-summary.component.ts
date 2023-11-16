@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { SdcComponentsStateCountComponent, SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
-import { SdcCoverageChartComponent } from 'src/app/shared/components/sdc-charts';
+import { SdcCoverageChartComponent, SdcPieChartComponent } from 'src/app/shared/components/sdc-charts';
 import { IStateCount } from 'src/app/shared/components/sdc-state-count/model';
 import { BACKGROUND_SQUAD_COLOR } from 'src/app/shared/constants';
 import { SquadSummaryModel } from './models';
@@ -20,6 +20,7 @@ import { SdcSquadSummaryService } from './services';
   imports: [
     SdcComponentsStateCountComponent,
     SdcCoverageChartComponent,
+    SdcPieChartComponent,
     SdcTimeEvolutionMultichartComponent,
     SdcNoDataComponent,
     CommonModule,
@@ -33,6 +34,7 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
 
   public readonly BACKGROUND_SQUAD_COLOR = BACKGROUND_SQUAD_COLOR;
   public squadSummaryData!: SquadSummaryModel;
+  public lastLanguageDistribution?: string;
   public chartToShow: 'line' | 'pie' = 'pie';
 
   private data$!: Subscription;
@@ -59,6 +61,11 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.data$ = this.squadSummaryService.onDataChange().subscribe(data => {
       this.squadSummaryData = { ...this.squadSummaryData, ...data };
+
+      this.lastLanguageDistribution =
+        (this.squadSummaryData.languageDistribution?.graph.length &&
+          this.squadSummaryData.languageDistribution.graph?.[this.squadSummaryData.languageDistribution.graph.length - 1].data) ||
+        undefined;
     });
   }
 

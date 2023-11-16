@@ -35,7 +35,7 @@ export class SdcDepartmentSummaryService {
               axis: this.dateService.dateFormat(analysis.analysisDate),
               data: analysis.analysisValues.metricValue
             })),
-            legendPosition: 'right',
+            legendPosition: 'bottom',
             type: ValueType.NUMERIC
           }
         });

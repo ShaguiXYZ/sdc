@@ -1,24 +1,7 @@
 @import 'core-colors';
 @import 'core-globals';
 
-.history-component {
-  display: flex;
-
-  .application-graph {
-    flex-grow: 1;
-  }
-
-  .chart-ops {
-    display: flex;
-    flex-direction: column;
-
-    .sdc-op {
-      margin-top: 10px;
-    }
-  }
-}
-
-.application-historic,
+.application-history,
 .application-coverages {
   ::ng-deep {
     .nx-expansion-panel__body {
@@ -40,6 +23,39 @@
       nx-tab-header {
         background-color: $grey-lighter-color;
       }
+    }
+  }
+}
+
+.application-history {
+  .history-component {
+    display: flex;
+
+    .application-graph {
+      flex-grow: 1;
+    }
+
+    .chart-ops {
+      display: flex;
+      flex-direction: column;
+
+      .sdc-op {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+.application-coverages {
+  .language-distribution {
+    display: flex;
+
+    .actual-language-distribution {
+      width: 400px;
+    }
+
+    .historical-language-distribution {
+      flex-grow: 1;
     }
   }
 }

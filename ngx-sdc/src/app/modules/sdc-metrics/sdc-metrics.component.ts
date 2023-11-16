@@ -18,7 +18,7 @@ import {
   SdcNoDataComponent,
   SdcTimeEvolutionMultichartComponent
 } from 'src/app/shared/components';
-import { SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
+import { SdcPieChartComponent, SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
@@ -39,6 +39,7 @@ import { SdcMetricsService } from './services';
     SdcMetricInfoComponent,
     SdcMetricHistoryGraphsComponent,
     SdcNoDataComponent,
+    SdcPieChartComponent,
     SdcTimeEvolutionChartComponent,
     SdcTimeEvolutionMultichartComponent,
     CommonModule,
@@ -56,6 +57,7 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
 
   public metricsData?: MetricsDataModel;
   public historicalChartConfig!: ChartConfig;
+  public lastLanguageDistribution?: string;
 
   private data$!: Subscription;
   private metricsCardsDialogRef?: NxModalRef<SdcMetricsCardsComponent>;
@@ -77,6 +79,11 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
         ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
         title: `Metrics | ${this.metricsData.compliance.name ?? ''}`
       });
+
+      this.lastLanguageDistribution =
+        (this.metricsData.languageDistribution?.graph.length &&
+          this.metricsData.languageDistribution.graph?.[this.metricsData.languageDistribution.graph.length - 1].data) ||
+        undefined;
     });
 
     this.sdcMetricsService.loadInitData();

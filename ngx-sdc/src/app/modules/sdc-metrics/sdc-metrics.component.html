@@ -1,6 +1,6 @@
 <div *ngIf="metricsData" class="nx-margin-y-2xs">
   <sdc-compliance-bar-card [compliance]="metricsData.compliance" [showMore]="false" [hideBorder]="true"></sdc-compliance-bar-card>
-  <div class="application-historic nx-margin-y-2xs">
+  <div class="application-history nx-margin-y-2xs">
     <nx-accordion>
       <nx-expansion-panel (opened)="onOpenPanel()">
         <nx-expansion-panel-header>
@@ -60,9 +60,20 @@
             (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
           ></sdc-metric-history-graphs>
         </nx-tab>
-        <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
+        <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate" style="display: flex">
           <ng-container *ngIf="metricsData.languageDistribution; else noData">
-            <sdc-time-evolution-multichart [data]="metricsData.languageDistribution"></sdc-time-evolution-multichart>
+            <div class="language-distribution">
+              <div class="historical-language-distribution">
+                <sdc-time-evolution-multichart [data]="metricsData.languageDistribution"></sdc-time-evolution-multichart>
+              </div>
+              <div class="actual-language-distribution">
+                <sdc-pie-chart
+                  *ngIf="lastLanguageDistribution"
+                  [data]="lastLanguageDistribution"
+                  [title]="'Label.ActualLanguageDistribution' | translate"
+                ></sdc-pie-chart>
+              </div>
+            </div>
           </ng-container>
         </nx-tab>
       </nx-tab-group>
