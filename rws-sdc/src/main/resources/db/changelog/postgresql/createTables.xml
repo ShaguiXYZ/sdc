@@ -154,9 +154,9 @@
 				name varchar NOT NULL,
 				value varchar NOT NULL,
 				component_id int4 NOT NULL,
-				CONSTRAINT poject_properties_pk PRIMARY KEY (id),
-				CONSTRAINT poject_properties_uk UNIQUE (name, component_id),
-				CONSTRAINT poject_property_component_fk FOREIGN KEY (component_id) REFERENCES components(id) ON DELETE CASCADE
+				CONSTRAINT component_properties_pk PRIMARY KEY (id),
+				CONSTRAINT component_properties_uk UNIQUE (name, component_id),
+				CONSTRAINT component_properties_component_fk FOREIGN KEY (component_id) REFERENCES components(id) ON DELETE CASCADE
 			);
 		</sql>
 	</changeSet>
