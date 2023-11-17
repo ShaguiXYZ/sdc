@@ -60,7 +60,6 @@ class GitJsonServiceTest {
 		MockitoAnnotations.openMocks(this);
 		StaticRepository.setConfig(staticRepositoryConfig);
 
-		UrlUtils.setConfig(RwsTestUtils.urlUtilsConfig());
 		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
 
@@ -68,8 +67,11 @@ class GitJsonServiceTest {
 				add(RwsTestUtils.uriModelMock(UriType.GIT));
 			}
 		});
-		
+
 		GitUtils.setConfig(new GitUtilsConfig(gitClient));
+		GitDocumentService.setConfig(new GitDocumentServiceConfig(componentTypeArchitectureMetricPropertiesRep));
+
+		UrlUtils.setConfig(RwsTestUtils.urlUtilsConfig());
 	}
 
 	@Test

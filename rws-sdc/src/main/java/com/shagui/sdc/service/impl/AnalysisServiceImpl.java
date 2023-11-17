@@ -1,7 +1,6 @@
 package com.shagui.sdc.service.impl;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -113,19 +112,23 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 	private Stream<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {
 		Set<AnalysisType> metricTypes = component.getComponentTypeArchitecture().getMetrics().stream()
-				.map(MetricModel::getType).collect(Collectors.toSet());
+				.map(MetricModel::getType)
+				.collect(Collectors.toSet());
 
-		List<ComponentAnalysisModel> toSave = new ArrayList<>();
-
-		metricTypes.parallelStream().forEach(type -> {
-			try {
-				toSave.addAll(metricServices.get(type.name()).analyze(component));
-			} catch (SdcCustomException e) {
-				log.error("Error getting task result!!!!!", e);
-			}
-		});
-
-		return toSave.stream().map(AnalysisUtils.setMetricValues);
+		return metricTypes.parallelStream()
+				.flatMap(type -> {
+					try {
+						return metricServices.get(type.name()).analyze(component).stream();
+					} catch (SdcCustomException e) {
+						log.error("Error getting task result!!!!!", e);
+						return Stream.empty();
+					}
+				})
+				.map(data -> {
+					ComponentAnalysisModel model = AnalysisUtils.setMetricValues.apply(data);
+					model.setBlocker(isBlockerAnaysis(model));
+					return model;
+				});
 	}
 
 	private Predicate<ComponentAnalysisModel> modifiedAnalysis = reg -> componentAnalysisRepository.repository()
@@ -134,6 +137,12 @@ public class AnalysisServiceImpl implements AnalysisService {
 					|| !Objects.equals(model.getCoverage(), reg.getCoverage())
 					|| !Objects.equals(model.getExpectedValue(), reg.getExpectedValue())
 					|| !Objects.equals(model.getGoodValue(), reg.getGoodValue())
-					|| !Objects.equals(model.getPerfectValue(), reg.getPerfectValue()))
+					|| !Objects.equals(model.getPerfectValue(), reg.getPerfectValue())
+					|| model.isBlocker() != reg.isBlocker())
 			.orElse(true);
+
+	private static Boolean isBlockerAnaysis(ComponentAnalysisModel analysis) {
+		return analysis.getMetric().isBlocker() && Objects.nonNull(analysis.getCoverage())
+				&& analysis.getCoverage() < 50;
+	}
 }

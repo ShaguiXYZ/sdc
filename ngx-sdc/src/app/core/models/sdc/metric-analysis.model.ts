@@ -9,6 +9,7 @@ export interface IMetricAnalysisDTO {
   coverage: number;
   metric: IMetricDTO;
   analysisValues: IAnalysisValuesDTO;
+  blocker?: boolean;
 }
 
 export interface IMetricAnalysisModel extends Omit<ICoverageModel, 'id'> {
@@ -16,6 +17,7 @@ export interface IMetricAnalysisModel extends Omit<ICoverageModel, 'id'> {
   coverage: number;
   metric: IMetricModel;
   analysisValues: IAnalysisValuesModel;
+  blocker?: boolean;
 }
 
 export namespace IMetricAnalysisModel {
@@ -25,7 +27,8 @@ export namespace IMetricAnalysisModel {
       dto.coverage,
       IMetricModel.toModel(dto.metric),
       dto.metric.name,
-      IAnalysisValuesModel.toModel(dto.analysisValues)
+      IAnalysisValuesModel.toModel(dto.analysisValues),
+      dto.blocker
     );
   export const toDTO = (model: IMetricAnalysisModel): IMetricAnalysisDTO => ({
     ...model,
@@ -40,6 +43,7 @@ export class MetricAnalysisModel implements IMetricAnalysisModel {
     public coverage: number,
     public metric: IMetricModel,
     public name: string,
-    public analysisValues: IAnalysisValuesModel
+    public analysisValues: IAnalysisValuesModel,
+    public blocker?: boolean
   ) {}
 }

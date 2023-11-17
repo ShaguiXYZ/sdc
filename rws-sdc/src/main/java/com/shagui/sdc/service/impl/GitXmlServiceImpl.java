@@ -16,7 +16,7 @@ import com.shagui.sdc.util.documents.data.DocumentServiceDataDTO;
 import com.shagui.sdc.util.documents.lib.xml.XmlDocument;
 import com.shagui.sdc.util.documents.lib.xml.pom.PomLib;
 
-@Service(Ctes.ANALYSIS_SERVICES_TYPES.GIT_XML)
+@Service(Ctes.AnalysisServicesTypes.GIT_XML)
 public final class GitXmlServiceImpl extends GitDocumentService {
 	@Override
 	protected Class<? extends SdcDocument> documentOf() {
@@ -35,7 +35,7 @@ public final class GitXmlServiceImpl extends GitDocumentService {
 		}
 
 		throw new SdcCustomException(
-                "%s function is not available for %s service".formatted(fn, Ctes.ANALYSIS_SERVICES_TYPES.GIT_XML));
+				"%s function is not available for %s service".formatted(fn, Ctes.AnalysisServicesTypes.GIT_XML));
 	}
 
 	private boolean isServiceFn(String fn) {

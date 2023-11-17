@@ -6,6 +6,7 @@ export interface IComplianceModel {
   id: number;
   name: string;
   coverage: number;
+  blocked?: boolean;
   parentName?: string;
   analysisDate?: number;
 }
@@ -15,6 +16,7 @@ export namespace IComplianceModel {
     id: data.id,
     name: data.name,
     coverage: data.coverage || 0,
+    blocked: data.blocked,
     analysisDate: data.analysisDate,
     parentName: data.squad.name
   });

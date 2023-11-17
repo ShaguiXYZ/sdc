@@ -17,6 +17,7 @@ public class ComponentDTO {
 	private String name;
 	private Date analysisDate;
 	private Float coverage;
+	private boolean blocked;
 	private SquadDTO squad;
 
 	public ComponentDTO(ComponentView source) {

@@ -1,5 +1,7 @@
 @import 'colors';
 
+$danger-color: var(--danger);
+
 // Defines a custom property
 @mixin define-custom-property($name, $value) {
   #{custom-property-color($name)} {
@@ -30,6 +32,17 @@ nx-card {
     font-size: 12px;
   }
 
+  .blocked {
+    background-color: $state-critical;
+    border-radius: 4px 4px 0 0;
+    height: 12px;
+    left: 0;
+    opacity: 0.2;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
   .card-content {
     .flex-info {
       display: flex;
@@ -52,6 +65,7 @@ nx-card {
 
   &.hide-border {
     border-style: none;
+    border-radius: 5px;
     padding: 0;
   }
 }

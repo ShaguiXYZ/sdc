@@ -21,4 +21,5 @@ public class MetricDTO {
 	private AnalysisType type;
 	private MetricValueType valueType;
 	private MetricValidation validation;
+	private boolean blocker;
 }

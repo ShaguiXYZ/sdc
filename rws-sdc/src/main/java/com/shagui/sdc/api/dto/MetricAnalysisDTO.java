@@ -14,4 +14,5 @@ public class MetricAnalysisDTO {
 	private MetricDTO metric;
 	private AnalysisValuesDTO analysisValues;
 	private Float coverage;
+	private boolean blocker;
 }

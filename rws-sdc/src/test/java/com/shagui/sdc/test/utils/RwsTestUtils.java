@@ -44,6 +44,7 @@ import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.util.AnalysisUtilsConfig;
 import com.shagui.sdc.util.ComponentUtilsConfig;
+import com.shagui.sdc.util.Ctes.ComponentTypeArchitectureMetricConstants;
 import com.shagui.sdc.util.MapperConfig;
 import com.shagui.sdc.util.UrlUtilsConfig;
 
@@ -365,7 +366,7 @@ public class RwsTestUtils {
 		model.setId(1);
 		model.setComponentTypeArchitecture(componentTypeArchitectureModelMock());
 		model.setMetric(metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
-		model.setName("PATH");
+		model.setName(ComponentTypeArchitectureMetricConstants.PATH);
 		model.setValue("path");
 
 		return model;

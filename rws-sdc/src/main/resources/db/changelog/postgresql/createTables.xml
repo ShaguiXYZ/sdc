@@ -30,6 +30,11 @@
 			CREATE UNIQUE INDEX metrics_name_type_uidx ON metrics USING btree (lower((name)::text), type);
 		</sql>
 	</changeSet>
+	<changeSet author="initial" id="20231116_00000_1">
+		<sql dbms="postgresql">
+			ALTER TABLE metrics ADD blocker boolean NOT NULL DEFAULT false;
+		</sql>
+	</changeSet>
 	<changeSet author="initial" id="20230707_10010">
 		<sql dbms="postgresql">
 			CREATE TABLE departments (
@@ -100,6 +105,11 @@
 			);
 		</sql>
 	</changeSet>
+	<changeSet author="initial" id="20231117_10014_1">
+		<sql dbms="postgresql">
+			ALTER TABLE components ADD blocked boolean NOT NULL DEFAULT false;
+		</sql>
+	</changeSet>
 	<changeSet author="initial" id="20230707_10015">
 		<sql dbms="postgresql">
 			CREATE TABLE metric_values (
@@ -130,6 +140,11 @@
 				CONSTRAINT component_analysis_component_fk FOREIGN KEY (component_id) REFERENCES components(id) ON DELETE CASCADE ON UPDATE CASCADE,
 				CONSTRAINT component_analysis_component_type_architecture_metrics_fk FOREIGN KEY (metric_id,component_type_architecture_id) REFERENCES component_type_architecture_metrics(metric_id,component_type_architecture_id) ON DELETE CASCADE ON UPDATE CASCADE
 			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20231117_10016_1">
+		<sql dbms="postgresql">
+			ALTER TABLE component_analysis ADD blocker boolean NOT NULL DEFAULT false;
 		</sql>
 	</changeSet>
 	<changeSet author="initial" id="20230707_10017">

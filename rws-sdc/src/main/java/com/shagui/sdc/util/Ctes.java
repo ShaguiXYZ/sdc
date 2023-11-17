@@ -5,21 +5,29 @@ public class Ctes {
 	private Ctes() {
 	}
 
-	public static class ANALYSIS_SERVICES_TYPES {
+	public static class AnalysisServicesTypes {
 		public static final String GIT = "GIT"; // = AnalysisType.GIT
 		public static final String GIT_JSON = "GIT_JSON"; // = AnalysisType.GIT_JSON
 		public static final String GIT_XML = "GIT_XML"; // = AnalysisType.GIT_XML
 		public static final String SONAR = "SONAR"; // = AnalysisType.SONAR
 		public static final String DEPENDABOT = "DEPENDABOT"; // = DEPENDABOT
 
-		private ANALYSIS_SERVICES_TYPES() {
+		private AnalysisServicesTypes() {
 		}
 	}
 
-	public static class URI_PROPERTIES {
+	public static class UriProperties {
 		public static final String AUTHORIZATION = "Authorization";
 
-		private URI_PROPERTIES() {
+		private UriProperties() {
+		}
+	}
+
+	public static class ComponentTypeArchitectureMetricConstants {
+		public static final String PATH = "PATH";
+		public static final String BLOCKER = "BLOCKER";
+
+		private ComponentTypeArchitectureMetricConstants() {
 		}
 	}
 

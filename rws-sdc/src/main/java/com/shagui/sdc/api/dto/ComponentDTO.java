@@ -11,11 +11,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ComponentDTO  {
+public class ComponentDTO {
 	private Integer id;
 	private String name;
 	private ComponentTypeArchitectureDTO componentTypeArchitecture;
 	private Date analysisDate;
 	private Float coverage;
+	private boolean blocked;
 	private SquadDTO squad;
 }

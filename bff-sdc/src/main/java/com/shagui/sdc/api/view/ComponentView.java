@@ -19,6 +19,7 @@ public class ComponentView {
 	private String name;
 	private Date analysisDate;
 	private Float coverage;
+	private boolean blocked;
 	private SquadView squad;
 
 	public ComponentView(ComponentDTO source) {

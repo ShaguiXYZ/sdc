@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.shagui.sdc.api.dto.ServiceDataDTO;
 import com.shagui.sdc.api.dto.git.ContentDTO;
 import com.shagui.sdc.core.exception.SdcCustomException;
@@ -20,9 +18,9 @@ import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponetTypeArchitectureMetricPropertiesModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.util.AnalysisUtils;
 import com.shagui.sdc.util.ComponentUtils;
+import com.shagui.sdc.util.Ctes.ComponentTypeArchitectureMetricConstants;
 import com.shagui.sdc.util.DictioraryReplacement;
 import com.shagui.sdc.util.DictioraryReplacement.Replacement;
 import com.shagui.sdc.util.IOUtils;
@@ -33,24 +31,23 @@ import com.shagui.sdc.util.documents.data.DocumentServiceDataDTO;
 import com.shagui.sdc.util.documents.lib.json.JsonDocument;
 import com.shagui.sdc.util.documents.lib.xml.XmlDocument;
 import com.shagui.sdc.util.git.GitUtils;
-import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class GitDocumentService implements AnalysisInterface {
-	@Autowired
-	private ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRep;
+	private static GitDocumentServiceConfig config;
 
-	private JpaCommonRepository<ComponentTypeArchitectureMetricPropertiesRepository, ComponetTypeArchitectureMetricPropertiesModel, Integer> componentTypeArchitectureMetricPropertiesRepository;
+	protected GitDocumentService() {
+	}
 
 	protected abstract Class<? extends SdcDocument> documentOf();
 
 	protected abstract ComponentAnalysisModel executeMetricFn(String fn, ComponentModel component, MetricModel metric,
 			SdcDocument docuemnt);
 
-	protected GitDocumentService() {
-		this.componentTypeArchitectureMetricPropertiesRepository = () -> componentTypeArchitectureMetricPropertiesRep;
+	public static void setConfig(GitDocumentServiceConfig config) {
+		GitDocumentService.config = config;
 	}
 
 	@Override
@@ -115,9 +112,11 @@ public abstract class GitDocumentService implements AnalysisInterface {
 		Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true);
 
 		metrics(component).forEach(metric -> {
-			Optional<ComponetTypeArchitectureMetricPropertiesModel> property = componentTypeArchitectureMetricPropertiesRepository
+			Optional<ComponetTypeArchitectureMetricPropertiesModel> property = GitDocumentService.config
+					.componentTypeArchitectureMetricPropertiesRepository()
 					.repository().findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(
-							component.getComponentTypeArchitecture(), metric, "PATH");
+							component.getComponentTypeArchitecture(), metric,
+							ComponentTypeArchitectureMetricConstants.PATH);
 
 			String path = property.map(p -> replacement.replace(p.getValue(), ""))
 					.map(p -> p.replaceFirst("^/+", ""))

@@ -11,7 +11,7 @@ import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.documents.SdcDocument;
 import com.shagui.sdc.util.documents.lib.json.JsonDocument;
 
-@Service(Ctes.ANALYSIS_SERVICES_TYPES.GIT_JSON)
+@Service(Ctes.AnalysisServicesTypes.GIT_JSON)
 public final class GitJsonServiceImpl extends GitDocumentService {
 	@Override
 	protected Class<? extends SdcDocument> documentOf() {
@@ -22,6 +22,6 @@ public final class GitJsonServiceImpl extends GitDocumentService {
 	protected ComponentAnalysisModel executeMetricFn(String fn, ComponentModel component, MetricModel metric,
 			SdcDocument docuemnt) {
 		throw new SdcCustomException("%s function is not available for %s service".formatted(fn,
-                Ctes.ANALYSIS_SERVICES_TYPES.GIT_JSON));
+				Ctes.AnalysisServicesTypes.GIT_JSON));
 	}
 }

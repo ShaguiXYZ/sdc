@@ -127,7 +127,7 @@ class AnalysisControllerTest {
 						Arrays.asList(
 								new MetricAnalysisDTO(new Date(), metric,
 										new AnalysisValuesDTO(0, metricValue, null, null, null),
-										null))));
+										null, false))));
 
 		// Act
 		PageData<MetricAnalysisDTO> result = controller.annualSum(metricName, metricType, componentId, squadId,

@@ -30,6 +30,8 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 	@Column(name = "value")
 	private String metricValue;
 
+	private boolean blocker;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "component_type_architecture_id")
 	private ComponentTypeArchitectureModel componentTypeArchitecture;
@@ -60,15 +62,17 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 	private Float coverage;
 
 	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value) {
-		this(component, metric, value, new Date());
+		this(component, metric, value, new Date(), false);
 	}
 
-	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value, Date analysisDate) {
+	public ComponentAnalysisModel(ComponentModel component, MetricModel metric, String value, Date analysisDate,
+			boolean blocker) {
 		this.id = new ComponentAnalysisPk(component.getId(), metric.getId(), analysisDate);
 		this.component = component;
 		this.componentTypeArchitecture = component.getComponentTypeArchitecture();
 		this.metric = metric;
 		this.metricValue = value;
+		this.blocker = blocker;
 	}
 
 }

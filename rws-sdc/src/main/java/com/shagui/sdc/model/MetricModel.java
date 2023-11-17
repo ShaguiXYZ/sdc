@@ -44,4 +44,6 @@ public class MetricModel implements ModelInterface<Integer> {
 	@Column(name = "metric_validation")
 	@Enumerated(EnumType.STRING)
 	private MetricValidation validation;
+
+	private boolean blocker;
 }

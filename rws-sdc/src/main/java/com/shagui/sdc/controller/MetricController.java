@@ -36,8 +36,8 @@ public class MetricController implements MetricRestApi {
 
 	@Override
 	public MetricDTO createValues(String name, String description, AnalysisType type, MetricValueType valueType,
-			MetricValidation validation, String value) {
-		return create(new MetricDTO(null, name, value, description, type, valueType, validation));
+			MetricValidation validation, String value, boolean blocker) {
+		return create(new MetricDTO(null, name, value, description, type, valueType, validation, blocker));
 	}
 
 	@Override

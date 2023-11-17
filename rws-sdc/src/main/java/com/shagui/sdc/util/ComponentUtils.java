@@ -109,6 +109,7 @@ public class ComponentUtils {
 
 		if (!coverage.equals(component.getCoverage())) {
 			component.setCoverage(coverage);
+			component.setBlocked(metricAnalysis.stream().anyMatch(ComponentAnalysisModel::isBlocker));
 			saveHistoricalCoverage(component, date, coverage);
 		}
 	}

@@ -14,7 +14,7 @@ import com.shagui.sdc.service.DependabotService;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.git.GitUtils;
 
-@Service(Ctes.ANALYSIS_SERVICES_TYPES.DEPENDABOT)
+@Service(Ctes.AnalysisServicesTypes.DEPENDABOT)
 public class DependabotServiceImpl implements DependabotService {
 
 	@Override

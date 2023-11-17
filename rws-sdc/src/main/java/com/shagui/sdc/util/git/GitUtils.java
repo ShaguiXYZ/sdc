@@ -78,7 +78,7 @@ public class GitUtils {
 	}
 
 	private static Optional<String> authorization(UriModel uriModel) {
-		Optional<String> authorization = UrlUtils.uriProperty(uriModel, Ctes.URI_PROPERTIES.AUTHORIZATION);
+		Optional<String> authorization = UrlUtils.uriProperty(uriModel, Ctes.UriProperties.AUTHORIZATION);
 
 		return authorization.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
 	}

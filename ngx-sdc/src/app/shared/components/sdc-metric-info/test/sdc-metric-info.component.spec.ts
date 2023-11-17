@@ -36,7 +36,8 @@ describe('SdcMetricInfoComponent', () => {
       name: metric.name,
       analysisDate: 0,
       analysisValues: { metricValue: '0' },
-      coverage: 10
+      coverage: 10,
+      blocker: false
     };
     fixture.detectChanges();
   });

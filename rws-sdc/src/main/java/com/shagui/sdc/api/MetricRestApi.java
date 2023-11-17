@@ -42,7 +42,8 @@ public interface MetricRestApi {
 	@ResponseStatus(HttpStatus.CREATED)
 	MetricDTO createValues(@RequestParam String name, @RequestParam(required = false) String description,
 			@RequestParam(required = false) AnalysisType type, @RequestParam MetricValueType valueType,
-			@RequestParam(required = false) MetricValidation validation, @RequestParam String value);
+			@RequestParam(required = false) MetricValidation validation, @RequestParam String value,
+			@RequestParam(required = false, defaultValue = "false") boolean blocker);
 
 	@Operation(summary = "Update an specific Metric", description = "Field metricId should match the metricId from url")
 	@PutMapping("{metricId}")

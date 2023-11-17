@@ -17,6 +17,7 @@ public class MetricAnalysisDTO {
 	private MetricDTO metric;
 	private AnalysisValuesDTO analysisValues;
 	private Float coverage;
+	private boolean blocker;
 
 	public MetricAnalysisDTO(MetricAnalysisView source) {
 		BeanUtils.copyProperties(source, this);

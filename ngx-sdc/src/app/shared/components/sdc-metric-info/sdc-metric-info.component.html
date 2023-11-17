@@ -1,4 +1,5 @@
 <div class="metric" [ngClass]="{ selected: selected }" (click)="onClick()">
+  <div *ngIf="analysis.blocker" class="blocker"></div>
   <div class="metric-state {{ style }}">
     <em [class]="icon"></em>
   </div>

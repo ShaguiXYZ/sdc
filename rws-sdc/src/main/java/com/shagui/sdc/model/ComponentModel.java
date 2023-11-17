@@ -38,6 +38,8 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 
 	private Float coverage;
 
+	private boolean blocked;
+
 	@Column(name = "delete_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date expiryDate;

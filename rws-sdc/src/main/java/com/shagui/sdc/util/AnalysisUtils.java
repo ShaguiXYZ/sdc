@@ -37,7 +37,7 @@ public class AnalysisUtils {
 
 	public static final UnaryOperator<ComponentAnalysisModel> setMetricValues = analysis -> {
 		ComponentAnalysisModel updatedModel = new ComponentAnalysisModel(analysis.getComponent(), analysis.getMetric(),
-				analysis.getMetricValue(), analysis.getId().getAnalysisDate());
+				analysis.getMetricValue(), analysis.getId().getAnalysisDate(), analysis.isBlocker());
 
 		Optional<MetricValuesModel> metricValues = config.metricValuesRepository().repository()
 				.metricValueByDate(analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),

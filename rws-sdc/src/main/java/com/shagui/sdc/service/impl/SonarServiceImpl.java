@@ -24,7 +24,7 @@ import feign.Response;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-@Service(Ctes.ANALYSIS_SERVICES_TYPES.SONAR)
+@Service(Ctes.AnalysisServicesTypes.SONAR)
 public class SonarServiceImpl implements SonarService {
 	private SonarClient sonarClient;
 

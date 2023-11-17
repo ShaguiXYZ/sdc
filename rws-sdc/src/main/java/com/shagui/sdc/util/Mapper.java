@@ -54,10 +54,12 @@ public class Mapper {
 
 	public static MetricAnalysisDTO parse(ComponentAnalysisModel source) {
 		MetricDTO metric = parse(source.getMetric());
+
 		AnalysisValuesDTO analysisValues = new AnalysisValuesDTO(source.getWeight(), source.getMetricValue(),
 				source.getExpectedValue(), source.getGoodValue(), source.getPerfectValue());
 
-		return new MetricAnalysisDTO(source.getId().getAnalysisDate(), metric, analysisValues, source.getCoverage());
+		return new MetricAnalysisDTO(source.getId().getAnalysisDate(), metric, analysisValues, source.getCoverage(),
+				source.isBlocker());
 	}
 
 	public static MetricModel parse(MetricDTO source) {
@@ -66,7 +68,7 @@ public class Mapper {
 
 	public static MetricDTO parse(MetricModel source) {
 		return new MetricDTO(source.getId(), source.getName(), source.getValue(), source.getDescription(),
-				source.getType(), source.getValueType(), source.getValidation());
+				source.getType(), source.getValueType(), source.getValidation(), source.isBlocker());
 	}
 
 	public static ComponentTypeArchitectureDTO parse(ComponentTypeArchitectureModel source) {
@@ -84,7 +86,7 @@ public class Mapper {
 
 	public static ComponentDTO parse(ComponentModel source) {
 		return new ComponentDTO(source.getId(), source.getName(), parse(source.getComponentTypeArchitecture()),
-				source.getAnalysisDate(), source.getCoverage(), parse(source.getSquad()));
+				source.getAnalysisDate(), source.getCoverage(), source.isBlocked(), parse(source.getSquad()));
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {

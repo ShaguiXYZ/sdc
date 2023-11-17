@@ -79,7 +79,7 @@ public class AnalysisController implements AnalysisRestApi {
 
 				return Optional.ofNullable(merge(pageData.getPage(), metric.getValueType().clazz()))
 						.map(mergeable -> new MetricAnalysisDTO(date, metric,
-								new AnalysisValuesDTO(0, mergeable.toString(), null, null, null), null))
+								new AnalysisValuesDTO(0, mergeable.toString(), null, null, null), null, false))
 						.stream();
 			}).collect(SdcCollectors.toPageable());
 		}

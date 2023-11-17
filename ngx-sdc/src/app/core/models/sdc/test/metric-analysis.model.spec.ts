@@ -13,7 +13,7 @@ describe('Model: metric analysis', () => {
   let analysisValues: IAnalysisValuesModel;
 
   it('should expect the model to be truthy', () => {
-    model = new MetricAnalysisModel(1, 1, metric, metric.name, analysisValues);
+    model = new MetricAnalysisModel(1, 1, metric, metric.name, analysisValues, false);
 
     expect(model).toBeTruthy();
   });
