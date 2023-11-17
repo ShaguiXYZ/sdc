@@ -24,14 +24,14 @@ import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
 import { SdcMetricHistoryGraphsComponent } from './components';
 import { MetricsDataModel } from './models';
-import { SdcMetricsRoutingModule } from './sdc-metrics-routing.module';
-import { SdcMetricsService } from './services';
+import { SdcMetricsRoutingModule } from './sdc-metrics-home-routing.module';
+import { SdcMetricsHomeService } from './services';
 
 @Component({
-  selector: 'sdc-metrics',
-  templateUrl: './sdc-metrics.component.html',
-  styleUrls: ['./sdc-metrics.component.scss'],
-  providers: [SdcMetricsService, TitleCasePipe],
+  selector: 'sdc-metrics-home',
+  templateUrl: './sdc-metrics-home.component.html',
+  styleUrls: ['./sdc-metrics-home.component.scss'],
+  providers: [SdcMetricsHomeService, TitleCasePipe],
   standalone: true,
   imports: [
     SdcComplianceBarCardComponent,
@@ -52,7 +52,7 @@ import { SdcMetricsService } from './services';
     TranslateModule
   ]
 })
-export class SdcMetricsComponent implements OnInit, OnDestroy {
+export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   @ViewChild('metricsCards') templateRef!: TemplateRef<any>;
 
   public metricsData?: MetricsDataModel;
@@ -67,7 +67,7 @@ export class SdcMetricsComponent implements OnInit, OnDestroy {
     private readonly contextDataService: ContextDataService,
     private readonly dateService: DateService,
     private readonly dialogService: NxDialogService,
-    private readonly sdcMetricsService: SdcMetricsService
+    private readonly sdcMetricsService: SdcMetricsHomeService
   ) {}
 
   ngOnInit(): void {

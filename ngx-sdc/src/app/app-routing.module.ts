@@ -19,13 +19,14 @@ const routes: Routes = configContextRoutes([
   },
   {
     path: AppUrls.applications,
-    loadComponent: () => import('./modules/sdc-applications/sdc-applications.component').then(c => c.SdcApplicationsComponent),
+    loadComponent: () =>
+      import('./modules/sdc-applications-home/sdc-applications-home.component').then(c => c.SdcApplicationsHomeComponent),
     data: { animation: AppUrls.applications },
     canDeactivate: []
   },
   {
     path: AppUrls.metrics,
-    loadComponent: () => import('./modules/sdc-metrics/sdc-metrics.component').then(c => c.SdcMetricsComponent),
+    loadComponent: () => import('./modules/sdc-metrics-home/sdc-metrics-home.component').then(c => c.SdcMetricsHomeComponent),
     data: { animation: AppUrls.metrics },
     canDeactivate: []
   },

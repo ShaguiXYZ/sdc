@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SdcMetricsComponent } from './sdc-metrics.component';
+import { SdcApplicationsHomeComponent } from './sdc-applications-home.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: SdcMetricsComponent
+    component: SdcApplicationsHomeComponent
   }
 ];
 
@@ -14,4 +14,4 @@ export const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class SdcMetricsRoutingModule {}
+export class SdcApplicationsRoutingModule {}

@@ -11,7 +11,7 @@ import { ApplicationsContextData, ApplicationsFilter, IComplianceModel } from 's
 import { SdcApplicationsCoverage, SdcApplicationsDataModel, SdcCoverageRange } from '../models';
 
 @Injectable()
-export class SdcApplicationsService {
+export class SdcApplicationsHomeService {
   public contextData?: ApplicationsContextData;
 
   private data$: Subject<SdcApplicationsDataModel>;

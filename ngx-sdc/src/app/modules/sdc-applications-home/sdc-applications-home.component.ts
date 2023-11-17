@@ -19,18 +19,18 @@ import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { IComplianceModel } from 'src/app/shared/models';
 import { SdcApplicationsDataModel } from './models';
-import { SdcApplicationsRoutingModule } from './sdc-applications-routing.module';
-import { SdcApplicationsService } from './services';
+import { SdcApplicationsRoutingModule } from './sdc-applications-home-routing.module';
+import { SdcApplicationsHomeService } from './services';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'
 };
 
 @Component({
-  selector: 'sdc-applications',
-  templateUrl: './sdc-applications.component.html',
-  styleUrls: ['./sdc-applications.component.scss'],
-  providers: [SdcApplicationsService, { provide: NX_PAGINATION_TEXTS, useValue: myPaginationTexts }],
+  selector: 'sdc-applications-home',
+  templateUrl: './sdc-applications-home.component.html',
+  styleUrls: ['./sdc-applications-home.component.scss'],
+  providers: [SdcApplicationsHomeService, { provide: NX_PAGINATION_TEXTS, useValue: myPaginationTexts }],
   standalone: true,
   imports: [
     SdcComplianceBarCardsComponent,
@@ -46,7 +46,7 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
     TranslateModule
   ]
 })
-export class SdcApplicationsComponent implements OnInit, OnDestroy {
+export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   public ELEMENTS_BY_PAGE = ELEMENTS_BY_PAGE;
@@ -61,7 +61,7 @@ export class SdcApplicationsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private contextDataService: ContextDataService,
-    private sdcApplicationsService: SdcApplicationsService
+    private sdcApplicationsService: SdcApplicationsHomeService
   ) {}
 
   ngOnInit(): void {

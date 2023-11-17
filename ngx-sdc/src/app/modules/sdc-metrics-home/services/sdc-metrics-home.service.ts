@@ -9,7 +9,7 @@ import { IComplianceModel, MetricsContextData } from 'src/app/shared/models';
 import { MetricsDataModel } from '../models';
 
 @Injectable()
-export class SdcMetricsService {
+export class SdcMetricsHomeService {
   private metricContextData!: MetricsContextData;
   private metricData!: MetricsDataModel;
   private data$: Subject<MetricsDataModel>;
