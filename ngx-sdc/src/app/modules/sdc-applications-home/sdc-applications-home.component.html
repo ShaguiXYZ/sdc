@@ -43,7 +43,12 @@
     </div>
   </form>
   <div *ngIf="applicationsInfo">
-    <sdc-compliance-bar-cards [components]="applicationsInfo.components" (clickLink)="complianceClicked($event)"></sdc-compliance-bar-cards>
+    <sdc-compliance-bar-cards
+      [components]="applicationsInfo.components"
+      (clickLink)="complianceClicked($event)"
+      (clickSquad)="squadClicked($event)"
+      (clickDepartment)="departmentClicked($event)"
+    ></sdc-compliance-bar-cards>
     <div *ngIf="applicationsInfo.paging.pages > 1" class="pagination nx-margin-top-2xs">
       <nx-pagination
         [count]="applicationsInfo.paging.elements"

@@ -44,11 +44,16 @@ nx-card {
       display: flex;
 
       nx-badge {
+        cursor: pointer;
         font-size: 12px;
       }
 
       nx-badge + nx-badge {
         margin-left: 10px;
+      }
+
+      nx-badge:hover {
+        text-decoration: underline;
       }
     }
 

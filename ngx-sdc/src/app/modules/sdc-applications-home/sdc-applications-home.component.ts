@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
-import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { SdcComplianceBarCardsComponent } from 'src/app/shared/components';
@@ -57,10 +57,10 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   private subscription$: Array<Subscription> = [];
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private contextDataService: ContextDataService,
-    private sdcApplicationsService: SdcApplicationsHomeService
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly contextDataService: ContextDataService,
+    private readonly sdcApplicationsService: SdcApplicationsHomeService
   ) {}
 
   ngOnInit(): void {
@@ -88,6 +88,16 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   public complianceClicked(component: IComponentModel): void {
     this.contextDataService.set(ContextDataInfo.METRICS_DATA, { component });
     this.router.navigate([AppUrls.metrics]);
+  }
+
+  public departmentClicked(department: IDepartmentModel): void {
+    this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, { department });
+    this.router.navigate([AppUrls.departments]);
+  }
+
+  public squadClicked(squad: ISquadModel): void {
+    this.contextDataService.set(ContextDataInfo.SQUADS_DATA, { squad });
+    this.router.navigate([AppUrls.squads]);
   }
 
   public squadChange(squad: number): void {

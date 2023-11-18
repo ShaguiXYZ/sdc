@@ -5,7 +5,7 @@ import { NxCardModule } from '@aposin/ng-aquila/card';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
 import { TranslateModule } from '@ngx-translate/core';
-import { IComponentModel } from 'src/app/core/models/sdc';
+import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { styleByCoverage } from '../../lib';
 
 @Component({
@@ -27,6 +27,12 @@ export class SdcComplianceBarCardComponent {
   public showMore = true;
 
   @Input()
+  public showSquad = true;
+
+  @Input()
+  public showDepartment = true;
+
+  @Input()
   public hideBorder = false;
 
   @Input()
@@ -43,7 +49,21 @@ export class SdcComplianceBarCardComponent {
   @Output()
   public clickLink: EventEmitter<IComponentModel> = new EventEmitter();
 
-  public onClick() {
+  @Output()
+  public clickSquad: EventEmitter<ISquadModel> = new EventEmitter();
+
+  @Output()
+  public clickDepartment: EventEmitter<IDepartmentModel> = new EventEmitter();
+
+  public onClickShwoMore() {
     this.clickLink.emit(this.component);
+  }
+
+  public onClickDepartment() {
+    this.clickDepartment.emit(this.component.squad.department);
+  }
+
+  public onClickSquad() {
+    this.clickSquad.emit(this.component.squad);
   }
 }

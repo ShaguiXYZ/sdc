@@ -1,5 +1,11 @@
 <div *ngIf="metricsData" class="nx-margin-y-2xs">
-  <sdc-compliance-bar-card [component]="metricsData.component" [showMore]="false" [hideBorder]="true"></sdc-compliance-bar-card>
+  <sdc-compliance-bar-card
+    [component]="metricsData.component"
+    [showMore]="false"
+    [hideBorder]="true"
+    (clickDepartment)="departmentClicked($event)"
+    (clickSquad)="squadClicked($event)"
+  ></sdc-compliance-bar-card>
   <div class="application-history nx-margin-y-2xs">
     <nx-accordion>
       <nx-expansion-panel (opened)="onOpenPanel()">

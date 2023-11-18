@@ -5,7 +5,7 @@ import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { IComponentModel, ICoverageModel, ISquadModel } from 'src/app/core/models/sdc';
+import { IComponentModel, ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
 import { IStateCount } from 'src/app/shared/components/sdc-state-count/model';
@@ -67,6 +67,11 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   public complianceClicked(component: IComponentModel): void {
     this.contextDataService.set(ContextDataInfo.METRICS_DATA, { component });
     this.router.navigate([AppUrls.metrics]);
+  }
+
+  public departmentClicked(department: IDepartmentModel): void {
+    this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, { department });
+    this.router.navigate([AppUrls.departments]);
   }
 
   public showAll(): void {

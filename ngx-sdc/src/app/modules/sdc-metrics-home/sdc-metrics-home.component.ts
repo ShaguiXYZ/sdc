@@ -1,5 +1,6 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NxAccordionModule } from '@aposin/ng-aquila/accordion';
 import { NxButtonModule } from '@aposin/ng-aquila/button';
 import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
@@ -8,7 +9,7 @@ import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components/alert';
-import { IComponentModel, IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
+import { IComponentModel, IDepartmentModel, IMetricAnalysisModel, ISquadModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 import { ContextDataService, DateService } from 'src/app/core/services';
 import {
@@ -19,6 +20,7 @@ import {
   SdcTimeEvolutionMultichartComponent
 } from 'src/app/shared/components';
 import { SdcPieChartComponent, SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
+import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
@@ -63,6 +65,7 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   private metricsCardsDialogRef?: NxModalRef<SdcMetricsCardsComponent>;
 
   constructor(
+    private readonly router: Router,
     private readonly alertService: AlertService,
     private readonly contextDataService: ContextDataService,
     private readonly dateService: DateService,
@@ -127,6 +130,16 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
 
   public closeMetricsCards(): void {
     this.metricsCardsDialogRef?.close();
+  }
+
+  public departmentClicked(department: IDepartmentModel): void {
+    this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, { department });
+    this.router.navigate([AppUrls.departments]);
+  }
+
+  public squadClicked(squad: ISquadModel): void {
+    this.contextDataService.set(ContextDataInfo.SQUADS_DATA, { squad });
+    this.router.navigate([AppUrls.squads]);
   }
 
   private applicationCoverageGraphConfig(historical?: IHistoricalCoverage<IComponentModel>): void {
