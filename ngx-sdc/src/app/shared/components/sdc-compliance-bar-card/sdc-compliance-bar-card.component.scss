@@ -28,10 +28,6 @@ nx-card {
   width: -webkit-fill-available;
   width: -moz-available;
 
-  nx-badge {
-    font-size: 12px;
-  }
-
   .blocked {
     background-color: $state-critical;
     border-radius: 4px 4px 0 0;
@@ -46,21 +42,23 @@ nx-card {
   .card-content {
     .flex-info {
       display: flex;
-    }
 
-    .component-name {
-      width: 100%;
+      nx-badge {
+        font-size: 12px;
+      }
+
+      nx-badge + nx-badge {
+        margin-left: 10px;
+      }
     }
 
     .position-end {
-      padding: 0;
-      text-align: end;
-      width: 100%;
+      margin-left: auto;
     }
-  }
 
-  span {
-    font-size: 15px;
+    span {
+      font-size: 15px;
+    }
   }
 
   &.hide-border {

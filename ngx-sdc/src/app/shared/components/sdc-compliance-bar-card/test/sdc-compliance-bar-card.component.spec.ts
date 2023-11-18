@@ -6,6 +6,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
 import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card.component';
+import { componentModelMock } from 'src/app/core/mock/model/component-model.mock';
 
 describe('SdcComplianceBarCardComponent', () => {
   let component: SdcComplianceBarCardComponent;
@@ -24,7 +25,7 @@ describe('SdcComplianceBarCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SdcComplianceBarCardComponent);
     component = fixture.componentInstance;
-    component.compliance = { id: 1, name: 'test', coverage: 90 };
+    component.component = componentModelMock;
     fixture.detectChanges();
   });
 
@@ -41,6 +42,6 @@ describe('SdcComplianceBarCardComponent', () => {
 
     fixture.detectChanges();
 
-    expect(component.clickLink.emit).toHaveBeenCalledWith({ id: 1, name: 'test', coverage: 90 });
+    expect(component.clickLink.emit).toHaveBeenCalledWith(componentModelMock);
   });
 });

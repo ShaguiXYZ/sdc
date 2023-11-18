@@ -6,6 +6,7 @@ import { SpyLocation } from '@angular/common/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
+import { componentModelMock } from 'src/app/core/mock/model/component-model.mock';
 import { SdcComplianceBarCardsComponent } from '../sdc-compliance-bar-cards.component';
 
 describe('SdcComplianceBarCardsComponent', () => {
@@ -33,6 +34,6 @@ describe('SdcComplianceBarCardsComponent', () => {
   });
 
   it('should select coverage', () => {
-    component.onClick({ id: 1, name: 'test', coverage: 90 });
+    component.onClick(componentModelMock);
   });
 });

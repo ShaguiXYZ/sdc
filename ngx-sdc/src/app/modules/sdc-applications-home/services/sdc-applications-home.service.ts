@@ -7,7 +7,7 @@ import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricState, styleByName } from 'src/app/shared/lib';
-import { ApplicationsContextData, ApplicationsFilter, IComplianceModel } from 'src/app/shared/models';
+import { ApplicationsContextData, ApplicationsFilter } from 'src/app/shared/models';
 import { SdcApplicationsCoverage, SdcApplicationsDataModel, SdcCoverageRange } from '../models';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class SdcApplicationsHomeService {
       this.contextData?.filter?.name,
       this.contextData?.filter?.squad,
       this.contextData?.filter?.coverage,
-      this.contextData?.page || 0,
+      this.contextData?.page ?? 0,
       ELEMENTS_BY_PAGE
     );
   }
@@ -73,7 +73,7 @@ export class SdcApplicationsHomeService {
           squadId,
           name,
           coverage,
-          compliances: pageable.page.map(IComplianceModel.fromComponentModel),
+          components: pageable.page,
           paging: pageable.paging
         });
       })

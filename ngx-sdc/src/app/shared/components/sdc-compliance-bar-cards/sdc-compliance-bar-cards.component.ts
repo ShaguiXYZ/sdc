@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { IComplianceModel } from '../../models';
+import { IComponentModel } from 'src/app/core/models/sdc';
 import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card/sdc-compliance-bar-card.component';
 
 @Component({
@@ -13,12 +13,12 @@ import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card/sdc-co
 })
 export class SdcComplianceBarCardsComponent {
   @Input()
-  public compliances?: IComplianceModel[];
+  public components?: IComponentModel[];
 
   @Output()
-  public clickLink: EventEmitter<IComplianceModel> = new EventEmitter();
+  public clickLink: EventEmitter<IComponentModel> = new EventEmitter();
 
-  public onClick(event: IComplianceModel) {
+  public onClick(event: IComponentModel) {
     this.clickLink.emit(event);
   }
 }

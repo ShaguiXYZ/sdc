@@ -1,5 +1,5 @@
 <nx-card [ngClass]="{ 'hide-border': hideBorder }">
-  <div *ngIf="compliance.blocked" class="blocked"></div>
+  <div *ngIf="component.blocked" class="blocked"></div>
   <div class="card-content">
     <div class="{{ coverageStyle }} nx-margin-bottom-xs">
       <div class="sdc-center">
@@ -9,16 +9,15 @@
     </div>
     <div class="flex-info nx-margin-bottom-xs">
       <div class="component-name">
-        <span class="nx-font-weight-bold">{{ compliance.name }}</span>
+        <span class="nx-font-weight-bold">{{ component.name }}</span>
       </div>
       <div class="position-end">
-        <span class="nx-font-weight-semibold">{{ 'ComplianceCard.ProcessDate' | translate }}: {{ compliance.analysisDate | date }}</span>
+        <span class="nx-font-weight-semibold">{{ 'ComplianceCard.ProcessDate' | translate }}: {{ component.analysisDate | date }}</span>
       </div>
     </div>
     <div class="flex-info">
-      <div class="squad">
-        <nx-badge type="active">SQUAD {{ compliance.parentName }}</nx-badge>
-      </div>
+      <nx-badge type="positive">{{ component.squad.department.name }}</nx-badge>
+      <nx-badge type="active"> {{ component.squad.name }}</nx-badge>
       <div *ngIf="showMore" class="position-end">
         <nx-link>
           <a (click)="onClick()">{{ 'Label.ShowMore' | translate }}</a>

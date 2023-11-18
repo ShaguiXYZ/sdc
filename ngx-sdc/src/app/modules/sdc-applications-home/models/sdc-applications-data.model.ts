@@ -1,8 +1,7 @@
-import { IPaging } from 'src/app/core/models/sdc';
-import { IComplianceModel } from 'src/app/shared/models';
+import { IComponentModel, IPaging } from 'src/app/core/models/sdc';
 
 export interface SdcApplicationsDataModel {
-  compliances: IComplianceModel[];
+  components: IComponentModel[];
   coverage?: string;
   name?: string;
   squadId?: number;

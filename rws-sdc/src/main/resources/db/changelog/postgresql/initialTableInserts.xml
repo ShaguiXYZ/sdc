@@ -25,10 +25,10 @@
 				 
 	<changeSet author="initial" id="20230707_50008">
 		<sql dbms="postgresql">
-			INSERT INTO squads (id,name,department_id) VALUES
-				 (1,'DEV SQUAD',0),
-				 (2,'INFRAESTRUCTURA Y COMUNICACIONES',0),
-				 (3,'SHAGUI DEV GROUP',0);
+			INSERT INTO squads (id,name,department_id,coverage) VALUES
+				 (1,'DEV SQUAD',0,41.43),
+				 (2,'INFRAESTRUCTURA Y COMUNICACIONES',0,18),
+				 (3,'SHAGUI DEV GROUP',0,82.0);
 		</sql>
 	</changeSet>
 				 
@@ -139,167 +139,282 @@
 
 	<changeSet author="initial" id="20230707_50015">
 		<sql dbms="postgresql">
-			INSERT INTO components (name,component_type_architecture_id,squad_id) VALUES
-				 ('empty',7,1),
-				 ('sdc',9,3),
-				 ('storm:aff3ct:gitlab:master',15,2),
-				 ('cardamom:mmg:github:master',15,2),
-				 ('tadaam:hwloc:github:v2.3',15,2),
-				 ('security',9,3),
-				 ('ui-studio',9,3),
-				 ('angular-ref',7,1),
-				 ('atope',7,1);
+			INSERT INTO public.components (name,coverage,expiry_date,component_type_architecture_id,squad_id,analysis_date,delete_date,delete_user,"blocked") VALUES
+				('empty',18.0,NULL,7,1,'2023-11-17 18:17:26.743',NULL,NULL,true),
+				('sdc',100.0,NULL,9,3,'2023-11-17 18:17:32.36',NULL,NULL,false),
+				('storm:aff3ct:gitlab:master',12.25,NULL,15,2,'2023-11-17 18:17:37.742',NULL,NULL,true),
+				('cardamom:mmg:github:master',24.08,NULL,15,2,'2023-11-17 18:17:42.783',NULL,NULL,true),
+				('tadaam:hwloc:github:v2.3',17.61,NULL,15,2,'2023-11-17 18:17:48.685',NULL,NULL,true),
+				('security',NULL,NULL,9,3,'2023-11-17 18:17:54.084',NULL,NULL,false),
+				('ui-studio',10.0,NULL,9,3,'2023-11-17 18:18:12.086',NULL,NULL,false),
+				('angular-ref',10.0,NULL,7,1,'2023-11-17 18:18:17.793',NULL,NULL,false),
+				('atope',61.43,NULL,7,1,'2023-11-17 18:18:23.144',NULL,NULL,false);	   
 		</sql>
 	</changeSet>
 				 
 	<changeSet author="initial" id="20230707_50016">
 		<sql dbms="postgresql">
-			INSERT INTO component_uris (component_id,uri_name) VALUES
-				 (1,'git-public'),
-				 (2,'git-private'),
-				 (3,'sonar-repo'),
-				 (4,'sonar-repo'),
-				 (5,'sonar-repo'),
-				 (6,'git-public'),
-				 (7,'git-private'),
-				 (8,'git-private'),
-				 (9,'git-private');
+			INSERT INTO public.component_uris (component_id,uri_name) VALUES
+				(1,'git-public'),
+				(2,'git-private'),
+				(3,'sonar-repo'),
+				(4,'sonar-repo'),
+				(5,'sonar-repo'),
+				(6,'git-public'),
+				(7,'git-private'),
+				(8,'git-private'),
+				(9,'git-private');	   
 		</sql>
 	</changeSet>
 
 	<changeSet author="initial" id="20230707_50017">
 		<sql dbms="postgresql">
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (7,20),
-				 (7,21),
-				 (7,22),
-				 (7,23),
-				 (7,24),
-				 (7,25),
-				 (7,26),
-				 (7,27),
-				 (7,28),
-				 (7,29),
-				 (7,30),
-				 (7,31);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (9,20),
-				 (9,21),
-				 (9,22),
-				 (9,23),
-				 (9,24),
-				 (9,25),
-				 (9,26),
-				 (9,27),
-				 (9,28),
-				 (9,29),
-				 (9,30),
-				 (9,31);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (15,1),
-				 (15,2),
-				 (15,3),
-				 (15,4),
-				 (15,5),
-				 (15,6),
-				 (15,7),
-				 (15,8),
-				 (15,9),
-				 (15,10),
-				 (15,11),
-				 (15,12),
-				 (15,13),
-				 (15,14),
-				 (15,15),
-				 (15,16),
-				 (15,17),
-				 (15,18),
-				 (15,19),
-				 (15,28);
+			INSERT INTO public.component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				(7,20),
+				(7,21),
+				(7,22),
+				(7,23),
+				(7,24),
+				(7,25),
+				(7,26),
+				(7,27),
+				(7,28),
+				(7,29);
+			INSERT INTO public.component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				(7,30),
+				(7,31),
+				(9,20),
+				(9,21),
+				(9,22),
+				(9,23),
+				(9,24),
+				(9,25),
+				(9,26),
+				(9,27);
+			INSERT INTO public.component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				(9,28),
+				(9,29),
+				(9,30),
+				(9,31),
+				(15,1),
+				(15,2),
+				(15,3),
+				(15,4),
+				(15,5),
+				(15,6);
+			INSERT INTO public.component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				(15,7),
+				(15,8),
+				(15,9),
+				(15,10),
+				(15,11),
+				(15,12),
+				(15,13),
+				(15,14),
+				(15,15),
+				(15,16);
+			INSERT INTO public.component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+				(15,17),
+				(15,18),
+				(15,19),
+				(15,28);
 		</sql>
 	</changeSet>
 
 	<changeSet author="initial" id="20230707_50018">
 		<sql dbms="postgresql">
 			INSERT INTO component_properties (name,value,component_id) VALUES
-				 ('organization','shaguixyz',1),
-				 ('ngx_path','ngx-empty',1),
-				 ('bff_path','bff-empty',1),
-				 ('rws_path','rws-empty',1),
-				 ('organization','shaguixyz',2),
-				 ('ngx_path','ngx-sdc',2),
-				 ('bff_path','bff-sdc',2),
-				 ('rws_path','rws-sdc',2),
-				 ('organization','shaguixyz',6),
-				 ('ngx_path','ngx-security',6),
-				 ('bff_path','bff-security',6),
-				 ('rws_path','rws-security',6),
-				 ('organization','shaguixyz',7),
-				 ('ngx_path','ngx-ui-editor',7),
-				 ('bff_path','bff-ui-editor',7),
-				 ('rws_path','rws-ui-editor',7),
-				 ('organization','shaguixyz',8),
-				 ('ngx_path','',8),
-				 ('organization','shaguixyz',9),
-				 ('bff_path','',9),
-				 ('rws_path','',9);
+				('organization','shaguixyz',1),
+				('ngx_path','ngx-empty',1),
+				('bff_path','bff-empty',1),
+				('rws_path','rws-empty',1),
+				('organization','shaguixyz',2),
+				('ngx_path','ngx-sdc',2),
+				('bff_path','bff-sdc',2),
+				('rws_path','rws-sdc',2),
+				('organization','shaguixyz',6),
+				('ngx_path','ngx-security',6);
+			INSERT INTO component_properties (name,value,component_id) VALUES
+				('bff_path','bff-security',6),
+				('rws_path','rws-security',6),
+				('organization','shaguixyz',7),
+				('ngx_path','ngx-ui-editor',7),
+				('bff_path','bff-ui-editor',7),
+				('rws_path','rws-ui-editor',7),
+				('organization','shaguixyz',8),
+				('ngx_path','',8),
+				('organization','shaguixyz',9),
+				('bff_path','',9);
+			INSERT INTO public.component_properties (name,value,component_id) VALUES
+				('rws_path','',9);
 		</sql>
 	</changeSet>
 	
 	<changeSet author="initial" id="20230707_50019">
 		<sql dbms="postgresql">
-			INSERT INTO metric_values (component_type_architecture_id,metric_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
-				 (7,20,'2023-03-01 10:57:21.597993',60,'2.7','2.7','3.1'),
-				 (7,21,'2023-03-01 10:57:21.597993',60,'11','11','17'),
-				 (7,22,'2023-03-01 10:57:21.597993',60,'2.2','3.1','3.1.5'),
-				 (7,23,'2023-03-01 10:57:21.597993',60,'16.0','~16.2','~16.2'),
-				 (7,25,'2023-03-01 10:57:21.597993',60,'250','100','50'),
-				 (7,26,'2023-03-01 10:57:21.597993',60,'50','10','0'),
-				 (7,27,'2023-03-01 10:57:21.597993',60,'0','0','0'),
-				 (7,29,'2023-03-01 10:57:21.597993',60,'','','false');
-			INSERT INTO metric_values (component_type_architecture_id,metric_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
-				 (9,20,'2023-03-01 10:57:21.597993',60,'2.7','2.7','3.1'),
-				 (9,21,'2023-03-01 10:57:21.597993',60,'11','11','17'),
-				 (9,22,'2023-03-01 10:57:21.597993',60,'2.2','3.1','3.1.5'),
-				 (9,23,'2023-03-01 10:57:21.597993',60,'16.0','~16.2','~16.2'),
-				 (9,25,'2023-03-01 10:57:21.597993',60,'250','100','50'),
-				 (9,26,'2023-03-01 10:57:21.597993',60,'50','10','0'),
-				 (9,27,'2023-03-01 10:57:21.597993',60,'0','0','0'),
-				 (9,29,'2023-03-01 10:57:21.597993',60,'','','false');
-			INSERT INTO metric_values (component_type_architecture_id,metric_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
-				 (15,1,'2023-03-01 10:57:21.597993',250,'70','85','90'),
-				 (15,3,'2023-03-01 10:57:21.597993',40,'30','20','5'),
-				 (15,4,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
-				 (15,5,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,6,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,7,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,8,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,9,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,10,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,11,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,12,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,13,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,14,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,16,'2023-03-01 10:57:21.597993',60,'5','3','0'),
-				 (15,17,'2023-03-01 10:57:21.597993',60,'10','5','0'),
-				 (15,18,'2023-03-01 10:57:21.597993',60,'0',null,'0'),
-				 (15,19,'2023-03-01 10:57:21.597993',60,'0',null,'0');
+			INSERT INTO public.metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+				(20,7,'2023-03-01 10:57:21.597993',60,'2.7','2.7','3.1'),
+				(21,7,'2023-03-01 10:57:21.597993',60,'11','11','17'),
+				(22,7,'2023-03-01 10:57:21.597993',60,'2.2','3.1','3.1.5'),
+				(23,7,'2023-03-01 10:57:21.597993',60,'16.0','~16.2','~16.2'),
+				(25,7,'2023-03-01 10:57:21.597993',60,'250','100','50'),
+				(26,7,'2023-03-01 10:57:21.597993',60,'50','10','0'),
+				(27,7,'2023-03-01 10:57:21.597993',60,'0','0','0'),
+				(29,7,'2023-03-01 10:57:21.597993',60,'','','false'),
+				(20,9,'2023-03-01 10:57:21.597993',60,'2.7','2.7','3.1'),
+				(21,9,'2023-03-01 10:57:21.597993',60,'11','11','17');
+	   		INSERT INTO public.metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+				(22,9,'2023-03-01 10:57:21.597993',60,'2.2','3.1','3.1.5'),
+				(23,9,'2023-03-01 10:57:21.597993',60,'16.0','~16.2','~16.2'),
+				(25,9,'2023-03-01 10:57:21.597993',60,'250','100','50'),
+				(26,9,'2023-03-01 10:57:21.597993',60,'50','10','0'),
+				(27,9,'2023-03-01 10:57:21.597993',60,'0','0','0'),
+				(29,9,'2023-03-01 10:57:21.597993',60,'','','false'),
+				(1,15,'2023-03-01 10:57:21.597993',250,'70','85','90'),
+				(3,15,'2023-03-01 10:57:21.597993',40,'30','20','5'),
+				(4,15,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
+				(5,15,'2023-03-01 10:57:21.597993',60,'5','3','0');
+	   		INSERT INTO public.metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+				(6,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(7,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(8,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(9,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(10,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(11,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(12,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(13,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(14,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(15,15,'2023-03-01 10:57:21.597993',60,'5','3','0');
+	   		INSERT INTO public.metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+				(16,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+				(17,15,'2023-03-01 10:57:21.597993',60,'10','5','0'),
+				(18,15,'2023-03-01 10:57:21.597993',60,'0',NULL,'0'),
+				(19,15,'2023-03-01 10:57:21.597993',60,'0',NULL,'0');	   
 		</sql>
 	</changeSet>
 	
 	<changeSet author="initial" id="20230707_50020">
 		<sql dbms="postgresql">
-			INSERT INTO component_type_architecture_metrics_properties (component_type_architecture_id,metric_id,name,value) VALUES
+			INSERT INTO public.component_type_architecture_metrics_properties (component_type_architecture_id,metric_id,name,value) VALUES
 				(7,20,'PATH','pom.xml'),
 				(7,21,'PATH','#{bff_path}/pom.xml'),
 				(7,22,'PATH','#{rws_path}/pom.xml'),
 				(7,23,'PATH','#{ngx_path}/package.json'),
-				(7,29,'PATH','pom.xml');
-			INSERT INTO component_type_architecture_metrics_properties (component_type_architecture_id,metric_id,name,value) VALUES
+				(7,29,'PATH','pom.xml'),
 				(9,21,'PATH','#{bff_path}/pom.xml'),
 				(9,22,'PATH','#{rws_path}/pom.xml'),
-				(9,23,'PATH','#{ngx_path}/package.json');
+				(9,23,'PATH','#{ngx_path}/package.json');	   
 		</sql>
 	</changeSet>
+	
+	<changeSet author="initial" id="20231118_50021">
+		<sql dbms="postgresql">
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(1,'2023-11-17 18:15:54.749',23,7,'14.2.10',false),
+				(1,'2023-11-17 18:15:55.154',22,7,'2.6.1',false),
+				(1,'2023-11-17 18:15:55.154',21,7,'9',false),
+				(1,'2023-11-17 18:15:55.447',20,7,'0.0.1-RELEASE',false),
+				(1,'2023-11-17 18:15:56.003',29,7,'true',true),
+				(1,'2023-11-17 18:15:56.27',30,7,'0',false),
+				(1,'2023-11-17 18:15:56.27',31,7,'',false),
+				(2,'2023-11-17 18:17:31.725',23,9,'~16.2.6',false),
+				(2,'2023-11-17 18:17:31.748',24,9,'0',false),
+				(2,'2023-11-17 18:17:31.748',25,9,'0',false);
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(2,'2023-11-17 18:17:31.748',26,9,'0',false),
+				(2,'2023-11-17 18:17:31.748',27,9,'0',false),
+				(2,'2023-11-17 18:17:32.112',30,9,'857471',false),
+				(2,'2023-11-17 18:17:32.102',31,9,'TypeScript=296604;Java=444211;CSS=68055;SCSS=13368;JavaScript=2048;HTML=33185',false),
+				(3,'2023-11-17 18:17:37.117',1,15,'54.5',false),
+				(3,'2023-11-17 18:17:37.117',2,15,'OK',false),
+				(3,'2023-11-17 18:17:37.117',3,15,'29',false),
+				(3,'2023-11-17 18:17:37.117',4,15,'3.0',false),
+				(3,'2023-11-17 18:17:37.117',5,15,'12',false),
+				(3,'2023-11-17 18:17:37.117',6,15,'1.0',false);
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(3,'2023-11-17 18:17:37.117',9,15,'78163',false),
+				(3,'2023-11-17 18:17:37.117',10,15,'174073',false),
+				(3,'2023-11-17 18:17:37.117',11,15,'6.3',false),
+				(3,'2023-11-17 18:17:37.117',12,15,'86545',false),
+				(3,'2023-11-17 18:17:37.117',13,15,'c++=86545',false),
+				(3,'2023-11-17 18:17:37.117',15,15,'32864',false),
+				(3,'2023-11-17 18:17:37.117',16,15,'30010',false),
+				(3,'2023-11-17 18:17:37.117',17,15,'14036',false),
+				(3,'2023-11-17 18:17:37.117',18,15,'197',true),
+				(3,'2023-11-17 18:17:37.117',19,15,'1097',true);
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(3,'2023-11-17 18:17:37.117',28,15,'133200',false),
+				(4,'2023-11-17 18:17:42.04',1,15,'75.9',false),
+				(4,'2023-11-17 18:17:42.04',2,15,'ERROR',false),
+				(4,'2023-11-17 18:17:42.04',3,15,'85',false),
+				(4,'2023-11-17 18:17:42.04',4,15,'3.0',false),
+				(4,'2023-11-17 18:17:42.04',5,15,'1832',false),
+				(4,'2023-11-17 18:17:42.04',6,15,'4.0',false),
+				(4,'2023-11-17 18:17:42.04',8,15,'1.0',false),
+				(4,'2023-11-17 18:17:42.04',9,15,'17824',false),
+				(4,'2023-11-17 18:17:42.04',10,15,'40096',false);
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(4,'2023-11-17 18:17:42.04',11,15,'6.8',false),
+				(4,'2023-11-17 18:17:42.04',12,15,'70958',false),
+				(4,'2023-11-17 18:17:42.04',13,15,'cxx=70958',false),
+				(4,'2023-11-17 18:17:42.04',15,15,'12196',false),
+				(4,'2023-11-17 18:17:42.04',16,15,'1086',false),
+				(4,'2023-11-17 18:17:42.04',17,15,'5182',false),
+				(4,'2023-11-17 18:17:42.04',18,15,'1115',true),
+				(4,'2023-11-17 18:17:42.04',19,15,'162',true),
+				(4,'2023-11-17 18:17:42.04',28,15,'120608',false),
+				(5,'2023-11-17 18:17:47.922',1,15,'61.7',false);
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(5,'2023-11-17 18:17:47.922',2,15,'OK',false),
+				(5,'2023-11-17 18:17:47.922',3,15,'86',false),
+				(5,'2023-11-17 18:17:47.922',4,15,'5.0',false),
+				(5,'2023-11-17 18:17:47.922',5,15,'0',false),
+				(5,'2023-11-17 18:17:47.922',6,15,'1.0',false),
+				(5,'2023-11-17 18:17:47.922',9,15,'887',false),
+				(5,'2023-11-17 18:17:47.922',10,15,'14260',false),
+				(5,'2023-11-17 18:17:47.922',11,15,'14.5',false),
+				(5,'2023-11-17 18:17:47.922',12,15,'59064',false),
+				(5,'2023-11-17 18:17:47.922',13,15,'c=46070;js=911;web=59;xml=12024',false);
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(5,'2023-11-17 18:17:47.922',15,15,'55',false),
+				(5,'2023-11-17 18:17:47.922',16,15,'282',false),
+				(5,'2023-11-17 18:17:47.922',17,15,'443',false),
+				(5,'2023-11-17 18:17:47.922',18,15,'181',true),
+				(5,'2023-11-17 18:17:47.922',19,15,'12',true),
+				(5,'2023-11-17 18:17:47.922',28,15,'81806',false),
+				(7,'2023-11-17 18:18:11.6',23,9,'13.2.0',false),
+				(7,'2023-11-17 18:18:11.97',30,9,'1416917',false),
+				(7,'2023-11-17 18:18:11.97',31,9,'TypeScript=673016;Java=531161;SCSS=55930;JavaScript=6257;HTML=150553',false),
+				(8,'2023-11-17 18:18:17.272',23,7,'~8.3.5',false);
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(8,'2023-11-17 18:18:17.679',30,7,'43705',false),
+				(8,'2023-11-17 18:18:17.679',31,7,'TypeScript=37128;CSS=3151;JavaScript=1833;HTML=1593',false),
+				(9,'2023-11-17 18:18:22.583',24,7,'0',false),
+				(9,'2023-11-17 18:18:22.583',25,7,'3',false),
+				(9,'2023-11-17 18:18:22.583',26,7,'0',false),
+				(9,'2023-11-17 18:18:22.583',27,7,'0',false),
+				(9,'2023-11-17 18:18:22.543',20,7,'2.1.2.RELEASE',false),
+				(9,'2023-11-17 18:18:22.545',21,7,'1.8',false),
+				(9,'2023-11-17 18:18:22.545',22,7,'2.1.2.RELEASE',false),
+				(9,'2023-11-17 18:18:22.585',29,7,'false',false);
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+				(9,'2023-11-17 18:18:22.894',30,7,'55591',false),
+				(9,'2023-11-17 18:18:22.901',31,7,'Java=38816;CSS=73;HTML=16702',false);			
+		</sql>
+	</changeSet>
+		
+	<changeSet author="initial" id="20231118_50022">
+		<sql dbms="postgresql">
+			INSERT INTO component_historical_coverages (component_id,historical_coverage_date,historical_coverage_vaue) VALUES
+				(1,'2023-11-17 18:16:09.164',18.0),
+				(2,'2023-11-17 18:17:32.237',100.0),
+				(3,'2023-11-17 18:17:37.428',12.25),
+				(4,'2023-11-17 18:17:42.364',24.08),
+				(5,'2023-11-17 18:17:48.153',17.61),
+				(7,'2023-11-17 18:18:12.005',10.0),
+				(8,'2023-11-17 18:18:17.71',10.0),
+				(9,'2023-11-17 18:18:22.997',61.43);
+		</sql>
+	</changeSet>
+
 </databaseChangeLog>

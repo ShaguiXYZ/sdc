@@ -11,13 +11,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
-import { ISquadModel } from 'src/app/core/models/sdc';
+import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { SdcComplianceBarCardsComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
-import { IComplianceModel } from 'src/app/shared/models';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsRoutingModule } from './sdc-applications-home-routing.module';
 import { SdcApplicationsHomeService } from './services';
@@ -86,8 +85,8 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     this.subscription$.forEach(subscription => subscription.unsubscribe());
   }
 
-  public complianceClicked(compliance: IComplianceModel): void {
-    this.contextDataService.set(ContextDataInfo.METRICS_DATA, { compliance });
+  public complianceClicked(component: IComponentModel): void {
+    this.contextDataService.set(ContextDataInfo.METRICS_DATA, { component });
     this.router.navigate([AppUrls.metrics]);
   }
 

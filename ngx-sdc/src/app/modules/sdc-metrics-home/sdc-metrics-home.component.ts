@@ -77,7 +77,7 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
 
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
         ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
-        title: `Metrics | ${this.metricsData.compliance.name ?? ''}`
+        title: `Metrics | ${this.metricsData.component.name ?? ''}`
       });
 
       this.lastLanguageDistribution =
@@ -121,7 +121,7 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   public openMetricsCards(): void {
     this.metricsCardsDialogRef = this.dialogService.open(this.templateRef, {
       appearance: 'expert',
-      data: { component: this.metricsData?.compliance }
+      data: { component: this.metricsData?.component }
     });
   }
 

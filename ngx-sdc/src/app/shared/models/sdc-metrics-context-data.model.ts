@@ -1,8 +1,7 @@
-import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
-import { IComplianceModel } from './compliance.model';
+import { IComponentModel, IMetricAnalysisModel } from 'src/app/core/models/sdc';
 
 export interface MetricsContextData {
-  compliance: IComplianceModel;
+  component: IComponentModel;
   selected?: IMetricAnalysisModel;
   selectedTabIndex?: number;
 }

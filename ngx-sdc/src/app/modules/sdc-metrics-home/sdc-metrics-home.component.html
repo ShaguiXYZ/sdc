@@ -1,5 +1,5 @@
 <div *ngIf="metricsData" class="nx-margin-y-2xs">
-  <sdc-compliance-bar-card [compliance]="metricsData.compliance" [showMore]="false" [hideBorder]="true"></sdc-compliance-bar-card>
+  <sdc-compliance-bar-card [component]="metricsData.component" [showMore]="false" [hideBorder]="true"></sdc-compliance-bar-card>
   <div class="application-history nx-margin-y-2xs">
     <nx-accordion>
       <nx-expansion-panel (opened)="onOpenPanel()">
@@ -8,7 +8,7 @@
             <header>
               {{ 'Label.ApplicationHistory' | translate }}
               <span class="selected-date nx-margin-left-s"
-                >{{ 'Label.SelectedDate' | translate }}: {{ metricsData.compliance.analysisDate | date }}</span
+                >{{ 'Label.SelectedDate' | translate }}: {{ metricsData.component.analysisDate | date }}</span
               >
             </header>
           </nx-expansion-panel-title>
@@ -20,14 +20,14 @@
           <div class="chart-ops sdc-scrollable">
             <div
               class="sdc-op"
-              [nxTooltip]="'Tooltip.ComponentMetrics' | translate : { name: metricsData.compliance.name }"
+              [nxTooltip]="'Tooltip.ComponentMetrics' | translate : { name: metricsData.component.name }"
               (click)="openMetricsCards()"
             >
               <em class="fa-solid fa-align-justify"></em>
             </div>
             <div
               class="sdc-op"
-              [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.compliance.name }"
+              [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.component.name }"
               (click)="onRunProcess()"
             >
               <em class="fa-solid fa-arrows-spin"></em>
@@ -47,15 +47,15 @@
           <header>
             {{ 'Label.Metrics' | translate }}
             <span class="selected-date nx-margin-left-s"
-              >{{ 'Label.Coverage' | translate }}: {{ metricsData.compliance.coverage || 0 }} %</span
+              >{{ 'Label.Coverage' | translate }}: {{ metricsData.component.coverage || 0 }} %</span
             >
           </header>
         </nx-expansion-panel-title>
       </nx-expansion-panel-header>
       <nx-tab-group class="tiny-tabs" [selectedIndex]="metricsData.selectedTabIndex" (selectedIndexChange)="onTabChage($event)">
-        <nx-tab *ngIf="metricsData.compliance" [label]="'Label.MetricsHistoryGraphs' | translate">
+        <nx-tab *ngIf="metricsData.component" [label]="'Label.MetricsHistoryGraphs' | translate">
           <sdc-metric-history-graphs
-            [componentId]="metricsData.compliance.id"
+            [componentId]="metricsData.component.id"
             [selectedAnalysis]="metricsData.selectedAnalysis"
             (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
           ></sdc-metric-history-graphs>

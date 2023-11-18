@@ -5,7 +5,7 @@ import { IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
 import { ContextDataService, DateService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
-import { IComplianceModel, MetricsContextData } from 'src/app/shared/models';
+import { MetricsContextData } from 'src/app/shared/models';
 import { MetricsDataModel } from '../models';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class SdcMetricsHomeService {
     this.data$ = new Subject();
     this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
     this.metricData = {
-      compliance: this.metricContextData.compliance,
+      component: this.metricContextData.component,
       selectedAnalysis: this.metricContextData.selected,
       selectedTabIndex: this.metricContextData.selectedTabIndex
     };
@@ -56,7 +56,7 @@ export class SdcMetricsHomeService {
 
   public historicalComponentData(): void {
     this.componentService
-      .historical(this.metricData.compliance.id)
+      .historical(this.metricData.component.id)
       .then(historical => {
         this.metricData.historical = historical;
         this.data$.next(this.metricData);
@@ -66,14 +66,14 @@ export class SdcMetricsHomeService {
 
   public analyze = (): void => {
     this.analysisService
-      .analize(this.metricData.compliance.id)
+      .analize(this.metricData.component.id)
       .then(analysis => {
         if (analysis.page.length) {
           this.componentService
-            .component(this.metricData.compliance.id)
+            .component(this.metricData.component.id)
             .then(data => {
-              this.metricData.compliance = IComplianceModel.fromComponentModel(data);
-              this.analysisService.clearAnalysisCache(this.metricData.compliance.id);
+              this.metricData.component = data;
+              this.analysisService.clearAnalysisCache(this.metricData.component.id);
               this.componentService.clearSquadCache(data.squad.id);
               this.departmentService.clearCache();
               this.squadService.clearCache();
@@ -87,7 +87,7 @@ export class SdcMetricsHomeService {
   };
 
   private languageDistribution = (): void => {
-    this.analysisService.componentAnalysis(this.metricData.compliance.id).then(data => {
+    this.analysisService.componentAnalysis(this.metricData.component.id).then(data => {
       const metricAnalysis = data.page.find(
         analysis =>
           analysis.name.toLowerCase() === LANGUAGE_DISTIBUTION_METRIC.name.toLowerCase() &&
@@ -95,7 +95,7 @@ export class SdcMetricsHomeService {
       );
 
       if (metricAnalysis) {
-        this.analysisService.metricHistory(this.metricData.compliance.id, metricAnalysis.metric.id).then(history => {
+        this.analysisService.metricHistory(this.metricData.component.id, metricAnalysis.metric.id).then(history => {
           this.metricData.languageDistribution = {
             graph: history.page.map(analysis => ({
               axis: this.dateService.dateFormat(analysis.analysisDate),

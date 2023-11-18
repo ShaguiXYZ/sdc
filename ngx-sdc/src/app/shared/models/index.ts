@@ -1,5 +1,4 @@
 export * from './app.-config.model';
-export * from './compliance.model';
 
 // Context Data models
 export * from './sdc-applications-context-data.model';
