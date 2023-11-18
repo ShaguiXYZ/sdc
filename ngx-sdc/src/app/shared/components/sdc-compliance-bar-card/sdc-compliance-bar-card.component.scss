@@ -46,6 +46,7 @@ nx-card {
       nx-badge {
         cursor: pointer;
         font-size: 12px;
+        transition: all 0.5s ease-in-out;
       }
 
       nx-badge + nx-badge {
@@ -53,7 +54,16 @@ nx-card {
       }
 
       nx-badge:hover {
-        text-decoration: underline;
+        color: var(--badge-vibrant-color);
+        transition: all 0.5s ease-in-out;
+      }
+
+      nx-badge[type='active']:hover {
+        background-color: var(--badge-vibrant-active-background-color);
+      }
+
+      nx-badge[type='positive']:hover {
+        background-color: var(--badge-vibrant-positive-background-color);
       }
     }
 

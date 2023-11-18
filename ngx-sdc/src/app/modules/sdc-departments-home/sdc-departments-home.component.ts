@@ -1,20 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
+import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcSquadsContextData } from 'src/app/shared/models';
+import { SdcDepartmentSummaryComponent } from './components';
 import { SdcDepartmentsDataModel } from './models';
 import { SdcDepartmentsService } from './services';
-import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
-import { SdcDepartmentSummaryComponent } from './components';
-import { CommonModule } from '@angular/common';
-import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
-import { NxLinkModule } from '@aposin/ng-aquila/link';
-import { SdcDepartmentsHomeRoutingModule } from './sdc-departments-home-routing.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'sdc-departments-home',
@@ -29,7 +28,6 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     NxHeadlineModule,
     NxLinkModule,
-    SdcDepartmentsHomeRoutingModule,
     TranslateModule
   ]
 })

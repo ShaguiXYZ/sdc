@@ -18,7 +18,6 @@ import { SdcComplianceBarCardsComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcApplicationsDataModel } from './models';
-import { SdcApplicationsRoutingModule } from './sdc-applications-home-routing.module';
 import { SdcApplicationsHomeService } from './services';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
@@ -41,7 +40,6 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
     NxPaginationModule,
     NxRadioToggleModule,
     ReactiveFormsModule,
-    SdcApplicationsRoutingModule,
     TranslateModule
   ]
 })

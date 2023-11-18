@@ -26,7 +26,6 @@ import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
 import { SdcMetricHistoryGraphsComponent } from './components';
 import { MetricsDataModel } from './models';
-import { SdcMetricsRoutingModule } from './sdc-metrics-home-routing.module';
 import { SdcMetricsHomeService } from './services';
 
 @Component({
@@ -50,7 +49,6 @@ import { SdcMetricsHomeService } from './services';
     NxModalModule,
     NxTabsModule,
     NxTooltipModule,
-    SdcMetricsRoutingModule,
     TranslateModule
   ]
 })

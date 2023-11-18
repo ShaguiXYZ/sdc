@@ -14,7 +14,6 @@ import { ContextDataInfo } from 'src/app/shared/constants';
 import { ApplicationsContextData } from 'src/app/shared/models';
 import { SdcSquadSummaryComponent } from './components';
 import { SdcSquadsDataModel } from './models';
-import { SdcSquadsHomeRoutingModule } from './sdc-squads-home-routing.module';
 import { SdcSquadsService } from './services';
 
 @Component({
@@ -30,7 +29,6 @@ import { SdcSquadsService } from './services';
     CommonModule,
     NxHeadlineModule,
     NxLinkModule,
-    SdcSquadsHomeRoutingModule,
     TranslateModule
   ]
 })

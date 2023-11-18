@@ -1,8 +1,8 @@
 @import 'core-colors';
 
 .coverage-content {
-  display: flex;
   align-items: center;
+  display: flex;
 
   .coverage-chart {
     height: 55px;
@@ -24,9 +24,9 @@
 
   &:hover {
     border-radius: 4px;
-    outline-color: darken($background-color-1, 25%);
-    outline-style: auto;
     cursor: pointer;
     margin: 0px;
+    outline-color: darken($background-color-1, 25%);
+    outline-style: auto;
   }
 }
