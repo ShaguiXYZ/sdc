@@ -35,6 +35,12 @@ rest:
     enabled: true
     api-matcher:
       - /api/**
+      - /v3/api-docs/**
+      - /swagger.json
+      - /swagger-ui.html
+      - /swagger-ui/**
+      - /swagger-resources/**
+      - /webjars/**
     cors:
       allowed-origins: '*'
       allowed-headers: '*'
