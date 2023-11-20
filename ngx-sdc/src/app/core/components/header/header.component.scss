@@ -39,7 +39,7 @@ nx-header-navigation-item + nx-header-navigation-item {
   text-align: center;
 
   em {
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     transform: rotate(0deg);
   }
 
@@ -47,7 +47,6 @@ nx-header-navigation-item + nx-header-navigation-item {
     color: var(--link-hover-color);
 
     em {
-      transition: all 0.3s ease-in-out;
       transform: rotate(180deg);
     }
   }

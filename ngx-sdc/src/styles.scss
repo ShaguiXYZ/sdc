@@ -11,6 +11,10 @@ body {
   user-select: none;
   -webkit-user-select: none;
 
+  main {
+    padding-bottom: 5px;
+  }
+
   input {
     user-select: auto;
     -webkit-user-select: auto;
@@ -48,7 +52,6 @@ body {
   &:hover {
     color: var(--link-hover-color);
     opacity: 1;
-    transition: all 0.5s ease-in-out;
   }
 }
 
@@ -80,5 +83,31 @@ body {
 .sdc-scrollable-body {
   &::-webkit-scrollbar {
     width: 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* animations */
+.reveal {
+  animation: reveal linear both;
+  animation-timeline: view();
+  animation-range: entry 20% cover 30%;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

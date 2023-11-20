@@ -55,7 +55,6 @@ nx-card {
 
       nx-badge:hover {
         color: var(--badge-vibrant-color);
-        transition: all 0.5s ease-in-out;
       }
 
       nx-badge[type='active']:hover {

@@ -78,6 +78,8 @@ export class SdcMetricsHomeService {
               this.departmentService.clearCache();
               this.squadService.clearCache();
 
+              this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
+
               this.historicalComponentData();
             })
             .catch(_console.error);
