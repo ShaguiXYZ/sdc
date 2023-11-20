@@ -38,7 +38,7 @@ public interface ComponentTypeArchitectureApi {
 			@RequestParam(required = false) @Parameter(description = "language") String language);
 
 	@Operation(summary = "Update Component Type - Architecture")
-	@PutMapping("{componentId}")
+	@PutMapping("{componentTypeArchitectureId}")
 	@ResponseStatus(HttpStatus.OK)
 	ComponentTypeArchitectureDTO update(
 			@PathVariable @Parameter(description = "component type - architecture identifier") int componentTypeArchitectureId,
@@ -49,13 +49,17 @@ public interface ComponentTypeArchitectureApi {
 	@ResponseStatus(HttpStatus.CREATED)
 	List<ComponentTypeArchitectureDTO> create(@RequestBody List<ComponentTypeArchitectureDTO> data);
 
+	@Operation(summary = "Associate metrics with a type of component and/or architecture")
 	@PostMapping("metricsByArchitecture")
-	List<ComponentTypeArchitectureDTO> architectureMetrics(
+	@ResponseStatus(HttpStatus.CREATED)
+	List<ComponentTypeArchitectureDTO> componentTypeArchitectureMetrics(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,
 			@RequestParam(required = false) @Parameter(description = "architecture name") String architecture,
 			@RequestBody List<MetricPropertiesDTO> metricProperties);
 
+	@Operation(summary = "Create new ranges for a metric and a type of component and/or architecture")
 	@PostMapping("metricValues")
+	@ResponseStatus(HttpStatus.CREATED)
 	List<MetricValuesOutDTO> addMetricValues(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,
 			@RequestParam(required = false) @Parameter(description = "architecture name") String architecture,

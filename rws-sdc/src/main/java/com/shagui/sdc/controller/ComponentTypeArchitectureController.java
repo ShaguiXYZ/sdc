@@ -40,7 +40,8 @@ public class ComponentTypeArchitectureController implements ComponentTypeArchite
 	}
 
 	@Override
-	public List<ComponentTypeArchitectureDTO> architectureMetrics(String componentType, String architecture,
+	public List<ComponentTypeArchitectureDTO> componentTypeArchitectureMetrics(String componentType,
+			String architecture,
 			List<MetricPropertiesDTO> metricProperties) {
 		return componentTypeArchitectureService.componentTypeArchitectureMetrics(componentType, architecture,
 				metricProperties);

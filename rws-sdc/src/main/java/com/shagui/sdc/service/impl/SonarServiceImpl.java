@@ -37,11 +37,12 @@ public class SonarServiceImpl implements SonarService {
 			Optional<MeasuresSonarDTO> measures = getSonarClientMeasures(component, sonarMetrics);
 
 			if (measures.isPresent()) {
-				component.getComponentTypeArchitecture().getMetrics().forEach(metric -> {
+				sonarMetrics.forEach(metric -> {
 					Optional<MeasureSonarDTO> measure = measureByMetric(measures.get(), metric);
 
 					if (measure.isPresent()) {
-						analysisList.add(new ComponentAnalysisModel(component, metric, measure.get().getValue()));
+						analysisList
+								.add(new ComponentAnalysisModel(component, metric, measure.get().getValue()));
 					}
 				});
 			}
