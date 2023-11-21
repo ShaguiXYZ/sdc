@@ -34,6 +34,6 @@ describe('SdcComplianceBarCardsComponent', () => {
   });
 
   it('should select coverage', () => {
-    component.onClick(componentModelMock);
+    component.onClickShowMore(componentModelMock);
   });
 });

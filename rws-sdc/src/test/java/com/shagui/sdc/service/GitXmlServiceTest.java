@@ -72,6 +72,7 @@ class GitXmlServiceTest {
 		});
 
 		GitUtils.setConfig(new GitUtilsConfig(gitClient));
+		GitDocumentService.setConfig(new GitDocumentServiceConfig(componentTypeArchitectureMetricPropertiesRep));
 	}
 
 	@Test
