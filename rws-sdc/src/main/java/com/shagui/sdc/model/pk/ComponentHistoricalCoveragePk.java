@@ -21,11 +21,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Embeddable
 public class ComponentHistoricalCoveragePk implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4115998161045778024L;
-
 	@Column(name = "component_id")
 	private int componentId;
 

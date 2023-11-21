@@ -141,7 +141,7 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 				return componentTypeArchitecture;
 			} else {
 				componentTypeArchitecture.getMetrics().addAll(metricsToSave);
-				return componentTypeArchitectureRepository.save(componentTypeArchitecture);
+				return componentTypeArchitectureRepository.saveAndFlush(componentTypeArchitecture);
 			}
 		};
 	}

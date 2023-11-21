@@ -50,12 +50,30 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 			synchronized (LockHolder.AUTOINCREMENT_LOCK) {
 				JpaAutoincrementRepository<K> auroincrementRepository = (JpaAutoincrementRepository<K>) repository();
 				model.setId(auroincrementRepository.nextId());
-				
+
 				return repository().save(model);
 			}
 		}
-		
+
 		return repository().save(model);
+	}
+
+	default T saveAndFlush(T model) {
+		T result = save(model);
+		repository().flush();
+
+		return result;
+	}
+
+	default List<T> saveAll(Iterable<T> data) {
+		return saveAll(data);
+	}
+
+	default List<T> saveAllAndFlush(Iterable<T> data) {
+		List<T> result = repository().saveAll(data);
+		repository().flush();
+
+		return result;
 	}
 
 	default T create(T model) {
@@ -79,10 +97,6 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 		}
 
 		return save(model);
-	}
-
-	default List<T> saveAll(Iterable<T> data) {
-		return repository().saveAll(data);
 	}
 
 	default void delete(T model) {
