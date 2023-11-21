@@ -1,3 +1,3 @@
 export * from './http-status.model';
 
-export const ELEMENTS_BY_PAGE = 4;
+export const ELEMENTS_BY_PAGE = 8;

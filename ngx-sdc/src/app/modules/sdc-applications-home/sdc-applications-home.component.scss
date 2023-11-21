@@ -17,12 +17,12 @@
 }
 
 .pagination {
-  position: relative;
-
-  nx-pagination {
-    position: absolute;
-    right: 0;
-  }
+  align-items: center;
+  bottom: 10px;
+  display: flex;
+  height: 25px;
+  justify-content: right;
+  position: sticky;
 }
 
 .search-options {
