@@ -14,11 +14,10 @@ describe('SdcBreadcrumbComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SdcBreadcrumbComponent],
-      imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [{ provide: Location, useClass: SpyLocation }]
-    })
+    imports: [HttpClientModule, RouterTestingModule, TranslateModule.forRoot(), SdcBreadcrumbComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [{ provide: Location, useClass: SpyLocation }]
+})
       .compileComponents()
       .catch(emptyFn);
   }));

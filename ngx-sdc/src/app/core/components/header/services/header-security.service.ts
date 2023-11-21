@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from 'src/app/core/lib';
 import { SecurityService } from 'src/app/core/services';
-import { ISecurityModel } from 'src/app/core/services/security';
 import { ISecurityHeader } from '../models';
 
 @Injectable()
@@ -19,12 +18,4 @@ export class HeaderSecurityService {
   public signout() {
     this.securityService.logout();
   }
-
-  private updateSecurityData = (securityData: ISecurityModel) => {
-    this._securityInfo = {
-      currentUser: ISecurityModel.getUser(securityData),
-      isItUser: this.securityService.isItUser(),
-      isUserLogged: ISecurityModel.isLogged(securityData)
-    };
-  };
 }

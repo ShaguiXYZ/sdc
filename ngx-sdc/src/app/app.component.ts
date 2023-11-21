@@ -6,12 +6,16 @@ import { ContextDataService, StorageService } from './core/services';
 import { routingAnimation } from './shared/animations';
 import { ContextDataInfo } from './shared/constants';
 import { AppConfig } from './shared/models';
+import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [routingAnimation]
+  animations: [routingAnimation],
+  standalone: true,
+  imports: [AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent, NxGridModule, RouterOutlet]
 })
 export class AppComponent implements OnInit {
   constructor(

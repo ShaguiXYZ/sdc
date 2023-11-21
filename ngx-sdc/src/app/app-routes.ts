@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { configContextRoutes } from './core/services/context-data';
+import { Routes } from '@angular/router';
+import { configContextRoutes } from './core/services';
 import { AppUrls } from './shared/config/routing';
 
-const routes: Routes = configContextRoutes([
+export const routes: Routes = configContextRoutes([
   { path: AppUrls.root, redirectTo: AppUrls.squads, pathMatch: 'full' },
   {
     path: AppUrls.departments,
@@ -37,10 +36,3 @@ const routes: Routes = configContextRoutes([
     canDeactivate: []
   }
 ]);
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, {})],
-  exports: [RouterModule],
-  providers: []
-})
-export class AppRoutingModule {}
