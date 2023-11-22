@@ -8,6 +8,7 @@ import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { SwitchThemeComponent } from './components';
 import {
   DEFAULT_HEADER_MENU,
   IHeaderConfig,
@@ -31,12 +32,23 @@ import { HeaderLanguageService, HeaderSecurityService } from './services';
   styleUrls: ['./header.component.scss'],
   providers: [HeaderLanguageService, HeaderSecurityService],
   standalone: true,
-  imports: [CommonModule, NxButtonModule, NxContextMenuModule, NxHeaderModule, NxLinkModule, NxTooltipModule, RouterModule, TranslateModule]
+  imports: [
+    CommonModule,
+    NxButtonModule,
+    NxContextMenuModule,
+    NxHeaderModule,
+    NxLinkModule,
+    NxTooltipModule,
+    SwitchThemeComponent,
+    RouterModule,
+    TranslateModule
+  ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public navigation!: INavigation;
   public securityInfo!: ISecurityHeader;
   public languageInfo!: ILanguageHeader;
+  public themeSwitcher = false;
 
   private language$!: Subscription;
 
@@ -48,9 +60,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.navigation = this.config?.navigation || DEFAULT_HEADER_MENU;
-
     this.securityInfo = this.securityService.info;
     this.languageInfo = this.languageService.info;
+    this.themeSwitcher = this.config?.themeSwitcher || false;
 
     this.language$ = this.languageService.onLanguageChange().subscribe(info => (this.languageInfo = info));
   }

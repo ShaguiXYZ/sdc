@@ -6,10 +6,71 @@ nx-header-navigation-item + nx-header-navigation-item {
 }
 
 .nx-header {
+  display: flex;
+  height: auto !important;
   left: 0;
   position: sticky;
   top: 0;
   z-index: $z-index-over;
+
+  .header-content {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+
+    .menu-item {
+      color: var(--link-color);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      font-size: var(--link-small-font-size);
+      font-weight: var(--link-small-font-weight);
+      justify-content: center;
+      letter-spacing: var(--link-small-letter-spacing);
+      line-height: var(--link-small-line-height);
+      max-width: 150px;
+      min-width: 120px;
+      text-align: center;
+
+      em {
+        transition: transform 0.3s ease-in-out;
+        transform: rotate(0deg);
+      }
+
+      &:hover {
+        color: var(--link-hover-color);
+
+        em {
+          transform: rotate(180deg);
+        }
+      }
+
+      .child-menu {
+        position: relative;
+        text-align: left;
+
+        .child-row {
+          border: 1px solid $grey-light-color;
+          border-color: transparent;
+          border-radius: 4px;
+          box-shadow: $backdrop-color;
+          height: auto;
+          position: absolute;
+          z-index: $z-index-over;
+        }
+
+        .menu-item-children {
+          color: var(--link-color);
+          height: 40px;
+          padding-top: 4px;
+
+          :hover {
+            color: var(--hover-primary);
+          }
+        }
+      }
+    }
+  }
 
   .nx-header__app-title {
     color: $state-red;
@@ -20,59 +81,6 @@ nx-header-navigation-item + nx-header-navigation-item {
 
     :hover {
       border-color: transparent;
-    }
-  }
-}
-
-.menu-item {
-  color: var(--link-color);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  font-size: var(--link-small-font-size);
-  font-weight: var(--link-small-font-weight);
-  justify-content: center;
-  letter-spacing: var(--link-small-letter-spacing);
-  line-height: var(--link-small-line-height);
-  max-width: 150px;
-  min-width: 120px;
-  text-align: center;
-
-  em {
-    transition: transform 0.3s ease-in-out;
-    transform: rotate(0deg);
-  }
-
-  &:hover {
-    color: var(--link-hover-color);
-
-    em {
-      transform: rotate(180deg);
-    }
-  }
-
-  .child-menu {
-    position: relative;
-    text-align: left;
-
-    .child-row {
-      border: 1px solid $grey-light-color;
-      border-color: transparent;
-      border-radius: 4px;
-      box-shadow: 0 2px 4px 0 $backdrop-color;
-      height: auto;
-      position: absolute;
-      z-index: $z-index-over;
-    }
-
-    .menu-item-children {
-      color: var(--link-color);
-      height: 40px;
-      padding-top: 4px;
-
-      :hover {
-        color: var(--hover-primary);
-      }
     }
   }
 }

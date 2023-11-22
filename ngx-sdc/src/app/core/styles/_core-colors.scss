@@ -1,29 +1,21 @@
-$grey-darker-color: #414141;
-$grey-dark-color: #767676;
-$grey-base-color: #999999;
-$grey-light-color: #d9d9d9;
+$grey-darker-color: var(--ui-06);
+$grey-dark-color: var(--ui-05);
+$grey-light-color: var(--ui-04);
 $grey-lighter-color: var(--ui-02);
 
-$primary-darker-color: #007d8c;
-$primary-dark-color: #006192;
-$primary-message-color: #0e6296;
-$primary-base-color: #007ab3;
-$primary-light-color: #b1dadd;
-$primary-lighter-color: #cfe7e6;
+$primary-base-color: var(--hover-primary);
 
-$state-red: #d0021b;
-$state-green: #7ed321;
-$state-orange: #f5a623;
-$state-blue: #0e6296;
+$state-red: var(--badge-vibrant-critical-background-color);
+$state-green: var(--badge-vibrant-positive-background-color);
+$state-orange: var(--badge-vibrant-negative-background-color);
+$state-blue: var(--badge-vibrant-active-background-color);
 
 $success-color: var(--warning);
 $error-color: var(--danger);
 $warn-color: var(--warning);
 
-$backdrop-color: rgb(0 0 0 / 0.35);
-$backdrop-return-color: rgb(0 122 179 / 0.5);
+$backdrop-color: var(--shadow-small);
 
-$background-color: white;
-
+$background-color: var(--ui-01);
 $background-color-1: #ebf2f6;
-$background-color-2: #f2eff5;
+$background-color-2: var(--card-highlight-background-color);

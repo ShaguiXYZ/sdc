@@ -31,7 +31,6 @@
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/@aposin/ng-aquila/css/utilities.css",
-              "src/app/core/styles/theme.css",
               "src/app/core/styles/normalize.css",
               "src/styles.scss"
             ],
@@ -122,7 +121,7 @@
             "karmaConfig": "karma.conf.js",
             "codeCoverageExclude": ["/**/*mock*.ts"],
             "assets": ["src/assets", "src/favicon.ico", "src/.htaccess"],
-            "styles": ["src/app/core/styles/theme.css", "src/styles.scss"],
+            "styles": ["src/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["src/styles", "src/app/core/styles"]
             },

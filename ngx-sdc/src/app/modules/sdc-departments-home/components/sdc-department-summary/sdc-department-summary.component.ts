@@ -8,7 +8,7 @@ import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
 import { SdcCoverageChartComponent, SdcHorizontalBarChartComponent, SdcPieChartComponent } from 'src/app/shared/components/sdc-charts';
 import { BACKGROUND_DEPARTMENT_COLOR } from 'src/app/shared/constants';
-import { MetricStates, MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { MetricState, MetricStates, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
 import { DepartmentSummaryModel } from './models';
 import { SdcDepartmentSummaryService } from './services';
@@ -75,7 +75,7 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
     this.chartConfig = this.stateCounts();
   }
 
-  onDepartmentChage(index: number): void {
+  public onDepartmentChage(index: number): void {
     this.departmentSummaryData.selectedTabIndex = index;
     this.departmentSummaryService.tabIndexChange(index, this.departmentSummaryData.department.id);
   }

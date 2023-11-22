@@ -21,6 +21,7 @@
   width: 100%;
 
   &.selected {
+    color: var(--action-selected-color);
     background-color: $background-color-1;
     border-radius: 4px;
     outline-color: darken($background-color-1, 10%);

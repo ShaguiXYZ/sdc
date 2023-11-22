@@ -71,53 +71,56 @@
     <nx-header-app-title>{{ 'Header.Title' | translate }}</nx-header-app-title>
   </nx-header-brand>
 
-  <nx-header-navigation *ngIf="navigation.routes.length > 0">
-    <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
-      <!-- Parent menu -->
-      <div class="menu-item">
-        <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink
-          >{{ parent.name | translate }}
-          <em *ngIf="!parent.routerLink" [ngClass]="{ 'icon-menu fa-solid fa-chevron-down': true }"></em>
-        </a>
-        <div class="child-menu">
-          <!-- Child menu -->
-          <nx-header-row
-            *ngIf="parent.children?.length && parent.id === navigation.activeParent"
-            class="child-row"
-            (mouseleave)="mouseLeaveEvent(parent.id)"
-          >
-            <nx-header-navigation>
-              <nx-header-navigation-item>
-                <div *ngFor="let child of parent.children" class="menu-item-children">
-                  <a
-                    *ngIf="child.routerLink"
-                    [id]="child.id"
-                    [routerLink]="child.routerLink"
-                    routerLinkActive="is-active"
-                    nxHeaderLink
-                    class="nx-margin-0"
-                    >{{ child.name | translate }}</a
-                  >
-                  <a *ngIf="!child.routerLink" [id]="child.id" routerLinkActive="is-active" nxHeaderLink class="nx-margin-0">{{
-                    child.name | translate
-                  }}</a>
-                </div>
-              </nx-header-navigation-item>
-            </nx-header-navigation>
-          </nx-header-row>
+  <div class="header-content">
+    <nx-header-navigation *ngIf="navigation.routes.length > 0" class="nx-margin-y-2xs">
+      <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
+        <!-- Parent menu -->
+        <div class="menu-item">
+          <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink
+            >{{ parent.name | translate }}
+            <em *ngIf="!parent.routerLink" [ngClass]="{ 'icon-menu fa-solid fa-chevron-down': true }"></em>
+          </a>
+          <div class="child-menu">
+            <!-- Child menu -->
+            <nx-header-row
+              *ngIf="parent.children?.length && parent.id === navigation.activeParent"
+              class="child-row"
+              (mouseleave)="mouseLeaveEvent(parent.id)"
+            >
+              <nx-header-navigation>
+                <nx-header-navigation-item>
+                  <div *ngFor="let child of parent.children" class="menu-item-children">
+                    <a
+                      *ngIf="child.routerLink"
+                      [id]="child.id"
+                      [routerLink]="child.routerLink"
+                      routerLinkActive="is-active"
+                      nxHeaderLink
+                      class="nx-margin-0"
+                      >{{ child.name | translate }}</a
+                    >
+                    <a *ngIf="!child.routerLink" [id]="child.id" routerLinkActive="is-active" nxHeaderLink class="nx-margin-0">{{
+                      child.name | translate
+                    }}</a>
+                  </div>
+                </nx-header-navigation-item>
+              </nx-header-navigation>
+            </nx-header-row>
+          </div>
         </div>
-      </div>
-    </nx-header-navigation-item>
-  </nx-header-navigation>
+      </nx-header-navigation-item>
+    </nx-header-navigation>
 
-  <nx-header-actions>
-    <nx-link *ngIf="securityInfo.isUserLogged" class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
-      <em class="fa-solid fa-user"></em>{{ securityInfo.currentUser?.userName }}
-    </nx-link>
-    <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="language">
-      <em class="fa-solid fa-globe"></em>{{ 'Language.' + languageInfo.currentLanguage | translate }}
-    </nx-link>
-  </nx-header-actions>
+    <nx-header-actions class="nx-margin-y-2xs">
+      <nx-switch-theme *ngIf="themeSwitcher"></nx-switch-theme>
+      <nx-link *ngIf="securityInfo.isUserLogged" class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
+        <em class="fa-solid fa-user"></em>{{ securityInfo.currentUser?.userName }}
+      </nx-link>
+      <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="language">
+        <em class="fa-solid fa-globe nx-margin-right-2xs"></em>{{ 'Language.' + languageInfo.currentLanguage | translate }}
+      </nx-link>
+    </nx-header-actions>
+  </div>
 </header>
 
 <nx-context-menu #language="nxContextMenu">

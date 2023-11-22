@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+/**
+  Themes
+*/
+@import 'themes/dark';
+@import 'themes/light';
 
 @import '@angular/cdk/overlay-prebuilt.css';
 @import '@angular/cdk/a11y-prebuilt.css';
@@ -75,7 +80,7 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $grey-base-color;
+    background-color: $grey-dark-color;
     border-radius: 5px;
   }
 }
@@ -86,6 +91,9 @@ body {
   }
 }
 
+/* animations */
+
+/* media for reduce animations if user deactive system property */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -95,7 +103,6 @@ body {
   }
 }
 
-/* animations */
 .reveal {
   animation: reveal linear both;
   animation-timeline: view();

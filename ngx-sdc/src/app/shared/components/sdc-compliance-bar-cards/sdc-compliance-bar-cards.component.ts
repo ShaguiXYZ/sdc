@@ -13,6 +13,9 @@ import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card/sdc-co
 })
 export class SdcComplianceBarCardsComponent {
   @Input()
+  public animation = true;
+
+  @Input()
   public components?: IComponentModel[];
 
   @Input()
