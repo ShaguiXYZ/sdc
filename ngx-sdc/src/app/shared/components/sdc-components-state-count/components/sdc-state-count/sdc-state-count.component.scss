@@ -27,18 +27,16 @@
     width: -moz-available;
 
     .application-count {
+      flex-grow: 1;
       font-weight: bold;
       margin-top: auto;
       margin-bottom: auto;
     }
 
-    .align-right {
-      margin: 0px 0px 0px auto;
-      padding-right: 16px;
-    }
-
     .flex-row {
       display: flex;
+      flex-wrap: wrap;
+      height: auto;
       margin: auto 0px;
     }
 

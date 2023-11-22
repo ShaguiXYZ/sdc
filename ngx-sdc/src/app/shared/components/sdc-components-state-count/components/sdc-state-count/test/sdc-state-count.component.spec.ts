@@ -6,7 +6,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from 'src/app/core/lib';
 import { MetricStates } from 'src/app/shared/lib';
-import { IStateCount } from '../model/state-count.model';
+import { IStateCount } from '../../../../../models/state-count.model';
 import { SdcStateCountComponent } from '../sdc-state-count.component';
 
 describe('SdcStateCountComponent', () => {

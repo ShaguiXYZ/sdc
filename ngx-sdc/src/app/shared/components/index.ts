@@ -8,5 +8,4 @@ export * from './sdc-lazy-loader';
 export * from './sdc-metric-info';
 export * from './sdc-metrics-cards';
 export * from './sdc-no-data';
-export * from './sdc-state-count';
 export * from './sdc-time-evolution-multichart';

@@ -2,15 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricStates, stateByCoverage } from '../../lib';
-import { SdcStateCountComponent } from '../sdc-state-count';
-import { IStateCount } from '../sdc-state-count/model/state-count.model';
+import { IStateCount } from '../../models';
+import { SdcStateCountComponent } from './components';
 
 @Component({
   selector: 'sdc-components-state-count',
   templateUrl: './sdc-components-state-count.component.html',
   styleUrls: ['./sdc-components-state-count.component.scss'],
   standalone: true,
-  imports: [SdcStateCountComponent, CommonModule]
+  imports: [CommonModule, SdcStateCountComponent]
 })
 export class SdcComponentsStateCountComponent {
   public _components!: ICoverageModel[];

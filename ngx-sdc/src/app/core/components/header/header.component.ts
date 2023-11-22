@@ -48,6 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public navigation!: INavigation;
   public securityInfo!: ISecurityHeader;
   public languageInfo!: ILanguageHeader;
+  public logo?: string;
   public themeSwitcher = false;
 
   private language$!: Subscription;
@@ -59,10 +60,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.navigation = this.config?.navigation || DEFAULT_HEADER_MENU;
+    this.navigation = this.config?.navigation ?? DEFAULT_HEADER_MENU;
     this.securityInfo = this.securityService.info;
     this.languageInfo = this.languageService.info;
-    this.themeSwitcher = this.config?.themeSwitcher || false;
+    this.themeSwitcher = this.config?.themeSwitcher ?? false;
+    this.logo = this.config?.logo;
 
     this.language$ = this.languageService.onLanguageChange().subscribe(info => (this.languageInfo = info));
   }
