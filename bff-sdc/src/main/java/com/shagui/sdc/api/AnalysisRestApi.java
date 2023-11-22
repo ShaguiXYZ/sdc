@@ -29,13 +29,17 @@ public interface AnalysisRestApi {
 	@GetMapping("{componentId}/{metricId}")
 	PageData<MetricAnalysisView> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
-			@PathVariable @Parameter(description = "Metric identifier") int metricId);
+			@PathVariable @Parameter(description = "Metric identifier") int metricId,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@GetMapping("{componentId}/{metricName}/{type}")
 	PageData<MetricAnalysisView> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric name") String metricName,
-			@PathVariable @Parameter(description = "Metric type") String type);
+			@PathVariable @Parameter(description = "Metric type") String type,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@PostMapping("{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)

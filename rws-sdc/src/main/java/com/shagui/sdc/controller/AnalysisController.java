@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.AnalysisRestApi;
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
@@ -55,13 +56,25 @@ public class AnalysisController implements AnalysisRestApi {
 	}
 
 	@Override
-	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date from) {
-		return analysisService.metricHistory(componentId, metricId, from == null ? new Date() : from);
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date from, Integer page,
+			Integer ps) {
+		if (page == null) {
+			return analysisService.metricHistory(componentId, metricId, from == null ? new Date() : from);
+		} else {
+			return analysisService.metricHistory(componentId, metricId, from == null ? new Date() : from,
+					new RequestPageInfo(page, ps));
+		}
 	}
 
 	@Override
-	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, AnalysisType type, Date from) {
-		return analysisService.metricHistory(componentId, metricName, type, from == null ? new Date() : from);
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, AnalysisType type, Date from,
+			Integer page, Integer ps) {
+		if (page == null) {
+			return analysisService.metricHistory(componentId, metricName, type, from == null ? new Date() : from);
+		} else {
+			return analysisService.metricHistory(componentId, metricName, type, from == null ? new Date() : from,
+					new RequestPageInfo(page, ps));
+		}
 	}
 
 	@Override

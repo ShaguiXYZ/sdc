@@ -11,10 +11,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
@@ -96,9 +98,28 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date,
+			RequestPageInfo pageInfo) {
+		Page<ComponentAnalysisModel> data = componentAnalysisRepository.repository()
+				.metricHistory(componentId, metricId, new Timestamp(date.getTime()), pageInfo.getPageable());
+
+		return data.stream()
+				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable(data));
+
+	}
+
+	@Override
 	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, AnalysisType type, Date date) {
 		return metricRepository.repository().findByNameIgnoreCaseAndType(metricName, type)
 				.map(metric -> metricHistory(componentId, metric.getId(), date))
+				.orElseGet(PageData::empty);
+	}
+
+	@Override
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, AnalysisType type, Date date,
+			RequestPageInfo pageInfo) {
+		return metricRepository.repository().findByNameIgnoreCaseAndType(metricName, type)
+				.map(metric -> metricHistory(componentId, metric.getId(), date, pageInfo))
 				.orElseGet(PageData::empty);
 	}
 

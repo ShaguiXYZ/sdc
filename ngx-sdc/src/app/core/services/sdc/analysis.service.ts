@@ -7,6 +7,7 @@ import { hasValue, sortCoverageData } from '../../lib';
 import { AnalysisType, IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
 import { HttpStatus } from '../http';
 import { XL_EXPIRATON_TIME, L_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
+import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {
@@ -57,10 +58,21 @@ export class AnalysisService {
     );
   }
 
-  public metricHistory(componentId: number, metricId: number): Promise<IPageable<IMetricAnalysisModel>> {
+  public metricHistory(
+    componentId: number,
+    metricId: number,
+    page: number = 0,
+    ps: number = METRIC_HISTORY_ELEMENTS
+  ): Promise<IPageable<IMetricAnalysisModel>> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('page', String(page));
+    httpParams = httpParams.append('ps', String(ps));
+
     return firstValueFrom(
       this.http
         .get<IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}/${metricId}`, {
+          clientOptions: { params: httpParams },
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.MetricAbalysisNotFound' }
           },

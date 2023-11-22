@@ -18,29 +18,35 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 
-import io.swagger.v3.oas.annotations.Parameter;
-
 @FeignClient(name = "rws-sdc", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
 	@GetMapping("analysis/get/{componentId}")
-	PageData<MetricAnalysisDTO> analysis(
-			@PathVariable @Parameter(description = "Component identifier") int componentId);
+	PageData<MetricAnalysisDTO> analysis(@PathVariable int componentId);
 
 	@GetMapping("analysis/get/{componentId}/{metricId}")
 	MetricAnalysisDTO analysis(@PathVariable int componentId, @PathVariable int metricId);
 
 	@GetMapping("analysis/{componentId}/{metricId}")
-	PageData<MetricAnalysisDTO> metricHistory(@PathVariable int componentId, @PathVariable int metricId);
+	PageData<MetricAnalysisDTO> metricHistory(
+			@PathVariable int componentId, @PathVariable int metricId,
+			@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer ps);
 
 	@GetMapping("analysis/{componentId}/{metricName}/{type}")
-	PageData<MetricAnalysisDTO> metricHistory(@PathVariable int componentId, @PathVariable String metricName,
-			@PathVariable String type);
+	PageData<MetricAnalysisDTO> metricHistory(
+			@PathVariable int componentId,
+			@PathVariable String metricName,
+			@PathVariable String type,
+			@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer ps);
 
 	@GetMapping("analysis/annualSum")
-	PageData<MetricAnalysisDTO> annualSum(@RequestParam(required = true) String metricName,
+	PageData<MetricAnalysisDTO> annualSum(
+			@RequestParam(required = true) String metricName,
 			@RequestParam(required = true) String metricType,
 			@RequestParam(required = false) Integer componentId,
-			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Integer departmentId);
+			@RequestParam(required = false) Integer squadId,
+			@RequestParam(required = false) Integer departmentId);
 
 	@PostMapping("analysis/{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)

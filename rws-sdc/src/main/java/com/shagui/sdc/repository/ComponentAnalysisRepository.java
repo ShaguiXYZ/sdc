@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -37,6 +39,15 @@ public interface ComponentAnalysisRepository extends JpaRepository<ComponentAnal
              ORDER BY ca.id.analysisDate ASC\
             """)
 	List<ComponentAnalysisModel> metricHistory(int componentId, int metricId, Timestamp date);
+
+
+	@Query("""
+            SELECT ca FROM ComponentAnalysisModel ca\
+             WHERE ca.id.componentId = :componentId AND ca.id.metricId = :metricId AND ca.id.analysisDate <= :date\
+             ORDER BY ca.id.analysisDate ASC\
+            """)
+	Page<ComponentAnalysisModel> metricHistory(int componentId, int metricId, Timestamp date,
+			Pageable pageable);
 
 	@Query("""
             SELECT ca FROM ComponentAnalysisModel ca\

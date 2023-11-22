@@ -25,13 +25,15 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId) {
-		return rwsSdcClient.metricHistory(componentId, metricId);
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Integer page,
+			Integer ps) {
+		return rwsSdcClient.metricHistory(componentId, metricId, page, ps);
 	}
 
 	@Override
-	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, String type) {
-		return rwsSdcClient.metricHistory(componentId, metricName, type);
+	public PageData<MetricAnalysisDTO> metricHistory(int componentId, String metricName, String type, Integer page,
+			Integer ps) {
+		return rwsSdcClient.metricHistory(componentId, metricName, type, page, ps);
 	}
 
 	@Override

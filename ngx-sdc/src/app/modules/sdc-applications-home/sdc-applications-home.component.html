@@ -51,7 +51,6 @@
     ></sdc-compliance-bar-cards>
     <div *ngIf="applicationsInfo.paging.pages > 1" class="pagination nx-margin-y-2xs">
       <nx-pagination
-        class="nx-margin-x-xs"
         [count]="applicationsInfo.paging.elements"
         [page]="applicationsInfo.paging.pageIndex + 1"
         [perPage]="ELEMENTS_BY_PAGE"

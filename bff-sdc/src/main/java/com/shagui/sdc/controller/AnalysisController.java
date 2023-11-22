@@ -29,13 +29,15 @@ public class AnalysisController implements AnalysisRestApi {
 	}
 
 	@Override
-	public PageData<MetricAnalysisView> metricHistory(int componentId, int metricId) {
-		return Mapper.parse(analysisService.metricHistory(componentId, metricId), MetricAnalysisView.class);
+	public PageData<MetricAnalysisView> metricHistory(int componentId, int metricId, Integer page, Integer ps) {
+		return Mapper.parse(analysisService.metricHistory(componentId, metricId, page, ps), MetricAnalysisView.class);
 	}
 
 	@Override
-	public PageData<MetricAnalysisView> metricHistory(int componentId, String metricName, String type) {
-		return Mapper.parse(analysisService.metricHistory(componentId, metricName, type), MetricAnalysisView.class);
+	public PageData<MetricAnalysisView> metricHistory(int componentId, String metricName, String type, Integer page,
+			Integer ps) {
+		return Mapper.parse(analysisService.metricHistory(componentId, metricName, type, page, ps),
+				MetricAnalysisView.class);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
@@ -62,22 +63,22 @@ class AnalysisControllerTest {
 
 	@Test
 	void MetricHistoryTest() {
-		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Date.class))).thenReturn(dto);
-		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, 1, new Date());
+		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Date.class), Mockito.any(RequestPageInfo.class))).thenReturn(dto);
+		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, 1, new Date(),1,1);
 		assertNotNull(result);
 	}
 
 	@Test
 	void MetricNameHistoryTest() {
-		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyString(), Mockito.any(AnalysisType.class), Mockito.any(Date.class))).thenReturn(dto);
-		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, "metric name",AnalysisType.GIT, new Date());
+		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyString(), Mockito.any(AnalysisType.class), Mockito.any(Date.class), Mockito.any(RequestPageInfo.class))).thenReturn(dto);
+		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, "metric name",AnalysisType.GIT, new Date(),1,1);
 		assertNotNull(result);
 	}
 
 	@Test
 	void MetricHistoryTestDateNUll() {
 		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Date.class))).thenReturn(dto);
-		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, 1, null);
+		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, 1, null,null,null);
 		assertNotNull(result);
 	}
 

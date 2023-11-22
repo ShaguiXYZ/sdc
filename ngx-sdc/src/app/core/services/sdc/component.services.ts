@@ -1,12 +1,13 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map, tap } from 'rxjs';
+import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
 import { deepCopy, hasValue, sortCoverageData } from '../../lib';
 import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
 import { CacheService } from '../context-data';
-import { ELEMENTS_BY_PAGE, HttpStatus, HttpService } from '../http';
+import { HttpService, HttpStatus } from '../http';
 import { XS_EXPIRATON_TIME, _COMPONENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
@@ -57,12 +58,15 @@ export class ComponentService {
     coverageMin?: number,
     coverageMax?: number,
     page?: number,
-    ps: number = ELEMENTS_BY_PAGE
+    ps?: number
   ): Promise<IPageable<IComponentModel>> {
     let httpParams = new HttpParams();
 
     if (hasValue(page)) {
       httpParams = httpParams.append('page', String(page));
+    }
+
+    if (hasValue(ps)) {
       httpParams = httpParams.append('ps', String(ps));
     }
 
@@ -131,10 +135,20 @@ export class ComponentService {
     );
   }
 
-  public historical(componentId: number): Promise<IHistoricalCoverage<IComponentModel>> {
+  public historical(
+    componentId: number,
+    page: number = 0,
+    ps: number = METRIC_HISTORY_ELEMENTS
+  ): Promise<IHistoricalCoverage<IComponentModel>> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('page', String(page));
+    httpParams = httpParams.append('ps', String(ps));
+
     return firstValueFrom(
       this.http
         .get<IHistoricalCoverage<IComponentDTO>>(`${this._urlComponents}/component/historical/${componentId}`, {
+          clientOptions: { params: httpParams },
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.HistoricalNotFound' }
           }

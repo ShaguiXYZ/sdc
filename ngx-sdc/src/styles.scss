@@ -99,7 +99,7 @@ body {
 .reveal {
   animation: reveal linear both;
   animation-timeline: view();
-  animation-range: entry 10%;
+  animation-range: entry 5%;
 }
 
 @keyframes reveal {

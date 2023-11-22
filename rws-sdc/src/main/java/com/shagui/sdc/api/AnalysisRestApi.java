@@ -17,41 +17,53 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.enums.AnalysisType;
 
 import feign.Headers;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
 @RequestMapping(path = { "/api/analysis" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface AnalysisRestApi {
+	@Operation(summary = "Retrieve last component analysis")
 	@GetMapping("get/{componentId}")
 	PageData<MetricAnalysisDTO> analysis(
 			@PathVariable @Parameter(description = "Component identifier") int componentId);
 
+	@Operation(summary = "Retrieve last component analysis metric")
 	@GetMapping("get/{componentId}/{metricId}")
 	MetricAnalysisDTO analysis(@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
 
+	@Operation(summary = "Run analysis for a component name of a squad")
 	@PostMapping("{squadId}/{componentName}")
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "squad id") int squadId,
 			@PathVariable @Parameter(description = "component name") String componentName);
 
+	@Operation(summary = "Run analysis for a component")
 	@PostMapping("{componentId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "component identifier") int componentId);
 
+	@Operation(summary = "Retrieve component metric history")
 	@GetMapping("{componentId}/{metricId}")
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
+	@Operation(summary = "Retrieve component metric history")
 	@GetMapping("{componentId}/{metricName}/{type}")
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric name") String metricName,
 			@PathVariable @Parameter(description = "Metric type") AnalysisType type,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from);
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
+	@Operation(summary = "Retrieve annual summary of a NUMERIC_MAP metric")
 	@GetMapping("annualSum")
 	PageData<MetricAnalysisDTO> annualSum(@RequestParam(required = true) String metricName,
 			@RequestParam(required = true) AnalysisType metricType,

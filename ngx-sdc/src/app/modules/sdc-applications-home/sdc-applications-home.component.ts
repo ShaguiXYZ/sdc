@@ -13,10 +13,9 @@ import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
 import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
-import { ELEMENTS_BY_PAGE } from 'src/app/core/services/http';
 import { SdcComplianceBarCardsComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
-import { ContextDataInfo } from 'src/app/shared/constants';
+import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsHomeService } from './services';
 

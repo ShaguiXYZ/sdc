@@ -40,8 +40,8 @@ class AnalysisServiceTest {
 	@Test
 	void metricHistoryTest() {
 		PageData<MetricAnalysisDTO> value = new PageData<MetricAnalysisDTO>();
-		when(rwsSdcClient.metricHistory(anyInt(), anyInt())).thenReturn(value);
-		PageData<MetricAnalysisDTO> result = service.metricHistory(1, 1);
+		when(rwsSdcClient.metricHistory(anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(value);
+		PageData<MetricAnalysisDTO> result = service.metricHistory(1, 1, 1, 1);
 
 		assertEquals(result, value);
 	}
@@ -49,8 +49,8 @@ class AnalysisServiceTest {
 	@Test
 	void metricNameHistoryTest() {
 		PageData<MetricAnalysisDTO> value = new PageData<MetricAnalysisDTO>();
-		when(rwsSdcClient.metricHistory(anyInt(), anyString(), anyString())).thenReturn(value);
-		PageData<MetricAnalysisDTO> result = service.metricHistory(1, "metricName", "GIT");
+		when(rwsSdcClient.metricHistory(anyInt(), anyString(), anyString(), anyInt(), anyInt())).thenReturn(value);
+		PageData<MetricAnalysisDTO> result = service.metricHistory(1, "metricName", "GIT", 1, 1);
 
 		assertEquals(result, value);
 	}
