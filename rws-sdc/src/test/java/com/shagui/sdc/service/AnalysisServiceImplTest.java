@@ -106,7 +106,8 @@ class AnalysisServiceImplTest {
 		Date date = new Date();
 		List<ComponentAnalysisModel> model = new ArrayList<>();
 		model.add(RwsTestUtils.componentAnalysisModelMock("metric value"));
-		when(componentAnalysisRepositoryMock.metricHistory(anyInt(), anyInt(), any(Timestamp.class))).thenReturn(model);
+		when(componentAnalysisRepositoryMock.historyOfMetricByDate(anyInt(), anyInt(), any(Timestamp.class)))
+				.thenReturn(model);
 
 		// when
 		List<MetricAnalysisDTO> result = service.metricHistory(componentId, metricId, date).getPage();
@@ -126,7 +127,7 @@ class AnalysisServiceImplTest {
 		model.add(RwsTestUtils.componentAnalysisModelMock("metric value"));
 		when(metricRepositoryMock.findByNameIgnoreCaseAndType(metricName, type))
 				.thenReturn(Optional.of(RwsTestUtils.metricModelMock(1, type, metricName, "metric value")));
-		when(componentAnalysisRepositoryMock.metricHistory(anyInt(), anyInt(), any(Timestamp.class)))
+		when(componentAnalysisRepositoryMock.historyOfMetricByDate(anyInt(), anyInt(), any(Timestamp.class)))
 				.thenReturn(model);
 
 		// when

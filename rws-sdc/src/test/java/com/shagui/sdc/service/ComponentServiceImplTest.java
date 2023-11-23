@@ -84,7 +84,7 @@ class ComponentServiceImplTest {
 		List<ComponentModel> list = new ArrayList<ComponentModel>();
 		list.add(RwsTestUtils.componentModelMock());
 		Page<ComponentModel> value = new PageImpl<ComponentModel>(list);
-		when(componentRepositoryMock.filter(anyString(), any(SquadModel.class), anyFloat(), anyFloat(),
+		when(componentRepositoryMock.filter(anyString(), anyInt(), anyFloat(), anyFloat(),
 				any(Pageable.class))).thenReturn(value);
 
 		PageData<ComponentDTO> result = service.filter("filterName", 1, new Range(0f, 1f), new RequestPageInfo(1));

@@ -93,7 +93,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 	@Override
 	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date date) {
 		return componentAnalysisRepository.repository()
-				.metricHistory(componentId, metricId, new Timestamp(date.getTime())).stream()
+				.historyOfMetricByDate(componentId, metricId, new Timestamp(date.getTime())).stream()
 				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 

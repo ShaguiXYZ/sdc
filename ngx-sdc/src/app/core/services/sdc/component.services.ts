@@ -58,7 +58,8 @@ export class ComponentService {
     coverageMin?: number,
     coverageMax?: number,
     page?: number,
-    ps?: number
+    ps?: number,
+    showLoading: boolean = true
   ): Promise<IPageable<IComponentModel>> {
     let httpParams = new HttpParams();
 
@@ -89,7 +90,7 @@ export class ComponentService {
     return firstValueFrom(
       this.http
         .get<IPageable<IComponentDTO>>(`${this._urlComponents}/components/filter`, {
-          showLoading: true,
+          showLoading,
           clientOptions: { params: httpParams },
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.ComponentsNotFound' }

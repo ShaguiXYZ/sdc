@@ -192,11 +192,15 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
         debounceTime(DEBOUNCE_TIME)
       )
       .subscribe(() =>
-        this.sdcApplicationsService.populateData({
-          coverage: this.form.controls['coverage'].value,
-          name: this.form.controls['name'].value,
-          squad: this.form.controls['squadId'].value
-        })
+        this.sdcApplicationsService.populateData(
+          {
+            coverage: this.form.controls['coverage'].value,
+            name: this.form.controls['name'].value,
+            squad: this.form.controls['squadId'].value
+          },
+          undefined,
+          false
+        )
       );
   }
 }

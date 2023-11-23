@@ -31,25 +31,25 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	public Optional<ComponentModel> findBySquad_IdAndName(int squadId, String name);
 
 	@Query("""
-            SELECT cm FROM ComponentModel cm WHERE \
-            (:name IS NULL OR LOWER(cm.name) like %:name%) AND \
-            (:squad IS NULL OR cm.squad = :squad) AND \
-            (:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
-            (:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
-            ORDER BY cm.coverage, cm.name\
-            """)
-	public Page<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax,
+			SELECT cm FROM ComponentModel cm WHERE \
+			(:name IS NULL OR LOWER(cm.name) like %:name%) AND \
+			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
+			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
+			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
+			ORDER BY cm.coverage, cm.name\
+			""")
+	public Page<ComponentModel> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
 			Pageable pageable);
 
 	@Query("""
-            SELECT cm FROM ComponentModel cm WHERE \
-            (:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
-            (:squad IS NULL OR cm.squad = :squad) AND \
-            (:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
-            (:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
-            ORDER BY cm.coverage, cm.name\
-            """)
-	public List<ComponentModel> filter(String name, SquadModel squad, Float coverageMin, Float coverageMax);
+			SELECT cm FROM ComponentModel cm WHERE \
+			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
+			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
+			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
+			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
+			ORDER BY cm.coverage, cm.name\
+			""")
+	public List<ComponentModel> filter(String name, Integer squadId, Float coverageMin, Float coverageMax);
 
 	/**
 	 * @deprecated (Sonar vulnerability)

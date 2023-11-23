@@ -17,7 +17,6 @@ import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
-import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
 import com.shagui.sdc.service.ComponentService;
@@ -76,15 +75,15 @@ public class ComponentServiceImpl implements ComponentService {
 	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range) {
 		return componentRepository.repository()
-				.filter(StringUtils.hasText(name) ? name.toLowerCase() : name,
-						squadId == null ? null : new SquadModel(squadId), range.getMin(), range.getMax())
+				.filter(jpaStringMask(name),
+						squadId, range.getMin(), range.getMax())
 				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range, RequestPageInfo pageInfo) {
 		Page<ComponentModel> models = componentRepository.repository().filter(
-				StringUtils.hasText(name) ? name.toLowerCase() : name, squadId == null ? null : new SquadModel(squadId),
+				jpaStringMask(name), squadId,
 				range.getMin(), range.getMax(), pageInfo.getPageable());
 
 		return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(models));
@@ -122,4 +121,10 @@ public class ComponentServiceImpl implements ComponentService {
 								dto.getComponentType(), dto.getArchitecture(), dto.getNetwork(),
 								dto.getDeploymentType(), dto.getPlatform(), dto.getLanguage())));
 	}
+
+	private String jpaStringMask(String value) {
+		// Repalce all spaces with % to allow for partial matches
+		return StringUtils.hasText(value) ? value.toLowerCase().replaceAll("\\s+", "%") : value;
+	}
+
 }

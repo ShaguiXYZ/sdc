@@ -32,7 +32,7 @@ export class SdcApplicationsHomeService {
     );
   }
 
-  public populateData(filter: ApplicationsFilter, page?: number): void {
+  public populateData(filter: ApplicationsFilter, page?: number, showLoading?: boolean): void {
     this.squadData(filter.name, filter.squad, filter.coverage, page ?? 0, ELEMENTS_BY_PAGE);
   }
 
@@ -56,11 +56,11 @@ export class SdcApplicationsHomeService {
     );
   }
 
-  private squadData(name?: string, squadId?: number, coverage?: string, page?: number, ps?: number): void {
+  private squadData(name?: string, squadId?: number, coverage?: string, page?: number, ps?: number, showLoading?: boolean): void {
     const range: Partial<SdcCoverageRange> = coverage ? { ...{ min: -1 }, ...SdcApplicationsCoverage[coverage] } : { min: -1 };
 
     this.componetService
-      .filter(name, squadId, range.min, range.max, page, ps)
+      .filter(name, squadId, range.min, range.max, page, ps, showLoading)
       .then(pageable => {
         this.contextDataService.set(
           ContextDataInfo.APPLICATIONS_DATA,
