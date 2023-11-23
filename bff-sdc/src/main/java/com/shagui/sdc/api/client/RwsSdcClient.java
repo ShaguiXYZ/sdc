@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +49,8 @@ public interface RwsSdcClient {
 			@RequestParam(required = false) Integer squadId,
 			@RequestParam(required = false) Integer departmentId);
 
-	@PostMapping("analysis/{componentId}")
+	@PostMapping(value = "analysis/{componentId}", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);
 

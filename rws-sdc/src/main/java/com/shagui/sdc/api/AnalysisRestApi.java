@@ -34,13 +34,15 @@ public interface AnalysisRestApi {
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
 
 	@Operation(summary = "Run analysis for a component name of a squad")
-	@PostMapping("{squadId}/{componentName}")
+	@PostMapping(value = "{squadId}/{componentName}", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "squad id") int squadId,
 			@PathVariable @Parameter(description = "component name") String componentName);
 
 	@Operation(summary = "Run analysis for a component")
-	@PostMapping("{componentId}")
+	@PostMapping(value = "{componentId}", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "component identifier") int componentId);
 

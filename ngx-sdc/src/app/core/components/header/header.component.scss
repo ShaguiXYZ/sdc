@@ -72,6 +72,10 @@ nx-header-navigation-item + nx-header-navigation-item {
     }
   }
 
+  .nx-header__actions {
+    margin: 0;
+  }
+
   .nx-header__app-title {
     color: $state-red;
   }

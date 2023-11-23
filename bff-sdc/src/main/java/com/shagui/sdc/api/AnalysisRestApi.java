@@ -41,7 +41,8 @@ public interface AnalysisRestApi {
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
-	@PostMapping("{componentId}")
+	@PostMapping(value = "{componentId}", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisView> analyze(
 			@PathVariable @Parameter(description = "component identifier") int componentId);
