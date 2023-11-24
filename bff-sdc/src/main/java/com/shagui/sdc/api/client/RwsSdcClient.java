@@ -17,6 +17,7 @@ import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
+import com.shagui.sdc.api.dto.TagDTO;
 
 @FeignClient(name = "rws-sdc", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
@@ -92,4 +93,11 @@ public interface RwsSdcClient {
 
 	@GetMapping("squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId, @RequestParam(required = false) Integer page);
+
+	@GetMapping("tags")
+	PageData<TagDTO> tags(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
+
+	@GetMapping("tags/component/{componentId}")
+	PageData<TagDTO> componentTags(@PathVariable int componentId, @RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer ps);
 }

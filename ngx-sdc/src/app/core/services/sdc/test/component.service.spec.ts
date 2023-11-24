@@ -6,7 +6,7 @@ import { AnalysisType, IComponentDTO, IMetricDTO, IPageable, IPaging } from 'src
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 import { CacheService } from '../../context-data';
 import { HttpService } from '../../http';
-import { ComponentService } from '../component.services';
+import { ComponentService } from '../component.service';
 
 const paging: IPaging = { pageIndex: 0, pageSize: 1, pages: 1, elements: 1 };
 const component: IComponentDTO = { id: 1, name: '', squad: { id: 1, department: { id: 1, name: '' }, name: '' } };

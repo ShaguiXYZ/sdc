@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.shagui.sdc.api.client.SonarClient;
 import com.shagui.sdc.api.dto.sonar.MeasureSonarDTO;
 import com.shagui.sdc.api.dto.sonar.MeasuresSonarDTO;
-import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
