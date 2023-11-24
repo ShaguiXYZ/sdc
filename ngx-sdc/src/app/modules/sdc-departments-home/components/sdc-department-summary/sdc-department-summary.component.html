@@ -1,5 +1,5 @@
 <div *ngIf="department" class="departments-summary">
-  <nx-tab-group class="tiny-tabs" (selectedIndexChange)="onDepartmentChage($event)">
+  <nx-tab-group class="tiny-tabs" [(selectedIndex)]="selectedTabIndex">
     <nx-tab [label]="'Label.DepartmentSumary' | translate">
       <div class="summary-charts">
         <div class="summary-pie-chart sdc-center">
@@ -26,12 +26,10 @@
     </nx-tab>
     <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
       <div class="language-distribution">
-        <ng-container
-          *ngIf="departmentSummaryData.languageDistribution && departmentSummaryData.languageDistribution.graph.length; else noData"
-        >
+        <ng-container *ngIf="serviceSummaryData.languageDistribution && serviceSummaryData.languageDistribution.graph.length; else noData">
           <div class="historical-language-distribution">
             <sdc-time-evolution-multichart
-              [data]="departmentSummaryData.languageDistribution"
+              [data]="serviceSummaryData.languageDistribution"
               [size]="{ height: 330 }"
             ></sdc-time-evolution-multichart>
           </div>

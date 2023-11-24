@@ -1,1 +1,1 @@
-export * from './sdc-department-summary.model';
+export * from './sdc-service-summary.model';

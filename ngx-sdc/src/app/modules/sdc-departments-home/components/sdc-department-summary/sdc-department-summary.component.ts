@@ -10,7 +10,7 @@ import { SdcCoverageChartComponent, SdcHorizontalBarChartComponent, SdcPieChartC
 import { BACKGROUND_DEPARTMENT_COLOR } from 'src/app/shared/constants';
 import { MetricState, MetricStates, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig } from 'src/app/shared/models';
-import { DepartmentSummaryModel } from './models';
+import { ServiceSummaryModel } from './models';
 import { SdcDepartmentSummaryService } from './services';
 
 @Component({
@@ -20,23 +20,27 @@ import { SdcDepartmentSummaryService } from './services';
   providers: [SdcDepartmentSummaryService, TitleCasePipe],
   standalone: true,
   imports: [
+    CommonModule,
+    NxHeadlineModule,
+    NxTabsModule,
     SdcCoverageChartComponent,
     SdcHorizontalBarChartComponent,
     SdcNoDataComponent,
     SdcPieChartComponent,
     SdcTimeEvolutionMultichartComponent,
-    CommonModule,
-    NxHeadlineModule,
-    NxTabsModule,
     TranslateModule
   ]
 })
 export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
   public readonly BACKGROUND_DEPARTMENT_COLOR = BACKGROUND_DEPARTMENT_COLOR;
-  public departmentSummaryData!: DepartmentSummaryModel;
-  public lastLanguageDistribution?: string;
+  public serviceSummaryData: ServiceSummaryModel = {};
   public chartConfig!: ChartConfig;
+  public lastLanguageDistribution?: string;
 
+  @Input()
+  private _department!: IDepartmentModel;
+  private _squads: ISquadModel[] = [];
+  private _selectedTabIndex = 0;
   private data$!: Subscription;
 
   constructor(
@@ -45,22 +49,13 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
     private readonly translateService: TranslateService
   ) {}
 
-  public get department(): IDepartmentModel {
-    return this.departmentSummaryData.department;
-  }
-  @Input()
-  public set department(value: IDepartmentModel) {
-    this.departmentSummaryData = { ...this.departmentSummaryData, department: value };
-    this.onDepartmentChage(this.departmentSummaryData.selectedTabIndex ?? 0);
-  }
-
   ngOnInit(): void {
     this.data$ = this.departmentSummaryService.onDataChange().subscribe(data => {
-      this.departmentSummaryData = { ...this.departmentSummaryData, ...data };
+      this.serviceSummaryData = { ...this.serviceSummaryData, ...data };
 
       this.lastLanguageDistribution =
-        (this.departmentSummaryData.languageDistribution?.graph.length &&
-          this.departmentSummaryData.languageDistribution.graph?.[this.departmentSummaryData.languageDistribution.graph.length - 1].data) ||
+        (this.serviceSummaryData.languageDistribution?.graph.length &&
+          this.serviceSummaryData.languageDistribution.graph?.[this.serviceSummaryData.languageDistribution.graph.length - 1].data) ||
         undefined;
     });
   }
@@ -69,21 +64,34 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
     this.data$.unsubscribe();
   }
 
+  public get department(): IDepartmentModel {
+    return this._department;
+  }
+  @Input()
+  public set department(value: IDepartmentModel) {
+    this._department = value;
+    this.selectedTabIndex = this._selectedTabIndex;
+  }
+
   @Input()
   public set squads(values: ISquadModel[]) {
-    this.departmentSummaryData = { ...this.departmentSummaryData, squads: values };
-    this.chartConfig = this.stateCounts();
+    this._squads = values;
+    this.chartConfig = this.stateCounts(this._squads);
   }
 
-  public onDepartmentChage(index: number): void {
-    this.departmentSummaryData.selectedTabIndex = index;
-    this.departmentSummaryService.tabIndexChange(index, this.departmentSummaryData.department.id);
+  public get selectedTabIndex() {
+    return this._selectedTabIndex;
+  }
+  @Input()
+  public set selectedTabIndex(index: number) {
+    this._selectedTabIndex = index;
+    this.departmentSummaryService.tabFn(this.selectedTabIndex, this.department.id);
   }
 
-  private stateCounts(): ChartConfig {
+  private stateCounts(squads: ISquadModel[]): ChartConfig {
     const counts: { [key: string]: { value: number; color: string } } = {};
 
-    this.departmentSummaryData.squads?.forEach(squad => {
+    squads?.forEach(squad => {
       const state: MetricStates = stateByCoverage(squad.coverage ?? 0);
       counts[state] = { value: counts[state] ? counts[state].value + 1 : 1, color: MetricState[state].color };
     });

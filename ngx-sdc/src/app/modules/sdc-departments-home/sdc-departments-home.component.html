@@ -1,7 +1,7 @@
 <div *ngIf="departmentsData" class="summary-content nx-margin-y-2xs">
   <div *ngIf="departmentsData.department" class="summary width-100">
     <div class="nx-margin-bottom-2xs">
-      <sdc-department-summary [squads]="departmentsData.squads || []" [department]="departmentsData.department"></sdc-department-summary>
+      <sdc-department-summary [department]="departmentsData.department" [squads]="departmentsData.squads || []"></sdc-department-summary>
     </div>
   </div>
   <div class="coverages" [ngClass]="{ 'data-loaded': departmentsData.department, 'no-data-loaded': !departmentsData.department }">
