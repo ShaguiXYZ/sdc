@@ -1,42 +1,49 @@
-{"properties": [
-  {
-    "name": "application.info.app.name",
-    "type": "java.lang.String",
-    "description": "A description for 'application.info.app.name'"
-  },
-  {
-    "name": "application.info.app.version",
-    "type": "java.lang.String",
-    "description": "A description for 'application.info.app.version'"
-  },
-  {
-    "name": "application.info.app.description",
-    "type": "java.lang.String",
-    "description": "A description for 'application.info.app.description'"
-  },
-  {
-    "name": "services.sonar.uri",
-    "type": "java.lang.String",
-    "description": "A description for 'services.sonar.uri'"
-  },
-  {
-    "name": "services.git.uri",
-    "type": "java.lang.String",
-    "description": "A description for 'services.git.uri'"
-  },
-  {
-    "name": "services.xml.default-xml-path",
-    "type": "java.lang.String",
-    "description": "A description for 'services.xml.default-xml-path'"
-  },
-  {
-    "name": "services.no-uri",
-    "type": "java.lang.String",
-    "description": "A description for 'services.no-uri'"
-  },
-  {
-    "name": "rest.security.enabled",
-    "type": "java.lang.String",
-    "description": "A description for 'rest.security.enabled'"
-  }
-]}
+{
+  "properties": [
+    {
+      "name": "application.info.app.name",
+      "type": "java.lang.String",
+      "description": "A description for 'application.info.app.name'"
+    },
+    {
+      "name": "application.info.app.version",
+      "type": "java.lang.String",
+      "description": "A description for 'application.info.app.version'"
+    },
+    {
+      "name": "application.info.app.description",
+      "type": "java.lang.String",
+      "description": "A description for 'application.info.app.description'"
+    },
+    {
+      "name": "services.sonar.uri",
+      "type": "java.lang.String",
+      "description": "A description for 'services.sonar.uri'"
+    },
+    {
+      "name": "services.git.uri",
+      "type": "java.lang.String",
+      "description": "A description for 'services.git.uri'"
+    },
+    {
+      "name": "services.xml.default-xml-path",
+      "type": "java.lang.String",
+      "description": "A description for 'services.xml.default-xml-path'"
+    },
+    {
+      "name": "services.no-uri",
+      "type": "java.lang.String",
+      "description": "A description for 'services.no-uri'"
+    },
+    {
+      "name": "rest.security.enabled",
+      "type": "java.lang.String",
+      "description": "A description for 'rest.security.enabled'"
+    },
+    {
+      "name": "rest.security.issuer-uri",
+      "type": "java.lang.String",
+      "description": "A description for 'rest.security.issuer-uri'"
+    }
+  ]
+}

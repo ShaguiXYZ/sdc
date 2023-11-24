@@ -38,8 +38,7 @@ public interface MetricRestApi {
 	MetricDTO create(@RequestBody MetricDTO metric);
 
 	@Operation(summary = "Create new metric")
-	@PostMapping(value = "values", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping("values")
 	@ResponseStatus(HttpStatus.CREATED)
 	MetricDTO createValues(@RequestParam String name, @RequestParam(required = false) String description,
 			@RequestParam(required = false) AnalysisType type, @RequestParam MetricValueType valueType,

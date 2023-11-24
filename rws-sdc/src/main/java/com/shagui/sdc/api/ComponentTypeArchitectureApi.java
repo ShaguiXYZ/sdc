@@ -50,8 +50,7 @@ public interface ComponentTypeArchitectureApi {
 	List<ComponentTypeArchitectureDTO> create(@RequestBody List<ComponentTypeArchitectureDTO> data);
 
 	@Operation(summary = "Associate metrics with a type of component and/or architecture")
-	@PostMapping(value = "metricsByArchitecture", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping("metricsByArchitecture")
 	@ResponseStatus(HttpStatus.CREATED)
 	List<ComponentTypeArchitectureDTO> componentTypeArchitectureMetrics(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,
@@ -59,8 +58,7 @@ public interface ComponentTypeArchitectureApi {
 			@RequestBody List<MetricPropertiesDTO> metricProperties);
 
 	@Operation(summary = "Create new ranges for a metric and a type of component and/or architecture")
-	@PostMapping(value = "metricValues", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping("metricValues")
 	@ResponseStatus(HttpStatus.CREATED)
 	List<MetricValuesOutDTO> addMetricValues(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,

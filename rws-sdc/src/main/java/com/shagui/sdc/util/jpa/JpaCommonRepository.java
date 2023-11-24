@@ -44,36 +44,20 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 		return repository().findAll(pageInfo.getPageable());
 	}
 
-	@SuppressWarnings("unchecked")
 	default T save(T model) {
-		if (JpaAutoincrementRepository.class.isAssignableFrom(repository().getClass()) && model.getId() == null) {
-			synchronized (LockHolder.AUTOINCREMENT_LOCK) {
-				JpaAutoincrementRepository<K> auroincrementRepository = (JpaAutoincrementRepository<K>) repository();
-				model.setId(auroincrementRepository.nextId());
-
-				return repository().save(model);
-			}
-		}
-
-		return repository().save(model);
+		return save(model, false);
 	}
 
 	default T saveAndFlush(T model) {
-		T result = save(model);
-		repository().flush();
-
-		return result;
+		return save(model, true);
 	}
 
 	default List<T> saveAll(Iterable<T> data) {
-		return saveAll(data);
+		return saveAll(data, false);
 	}
 
 	default List<T> saveAllAndFlush(Iterable<T> data) {
-		List<T> result = repository().saveAll(data);
-		repository().flush();
-
-		return result;
+		return saveAll(data, true);
 	}
 
 	default T create(T model) {
@@ -106,5 +90,23 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 		} else {
 			this.repository().delete(model);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private T save(T model, boolean flush) {
+		if (JpaAutoincrementRepository.class.isAssignableFrom(repository().getClass()) && model.getId() == null) {
+			synchronized (LockHolder.AUTOINCREMENT_LOCK) {
+				JpaAutoincrementRepository<K> auroincrementRepository = (JpaAutoincrementRepository<K>) repository();
+				model.setId(auroincrementRepository.nextId());
+
+				return flush ? repository().saveAndFlush(model) : repository().save(model);
+			}
+		}
+
+		return flush ? repository().saveAndFlush(model) : repository().save(model);
+	}
+
+	private List<T> saveAll(Iterable<T> data, boolean flush) {
+		return flush ? repository().saveAllAndFlush(data) : repository().saveAll(data);
 	}
 }

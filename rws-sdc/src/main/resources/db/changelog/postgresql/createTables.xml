@@ -81,7 +81,7 @@
 				component_type_architecture_id int4 NOT NULL,
 				metric_id int4 NOT NULL,
 				CONSTRAINT component_type_architecture_metrics_pk PRIMARY KEY (metric_id, component_type_architecture_id),
-				CONSTRAINT component_type_architecture_metric_metric_fk FOREIGN KEY (metric_id) REFERENCES metrics(id),
+				CONSTRAINT component_type_architecture_metric_metric_fk FOREIGN KEY (metric_id) REFERENCES metrics(id) ON DELETE CASCADE,
 				CONSTRAINT component_type_architecture_metric_component_type_architecture_fk FOREIGN KEY (component_type_architecture_id) REFERENCES component_type_architectures(id) ON DELETE CASCADE
 			);
 		</sql>
@@ -206,4 +206,27 @@
 			CREATE UNIQUE INDEX properties_name_idx ON properties (LOWER("name"));
 		</sql>
 	</changeSet>
+	<changeSet author="initial" id="20231119_00024">
+		<sql dbms="postgresql">
+			CREATE TABLE tags (
+				id serial4 NOT NULL,
+				name varchar NOT NULL,
+				weight int4 NOT NULL,
+				CONSTRAINT tags_pk PRIMARY KEY (id)
+			);
+			CREATE UNIQUE INDEX tags_name_idx ON tags (LOWER("name"));
+
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20231119_00025">
+		<sql dbms="postgresql">
+			CREATE TABLE component_tags (
+				component_id int4 NOT NULL,
+				tag_id int4 NOT NULL,
+				CONSTRAINT component_tags_pk PRIMARY KEY (component_id,tag_id),
+				CONSTRAINT component_tags_component_fk FOREIGN KEY (component_id) REFERENCES components(id) ON DELETE CASCADE ON UPDATE CASCADE,
+				CONSTRAINT "component_tags_tag:fk" FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE ON UPDATE CASCADE
+			);
+		</sql>
+	</changeSet>				
 </databaseChangeLog>
