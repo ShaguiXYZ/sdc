@@ -8,7 +8,7 @@ import { SdcComponentsStateCountComponent, SdcNoDataComponent, SdcTimeEvolutionM
 import { SdcCoverageChartComponent, SdcPieChartComponent } from 'src/app/shared/components/sdc-charts';
 import { BACKGROUND_SQUAD_COLOR } from 'src/app/shared/constants';
 import { IStateCount } from 'src/app/shared/models';
-import { SquadSummaryModel } from './models';
+import { ServiceSummaryModel } from './models';
 import { SdcSquadSummaryService } from './services';
 
 @Component({
@@ -29,42 +29,28 @@ import { SdcSquadSummaryService } from './services';
   ]
 })
 export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
-  @Output()
-  public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
-
   public readonly BACKGROUND_SQUAD_COLOR = BACKGROUND_SQUAD_COLOR;
-  public squadSummaryData!: SquadSummaryModel;
+  public serviceSummaryData: ServiceSummaryModel = {};
   public lastLanguageDistribution?: string;
   public chartToShow: 'line' | 'pie' = 'pie';
 
+  @Output()
+  public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
+
+  private _components: IComponentModel[] = [];
+  private _selectedTabIndex = 0;
+  private _squad!: ISquadModel;
   private data$!: Subscription;
 
   constructor(private readonly squadSummaryService: SdcSquadSummaryService) {}
 
-  public get squad(): ISquadModel {
-    return this.squadSummaryData.squad;
-  }
-  @Input()
-  public set squad(value: ISquadModel) {
-    this.squadSummaryData = { ...this.squadSummaryData, squad: value };
-    this.onSquadChage(this.squadSummaryData.selectedTabIndex ?? 0);
-  }
-
-  public get components(): IComponentModel[] {
-    return this.squadSummaryData.components ?? [];
-  }
-  @Input()
-  public set components(values: IComponentModel[]) {
-    this.squadSummaryData = { ...this.squadSummaryData, components: values };
-  }
-
   ngOnInit(): void {
     this.data$ = this.squadSummaryService.onDataChange().subscribe(data => {
-      this.squadSummaryData = { ...this.squadSummaryData, ...data };
+      this.serviceSummaryData = { ...this.serviceSummaryData, ...data };
 
       this.lastLanguageDistribution =
-        (this.squadSummaryData.languageDistribution?.graph.length &&
-          this.squadSummaryData.languageDistribution.graph?.[this.squadSummaryData.languageDistribution.graph.length - 1].data) ||
+        (this.serviceSummaryData.languageDistribution?.graph.length &&
+          this.serviceSummaryData.languageDistribution.graph?.[this.serviceSummaryData.languageDistribution.graph.length - 1].data) ||
         undefined;
     });
   }
@@ -73,13 +59,34 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
     this.data$.unsubscribe();
   }
 
-  public onClickStateCount(event: IStateCount) {
-    this.clickStateCount.emit(event);
+  public get squad(): ISquadModel {
+    return this._squad;
+  }
+  @Input()
+  public set squad(value: ISquadModel) {
+    this._squad = value;
+    this.selectedTabIndex = this._selectedTabIndex;
   }
 
-  public onSquadChage(index: number): void {
-    this.squadSummaryData.selectedTabIndex = index;
-    this.squadSummaryService.tabIndexChange(index, this.squadSummaryData.squad.id);
+  public get components(): IComponentModel[] {
+    return this._components;
+  }
+  @Input()
+  public set components(values: IComponentModel[]) {
+    this._components = values;
+  }
+
+  public get selectedTabIndex() {
+    return this._selectedTabIndex;
+  }
+  @Input()
+  public set selectedTabIndex(index: number) {
+    this._selectedTabIndex = index;
+    this.squad && this.squadSummaryService.tabFn(this._selectedTabIndex, this.squad.id);
+  }
+
+  public onClickStateCount(event: IStateCount) {
+    this.clickStateCount.emit(event);
   }
 
   public toggleChart(): void {

@@ -55,7 +55,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     this.data$.unsubscribe();
   }
 
-  loadGraphData(analysis: IMetricAnalysisModel): void {
+  public loadGraphData(analysis: IMetricAnalysisModel): void {
     this.sdcMetricHistoryGraphsService.analysisHistoryData(this.componentId, analysis);
 
     this.selectedAnalysisChange.emit(analysis);

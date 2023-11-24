@@ -37,7 +37,6 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
   public chartConfig!: ChartConfig;
   public lastLanguageDistribution?: string;
 
-  @Input()
   private _department!: IDepartmentModel;
   private _squads: ISquadModel[] = [];
   private _selectedTabIndex = 0;
