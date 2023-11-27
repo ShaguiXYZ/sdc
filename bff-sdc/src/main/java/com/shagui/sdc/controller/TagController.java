@@ -24,6 +24,6 @@ public class TagController implements TagRestApi {
 
     @Override
     public PageData<TagView> componentTags(int componentId, Integer page, Integer ps) {
-        return Mapper.parse(tagService.tags(page, ps), TagView.class);
+        return Mapper.parse(tagService.componentTags(componentId, page, ps), TagView.class);
     }
 }

@@ -1,0 +1,82 @@
+@import 'core-globals';
+
+.sdc-tag__content {
+  align-items: center;
+  display: flex;
+
+  .sdc-tag__add {
+    display: flex;
+    position: relative;
+
+    .sdc-tag__icon--inner {
+      border-radius: 100%;
+      height: 30px;
+      margin-left: 5px;
+      outline: solid 1px;
+      width: 30px;
+      z-index: $z-index-middle;
+    }
+
+    .sdc-tag__input {
+      background-color: var(--ui-01);
+      font-size: 12px;
+      left: 35px;
+      opacity: 0;
+      position: absolute;
+      transition: all 0.7s ease-in-out;
+      width: 0;
+      z-index: calc($z-index-middle - 1);
+
+      ::ng-deep nx-formfield {
+        .nx-formfield__wrapper {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+
+    &:hover {
+      color: var(--interactive-primary);
+
+      .sdc-tag__input {
+        left: 0;
+        padding: 0 12px 0 40px;
+        transition: all 0.7s ease-in-out;
+        opacity: 0.9;
+        width: 200px;
+      }
+
+      .sdc-tag__icon--inner {
+        opacity: 0.9;
+      }
+    }
+
+    &:has(input:focus) {
+      color: var(--interactive-primary);
+
+      .sdc-tag__input {
+        left: 0;
+        padding: 0 12px 0 40px;
+        transition: all 0.7s ease-in-out;
+        opacity: 0.9;
+        width: 200px;
+      }
+
+      .sdc-tag__icon--inner {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .sdc-tag__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    padding: 0;
+    list-style: none;
+
+    sdc-tag {
+      margin-right: 5px;
+    }
+  }
+}

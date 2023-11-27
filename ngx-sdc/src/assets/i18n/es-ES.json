@@ -33,6 +33,7 @@
     "Title": "Software Development Console"
   },
   "Label": {
+    "AddTag": "Añadir tag",
     "ActualLanguageDistribution": "Distribución actual de lenguajes",
     "Applications": "Aplicaciones",
     "AssociatedSquads": "Squads asociados",
@@ -56,6 +57,7 @@
     "OptimumValue": "Valor óptimo recomendado",
     "OtherDepartments": "Otros departamentos",
     "OtherSquads": "Otros squads",
+    "RemoveTag": "Eliminar tag",
     "Search": "Buscar",
     "SelectedDate": "Fecha seleccionada",
     "ShowAll": "Ver todas",

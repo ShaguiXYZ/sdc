@@ -2,6 +2,7 @@ package com.shagui.sdc.model;
 
 import com.shagui.sdc.model.pk.ComponentTagPk;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,9 +17,12 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "component_tags")
-public class ComponentTagModel {
+public class ComponentTagModel implements ModelInterface<ComponentTagPk> {
     @EmbeddedId
     private ComponentTagPk id;
+
+    @Column(name = "analysis_tag", nullable = false, columnDefinition = "boolean default false")
+    private boolean analysisTag;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("componentId")

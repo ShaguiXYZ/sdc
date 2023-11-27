@@ -18,4 +18,6 @@ public interface ComponentTagRepository extends JpaRepository<ComponentTagModel,
     public List<ComponentModel> findByTagIdIn(int[] tagIds);
 
     public Page<ComponentModel> findByTagIdIn(int[] tagIds, Pageable pageable);
+
+    public long deleteByComponent_IdAndAnalysisTag(int componentId, boolean analysisTag);
 }

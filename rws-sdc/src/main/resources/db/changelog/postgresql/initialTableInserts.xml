@@ -148,7 +148,8 @@
 			('atope',61.43,NULL,7,1,'2023-11-17 18:18:23.144',NULL,NULL,false),
 			('storm:aff3ct:gitlab:master',12.25,NULL,15,2,'2023-11-24 12:44:25.694',NULL,NULL,true),
 			('ui-studio',10.0,NULL,9,3,'2023-11-24 12:46:38.541',NULL,NULL,false),
-			('ng-aquila',50.0,NULL,7,1,'2023-11-24 12:46:59.96',NULL,NULL,false);		</sql>
+			('ng-aquila',50.0,NULL,7,1,'2023-11-24 12:46:59.96',NULL,NULL,false);
+		</sql>
 	</changeSet>
 				 
 	<changeSet author="initial" id="20230707_50016">

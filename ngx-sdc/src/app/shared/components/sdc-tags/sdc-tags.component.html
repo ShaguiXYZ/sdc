@@ -1,3 +1,31 @@
-<div *ngFor="let tag of tags">
-  <sdc-tag [data]="tag"></sdc-tag>
+<div class="sdc-tag__content">
+  <div class="sdc-center sdc-tag__add">
+    <div class="sdc-center sdc-op sdc-tag__icon--inner"><em class="fa-solid fa-tags" (click)="focusNameInput()"></em></div>
+    <div class="sdc-tag__input">
+      <form [formGroup]="form">
+        <nx-formfield id="name">
+          <input
+            #nameInput
+            autocomplete="off"
+            nxInput
+            formControlName="name"
+            oninput="this.value = this.value.toLowerCase()"
+            type="text"
+            [maxLength]="15"
+            [minlength]="3"
+            [placeholder]="'Label.AddTag' | translate"
+            (keydown.enter)="onAddTag()"
+            (keydown)="omit_special_char($event)"
+          />
+          <span nxFormfieldSuffix>
+            <em class="fa-circle-plus fa-solid sdc-op" (click)="onAddTag()"></em>
+          </span>
+        </nx-formfield>
+      </form>
+    </div>
+  </div>
+
+  <div class="sdc-tag__list">
+    <sdc-tag *ngFor="let tag of tags" [data]="tag" [removable]="removable" (onRemove)="onRemoveTag($event)"></sdc-tag>
+  </div>
 </div>

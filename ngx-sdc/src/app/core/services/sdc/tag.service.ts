@@ -1,6 +1,8 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { hasValue } from '../../lib';
 import { IPageable, ITagDTO, ITagModel } from '../../models/sdc';
 import { CacheService } from '../context-data';
 import { HttpService, HttpStatus } from '../http';
@@ -11,10 +13,21 @@ export class TagService {
 
   constructor(private cache: CacheService, private http: HttpService) {}
 
-  public tags(): Promise<IPageable<ITagModel>> {
+  public tags(page?: number, ps?: number): Promise<IPageable<ITagModel>> {
+    let httpParams = new HttpParams();
+
+    if (hasValue(page)) {
+      httpParams = httpParams.append('page', String(page));
+    }
+
+    if (hasValue(ps)) {
+      httpParams = httpParams.append('ps', String(ps));
+    }
+
     return firstValueFrom(
       this.http
         .get<IPageable<ITagDTO>>(`${this._urlTags}/tags`, {
+          clientOptions: { params: httpParams },
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.ComponentNotFound' }
           }

@@ -40,8 +40,10 @@ import com.shagui.sdc.repository.ComponentAnalysisRepository;
 import com.shagui.sdc.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.sdc.repository.ComponentPropertyRepository;
 import com.shagui.sdc.repository.ComponentRepository;
+import com.shagui.sdc.repository.ComponentTagRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.repository.SquadRepository;
+import com.shagui.sdc.repository.TagRepository;
 import com.shagui.sdc.util.AnalysisUtilsConfig;
 import com.shagui.sdc.util.ComponentUtilsConfig;
 import com.shagui.sdc.util.Ctes.ComponentTypeArchitectureMetricConstants;
@@ -66,13 +68,19 @@ public class RwsTestUtils {
 	private static ComponentPropertyRepository componentPropertyRepository;
 
 	@Mock
-	private static ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
+	private static ComponentHistoricalCoverageRepository componentHistoricalCoverageRepository;
+
+	@Mock
+	private static ComponentTagRepository componentTagRepository;
 
 	@Mock
 	private static SquadRepository squadRepository;
 
 	@Mock
 	private static MetricValueRepository metricValueRepository;
+
+	@Mock
+	private static TagRepository tagRepository;
 
 	@Mock
 	private static ObjectMapper objectMapper;
@@ -100,8 +108,8 @@ public class RwsTestUtils {
 
 	public static ComponentUtilsConfig componentUtilsConfig() {
 		ComponentUtilsConfig config = new ComponentUtilsConfig(securityTokenConfig, componentRepository,
-				componentAnalysisRepository, componentPropertyRepository, historicalCoverageComponentRepository,
-				squadRepository);
+				componentAnalysisRepository, componentHistoricalCoverageRepository, componentPropertyRepository,
+				componentTagRepository, squadRepository, tagRepository);
 
 		return config;
 	}

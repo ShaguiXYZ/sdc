@@ -12,12 +12,17 @@ import java.util.stream.Collectors;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.enums.MetricValueType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
+import com.shagui.sdc.model.ComponentTagModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
+import com.shagui.sdc.model.TagModel;
+import com.shagui.sdc.model.pk.ComponentTagPk;
+import com.shagui.sdc.util.validations.NumericMap;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,6 +64,8 @@ public class ComponentUtils {
 
 		config.componentRepository().update(component.getId(), component);
 		config.squadRepository().update(component.getSquad().getId(), component.getSquad());
+
+		refreshTags(component);
 	}
 
 	public static Optional<ComponentPropertyModel> propertyValue(ComponentModel component, String key) {
@@ -122,5 +129,36 @@ public class ComponentUtils {
 		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
 
 		squad.setCoverage(coverage);
+	}
+
+	private static void refreshTags(ComponentModel component) {
+		List<ComponentAnalysisModel> metricAnalysis = config.componentAnalysisRepository().repository()
+				.componentAnalysis(component.getId(), new Timestamp(new Date().getTime()));
+
+		Map<String, ComponentTagModel> tags = metricAnalysis.stream()
+				.filter(analysis -> MetricValueType.NUMERIC_MAP.equals(analysis.getMetric().getValueType()))
+				.flatMap(analysis -> {
+					NumericMap numericMap = new NumericMap(analysis.getMetricValue());
+					return numericMap.getValues().entrySet().stream().map(entry -> {
+						ComponentTagModel data = new ComponentTagModel();
+						TagModel tag = config.tagRepository().repository().findByName(entry.getKey().toLowerCase())
+								.orElseGet(() -> {
+									TagModel newTag = new TagModel();
+									newTag.setName(entry.getKey().toLowerCase());
+									return config.tagRepository().create(newTag);
+								});
+
+						data.setId(new ComponentTagPk(component.getId(), tag.getId()));
+						data.setComponent(component);
+						data.setTag(tag);
+						data.setAnalysisTag(true);
+
+						return data;
+					});
+				})
+				.collect(Collectors.toMap(data -> data.getTag().getName(), data -> data, (data1, data2) -> data1));
+
+		config.componentTagRepository().repository().deleteByComponent_IdAndAnalysisTag(component.getId(), true);
+		config.componentTagRepository().repository().saveAll(tags.values());
 	}
 }

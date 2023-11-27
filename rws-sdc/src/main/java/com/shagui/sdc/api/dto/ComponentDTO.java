@@ -1,6 +1,7 @@
 package com.shagui.sdc.api.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,5 @@ public class ComponentDTO {
 	private Float coverage;
 	private boolean blocked;
 	private SquadDTO squad;
+	private List<TagDTO> tags;
 }

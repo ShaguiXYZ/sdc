@@ -87,8 +87,10 @@ public class Mapper {
 	}
 
 	public static ComponentDTO parse(ComponentModel source) {
+		List<TagDTO> tags = source.getTags().stream().map(Mapper::parse).toList();
+
 		return new ComponentDTO(source.getId(), source.getName(), parse(source.getComponentTypeArchitecture()),
-				source.getAnalysisDate(), source.getCoverage(), source.isBlocked(), parse(source.getSquad()));
+				source.getAnalysisDate(), source.getCoverage(), source.isBlocked(), parse(source.getSquad()), tags);
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {

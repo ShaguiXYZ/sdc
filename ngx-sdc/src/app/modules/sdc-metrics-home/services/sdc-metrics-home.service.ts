@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { _console, emptyFn } from 'src/app/core/lib';
-import { IMetricAnalysisModel, ValueType } from 'src/app/core/models/sdc';
+import { IMetricAnalysisModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
 import { ContextDataService, DateService } from 'src/app/core/services';
-import { AnalysisService, ComponentService, DepartmentService, SquadService } from 'src/app/core/services/sdc';
+import { AnalysisService, ComponentService, DepartmentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
 import { MetricsContextData } from 'src/app/shared/models';
 import { MetricsDataModel } from '../models';
@@ -16,12 +16,13 @@ export class SdcMetricsHomeService {
   private tabActions: { fn: () => void }[] = [];
 
   constructor(
-    private readonly contextDataService: ContextDataService,
-    private readonly analysisService: AnalysisService,
-    private readonly componentService: ComponentService,
     private readonly dateService: DateService,
     private readonly departmentService: DepartmentService,
-    private readonly squadService: SquadService
+    private readonly analysisService: AnalysisService,
+    private readonly componentService: ComponentService,
+    private readonly contextDataService: ContextDataService,
+    private readonly squadService: SquadService,
+    private readonly tagService: TagService
   ) {
     this.data$ = new Subject();
     this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
@@ -47,6 +48,8 @@ export class SdcMetricsHomeService {
   }
 
   public loadInitData(): void {
+    this.availableTags();
+
     this.data$.next(this.metricData);
   }
 
@@ -84,9 +87,28 @@ export class SdcMetricsHomeService {
             })
             .catch(_console.error);
         }
+
+        this.availableTags();
       })
       .catch(_console.error);
   };
+
+  public availableTags(): void {
+    this.tagService.componentTags(this.metricData.component.id).then(tags => {
+      this.metricData.tags = tags.page;
+      this.data$.next(this.metricData);
+    });
+  }
+
+  public addTag(tag: ITagModel): void {
+    this.metricData.tags = [...(this.metricData.tags ?? []), tag];
+    this.data$.next(this.metricData);
+  }
+
+  public removeTag(tag: ITagModel): void {
+    this.metricData.tags = this.metricData.tags?.filter(t => t.name !== tag.name);
+    this.data$.next(this.metricData);
+  }
 
   private languageDistribution = (): void => {
     this.analysisService.componentAnalysis(this.metricData.component.id).then(data => {

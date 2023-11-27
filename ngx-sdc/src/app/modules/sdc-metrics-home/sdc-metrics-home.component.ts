@@ -9,7 +9,7 @@ import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components/alert';
-import { IComponentModel, IDepartmentModel, IMetricAnalysisModel, ISquadModel, ValueType } from 'src/app/core/models/sdc';
+import { IComponentModel, IDepartmentModel, IMetricAnalysisModel, ISquadModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 import { ContextDataService, DateService } from 'src/app/core/services';
 import {
@@ -17,6 +17,7 @@ import {
   SdcMetricInfoComponent,
   SdcMetricsCardsComponent,
   SdcNoDataComponent,
+  SdcTagsComponent,
   SdcTimeEvolutionMultichartComponent
 } from 'src/app/shared/components';
 import { SdcPieChartComponent, SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
@@ -41,6 +42,7 @@ import { SdcMetricsHomeService } from './services';
     SdcMetricHistoryGraphsComponent,
     SdcNoDataComponent,
     SdcPieChartComponent,
+    SdcTagsComponent,
     SdcTimeEvolutionChartComponent,
     SdcTimeEvolutionMultichartComponent,
     CommonModule,
@@ -138,6 +140,14 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   public squadClicked(squad: ISquadModel): void {
     this.contextDataService.set(ContextDataInfo.SQUADS_DATA, { squad });
     this.router.navigate([AppUrls.squads]);
+  }
+
+  public onTagAdd(tag: ITagModel): void {
+    this.sdcMetricsService.addTag(tag);
+  }
+
+  public onTagRemove(tag: ITagModel): void {
+    this.sdcMetricsService.removeTag(tag);
   }
 
   private applicationCoverageGraphConfig(historical?: IHistoricalCoverage<IComponentModel>): void {

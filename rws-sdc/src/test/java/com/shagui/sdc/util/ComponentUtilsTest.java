@@ -24,8 +24,10 @@ import com.shagui.sdc.repository.ComponentAnalysisRepository;
 import com.shagui.sdc.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.sdc.repository.ComponentPropertyRepository;
 import com.shagui.sdc.repository.ComponentRepository;
+import com.shagui.sdc.repository.ComponentTagRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.repository.SquadRepository;
+import com.shagui.sdc.repository.TagRepository;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
 class ComponentUtilsTest {
@@ -40,10 +42,13 @@ class ComponentUtilsTest {
 	private static ComponentAnalysisRepository componentAnalysisRepository;
 
 	@Mock
+	private static ComponentHistoricalCoverageRepository componentHistoricalCoverageRepository;
+
+	@Mock
 	private static ComponentPropertyRepository componentPropertyRepository;
 
 	@Mock
-	private static ComponentHistoricalCoverageRepository historicalCoverageComponentRepository;
+	private static ComponentTagRepository componentTagRepository;
 
 	@Mock
 	private static SquadRepository squadRepository;
@@ -51,12 +56,16 @@ class ComponentUtilsTest {
 	@Mock
 	private static MetricValueRepository metricValueRepository;
 
+	@Mock
+	private static TagRepository tagRepository;
+
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
 		ComponentUtils.setConfig(
 				new ComponentUtilsConfig(securityTokenConfig, componentRepository, componentAnalysisRepository,
-						componentPropertyRepository, historicalCoverageComponentRepository, squadRepository));
+						componentHistoricalCoverageRepository, componentPropertyRepository,
+						componentTagRepository, squadRepository, tagRepository));
 		AnalysisUtils.setConfig(new AnalysisUtilsConfig(metricValueRepository));
 	}
 
@@ -88,7 +97,7 @@ class ComponentUtilsTest {
 				}
 			}
 		);
-		when(historicalCoverageComponentRepository.save(any(ComponentHistoricalCoverageModel.class))).thenReturn(new ComponentHistoricalCoverageModel());
+		when(componentHistoricalCoverageRepository.save(any(ComponentHistoricalCoverageModel.class))).thenReturn(new ComponentHistoricalCoverageModel());
 		when(componentRepository.findById(anyInt())).thenReturn(Optional.of( RwsTestUtils.componentModelMock()));
 		when(componentRepository.save(any(ComponentModel.class))).thenReturn(RwsTestUtils.componentModelMock());
 		when(squadRepository.findById(anyInt())).thenReturn(Optional.of(RwsTestUtils.squadModelMock()));
@@ -96,7 +105,7 @@ class ComponentUtilsTest {
 		
 		ComponentUtils.updateRelatedComponentEntities(RwsTestUtils.componentModelMock(), true);
 		verify(componentRepository, times(1)).save(any(ComponentModel.class));
-		verify(historicalCoverageComponentRepository, times(1)).save(any(ComponentHistoricalCoverageModel.class));
+		verify(componentHistoricalCoverageRepository, times(1)).save(any(ComponentHistoricalCoverageModel.class));
 		verify(squadRepository, times(1)).save(any(SquadModel.class));
 		
 	}
