@@ -11,4 +11,6 @@ public interface ComponentPropertyRepository extends JpaRepository<ComponentProp
 	List<ComponentPropertyModel> findByComponent_Id(Integer componentId);
 
 	Optional<ComponentPropertyModel> findByComponent_IdAndName(Integer componentId, String name);
+
+	long countByComponent_Id(Integer componentId);
 }

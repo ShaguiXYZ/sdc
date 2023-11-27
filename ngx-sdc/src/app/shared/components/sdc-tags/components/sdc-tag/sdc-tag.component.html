@@ -1,4 +1,4 @@
 <div class="sdc-tag sdc-tag--{{ state }} sdc-center" [ngClass]="{ 'sdc-removable': removable, 'sdc-tag--disabled': disabled }">
   <span class="sdc-tag__name">{{ data.name }}</span>
-  <em *ngIf="removable" class="fa-solid fa-circle-xmark sdc-op" [title]="'Label.RemoveTag' | translate" (click)="remove()"></em>
+  <em *ngIf="removable" class="fa-solid fa-circle-xmark sdc-op" [title]="'Label.RemoveTag' | translate" (click)="onRemove()"></em>
 </div>

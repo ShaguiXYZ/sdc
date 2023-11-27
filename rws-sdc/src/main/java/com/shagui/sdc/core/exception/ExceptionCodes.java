@@ -2,6 +2,7 @@ package com.shagui.sdc.core.exception;
 
 public class ExceptionCodes {
 	public static final String BAD_REQUEST = "Exception.BadRequest";
+	public static final String NOT_ALLOWED = "Exception.NotAllowed";
 	public static final String NOT_FOUND = "Exception.NotFound";
 	public static final String NOT_FOUND_ANALYSIS = "Exception.NotFound.Analysis";
 	public static final String NOT_FOUND_COMPONENT = "Exception.NotFound.Component";

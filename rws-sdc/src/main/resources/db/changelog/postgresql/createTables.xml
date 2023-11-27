@@ -200,7 +200,7 @@
 	<changeSet author="initial" id="20230707_10023">
 		<sql dbms="postgresql">
 			CREATE TABLE properties (
-				"name" varchar NULL,
+				name varchar NULL,
 				value varchar NULL
 			);
 			CREATE UNIQUE INDEX properties_name_idx ON properties (LOWER("name"));
@@ -211,7 +211,6 @@
 			CREATE TABLE tags (
 				id serial4 NOT NULL,
 				name varchar NOT NULL,
-				weight int4 NOT NULL,
 				CONSTRAINT tags_pk PRIMARY KEY (id)
 			);
 			CREATE UNIQUE INDEX tags_name_idx ON tags (LOWER("name"));

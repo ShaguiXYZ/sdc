@@ -2,15 +2,13 @@ package com.shagui.sdc.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class TagDTO {
-    private Integer id;
-    private String name;
+public class ComponentTagDTO {
+    private ComponentDTO component;
+    private TagDTO tag;
     private boolean analysisTag;
 }

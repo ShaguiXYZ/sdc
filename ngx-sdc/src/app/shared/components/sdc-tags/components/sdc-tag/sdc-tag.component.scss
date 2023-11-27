@@ -4,6 +4,7 @@
   display: inline-block;
   font-size: small;
   padding: 0 12px;
+  transition: border-color 0.5s ease-in-out;
   white-space: nowrap;
 
   &.sdc-removable {
@@ -20,21 +21,25 @@
   }
 
   &.sdc-tag--error {
+    background-color: var(--badge-critical-background-color);
     border-color: var(--badge-vibrant-critical-background-color);
     color: var(--badge-vibrant-critical-background-color);
   }
 
   &.sdc-tag--warning {
+    background-color: var(--badge-negative-background-color);
     border-color: var(--badge-vibrant-negative-background-color);
     color: var(--badge-vibrant-negative-background-color);
   }
 
   &.sdc-tag--success {
+    background-color: var(--badge-positive-background-color);
     border-color: var(--badge-vibrant-positive-background-color);
     color: var(--badge-vibrant-positive-background-color);
   }
 
   &.sdc-tag--info {
+    background-color: var(--badge-active-background-color);
     border-color: var(--badge-vibrant-active-background-color);
     color: var(--badge-vibrant-active-background-color);
   }

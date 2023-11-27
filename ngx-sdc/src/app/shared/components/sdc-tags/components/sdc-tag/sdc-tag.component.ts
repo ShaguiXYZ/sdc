@@ -21,16 +21,16 @@ export class SdcTagComponent implements OnInit {
   public data!: ITagModel;
 
   @Input()
-  public state: 'info' | 'success' | 'warning' | 'error' = 'info';
+  public state?: 'info' | 'success' | 'warning' | 'error';
 
   @Output()
-  public onRemove: EventEmitter<ITagModel> = new EventEmitter<ITagModel>();
+  public remove: EventEmitter<ITagModel> = new EventEmitter<ITagModel>();
 
   ngOnInit() {
-    // init tag
+    this.state = !this.state && this.data.analysisTag ? 'success' : 'info';
   }
 
-  public remove(): void {
-    this.onRemove.emit(this.data);
+  public onRemove(): void {
+    this.remove.emit(this.data);
   }
 }

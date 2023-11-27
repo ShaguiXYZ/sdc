@@ -33,7 +33,7 @@ public interface MetricRestApi {
 	PageData<MetricDTO> metrics();
 
 	@Operation(summary = "Create new metric")
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	MetricDTO create(@RequestBody MetricDTO metric);
 

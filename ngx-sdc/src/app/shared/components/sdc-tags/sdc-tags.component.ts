@@ -22,17 +22,28 @@ export class SdcTagsComponent implements OnInit {
   @Input()
   public removable: boolean = false;
 
-  @Input()
-  public tags: ITagModel[] = [];
+  @Output()
+  public add: EventEmitter<ITagModel> = new EventEmitter<ITagModel>();
 
   @Output()
-  public onAdd: EventEmitter<ITagModel> = new EventEmitter<ITagModel>();
+  public remove: EventEmitter<ITagModel> = new EventEmitter<ITagModel>();
 
-  @Output()
-  public onRemove: EventEmitter<ITagModel> = new EventEmitter<ITagModel>();
+  // pattern for name input allowing only letters and numbers and _ beguining with a letter
+  private namePattern: RegExp = /^[a-zA-Z]\w*$/;
+  private _tags: ITagModel[] = [];
 
   ngOnInit() {
     this.createForm();
+  }
+
+  public get tags(): ITagModel[] {
+    return this._tags;
+  }
+  @Input()
+  // Return a copy of the tags array ordered by name
+  public set tags(value: ITagModel[]) {
+    const sortedTags = value.slice().sort((a, b) => a.name.localeCompare(b.name));
+    this._tags = sortedTags;
   }
 
   public focusNameInput(): void {
@@ -43,13 +54,18 @@ export class SdcTagsComponent implements OnInit {
     this.form.valid && this.populateForm();
   };
 
-  public onRemoveTag = (tag: ITagModel): void => {
-    this.onRemove.emit(tag);
+  public onBlurTag = (): void => {
+    this.form.value.name = '';
+    this.nameInput.nativeElement.blur();
   };
 
-  public omit_special_char(event: KeyboardEvent) {
-    !/[a-zA-Z0-9]/.test(event.key) && event.preventDefault();
+  public omit_special_char(event: KeyboardEvent, control: string): void {
+    event.key.length === 1 && !this.namePattern.test(this.form.controls[control].value + event.key) && event.preventDefault();
   }
+
+  public onRemoveTag = (tag: ITagModel): void => {
+    this.remove.emit(tag);
+  };
 
   private createForm(): void {
     this.form = new FormGroup({
@@ -57,13 +73,13 @@ export class SdcTagsComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(16),
-        Validators.pattern(/^[a-zA-Z0-9]+$/)
+        Validators.pattern(this.namePattern)
       ])
     });
   }
 
   private populateForm(): void {
-    this.onAdd.emit(this.form.value);
+    this.add.emit(this.form.value);
     this.form.reset();
   }
 }

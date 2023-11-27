@@ -3,16 +3,16 @@ package com.shagui.sdc.api.client;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.shagui.sdc.api.domain.HistoricalCoverage;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentDTO;
+import com.shagui.sdc.api.dto.ComponentTagDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
@@ -50,7 +50,6 @@ public interface RwsSdcClient {
 			@RequestParam(required = false) Integer departmentId);
 
 	@PostMapping(value = "analysis/{componentId}")
-	@ResponseStatus(HttpStatus.CREATED)
 	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);
 
 	@GetMapping("component/{componentId}")
@@ -100,4 +99,10 @@ public interface RwsSdcClient {
 	@GetMapping("tags/component/{componentId}")
 	PageData<TagDTO> componentTags(@PathVariable int componentId, @RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer ps);
+
+	@PostMapping("tag/create/{componentId}/{name}")
+	ComponentTagDTO create(@PathVariable int componentId, @PathVariable String name);
+
+	@DeleteMapping("tag/delete/{componentId}/{name}")
+	void deleteComponentTag(@PathVariable int componentId, @PathVariable String name);
 }

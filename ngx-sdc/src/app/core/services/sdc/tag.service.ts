@@ -29,7 +29,7 @@ export class TagService {
         .get<IPageable<ITagDTO>>(`${this._urlTags}/tags`, {
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.ComponentNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.TagNotFound' }
           }
         })
         .pipe(
@@ -51,7 +51,7 @@ export class TagService {
       this.http
         .get<IPageable<ITagDTO>>(`${this._urlTags}/tags/component/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.ComponentNotFound' }
+            [HttpStatus.notFound]: { text: 'Notifications.TagNotFound' }
           }
         })
         .pipe(
@@ -65,6 +65,30 @@ export class TagService {
             return result;
           })
         )
+    );
+  }
+
+  public addTag(componentId: number, name: string): Promise<ITagModel> {
+    return firstValueFrom(
+      this.http
+        .post<ITagDTO, any>(`${this._urlTags}/tag/create/${componentId}/${name}`, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { text: 'Notifications.TagError' }
+          }
+        })
+        .pipe(map(res => ITagModel.toModel(res as ITagDTO)))
+    );
+  }
+
+  public removeTag(componentId: number, name: string): Promise<void> {
+    return firstValueFrom(
+      this.http
+        .delete(`${this._urlTags}/tag/delete/${componentId}/${name}`, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { text: 'Notifications.TagError' }
+          }
+        })
+        .pipe(map(res => res as void))
     );
   }
 }

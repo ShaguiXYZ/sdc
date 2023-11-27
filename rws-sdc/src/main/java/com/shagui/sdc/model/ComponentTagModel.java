@@ -11,8 +11,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -33,4 +35,10 @@ public class ComponentTagModel implements ModelInterface<ComponentTagPk> {
     @MapsId("tagId")
     @JoinColumn(name = "tag_id", insertable = false, updatable = false)
     private TagModel tag;
+
+    public ComponentTagModel(ComponentModel component, TagModel tag) {
+        this.id = new ComponentTagPk(component.getId(), tag.getId());
+        this.component = component;
+        this.tag = tag;
+    }
 }

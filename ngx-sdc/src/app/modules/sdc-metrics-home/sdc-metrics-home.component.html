@@ -6,7 +6,7 @@
     (clickDepartment)="departmentClicked($event)"
     (clickSquad)="squadClicked($event)"
   ></sdc-compliance-bar-card>
-  <sdc-tags [tags]="metricsData.tags || []" (onAdd)="onTagAdd($event)" (onRemove)="onTagRemove($event)"></sdc-tags>
+  <sdc-tags [tags]="metricsData.tags || []" [removable]="true" (add)="onTagAdd($event)" (remove)="onTagRemove($event)"></sdc-tags>
 
   <div class="application-history nx-margin-y-2xs">
     <nx-accordion>

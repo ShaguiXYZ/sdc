@@ -6,13 +6,38 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.shagui.sdc.model.TagModel;
 
 public interface TagRepository extends JpaRepository<TagModel, Integer> {
-    public Optional<TagModel> findByName(String name);
+        public Optional<TagModel> findByName(String name);
 
-    public List<TagModel> findByComponents_Id(int componentId);
+        @Query("""
+                        SELECT new TagModel(t.id, t.name, ct.analysisTag) FROM TagModel t \
+                        INNER JOIN t.components c \
+                        INNER JOIN ComponentTagModel ct ON ct.id.componentId = c.id AND ct.id.tagId = t.id
+                        """)
+        public List<TagModel> findAll();
 
-    public Page<TagModel> findByComponents_Id(int componentId, Pageable pageable);
+        @Query("""
+                        SELECT new TagModel(t.id, t.name, ct.analysisTag) FROM TagModel t \
+                        INNER JOIN t.components c \
+                        INNER JOIN ComponentTagModel ct ON ct.id.componentId = c.id AND ct.id.tagId = t.id
+                        """)
+        public Page<TagModel> findAll(Pageable pageable);
+
+        @Query("""
+                        SELECT new TagModel(t.id, t.name, ct.analysisTag) FROM TagModel t \
+                        INNER JOIN t.components c ON c.id = :componentId \
+                        INNER JOIN ComponentTagModel ct ON ct.id.componentId = c.id AND ct.id.tagId = t.id
+                        """)
+        public List<TagModel> findByComponent(int componentId);
+
+        @Query("""
+                        SELECT new TagModel(t.id, t.name, ct.analysisTag) FROM TagModel t \
+                        INNER JOIN t.components c ON c.id = :componentId \
+                        INNER JOIN ComponentTagModel ct ON ct.id.componentId = c.id AND ct.id.tagId = t.id
+                        """)
+        public Page<TagModel> findByComponent(int componentId, Pageable pageable);
 }

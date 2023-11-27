@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shagui.sdc.api.TagRestApi;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.RequestPageInfo;
+import com.shagui.sdc.api.dto.ComponentTagDTO;
 import com.shagui.sdc.api.dto.TagDTO;
 import com.shagui.sdc.service.TagService;
 
@@ -33,5 +34,15 @@ public class TagController implements TagRestApi {
         } else {
             return tagService.componentTags(componentId, new RequestPageInfo(page, ps));
         }
+    }
+
+    @Override
+    public ComponentTagDTO create(int componentId, String name) {
+        return tagService.create(componentId, name);
+    }
+
+    @Override
+    public void delete(int componentId, String name) {
+        tagService.delete(componentId, name);
     }
 }

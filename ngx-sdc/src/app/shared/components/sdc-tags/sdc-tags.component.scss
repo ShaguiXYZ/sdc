@@ -6,6 +6,7 @@
 
   .sdc-tag__add {
     display: flex;
+    margin-right: 10px;
     position: relative;
 
     .sdc-tag__icon--inner {
@@ -19,6 +20,8 @@
 
     .sdc-tag__input {
       background-color: var(--ui-01);
+      border-radius: 0 15px 15px 0;
+      border-right: 1px solid var(--ui-05);
       font-size: 12px;
       left: 35px;
       opacity: 0;

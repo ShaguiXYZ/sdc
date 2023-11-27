@@ -16,7 +16,7 @@ import lombok.Setter;
 public class TagView {
     private Integer id;
     private String name;
-    private int weight;
+    private boolean analysisTag;
 
     public TagView(TagDTO source) {
         BeanUtils.copyProperties(source, this);

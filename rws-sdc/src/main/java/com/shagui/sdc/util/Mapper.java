@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
+import com.shagui.sdc.api.dto.ComponentTagDTO;
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
@@ -16,9 +17,11 @@ import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.api.dto.TagDTO;
 import com.shagui.sdc.api.dto.TimeCoverageDTO;
 import com.shagui.sdc.core.exception.ApiError;
+import com.shagui.sdc.core.exception.SdcMapperException;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.model.ComponentTagModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
@@ -109,11 +112,19 @@ public class Mapper {
 	}
 
 	public static TagDTO parse(TagModel source) {
-		return new TagDTO(source.getId(), source.getName(), source.getWeight());
+		return new TagDTO(source.getId(), source.getName(), source.isAnalysisTag());
 	}
 
 	public static TagModel parse(TagDTO source) {
+		if (!source.getName().matches("^[a-zA-Z]\\w*$")) {
+			throw new SdcMapperException("Tag name must begin with a letter and contain only alphanumeric");
+		}
+
 		return config.getObjectMapper().convertValue(source, TagModel.class);
+	}
+
+	public static ComponentTagDTO parse(ComponentTagModel source) {
+		return new ComponentTagDTO(parse(source.getComponent()), parse(source.getTag()), source.isAnalysisTag());
 	}
 
 	public static TimeCoverageDTO parse(ComponentHistoricalCoverageModel source) {

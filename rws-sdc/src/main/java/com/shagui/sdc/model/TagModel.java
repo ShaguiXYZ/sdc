@@ -14,10 +14,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -30,10 +33,20 @@ public class TagModel implements ModelInterface<Integer> {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private int weight;
+    @Transient
+    private boolean analysisTag;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "component_tags", joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "component_id", referencedColumnName = "id"))
     private List<ComponentModel> components = new ArrayList<>();
+
+    public TagModel(String name) {
+        this.name = name;
+    }
+
+    public TagModel(Integer id, String name, boolean analysisTag) {
+        this.id = id;
+        this.name = name;
+        this.analysisTag = analysisTag;
+    }
 }

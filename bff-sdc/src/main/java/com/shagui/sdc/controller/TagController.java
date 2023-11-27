@@ -3,6 +3,7 @@ package com.shagui.sdc.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.TagRestApi;
+import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.view.TagView;
 import com.shagui.sdc.service.TagService;
@@ -25,5 +26,15 @@ public class TagController implements TagRestApi {
     @Override
     public PageData<TagView> componentTags(int componentId, Integer page, Integer ps) {
         return Mapper.parse(tagService.componentTags(componentId, page, ps), TagView.class);
+    }
+
+    @Override
+    public TagView create(int componentId, String name) {
+        return CastFactory.getInstance(TagView.class).parse(tagService.create(componentId, name).getTag());
+    }
+
+    @Override
+    public void delete(int componentId, String name) {
+        tagService.delete(componentId, name);
     }
 }
