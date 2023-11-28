@@ -3,8 +3,13 @@ package com.shagui.sdc.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anySet;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+
+import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,9 +58,8 @@ class ComponentControllerTest {
 
 	@Test
 	void filterTest() {
-		when(componentService.filter(any(), any(), any(), any(), any(),
-				any())).thenReturn(DataUtils.createEmptyPageData());
-		PageData<ComponentView> result = componentController.filter(null, null, null, null, null, null);
+		when(componentService.filter(anyString(), anyInt(), anySet(), anyFloat(), anyFloat(),anyInt(), anyInt())).thenReturn(DataUtils.createEmptyPageData());
+		PageData<ComponentView> result = componentController.filter("name", 1, new HashSet<>(), 1f, 2f, 0, 10);
 		assertNotNull(result);		
 	}
 

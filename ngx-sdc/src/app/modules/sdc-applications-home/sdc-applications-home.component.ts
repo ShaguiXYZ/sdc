@@ -11,13 +11,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
-import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { SdcComplianceBarCardsComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsHomeService } from './services';
+import { SdcTagComponent } from 'src/app/shared/components/sdc-tags/components';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'
@@ -30,7 +31,6 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
   providers: [SdcApplicationsHomeService, { provide: NX_PAGINATION_TEXTS, useValue: myPaginationTexts }],
   standalone: true,
   imports: [
-    SdcComplianceBarCardsComponent,
     CommonModule,
     FormsModule,
     NxDropdownModule,
@@ -39,6 +39,8 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
     NxPaginationModule,
     NxRadioToggleModule,
     ReactiveFormsModule,
+    SdcComplianceBarCardsComponent,
+    SdcTagComponent,
     TranslateModule
   ]
 })
@@ -48,15 +50,16 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   public ELEMENTS_BY_PAGE = ELEMENTS_BY_PAGE;
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
+  public tags: ITagModel[] = [];
   public coverages: { key: string; label: string; style: string }[] = [];
   public applicationsInfo?: SdcApplicationsDataModel;
 
   private subscription$: Array<Subscription> = [];
 
   constructor(
+    private readonly contextDataService: ContextDataService,
     private readonly fb: FormBuilder,
     private readonly router: Router,
-    private readonly contextDataService: ContextDataService,
     private readonly sdcApplicationsService: SdcApplicationsHomeService
   ) {}
 
@@ -105,7 +108,8 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     this.sdcApplicationsService.populateData({
       coverage: this.form.controls['coverage'].value,
       name: this.form.controls['name'].value,
-      squad
+      squad,
+      tags: this.form.controls['tags'].value
     });
   }
 
@@ -117,7 +121,21 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     this.sdcApplicationsService.populateData({
       coverage,
       name: this.form.controls['name'].value,
-      squad: this.form.controls['squadId'].value
+      squad: this.form.controls['squadId'].value,
+      tags: this.form.controls['tags'].value
+    });
+  }
+
+  public tagsChange(tags: string[]): void {
+    if (!tags?.length) {
+      this.form.controls['tags'].setValue([]);
+    }
+
+    this.sdcApplicationsService.populateData({
+      coverage: this.form.controls['coverage'].value,
+      name: this.form.controls['name'].value,
+      squad: this.form.controls['squadId'].value,
+      tags
     });
   }
 
@@ -129,7 +147,8 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
         {
           coverage: this.applicationsInfo.coverage,
           name: this.applicationsInfo.name,
-          squad: this.applicationsInfo.squadId
+          squad: this.applicationsInfo.squadId,
+          tags: this.applicationsInfo.tags
         },
         this.applicationsInfo.paging.pageIndex
       );
@@ -144,7 +163,8 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
         {
           coverage: this.applicationsInfo.coverage,
           name: this.applicationsInfo.name,
-          squad: this.applicationsInfo.squadId
+          squad: this.applicationsInfo.squadId,
+          tags: this.applicationsInfo.tags
         },
         this.applicationsInfo.paging.pageIndex
       );
@@ -167,20 +187,23 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   }
 
   private async loadData() {
-    const [coverages, squads] = await Promise.all([
+    const [coverages, squads, tags] = await Promise.all([
       this.sdcApplicationsService.availableCoverages(),
-      this.sdcApplicationsService.availableSquads()
+      this.sdcApplicationsService.availableSquads(),
+      this.sdcApplicationsService.availableTags()
     ]);
 
     this.coverages = coverages;
     this.squads = squads.page;
+    this.tags = tags.page;
   }
 
   private createForm(): void {
     this.form = this.fb.group({
       coverage: [this.sdcApplicationsService.contextData?.filter?.coverage],
       name: [this.sdcApplicationsService.contextData?.filter?.name],
-      squadId: [this.sdcApplicationsService.contextData?.filter?.squad]
+      squadId: [this.sdcApplicationsService.contextData?.filter?.squad],
+      tags: [this.sdcApplicationsService.contextData?.filter?.tags]
     });
   }
 

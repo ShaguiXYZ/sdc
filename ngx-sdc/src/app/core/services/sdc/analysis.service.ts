@@ -22,7 +22,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.AnalysisNotFound' }
           },
-          cache: { id: this.analysisCacheId(componentId), cachedDuring: L_EXPIRATON_TIME }
+          cache: { id: this.analysisCacheId(componentId), ttl: L_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
@@ -45,7 +45,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.AnalysisNotFound' }
           },
-          cache: { id: this.analysisCacheId(componentId, metricId), cachedDuring: L_EXPIRATON_TIME }
+          cache: { id: this.analysisCacheId(componentId, metricId), ttl: L_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
@@ -76,7 +76,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.MetricAbalysisNotFound' }
           },
-          cache: { id: this.historyCacheId(componentId, metricId), cachedDuring: L_EXPIRATON_TIME }
+          cache: { id: this.historyCacheId(componentId, metricId), ttl: L_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
@@ -121,7 +121,7 @@ export class AnalysisService {
           clientOptions: { params: httpParams },
           cache: {
             id: this.annualSumCacheId(metricName, metricType, componentId, squadId, departmentId),
-            cachedDuring: XL_EXPIRATON_TIME
+            ttl: XL_EXPIRATON_TIME
           }
         })
         .pipe(

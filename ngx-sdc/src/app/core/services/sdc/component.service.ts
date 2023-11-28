@@ -36,7 +36,7 @@ export class ComponentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.ComponentsNotFound' }
           },
-          cache: { id: this.squadCacheId(squadId), cachedDuring: XS_EXPIRATON_TIME }
+          cache: { id: this.squadCacheId(squadId), ttl: XS_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
@@ -55,6 +55,7 @@ export class ComponentService {
   public filter(
     name?: string,
     squadId?: number,
+    tags?: string[],
     coverageMin?: number,
     coverageMax?: number,
     page?: number,
@@ -77,6 +78,10 @@ export class ComponentService {
 
     if (hasValue(squadId)) {
       httpParams = httpParams.append('squadId', String(squadId));
+    }
+
+    if (tags?.length) {
+      httpParams = httpParams.append('tags', tags.join(','));
     }
 
     if (hasValue(coverageMin)) {

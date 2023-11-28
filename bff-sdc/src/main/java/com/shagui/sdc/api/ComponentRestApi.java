@@ -1,5 +1,7 @@
 package com.shagui.sdc.api;
 
+import java.util.Set;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +40,7 @@ public interface ComponentRestApi {
 	PageData<ComponentView> filter(
 			@RequestParam(required = false) @Parameter(description = "Component name") String name,
 			@RequestParam(required = false) @Parameter(description = "Squad identifier") Integer squadId,
+			@RequestParam(required = false) @Parameter(description = "Component tags") Set<String> tags,
 			@RequestParam(required = false) @Parameter(description = "Component coverage min range") Float coverageMin,
 			@RequestParam(required = false) @Parameter(description = "Component coverage max range") Float coverageMax,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,

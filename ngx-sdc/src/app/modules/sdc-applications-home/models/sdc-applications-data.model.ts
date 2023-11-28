@@ -6,4 +6,5 @@ export interface SdcApplicationsDataModel {
   name?: string;
   squadId?: number;
   paging: IPaging;
+  tags?: string[];
 }

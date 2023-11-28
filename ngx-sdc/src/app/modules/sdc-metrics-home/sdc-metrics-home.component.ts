@@ -78,15 +78,15 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
       this.metricsData = metricsData;
       this.applicationCoverageGraphConfig(this.metricsData.historical);
 
-      this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
-        ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
-        title: `Metrics | ${this.metricsData.component.name ?? ''}`
-      });
-
       this.lastLanguageDistribution =
         (this.metricsData.languageDistribution?.graph.length &&
           this.metricsData.languageDistribution.graph?.[this.metricsData.languageDistribution.graph.length - 1].data) ||
         undefined;
+
+      this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
+        ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+        title: `Metrics | ${this.metricsData.component.name ?? ''}`
+      });
     });
 
     this.sdcMetricsService.loadInitData();

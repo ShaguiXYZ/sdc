@@ -95,7 +95,8 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 			InputStream is = resource.getInputStream();
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
 
-			return departmentsUpdateData(Arrays.asList(input));
+			DataMaintenanceService self = this; // Create a reference to 'this'
+			return self.departmentsUpdateData(Arrays.asList(input)); // Call the transactional method via the reference
 		} catch (IOException e) {
 			throw new SdcCustomException("Error reading departments", e);
 		}

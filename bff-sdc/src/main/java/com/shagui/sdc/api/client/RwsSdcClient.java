@@ -1,6 +1,7 @@
 package com.shagui.sdc.api.client;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -74,9 +75,9 @@ public interface RwsSdcClient {
 
 	@GetMapping("components/filter")
 	PageData<ComponentDTO> filter(@RequestParam(required = false) String name,
-			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Float coverageMin,
-			@RequestParam(required = false) Float coverageMax, @RequestParam(required = false) Integer page,
-			@RequestParam(required = false) Integer ps);
+			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Set<String> tags,
+			@RequestParam(required = false) Float coverageMin, @RequestParam(required = false) Float coverageMax,
+			@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
 
 	@GetMapping("department/{departmentId}")
 	DepartmentDTO department(@PathVariable int departmentId);

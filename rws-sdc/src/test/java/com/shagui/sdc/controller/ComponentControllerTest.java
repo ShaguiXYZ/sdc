@@ -3,10 +3,12 @@ package com.shagui.sdc.controller;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,17 +78,20 @@ class ComponentControllerTest {
 	@Test
 	void filterPageNullTest() {
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>(new ArrayList<ComponentDTO>());
-		when(componentService.filter(anyString(), anyInt(), any(Range.class))).thenReturn(value);
-		PageData<ComponentDTO> result = controller.filter("test", 1, (float) 50.1, (float) 70.1, null, 1);
+		when(componentService.filter(anyString(), anyInt(), anySet(), any(Range.class))).thenReturn(value);
+		PageData<ComponentDTO> result = controller.filter("test", 1, new HashSet<>(), (float) 50.1, (float) 70.1,
+				null,
+				1);
 		assertNotNull(result);
 	}
 
 	@Test
 	void filterWithPageTest() {
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>(new ArrayList<ComponentDTO>());
-		when(componentService.filter(anyString(), anyInt(), any(Range.class), any(RequestPageInfo.class)))
+		when(componentService.filter(anyString(), anyInt(), anySet(), any(Range.class), any(RequestPageInfo.class)))
 				.thenReturn(value);
-		PageData<ComponentDTO> result = controller.filter("test", 1, (float) 50.1, (float) 70.1, 1, 1);
+		PageData<ComponentDTO> result = controller.filter("test", 1, new HashSet<>(), (float) 50.1, (float) 70.1, 1,
+				1);
 		assertNotNull(result);
 	}
 

@@ -20,7 +20,7 @@ export class ContextDataService {
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
-  constructor(@Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig, private router: Router) {
+  constructor(@Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig, private readonly router: Router) {
     this.contextStorage = {
       contextData: {},
       cache: {}

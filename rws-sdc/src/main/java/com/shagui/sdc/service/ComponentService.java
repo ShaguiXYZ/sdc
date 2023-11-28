@@ -1,6 +1,7 @@
 package com.shagui.sdc.service;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.Range;
@@ -20,10 +21,11 @@ public interface ComponentService {
 	PageData<ComponentDTO> squadComponents(int squadId);
 
 	PageData<ComponentDTO> squadComponents(int squadId, RequestPageInfo pageInfo);
-	
-	PageData<ComponentDTO> filter(String name, Integer squadId, Range range);
 
-	PageData<ComponentDTO> filter(String name, Integer squadId, Range range, RequestPageInfo pageInfo);
+	PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Range range);
+
+	PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Range range,
+			RequestPageInfo pageInfo);
 
 	PageData<MetricDTO> componentMetrics(int componentId);
 

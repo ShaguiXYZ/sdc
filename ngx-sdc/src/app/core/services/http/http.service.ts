@@ -31,7 +31,7 @@ export class HttpService {
       cacheId = requestOptions?.cache;
     } else if (requestOptions?.cache) {
       cacheId = requestOptions?.cache.id;
-      expiration = this.cache.expirationDate(requestOptions?.cache.cachedDuring);
+      expiration = this.cache.expirationDate(requestOptions?.cache.ttl);
     }
 
     let cachedData: T | undefined;

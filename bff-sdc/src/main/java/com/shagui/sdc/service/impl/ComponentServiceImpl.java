@@ -1,5 +1,7 @@
 package com.shagui.sdc.service.impl;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.client.RwsSdcClient;
@@ -27,9 +29,9 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public PageData<ComponentDTO> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
-			Integer page, Integer ps) {
-		return rwsSdcClient.filter(name, squadId, coverageMin, coverageMax, page, ps);
+	public PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Float coverageMin,
+			Float coverageMax, Integer page, Integer ps) {
+		return rwsSdcClient.filter(name, squadId, tags, coverageMin, coverageMax, page, ps);
 	}
 
 	@Override

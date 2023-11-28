@@ -20,7 +20,7 @@ export class SquadService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.SquadsNotFound' }
           },
-          cache: { id: _SQUADS_CACHE_ID_, cachedDuring: S_EXPIRATON_TIME }
+          cache: { id: _SQUADS_CACHE_ID_, ttl: S_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {

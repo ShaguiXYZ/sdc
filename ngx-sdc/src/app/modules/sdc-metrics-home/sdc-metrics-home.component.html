@@ -69,7 +69,7 @@
           ></sdc-metric-history-graphs>
         </nx-tab>
         <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate" style="display: flex">
-          <ng-container *ngIf="metricsData.languageDistribution; else noData">
+          <ng-container *ngIf="metricsData.languageDistribution && lastLanguageDistribution; else noData">
             <div class="language-distribution">
               <div class="historical-language-distribution">
                 <sdc-time-evolution-multichart [data]="metricsData.languageDistribution"></sdc-time-evolution-multichart>

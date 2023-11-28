@@ -1,5 +1,7 @@
 package com.shagui.sdc.controller;
 
+import java.util.Set;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.ComponentRestApi;
@@ -31,9 +33,9 @@ public class ComponentController implements ComponentRestApi {
 	}
 
 	@Override
-	public PageData<ComponentView> filter(String name, Integer squadId, Float coverageMin, Float coverageMax,
-			Integer page, Integer ps) {
-		return Mapper.parse(componentService.filter(name, squadId, coverageMin, coverageMax, page, ps),
+	public PageData<ComponentView> filter(String name, Integer squadId, Set<String> tags, Float coverageMin,
+			Float coverageMax, Integer page, Integer ps) {
+		return Mapper.parse(componentService.filter(name, squadId, tags, coverageMin, coverageMax, page, ps),
 				ComponentView.class);
 	}
 

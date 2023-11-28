@@ -1,6 +1,7 @@
 package com.shagui.sdc.service.impl;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -73,18 +74,28 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range) {
+	public PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Range range) {
 		return componentRepository.repository()
 				.filter(jpaStringMask(name),
-						squadId, range.getMin(), range.getMax())
+						squadId, tags,
+						range.getMin(), range.getMax())
 				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
 	@Override
-	public PageData<ComponentDTO> filter(String name, Integer squadId, Range range, RequestPageInfo pageInfo) {
-		Page<ComponentModel> models = componentRepository.repository().filter(
-				jpaStringMask(name), squadId,
-				range.getMin(), range.getMax(), pageInfo.getPageable());
+	public PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Range range,
+			RequestPageInfo pageInfo) {
+		Page<ComponentModel> models;
+
+		if (tags == null || tags.isEmpty()) {
+			models = componentRepository.repository().filter(
+					jpaStringMask(name), squadId,
+					range.getMin(), range.getMax(), pageInfo.getPageable());
+		} else {
+			models = componentRepository.repository().filter(
+					jpaStringMask(name), squadId, tags,
+					range.getMin(), range.getMax(), pageInfo.getPageable());
+		}
 
 		return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(models));
 	}

@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,6 +20,9 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.util.jpa.JpaUtils;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+
 public interface ComponentRepository extends JpaRepository<ComponentModel, Integer> {
 
 	public List<ComponentModel> findBySquad_Id(int squadId, Sort sort);
@@ -31,8 +32,35 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	public Optional<ComponentModel> findBySquad_IdAndName(int squadId, String name);
 
 	@Query("""
-			SELECT cm FROM ComponentModel cm WHERE \
-			(:name IS NULL OR LOWER(cm.name) like %:name%) AND \
+			SELECT cm FROM ComponentModel cm \
+			INNER JOIN cm.tags t ON :tags IS NULL OR t.name IN :tags \
+			WHERE \
+			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
+			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
+			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
+			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
+			ORDER BY cm.coverage, cm.name\
+			""")
+	public Page<ComponentModel> filter(String name, Integer squadId, Set<String> tags, Float coverageMin,
+			Float coverageMax, Pageable pageable);
+
+	@Query("""
+			SELECT cm FROM ComponentModel cm \
+			INNER JOIN cm.tags t ON :tags IS NULL OR t.name IN :tags \
+			WHERE \
+			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
+			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
+			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
+			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
+			ORDER BY cm.coverage, cm.name\
+			""")
+	public List<ComponentModel> filter(String name, Integer squadId, Set<String> tags, Float coverageMin,
+			Float coverageMax);
+
+	@Query("""
+			SELECT cm FROM ComponentModel cm \
+			WHERE \
+			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
 			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
 			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
@@ -42,7 +70,8 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			Pageable pageable);
 
 	@Query("""
-			SELECT cm FROM ComponentModel cm WHERE \
+			SELECT cm FROM ComponentModel cm \
+			WHERE \
 			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
 			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \

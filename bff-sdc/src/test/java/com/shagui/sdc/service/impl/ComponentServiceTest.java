@@ -3,8 +3,11 @@ package com.shagui.sdc.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+
+import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,16 +48,17 @@ class ComponentServiceTest {
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>();
 		when(rwsSdcClient.squadComponents(anyInt(), anyInt(), anyInt())).thenReturn(value);
 		PageData<ComponentDTO> result = service.squadComponents(1, 1, 1);
-		
+
 		assertEquals(result, value);
 	}
-	
+
 	@Test
 	void filterTest() {
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>();
-		when(rwsSdcClient.filter(anyString(), anyInt(), any(Float.class), any(Float.class), anyInt(), anyInt()))
+		when(rwsSdcClient.filter(anyString(), anyInt(), anySet(), any(Float.class), any(Float.class), anyInt(),
+				anyInt()))
 				.thenReturn(value);
-		PageData<ComponentDTO> result = service.filter("test", 1, (float) 90.1, (float) 10.1, 1, 1);
+		PageData<ComponentDTO> result = service.filter("test", 1, new HashSet<>(), (float) 90.1, (float) 10.1, 1, 1);
 
 		assertEquals(result, value);
 	}

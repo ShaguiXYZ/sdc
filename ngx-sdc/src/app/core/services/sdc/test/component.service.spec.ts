@@ -51,7 +51,7 @@ describe('ComponentService', () => {
 
   it('should call http get when filter is called', async () => {
     spies.http.get.and.returnValue(of(pageComponent));
-    await service.filter('test', 1, 1, 1, 1, 1);
+    await service.filter('test', 1, [], 1, 1, 1, 1);
     expect(spies.http.get).toHaveBeenCalled();
   });
 

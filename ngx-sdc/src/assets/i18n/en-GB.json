@@ -19,7 +19,8 @@
   "Dropdown": {
     "Filter": {
       "Coverage": "Degree of compliance",
-      "Squad": "Type to search squad"
+      "Squad": "Type to search squad",
+      "Tags": "Tags"
     }
   },
   "Header": {
@@ -64,6 +65,7 @@
     "ShowMore": "Show more",
     "Squads": "Squads",
     "SquadSumary": "Squad summary",
+    "Tags": "Tags",
     "Yes": "Yes"
   },
   "Language": {

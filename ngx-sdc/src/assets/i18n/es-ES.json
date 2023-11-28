@@ -19,7 +19,8 @@
   "Dropdown": {
     "Filter": {
       "Coverage": "Grado de cumplimiento",
-      "Squad": "Filtra Squads"
+      "Squad": "Filtra Squads",
+      "Tags": "Tags"
     }
   },
   "Header": {
@@ -64,6 +65,7 @@
     "ShowMore": "Ver mas",
     "Squads": "Squads",
     "SquadSumary": "Resumen del squad",
+    "Tags": "Tags",
     "Yes": "Si"
   },
   "Language": {

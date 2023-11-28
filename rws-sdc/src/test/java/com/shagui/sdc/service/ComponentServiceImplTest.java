@@ -9,6 +9,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,7 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
+import com.shagui.sdc.repository.TagRepository;
 import com.shagui.sdc.service.impl.ComponentServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
@@ -42,6 +44,9 @@ class ComponentServiceImplTest {
 
 	@Mock
 	private ComponentRepository componentRepositoryMock;
+
+	@Mock
+	private TagRepository tagRepositoryMock;
 
 	@Mock
 	private ComponentTypeArchitectureRepository componentTypeArchitectureRepositoryMock;
@@ -74,7 +79,7 @@ class ComponentServiceImplTest {
 		when(componentRepositoryMock.filter(any(), anyString(), any(SquadModel.class), any(Range.class)))
 				.thenReturn(value);
 
-		PageData<ComponentDTO> result = service.filter("filterName", 1, new Range(0f, 1f));
+		PageData<ComponentDTO> result = service.filter("filterName", 1, new HashSet<>(), new Range(0f, 1f));
 
 		assertNotNull(result);
 	}
@@ -87,7 +92,8 @@ class ComponentServiceImplTest {
 		when(componentRepositoryMock.filter(anyString(), anyInt(), anyFloat(), anyFloat(),
 				any(Pageable.class))).thenReturn(value);
 
-		PageData<ComponentDTO> result = service.filter("filterName", 1, new Range(0f, 1f), new RequestPageInfo(1));
+		PageData<ComponentDTO> result = service.filter("filterName", 1, new HashSet<>(), new Range(0f, 1f),
+				new RequestPageInfo(1));
 
 		assertNotNull(result);
 	}

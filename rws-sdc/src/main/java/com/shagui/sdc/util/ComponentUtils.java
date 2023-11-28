@@ -58,14 +58,13 @@ public class ComponentUtils {
 		if (hasNewAnalysis) {
 			updateComponent(component);
 			updateComponentSquad(component);
+			refreshTags(component);
 		}
 
 		component.setAnalysisDate(new Date());
 
 		config.componentRepository().update(component.getId(), component);
 		config.squadRepository().update(component.getSquad().getId(), component.getSquad());
-
-		refreshTags(component);
 	}
 
 	public static Optional<ComponentPropertyModel> propertyValue(ComponentModel component, String key) {

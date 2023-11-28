@@ -75,8 +75,8 @@ body {
 .sdc-scrollable,
 .sdc-scrollable-body {
   &::-webkit-scrollbar {
-    width: 2px;
     background-color: $grey-lighter-color;
+    width: 2px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -98,15 +98,15 @@ body {
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 .reveal {
   animation: reveal linear both;
-  animation-timeline: view();
   animation-range: entry 5%;
+  animation-timeline: view();
 }
 
 @keyframes reveal {

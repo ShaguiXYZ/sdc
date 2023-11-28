@@ -1,6 +1,7 @@
 package com.shagui.sdc.api;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -50,6 +51,7 @@ public interface ComponentRestApi {
 	PageData<ComponentDTO> filter(
 			@RequestParam(required = false) @Parameter(description = "Component name") String name,
 			@RequestParam(required = false) @Parameter(description = "Squad identifier") Integer squadId,
+			@RequestParam(required = false) @Parameter(description = "Component tags") Set<String> tags,
 			@RequestParam(required = false) @Parameter(description = "Component coverage min range") Float coverageMin,
 			@RequestParam(required = false) @Parameter(description = "Component coverage max range") Float coverageMax,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
@@ -63,5 +65,5 @@ public interface ComponentRestApi {
 	@Operation(summary = "Retrieve component dictionary")
 	@GetMapping("{componentId}/dictionary")
 	Map<String, String> dictionary(
-            @PathVariable @Parameter(description = "component identifier") int componentId);
+			@PathVariable @Parameter(description = "component identifier") int componentId);
 }

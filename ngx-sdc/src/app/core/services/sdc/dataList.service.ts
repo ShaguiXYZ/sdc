@@ -12,7 +12,7 @@ export class DataListService {
     return firstValueFrom(
       this.http
         .get<string[]>(`${this._urlDataLists}/datalists`, {
-          cache: { id: this.dataListCacheId(), cachedDuring: XXL_EXPIRATON_TIME }
+          cache: { id: this.dataListCacheId(), ttl: XXL_EXPIRATON_TIME }
         })
         .pipe(map(res => res as string[]))
     );
@@ -22,7 +22,7 @@ export class DataListService {
   public dataListValues(key: string): Observable<string[]> {
     return this.http
       .get<string[]>(`${this._urlDataLists}/datalist/${key}`, {
-        cache: { id: this.dataListCacheId(key), cachedDuring: XXL_EXPIRATON_TIME }
+        cache: { id: this.dataListCacheId(key), ttl: XXL_EXPIRATON_TIME }
       })
       .pipe(map(res => res as string[]));
   }

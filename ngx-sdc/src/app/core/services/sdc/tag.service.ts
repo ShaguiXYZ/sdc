@@ -4,14 +4,14 @@ import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { hasValue } from '../../lib';
 import { IPageable, ITagDTO, ITagModel } from '../../models/sdc';
-import { CacheService } from '../context-data';
 import { HttpService, HttpStatus } from '../http';
+import { XS_EXPIRATON_TIME, _TAGS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
   private _urlTags = `${environment.baseUrl}/api`;
 
-  constructor(private cache: CacheService, private http: HttpService) {}
+  constructor(private http: HttpService) {}
 
   public tags(page?: number, ps?: number): Promise<IPageable<ITagModel>> {
     let httpParams = new HttpParams();
@@ -30,7 +30,8 @@ export class TagService {
           clientOptions: { params: httpParams },
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.TagNotFound' }
-          }
+          },
+          cache: { id: _TAGS_CACHE_ID_, ttl: XS_EXPIRATON_TIME }
         })
         .pipe(
           map(res => {
