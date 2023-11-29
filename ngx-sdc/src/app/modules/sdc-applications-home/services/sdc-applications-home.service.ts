@@ -28,14 +28,14 @@ export class SdcApplicationsHomeService {
       this.contextData?.filter?.name,
       this.contextData?.filter?.squad,
       this.contextData?.filter?.tags,
-      this.contextData?.filter?.coverage,
+      this.contextData?.filter?.metricState,
       this.contextData?.page ?? 0,
       ELEMENTS_BY_PAGE
     );
   }
 
   public populateData(filter: ApplicationsFilter, page?: number, showLoading?: boolean): void {
-    this.filterData(filter.name, filter.squad, filter.tags, filter.coverage, page ?? 0, ELEMENTS_BY_PAGE, showLoading);
+    this.filterData(filter.name, filter.squad, filter.tags, filter.metricState, page ?? 0, ELEMENTS_BY_PAGE, showLoading);
   }
 
   public onDataChange(): Observable<SdcApplicationsDataModel> {
@@ -66,26 +66,26 @@ export class SdcApplicationsHomeService {
     name?: string,
     squadId?: number,
     tags?: string[],
-    coverage?: MetricStates,
+    metricState?: MetricStates,
     page?: number,
     ps?: number,
     showLoading?: boolean
   ): void {
-    const range: Partial<SdcRange> | undefined = coverage ? rangeByState(coverage) : undefined;
+    const range: Partial<SdcRange> | undefined = metricState ? rangeByState(MetricStates[metricState]) : undefined;
 
     this.componetService
       .filter(name, squadId, tags, range?.min, range?.max, page, ps, showLoading)
       .then(pageable => {
         this.contextDataService.set(
           ContextDataInfo.APPLICATIONS_DATA,
-          { ...this.contextData, filter: { coverage, name, squad: squadId, tags }, page },
+          { ...this.contextData, filter: { metricState, name, squad: squadId, tags }, page },
           { persistent: true }
         );
 
         this.data$.next({
           squadId,
           name,
-          coverage,
+          metricState,
           tags,
           components: pageable.page,
           paging: pageable.paging

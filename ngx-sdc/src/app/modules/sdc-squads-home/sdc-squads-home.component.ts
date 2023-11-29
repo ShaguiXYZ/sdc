@@ -14,6 +14,7 @@ import { ApplicationsContextData, IStateCount } from 'src/app/shared/models';
 import { SdcSquadSummaryComponent } from './components';
 import { SdcSquadsDataModel } from './models';
 import { SdcSquadsService } from './services';
+import { MetricStates } from 'src/app/shared/lib';
 
 @Component({
   selector: 'sdc-squads-home',
@@ -100,7 +101,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
       const applicationsContextData: Partial<ApplicationsContextData> = {
         filter: {
           squad: this.squadsData.squad?.id,
-          coverage: event.state
+          metricState: event.state
         }
       };
 

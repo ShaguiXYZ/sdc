@@ -7,6 +7,7 @@ nx-header-navigation-item + nx-header-navigation-item {
 
 .nx-header {
   display: flex;
+  flex-wrap: wrap;
   height: auto !important;
   left: 0;
   position: sticky;

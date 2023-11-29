@@ -55,8 +55,8 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			WHERE \
 			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
-			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
-			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) AND \
+			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND \
+			(:coverageMax IS NULL OR :coverageMax > cm.coverage) AND \
 			(t.name IN :tags) \
 			GROUP BY cm HAVING COUNT(DISTINCT t) = :tagsSize \
 			ORDER BY cm.coverage, cm.name\
@@ -70,8 +70,8 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			WHERE \
 			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
-			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
-			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) AND \
+			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND \
+			(:coverageMax IS NULL OR :coverageMax > cm.coverage) AND \
 			(t.name IN :tags) \
 			GROUP BY cm HAVING COUNT(DISTINCT t) = :tagsSize \
 			ORDER BY cm.coverage, cm.name\
@@ -84,8 +84,8 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			WHERE \
 			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
-			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
-			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
+			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND \
+			(:coverageMax IS NULL OR :coverageMax > cm.coverage) \
 			ORDER BY cm.coverage, cm.name\
 			""")
 	Page<ComponentModel> filter0(String name, Integer squadId, Float coverageMin, Float coverageMax,
@@ -96,8 +96,8 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			WHERE \
 			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
-			(:coverageMin IS NULL OR :coverageMin < cm.coverage) AND \
-			(:coverageMax IS NULL OR :coverageMax >= cm.coverage) \
+			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND \
+			(:coverageMax IS NULL OR :coverageMax > cm.coverage) \
 			ORDER BY cm.coverage, cm.name\
 			""")
 	public List<ComponentModel> filter0(String name, Integer squadId, Float coverageMin, Float coverageMax);

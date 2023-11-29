@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  prepareRoute(outlet: RouterOutlet) {
+  public prepareRoute(outlet: RouterOutlet) {
     if (outlet.isActivated) return outlet.activatedRouteData?.['animation'];
   }
 
@@ -70,16 +70,12 @@ export class AppComponent implements OnInit {
     // MetaKey documentation
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
 
-    if (event.metaKey && event.key === 's') {
-      // Action on Cmd + S
-      event.preventDefault();
-    }
+    // Action on Cmd + S
+    event.metaKey && event.key === 's' && event.preventDefault();
   }
 
   private handleWindowsKeyEvents(event: KeyboardEvent) {
-    if (event.ctrlKey && event.key === 's') {
-      // Action on Ctrl + S
-      event.preventDefault();
-    }
+    // Action on Ctrl + S
+    event.ctrlKey && event.key === 's' && event.preventDefault();
   }
 }

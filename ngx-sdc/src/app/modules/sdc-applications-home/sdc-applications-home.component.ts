@@ -107,20 +107,20 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     }
 
     this.sdcApplicationsService.populateData({
-      coverage: this.form.controls['coverage'].value,
+      metricState: this.form.controls['coverage'].value,
       name: this.form.controls['name'].value,
       squad,
       tags: this.form.controls['tags'].value
     });
   }
 
-  public coverageChange(coverage: MetricStates): void {
-    if (!coverage) {
+  public coverageChange(metricState: MetricStates): void {
+    if (!metricState) {
       this.form.controls['coverage'].setValue('');
     }
 
     this.sdcApplicationsService.populateData({
-      coverage,
+      metricState: metricState,
       name: this.form.controls['name'].value,
       squad: this.form.controls['squadId'].value,
       tags: this.form.controls['tags'].value
@@ -133,7 +133,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     }
 
     this.sdcApplicationsService.populateData({
-      coverage: this.form.controls['coverage'].value,
+      metricState: this.form.controls['coverage'].value,
       name: this.form.controls['name'].value,
       squad: this.form.controls['squadId'].value,
       tags
@@ -146,7 +146,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
 
       this.sdcApplicationsService.populateData(
         {
-          coverage: this.applicationsInfo.coverage,
+          metricState: this.applicationsInfo.metricState,
           name: this.applicationsInfo.name,
           squad: this.applicationsInfo.squadId,
           tags: this.applicationsInfo.tags
@@ -162,7 +162,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
 
       this.sdcApplicationsService.populateData(
         {
-          coverage: this.applicationsInfo.coverage,
+          metricState: this.applicationsInfo.metricState,
           name: this.applicationsInfo.name,
           squad: this.applicationsInfo.squadId,
           tags: this.applicationsInfo.tags
@@ -178,7 +178,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
 
       this.sdcApplicationsService.populateData(
         {
-          coverage: this.applicationsInfo.coverage,
+          metricState: this.applicationsInfo.metricState,
           name: this.applicationsInfo.name,
           squad: this.applicationsInfo.squadId
         },
@@ -202,7 +202,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
 
   private createForm(): void {
     this.form = this.fb.group({
-      coverage: [this.sdcApplicationsService.contextData?.filter?.coverage],
+      coverage: [this.sdcApplicationsService.contextData?.filter?.metricState],
       name: [this.sdcApplicationsService.contextData?.filter?.name],
       squadId: [this.sdcApplicationsService.contextData?.filter?.squad],
       tags: [this.sdcApplicationsService.contextData?.filter?.tags]
@@ -219,7 +219,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
       .subscribe(() =>
         this.sdcApplicationsService.populateData(
           {
-            coverage: this.form.controls['coverage'].value,
+            metricState: this.form.controls['coverage'].value,
             name: this.form.controls['name'].value,
             squad: this.form.controls['squadId'].value
           },

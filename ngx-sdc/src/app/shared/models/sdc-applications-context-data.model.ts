@@ -1,9 +1,9 @@
 import { MetricStates } from '../lib';
 
 export interface ApplicationsFilter {
-  coverage?: MetricStates;
-  squad?: number;
+  metricState?: MetricStates;
   name?: string;
+  squad?: number;
   tags?: string[];
 }
 

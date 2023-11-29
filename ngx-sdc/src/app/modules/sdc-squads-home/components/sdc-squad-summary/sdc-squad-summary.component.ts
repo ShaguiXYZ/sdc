@@ -34,10 +34,12 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
   public lastLanguageDistribution?: string;
   public chartToShow: 'line' | 'pie' = 'pie';
 
+  @Input()
+  public components: IComponentModel[] = [];
+
   @Output()
   public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
 
-  private _components: IComponentModel[] = [];
   private _selectedTabIndex = 0;
   private _squad!: ISquadModel;
   private data$!: Subscription;
@@ -66,14 +68,6 @@ export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
   public set squad(value: ISquadModel) {
     this._squad = value;
     this.selectedTabIndex = this._selectedTabIndex;
-  }
-
-  public get components(): IComponentModel[] {
-    return this._components;
-  }
-  @Input()
-  public set components(values: IComponentModel[]) {
-    this._components = values;
   }
 
   public get selectedTabIndex() {

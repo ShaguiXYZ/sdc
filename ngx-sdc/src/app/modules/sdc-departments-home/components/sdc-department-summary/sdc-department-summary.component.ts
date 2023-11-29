@@ -88,14 +88,16 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
   }
 
   private stateCounts(squads: ISquadModel[]): ChartConfig {
-    const counts: { [key: string]: { value: number; color: string } } = {};
+    const counts: { [key in MetricStates]: { value: number; color: string } } = {} as {
+      [key in MetricStates]: { value: number; color: string };
+    };
 
     squads?.forEach(squad => {
       const state: MetricStates = stateByCoverage(squad.coverage ?? 0);
       counts[state] = { value: counts[state] ? counts[state].value + 1 : 1, color: MetricState[state].color };
     });
 
-    const keys = Object.keys(counts);
+    const keys = Object.keys(counts) as MetricStates[];
 
     return {
       axis: {

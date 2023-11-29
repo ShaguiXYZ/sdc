@@ -5,10 +5,10 @@ import { SdcRange } from '../models';
 const COLOR_PREFIX = 'color--';
 
 export enum MetricStates {
-  PERFECT,
-  ACCEPTABLE,
-  WITH_RISK,
-  CRITICAL
+  PERFECT = 'PERFECT',
+  ACCEPTABLE = 'ACCEPTABLE',
+  WITH_RISK = 'WITH_RISK',
+  CRITICAL = 'CRITICAL'
 }
 
 export const DEFAULT_METRIC_STATE = MetricStates.ACCEPTABLE;
@@ -19,7 +19,7 @@ export interface MetricConfig {
   color: StateColors;
 }
 
-export const MetricState: { [key: string]: MetricConfig } = {
+export const MetricState: Record<MetricStates, MetricConfig> = {
   [MetricStates.CRITICAL]: { value: 50, style: 'critical', color: StateColors.CRITICAL },
   [MetricStates.WITH_RISK]: { value: 75, style: 'with_risk', color: StateColors.RISK },
   [MetricStates.ACCEPTABLE]: { value: 95, style: 'acceptable', color: StateColors.ACCEPTABLE },
@@ -59,5 +59,5 @@ export const rangeByState = (state: MetricStates): SdcRange =>
       min: MetricState[MetricStates.WITH_RISK].value,
       max: MetricState[MetricStates.ACCEPTABLE].value
     },
-    [MetricStates.PERFECT]: { min: MetricState[MetricStates.ACCEPTABLE].value, max: 100 }
+    [MetricStates.PERFECT]: { min: MetricState[MetricStates.ACCEPTABLE].value, max: 101 }
   }[state]);

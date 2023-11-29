@@ -3,7 +3,7 @@ import { MetricStates } from 'src/app/shared/lib';
 
 export interface SdcApplicationsDataModel {
   components: IComponentModel[];
-  coverage?: MetricStates;
+  metricState?: MetricStates;
   name?: string;
   squadId?: number;
   paging: IPaging;
