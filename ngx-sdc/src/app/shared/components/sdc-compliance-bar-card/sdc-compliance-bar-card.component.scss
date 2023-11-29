@@ -42,11 +42,14 @@ nx-card {
   .card-content {
     .flex-info {
       display: flex;
+      align-items: center;
 
       nx-badge {
         cursor: pointer;
         font-size: 12px;
+        overflow: hidden;
         transition: all 0.5s ease-in-out;
+        text-overflow: ellipsis;
       }
 
       nx-badge + nx-badge {

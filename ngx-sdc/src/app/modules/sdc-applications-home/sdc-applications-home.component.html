@@ -1,50 +1,52 @@
 <div class="nx-margin-y-2xs">
   <form [formGroup]="form">
     <div class="search-options">
-      <nx-formfield id="squad" class="nx-margin-right-2xs" [label]="'Label.Squads' | translate">
-        <nx-dropdown
-          formControlName="squadId"
-          name="allSquads"
-          [filterPlaceholder]="'Dropdown.Filter.Squad' | translate"
-          [showFilter]="true"
-          (valueChange)="squadChange($event)"
-        >
-          <nx-dropdown-item></nx-dropdown-item>
-          <nx-dropdown-item *ngFor="let item of squads" [value]="item.id">
-            {{ item.name }}
-          </nx-dropdown-item>
-        </nx-dropdown>
-      </nx-formfield>
-      <nx-formfield id="coverage" class="nx-margin-right-2xs" [label]="'Label.Coverage' | translate">
-        <nx-dropdown
-          formControlName="coverage"
-          name="coverages"
-          [filterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
-          (valueChange)="coverageChange($event)"
-        >
-          <nx-dropdown-item></nx-dropdown-item>
-          <nx-dropdown-item *ngFor="let item of coverages" [value]="item.key">
-            <em class="fa-solid fa-circle nx-margin-right-2xs {{ item.style }}"></em>
-            {{ item.label | translate | titlecase }}
-          </nx-dropdown-item>
-        </nx-dropdown>
-      </nx-formfield>
-      <nx-formfield *ngIf="tags?.length" id="tags" class="nx-margin-right-2xs" [label]="'Label.Tags' | translate">
-        <nx-dropdown
-          formControlName="tags"
-          name="tags"
-          [filterPlaceholder]="'Dropdown.Filter.Tags' | translate"
-          [isMultiSelect]="true"
-          [showFilter]="true"
-          (valueChange)="tagsChange($event)"
-        >
-          <nx-dropdown-item *ngFor="let item of tags" class="sdc-tag__dropdown-item" [value]="item.name">
-            <sdc-tag [data]="item"></sdc-tag>
-          </nx-dropdown-item>
-        </nx-dropdown>
-      </nx-formfield>
+      <div class="search-left">
+        <nx-formfield id="squad" class="nx-margin-right-2xs" [label]="'Label.Squads' | translate">
+          <nx-dropdown
+            formControlName="squadId"
+            name="allSquads"
+            [filterPlaceholder]="'Dropdown.Filter.Squad' | translate"
+            [showFilter]="true"
+            (valueChange)="squadChange($event)"
+          >
+            <nx-dropdown-item></nx-dropdown-item>
+            <nx-dropdown-item *ngFor="let item of squads" [value]="item.id">
+              {{ item.name }}
+            </nx-dropdown-item>
+          </nx-dropdown>
+        </nx-formfield>
+        <nx-formfield id="coverage" class="nx-margin-right-2xs" [label]="'Label.Coverage' | translate">
+          <nx-dropdown
+            formControlName="coverage"
+            name="coverages"
+            [filterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
+            (valueChange)="coverageChange($event)"
+          >
+            <nx-dropdown-item></nx-dropdown-item>
+            <nx-dropdown-item *ngFor="let item of coverages" [value]="item.key">
+              <em class="fa-solid fa-circle nx-margin-right-2xs {{ item.style }}"></em>
+              {{ item.label | translate | titlecase }}
+            </nx-dropdown-item>
+          </nx-dropdown>
+        </nx-formfield>
+        <nx-formfield *ngIf="tags?.length" id="tags" class="nx-margin-right-2xs" [label]="'Label.Tags' | translate">
+          <nx-dropdown
+            formControlName="tags"
+            name="tags"
+            [filterPlaceholder]="'Dropdown.Filter.Tags' | translate"
+            [isMultiSelect]="true"
+            [showFilter]="true"
+            (valueChange)="tagsChange($event)"
+          >
+            <nx-dropdown-item *ngFor="let item of tags" class="sdc-tag__dropdown-item" [value]="item.name">
+              <sdc-tag [data]="item"></sdc-tag>
+            </nx-dropdown-item>
+          </nx-dropdown>
+        </nx-formfield>
+      </div>
 
-      <div class="align-right">
+      <div class="search-right">
         <nx-formfield id="component-name" [label]="'Label.FindByApplicationName' | translate">
           <input #searchInput nxInput type="text" formControlName="name" autocomplete="off" />
           <span nxFormfieldSuffix>

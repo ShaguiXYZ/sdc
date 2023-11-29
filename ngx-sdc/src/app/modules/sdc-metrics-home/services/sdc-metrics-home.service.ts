@@ -80,6 +80,7 @@ export class SdcMetricsHomeService {
               this.componentService.clearSquadCache(data.squad.id);
               this.departmentService.clearCache();
               this.squadService.clearCache();
+              this.tagService.clearCache();
 
               this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
 

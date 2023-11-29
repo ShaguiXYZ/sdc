@@ -12,11 +12,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 public class HttpServletRequestUtils {
 
-	public static final String HEADER_AUTHORIZATION = "Authorization";
-	public static final String HEADER_SESSION_ID = "SID";
-
-	public static final String TOKEN_PREFIX = "Bearer ";
-
 	private HttpServletRequestUtils() {
 	}
 
@@ -37,7 +32,7 @@ public class HttpServletRequestUtils {
 	 * @return the Authorization header or empty String if not present.
 	 */
 	public static String getAuthorizationHeader() {
-		return getCurrentRequest().map(request -> request.getHeader(HEADER_AUTHORIZATION)).orElse("");
+		return getCurrentRequest().map(request -> request.getHeader(Ctes.HEADER_AUTHORIZATION)).orElse("");
 	}
 
 	/**
@@ -46,7 +41,6 @@ public class HttpServletRequestUtils {
 	 * @return the SID header or empty String if not present.
 	 */
 	public static String getSIDHeader() {
-		return getCurrentRequest().map(request -> request.getHeader(HEADER_SESSION_ID)).orElse("");
+		return getCurrentRequest().map(request -> request.getHeader(Ctes.HEADER_SESSION_ID)).orElse("");
 	}
-
 }

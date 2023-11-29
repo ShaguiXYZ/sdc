@@ -1,4 +1,5 @@
 export * from './app.-config.model';
+export * from './sdc-range.model';
 export * from './state-count.model';
 
 // Context Data models

@@ -222,6 +222,7 @@
 			CREATE TABLE component_tags (
 				component_id int4 NOT NULL,
 				tag_id int4 NOT NULL,
+				owner varchar NULL,
 				analysis_tag boolean NOT NULL DEFAULT false,
 				CONSTRAINT component_tags_pk PRIMARY KEY (component_id,tag_id),
 				CONSTRAINT component_tags_component_fk FOREIGN KEY (component_id) REFERENCES components(id) ON DELETE CASCADE ON UPDATE CASCADE,

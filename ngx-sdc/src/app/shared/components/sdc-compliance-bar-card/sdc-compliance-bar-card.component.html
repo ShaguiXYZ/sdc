@@ -1,11 +1,9 @@
 <nx-card [ngClass]="{ 'hide-border': hideBorder }">
   <div *ngIf="component.blocked" class="blocked"></div>
   <div class="card-content">
-    <div class="{{ coverageStyle }} nx-margin-bottom-xs">
-      <div class="sdc-center">
-        <nx-progressbar [value]="barCoverage"></nx-progressbar>
-        <span class="coverage">{{ coverage }}%</span>
-      </div>
+    <div *ngIf="coverage" class="{{ coverageStyle }} nx-margin-bottom-xs sdc-center">
+      <nx-progressbar [value]="barCoverage"></nx-progressbar>
+      <span class="coverage">{{ coverage }}%</span>
     </div>
     <div class="flex-info nx-margin-bottom-xs">
       <div class="component-name">

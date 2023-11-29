@@ -16,7 +16,7 @@ export class SdcComplianceBarCardsComponent {
   public animation = true;
 
   @Input()
-  public components?: IComponentModel[];
+  public components: IComponentModel[] = [];
 
   @Input()
   public showSquad = true;

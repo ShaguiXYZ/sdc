@@ -5,9 +5,9 @@ import { IPageable, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
-import { MetricState, styleByName } from 'src/app/shared/lib';
-import { ApplicationsContextData, ApplicationsFilter } from 'src/app/shared/models';
-import { SdcApplicationsCoverage, SdcApplicationsDataModel, SdcCoverageRange } from '../models';
+import { MetricState, MetricStates, rangeByState, styleByName } from 'src/app/shared/lib';
+import { ApplicationsContextData, ApplicationsFilter, SdcRange } from 'src/app/shared/models';
+import { SdcApplicationsDataModel } from '../models';
 
 @Injectable()
 export class SdcApplicationsHomeService {
@@ -66,15 +66,15 @@ export class SdcApplicationsHomeService {
     name?: string,
     squadId?: number,
     tags?: string[],
-    coverage?: string,
+    coverage?: MetricStates,
     page?: number,
     ps?: number,
     showLoading?: boolean
   ): void {
-    const range: Partial<SdcCoverageRange> = coverage ? { ...{ min: -1 }, ...SdcApplicationsCoverage[coverage] } : { min: -1 };
+    const range: Partial<SdcRange> | undefined = coverage ? rangeByState(coverage) : undefined;
 
     this.componetService
-      .filter(name, squadId, tags, range.min, range.max, page, ps, showLoading)
+      .filter(name, squadId, tags, range?.min, range?.max, page, ps, showLoading)
       .then(pageable => {
         this.contextDataService.set(
           ContextDataInfo.APPLICATIONS_DATA,

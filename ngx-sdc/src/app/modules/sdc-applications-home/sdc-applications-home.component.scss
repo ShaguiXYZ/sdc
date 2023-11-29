@@ -11,11 +11,6 @@
   @include define-custom-property($name, $value);
 }
 
-.align-right {
-  position: absolute;
-  right: 0;
-}
-
 .pagination {
   align-items: center;
   bottom: 10px;
@@ -34,6 +29,13 @@
 
 .search-options {
   display: flex;
+  flex-wrap: wrap;
+
+  .search-left {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+  }
 
   #component-name {
     width: 205px;

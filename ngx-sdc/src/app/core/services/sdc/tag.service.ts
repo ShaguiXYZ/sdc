@@ -4,6 +4,7 @@ import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { hasValue } from '../../lib';
 import { IPageable, ITagDTO, ITagModel } from '../../models/sdc';
+import { CacheService } from '../context-data';
 import { HttpService, HttpStatus } from '../http';
 import { XS_EXPIRATON_TIME, _TAGS_CACHE_ID_ } from './constants';
 
@@ -11,7 +12,7 @@ import { XS_EXPIRATON_TIME, _TAGS_CACHE_ID_ } from './constants';
 export class TagService {
   private _urlTags = `${environment.baseUrl}/api`;
 
-  constructor(private http: HttpService) {}
+  constructor(private cache: CacheService, private http: HttpService) {}
 
   public tags(page?: number, ps?: number): Promise<IPageable<ITagModel>> {
     let httpParams = new HttpParams();
@@ -94,4 +95,5 @@ export class TagService {
         .pipe(map(res => res as void))
     );
   }
+  public clearCache = () => this.cache.delete(_TAGS_CACHE_ID_);
 }

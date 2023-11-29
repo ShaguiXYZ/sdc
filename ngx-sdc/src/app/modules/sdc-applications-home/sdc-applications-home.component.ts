@@ -19,6 +19,7 @@ import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsHomeService } from './services';
 import { SdcTagComponent } from 'src/app/shared/components/sdc-tags/components';
+import { MetricStates } from 'src/app/shared/lib';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'
@@ -113,7 +114,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  public coverageChange(coverage: string): void {
+  public coverageChange(coverage: MetricStates): void {
     if (!coverage) {
       this.form.controls['coverage'].setValue('');
     }

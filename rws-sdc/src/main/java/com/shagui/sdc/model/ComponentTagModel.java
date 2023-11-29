@@ -23,6 +23,8 @@ public class ComponentTagModel implements ModelInterface<ComponentTagPk> {
     @EmbeddedId
     private ComponentTagPk id;
 
+    private String owner;
+
     @Column(name = "analysis_tag", nullable = false, columnDefinition = "boolean default false")
     private boolean analysisTag;
 

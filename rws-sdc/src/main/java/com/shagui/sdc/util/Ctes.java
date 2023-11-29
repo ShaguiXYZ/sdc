@@ -5,6 +5,11 @@ public class Ctes {
 	private Ctes() {
 	}
 
+	public static final String TOKEN_PREFIX = "Bearer ";
+	public static final String HEADER_AUTHORIZATION = "Authorization";
+	public static final String HEADER_SESSION_ID = "SID";
+	public static final String AUTHORITIES_CLAIM = "authorities";
+
 	public static class AnalysisServicesTypes {
 		public static final String GIT = "GIT"; // = AnalysisType.GIT
 		public static final String GIT_JSON = "GIT_JSON"; // = AnalysisType.GIT_JSON

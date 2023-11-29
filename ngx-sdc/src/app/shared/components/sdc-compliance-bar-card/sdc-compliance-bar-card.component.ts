@@ -16,9 +16,9 @@ import { styleByCoverage } from '../../lib';
   imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, TranslateModule]
 })
 export class SdcComplianceBarCardComponent {
-  public barCoverage!: number;
-  public coverage!: number;
-  public coverageStyle!: string;
+  public barCoverage?: number;
+  public coverage?: number;
+  public coverageStyle?: string;
   public date?: number;
 
   private _component!: IComponentModel;
@@ -38,9 +38,12 @@ export class SdcComplianceBarCardComponent {
   @Input()
   set component(value: IComponentModel) {
     this._component = value;
-    this.coverage = Math.round(this._component.coverage ?? 0);
-    this.coverageStyle = styleByCoverage(this.coverage);
-    this.barCoverage = this.coverage / 100;
+    this.coverage = this._component.coverage && Math.round(this._component.coverage);
+
+    if (this.coverage) {
+      this.coverageStyle = styleByCoverage(this.coverage);
+      this.barCoverage = this.coverage / 100;
+    }
   }
   get component(): IComponentModel {
     return this._component;

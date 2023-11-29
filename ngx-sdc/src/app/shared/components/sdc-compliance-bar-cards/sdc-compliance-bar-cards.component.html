@@ -1,15 +1,13 @@
-<div *ngIf="components">
-  <div
-    *ngFor="let component of components; first as isFirst; last as isLast; index as index"
-    [ngClass]="{ reveal: animation, 'nx-margin-bottom-3xs': !isLast }"
-  >
-    <sdc-compliance-bar-card
-      [component]="component"
-      [showDepartment]="showDepartment"
-      [showSquad]="showSquad"
-      (clickLink)="onClickShowMore($event)"
-      (clickDepartment)="onClickSDepartment($event)"
-      (clickSquad)="onClickSquad($event)"
-    ></sdc-compliance-bar-card>
-  </div>
+<div
+  *ngFor="let component of components; first as isFirst; last as isLast; index as index"
+  [ngClass]="{ reveal: animation, 'nx-margin-bottom-3xs': !isLast }"
+>
+  <sdc-compliance-bar-card
+    [component]="component"
+    [showDepartment]="showDepartment"
+    [showSquad]="showSquad"
+    (clickLink)="onClickShowMore($event)"
+    (clickDepartment)="onClickSDepartment($event)"
+    (clickSquad)="onClickSquad($event)"
+  ></sdc-compliance-bar-card>
 </div>

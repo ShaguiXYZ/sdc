@@ -1,5 +1,6 @@
 import { hasValue } from '../../core/lib/object-utils.lib';
 import { StateColors } from '../constants';
+import { SdcRange } from '../models';
 
 const COLOR_PREFIX = 'color--';
 
@@ -47,7 +48,7 @@ export const styleByName = (name: string): string => `${COLOR_PREFIX}${name}`;
 export const styleByMetricState = (state: MetricStates): string => styleByName(MetricState[state].style);
 export const styleByCoverage = (coverage: number): string => styleByMetricState(stateByCoverage(coverage));
 
-export const rangeByState = (state: MetricStates): { min: number; max: number } =>
+export const rangeByState = (state: MetricStates): SdcRange =>
   ({
     [MetricStates.CRITICAL]: { min: 0, max: MetricState[MetricStates.CRITICAL].value },
     [MetricStates.WITH_RISK]: {

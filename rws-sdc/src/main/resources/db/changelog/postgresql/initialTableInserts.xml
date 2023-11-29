@@ -160,8 +160,8 @@
 			(3,'sonar-repo'),
 			(4,'sonar-repo'),
 			(5,'sonar-repo'),
-			(6,'git-public'),
-			(7,'git-private'),
+			(6,'git-private'),
+			(7,'git-public'),
 			(8,'git-private'),
 			(9,'git-private'),
 			(10,'git-private');
@@ -235,11 +235,9 @@
 			('ngx_path','ngx-sdc',2),
 			('bff_path','bff-sdc',2),
 			('rws_path','rws-sdc',2),
-			('organization','shaguixyz',6),
-			('ngx_path','ngx-security',6);
+			('organization','shaguixyz',6);
 	   		INSERT INTO component_properties (name,value,component_id) VALUES
-			('bff_path','bff-security',6),
-			('rws_path','rws-security',6),
+			('ngx_path','',6),
 			('organization','shaguixyz',7),
 			('ngx_path','ngx-ui-editor',7),
 			('bff_path','bff-ui-editor',7),

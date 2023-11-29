@@ -34,6 +34,9 @@ public class TagModel implements ModelInterface<Integer> {
     private String name;
 
     @Transient
+    private String owner;
+
+    @Transient
     private boolean analysisTag;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -44,9 +47,10 @@ public class TagModel implements ModelInterface<Integer> {
         this.name = name;
     }
 
-    public TagModel(Integer id, String name, boolean analysisTag) {
+    public TagModel(Integer id, String name, boolean analysisTag, String owner) {
         this.id = id;
         this.name = name;
         this.analysisTag = analysisTag;
+        this.owner = owner;
     }
 }

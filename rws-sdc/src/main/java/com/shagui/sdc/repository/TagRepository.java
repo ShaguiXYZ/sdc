@@ -14,14 +14,14 @@ public interface TagRepository extends JpaRepository<TagModel, Integer> {
         public Optional<TagModel> findByName(String name);
 
         @Query("""
-                        SELECT new TagModel(t.id, t.name, ct.analysisTag) FROM TagModel t \
+                        SELECT new TagModel(t.id, t.name, ct.analysisTag, ct.owner) FROM TagModel t \
                         INNER JOIN t.components c ON c.id = :componentId \
                         INNER JOIN ComponentTagModel ct ON ct.id.componentId = c.id AND ct.id.tagId = t.id
                         """)
         public List<TagModel> findByComponent(int componentId);
 
         @Query("""
-                        SELECT new TagModel(t.id, t.name, ct.analysisTag) FROM TagModel t \
+                        SELECT new TagModel(t.id, t.name, ct.analysisTag, ct.owner) FROM TagModel t \
                         INNER JOIN t.components c ON c.id = :componentId \
                         INNER JOIN ComponentTagModel ct ON ct.id.componentId = c.id AND ct.id.tagId = t.id
                         """)
