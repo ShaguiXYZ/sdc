@@ -84,7 +84,9 @@
     "MetricAbalysisNotFound": "Metric abalysis not found",
     "Procesing": "Procesing",
     "ProcesingDetail": "Procesing",
-    "Success": "Success"
+    "Success": "Success",
+    "TagAdded": "Tag added",
+    "TagRemoved": "Tag removed"
   },
   "Tooltip": {
     "RunProcess": "Analize {{name}}"

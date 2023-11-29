@@ -196,6 +196,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     this.coverages = coverages;
     this.squads = squads.page;
     this.tags = tags.page;
+    this.tags.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   private createForm(): void {

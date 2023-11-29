@@ -84,7 +84,9 @@
     "MetricAbalysisNotFound": "Análisis de la métrica no encontrada",
     "Procesing": "Procesando",
     "ProcesingDetail": "Procesando",
-    "Success": "Ok"
+    "Success": "Ok",
+    "TagAdded": "Tag añadido",
+    "TagRemoved": "Tag eliminado"
   },
   "Tooltip": {
     "RunProcess": "Analiza {{name}}"

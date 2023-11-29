@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -89,7 +90,7 @@ class ComponentServiceImplTest {
 		List<ComponentModel> list = new ArrayList<ComponentModel>();
 		list.add(RwsTestUtils.componentModelMock());
 		Page<ComponentModel> value = new PageImpl<ComponentModel>(list);
-		when(componentRepositoryMock.filter(anyString(), anyInt(), anyFloat(), anyFloat(),
+		when(componentRepositoryMock.filter(anyString(), anyInt(), anySet(), anyFloat(), anyFloat(),
 				any(Pageable.class))).thenReturn(value);
 
 		PageData<ComponentDTO> result = service.filter("filterName", 1, new HashSet<>(), new Range(0f, 1f),

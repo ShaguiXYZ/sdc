@@ -72,10 +72,11 @@ export class TagService {
   public addTag(componentId: number, name: string): Promise<ITagModel> {
     return firstValueFrom(
       this.http
-        .post<ITagDTO, any>(`${this._urlTags}/tag/create/${componentId}/${name}`, {
+        .post<ITagDTO, any>(`${this._urlTags}/tag/create/${componentId}/${name}`, undefined, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.TagError' }
-          }
+          },
+          successMessage: { text: 'Notifications.TagAdded' }
         })
         .pipe(map(res => ITagModel.toModel(res as ITagDTO)))
     );
@@ -87,7 +88,8 @@ export class TagService {
         .delete(`${this._urlTags}/tag/delete/${componentId}/${name}`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.TagError' }
-          }
+          },
+          successMessage: { text: 'Notifications.TagRemoved' }
         })
         .pipe(map(res => res as void))
     );
