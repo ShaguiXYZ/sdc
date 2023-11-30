@@ -46,7 +46,6 @@
               "sourceMap": true,
               "namedChunks": true,
               "extractLicenses": false,
-              "vendorChunk": true,
               "buildOptimizer": false,
               "fileReplacements": [
                 {
@@ -79,7 +78,6 @@
             "development": {
               "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -90,18 +88,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-ui-editor:build",
-            "port": 4205
+            "port": 4205,
+            "buildTarget": "ngx-ui-editor:build"
           },
           "configurations": {
             "local": {
-              "browserTarget": "ngx-sdc:build:local"
+              "buildTarget": "ngx-sdc:build:local"
             },
             "production": {
-              "browserTarget": "ngx-sdc:build:production"
+              "buildTarget": "ngx-sdc:build:production"
             },
             "development": {
-              "browserTarget": "ngx-sdc:build:development"
+              "buildTarget": "ngx-sdc:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -109,7 +107,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-sdc:build"
+            "buildTarget": "ngx-sdc:build"
           }
         },
         "test": {
