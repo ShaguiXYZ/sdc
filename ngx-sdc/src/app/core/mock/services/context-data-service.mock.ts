@@ -1,8 +1,8 @@
-import { GenericDataInfo } from '../../models';
+import { DataInfo } from '../../models';
 import { CacheData } from '../../services/context-data';
 
 export class ContextDataServiceMock {
-  cache: GenericDataInfo<CacheData> = {};
+  cache: DataInfo<CacheData> = {};
 
   set() {
     /* Mock method */

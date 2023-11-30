@@ -2,7 +2,7 @@ import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { GenericDataInfo } from 'src/app/core/models';
+import { DataInfo } from 'src/app/core/models';
 import { ChartConfig, ChartValue } from 'src/app/shared/models';
 import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
 
@@ -18,7 +18,7 @@ export class SdcHorizontalBarChartComponent {
   @Input()
   public name!: string;
 
-  public styleSize: GenericDataInfo<number> = {};
+  public styleSize: DataInfo<number> = {};
   public echartsOptions: EChartsOption = {};
 
   constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {}
@@ -48,7 +48,7 @@ export class SdcHorizontalBarChartComponent {
         .map(chartConfigData => chartConfigData.values)
         .filter(values => !Array.isArray(values))
         .map(values => ({
-          value: this.valueTypeToNumberPipe.transform((values as ChartValue).value) ?? 0,
+          value: (values as ChartValue).value ?? 0,
           itemStyle: {
             color: (values as ChartValue).color
           }

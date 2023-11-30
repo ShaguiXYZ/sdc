@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { DataInfo, GenericDataInfo } from 'src/app/core/models';
-import { ChartConfig, ChartData, SdcGraphData } from '../../models';
-import { SdcTimeEvolutionChartComponent, stringGraphToDataInfo } from '../sdc-charts';
+import { DataInfo } from 'src/app/core/models';
+import { ChartConfig, SdcGraphData } from '../../models';
+import { SdcTimeEvolutionChartComponent, stringGraphToRecord } from '../sdc-charts';
 
 @Component({
   selector: 'sdc-time-evolution-multichart',
@@ -22,11 +22,11 @@ export class SdcTimeEvolutionMultichartComponent {
     this.metricChartConfig = this.toChartconfig(value);
   }
 
-  private graphData: GenericDataInfo<string[]> = {};
+  private graphData: DataInfo<number[]> = {};
 
   private toChartconfig(value: SdcGraphData): ChartConfig {
     const data: string[] = value.graph.map(v => v.data);
-    this.graphData = this.groupDataInfo(data.map(stringGraphToDataInfo));
+    this.graphData = this.groupDataInfo(data.map(stringGraphToRecord));
 
     return {
       axis: { xAxis: value.graph.map(v => v.axis) },
@@ -42,10 +42,9 @@ export class SdcTimeEvolutionMultichartComponent {
     };
   }
 
-  private groupDataInfo = (data: DataInfo[]): GenericDataInfo<string[]> => {
-    const group: GenericDataInfo<string[]> = {};
-
+  private groupDataInfo = (data: DataInfo<any>[]): DataInfo<any[]> => {
     let graphIndex = 0;
+
     return data.reduce((previous, current) => {
       Object.keys(current).forEach(key => {
         if (previous[key]) {
@@ -58,6 +57,7 @@ export class SdcTimeEvolutionMultichartComponent {
           previous[key] = graphData;
         }
       });
+
       graphIndex++;
 
       return previous;

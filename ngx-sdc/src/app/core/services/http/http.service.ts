@@ -6,7 +6,7 @@ import { finalize, tap } from 'rxjs/operators';
 import { LoadingService } from '../../components/loading/services';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS } from '../../components/notification';
 import { NotificationService } from '../../components/notification/services';
-import { GenericDataInfo, MessageModal } from '../../models';
+import { DataInfo, MessageModal } from '../../models';
 import { CacheService } from '../context-data';
 import { HttpStatus } from './constants';
 import { CacheRequestOptions, RequestOptions } from './models';
@@ -165,7 +165,7 @@ export class HttpService {
     }
   }
 
-  private error(err: HttpErrorResponse, responseStatusMessage?: GenericDataInfo<MessageModal>): void {
+  private error(err: HttpErrorResponse, responseStatusMessage?: DataInfo<MessageModal>): void {
     if (responseStatusMessage) {
       let title;
       let message: string;

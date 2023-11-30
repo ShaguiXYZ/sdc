@@ -14,7 +14,6 @@ import { ApplicationsContextData, IStateCount } from 'src/app/shared/models';
 import { SdcSquadSummaryComponent } from './components';
 import { SdcSquadsDataModel } from './models';
 import { SdcSquadsService } from './services';
-import { MetricStates } from 'src/app/shared/lib';
 
 @Component({
   selector: 'sdc-squads-home',

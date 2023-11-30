@@ -1,10 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DataInfo, GenericDataInfo } from 'src/app/core/models';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { DataInfo } from 'src/app/core/models';
 import { ValueType } from 'src/app/core/models/sdc';
 import { ChartConfig, SdcGraphData } from 'src/app/shared/models';
 import { SdcTimeEvolutionMultichartComponent } from '../sdc-time-evolution-multichart.component';
-import { NgxEchartsModule } from 'ngx-echarts';
 
 describe('SdcTimeEvolutionMultichartComponent', () => {
   let component: SdcTimeEvolutionMultichartComponent;
@@ -39,7 +39,7 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
   });
 
   it('should set graphData', () => {
-    const graphData: GenericDataInfo<string[]> = { axis1: ['11', '21'], axis2: ['21', '22'] };
+    const graphData: DataInfo<number[]> = { axis1: [11, 21], axis2: [21, 22] };
     component.data = {
       graph: [
         { axis: '', data: 'axis1=11;axis2=21' },
@@ -56,8 +56,8 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
     const dataInfo: ChartConfig = {
       axis: { xAxis: ['graph-axis'] },
       data: [
-        { name: 'axis1', smooth: true, values: [{ value: '11' }] },
-        { name: 'axis2', smooth: true, values: [{ value: '21' }] }
+        { name: 'axis1', smooth: true, values: [{ value: 11 }] },
+        { name: 'axis2', smooth: true, values: [{ value: 21 }] }
       ],
       options: { legendPosition: undefined, showVisualMap: false },
       type: ValueType.NUMERIC
@@ -67,17 +67,17 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
   });
 
   it('should group DataInfo', () => {
-    const dataInfo: DataInfo[] = [
+    const dataInfo: DataInfo<any>[] = [
       {
-        axis1: '11',
-        axis2: '21'
+        axis1: 11,
+        axis2: 21
       },
       {
-        axis1: '21',
-        axis2: '22'
+        axis1: 21,
+        axis2: 22
       }
     ];
-    const groupedDataInfo: GenericDataInfo<string[]> = { axis1: ['11', '21'], axis2: ['21', '22'] };
+    const groupedDataInfo: DataInfo<number[]> = { axis1: [11, 21], axis2: [21, 22] };
 
     expect(component['groupDataInfo'](dataInfo)).toEqual(groupedDataInfo);
   });

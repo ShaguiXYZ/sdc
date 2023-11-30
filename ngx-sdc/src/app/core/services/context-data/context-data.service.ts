@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ContextDataError } from '../../errors';
 import { _console, deepCopy } from '../../lib';
-import { GenericDataInfo } from '../../models';
+import { DataInfo } from '../../models';
 import { NX_CONTEX_CONFIG, contextStorageID } from './constatnts';
 import { routerData } from './lib';
 import { CacheData, ContextConfig, ContextData, ContextInfo, IContextData, IContextDataConfigurtion, UrlInfo } from './models';
@@ -35,7 +35,7 @@ export class ContextDataService {
   /**
    * Public context data
    */
-  public get cache(): GenericDataInfo<CacheData> {
+  public get cache(): DataInfo<CacheData> {
     return this.contextStorage.cache;
   }
 
@@ -109,7 +109,7 @@ export class ContextDataService {
   // Load session storage (F5)
   private refreshPageControl = (): void => {
     globalThis.addEventListener('beforeunload', () => {
-      const sessionData: GenericDataInfo<IContextData> = {};
+      const sessionData: DataInfo<IContextData> = {};
 
       Object.entries(this.contextStorage.contextData).forEach(
         ([key, value]) =>
@@ -128,7 +128,7 @@ export class ContextDataService {
     const sessionData = sessionStorage.getItem(contextStorageID);
 
     if (sessionData) {
-      const data: GenericDataInfo<IContextData> = JSON.parse(sessionData);
+      const data: DataInfo<IContextData> = JSON.parse(sessionData);
 
       Object.entries(data).forEach(([key, value]) => this.addContextData(key, value.data, value.configuration));
 

@@ -32,7 +32,7 @@ export interface ChartData {
 
 export interface ChartValue {
   color?: string;
-  value: string;
+  value: number | string;
 }
 
 export interface ChartOptions {

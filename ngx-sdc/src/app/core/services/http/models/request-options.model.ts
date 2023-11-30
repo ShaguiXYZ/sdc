@@ -1,9 +1,9 @@
-import { GenericDataInfo, MessageModal } from 'src/app/core/models';
+import { DataInfo, MessageModal } from 'src/app/core/models';
 
 export interface RequestOptions {
   clientOptions?: any;
   procesingMessage?: MessageModal;
-  responseStatusMessage?: GenericDataInfo<MessageModal>;
+  responseStatusMessage?: DataInfo<MessageModal>;
   showLoading?: boolean;
   successMessage?: MessageModal;
 }

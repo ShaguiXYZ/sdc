@@ -3,8 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { GenericDataInfo } from 'src/app/core/models';
-import { stringGraphToDataInfo } from '../lib';
+import { DataInfo } from 'src/app/core/models';
+import { stringGraphToRecord } from '../lib';
 
 @Component({
   selector: 'sdc-pie-chart',
@@ -24,22 +24,22 @@ export class SdcPieChartComponent implements OnInit {
 
   private _data!: string;
 
+  ngOnInit(): void {
+    this.echartsOptions = this.chartOptions(this._data);
+  }
+
   @Input()
   public set data(value: string) {
     this._data = value;
     this.echartsOptions = this.chartOptions(value);
   }
 
-  ngOnInit(): void {
-    this.echartsOptions = this.chartOptions(this._data);
-  }
-
-  public get styleSize(): GenericDataInfo<number> {
+  public get styleSize(): DataInfo<number> {
     return { 'height.px': this.size, 'width.px': this.size };
   }
 
-  private chartOptions(value: string): EChartsOption {
-    const dataInfo = stringGraphToDataInfo(value);
+  private chartOptions(chartData: string): EChartsOption {
+    const records = stringGraphToRecord(chartData);
 
     const option: EChartsOption = {
       grid: {
@@ -57,7 +57,7 @@ export class SdcPieChartComponent implements OnInit {
         {
           type: 'pie',
           radius: '50%',
-          data: Object.entries(dataInfo).map(([name, value]) => ({ name, value })),
+          data: Object.entries(records).map(([name, value]) => ({ name, value })),
           emphasis: {
             focus: 'self',
             itemStyle: {

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { GenericDataInfo } from 'src/app/core/models';
+import { DataInfo } from 'src/app/core/models';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 
@@ -37,7 +37,7 @@ export class SdcCoverageChartComponent implements OnInit {
     this.echartsOptions = this.chartOptions(this._coverage);
   }
 
-  public get styleSize(): GenericDataInfo<number> {
+  public get styleSize(): DataInfo<number> {
     return { 'height.px': this.size, 'width.px': this.size };
   }
 

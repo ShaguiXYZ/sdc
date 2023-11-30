@@ -1,5 +1,5 @@
 import { Params, UrlSegment, UrlTree } from '@angular/router';
-import { GenericDataInfo } from 'src/app/core/models';
+import { DataInfo } from 'src/app/core/models';
 import { CacheData } from './cache-data.model';
 import { ContextData } from './context-data';
 
@@ -8,8 +8,8 @@ export interface CoreConfig {
 }
 
 export interface ContextInfo {
-  contextData: GenericDataInfo<ContextData>;
-  cache: GenericDataInfo<CacheData>;
+  contextData: DataInfo<ContextData>;
+  cache: DataInfo<CacheData>;
 }
 
 export interface ContextConfig {

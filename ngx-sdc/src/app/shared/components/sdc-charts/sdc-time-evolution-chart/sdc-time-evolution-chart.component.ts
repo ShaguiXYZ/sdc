@@ -2,24 +2,22 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { GenericDataInfo } from 'src/app/core/models';
+import { DataInfo } from 'src/app/core/models';
 import { ChartConfig, ChartData, ChartValue } from 'src/app/shared/models';
-import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
 import { legendPosition } from '../lib';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
   templateUrl: './sdc-time-evolution-chart.component.html',
   styleUrls: ['./sdc-time-evolution-chart.component.scss'],
-  providers: [SdcValueTypeToNumberPipe],
   standalone: true,
   imports: [CommonModule, NgxEchartsModule]
 })
 export class SdcTimeEvolutionChartComponent {
   public echartsOptions: EChartsOption = {};
-  public styleSize: GenericDataInfo<number> = {};
+  public styleSize: DataInfo<number> = {};
 
-  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {}
+  constructor() {}
 
   @Input()
   set config(value: ChartConfig) {
@@ -64,13 +62,13 @@ export class SdcTimeEvolutionChartComponent {
           smooth: data.smooth,
           data: serie.map(item => ({
             sourceData: item.value,
-            value: this.valueTypeToNumberPipe.transform(item.value, chartConfig.type) ?? 0
+            value: item.value ?? 0
           }))
         }
       };
     });
 
-    let options: GenericDataInfo<any> = {
+    let options: DataInfo<any> = {
       animation: false,
       tooltip: {
         axisPointer: {

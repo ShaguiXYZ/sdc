@@ -66,16 +66,16 @@ export const legendPosition = (position?: LegendPosition) =>
         }
       };
 
-export const stringGraphToDataInfo = (data: string = ''): DataInfo => {
-  const dataInfo: DataInfo = {};
+export const stringGraphToRecord = (data: string = ''): DataInfo<number> => {
+  const record: DataInfo<number> = {};
 
   data
     .split(';')
     .filter(value => /([^=]+)=(\d+)(.?(\d+))?/.test(value))
     .forEach(eq => {
       const [key, ...value] = eq.split('=');
-      dataInfo[key] = value[0];
+      record[key] = Number(value[0]);
     });
 
-  return dataInfo;
+  return record;
 };

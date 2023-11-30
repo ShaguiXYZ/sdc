@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { UniqueIds } from 'src/app/core/lib';
-import { GenericDataInfo } from 'src/app/core/models';
+import { DataInfo } from 'src/app/core/models';
 
 @Component({
   selector: 'sdc-lazy-loader',
@@ -16,7 +16,7 @@ export class SdcLazyLoaderComponent implements OnDestroy, AfterViewInit {
 
   public readonly id = `_${UniqueIds.next()}_`;
   public loaded = false;
-  public size: GenericDataInfo<number> = {};
+  public size: DataInfo<number> = {};
 
   private observer!: IntersectionObserver;
   private elementObserved!: Element;
