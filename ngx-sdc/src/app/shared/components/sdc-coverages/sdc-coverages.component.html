@@ -14,16 +14,14 @@
       </div>
     </header>
     <div class="coverages sdc-scrollable nx-margin-right-s nx-margin-bottom-m">
-      <ng-container *ngIf="coverages">
-        <div *ngFor="let coverage of coverages">
-          <sdc-coverage-info
-            [coverage]="coverage"
-            [selectable]="selectable"
-            [selected]="selected === coverage.id"
-            (selectCoverage)="onClickCoverage($event)"
-          ></sdc-coverage-info>
-        </div>
-      </ng-container>
+      @if (coverages) { @for (coverage of coverages; track coverage.id) {
+      <sdc-coverage-info
+        [coverage]="coverage"
+        [selectable]="selectable"
+        [selected]="selected === coverage.id"
+        (selectCoverage)="onClickCoverage($event)"
+      ></sdc-coverage-info>
+      } }
     </div>
   </nx-card>
 </div>

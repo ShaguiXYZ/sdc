@@ -1,13 +1,14 @@
 <ng-container *ngIf="metricsData?.componentAnalysis?.length; else noData">
   <div *ngIf="metricsData" class="evolution-content nx-margin-top-2xs">
     <div class="metrics sdc-scrollable nx-margin-right-2xs">
+      @for (data of metricsData.componentAnalysis; track data.metric.id) {
       <sdc-metric-info
-        *ngFor="let data of metricsData.componentAnalysis"
         [analysis]="data"
         [selected]="metricsData.selectedAnalysis?.metric?.id === data.metric.id"
         (selectMetric)="loadGraphData($event)"
       >
       </sdc-metric-info>
+      }
     </div>
     <div *ngIf="metricsData?.selectedAnalysis" class="evolution-graph">
       <header class="chart-header sdc-center">

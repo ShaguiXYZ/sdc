@@ -27,6 +27,8 @@
   </div>
 
   <div class="sdc-tag__list">
-    <sdc-tag *ngFor="let tag of tags" [data]="tag" [removable]="removable && !tag.analysisTag" (remove)="onRemoveTag($event)"></sdc-tag>
+    @for (tag of tags; track tag.name) {
+    <sdc-tag [data]="tag" [removable]="removable && !tag.analysisTag" (remove)="onRemoveTag($event)"></sdc-tag>
+    }
   </div>
 </div>

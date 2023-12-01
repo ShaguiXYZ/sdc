@@ -1,3 +1,5 @@
+import { UniqueIds } from '../lib';
+
 /* eslint-disable max-classes-per-file */
 export enum TypeButton {
   primary = 'primary',
@@ -6,11 +8,16 @@ export enum TypeButton {
 }
 
 export class ButtonModel {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(public type: TypeButton, public text: string, public action: () => void = (): void => {}) {}
+  public id: string;
+
+  constructor(public type: TypeButton, public text: string, public action: () => void = (): void => {}) {
+    this.id = UniqueIds._next_();
+  }
 }
 
 export class ButtonConfig {
+  public id: string;
+
   text?: (event?: any) => string;
   type?: (event?: any) => TypeButton;
   icon?: (event?: any) => string;
@@ -21,6 +28,8 @@ export class ButtonConfig {
   info?: string;
 
   constructor(text?: string, icon?: string, type?: TypeButton) {
+    this.id = UniqueIds._next_();
+
     this.text = () => text || '';
     this.type = () => type || TypeButton.tertiary;
     this.icon = () => icon || '';

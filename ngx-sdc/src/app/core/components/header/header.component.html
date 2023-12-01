@@ -13,7 +13,8 @@
 
   <div class="header-content">
     <nx-header-navigation *ngIf="navigation.routes.length > 0" class="nx-margin-y-2xs">
-      <nx-header-navigation-item *ngFor="let parent of navigation.routes" (mouseenter)="mouseEnterEvent(parent.id)">
+      @for (parent of navigation.routes; track parent.id) {
+      <nx-header-navigation-item (mouseenter)="mouseEnterEvent(parent.id)">
         <!-- Parent menu -->
         <div class="menu-item">
           <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink
@@ -29,7 +30,8 @@
             >
               <nx-header-navigation>
                 <nx-header-navigation-item>
-                  <div *ngFor="let child of parent.children" class="menu-item-children">
+                  @for (child of parent.children; track child.id) {
+                  <div class="menu-item-children">
                     <a
                       *ngIf="child.routerLink"
                       [id]="child.id"
@@ -43,12 +45,14 @@
                       child.name | translate
                     }}</a>
                   </div>
+                  }
                 </nx-header-navigation-item>
               </nx-header-navigation>
             </nx-header-row>
           </div>
         </div>
       </nx-header-navigation-item>
+      }
     </nx-header-navigation>
 
     <nx-header-actions class="nx-margin-y-2xs">
@@ -65,18 +69,18 @@
 
 <nx-context-menu #language="nxContextMenu">
   <ng-template nxContextMenuContent>
-    <ng-container *ngFor="let lang of languageInfo.languageButtons">
-      <button
-        *ngIf="lang.isVisible() && lang.icon && lang.text"
-        nxContextMenuItem
-        type="button"
-        [disabled]="!lang.isEnabled()"
-        (click)="lang.onClick(lang.options)"
-      >
-        <em [class]="lang.icon()"></em>
-        {{ lang.text() | translate }}
-      </button>
-    </ng-container>
+    @for (lang of languageInfo.languageButtons; track lang.id) {
+    <button
+      *ngIf="lang.isVisible() && lang.icon && lang.text"
+      nxContextMenuItem
+      type="button"
+      [disabled]="!lang.isEnabled()"
+      (click)="lang.onClick(lang.options)"
+    >
+      <em [class]="lang.icon()"></em>
+      {{ lang.text() | translate }}
+    </button>
+    }
   </ng-template>
 </nx-context-menu>
 
