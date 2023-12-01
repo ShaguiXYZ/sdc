@@ -6,8 +6,8 @@
     </strong>
     <br />
     <span class="description">{{ notification.description }}</span>
+    @if (notification.button) {
     <button
-      *ngIf="notification.button"
       type="button"
       nxButton="{{ notification.button.type }} small-medium"
       class="nx-margin-bottom-0"
@@ -16,6 +16,7 @@
       <em class="fa-solid fa-arrow-right nx-margin-right-2xs"></em>
       {{ notification.button.text }}
     </button>
+    }
   </nx-message>
 </div>
 }

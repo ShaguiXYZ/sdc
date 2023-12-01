@@ -1,9 +1,11 @@
-<div *ngIf="coverage" class="coverage-content" [ngClass]="{ selectable: selectable, selected: selected }" (click)="onClick()">
+@if (coverage) {
+<div class="coverage-content" [ngClass]="{ selectable: selectable, selected: selected }" (click)="onClick()">
   <div class="coverage-chart">
-    <ng-template #coverageViewRef></ng-template>
+    <ng-template #coverageViewRef />
   </div>
   <div class="coverage-text">
     <p nxCopytext="normal" class="name nx-margin-bottom-3xs">{{ coverage.name }}</p>
     <p nxCopytext="small">ID {{ coverage.id }}</p>
   </div>
 </div>
+}

@@ -1,10 +1,16 @@
 <nx-card [ngClass]="{ 'hide-border': hideBorder }">
-  <div *ngIf="component.blocked" class="blocked"></div>
+  @if (component.blocked) {
+  <div class="blocked"></div>
+  }
+
   <div class="card-content">
-    <div *ngIf="coverage" class="{{ coverageStyle }} nx-margin-bottom-xs sdc-center">
+    @if (coverage) {
+    <div class="{{ coverageStyle }} nx-margin-bottom-xs sdc-center">
       <nx-progressbar [value]="barCoverage"></nx-progressbar>
       <span class="coverage">{{ coverage }}%</span>
     </div>
+    }
+
     <div class="flex-info nx-margin-bottom-xs">
       <div class="component-name">
         <span class="nx-font-weight-bold">{{ component.name }}</span>
@@ -14,13 +20,17 @@
       </div>
     </div>
     <div class="flex-info">
-      <nx-badge *ngIf="showDepartment" type="positive" (click)="onClickDepartment()">{{ component.squad.department.name }}</nx-badge>
-      <nx-badge *ngIf="showSquad" type="active" (click)="onClickSquad()"> {{ component.squad.name }}</nx-badge>
-      <div *ngIf="showMore" class="position-end">
+      @if (showDepartment) {
+      <nx-badge type="positive" (click)="onClickDepartment()">{{ component.squad.department.name }}</nx-badge>
+      } @if (showSquad) {
+      <nx-badge type="active" (click)="onClickSquad()"> {{ component.squad.name }}</nx-badge>
+      } @if (showMore) {
+      <div class="position-end">
         <nx-link>
           <a (click)="onClickShwoMore()">{{ 'Label.ShowMore' | translate }}</a>
         </nx-link>
       </div>
+      }
     </div>
   </div>
 </nx-card>

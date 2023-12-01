@@ -1,7 +1,9 @@
 <div class="pie-chart">
-  <h4 *ngIf="title" nxHeadline="subsection-xsmall" class="header nx-margin-y-xs nx-font-weight-bold">
+  @if (title) {
+  <h4 nxHeadline="subsection-xsmall" class="header nx-margin-y-xs nx-font-weight-bold">
     {{ title }}
   </h4>
+  }
 
   <div echarts [options]="echartsOptions" [ngStyle]="styleSize"></div>
 </div>

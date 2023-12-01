@@ -34,7 +34,9 @@
             }
           </nx-dropdown>
         </nx-formfield>
-        <nx-formfield *ngIf="tags?.length" id="tags" class="nx-margin-right-2xs" [label]="'Label.Tags' | translate">
+
+        @if (tags.length) {
+        <nx-formfield id="tags" class="nx-margin-right-2xs" [label]="'Label.Tags' | translate">
           <nx-dropdown
             formControlName="tags"
             name="tags"
@@ -50,6 +52,7 @@
             }
           </nx-dropdown>
         </nx-formfield>
+        }
       </div>
 
       <div class="search-right">
@@ -62,23 +65,26 @@
       </div>
     </div>
   </form>
-  <ng-container *ngIf="applicationsInfo">
-    <sdc-compliance-bar-cards
-      [components]="applicationsInfo.components"
-      (clickLink)="complianceClicked($event)"
-      (clickSquad)="squadClicked($event)"
-      (clickDepartment)="departmentClicked($event)"
-    ></sdc-compliance-bar-cards>
-    <div *ngIf="applicationsInfo.paging.pages > 1" class="pagination nx-margin-y-2xs">
-      <nx-pagination
-        [count]="applicationsInfo.paging.elements"
-        [page]="applicationsInfo.paging.pageIndex + 1"
-        [perPage]="ELEMENTS_BY_PAGE"
-        (goPrev)="prevPage()"
-        (goNext)="nextPage()"
-        (goPage)="goToPage($event)"
-      >
-      </nx-pagination>
-    </div>
-  </ng-container>
+
+  @if(applicationsInfo) {
+  <sdc-compliance-bar-cards
+    [components]="applicationsInfo.components"
+    (clickLink)="complianceClicked($event)"
+    (clickSquad)="squadClicked($event)"
+    (clickDepartment)="departmentClicked($event)"
+  ></sdc-compliance-bar-cards>
+
+  @if(applicationsInfo.paging.pages > 1) {
+  <div class="pagination nx-margin-y-2xs">
+    <nx-pagination
+      [count]="applicationsInfo.paging.elements"
+      [page]="applicationsInfo.paging.pageIndex + 1"
+      [perPage]="ELEMENTS_BY_PAGE"
+      (goPrev)="prevPage()"
+      (goNext)="nextPage()"
+      (goPage)="goToPage($event)"
+    >
+    </nx-pagination>
+  </div>
+  } }
 </div>

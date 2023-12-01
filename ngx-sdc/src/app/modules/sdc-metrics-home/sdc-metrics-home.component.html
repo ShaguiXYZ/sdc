@@ -1,4 +1,5 @@
-<div *ngIf="metricsData" class="nx-margin-y-2xs">
+@if (metricsData) {
+<div class="nx-margin-y-2xs">
   <sdc-compliance-bar-card
     [component]="metricsData.component"
     [showMore]="false"
@@ -46,8 +47,8 @@
     </nx-accordion>
   </div>
 </div>
-
-<div *ngIf="metricsData" class="application-coverages nx-margin-y-2xs">
+} @if (metricsData) {
+<div class="application-coverages nx-margin-y-2xs">
   <nx-accordion>
     <nx-expansion-panel [expanded]="true">
       <nx-expansion-panel-header>
@@ -61,33 +62,38 @@
         </nx-expansion-panel-title>
       </nx-expansion-panel-header>
       <nx-tab-group class="tiny-tabs" [selectedIndex]="metricsData.selectedTabIndex" (selectedIndexChange)="onTabChage($event)">
-        <nx-tab *ngIf="metricsData.component" [label]="'Label.MetricsHistoryGraphs' | translate">
+        @if (metricsData.component) {
+        <nx-tab [label]="'Label.MetricsHistoryGraphs' | translate">
           <sdc-metric-history-graphs
             [componentId]="metricsData.component.id"
             [selectedAnalysis]="metricsData.selectedAnalysis"
             (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
           ></sdc-metric-history-graphs>
         </nx-tab>
+        }
         <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate" style="display: flex">
-          <ng-container *ngIf="metricsData.languageDistribution && lastLanguageDistribution; else noData">
-            <div class="language-distribution">
-              <div class="historical-language-distribution">
-                <sdc-time-evolution-multichart [data]="metricsData.languageDistribution"></sdc-time-evolution-multichart>
-              </div>
-              <div class="actual-language-distribution">
-                <sdc-pie-chart
-                  *ngIf="lastLanguageDistribution"
-                  [data]="lastLanguageDistribution"
-                  [title]="'Label.ActualLanguageDistribution' | translate"
-                ></sdc-pie-chart>
-              </div>
+          @if (metricsData.languageDistribution && lastLanguageDistribution) {
+          <div class="language-distribution">
+            <div class="historical-language-distribution">
+              <sdc-time-evolution-multichart [data]="metricsData.languageDistribution"></sdc-time-evolution-multichart>
             </div>
-          </ng-container>
+            <div class="actual-language-distribution">
+              @if (lastLanguageDistribution) {
+              <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate"></sdc-pie-chart>
+              }
+            </div>
+          </div>
+          } @else {
+          <div class="nx-margin-top-m">
+            <sdc-no-data></sdc-no-data>
+          </div>
+          }
         </nx-tab>
       </nx-tab-group>
     </nx-expansion-panel>
   </nx-accordion>
 </div>
+}
 
 <ng-template #metricsCards let-data>
   <header nxModalTitle>
@@ -102,10 +108,4 @@
       {{ 'Label.Continue' | translate }}
     </button>
   </footer>
-</ng-template>
-
-<ng-template #noData>
-  <div class="nx-margin-top-m">
-    <sdc-no-data></sdc-no-data>
-  </div>
 </ng-template>

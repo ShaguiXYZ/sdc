@@ -1,4 +1,5 @@
-<div *ngIf="squad" class="squad-summary">
+@if (squad) {
+<div class="squad-summary">
   <nx-tab-group class="tiny-tabs" [(selectedIndex)]="selectedTabIndex">
     <nx-tab [label]="'Label.SquadSumary' | translate">
       <div class="summary-charts">
@@ -15,24 +16,23 @@
     </nx-tab>
     <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
       <div class="language-distribution sdc-center">
-        <ng-container *ngIf="serviceSummaryData.languageDistribution && lastLanguageDistribution; else noData">
-          <sdc-time-evolution-multichart
-            *ngIf="chartToShow === 'pie'"
-            [data]="serviceSummaryData.languageDistribution"
-            [size]="{ height: 330 }"
-          ></sdc-time-evolution-multichart>
+        @if (serviceSummaryData.languageDistribution && lastLanguageDistribution) { @switch (chartToShow) { @case('pie'){
+        <sdc-time-evolution-multichart
+          [data]="serviceSummaryData.languageDistribution"
+          [size]="{ height: 330 }"
+        ></sdc-time-evolution-multichart>
+        } @case ('line') {
+        <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate"></sdc-pie-chart>
+        } @default {
+        <sdc-no-data></sdc-no-data>
+        }}
 
-          <ng-container *ngIf="chartToShow === 'line'">
-            <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate"></sdc-pie-chart>
-          </ng-container>
-
-          <em class="sdc-op toggle-chart fa-solid fa-chart-{{ chartToShow }}" (click)="toggleChart()"></em>
-        </ng-container>
+        <em class="sdc-op toggle-chart fa-solid fa-chart-{{ chartToShow }}" (click)="toggleChart()"></em>
+        } @else {
+        <sdc-no-data></sdc-no-data>
+        }
       </div>
     </nx-tab>
   </nx-tab-group>
 </div>
-
-<ng-template #noData>
-  <sdc-no-data></sdc-no-data>
-</ng-template>
+}

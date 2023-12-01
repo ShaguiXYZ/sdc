@@ -1,9 +1,12 @@
-<div *ngIf="departmentsData" class="summary-content nx-margin-y-2xs">
-  <div *ngIf="departmentsData.department" class="summary width-100">
+@if (departmentsData) {
+<div class="summary-content nx-margin-y-2xs">
+  @if (departmentsData.department) {
+  <div class="summary width-100">
     <div class="nx-margin-bottom-2xs">
       <sdc-department-summary [department]="departmentsData.department" [squads]="departmentsData.squads || []"></sdc-department-summary>
     </div>
   </div>
+  }
   <div class="coverages" [ngClass]="{ 'data-loaded': departmentsData.department, 'no-data-loaded': !departmentsData.department }">
     <div class="nx-margin-right-3xs" [ngClass]="{ 'width-50': departmentsData.department, 'width-100': !departmentsData.department }">
       <sdc-coverages
@@ -15,7 +18,9 @@
         (selectCoverage)="onClickDepartment($event)"
       ></sdc-coverages>
     </div>
-    <div *ngIf="departmentsData?.department" class="width-50 nx-margin-left-3xs">
+
+    @if (departmentsData.department) {
+    <div class="width-50 nx-margin-left-3xs">
       <sdc-coverages
         [filter]="departmentsData.squadFilter"
         [coverages]="departmentsData.squadsInView"
@@ -24,5 +29,7 @@
         (selectCoverage)="onClickSquad($event)"
       ></sdc-coverages>
     </div>
+    }
   </div>
 </div>
+}

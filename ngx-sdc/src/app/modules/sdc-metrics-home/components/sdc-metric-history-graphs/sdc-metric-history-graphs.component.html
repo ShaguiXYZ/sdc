@@ -1,35 +1,36 @@
-<ng-container *ngIf="metricsData?.componentAnalysis?.length; else noData">
-  <div *ngIf="metricsData" class="evolution-content nx-margin-top-2xs">
-    <div class="metrics sdc-scrollable nx-margin-right-2xs">
-      @for (data of metricsData.componentAnalysis; track data.metric.id) {
-      <sdc-metric-info
-        [analysis]="data"
-        [selected]="metricsData.selectedAnalysis?.metric?.id === data.metric.id"
-        (selectMetric)="loadGraphData($event)"
-      >
-      </sdc-metric-info>
-      }
-    </div>
-    <div *ngIf="metricsData?.selectedAnalysis" class="evolution-graph">
-      <header class="chart-header sdc-center">
-        <p *ngIf="metricsData.selectedAnalysis" nxCopytext="medium">
-          {{ 'Label.CurrentValue' | translate }}
-          {{ metricsData.selectedAnalysis.analysisValues.metricValue }}
-        </p>
-        <p *ngIf="metricsData.selectedAnalysis" nxCopytext="medium">
-          {{ 'Label.OptimumValue' | translate }}
-          {{
-            metricsData.selectedAnalysis.analysisValues.perfectValue ||
-              metricsData.selectedAnalysis.analysisValues.goodValue ||
-              metricsData.selectedAnalysis.analysisValues.expectedValue
-          }}
-        </p>
-      </header>
-      <sdc-time-evolution-chart [config]="metricChartConfig"></sdc-time-evolution-chart>
-    </div>
+@if(metricsData && metricsData.componentAnalysis?.length) {
+<div class="evolution-content nx-margin-top-2xs">
+  <div class="metrics sdc-scrollable nx-margin-right-2xs">
+    @for (data of metricsData.componentAnalysis; track data.metric.id) {
+    <sdc-metric-info
+      [analysis]="data"
+      [selected]="metricsData.selectedAnalysis?.metric?.id === data.metric.id"
+      (selectMetric)="loadGraphData($event)"
+    >
+    </sdc-metric-info>
+    }
   </div>
-</ng-container>
 
-<ng-template #noData>
-  <sdc-no-data></sdc-no-data>
-</ng-template>
+  @if(metricsData.selectedAnalysis) {
+  <div class="evolution-graph">
+    <header class="chart-header sdc-center">
+      <p nxCopytext="medium">
+        {{ 'Label.CurrentValue' | translate }}
+        {{ metricsData.selectedAnalysis.analysisValues.metricValue }}
+      </p>
+      <p nxCopytext="medium">
+        {{ 'Label.OptimumValue' | translate }}
+        {{
+          metricsData.selectedAnalysis.analysisValues.perfectValue ||
+            metricsData.selectedAnalysis.analysisValues.goodValue ||
+            metricsData.selectedAnalysis.analysisValues.expectedValue
+        }}
+      </p>
+    </header>
+    <sdc-time-evolution-chart [config]="metricChartConfig"></sdc-time-evolution-chart>
+  </div>
+  }
+</div>
+}@else {
+<sdc-no-data></sdc-no-data>
+}

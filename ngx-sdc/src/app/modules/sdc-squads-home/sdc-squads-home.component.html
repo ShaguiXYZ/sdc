@@ -1,27 +1,29 @@
-<div *ngIf="squadsData" class="summary-content nx-margin-y-2xs">
+@if(squadsData) {
+<div class="summary-content nx-margin-y-2xs">
   <div [ngClass]="{ 'width-50': squadsData.squad, 'width-0': !squadsData.squad }" class="summary nx-margin-right-3xs">
-    <ng-container *ngIf="squadsData">
-      <div *ngIf="squadsData.squad" class="nx-margin-bottom-2xs">
-        <sdc-squad-summary
-          [components]="squadsData.components || []"
-          [squad]="squadsData.squad"
-          (clickStateCount)="onClickStateCount($event)"
-        ></sdc-squad-summary>
-      </div>
-      <div *ngIf="componentsInView.length" class="compliance-cards-header nx-margin-bottom-2xs">
-        <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ 'Label.MyApplications' | translate }}</h4>
-        <nx-link>
-          <a (click)="showAll()">{{ 'Label.ShowAll' | translate }}</a>
-        </nx-link>
-      </div>
-      <sdc-compliance-bar-cards
-        [animation]="false"
-        [components]="componentsInView"
-        [showSquad]="false"
-        (clickLink)="complianceClicked($event)"
-        (clickDepartment)="departmentClicked($event)"
-      ></sdc-compliance-bar-cards>
-    </ng-container>
+    @if (squadsData.squad) {
+    <div class="nx-margin-bottom-2xs">
+      <sdc-squad-summary
+        [components]="squadsData.components || []"
+        [squad]="squadsData.squad"
+        (clickStateCount)="onClickStateCount($event)"
+      ></sdc-squad-summary>
+    </div>
+    } @if (componentsInView.length) {
+    <div class="compliance-cards-header nx-margin-bottom-2xs">
+      <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ 'Label.MyApplications' | translate }}</h4>
+      <nx-link>
+        <a (click)="showAll()">{{ 'Label.ShowAll' | translate }}</a>
+      </nx-link>
+    </div>
+    }
+    <sdc-compliance-bar-cards
+      [animation]="false"
+      [components]="componentsInView"
+      [showSquad]="false"
+      (clickLink)="complianceClicked($event)"
+      (clickDepartment)="departmentClicked($event)"
+    ></sdc-compliance-bar-cards>
   </div>
   <div [ngClass]="{ 'width-50': squadsData.squad, 'width-100': !squadsData.squad }" class="coverages nx-margin-left-3xs">
     <sdc-coverages
@@ -34,3 +36,4 @@
     ></sdc-coverages>
   </div>
 </div>
+}

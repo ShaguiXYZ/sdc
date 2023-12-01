@@ -1,5 +1,7 @@
 <div [id]="id" [ngStyle]="size">
-  <ng-container *ngIf="loaded">
+  @if (loaded) {
+  <ng-container>
     <ng-content></ng-content>
   </ng-container>
+  }
 </div>

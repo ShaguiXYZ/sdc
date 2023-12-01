@@ -1,4 +1,5 @@
-<nav *ngIf="breadcrumbConfig" aria-label="Breadcrumb" class="nx-margin-top-m">
+@if (breadcrumbConfig) {
+<nav aria-label="Breadcrumb" class="nx-margin-top-m">
   <ol nxBreadcrumb appearance="link">
     <li>
       <a nxBreadcrumbItem (click)="backClicked()">
@@ -12,3 +13,4 @@
     </li>
   </ol>
 </nav>
+}
