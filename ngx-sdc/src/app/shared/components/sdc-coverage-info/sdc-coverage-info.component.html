@@ -1,7 +1,11 @@
 @if (coverage) {
 <div class="coverage-content" [ngClass]="{ selectable: selectable, selected: selected }" (click)="onClick()">
   <div class="coverage-chart">
-    <ng-template #coverageViewRef />
+    <sdc-coverage-chart
+      [backgroundColor]="BACKGROUND_CHART_COLOR"
+      [coverage]="{ id: this.coverage.id, name: '', coverage: this.coverage.coverage }"
+      [size]="55"
+    ></sdc-coverage-chart>
   </div>
   <div class="coverage-text">
     <p nxCopytext="normal" class="name nx-margin-bottom-3xs">{{ coverage.name }}</p>

@@ -9,13 +9,23 @@ import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { SdcCoverageInfoComponent } from '../sdc-coverage-info';
+import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 
 @Component({
   selector: 'sdc-coverages',
   templateUrl: './sdc-coverages.component.html',
   styleUrls: ['./sdc-coverages.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, NxCardModule, NxHeadlineModule, NxInputModule, TranslateModule, SdcCoverageInfoComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    NxCardModule,
+    NxHeadlineModule,
+    NxInputModule,
+    NxSpinnerModule,
+    TranslateModule,
+    SdcCoverageInfoComponent
+  ]
 })
 export class SdcCoveragesComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true })

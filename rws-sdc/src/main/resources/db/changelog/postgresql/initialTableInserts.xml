@@ -8,10 +8,15 @@
 	<changeSet author="initial" id="20230707_50006">
 		<sql dbms="postgresql">
 			INSERT INTO companies (id,name,codes) VALUES
-			(2,'CORP. 1','DEF,CORP1'),
-			(3,'CORP. 2','CORP2'),
-			(4,'CORP. 3','CORP3'),
-			(8,'CORP. 4','CORP. 4');	   
+			(1,'CORP1','CORP. 1'),
+			(2,'CORP2','CORP. 2'),
+			(3,'CORP3','CORP. 3'),
+			(4,'CORP4','CORP. 4'),
+			(5,'CORP5','CORP. 5'),
+			(6,'CORP6','CORP. 6'),
+			(7,'CORP7','CORP. 7'),
+			(8,'CORP9','CORP. 8'),
+			(9,'CORP8','CORP. 9');
 		</sql>
 	</changeSet>
 				 

@@ -21,6 +21,16 @@
       top: 75px;
       width: -webkit-fill-available;
       width: -moz-available;
+
+      .loading,
+      .placeholder {
+        height: 55px;
+        width: 55px;
+      }
+
+      .loading {
+        margin: 0 auto;
+      }
     }
 
     .card-header {
