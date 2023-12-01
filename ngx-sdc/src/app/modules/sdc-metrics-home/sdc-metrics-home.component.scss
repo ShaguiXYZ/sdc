@@ -32,11 +32,12 @@
     display: flex;
 
     .application-graph {
-      flex-grow: 1;
+      width: 100%;
     }
 
     .chart-ops {
       display: flex;
+      margin-right: 10px;
       flex-direction: column;
 
       .sdc-op {
@@ -50,12 +51,8 @@
   .language-distribution {
     display: flex;
 
-    .actual-language-distribution {
-      width: 400px;
-    }
-
     .historical-language-distribution {
-      flex-grow: 1;
+      width: 100%;
     }
   }
 }

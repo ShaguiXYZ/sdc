@@ -22,7 +22,11 @@
           [size]="{ height: 330 }"
         ></sdc-time-evolution-multichart>
         } @case ('line') {
-        <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate"></sdc-pie-chart>
+        <sdc-pie-chart
+          [data]="lastLanguageDistribution"
+          [title]="'Label.ActualLanguageDistribution' | translate"
+          [size]="{ height: 350, width: '100%' }"
+        ></sdc-pie-chart>
         } @default {
         <sdc-no-data></sdc-no-data>
         }}

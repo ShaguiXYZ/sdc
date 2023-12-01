@@ -47,7 +47,7 @@
     </nx-accordion>
   </div>
 </div>
-} @if (metricsData) {
+
 <div class="application-coverages nx-margin-y-2xs">
   <nx-accordion>
     <nx-expansion-panel [expanded]="true">
@@ -79,7 +79,11 @@
             </div>
             <div class="actual-language-distribution">
               @if (lastLanguageDistribution) {
-              <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate"></sdc-pie-chart>
+              <sdc-pie-chart
+                [data]="lastLanguageDistribution"
+                [title]="'Label.ActualLanguageDistribution' | translate"
+                [size]="400"
+              ></sdc-pie-chart>
               }
             </div>
           </div>

@@ -34,12 +34,15 @@
             [size]="{ height: 330 }"
           ></sdc-time-evolution-multichart>
         </div>
+        @if (lastLanguageDistribution) {
         <div class="actual-language-distribution">
-          @if (lastLanguageDistribution) {
-          <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate"></sdc-pie-chart>
-          }
+          <sdc-pie-chart
+            [data]="lastLanguageDistribution"
+            [title]="'Label.ActualLanguageDistribution' | translate"
+            [size]="350"
+          ></sdc-pie-chart>
         </div>
-        }@else {
+        } }@else {
         <div class="no-data">
           <sdc-no-data></sdc-no-data>
         </div>

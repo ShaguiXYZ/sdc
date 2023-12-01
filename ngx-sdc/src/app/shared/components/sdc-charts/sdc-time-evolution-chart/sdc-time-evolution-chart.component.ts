@@ -5,6 +5,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { DataInfo } from 'src/app/core/models';
 import { ChartConfig, ChartData, ChartValue } from 'src/app/shared/models';
 import { legendPosition } from '../lib';
+import { ChartSize, SdcChartSize } from '../models';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
@@ -15,9 +16,7 @@ import { legendPosition } from '../lib';
 })
 export class SdcTimeEvolutionChartComponent {
   public echartsOptions: EChartsOption = {};
-  public styleSize: DataInfo<number> = {};
-
-  constructor() {}
+  public styleSize: DataInfo<string | number> = {};
 
   @Input()
   set config(value: ChartConfig) {
@@ -25,16 +24,8 @@ export class SdcTimeEvolutionChartComponent {
   }
 
   @Input()
-  public set size(value: { height?: number; width?: number }) {
-    delete this.styleSize['height.px'];
-    if (value.height) {
-      this.styleSize['height.px'] = value.height;
-    }
-
-    delete this.styleSize['width.px'];
-    if (value.width) {
-      this.styleSize['width.px'] = value.width;
-    }
+  public set size(value: ChartSize) {
+    this.styleSize = new SdcChartSize(value).styleSize;
   }
 
   private chartOptions(chartConfig: ChartConfig): EChartsOption {

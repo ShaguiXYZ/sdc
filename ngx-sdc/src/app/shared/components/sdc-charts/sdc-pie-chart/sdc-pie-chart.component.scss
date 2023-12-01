@@ -1,6 +1,6 @@
 .pie-chart {
-  display: block;
-  position: relative;
+  display: flex;
+  justify-content: center;
 
   .header {
     font-size: medium;

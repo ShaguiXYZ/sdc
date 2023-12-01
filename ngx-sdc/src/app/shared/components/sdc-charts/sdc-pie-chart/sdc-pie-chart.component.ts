@@ -5,6 +5,7 @@ import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { DataInfo } from 'src/app/core/models';
 import { stringGraphToRecord } from '../lib';
+import { ChartSize, SdcChartSize } from '../models';
 
 @Component({
   selector: 'sdc-pie-chart',
@@ -14,13 +15,11 @@ import { stringGraphToRecord } from '../lib';
   imports: [CommonModule, NgxEchartsModule, NxHeadlineModule]
 })
 export class SdcPieChartComponent implements OnInit {
+  public echartsOptions: EChartsOption = {};
+  public styleSize: DataInfo<number | string> = {};
+
   @Input()
   public title?: string;
-
-  @Input()
-  public size!: number;
-
-  public echartsOptions: EChartsOption = {};
 
   private _data!: string;
 
@@ -34,8 +33,9 @@ export class SdcPieChartComponent implements OnInit {
     this.echartsOptions = this.chartOptions(value);
   }
 
-  public get styleSize(): DataInfo<number> {
-    return { 'height.px': this.size, 'width.px': this.size };
+  @Input()
+  public set size(value: ChartSize) {
+    this.styleSize = new SdcChartSize(value).styleSize;
   }
 
   private chartOptions(chartData: string): EChartsOption {

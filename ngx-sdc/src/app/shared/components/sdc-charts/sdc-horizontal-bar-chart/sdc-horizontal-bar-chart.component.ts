@@ -5,6 +5,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { DataInfo } from 'src/app/core/models';
 import { ChartConfig, ChartValue } from 'src/app/shared/models';
 import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
+import { ChartSize, SdcChartSize } from '../models';
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',
@@ -17,11 +18,8 @@ import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
 export class SdcHorizontalBarChartComponent {
   @Input()
   public name!: string;
-
-  public styleSize: DataInfo<number> = {};
+  public styleSize: DataInfo<number | string> = {};
   public echartsOptions: EChartsOption = {};
-
-  constructor(private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe) {}
 
   @Input()
   set config(value: ChartConfig) {
@@ -29,16 +27,8 @@ export class SdcHorizontalBarChartComponent {
   }
 
   @Input()
-  public set size(value: { height?: number; width?: number }) {
-    delete this.styleSize['height.px'];
-    if (value.height) {
-      this.styleSize['height.px'] = value.height;
-    }
-
-    delete this.styleSize['width.px'];
-    if (value.width) {
-      this.styleSize['width.px'] = value.width;
-    }
+  public set size(value: ChartSize) {
+    this.styleSize = new SdcChartSize(value).styleSize;
   }
 
   private chartOptions(chartConfig: ChartConfig): EChartsOption {

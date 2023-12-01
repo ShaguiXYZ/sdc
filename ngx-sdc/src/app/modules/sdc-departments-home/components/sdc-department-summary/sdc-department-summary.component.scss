@@ -14,12 +14,9 @@
     display: flex;
     position: relative;
 
-    .actual-language-distribution {
-      width: 400px;
-    }
-
     .historical-language-distribution {
-      flex-grow: 1;
+      height: 100%;
+      width: 100%;
     }
 
     .no-data {

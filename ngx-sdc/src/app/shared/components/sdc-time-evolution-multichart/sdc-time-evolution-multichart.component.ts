@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DataInfo } from 'src/app/core/models';
 import { ChartConfig, SdcGraphData } from '../../models';
-import { SdcTimeEvolutionChartComponent, stringGraphToRecord } from '../sdc-charts';
+import { ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRecord } from '../sdc-charts';
 
 @Component({
   selector: 'sdc-time-evolution-multichart',
@@ -15,7 +15,7 @@ export class SdcTimeEvolutionMultichartComponent {
   public metricChartConfig: ChartConfig = { axis: {}, data: [] };
 
   @Input()
-  public size: { height?: number; width?: number } = {};
+  public size: ChartSize = {};
 
   @Input()
   public set data(value: SdcGraphData) {
