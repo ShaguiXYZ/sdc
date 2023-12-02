@@ -11,12 +11,13 @@ import { MetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from
 import { ChartConfig, ChartData } from 'src/app/shared/models';
 import { MetricsHistoryDataModel } from './models';
 import { SdcMetricHistoryGraphsService } from './services';
+import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
 
 @Component({
   selector: 'sdc-metric-history-graphs',
   templateUrl: './sdc-metric-history-graphs.component.html',
   styleUrls: ['./sdc-metric-history-graphs.component.scss'],
-  providers: [SdcMetricHistoryGraphsService],
+  providers: [SdcMetricHistoryGraphsService, SdcValueTypeToNumberPipe],
   standalone: true,
   imports: [SdcMetricInfoComponent, SdcNoDataComponent, SdcTimeEvolutionChartComponent, CommonModule, NxCopytextModule, TranslateModule]
 })
@@ -39,13 +40,14 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     private readonly dateService: DateService,
     private readonly sdcMetricHistoryGraphsService: SdcMetricHistoryGraphsService,
     private readonly titleCasePipe: TitleCasePipe,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe
   ) {}
 
   ngOnInit(): void {
     this.data$ = this.sdcMetricHistoryGraphsService.onDataChange().subscribe(metricsData => {
       this.metricsData = metricsData;
-      this.metricGraphConfig(this.metricsData.historicalAnalysis);
+      this.metricGraphConfig();
     });
 
     this.sdcMetricHistoryGraphsService.loadInitData(this.componentId, this.selectedAnalysis);
@@ -61,14 +63,20 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     this.selectedAnalysisChange.emit(analysis);
   }
 
-  private metricGraphConfig(analysis?: IMetricAnalysisModel[]): void {
+  private metricGraphConfig(): void {
+    const analysis = this.metricsData?.historicalAnalysis;
+
     const chartData: Array<ChartData> = [
       {
         name: this.metricsData?.selectedAnalysis?.metric.name,
         values:
           analysis?.map(value => ({
             color: value.metric.validation ? MetricState[stateByCoverage(value.coverage)].color : MetricState[DEFAULT_METRIC_STATE].color,
-            value: value.analysisValues.metricValue
+            value:
+              this.valueTypeToNumberPipe.transform(
+                value.analysisValues.metricValue,
+                this.metricsData?.selectedAnalysis?.metric.valueType
+              ) ?? 0
           })) ?? []
       }
     ];
@@ -81,7 +89,11 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
         values:
           analysis?.map(value => ({
             color: MetricState[MetricStates.WITH_RISK].color,
-            value: value.analysisValues.expectedValue ?? ''
+            value:
+              this.valueTypeToNumberPipe.transform(
+                value.analysisValues.expectedValue,
+                this.metricsData?.selectedAnalysis?.metric.valueType
+              ) ?? 0
           })) ?? []
       });
     }
@@ -94,7 +106,9 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
         values:
           analysis?.map(value => ({
             color: MetricState[MetricStates.ACCEPTABLE].color,
-            value: value.analysisValues.goodValue ?? ''
+            value:
+              this.valueTypeToNumberPipe.transform(value.analysisValues.goodValue, this.metricsData?.selectedAnalysis?.metric.valueType) ??
+              0
           })) ?? []
       });
     }
@@ -107,7 +121,11 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
         values:
           analysis?.map(value => ({
             color: MetricState[MetricStates.PERFECT].color,
-            value: value.analysisValues.perfectValue ?? ''
+            value:
+              this.valueTypeToNumberPipe.transform(
+                value.analysisValues.perfectValue,
+                this.metricsData?.selectedAnalysis?.metric.valueType
+              ) ?? 0
           })) ?? []
       });
     }
@@ -118,7 +136,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
       },
       data: chartData,
       options: { showVisualMap: true },
-      type: analysis?.find(value => value.metric.valueType)?.metric.valueType
+      type: this.metricsData?.selectedAnalysis?.metric.valueType
     };
   }
 }
