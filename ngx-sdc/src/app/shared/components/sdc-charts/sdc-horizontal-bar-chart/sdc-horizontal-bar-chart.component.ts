@@ -1,11 +1,10 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { NgxEchartsModule } from 'ngx-echarts';
-import { DataInfo } from 'src/app/core/models';
 import { ChartConfig, ChartValue } from 'src/app/shared/models';
 import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
-import { ChartSize, SdcChartSize } from '../models';
+import { ChartSize } from '../models';
+import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',
@@ -13,22 +12,20 @@ import { ChartSize, SdcChartSize } from '../models';
   styleUrls: ['./sdc-horizontal-bar-chart.component.scss'],
   providers: [SdcValueTypeToNumberPipe, TitleCasePipe],
   standalone: true,
-  imports: [CommonModule, NgxEchartsModule]
+  imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcHorizontalBarChartComponent {
+  public echartsOptions: EChartsOption = {};
+
   @Input()
   public name!: string;
-  public styleSize: DataInfo<number | string> = {};
-  public echartsOptions: EChartsOption = {};
+
+  @Input()
+  public size: ChartSize = {};
 
   @Input()
   set config(value: ChartConfig) {
     this.echartsOptions = this.chartOptions(value);
-  }
-
-  @Input()
-  public set size(value: ChartSize) {
-    this.styleSize = new SdcChartSize(value).styleSize;
   }
 
   private chartOptions(chartConfig: ChartConfig): EChartsOption {

@@ -2,24 +2,25 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { EChartsOption } from 'echarts';
-import { NgxEchartsModule } from 'ngx-echarts';
-import { DataInfo } from 'src/app/core/models';
 import { stringGraphToRecord } from '../lib';
-import { ChartSize, SdcChartSize } from '../models';
+import { ChartSize } from '../models';
+import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
   selector: 'sdc-pie-chart',
   templateUrl: './sdc-pie-chart.component.html',
   styleUrls: ['./sdc-pie-chart.component.scss'],
   standalone: true,
-  imports: [CommonModule, NgxEchartsModule, NxHeadlineModule]
+  imports: [CommonModule, SdcEchartComponent, NxHeadlineModule]
 })
 export class SdcPieChartComponent implements OnInit {
   public echartsOptions: EChartsOption = {};
-  public styleSize: DataInfo<number | string> = {};
 
   @Input()
   public title?: string;
+
+  @Input()
+  public size: ChartSize = {};
 
   private _data!: string;
 
@@ -31,11 +32,6 @@ export class SdcPieChartComponent implements OnInit {
   public set data(value: string) {
     this._data = value;
     this.echartsOptions = this.chartOptions(value);
-  }
-
-  @Input()
-  public set size(value: ChartSize) {
-    this.styleSize = new SdcChartSize(value).styleSize;
   }
 
   private chartOptions(chartData: string): EChartsOption {

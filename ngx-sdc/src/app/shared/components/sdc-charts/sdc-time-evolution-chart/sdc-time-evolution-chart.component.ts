@@ -1,31 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { NgxEchartsModule } from 'ngx-echarts';
 import { DataInfo } from 'src/app/core/models';
 import { ChartConfig, ChartData, ChartValue } from 'src/app/shared/models';
 import { legendPosition } from '../lib';
-import { ChartSize, SdcChartSize } from '../models';
+import { ChartSize } from '../models';
+import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
   templateUrl: './sdc-time-evolution-chart.component.html',
   styleUrls: ['./sdc-time-evolution-chart.component.scss'],
   standalone: true,
-  imports: [CommonModule, NgxEchartsModule]
+  imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcTimeEvolutionChartComponent {
   public echartsOptions: EChartsOption = {};
-  public styleSize: DataInfo<string | number> = {};
+
+  @Input()
+  public size: ChartSize = {};
 
   @Input()
   set config(value: ChartConfig) {
     this.echartsOptions = this.chartOptions(value);
-  }
-
-  @Input()
-  public set size(value: ChartSize) {
-    this.styleSize = new SdcChartSize(value).styleSize;
   }
 
   private chartOptions(chartConfig: ChartConfig): EChartsOption {

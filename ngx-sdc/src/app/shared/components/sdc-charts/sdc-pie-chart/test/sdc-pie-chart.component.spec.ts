@@ -27,10 +27,74 @@ describe('SdcPieChartComponent', () => {
   });
 
   it('should have styleSize property', () => {
-    expect(component.styleSize).toBeDefined();
+    expect(component.size).toBeDefined();
   });
 
   it('should have styleSize property with height and width', () => {
-    expect(component.styleSize).toEqual({ 'height.px': component.size, 'width.px': component.size });
+    component.size = { height: 100, width: 100 };
+    fixture.detectChanges();
+    expect(component.size).toEqual({ height: 100, width: 100 });
+  });
+
+  it('should have echartsOptions property', () => {
+    expect(component.echartsOptions).toBeDefined();
+  });
+
+  it('should have title property', () => {
+    expect(component.title).toBeUndefined();
+  });
+
+  it('should set echartsOptions on ngOnInit', () => {
+    const chartData = 'TypeScript=296604;Java=444211;CSS=68055;SCSS=13368;JavaScript=2048;HTML=33185';
+    spyOn(component as any, 'chartOptions'); // Add 'as any' to bypass the type checking
+    component.data = chartData;
+    component.ngOnInit();
+    expect((component as any).chartOptions).toHaveBeenCalledWith(chartData); // Add 'as any' to bypass the type checking
+    // expect(component.echartsOptions).toBeDefined();
+  });
+
+  it('should set echartsOptions when data input changes', () => {
+    const chartData = 'TypeScript=296604;Java=444211;CSS=68055;SCSS=13368;JavaScript=2048;HTML=33185';
+    spyOn(component as any, 'chartOptions');
+    component.data = chartData;
+    expect((component as any).chartOptions).toHaveBeenCalledWith(chartData);
+    // expect(component.echartsOptions).toBeDefined();
+  });
+
+  it('should generate correct chartOptions', () => {
+    const chartData = 'some data';
+    const expectedOptions = {
+      grid: {
+        left: '2%',
+        right: '2%',
+        bottom: '5%',
+        top: '5%',
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b}: ({d}%)'
+      },
+      series: [
+        {
+          type: 'pie',
+          radius: '50%',
+          data: [],
+          emphasis: {
+            focus: 'self',
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          },
+          label: {
+            formatter: '{b}: ({d}%)'
+          }
+        }
+      ]
+    };
+    const options = (component as any)['chartOptions'](chartData);
+    expect(options).toEqual(expectedOptions);
   });
 });

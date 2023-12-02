@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { NgxEchartsModule } from 'ngx-echarts';
 import { DataInfo } from 'src/app/core/models';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
   selector: 'sdc-coverage-chart',
   templateUrl: './sdc-coverage-chart.component.html',
   styleUrls: ['./sdc-coverage-chart.component.scss'],
   standalone: true,
-  imports: [CommonModule, NgxEchartsModule]
+  imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcCoverageChartComponent implements OnInit {
   @Input()
@@ -27,14 +27,14 @@ export class SdcCoverageChartComponent implements OnInit {
 
   private _coverage!: ICoverageModel;
 
+  ngOnInit(): void {
+    this.echartsOptions = this.chartOptions(this._coverage);
+  }
+
   @Input()
   public set coverage(value: ICoverageModel) {
     this._coverage = value;
     this.echartsOptions = this.chartOptions(value);
-  }
-
-  ngOnInit(): void {
-    this.echartsOptions = this.chartOptions(this._coverage);
   }
 
   public get styleSize(): DataInfo<number> {
