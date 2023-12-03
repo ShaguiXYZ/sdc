@@ -6,7 +6,7 @@
   .summary-charts,
   .language-distribution {
     align-items: center;
-    height: 350px;
+    min-height: 350px;
     width: 100%;
   }
 
@@ -23,7 +23,9 @@
 
   .summary-charts {
     display: flex;
+    flex-wrap: wrap;
 
+    .summary-coverage,
     .summary-count {
       flex: 1;
     }

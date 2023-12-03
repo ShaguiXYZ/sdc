@@ -3,13 +3,15 @@
   <nx-tab-group class="tiny-tabs" [(selectedIndex)]="selectedTabIndex">
     <nx-tab [label]="'Label.SquadSumary' | translate">
       <div class="summary-charts">
-        <sdc-coverage-chart
-          [animation]="true"
-          [backgroundColor]="BACKGROUND_SQUAD_COLOR"
-          [coverage]="squad"
-          [size]="300"
-        ></sdc-coverage-chart>
-        <div class="summary-count">
+        <div class="summary-coverage sdc-center">
+          <sdc-coverage-chart
+            [animation]="true"
+            [backgroundColor]="BACKGROUND_SQUAD_COLOR"
+            [coverage]="squad"
+            [size]="300"
+          ></sdc-coverage-chart>
+        </div>
+        <div class="summary-count nx-margin-s">
           <sdc-components-state-count [components]="components" (clickStateCount)="onClickStateCount($event)"></sdc-components-state-count>
         </div>
       </div>
