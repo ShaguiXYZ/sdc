@@ -12,10 +12,10 @@ export class LanguageService {
   private languageChange$: EventEmitter<string> = new EventEmitter();
 
   constructor(
-    @Optional() @Inject(NX_LANGUAGE_CONFIG) public languageConfig: LanguageConfig,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(LOCALE_ID) private locale: string,
-    private translateService: TranslateService
+    @Optional() @Inject(NX_LANGUAGE_CONFIG) private languageConfig: LanguageConfig,
+    @Inject(DOCUMENT) private readonly document: Document,
+    @Inject(LOCALE_ID) private readonly locale: string,
+    private readonly translateService: TranslateService
   ) {
     this.configureService();
     this.i18n(this.getLangKey() || this.locale);

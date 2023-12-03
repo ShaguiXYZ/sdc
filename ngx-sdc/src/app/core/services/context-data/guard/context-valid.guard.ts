@@ -10,7 +10,7 @@ import { ContextConfig } from '../models';
 @Injectable({ providedIn: 'root' })
 export class ContextValidGuard {
   constructor(
-    @Optional() @Inject(NX_CONTEX_CONFIG) private contextConfig: ContextConfig,
+    @Optional() @Inject(NX_CONTEX_CONFIG) private readonly contextConfig: ContextConfig,
     private router: Router,
     private contextData: ContextDataService,
     private notificationService: NotificationService,

@@ -55,8 +55,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     @Optional() @Inject(NX_HEADER_CONFIG) private config: IHeaderConfig,
-    private languageService: HeaderLanguageService,
-    private securityService: HeaderSecurityService
+    private readonly languageService: HeaderLanguageService,
+    private readonly securityService: HeaderSecurityService
   ) {}
 
   ngOnInit() {

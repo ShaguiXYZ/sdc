@@ -6,7 +6,7 @@
   .summary-charts,
   .language-distribution {
     align-items: center;
-    height: 350px;
+    min-height: 350px;
     width: 100%;
   }
 
@@ -26,10 +26,11 @@
 
   .summary-charts {
     display: flex;
+    flex-wrap: wrap;
 
     .summary-bar-chart {
+      flex-grow: 1;
       padding: 0 25px;
-      width: 60%;
 
       .title {
         text-align: center;
@@ -37,7 +38,9 @@
     }
 
     .summary-pie-chart {
-      width: 40%;
+      max-width: 450px;
+      min-width: 300px;
+      width: 100%;
     }
   }
 }

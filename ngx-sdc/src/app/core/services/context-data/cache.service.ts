@@ -18,8 +18,8 @@ export class CacheService implements OnDestroy {
 
   constructor(
     @Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig,
-    private contextData: ContextDataService,
-    private scheduleroService: SchedulerService
+    private readonly contextData: ContextDataService,
+    private readonly scheduleroService: SchedulerService
   ) {
     this.schedulerPeriod =
       contextConfig?.cache?.schedulerPeriod && contextConfig.cache.schedulerPeriod > MIN_CACHE_SCHEDULER_PERIOD
