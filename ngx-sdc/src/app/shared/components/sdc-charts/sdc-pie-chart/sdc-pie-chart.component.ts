@@ -9,7 +9,6 @@ import { SdcEchartComponent } from '../sdc-echart.component';
 @Component({
   selector: 'sdc-pie-chart',
   templateUrl: './sdc-pie-chart.component.html',
-  styleUrls: ['./sdc-pie-chart.component.scss'],
   standalone: true,
   imports: [CommonModule, SdcEchartComponent, NxHeadlineModule]
 })

@@ -12,8 +12,9 @@ import { ChartSize, SdcChartSize } from './models';
     <div echarts [options]="options" [ngStyle]="styleSize"></div>
     } @placeholder (minimum 300ms) {
     <!-- placeholder -->
-    } @loading (after 300ms; minimum 1.5s) {
     <div class="placeholder" [ngStyle]="styleSize"></div>
+    } @loading (after 300ms; minimum 1.5s) {
+    <div class="loading" [ngStyle]="styleSize"></div>
     }
   `,
   styles: [
@@ -24,12 +25,16 @@ import { ChartSize, SdcChartSize } from './models';
         width: 100%;
       }
 
+      .loading,
       .placeholder {
+        height: 100%;
+        width: 100%;
+      }
+
+      .loading {
         background-image: url('/assets/images/loading-spinner.svg');
         background-position: center;
         background-repeat: no-repeat;
-        height: 100%;
-        width: 100%;
       }
     `
   ],
