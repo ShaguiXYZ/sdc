@@ -11,6 +11,7 @@ public class Ctes {
 	public static final String AUTHORITIES_CLAIM = "authorities";
 
 	public static class AnalysisServicesTypes {
+		public static final String CUSTOM = "CUSTOM"; // = AnalysisType.CUSTOM
 		public static final String GIT = "GIT"; // = AnalysisType.GIT
 		public static final String GIT_JSON = "GIT_JSON"; // = AnalysisType.GIT_JSON
 		public static final String GIT_XML = "GIT_XML"; // = AnalysisType.GIT_XML
