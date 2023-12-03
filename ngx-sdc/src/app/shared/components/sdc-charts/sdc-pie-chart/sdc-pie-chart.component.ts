@@ -69,6 +69,13 @@ export class SdcPieChartComponent implements OnInit {
       ]
     };
 
+    if (this.title) {
+      option.title = {
+        text: this.title,
+        left: 'center'
+      };
+    }
+
     return option;
   }
 }

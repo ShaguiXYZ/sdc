@@ -18,16 +18,6 @@ export class SdcMetricHistoryGraphsService {
     return this.data$.asObservable();
   }
 
-  public analysisHistoryData(componentId: number, analysis: IMetricAnalysisModel): void {
-    this.analysisService
-      .metricHistory(componentId, analysis.metric.id)
-      .then(data => {
-        this.metricData = { ...this.metricData, historicalAnalysis: data.page, selectedAnalysis: analysis };
-        this.data$.next(this.metricData);
-      })
-      .catch(_console.error);
-  }
-
   public loadInitData(componentId: number, selectedAnalysis?: IMetricAnalysisModel): void {
     this.analysisService
       .componentAnalysis(componentId)
@@ -47,6 +37,16 @@ export class SdcMetricHistoryGraphsService {
         } else {
           this.data$.next(this.metricData);
         }
+      })
+      .catch(_console.error);
+  }
+
+  public analysisHistoryData(componentId: number, analysis: IMetricAnalysisModel): void {
+    this.analysisService
+      .metricHistory(componentId, analysis.metric.id)
+      .then(data => {
+        this.metricData = { ...this.metricData, historicalAnalysis: data.page, selectedAnalysis: analysis };
+        this.data$.next(this.metricData);
       })
       .catch(_console.error);
   }
