@@ -43,8 +43,7 @@ public abstract class GitDocumentService implements AnalysisInterface {
 
 	protected abstract Class<? extends SdcDocument> documentOf();
 
-	protected abstract ComponentAnalysisModel executeMetricFn(String fn, ComponentModel component, MetricModel metric,
-			SdcDocument docuemnt);
+	protected abstract ComponentAnalysisModel executeMetricFn(String fn, DocumentServiceDataDTO data);
 
 	public static void setConfig(GitDocumentServiceConfig config) {
 		GitDocumentService.config = config;
@@ -143,16 +142,16 @@ public abstract class GitDocumentService implements AnalysisInterface {
 
 	private Function<MetricModel, ComponentAnalysisModel> execute(ComponentModel component, SdcDocument docuemnt) {
 		return metric -> {
-			Optional<String> fn = DictioraryReplacement.fn(metric.getValue());
+			String fn = DictioraryReplacement.fn(metric.getValue()).orElseGet(metric::getValue);
 
-			if (fn.isPresent() && isGenericFn(fn.get())) {
-				String value = MetricLibrary.Library.valueOf(fn.get().toUpperCase())
+			if (isGenericFn(fn)) {
+				String value = MetricLibrary.Library.valueOf(fn.toUpperCase())
 						.apply(new DocumentServiceDataDTO(component, metric, docuemnt))
 						.orElseGet(AnalysisUtils.notDataFound(new ServiceDataDTO(component, metric)));
 
 				return new ComponentAnalysisModel(component, metric, value);
 			} else {
-				return executeMetricFn(metric.getValue(), component, metric, docuemnt);
+				return executeMetricFn(fn, new DocumentServiceDataDTO(component, metric, docuemnt));
 			}
 		};
 	}

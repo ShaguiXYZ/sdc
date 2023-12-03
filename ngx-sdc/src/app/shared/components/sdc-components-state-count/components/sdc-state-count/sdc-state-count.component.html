@@ -4,9 +4,9 @@
     <span>{{ 'Component.State.' + metricConfig.style | translate | titlecase }}</span>
     <div class="flex-row">
       <div class="application-count">
-        <span class="nx-margin-right-m">{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
+        <span>{{ stateCount.count }} {{ 'Label.Applications' | translate }}</span>
       </div>
-      <div class="show-more nx-margin-x-xs">
+      <div class="show-more">
         <nx-link>
           <a (click)="onClick()">{{ 'Label.ShowMore' | translate }}</a>
         </nx-link>

@@ -12,8 +12,8 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.service.CustomAnalysisService;
 import com.shagui.sdc.util.Ctes;
+import com.shagui.sdc.util.DictioraryReplacement;
 import com.shagui.sdc.util.analysis.CustomAnalysisFunctions;
-import com.shagui.sdc.util.git.lib.GitLib;
 
 @Service(Ctes.AnalysisServicesTypes.CUSTOM)
 public class CustomAnalysisServiceImpl implements CustomAnalysisService {
@@ -30,7 +30,8 @@ public class CustomAnalysisServiceImpl implements CustomAnalysisService {
 
     private Function<MetricModel, ComponentAnalysisModel> analyzeMetric(ComponentModel component) {
         return metric -> {
-            String value = MetricLibrary.Library.valueOf(metric.getValue().toUpperCase())
+            String fn = DictioraryReplacement.fn(metric.getValue()).orElseGet(metric::getValue);
+            String value = MetricLibrary.Library.valueOf(fn.toUpperCase())
                     .apply(new ServiceDataDTO(component, metric)).orElseGet(() -> CustomAnalysisFunctions.notDataFound
                             .apply(new ServiceDataDTO(component, metric)).get());
 

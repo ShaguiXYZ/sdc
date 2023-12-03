@@ -24,14 +24,13 @@ public final class GitXmlServiceImpl extends GitDocumentService {
 	}
 
 	@Override
-	protected ComponentAnalysisModel executeMetricFn(String fn, ComponentModel component, MetricModel metric,
-			SdcDocument docuemnt) {
+	protected ComponentAnalysisModel executeMetricFn(String fn, DocumentServiceDataDTO data) {
 
 		if (isServiceFn(fn)) {
 			String value = MetricLibrary.Library.valueOf(fn.toUpperCase())
-					.apply(new DocumentServiceDataDTO(component, metric, docuemnt));
+					.apply(data);
 
-			return new ComponentAnalysisModel(component, metric, value);
+			return new ComponentAnalysisModel(data.getComponent(), data.getMetric(), value);
 		}
 
 		throw new SdcCustomException(
