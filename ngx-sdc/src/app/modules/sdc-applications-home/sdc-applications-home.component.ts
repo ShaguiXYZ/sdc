@@ -51,7 +51,8 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   public ELEMENTS_BY_PAGE = ELEMENTS_BY_PAGE;
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
-  public tags: ITagModel[] = [];
+  public tags: { all: ITagModel[]; selected: ITagModel[]; availables: ITagModel[] } = { all: [], selected: [], availables: [] };
+
   public coverages: { key: string; label: string; style: string }[] = [];
   public applicationsInfo?: SdcApplicationsDataModel;
 
@@ -68,6 +69,8 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     this.subscription$.push(
       this.sdcApplicationsService.onDataChange().subscribe(info => {
         this.applicationsInfo = info;
+
+        this.groupTags();
 
         this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
           ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
@@ -187,6 +190,11 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  private groupTags(): void {
+    this.tags.selected = this.tags.all.filter(tag => this.applicationsInfo?.tags?.includes(tag.name)) ?? [];
+    this.tags.availables = this.tags.all.filter(tag => !this.applicationsInfo?.tags?.includes(tag.name)) ?? [];
+  }
+
   private async loadData() {
     const [coverages, squads, tags] = await Promise.all([
       this.sdcApplicationsService.availableCoverages(),
@@ -196,8 +204,9 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
 
     this.coverages = coverages;
     this.squads = squads.page;
-    this.tags = tags.page;
-    this.tags.sort((a, b) => a.name.localeCompare(b.name));
+    this.tags.all = tags.page;
+    this.tags.all.sort((a, b) => a.name.localeCompare(b.name));
+    this.groupTags();
   }
 
   private createForm(): void {
