@@ -20,6 +20,7 @@ import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.StaticRepositoryConfig;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.service.impl.DependabotServiceImpl;
+import com.shagui.sdc.test.utils.ReflectUtils;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
 import com.shagui.sdc.util.git.GitUtils;
@@ -39,9 +40,11 @@ class DependabotServiceImplTest {
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
-		StaticRepository.setConfig(staticRepositoryConfig);
 
-		UrlUtils.setConfig(RwsTestUtils.urlUtilsConfig());
+		ReflectUtils.invoke(GitUtils.class, "setConfig", new GitUtilsConfig(gitClient));
+		ReflectUtils.invoke(StaticRepository.class, "setConfig", staticRepositoryConfig);
+		ReflectUtils.invoke(UrlUtils.class, "setConfig", RwsTestUtils.urlUtilsConfig());
+
 		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
 
@@ -49,9 +52,6 @@ class DependabotServiceImplTest {
 				add(RwsTestUtils.uriModelMock(UriType.GIT));
 			}
 		});
-
-		GitUtils.setConfig(new GitUtilsConfig(gitClient));
-
 	}
 
 	@Test

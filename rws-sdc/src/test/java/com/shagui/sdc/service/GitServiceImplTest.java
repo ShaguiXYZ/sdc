@@ -20,6 +20,7 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.service.impl.GitServiceImpl;
+import com.shagui.sdc.test.utils.ReflectUtils;
 import com.shagui.sdc.util.ComponentUtilsConfig;
 import com.shagui.sdc.util.git.GitUtils;
 import com.shagui.sdc.util.git.GitUtilsConfig;
@@ -46,8 +47,8 @@ class GitServiceImplTest {
 		when(staticRepositoryConfig.datalists()).thenReturn(new ArrayList<>());
 		when(staticRepositoryConfig.componentParams()).thenReturn(new ArrayList<>());
 
-		StaticRepository.setConfig(staticRepositoryConfig);
-		GitUtils.setConfig(gitConfig);
+		ReflectUtils.invoke(GitUtils.class, "setConfig", gitConfig);
+		ReflectUtils.invoke(StaticRepository.class, "setConfig", staticRepositoryConfig);
 	}
 
 	@Test

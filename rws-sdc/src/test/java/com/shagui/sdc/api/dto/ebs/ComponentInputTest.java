@@ -17,6 +17,7 @@ import com.shagui.sdc.json.StaticRepositoryConfig;
 import com.shagui.sdc.json.model.ComponentParamsModel;
 import com.shagui.sdc.json.model.ParamConfigModel;
 import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.test.utils.ReflectUtils;
 
 class ComponentInputTest {
 	@Mock
@@ -25,8 +26,7 @@ class ComponentInputTest {
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
-
-		StaticRepository.setConfig(config);
+		ReflectUtils.invoke(StaticRepository.class, "setConfig", config);
 	}
 
 	@Test
@@ -101,23 +101,25 @@ class ComponentInputTest {
 			 */
 			private static final long serialVersionUID = 1L;
 
-		{
-			ComponentParamsModel model = new ComponentParamsModel();
-			model.setType("testType");
-			model.setParams(new ArrayList<>() {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
-
 			{
-				ParamConfigModel param = new ParamConfigModel();
-				param.setName("prop1");
-				add(param);
-			}});
+				ComponentParamsModel model = new ComponentParamsModel();
+				model.setType("testType");
+				model.setParams(new ArrayList<>() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
 
-			add(model);
-		}});
+					{
+						ParamConfigModel param = new ParamConfigModel();
+						param.setName("prop1");
+						add(param);
+					}
+				});
+
+				add(model);
+			}
+		});
 
 		ComponentInput input = new ComponentInput();
 		input.setName("test");

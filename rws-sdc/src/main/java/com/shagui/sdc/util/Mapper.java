@@ -37,7 +37,7 @@ public class Mapper {
 	private Mapper() {
 	}
 
-	public static void setConfig(MapperConfig config) {
+	protected static void setConfig(MapperConfig config) {
 		Mapper.config = config;
 	}
 

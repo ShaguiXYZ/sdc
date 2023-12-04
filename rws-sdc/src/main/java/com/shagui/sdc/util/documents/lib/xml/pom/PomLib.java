@@ -13,7 +13,7 @@ public class PomLib {
 	private PomLib() {
 	}
 
-	public static void setConfig(PomLibConfig config) {
+	protected static void setConfig(PomLibConfig config) {
 		PomLib.config = config;
 	}
 

@@ -22,7 +22,7 @@ public class AnalysisUtils {
 	private AnalysisUtils() {
 	}
 
-	public static void setConfig(AnalysisUtilsConfig config) {
+	protected static void setConfig(AnalysisUtilsConfig config) {
 		AnalysisUtils.config = config;
 	}
 

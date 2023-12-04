@@ -29,6 +29,7 @@ import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.service.impl.AnalysisServiceImpl;
+import com.shagui.sdc.test.utils.ReflectUtils;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.AnalysisUtils;
 import com.shagui.sdc.util.AnalysisUtilsConfig;
@@ -53,7 +54,8 @@ class AnalysisServiceImplTest {
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
-		AnalysisUtils.setConfig(new AnalysisUtilsConfig(metricValueRepositoryMock));
+
+		ReflectUtils.invoke(AnalysisUtils.class, "setConfig", new AnalysisUtilsConfig(metricValueRepositoryMock));
 	}
 
 	@Test

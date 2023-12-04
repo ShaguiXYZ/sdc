@@ -49,7 +49,7 @@ public class GitUtils {
 	private GitUtils() {
 	}
 
-	public static void setConfig(GitUtilsConfig config) {
+	protected static void setConfig(GitUtilsConfig config) {
 		GitUtils.config = config;
 	}
 

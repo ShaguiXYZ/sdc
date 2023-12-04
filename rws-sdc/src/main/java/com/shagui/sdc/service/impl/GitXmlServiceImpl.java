@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.model.ComponentAnalysisModel;
-import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.service.GitDocumentService;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.documents.SdcDocument;

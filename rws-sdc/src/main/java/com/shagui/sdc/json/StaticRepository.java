@@ -13,7 +13,7 @@ public class StaticRepository {
 
 	private static StaticRepositoryConfig config;
 
-	public static void setConfig(StaticRepositoryConfig config) {
+	protected static void setConfig(StaticRepositoryConfig config) {
 		StaticRepository.config = config;
 	}
 

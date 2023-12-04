@@ -33,7 +33,7 @@ public class ComponentUtils {
 	private ComponentUtils() {
 	}
 
-	public static void setConfig(ComponentUtilsConfig config) {
+	protected static void setConfig(ComponentUtilsConfig config) {
 		ComponentUtils.config = config;
 	}
 

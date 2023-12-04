@@ -23,7 +23,7 @@ public class UrlUtils {
 	private UrlUtils() {
 	}
 
-	public static void setConfig(UrlUtilsConfig config) {
+	protected static void setConfig(UrlUtilsConfig config) {
 		UrlUtils.config = config;
 	}
 

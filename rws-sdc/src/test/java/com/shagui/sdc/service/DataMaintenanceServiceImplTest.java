@@ -33,6 +33,7 @@ import com.shagui.sdc.repository.ComponentUriRepository;
 import com.shagui.sdc.repository.DepartmentRepository;
 import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.service.impl.DataMaintenanceServiceImpl;
+import com.shagui.sdc.test.utils.ReflectUtils;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.UrlUtils;
 
@@ -135,9 +136,9 @@ class DataMaintenanceServiceImplTest {
 		when(componentRepositoryMock.findBySquad_IdAndName(anyInt(), anyString())).thenReturn(componentOptional);
 		when(componentRepositoryMock.save(any(ComponentModel.class))).thenReturn(RwsTestUtils.componentModelMock());
 
-		StaticRepository.setConfig(staticRepositoryConfig);
+		ReflectUtils.invoke(StaticRepository.class, "setConfig", staticRepositoryConfig);
+		ReflectUtils.invoke(UrlUtils.class, "setConfig", RwsTestUtils.urlUtilsConfig());
 
-		UrlUtils.setConfig(RwsTestUtils.urlUtilsConfig());
 		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
 

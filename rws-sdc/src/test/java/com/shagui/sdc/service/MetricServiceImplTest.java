@@ -19,6 +19,7 @@ import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.service.impl.MetricServiceImpl;
+import com.shagui.sdc.test.utils.ReflectUtils;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 import com.shagui.sdc.util.Mapper;
 
@@ -33,7 +34,8 @@ class MetricServiceImplTest {
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
-		Mapper.setConfig(RwsTestUtils.mapperConfig());
+
+		ReflectUtils.invoke(Mapper.class, "setConfig", RwsTestUtils.mapperConfig());
 	}
 
 	@Test

@@ -45,7 +45,7 @@ public abstract class GitDocumentService implements AnalysisInterface {
 
 	protected abstract ComponentAnalysisModel executeMetricFn(String fn, DocumentServiceDataDTO data);
 
-	public static void setConfig(GitDocumentServiceConfig config) {
+	protected static void setConfig(GitDocumentServiceConfig config) {
 		GitDocumentService.config = config;
 	}
 
