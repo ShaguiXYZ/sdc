@@ -3,15 +3,16 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { IAnalysisValuesModel, IMetricAnalysisModel } from 'src/app/core/models/sdc';
+import { $ } from 'src/app/core/lib';
+import { AnalysisFactor, IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { DateService } from 'src/app/core/services';
 import { SdcMetricInfoComponent, SdcNoDataComponent } from 'src/app/shared/components';
 import { SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
-import { MetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/shared/lib';
+import { DEFAULT_METRIC_STATE, MetricState, MetricStates, stateByCoverage } from 'src/app/shared/lib';
 import { ChartConfig, ChartData, ChartValue } from 'src/app/shared/models';
+import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
 import { MetricsHistoryDataModel } from './models';
 import { SdcMetricHistoryGraphsService } from './services';
-import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
 
 @Component({
   selector: 'sdc-metric-history-graphs',
@@ -22,6 +23,12 @@ import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
   imports: [SdcMetricInfoComponent, SdcNoDataComponent, SdcTimeEvolutionChartComponent, CommonModule, NxCopytextModule, TranslateModule]
 })
 export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
+  public availableFactorCharts: { [key in AnalysisFactor]: boolean } = {
+    expectedValue: false,
+    goodValue: false,
+    perfectValue: false
+  };
+  public availableFactorChartsKeys: AnalysisFactor[] = Object.keys(this.availableFactorCharts) as AnalysisFactor[];
   public metricChartConfig!: ChartConfig;
   public metricsData?: MetricsHistoryDataModel;
 
@@ -65,6 +72,10 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     this.selectedAnalysisChange.emit(analysis);
   }
 
+  public toggleFactorChart(factor: AnalysisFactor): void {
+    this.sdcMetricHistoryGraphsService.toggleFactorChart(factor);
+  }
+
   private metricGraphConfig(): ChartConfig {
     const analysis = this.metricsData?.historicalAnalysis;
 
@@ -78,7 +89,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     };
   }
 
-  private chartData(analysis: IMetricAnalysisModel[], showFactorChart?: Record<keyof IAnalysisValuesModel, boolean>): Array<ChartData> {
+  private chartData(analysis: IMetricAnalysisModel[], showFactorChart?: Record<AnalysisFactor, boolean>): Array<ChartData> {
     const data: Array<ChartData> = [
       {
         name: this.metricsData?.selectedAnalysis?.metric.name,
@@ -86,9 +97,22 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
       }
     ];
 
+    this.availableFactorCharts.expectedValue = analysis?.some(data => data.analysisValues.expectedValue);
+    this.availableFactorCharts.goodValue = analysis?.some(data => data.analysisValues.goodValue);
+    this.availableFactorCharts.perfectValue = analysis?.some(data => data.analysisValues.perfectValue);
+
     showFactorChart?.['expectedValue'] && this.addFactorChartData(data, analysis, MetricStates.WITH_RISK, 'expectedValue');
     showFactorChart?.['goodValue'] && this.addFactorChartData(data, analysis, MetricStates.ACCEPTABLE, 'goodValue');
     showFactorChart?.['perfectValue'] && this.addFactorChartData(data, analysis, MetricStates.PERFECT, 'perfectValue');
+
+    // @howto: disable factor chart inputs if there is no data for that factor
+    Object.keys(this.availableFactorCharts).forEach(value => {
+      const inputElement = $(`.factor-${value} input`) as HTMLInputElement;
+
+      if (inputElement) {
+        inputElement.disabled = !this.availableFactorCharts[value as AnalysisFactor];
+      }
+    });
 
     return data;
   }
@@ -105,9 +129,9 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     data: Array<ChartData>,
     analysis: IMetricAnalysisModel[],
     state: MetricStates,
-    valueKey: keyof IMetricAnalysisModel['analysisValues']
+    valueKey: AnalysisFactor
   ): void {
-    if (analysis?.some(data => data.analysisValues[valueKey])) {
+    if (this.availableFactorCharts[valueKey]) {
       data.push({
         lineStyle: 'dotted',
         smooth: true,
@@ -117,11 +141,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getFactorChartDataValue(
-    value: IMetricAnalysisModel,
-    state: MetricStates,
-    valueKey: keyof IMetricAnalysisModel['analysisValues']
-  ): ChartValue {
+  private getFactorChartDataValue(value: IMetricAnalysisModel, state: MetricStates, valueKey: AnalysisFactor): ChartValue {
     return {
       color: MetricState[state].color,
       value: this.valueTypeToNumberPipe.transform(value.analysisValues[valueKey], this.metricsData?.selectedAnalysis?.metric.valueType) ?? 0

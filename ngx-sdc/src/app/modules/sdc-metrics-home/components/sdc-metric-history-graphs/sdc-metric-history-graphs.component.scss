@@ -1,4 +1,5 @@
 @import 'core-colors';
+@import 'colors';
 
 .evolution-content {
   display: flex;
@@ -21,6 +22,43 @@
       p {
         margin: 0;
         padding: 0;
+      }
+    }
+
+    .factors-selection {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+
+      .factor {
+        padding: 0 8px;
+
+        &.factor-expectedValue {
+          color: $state-risk;
+        }
+
+        &.factor-goodValue {
+          color: $state-acceptable;
+        }
+
+        &.factor-perfectValue {
+          color: $state-perfect;
+        }
+
+        &.fade {
+          opacity: 0.5;
+          scale: 0.8;
+          transition:
+            opacity 1s,
+            scale 1s;
+        }
+
+        &.show {
+          opacity: 1;
+          transition:
+            opacity 1s,
+            scale 1s;
+        }
       }
     }
   }

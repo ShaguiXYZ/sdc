@@ -12,25 +12,7 @@
 
 :root {
   // color-scheme: light dark;
-}
 
-body {
-  height: 100vh;
-  overflow-x: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-
-  main {
-    padding-bottom: 15px;
-  }
-
-  input {
-    user-select: auto;
-    -webkit-user-select: auto;
-  }
-}
-
-:root {
   nx-card {
     padding: 0;
 
@@ -50,6 +32,22 @@ body {
         padding: 0;
       }
     }
+  }
+}
+
+body {
+  height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+
+  main {
+    padding-bottom: 15px;
+  }
+
+  input {
+    user-select: auto;
+    -webkit-user-select: auto;
   }
 }
 

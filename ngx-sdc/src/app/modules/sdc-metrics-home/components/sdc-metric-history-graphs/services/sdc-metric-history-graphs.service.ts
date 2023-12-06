@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { _console } from 'src/app/core/lib';
-import { IMetricAnalysisModel, EvaluableValueType } from 'src/app/core/models/sdc';
+import { AnalysisFactor, EvaluableValueType, IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { AnalysisService } from 'src/app/core/services/sdc';
 import { MetricsHistoryDataModel } from '../models';
 
@@ -49,5 +49,22 @@ export class SdcMetricHistoryGraphsService {
         this.data$.next(this.metricData);
       })
       .catch(_console.error);
+  }
+
+  /**
+   * This method is used to toggle the factor chart
+   *
+   * @param factor this is the factor that is being toggled
+   */
+  public toggleFactorChart(factor: AnalysisFactor): void {
+    this.metricData = {
+      ...this.metricData,
+      showFactorCharts: {
+        ...(this.metricData?.showFactorCharts ?? {}),
+        [factor]: !this.metricData?.showFactorCharts?.[factor]
+      } as Record<AnalysisFactor, boolean>
+    };
+
+    this.data$.next(this.metricData);
   }
 }

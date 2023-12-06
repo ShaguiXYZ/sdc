@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-redeclare */
-export type AnalysisFactors = 'expectedValue' | 'goodValue' | 'perfectValue';
+
+// @howto define a type that is a subset of another type
+export type AnalysisFactor = keyof Omit<IAnalysisValuesModel, 'metricValue'>;
 
 export interface IAnalysisValuesDTO {
   metricValue: string;

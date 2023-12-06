@@ -1,3 +1,6 @@
+/**
+ * @howto Use this class to generate unique ids
+ */
 export class UniqueIds {
   private static idx: number = new Date().getTime();
 
@@ -6,4 +9,9 @@ export class UniqueIds {
   public static uuid = (): string => crypto.randomUUID();
 }
 
+/**
+ * @howto Use this function to generate a random string of 7 characters
+ *
+ * @returns a random string of 7 characters
+ */
 export const key = () => Math.random().toString(36).substring(7);

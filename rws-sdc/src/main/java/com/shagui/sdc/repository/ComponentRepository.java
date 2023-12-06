@@ -49,6 +49,10 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 		return filter0(name, squadId, coverageMin, coverageMax);
 	}
 
+	/**
+	 * @howto jpa query with many-to-many, multiple parameters and find all elements
+	 *        of a list
+	 */
 	@Query("""
 			SELECT cm FROM ComponentModel cm \
 			INNER JOIN cm.tags t \

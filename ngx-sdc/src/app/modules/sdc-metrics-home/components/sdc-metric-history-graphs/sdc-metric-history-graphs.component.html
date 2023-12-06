@@ -26,7 +26,27 @@
             }}
           </p>
         </header>
-        <sdc-time-evolution-chart [config]="metricChartConfig" />
+        <div>
+          <sdc-time-evolution-chart [config]="metricChartConfig" [size]="{ 'max-height': 350 }" />
+          <div class="factors-selection sdc-center">
+            @for (factor of availableFactorChartsKeys; track $index) {
+              <div
+                class="factor factor-{{ factor }} sdc-center"
+                [ngClass]="{ show: availableFactorCharts[factor], fade: !availableFactorCharts[factor] }"
+              >
+                <label class="factor-label" for="factor-{{ $index }}">
+                  {{ 'Label.Factors.' + factor | translate }}
+                </label>
+                <input
+                  type="checkbox"
+                  id="factor-{{ $index }}"
+                  [checked]="metricsData.showFactorCharts && metricsData.showFactorCharts[factor]"
+                  (change)="toggleFactorChart(factor)"
+                />
+              </div>
+            }
+          </div>
+        </div>
       </div>
     }
   </div>

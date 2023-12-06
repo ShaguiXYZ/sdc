@@ -46,6 +46,11 @@
     "Coverage": "Cobertura",
     "CurrentValue": "Valor Actual",
     "DepartmentSumary": "Resumen del departamento",
+    "Factors": {
+      "expectedValue": "Valor esperado",
+      "goodValue": "Valor bueno",
+      "perfectValue": "Valor perfecto"
+    },
     "FindByApplicationName": "Buscar por aplicación",
     "ApplicationHistory": "Histórico de la aplicación",
     "Metrics": "Métricas",

@@ -29,13 +29,13 @@ import { ChartSize, SdcChartSize } from './models';
     `
   ],
   template: `
-    @defer () {
-    <div echarts [options]="options" [ngStyle]="styleSize" (onclick)="onChartClick($event)"></div>
+    @defer {
+      <div echarts [options]="options" [ngStyle]="styleSize"></div>
     } @placeholder (minimum 300ms) {
-    <!-- placeholder -->
-    <div class="placeholder" [ngStyle]="styleSize"></div>
+      <!-- placeholder -->
+      <div class="placeholder" [ngStyle]="styleSize"></div>
     } @loading (after 300ms; minimum 1.5s) {
-    <div class="loading" [ngStyle]="styleSize"></div>
+      <div class="loading" [ngStyle]="styleSize"></div>
     }
   `,
   standalone: true,
@@ -53,11 +53,5 @@ export class SdcEchartComponent {
   @Input()
   public set size(value: ChartSize) {
     this.styleSize = new SdcChartSize(value).styleSize;
-  }
-
-  public onChartClick(event: any): void {
-    console.log('SdcEchartComponent.onChartClick', event);
-
-    this.onClick.emit(event);
   }
 }
