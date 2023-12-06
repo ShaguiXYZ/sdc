@@ -10,7 +10,7 @@ export class SdcMetricHistoryGraphsService {
   private metricData!: MetricsHistoryDataModel;
   private data$: Subject<MetricsHistoryDataModel>;
 
-  constructor(private analysisService: AnalysisService) {
+  constructor(private readonly analysisService: AnalysisService) {
     this.data$ = new Subject();
   }
 

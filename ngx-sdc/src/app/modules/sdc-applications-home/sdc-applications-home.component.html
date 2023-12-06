@@ -12,9 +12,9 @@
           >
             <nx-dropdown-item></nx-dropdown-item>
             @for (item of squads; track item.id) {
-            <nx-dropdown-item [value]="item.id">
-              {{ item.name }}
-            </nx-dropdown-item>
+              <nx-dropdown-item [value]="item.id">
+                {{ item.name }}
+              </nx-dropdown-item>
             }
           </nx-dropdown>
         </nx-formfield>
@@ -27,43 +27,44 @@
           >
             <nx-dropdown-item></nx-dropdown-item>
             @for (item of coverages; track item.key) {
-            <nx-dropdown-item [value]="item.key">
-              <em class="fa-solid fa-circle nx-margin-right-2xs {{ item.style }}"></em>
-              {{ item.label | translate | titlecase }}
-            </nx-dropdown-item>
+              <nx-dropdown-item [value]="item.key">
+                <em class="fa-solid fa-circle nx-margin-right-2xs {{ item.style }}"></em>
+                {{ item.label | translate | titlecase }}
+              </nx-dropdown-item>
             }
           </nx-dropdown>
         </nx-formfield>
 
         @if (tags.all.length) {
-        <nx-formfield id="tags" class="nx-margin-right-2xs" [label]="'Label.Tags' | translate">
-          <nx-dropdown
-            formControlName="tags"
-            name="tags"
-            [filterPlaceholder]="'Dropdown.Filter.Tags' | translate"
-            [isMultiSelect]="true"
-            [showFilter]="true"
-            (valueChange)="tagsChange($event)"
-          >
-            @if (tags.selected.length) {
-            <nx-dropdown-group>
-              @for (item of tags.selected; track item.name) {
-              <nx-dropdown-item class="sdc-tag__dropdown-item" [value]="item.name">
-                <sdc-tag [data]="item"></sdc-tag>
-              </nx-dropdown-item>
+          <nx-formfield id="tags" class="nx-margin-right-2xs" [label]="'Label.Tags' | translate">
+            <nx-dropdown
+              formControlName="tags"
+              name="tags"
+              [filterPlaceholder]="'Dropdown.Filter.Tags' | translate"
+              [isMultiSelect]="true"
+              [showFilter]="true"
+              (valueChange)="tagsChange($event)"
+            >
+              @if (tags.selected.length) {
+                <nx-dropdown-group>
+                  @for (item of tags.selected; track item.name) {
+                    <nx-dropdown-item class="sdc-tag__dropdown-item" [value]="item.name">
+                      <sdc-tag [data]="item"></sdc-tag>
+                    </nx-dropdown-item>
+                  }
+                </nx-dropdown-group>
               }
-            </nx-dropdown-group>
-            } @if (tags.availables.length) {
-            <nx-dropdown-group>
-              @for (item of tags.availables; track item.name) {
-              <nx-dropdown-item class="sdc-tag__dropdown-item" [value]="item.name">
-                <sdc-tag [data]="item"></sdc-tag>
-              </nx-dropdown-item>
+              @if (tags.availables.length) {
+                <nx-dropdown-group>
+                  @for (item of tags.availables; track item.name) {
+                    <nx-dropdown-item class="sdc-tag__dropdown-item" [value]="item.name">
+                      <sdc-tag [data]="item"></sdc-tag>
+                    </nx-dropdown-item>
+                  }
+                </nx-dropdown-group>
               }
-            </nx-dropdown-group>
-            }
-          </nx-dropdown>
-        </nx-formfield>
+            </nx-dropdown>
+          </nx-formfield>
         }
       </div>
 
@@ -78,25 +79,25 @@
     </div>
   </form>
 
-  @if(applicationsInfo) {
-  <sdc-compliance-bar-cards
-    [components]="applicationsInfo.components"
-    (clickLink)="complianceClicked($event)"
-    (clickSquad)="squadClicked($event)"
-    (clickDepartment)="departmentClicked($event)"
-  ></sdc-compliance-bar-cards>
+  @if (applicationsInfo) {
+    <sdc-compliance-bar-cards
+      [components]="applicationsInfo.components"
+      (clickLink)="complianceClicked($event)"
+      (clickSquad)="squadClicked($event)"
+      (clickDepartment)="departmentClicked($event)"
+    />
 
-  @if(applicationsInfo.paging.pages > 1) {
-  <div class="pagination nx-margin-y-2xs">
-    <nx-pagination
-      [count]="applicationsInfo.paging.elements"
-      [page]="applicationsInfo.paging.pageIndex + 1"
-      [perPage]="ELEMENTS_BY_PAGE"
-      (goPrev)="prevPage()"
-      (goNext)="nextPage()"
-      (goPage)="goToPage($event)"
-    >
-    </nx-pagination>
-  </div>
-  } }
+    @if (applicationsInfo.paging.pages > 1) {
+      <div class="pagination nx-margin-y-2xs">
+        <nx-pagination
+          [count]="applicationsInfo.paging.elements"
+          [page]="applicationsInfo.paging.pageIndex + 1"
+          [perPage]="ELEMENTS_BY_PAGE"
+          (goPrev)="prevPage()"
+          (goNext)="nextPage()"
+          (goPage)="goToPage($event)"
+        />
+      </div>
+    }
+  }
 </div>

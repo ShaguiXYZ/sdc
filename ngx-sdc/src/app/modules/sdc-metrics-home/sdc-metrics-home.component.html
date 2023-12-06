@@ -1,111 +1,111 @@
 @if (metricsData) {
-<div class="nx-margin-y-2xs">
-  <sdc-compliance-bar-card
-    [component]="metricsData.component"
-    [showMore]="false"
-    [hideBorder]="true"
-    (clickDepartment)="departmentClicked($event)"
-    (clickSquad)="squadClicked($event)"
-  ></sdc-compliance-bar-card>
-  <sdc-tags [tags]="metricsData.tags || []" [removable]="true" (add)="onTagAdd($event)" (remove)="onTagRemove($event)"></sdc-tags>
+  <div class="nx-margin-y-2xs">
+    <sdc-compliance-bar-card
+      [component]="metricsData.component"
+      [showMore]="false"
+      [hideBorder]="true"
+      (clickDepartment)="departmentClicked($event)"
+      (clickSquad)="squadClicked($event)"
+    />
+    <sdc-tags [tags]="metricsData.tags || []" [removable]="true" (add)="onTagAdd($event)" (remove)="onTagRemove($event)" />
 
-  <div class="application-history nx-margin-y-2xs">
+    <div class="application-history nx-margin-y-2xs">
+      <nx-accordion>
+        <nx-expansion-panel (opened)="onOpenPanel()">
+          <nx-expansion-panel-header>
+            <nx-expansion-panel-title>
+              <header>
+                {{ 'Label.ApplicationHistory' | translate }}
+                <span class="selected-date nx-margin-left-s"
+                  >{{ 'Label.SelectedDate' | translate }}: {{ metricsData.component.analysisDate | date }}</span
+                >
+              </header>
+            </nx-expansion-panel-title>
+          </nx-expansion-panel-header>
+          <div class="history-component">
+            <div class="application-graph nx-margin-top-2xs">
+              <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }" />
+            </div>
+            <div class="chart-ops sdc-scrollable">
+              <div
+                class="sdc-op"
+                [nxTooltip]="'Tooltip.ComponentMetrics' | translate: { name: metricsData.component.name }"
+                (click)="openMetricsCards()"
+              >
+                <em class="fa-solid fa-align-justify"></em>
+              </div>
+              <div
+                class="sdc-op"
+                [nxTooltip]="'Tooltip.RunProcess' | translate: { name: metricsData.component.name }"
+                (click)="onRunProcess()"
+              >
+                <em class="fa-solid fa-arrows-spin"></em>
+              </div>
+            </div>
+          </div>
+        </nx-expansion-panel>
+      </nx-accordion>
+    </div>
+  </div>
+
+  <div class="application-coverages nx-margin-y-2xs">
     <nx-accordion>
-      <nx-expansion-panel (opened)="onOpenPanel()">
+      <nx-expansion-panel [expanded]="true">
         <nx-expansion-panel-header>
           <nx-expansion-panel-title>
             <header>
-              {{ 'Label.ApplicationHistory' | translate }}
+              {{ 'Label.Metrics' | translate }}
               <span class="selected-date nx-margin-left-s"
-                >{{ 'Label.SelectedDate' | translate }}: {{ metricsData.component.analysisDate | date }}</span
+                >{{ 'Label.Coverage' | translate }}: {{ metricsData.component.coverage || 0 }} %</span
               >
             </header>
           </nx-expansion-panel-title>
         </nx-expansion-panel-header>
-        <div class="history-component">
-          <div class="application-graph nx-margin-top-2xs">
-            <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }"></sdc-time-evolution-chart>
-          </div>
-          <div class="chart-ops sdc-scrollable">
-            <div
-              class="sdc-op"
-              [nxTooltip]="'Tooltip.ComponentMetrics' | translate : { name: metricsData.component.name }"
-              (click)="openMetricsCards()"
-            >
-              <em class="fa-solid fa-align-justify"></em>
-            </div>
-            <div
-              class="sdc-op"
-              [nxTooltip]="'Tooltip.RunProcess' | translate : { name: metricsData.component.name }"
-              (click)="onRunProcess()"
-            >
-              <em class="fa-solid fa-arrows-spin"></em>
-            </div>
-          </div>
-        </div>
+        <nx-tab-group class="tiny-tabs" [selectedIndex]="metricsData.selectedTabIndex" (selectedIndexChange)="onTabChage($event)">
+          @if (metricsData.component) {
+            <nx-tab [label]="'Label.MetricsHistoryGraphs' | translate">
+              <sdc-metric-history-graphs
+                [componentId]="metricsData.component.id"
+                [selectedAnalysis]="metricsData.selectedAnalysis"
+                (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
+              />
+            </nx-tab>
+          }
+          <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate" style="display: flex">
+            @if (metricsData.languageDistribution && lastLanguageDistribution) {
+              <div class="language-distribution">
+                <div class="historical-language-distribution">
+                  <sdc-time-evolution-multichart [data]="metricsData.languageDistribution" />
+                </div>
+                <div class="actual-language-distribution">
+                  @if (lastLanguageDistribution) {
+                    <sdc-pie-chart
+                      [data]="lastLanguageDistribution"
+                      [title]="'Label.ActualLanguageDistribution' | translate"
+                      [size]="400"
+                    />
+                  }
+                </div>
+              </div>
+            } @else {
+              <div class="nx-margin-top-m">
+                <sdc-no-data />
+              </div>
+            }
+          </nx-tab>
+        </nx-tab-group>
       </nx-expansion-panel>
     </nx-accordion>
   </div>
-</div>
-
-<div class="application-coverages nx-margin-y-2xs">
-  <nx-accordion>
-    <nx-expansion-panel [expanded]="true">
-      <nx-expansion-panel-header>
-        <nx-expansion-panel-title>
-          <header>
-            {{ 'Label.Metrics' | translate }}
-            <span class="selected-date nx-margin-left-s"
-              >{{ 'Label.Coverage' | translate }}: {{ metricsData.component.coverage || 0 }} %</span
-            >
-          </header>
-        </nx-expansion-panel-title>
-      </nx-expansion-panel-header>
-      <nx-tab-group class="tiny-tabs" [selectedIndex]="metricsData.selectedTabIndex" (selectedIndexChange)="onTabChage($event)">
-        @if (metricsData.component) {
-        <nx-tab [label]="'Label.MetricsHistoryGraphs' | translate">
-          <sdc-metric-history-graphs
-            [componentId]="metricsData.component.id"
-            [selectedAnalysis]="metricsData.selectedAnalysis"
-            (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
-          ></sdc-metric-history-graphs>
-        </nx-tab>
-        }
-        <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate" style="display: flex">
-          @if (metricsData.languageDistribution && lastLanguageDistribution) {
-          <div class="language-distribution">
-            <div class="historical-language-distribution">
-              <sdc-time-evolution-multichart [data]="metricsData.languageDistribution"></sdc-time-evolution-multichart>
-            </div>
-            <div class="actual-language-distribution">
-              @if (lastLanguageDistribution) {
-              <sdc-pie-chart
-                [data]="lastLanguageDistribution"
-                [title]="'Label.ActualLanguageDistribution' | translate"
-                [size]="400"
-              ></sdc-pie-chart>
-              }
-            </div>
-          </div>
-          } @else {
-          <div class="nx-margin-top-m">
-            <sdc-no-data></sdc-no-data>
-          </div>
-          }
-        </nx-tab>
-      </nx-tab-group>
-    </nx-expansion-panel>
-  </nx-accordion>
-</div>
 }
 
 <ng-template #metricsCards let-data>
   <header nxModalTitle>
     <em class="fa-solid fa-bars nx-margin-right-s" aria-hidden="true"></em>
-    {{ 'Label.ComponentMetrics' | translate : { name: data.component.name } }}
+    {{ 'Label.ComponentMetrics' | translate: { name: data.component.name } }}
   </header>
   <div nxModalContent>
-    <sdc-metrics-cards [componentId]="data.component.id"></sdc-metrics-cards>
+    <sdc-metrics-cards [componentId]="data.component.id" />
   </div>
   <footer nxModalActions>
     <button nxButton="small secondary" type="button" (click)="closeMetricsCards()" class="nx-margin-bottom-0 nx-margin-right-xs">

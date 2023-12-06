@@ -9,7 +9,6 @@ import { SdcNoDataComponent } from '../sdc-no-data';
 @Component({
   selector: 'sdc-metrics-cards',
   templateUrl: './sdc-metrics-cards.component.html',
-  styleUrls: ['./sdc-metrics-cards.component.scss'],
   standalone: true,
   imports: [SdcMetricInfoComponent, SdcNoDataComponent, CommonModule, TranslateModule]
 })

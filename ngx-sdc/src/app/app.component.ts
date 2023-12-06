@@ -11,8 +11,16 @@ import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponen
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: `
+    <nx-header></nx-header>
+    <nx-loading></nx-loading>
+    <nx-alert></nx-alert>
+    <nx-notification></nx-notification>
+
+    <main nxLayout="content-section grid maxwidth nogutters" [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
+  `,
   animations: [routingAnimation],
   standalone: true,
   imports: [AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent, NxGridModule, RouterOutlet]

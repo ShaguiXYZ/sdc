@@ -14,16 +14,20 @@
       </div>
     </header>
     <div class="coverages sdc-scrollable nx-margin-right-s nx-margin-bottom-m">
-      @if (coverages) { @for (coverage of coverages; track coverage.id) { @defer (on viewport) {
-      <sdc-coverage-info
-        [coverage]="coverage"
-        [selectable]="selectable"
-        [selected]="selected === coverage.id"
-        (selectCoverage)="onClickCoverage($event)"
-      ></sdc-coverage-info>
-      } @placeholder {
-      <div class="placeholder"></div>
-      } } }
+      @if (coverages) {
+        @for (coverage of coverages; track coverage.id) {
+          @defer (on viewport) {
+            <sdc-coverage-info
+              [coverage]="coverage"
+              [selectable]="selectable"
+              [selected]="selected === coverage.id"
+              (selectCoverage)="onClickCoverage($event)"
+            />
+          } @placeholder {
+            <div class="placeholder"></div>
+          }
+        }
+      }
     </div>
   </nx-card>
 </div>

@@ -28,7 +28,7 @@
 
   <div class="sdc-tag__list">
     @for (tag of tags; track tag.name) {
-    <sdc-tag [data]="tag" [removable]="removable && !tag.analysisTag" (remove)="onRemoveTag($event)"></sdc-tag>
+      <sdc-tag [data]="tag" [removable]="removable && !tag.analysisTag" (remove)="onRemoveTag($event)" />
     }
   </div>
 </div>

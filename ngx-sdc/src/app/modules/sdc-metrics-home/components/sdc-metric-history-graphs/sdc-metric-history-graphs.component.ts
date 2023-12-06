@@ -3,12 +3,12 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
+import { IAnalysisValuesModel, IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { DateService } from 'src/app/core/services';
 import { SdcMetricInfoComponent, SdcNoDataComponent } from 'src/app/shared/components';
 import { SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
 import { MetricStates, DEFAULT_METRIC_STATE, MetricState, stateByCoverage } from 'src/app/shared/lib';
-import { ChartConfig, ChartData } from 'src/app/shared/models';
+import { ChartConfig, ChartData, ChartValue } from 'src/app/shared/models';
 import { MetricsHistoryDataModel } from './models';
 import { SdcMetricHistoryGraphsService } from './services';
 import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
@@ -22,8 +22,8 @@ import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
   imports: [SdcMetricInfoComponent, SdcNoDataComponent, SdcTimeEvolutionChartComponent, CommonModule, NxCopytextModule, TranslateModule]
 })
 export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
-  public metricsData?: MetricsHistoryDataModel;
   public metricChartConfig!: ChartConfig;
+  public metricsData?: MetricsHistoryDataModel;
 
   @Input()
   public componentId!: number;
@@ -47,7 +47,10 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.data$ = this.sdcMetricHistoryGraphsService.onDataChange().subscribe(metricsData => {
       this.metricsData = metricsData;
-      this.metricGraphConfig();
+      this.metricChartConfig = {
+        ...this.metricGraphConfig(),
+        data: this.chartData(this.metricsData?.historicalAnalysis ?? [], this.metricsData.showFactorCharts)
+      };
     });
 
     this.sdcMetricHistoryGraphsService.loadInitData(this.componentId, this.selectedAnalysis);
@@ -59,84 +62,69 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
 
   public loadGraphData(analysis: IMetricAnalysisModel): void {
     this.sdcMetricHistoryGraphsService.analysisHistoryData(this.componentId, analysis);
-
     this.selectedAnalysisChange.emit(analysis);
   }
 
-  private metricGraphConfig(): void {
+  private metricGraphConfig(): ChartConfig {
     const analysis = this.metricsData?.historicalAnalysis;
 
-    const chartData: Array<ChartData> = [
-      {
-        name: this.metricsData?.selectedAnalysis?.metric.name,
-        values:
-          analysis?.map(value => ({
-            color: value.metric.validation ? MetricState[stateByCoverage(value.coverage)].color : MetricState[DEFAULT_METRIC_STATE].color,
-            value:
-              this.valueTypeToNumberPipe.transform(
-                value.analysisValues.metricValue,
-                this.metricsData?.selectedAnalysis?.metric.valueType
-              ) ?? 0
-          })) ?? []
-      }
-    ];
-
-    if (analysis?.some(data => data.analysisValues.expectedValue)) {
-      chartData.push({
-        lineStyle: 'dotted',
-        smooth: true,
-        name: this.titleCasePipe.transform(this.translateService.instant(`Component.State.${MetricState[MetricStates.WITH_RISK].style}`)),
-        values:
-          analysis?.map(value => ({
-            color: MetricState[MetricStates.WITH_RISK].color,
-            value:
-              this.valueTypeToNumberPipe.transform(
-                value.analysisValues.expectedValue,
-                this.metricsData?.selectedAnalysis?.metric.valueType
-              ) ?? 0
-          })) ?? []
-      });
-    }
-
-    if (analysis?.some(data => data.analysisValues.goodValue)) {
-      chartData.push({
-        lineStyle: 'dotted',
-        smooth: true,
-        name: this.titleCasePipe.transform(this.translateService.instant(`Component.State.${MetricState[MetricStates.ACCEPTABLE].style}`)),
-        values:
-          analysis?.map(value => ({
-            color: MetricState[MetricStates.ACCEPTABLE].color,
-            value:
-              this.valueTypeToNumberPipe.transform(value.analysisValues.goodValue, this.metricsData?.selectedAnalysis?.metric.valueType) ??
-              0
-          })) ?? []
-      });
-    }
-
-    if (analysis?.some(data => data.analysisValues.perfectValue)) {
-      chartData.push({
-        lineStyle: 'dotted',
-        smooth: true,
-        name: this.titleCasePipe.transform(this.translateService.instant(`Component.State.${MetricState[MetricStates.PERFECT].style}`)),
-        values:
-          analysis?.map(value => ({
-            color: MetricState[MetricStates.PERFECT].color,
-            value:
-              this.valueTypeToNumberPipe.transform(
-                value.analysisValues.perfectValue,
-                this.metricsData?.selectedAnalysis?.metric.valueType
-              ) ?? 0
-          })) ?? []
-      });
-    }
-
-    this.metricChartConfig = {
+    return {
       axis: {
         xAxis: analysis?.map(value => this.dateService.dateFormat(value.analysisDate))
       },
-      data: chartData,
+      data: [],
       options: { showVisualMap: true },
       type: this.metricsData?.selectedAnalysis?.metric.valueType
+    };
+  }
+
+  private chartData(analysis: IMetricAnalysisModel[], showFactorChart?: Record<keyof IAnalysisValuesModel, boolean>): Array<ChartData> {
+    const data: Array<ChartData> = [
+      {
+        name: this.metricsData?.selectedAnalysis?.metric.name,
+        values: analysis?.map(value => this.getChartDataValue(value)) ?? []
+      }
+    ];
+
+    showFactorChart?.['expectedValue'] && this.addFactorChartData(data, analysis, MetricStates.WITH_RISK, 'expectedValue');
+    showFactorChart?.['goodValue'] && this.addFactorChartData(data, analysis, MetricStates.ACCEPTABLE, 'goodValue');
+    showFactorChart?.['perfectValue'] && this.addFactorChartData(data, analysis, MetricStates.PERFECT, 'perfectValue');
+
+    return data;
+  }
+
+  private getChartDataValue(value: IMetricAnalysisModel): ChartValue {
+    return {
+      color: value.metric.validation ? MetricState[stateByCoverage(value.coverage)].color : MetricState[DEFAULT_METRIC_STATE].color,
+      value:
+        this.valueTypeToNumberPipe.transform(value.analysisValues.metricValue, this.metricsData?.selectedAnalysis?.metric.valueType) ?? 0
+    };
+  }
+
+  private addFactorChartData(
+    data: Array<ChartData>,
+    analysis: IMetricAnalysisModel[],
+    state: MetricStates,
+    valueKey: keyof IMetricAnalysisModel['analysisValues']
+  ): void {
+    if (analysis?.some(data => data.analysisValues[valueKey])) {
+      data.push({
+        lineStyle: 'dotted',
+        smooth: true,
+        name: this.titleCasePipe.transform(this.translateService.instant(`Component.State.${MetricState[state].style}`)),
+        values: analysis?.map(value => this.getFactorChartDataValue(value, state, valueKey)) ?? []
+      });
+    }
+  }
+
+  private getFactorChartDataValue(
+    value: IMetricAnalysisModel,
+    state: MetricStates,
+    valueKey: keyof IMetricAnalysisModel['analysisValues']
+  ): ChartValue {
+    return {
+      color: MetricState[state].color,
+      value: this.valueTypeToNumberPipe.transform(value.analysisValues[valueKey], this.metricsData?.selectedAnalysis?.metric.valueType) ?? 0
     };
   }
 }

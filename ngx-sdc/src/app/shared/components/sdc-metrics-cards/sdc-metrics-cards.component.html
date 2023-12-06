@@ -1,11 +1,11 @@
 @if (analysis.length) {
-<div class="u-text-center">
-  <div class="analysis">
-    @for (data of analysis; track data.metric.id) {
-    <sdc-metric-info [analysis]="data"> </sdc-metric-info>
-    }
+  <div class="u-text-center">
+    <div class="analysis">
+      @for (data of analysis; track data.metric.id) {
+        <sdc-metric-info [analysis]="data" />
+      }
+    </div>
   </div>
-</div>
 } @else {
-<sdc-no-data></sdc-no-data>
+  <sdc-no-data />
 }

@@ -23,9 +23,9 @@
       border-radius: 0 15px 15px 0;
       border-right: 1px solid var(--ui-05);
       font-size: 12px;
-      left: 35px;
+      // left: 35px;
       opacity: 0;
-      position: absolute;
+      // position: absolute;
       transition: all 0.7s ease-in-out;
       width: 0;
       z-index: calc($z-index-middle - 1);
@@ -43,7 +43,8 @@
 
       .sdc-tag__input {
         left: 0;
-        padding: 0 12px 0 40px;
+        // padding: 0 12px 0 40px;
+        padding: 0 12px 0 10px;
         transition: all 0.7s ease-in-out;
         opacity: 0.9;
         width: 200px;
@@ -59,7 +60,8 @@
 
       .sdc-tag__input {
         left: 0;
-        padding: 0 12px 0 40px;
+        // padding: 0 12px 0 40px;
+        padding: 0 12px 0 10px;
         transition: all 0.7s ease-in-out;
         opacity: 0.9;
         width: 200px;

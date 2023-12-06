@@ -9,8 +9,7 @@ import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
   selector: 'sdc-time-evolution-chart',
-  templateUrl: './sdc-time-evolution-chart.component.html',
-  styleUrls: ['./sdc-time-evolution-chart.component.scss'],
+  template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
   standalone: true,
   imports: [CommonModule, SdcEchartComponent]
 })

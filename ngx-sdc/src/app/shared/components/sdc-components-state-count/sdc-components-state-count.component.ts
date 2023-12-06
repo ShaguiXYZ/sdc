@@ -7,8 +7,13 @@ import { SdcStateCountComponent } from './components';
 
 @Component({
   selector: 'sdc-components-state-count',
-  templateUrl: './sdc-components-state-count.component.html',
-  styleUrls: ['./sdc-components-state-count.component.scss'],
+  template: `
+    @for (count of counts; track count.state) {
+      <div [ngClass]="{ 'nx-margin-bottom-2xs': !$last }">
+        <sdc-state-count [stateCount]="count" (clickStateCount)="onClick($event)"></sdc-state-count>
+      </div>
+    }
+  `,
   standalone: true,
   imports: [CommonModule, SdcStateCountComponent]
 })

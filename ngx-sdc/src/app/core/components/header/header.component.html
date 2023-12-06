@@ -1,11 +1,11 @@
 <header nx-header (mouseleave)="mouseLeaveEvent('0')">
   <nx-header-brand>
     @if (logo) {
-    <nx-link routerLink="">
-      <figure>
-        <img [src]="logo" alt="logo" />
-      </figure>
-    </nx-link>
+      <nx-link routerLink="">
+        <figure>
+          <img [src]="logo" alt="logo" />
+        </figure>
+      </nx-link>
     }
 
     <nx-header-app-title>{{ 'Header.Title' | translate }}</nx-header-app-title>
@@ -13,52 +13,60 @@
 
   <div class="header-content">
     @if (navigation.routes.length > 0) {
-    <nx-header-navigation class="nx-margin-y-2xs">
-      @for (parent of navigation.routes; track parent.id) {
-      <nx-header-navigation-item (mouseenter)="mouseEnterEvent(parent.id)">
-        <!-- Parent menu -->
-        <div class="menu-item">
-          <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink
-            >{{ parent.name | translate }}
-            @if (!parent.routerLink) {
-            <em [ngClass]="{ 'icon-menu fa-solid fa-chevron-down': true }"></em>
-            }
-          </a>
-          <div class="child-menu">
-            <!-- Child menu -->
-            @if (parent.children?.length && parent.id === navigation.activeParent) {
-            <nx-header-row class="child-row" (mouseleave)="mouseLeaveEvent(parent.id)">
-              <nx-header-navigation>
-                <nx-header-navigation-item>
-                  @for (child of parent.children; track child.id) {
-                  <div class="menu-item-children">
-                    @if (child.routerLink) {
-                    <a [id]="child.id" [routerLink]="child.routerLink" routerLinkActive="is-active" nxHeaderLink class="nx-margin-0">{{
-                      child.name | translate
-                    }}</a>
-                    } @else {
-                    <a [id]="child.id" routerLinkActive="is-active" nxHeaderLink class="nx-margin-0">{{ child.name | translate }}</a>
-                    }
-                  </div>
-                  }
-                </nx-header-navigation-item>
-              </nx-header-navigation>
-            </nx-header-row>
-            }
-          </div>
-        </div>
-      </nx-header-navigation-item>
-      }
-    </nx-header-navigation>
+      <nx-header-navigation class="nx-margin-y-2xs">
+        @for (parent of navigation.routes; track parent.id) {
+          <nx-header-navigation-item (mouseenter)="mouseEnterEvent(parent.id)">
+            <!-- Parent menu -->
+            <div class="menu-item">
+              <a [id]="parent.id" class="sdc-cut-text" [routerLink]="parent.routerLink" routerLinkActive="is-active" nxHeaderLink
+                >{{ parent.name | translate }}
+                @if (!parent.routerLink) {
+                  <em [ngClass]="{ 'icon-menu fa-solid fa-chevron-down': true }"></em>
+                }
+              </a>
+              <div class="child-menu">
+                <!-- Child menu -->
+                @if (parent.children?.length && parent.id === navigation.activeParent) {
+                  <nx-header-row class="child-row" (mouseleave)="mouseLeaveEvent(parent.id)">
+                    <nx-header-navigation>
+                      <nx-header-navigation-item>
+                        @for (child of parent.children; track child.id) {
+                          <div class="menu-item-children">
+                            @if (child.routerLink) {
+                              <a
+                                [id]="child.id"
+                                [routerLink]="child.routerLink"
+                                routerLinkActive="is-active"
+                                nxHeaderLink
+                                class="nx-margin-0"
+                                >{{ child.name | translate }}</a
+                              >
+                            } @else {
+                              <a [id]="child.id" routerLinkActive="is-active" nxHeaderLink class="nx-margin-0">{{
+                                child.name | translate
+                              }}</a>
+                            }
+                          </div>
+                        }
+                      </nx-header-navigation-item>
+                    </nx-header-navigation>
+                  </nx-header-row>
+                }
+              </div>
+            </div>
+          </nx-header-navigation-item>
+        }
+      </nx-header-navigation>
     }
 
     <nx-header-actions class="nx-margin-y-2xs">
       @if (themeSwitcher) {
-      <nx-switch-theme></nx-switch-theme>
-      } @if (securityInfo.isUserLogged) {
-      <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
-        <em class="fa-solid fa-user"></em>{{ securityInfo.currentUser?.userName }}
-      </nx-link>
+        <nx-switch-theme></nx-switch-theme>
+      }
+      @if (securityInfo.isUserLogged) {
+        <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
+          <em class="fa-solid fa-user"></em>{{ securityInfo.currentUser?.userName }}
+        </nx-link>
       }
 
       <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="language">
@@ -70,12 +78,14 @@
 
 <nx-context-menu #language="nxContextMenu">
   <ng-template nxContextMenuContent>
-    @for (lang of languageInfo.languageButtons; track lang.id) { @if (lang.isVisible() && lang.icon && lang.text) {
-    <button nxContextMenuItem type="button" [disabled]="!lang.isEnabled()" (click)="lang.onClick(lang.options)">
-      <em [class]="lang.icon()"></em>
-      {{ lang.text() | translate }}
-    </button>
-    } }
+    @for (lang of languageInfo.languageButtons; track lang.id) {
+      @if (lang.isVisible() && lang.icon && lang.text) {
+        <button nxContextMenuItem type="button" [disabled]="!lang.isEnabled()" (click)="lang.onClick(lang.options)">
+          <em [class]="lang.icon()"></em>
+          {{ lang.text() | translate }}
+        </button>
+      }
+    }
   </ng-template>
 </nx-context-menu>
 

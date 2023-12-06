@@ -8,8 +8,7 @@ import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',
-  templateUrl: './sdc-horizontal-bar-chart.component.html',
-  styleUrls: ['./sdc-horizontal-bar-chart.component.scss'],
+  template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
   providers: [SdcValueTypeToNumberPipe, TitleCasePipe],
   standalone: true,
   imports: [CommonModule, SdcEchartComponent]

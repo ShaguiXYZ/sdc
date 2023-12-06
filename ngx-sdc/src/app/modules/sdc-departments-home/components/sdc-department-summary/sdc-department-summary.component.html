@@ -1,54 +1,39 @@
 @if (department) {
-<div class="departments-summary">
-  <nx-tab-group class="tiny-tabs" [(selectedIndex)]="selectedTabIndex">
-    <nx-tab [label]="'Label.DepartmentSumary' | translate">
-      <div class="summary-charts sdc-center">
-        <div class="summary-pie-chart sdc-center">
-          <sdc-coverage-chart
-            [animation]="true"
-            [backgroundColor]="BACKGROUND_DEPARTMENT_COLOR"
-            [coverage]="department"
-            [size]="300"
-          ></sdc-coverage-chart>
-        </div>
-        <div class="summary-bar-chart">
-          <header class="title">
-            <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ 'Label.ComplianceState' | translate }}</h4>
-          </header>
-          <div class="chart">
-            <sdc-horizontal-bar-chart
-              [name]="'Label.ComplianceState' | translate"
-              [config]="chartConfig"
-              [size]="{ height: 250 }"
-            ></sdc-horizontal-bar-chart>
+  <div class="departments-summary">
+    <nx-tab-group class="tiny-tabs" [(selectedIndex)]="selectedTabIndex">
+      <nx-tab [label]="'Label.DepartmentSumary' | translate">
+        <div class="summary-charts sdc-center">
+          <div class="summary-pie-chart sdc-center">
+            <sdc-coverage-chart [animation]="true" [backgroundColor]="BACKGROUND_DEPARTMENT_COLOR" [coverage]="department" [size]="300" />
+          </div>
+          <div class="summary-bar-chart">
+            <header class="title">
+              <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ 'Label.ComplianceState' | translate }}</h4>
+            </header>
+            <div class="chart">
+              <sdc-horizontal-bar-chart [name]="'Label.ComplianceState' | translate" [config]="chartConfig" [size]="{ height: 250 }" />
+            </div>
           </div>
         </div>
-      </div>
-    </nx-tab>
-    <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
-      <div class="language-distribution">
-        @if (serviceSummaryData.languageDistribution && serviceSummaryData.languageDistribution.graph.length) {
-        <div class="historical-language-distribution">
-          <sdc-time-evolution-multichart
-            [data]="serviceSummaryData.languageDistribution"
-            [size]="{ height: 330 }"
-          ></sdc-time-evolution-multichart>
+      </nx-tab>
+      <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
+        <div class="language-distribution">
+          @if (serviceSummaryData.languageDistribution && serviceSummaryData.languageDistribution.graph.length) {
+            <div class="historical-language-distribution">
+              <sdc-time-evolution-multichart [data]="serviceSummaryData.languageDistribution" [size]="{ height: 330 }" />
+            </div>
+            @if (lastLanguageDistribution) {
+              <div class="actual-language-distribution">
+                <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate" [size]="350" />
+              </div>
+            }
+          } @else {
+            <div class="no-data">
+              <sdc-no-data />
+            </div>
+          }
         </div>
-        @if (lastLanguageDistribution) {
-        <div class="actual-language-distribution">
-          <sdc-pie-chart
-            [data]="lastLanguageDistribution"
-            [title]="'Label.ActualLanguageDistribution' | translate"
-            [size]="350"
-          ></sdc-pie-chart>
-        </div>
-        } }@else {
-        <div class="no-data">
-          <sdc-no-data></sdc-no-data>
-        </div>
-        }
-      </div>
-    </nx-tab>
-  </nx-tab-group>
-</div>
+      </nx-tab>
+    </nx-tab-group>
+  </div>
 }

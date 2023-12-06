@@ -8,8 +8,7 @@ import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
   selector: 'sdc-coverage-chart',
-  templateUrl: './sdc-coverage-chart.component.html',
-  styleUrls: ['./sdc-coverage-chart.component.scss'],
+  template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
   standalone: true,
   imports: [CommonModule, SdcEchartComponent]
 })

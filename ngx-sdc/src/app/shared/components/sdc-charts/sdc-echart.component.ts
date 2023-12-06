@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { DataInfo } from 'src/app/core/models';
@@ -7,16 +7,6 @@ import { ChartSize, SdcChartSize } from './models';
 
 @Component({
   selector: 'sdc-echart',
-  template: `
-    @defer () {
-    <div echarts [options]="options" [ngStyle]="styleSize"></div>
-    } @placeholder (minimum 300ms) {
-    <!-- placeholder -->
-    <div class="placeholder" [ngStyle]="styleSize"></div>
-    } @loading (after 300ms; minimum 1.5s) {
-    <div class="loading" [ngStyle]="styleSize"></div>
-    }
-  `,
   styles: [
     `
       :host {
@@ -38,6 +28,16 @@ import { ChartSize, SdcChartSize } from './models';
       }
     `
   ],
+  template: `
+    @defer () {
+    <div echarts [options]="options" [ngStyle]="styleSize" (onclick)="onChartClick($event)"></div>
+    } @placeholder (minimum 300ms) {
+    <!-- placeholder -->
+    <div class="placeholder" [ngStyle]="styleSize"></div>
+    } @loading (after 300ms; minimum 1.5s) {
+    <div class="loading" [ngStyle]="styleSize"></div>
+    }
+  `,
   standalone: true,
   imports: [CommonModule, NgxEchartsModule]
 })
@@ -47,8 +47,17 @@ export class SdcEchartComponent {
   @Input()
   public options: EChartsOption = {};
 
+  @Output()
+  public onClick: EventEmitter<any> = new EventEmitter();
+
   @Input()
   public set size(value: ChartSize) {
     this.styleSize = new SdcChartSize(value).styleSize;
+  }
+
+  public onChartClick(event: any): void {
+    console.log('SdcEchartComponent.onChartClick', event);
+
+    this.onClick.emit(event);
   }
 }

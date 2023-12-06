@@ -6,8 +6,7 @@ import { ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRecord } from '
 
 @Component({
   selector: 'sdc-time-evolution-multichart',
-  templateUrl: './sdc-time-evolution-multichart.component.html',
-  styleUrls: ['./sdc-time-evolution-multichart.component.scss'],
+  template: `<sdc-time-evolution-chart [config]="metricChartConfig" [size]="size" />`,
   standalone: true,
   imports: [SdcTimeEvolutionChartComponent, CommonModule]
 })

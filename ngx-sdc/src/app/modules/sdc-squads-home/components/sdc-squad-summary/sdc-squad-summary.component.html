@@ -1,44 +1,41 @@
 @if (squad) {
-<div class="squad-summary">
-  <nx-tab-group class="tiny-tabs" [(selectedIndex)]="selectedTabIndex">
-    <nx-tab [label]="'Label.SquadSumary' | translate">
-      <div class="summary-charts">
-        <div class="summary-coverage sdc-center">
-          <sdc-coverage-chart
-            [animation]="true"
-            [backgroundColor]="BACKGROUND_SQUAD_COLOR"
-            [coverage]="squad"
-            [size]="300"
-          ></sdc-coverage-chart>
+  <div class="squad-summary">
+    <nx-tab-group class="tiny-tabs" [(selectedIndex)]="selectedTabIndex">
+      <nx-tab [label]="'Label.SquadSumary' | translate">
+        <div class="summary-charts">
+          <div class="summary-coverage sdc-center">
+            <sdc-coverage-chart [animation]="true" [backgroundColor]="BACKGROUND_SQUAD_COLOR" [coverage]="squad" [size]="300" />
+          </div>
+          <div class="summary-count nx-margin-s">
+            <sdc-components-state-count [components]="components" (clickStateCount)="onClickStateCount($event)" />
+          </div>
         </div>
-        <div class="summary-count nx-margin-s">
-          <sdc-components-state-count [components]="components" (clickStateCount)="onClickStateCount($event)"></sdc-components-state-count>
-        </div>
-      </div>
-    </nx-tab>
-    <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
-      <div class="language-distribution sdc-center">
-        @if (serviceSummaryData.languageDistribution && lastLanguageDistribution) { @switch (chartToShow) { @case('pie'){
-        <sdc-time-evolution-multichart
-          [data]="serviceSummaryData.languageDistribution"
-          [size]="{ height: 330 }"
-        ></sdc-time-evolution-multichart>
-        } @case ('line') {
-        <sdc-pie-chart
-          [data]="lastLanguageDistribution"
-          [title]="'Label.ActualLanguageDistribution' | translate"
-          [size]="{ height: 350, width: '100%' }"
-        ></sdc-pie-chart>
-        } @default {
-        <sdc-no-data></sdc-no-data>
-        }}
+      </nx-tab>
+      <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
+        <div class="language-distribution sdc-center">
+          @if (serviceSummaryData.languageDistribution && lastLanguageDistribution) {
+            @switch (chartToShow) {
+              @case ('pie') {
+                <sdc-time-evolution-multichart [data]="serviceSummaryData.languageDistribution" [size]="{ height: 330 }" />
+              }
+              @case ('line') {
+                <sdc-pie-chart
+                  [data]="lastLanguageDistribution"
+                  [title]="'Label.ActualLanguageDistribution' | translate"
+                  [size]="{ height: 350, width: '100%' }"
+                />
+              }
+              @default {
+                <sdc-no-data />
+              }
+            }
 
-        <em class="sdc-op toggle-chart fa-solid fa-chart-{{ chartToShow }}" (click)="toggleChart()"></em>
-        } @else {
-        <sdc-no-data></sdc-no-data>
-        }
-      </div>
-    </nx-tab>
-  </nx-tab-group>
-</div>
+            <em class="sdc-op toggle-chart fa-solid fa-chart-{{ chartToShow }}" (click)="toggleChart()"></em>
+          } @else {
+            <sdc-no-data />
+          }
+        </div>
+      </nx-tab>
+    </nx-tab-group>
+  </div>
 }

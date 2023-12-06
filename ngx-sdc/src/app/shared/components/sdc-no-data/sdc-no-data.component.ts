@@ -3,8 +3,19 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sdc-no-data',
-  templateUrl: './sdc-no-data.component.html',
-  styleUrls: ['./sdc-no-data.component.scss'],
+  template: `
+    <div class="sdc-center">
+      <img title="No results" alt="No results" src="assets/images/woman-with-sunhat.svg" />
+    </div>
+  `,
+  styles: [
+    `
+      div {
+        height: 100%;
+        width: 100%;
+      }
+    `
+  ],
   standalone: true,
   imports: [CommonModule]
 })

@@ -1,36 +1,35 @@
-@if(metricsData && metricsData.componentAnalysis?.length) {
-<div class="evolution-content nx-margin-top-2xs">
-  <div class="metrics sdc-scrollable nx-margin-right-2xs">
-    @for (data of metricsData.componentAnalysis; track data.metric.id) {
-    <sdc-metric-info
-      [analysis]="data"
-      [selected]="metricsData.selectedAnalysis?.metric?.id === data.metric.id"
-      (selectMetric)="loadGraphData($event)"
-    >
-    </sdc-metric-info>
+@if (metricsData && metricsData.componentAnalysis?.length) {
+  <div class="evolution-content nx-margin-top-2xs">
+    <div class="metrics sdc-scrollable nx-margin-right-2xs">
+      @for (data of metricsData.componentAnalysis; track data.metric.id) {
+        <sdc-metric-info
+          [analysis]="data"
+          [selected]="metricsData.selectedAnalysis?.metric?.id === data.metric.id"
+          (selectMetric)="loadGraphData($event)"
+        />
+      }
+    </div>
+
+    @if (metricsData.selectedAnalysis) {
+      <div class="evolution-graph">
+        <header class="chart-header sdc-center">
+          <p nxCopytext="medium">
+            {{ 'Label.CurrentValue' | translate }}
+            {{ metricsData.selectedAnalysis.analysisValues.metricValue }}
+          </p>
+          <p nxCopytext="medium">
+            {{ 'Label.OptimumValue' | translate }}
+            {{
+              metricsData.selectedAnalysis.analysisValues.perfectValue ||
+                metricsData.selectedAnalysis.analysisValues.goodValue ||
+                metricsData.selectedAnalysis.analysisValues.expectedValue
+            }}
+          </p>
+        </header>
+        <sdc-time-evolution-chart [config]="metricChartConfig" />
+      </div>
     }
   </div>
-
-  @if(metricsData.selectedAnalysis) {
-  <div class="evolution-graph">
-    <header class="chart-header sdc-center">
-      <p nxCopytext="medium">
-        {{ 'Label.CurrentValue' | translate }}
-        {{ metricsData.selectedAnalysis.analysisValues.metricValue }}
-      </p>
-      <p nxCopytext="medium">
-        {{ 'Label.OptimumValue' | translate }}
-        {{
-          metricsData.selectedAnalysis.analysisValues.perfectValue ||
-            metricsData.selectedAnalysis.analysisValues.goodValue ||
-            metricsData.selectedAnalysis.analysisValues.expectedValue
-        }}
-      </p>
-    </header>
-    <sdc-time-evolution-chart [config]="metricChartConfig"></sdc-time-evolution-chart>
-  </div>
-  }
-</div>
-}@else {
-<sdc-no-data></sdc-no-data>
+} @else {
+  <sdc-no-data />
 }

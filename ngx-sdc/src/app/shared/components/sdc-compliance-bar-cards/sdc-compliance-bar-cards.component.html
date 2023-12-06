@@ -1,16 +1,16 @@
 @for (component of components; track component.id) {
-<div [ngClass]="{ reveal: animation, 'nx-margin-bottom-3xs': !$last }">
-  @defer (on viewport) {
-  <sdc-compliance-bar-card
-    [component]="component"
-    [showDepartment]="showDepartment"
-    [showSquad]="showSquad"
-    (clickLink)="onClickShowMore($event)"
-    (clickDepartment)="onClickSDepartment($event)"
-    (clickSquad)="onClickSquad($event)"
-  ></sdc-compliance-bar-card>
-  }@placeholder {
-  <div class="placeholder"></div>
-  }
-</div>
+  <div [ngClass]="{ reveal: animation, 'nx-margin-bottom-3xs': !$last }">
+    @defer (on viewport) {
+      <sdc-compliance-bar-card
+        [component]="component"
+        [showDepartment]="showDepartment"
+        [showSquad]="showSquad"
+        (clickLink)="onClickShowMore($event)"
+        (clickDepartment)="onClickSDepartment($event)"
+        (clickSquad)="onClickSquad($event)"
+      ></sdc-compliance-bar-card>
+    } @placeholder {
+      <div class="placeholder"></div>
+    }
+  </div>
 }

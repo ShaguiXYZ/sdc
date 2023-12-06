@@ -6,18 +6,18 @@
 
     <div class="nx-margin-bottom-2m">
       @for (description of alert?.desctiptions; track alert?.id) {
-      <p>
-        <span nxCopytext>{{ description }}</span>
-      </p>
+        <p>
+          <span nxCopytext>{{ description }}</span>
+        </p>
       }
     </div>
   </div>
 
   <footer nxModalActions>
     @for (button of alert?.buttons; track button.id) {
-    <button class="nx-margin-bottom-0" type="button" nxButton="{{ button.type }} small-medium" (click)="actionAndClose(button.action)">
-      {{ button.text }}
-    </button>
+      <button class="nx-margin-bottom-0" type="button" nxButton="{{ button.type }} small-medium" (click)="actionAndClose(button.action)">
+        {{ button.text }}
+      </button>
     }
   </footer>
 </ng-template>

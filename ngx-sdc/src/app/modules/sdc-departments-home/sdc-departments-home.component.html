@@ -1,35 +1,35 @@
 @if (departmentsData) {
-<div class="summary-content nx-margin-y-2xs">
-  @if (departmentsData.department) {
-  <div class="summary width-100">
-    <div class="nx-margin-bottom-2xs">
-      <sdc-department-summary [department]="departmentsData.department" [squads]="departmentsData.squads || []"></sdc-department-summary>
-    </div>
-  </div>
-  }
-  <div class="coverages" [ngClass]="{ 'data-loaded': departmentsData.department, 'no-data-loaded': !departmentsData.department }">
-    <div class="nx-margin-right-3xs" [ngClass]="{ 'width-50': departmentsData.department, 'width-100': !departmentsData.department }">
-      <sdc-coverages
-        [coverages]="departmentsData.departments"
-        [filter]="departmentsData.departmentFilter"
-        [selected]="departmentsData.department?.id"
-        [title]="'Label.OtherDepartments' | translate"
-        (searchCoverageChanged)="onSearchDepartmentChanged($event)"
-        (selectCoverage)="onClickDepartment($event)"
-      ></sdc-coverages>
-    </div>
-
+  <div class="summary-content nx-margin-y-2xs">
     @if (departmentsData.department) {
-    <div class="width-50 nx-margin-left-3xs">
-      <sdc-coverages
-        [filter]="departmentsData.squadFilter"
-        [coverages]="departmentsData.squadsInView"
-        [title]="'Label.AssociatedSquads' | translate"
-        (searchCoverageChanged)="onSearchSquadChanged($event)"
-        (selectCoverage)="onClickSquad($event)"
-      ></sdc-coverages>
-    </div>
+      <div class="summary width-100">
+        <div class="nx-margin-bottom-2xs">
+          <sdc-department-summary [department]="departmentsData.department" [squads]="departmentsData.squads || []" />
+        </div>
+      </div>
     }
+    <div class="coverages" [ngClass]="{ 'data-loaded': departmentsData.department, 'no-data-loaded': !departmentsData.department }">
+      <div class="nx-margin-right-3xs" [ngClass]="{ 'width-50': departmentsData.department, 'width-100': !departmentsData.department }">
+        <sdc-coverages
+          [coverages]="departmentsData.departments"
+          [filter]="departmentsData.departmentFilter"
+          [selected]="departmentsData.department?.id"
+          [title]="'Label.OtherDepartments' | translate"
+          (searchCoverageChanged)="onSearchDepartmentChanged($event)"
+          (selectCoverage)="onClickDepartment($event)"
+        />
+      </div>
+
+      @if (departmentsData.department) {
+        <div class="width-50 nx-margin-left-3xs">
+          <sdc-coverages
+            [filter]="departmentsData.squadFilter"
+            [coverages]="departmentsData.squadsInView"
+            [title]="'Label.AssociatedSquads' | translate"
+            (searchCoverageChanged)="onSearchSquadChanged($event)"
+            (selectCoverage)="onClickSquad($event)"
+          />
+        </div>
+      }
+    </div>
   </div>
-</div>
 }
