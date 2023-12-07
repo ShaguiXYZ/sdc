@@ -50,8 +50,9 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	}
 
 	/**
-	 * @howto jpa query with many-to-many, multiple parameters and find all elements
-	 *        of a list
+	 * @howto: jpa query with many-to-many, multiple parameters and find all
+	 *         elements
+	 *         of a list
 	 */
 	@Query("""
 			SELECT cm FROM ComponentModel cm \

@@ -51,6 +51,10 @@
   .language-distribution {
     display: flex;
 
+    .actual-language-distribution {
+      padding-top: 10px;
+    }
+
     .historical-language-distribution {
       width: 100%;
     }

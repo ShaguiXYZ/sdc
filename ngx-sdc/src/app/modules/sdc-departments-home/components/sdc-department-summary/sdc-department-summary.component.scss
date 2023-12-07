@@ -2,6 +2,7 @@
 
 .departments-summary {
   background-color: $background-color-2;
+  border-radius: 10px;
 
   .summary-charts,
   .language-distribution {
@@ -13,6 +14,10 @@
   .language-distribution {
     display: flex;
     position: relative;
+
+    .actual-language-distribution {
+      padding-top: 10px;
+    }
 
     .historical-language-distribution {
       height: 100%;

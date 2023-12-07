@@ -42,6 +42,7 @@
                   id="factor-{{ $index }}"
                   [checked]="metricsData.showFactorCharts && metricsData.showFactorCharts[factor]"
                   (change)="toggleFactorChart(factor)"
+                  [disabled]="!availableFactorCharts[factor]"
                 />
               </div>
             }

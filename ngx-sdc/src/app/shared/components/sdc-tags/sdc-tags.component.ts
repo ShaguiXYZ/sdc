@@ -5,7 +5,8 @@ import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
 import { NxInputModule } from '@aposin/ng-aquila/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { ITagModel } from 'src/app/core/models/sdc';
-import { SdcTagComponent } from './components';
+import { SdcTagComponent } from '../sdc-tag/sdc-tag.component';
+import { ViewType, defaultViewType } from './models';
 
 @Component({
   selector: 'sdc-tags',
@@ -21,6 +22,9 @@ export class SdcTagsComponent implements OnInit {
 
   @Input()
   public removable: boolean = false;
+
+  @Input()
+  public viewType: ViewType = defaultViewType;
 
   @Output()
   public add: EventEmitter<ITagModel> = new EventEmitter<ITagModel>();

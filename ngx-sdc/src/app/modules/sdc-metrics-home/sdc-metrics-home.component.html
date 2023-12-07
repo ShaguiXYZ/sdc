@@ -7,7 +7,13 @@
       (clickDepartment)="departmentClicked($event)"
       (clickSquad)="squadClicked($event)"
     />
-    <sdc-tags [tags]="metricsData.tags || []" [removable]="true" (add)="onTagAdd($event)" (remove)="onTagRemove($event)" />
+    <sdc-tags
+      [tags]="metricsData.tags || []"
+      [removable]="true"
+      viewType="scroll"
+      (add)="onTagAdd($event)"
+      (remove)="onTagRemove($event)"
+    />
 
     <div class="application-history nx-margin-y-2xs">
       <nx-accordion>
@@ -82,7 +88,7 @@
                     <sdc-pie-chart
                       [data]="lastLanguageDistribution"
                       [title]="'Label.ActualLanguageDistribution' | translate"
-                      [size]="400"
+                      [size]="380"
                     />
                   }
                 </div>

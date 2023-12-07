@@ -1,7 +1,7 @@
 <div class="sdc-tag__content">
   <div class="sdc-center sdc-tag__add">
     <div class="sdc-center sdc-op sdc-tag__icon--inner" (click)="focusNameInput()"><em class="fa-solid fa-tags"></em></div>
-    <div class="sdc-tag__input">
+    <div class="sdc-tag__input" [ngClass]="{ 'float-input': viewType === 'float', 'scroll-input': viewType === 'scroll' }">
       <form [formGroup]="form">
         <nx-formfield id="name">
           <input

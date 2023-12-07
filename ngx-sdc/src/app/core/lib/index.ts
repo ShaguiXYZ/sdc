@@ -9,12 +9,10 @@ export const emptyFn = (): void => {
 };
 
 export const _console = {
-  log: (message?: any, ...optionalParams: any[]) => {
+  log: (message?: any, ...optionalParams: any[]): void => {
     if (Object.keys(environment).includes('debugMode')) {
       console.log(message, optionalParams);
     }
   },
   error: (reason: any, ...optionalParams: any[]): void => console.error(reason, optionalParams)
 };
-
-export const $ = (selector: string): HTMLElement | null => document.querySelector(selector);

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-redeclare */
 
-// @howto define a type that is a subset of another type
+// @howto: define a type that is a subset of another type
 export type AnalysisFactor = keyof Omit<IAnalysisValuesModel, 'metricValue'>;
 
 export interface IAnalysisValuesDTO {

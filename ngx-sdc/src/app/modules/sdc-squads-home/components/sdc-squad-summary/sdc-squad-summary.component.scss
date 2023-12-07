@@ -2,6 +2,7 @@
 
 .squad-summary {
   background-color: $background-color-2;
+  border-radius: 10px;
 
   .summary-charts,
   .language-distribution {
@@ -12,6 +13,7 @@
 
   .language-distribution {
     display: block;
+    padding-top: 10px;
     position: relative;
 
     .toggle-chart {

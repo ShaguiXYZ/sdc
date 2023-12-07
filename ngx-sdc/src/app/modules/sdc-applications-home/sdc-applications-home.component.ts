@@ -13,13 +13,12 @@ import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
 import { IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
-import { SdcComplianceBarCardsComponent } from 'src/app/shared/components';
+import { SdcComplianceBarCardsComponent, SdcTagComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
+import { MetricStates } from 'src/app/shared/lib';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsHomeService } from './services';
-import { SdcTagComponent } from 'src/app/shared/components/sdc-tags/components';
-import { MetricStates } from 'src/app/shared/lib';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'

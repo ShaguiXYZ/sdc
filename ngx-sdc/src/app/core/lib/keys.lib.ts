@@ -1,5 +1,5 @@
 /**
- * @howto Use this class to generate unique ids
+ * @howto: use this class to generate unique ids
  */
 export class UniqueIds {
   private static idx: number = new Date().getTime();
@@ -10,7 +10,7 @@ export class UniqueIds {
 }
 
 /**
- * @howto Use this function to generate a random string of 7 characters
+ * @howto: use this function to generate a random string of 7 characters
  *
  * @returns a random string of 7 characters
  */
