@@ -20,6 +20,12 @@ export class ContextDataService {
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
+  /**
+   * Constructor
+   *
+   * @param contextConfig
+   * @param router
+   */
   constructor(
     @Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig,
     private readonly router: Router
@@ -35,9 +41,6 @@ export class ContextDataService {
     this.sessionControl();
   }
 
-  /**
-   * Public context data
-   */
   public get cache(): DataInfo<CacheData> {
     return this.contextStorage.cache;
   }
@@ -114,6 +117,10 @@ export class ContextDataService {
     return contextData;
   }
 
+  /**
+   * Control session storage (F5)
+   * When the page is refreshed, the data is saved in the session storage
+   */
   private sessionControl(): void {
     this.refreshPageControl();
     this.sessionDataControl();
@@ -123,7 +130,10 @@ export class ContextDataService {
     }
   }
 
-  // Load session storage (F5)
+  /**
+   * Save data to session storage (F5)
+   * When the page is refreshed, the data is saved in the session storage
+   */
   private refreshPageControl = (): void => {
     globalThis.addEventListener('beforeunload', () => {
       const sessionData: DataInfo<IContextData> = {};
@@ -140,7 +150,11 @@ export class ContextDataService {
     });
   };
 
-  // Recover data form storage
+  /**
+   * Load session storage (F5)
+   * If there is data in the session storage, it is loaded into the context storage
+   * and deleted from the session storage
+   */
   private sessionDataControl = (): void => {
     const sessionData = sessionStorage.getItem(contextStorageID);
 
@@ -154,7 +168,8 @@ export class ContextDataService {
   };
 
   /**
-   * Control the persistence of the data in the storage
+   * Control data according to the url
+   * If the url is resetContext, all data is deleted
    */
   private controlData(): void {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {

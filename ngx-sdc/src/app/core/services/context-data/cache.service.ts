@@ -34,6 +34,12 @@ export class CacheService implements OnDestroy {
     this.scheduleroService.finish(this.schedukerId);
   }
 
+  /**
+   * Get the expiration date
+   *
+   * @param cachedDuring
+   * @returns
+   */
   public expirationDate = (cachedDuring?: number) => (hasValue(cachedDuring) ? new Date().getTime() + (cachedDuring ?? 0) : undefined);
 
   public set(key: string, data: any, expiration?: number) {
