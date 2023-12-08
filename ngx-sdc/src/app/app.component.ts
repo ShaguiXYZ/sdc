@@ -12,13 +12,18 @@ import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponen
 @Component({
   selector: 'app-root',
   template: `
-    <nx-header></nx-header>
-    <nx-loading></nx-loading>
-    <nx-alert></nx-alert>
-    <nx-notification></nx-notification>
+    <main [@routeAnimations]="prepareRoute(outlet)">
+      <nx-loading></nx-loading>
+      <nx-alert></nx-alert>
+      <nx-notification></nx-notification>
 
-    <main nxLayout="content-section grid maxwidth nogutters" [@routeAnimations]="prepareRoute(outlet)">
-      <router-outlet #outlet="outlet"></router-outlet>
+      <nx-header></nx-header>
+      <div class="app-content sdc-scrollable-body">
+        <div nxLayout="grid maxwidth nogutters">
+          <router-outlet #outlet="outlet"></router-outlet>
+        </div>
+      </div>
+      <footer>My footer</footer>
     </main>
   `,
   animations: [routingAnimation],

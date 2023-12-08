@@ -1,3 +1,3 @@
-export type ViewType = 'float' | 'filled' | 'scroll';
+export type ViewType = 'float' | 'fixed' | 'scroll';
 
-export const defaultViewType: ViewType = 'filled';
+export const defaultViewType: ViewType = 'fixed';

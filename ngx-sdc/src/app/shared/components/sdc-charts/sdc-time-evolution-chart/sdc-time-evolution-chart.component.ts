@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { DataInfo } from 'src/app/core/models';
-import { ChartConfig, ChartData, ChartValue } from 'src/app/shared/models';
 import { legendPosition } from '../lib';
-import { ChartSize } from '../models';
+import { ChartConfig, ChartData, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({

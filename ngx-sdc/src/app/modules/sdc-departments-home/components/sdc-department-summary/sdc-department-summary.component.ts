@@ -6,10 +6,14 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
-import { SdcCoverageChartComponent, SdcHorizontalBarChartComponent, SdcPieChartComponent } from 'src/app/shared/components/sdc-charts';
+import {
+  ChartConfig,
+  SdcCoverageChartComponent,
+  SdcHorizontalBarChartComponent,
+  SdcPieChartComponent
+} from 'src/app/shared/components/sdc-charts';
 import { BACKGROUND_DEPARTMENT_COLOR } from 'src/app/shared/constants';
 import { MetricState, MetricStates, stateByCoverage } from 'src/app/shared/lib';
-import { ChartConfig } from 'src/app/shared/models';
 import { ServiceSummaryModel } from './models';
 import { SdcDepartmentSummaryService } from './services';
 

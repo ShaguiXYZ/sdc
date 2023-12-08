@@ -20,11 +20,10 @@ import {
   SdcTagsComponent,
   SdcTimeEvolutionMultichartComponent
 } from 'src/app/shared/components';
-import { SdcPieChartComponent, SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
+import { ChartConfig, SdcPieChartComponent, SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
-import { ChartConfig } from 'src/app/shared/models';
 import { SdcMetricHistoryGraphsComponent } from './components';
 import { MetricsDataModel } from './models';
 import { SdcMetricsHomeService } from './services';

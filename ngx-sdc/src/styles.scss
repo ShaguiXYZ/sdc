@@ -13,6 +13,11 @@
 :root {
   // color-scheme: light dark;
 
+  input {
+    user-select: auto;
+    -webkit-user-select: auto;
+  }
+
   nx-card {
     padding: 0;
 
@@ -35,19 +40,18 @@
   }
 }
 
-body {
+main {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   overflow-x: hidden;
   user-select: none;
   -webkit-user-select: none;
+  width: 100vw;
 
-  main {
-    padding-bottom: 15px;
-  }
-
-  input {
-    user-select: auto;
-    -webkit-user-select: auto;
+  .app-content {
+    flex: 1;
+    overflow: auto;
   }
 }
 
@@ -94,7 +98,6 @@ body {
 }
 
 /* animations */
-
 /* media for reduce animations if user deactive system property */
 @media (prefers-reduced-motion: reduce) {
   * {

@@ -9,4 +9,4 @@ export * from './sdc-metrics-context-data.model';
 export * from './sdc-squads-context-data.model';
 
 // Graphic models
-export * from './graphic.model';
+export * from './sdc-chart-data.model';

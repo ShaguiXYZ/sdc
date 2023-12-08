@@ -3,7 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { DataInfo } from 'src/app/core/models';
 import { ValueType } from 'src/app/core/models/sdc';
-import { ChartConfig, SdcGraphData } from 'src/app/shared/models';
+import { SdcChartData } from 'src/app/shared/models';
+import { ChartConfig } from '../../sdc-charts';
 import { SdcTimeEvolutionMultichartComponent } from '../sdc-time-evolution-multichart.component';
 
 describe('SdcTimeEvolutionMultichartComponent', () => {
@@ -52,7 +53,7 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
   });
 
   it('should convert string graph data to chart config', () => {
-    const stringGraphData: SdcGraphData = { graph: [{ axis: 'graph-axis', data: 'axis1=11;axis2=21' }], type: ValueType.NUMERIC };
+    const stringGraphData: SdcChartData = { graph: [{ axis: 'graph-axis', data: 'axis1=11;axis2=21' }], type: ValueType.NUMERIC };
     const dataInfo: ChartConfig = {
       axis: { xAxis: ['graph-axis'] },
       data: [

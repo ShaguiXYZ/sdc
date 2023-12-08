@@ -1,5 +1,5 @@
 import { DataInfo } from 'src/app/core/models';
-import { LegendPosition } from 'src/app/shared/models';
+import { LegendPosition } from '../models';
 
 export const legendPosition = (position?: LegendPosition) =>
   position

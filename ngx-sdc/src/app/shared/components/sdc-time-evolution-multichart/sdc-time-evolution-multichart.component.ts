@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DataInfo } from 'src/app/core/models';
-import { ChartConfig, SdcGraphData } from '../../models';
-import { ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRecord } from '../sdc-charts';
+import { SdcChartData } from '../../models';
+import { ChartConfig, ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRecord } from '../sdc-charts';
 
 @Component({
   selector: 'sdc-time-evolution-multichart',
@@ -17,13 +17,13 @@ export class SdcTimeEvolutionMultichartComponent {
   public size: ChartSize = {};
 
   @Input()
-  public set data(value: SdcGraphData) {
+  public set data(value: SdcChartData) {
     this.metricChartConfig = this.toChartconfig(value);
   }
 
   private graphData: DataInfo<number[]> = {};
 
-  private toChartconfig(value: SdcGraphData): ChartConfig {
+  private toChartconfig(value: SdcChartData): ChartConfig {
     const data: string[] = value.graph.map(v => v.data);
     this.graphData = this.groupDataInfo(data.map(stringGraphToRecord));
 

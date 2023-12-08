@@ -33,7 +33,7 @@ import { SdcSquadsService } from './services';
 })
 export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   public squadsData!: SdcSquadsDataModel;
-  public componentsInView: IComponentModel[] = [];
+  public worstComponents: IComponentModel[] = [];
 
   private summary$!: Subscription;
 
@@ -46,7 +46,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.summary$ = this.sdcSummaryService.onDataChange().subscribe((data: Partial<SdcSquadsDataModel>) => {
       this.squadsData = { ...this.squadsData, ...data };
-      this.componentsInView = this.squadsData?.components ? this.squadsData.components.slice(0, 3) : [];
+      this.worstComponents = this.squadsData?.components ? this.squadsData.components.slice(0, 3) : [];
 
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
         ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),

@@ -1,9 +1,8 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { ChartConfig, ChartValue } from 'src/app/shared/models';
 import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
-import { ChartSize } from '../models';
+import { ChartConfig, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
