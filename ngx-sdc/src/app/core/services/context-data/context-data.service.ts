@@ -20,7 +20,10 @@ export class ContextDataService {
   private contextStorage: ContextInfo;
   private subject$: Subject<string>;
 
-  constructor(@Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig, private readonly router: Router) {
+  constructor(
+    @Optional() @Inject(NX_CONTEX_CONFIG) contextConfig: ContextConfig,
+    private readonly router: Router
+  ) {
     this.contextStorage = {
       contextData: {},
       cache: {}
@@ -48,7 +51,7 @@ export class ContextDataService {
    *
    * @param key Key of the variable in context
    */
-  public get(key: string): any {
+  public get<T = any>(key: string): T {
     const contextData = this.contextStorage.contextData[key];
 
     return contextData?.configuration.referenced
@@ -66,7 +69,7 @@ export class ContextDataService {
    * @param key Key of the variable in context
    * @param data data to save in the storage
    */
-  public set(key: string, data: any, configuration?: IContextDataConfigurtion): void {
+  public set<T = any>(key: string, data: T, configuration?: IContextDataConfigurtion): void {
     const contextDataValue = this.contextStorage.contextData[key];
     const config = configuration ?? contextDataValue?.configuration ?? { persistent: false };
 
@@ -81,6 +84,20 @@ export class ContextDataService {
     this.subject$.next(key);
   }
 
+  public patch<T = any>(key: string, data: Partial<T>): void {
+    const contextDataValue = this.contextStorage.contextData[key];
+
+    if (contextDataValue?.configuration.readonly) {
+      throw new ContextDataError(`${key} is read only`);
+    }
+
+    this.addContextData(key, { ...contextDataValue?.data, ...data }, contextDataValue?.configuration);
+
+    _console.log(`${key} patched`, this.contextStorage.contextData);
+
+    this.subject$.next(key);
+  }
+
   /**
    * Delete data from the storage
    *
@@ -90,7 +107,7 @@ export class ContextDataService {
     delete this.contextStorage.contextData[key];
   }
 
-  private addContextData(key: string, data: any, configuration: IContextDataConfigurtion = {}): ContextData {
+  private addContextData<T = any>(key: string, data: T, configuration: IContextDataConfigurtion = {}): ContextData {
     const contextData = new ContextData(data, configuration || {});
     this.contextStorage.contextData[key] = contextData;
 

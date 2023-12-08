@@ -12,7 +12,10 @@ import { XS_EXPIRATON_TIME, _TAGS_CACHE_ID_ } from './constants';
 export class TagService {
   private _urlTags = `${environment.baseUrl}/api`;
 
-  constructor(private cache: CacheService, private http: HttpService) {}
+  constructor(
+    private cache: CacheService,
+    private http: HttpService
+  ) {}
 
   public tags(page?: number, ps?: number): Promise<IPageable<ITagModel>> {
     let httpParams = new HttpParams();

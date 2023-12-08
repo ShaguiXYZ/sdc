@@ -4,13 +4,19 @@ import { _console } from 'src/app/core/lib';
 import { AnalysisFactor, EvaluableValueType, IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { AnalysisService } from 'src/app/core/services/sdc';
 import { MetricsHistoryDataModel } from '../models';
+import { ContextDataService } from 'src/app/core/services';
+import { MetricsContextData } from 'src/app/shared/models';
+import { ContextDataInfo } from 'src/app/shared/constants';
 
 @Injectable()
 export class SdcMetricHistoryGraphsService {
   private metricData!: MetricsHistoryDataModel;
   private data$: Subject<MetricsHistoryDataModel>;
 
-  constructor(private readonly analysisService: AnalysisService) {
+  constructor(
+    private readonly analysisService: AnalysisService,
+    private readonly contextDataService: ContextDataService
+  ) {
     this.data$ = new Subject();
   }
 
@@ -28,7 +34,8 @@ export class SdcMetricHistoryGraphsService {
 
         this.metricData = {
           ...this.metricData,
-          componentAnalysis
+          componentAnalysis,
+          showFactorCharts: this.contextDataService.get<MetricsContextData>(ContextDataInfo.METRICS_DATA)?.showFactorCharts
         };
 
         if (componentAnalysis.length) {
@@ -64,6 +71,8 @@ export class SdcMetricHistoryGraphsService {
         [factor]: !this.metricData?.showFactorCharts?.[factor]
       } as Record<AnalysisFactor, boolean>
     };
+
+    this.contextDataService.patch<MetricsContextData>(ContextDataInfo.METRICS_DATA, { showFactorCharts: this.metricData.showFactorCharts });
 
     this.data$.next(this.metricData);
   }

@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import $ from 'src/app/core/lib/dom.lib';
 import { AnalysisFactor, IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { DateService } from 'src/app/core/services';
 import { SdcMetricInfoComponent, SdcNoDataComponent } from 'src/app/shared/components';
@@ -106,13 +105,13 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     showFactorChart?.['perfectValue'] && this.addFactorChartData(data, analysis, MetricStates.PERFECT, 'perfectValue');
 
     // @howto: disable factor chart inputs if there is no data for that factor
-    Object.keys(this.availableFactorCharts).forEach(value => {
-      const inputElement = $.get(`.factor-${value} input`) as HTMLInputElement;
-
-      if (inputElement) {
-        inputElement.disabled = !this.availableFactorCharts[value as AnalysisFactor];
-      }
-    });
+    // Object.keys(this.availableFactorCharts).forEach(value => {
+    //   const inputElement = $.get(`.factor-${value} input`) as HTMLInputElement;
+    //
+    //   if (inputElement) {
+    //     inputElement.disabled = !this.availableFactorCharts[value as AnalysisFactor];
+    //   }
+    // });
 
     return data;
   }
