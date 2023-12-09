@@ -28,7 +28,6 @@
     "@ngx-translate/http-loader": "~8.0.0",
     "echarts": "^5.4.3",
     "iban": "~0.0.14",
-    "lodash": "^4.17.21",
     "ngx-echarts": "^17.1.0",
     "rxjs": "~7.8.1",
     "tslib": "~2.6.2",

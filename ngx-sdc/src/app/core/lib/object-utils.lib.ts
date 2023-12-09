@@ -1,16 +1,19 @@
-// import _equal from 'fast-deep-equal/es6';
-import _, { Dictionary } from 'lodash';
-
 /**
  * Make a deep copy of a object
  *
  * @param item Item to copy
  */
-export const deepCopy = <T>(item: T): T => _.cloneDeep(item);
+export const deepCopy = <T>(item: T): T => structuredClone(item);
 // export const deepCopy = <T>(item: T): T => JSON.parse(JSON.stringify(item));
-export const equal = <T>(data1: Partial<T>, data2: Partial<T>): boolean => _.isEqual(data1, data2);
-// export const equal = <T>(data1: Partial<T>, data2: Partial<T>): boolean => _equal(data1, data2);
-export const groupBy = <T>(collection: T[], property: keyof T): Dictionary<T[]> => _.groupBy(collection, property);
+
+//group by property
+export const groupBy = <T>(collection: T[], property: keyof T): Record<string, T[]> =>
+  collection.reduce((groups: Record<string, T[]>, item: T) => {
+    const group = item[property];
+    groups[group as string] = groups[group as string] || [];
+    groups[group as string].push(item);
+    return groups;
+  }, {});
 
 export const hasValue = (data: any): boolean => data !== null && data !== undefined;
 

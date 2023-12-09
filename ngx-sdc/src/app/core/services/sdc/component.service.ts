@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
-import { deepCopy, hasValue, sortCoverageData } from '../../lib';
+import { hasValue, sortCoverageData } from '../../lib';
 import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
 import { CacheService } from '../context-data';
@@ -14,7 +14,10 @@ import { XS_EXPIRATON_TIME, _COMPONENT_CACHE_ID_ } from './constants';
 export class ComponentService {
   private _urlComponents = `${environment.baseUrl}/api`;
 
-  constructor(private cache: CacheService, private http: HttpService) {}
+  constructor(
+    private cache: CacheService,
+    private http: HttpService
+  ) {}
 
   public component(componentId: number): Promise<IComponentModel> {
     return firstValueFrom(
@@ -164,7 +167,7 @@ export class ComponentService {
             const dto = res as IHistoricalCoverage<IComponentDTO>;
             const result: IHistoricalCoverage<IComponentModel> = {
               data: IComponentModel.toModel(dto.data),
-              historical: deepCopy(dto.historical)
+              historical: dto.historical
             };
 
             return result;
