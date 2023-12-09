@@ -4,6 +4,7 @@ import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricStates, stateByCoverage } from '../../lib';
 import { IStateCount } from '../../models';
 import { SdcStateCountComponent } from './components';
+import { DataInfo } from 'src/app/core/models';
 
 @Component({
   selector: 'sdc-components-state-count',
@@ -38,18 +39,19 @@ export class SdcComponentsStateCountComponent {
   }
 
   private stateCounts(): IStateCount[] {
-    const counts: { [key: string]: IStateCount } = {};
+    return (
+      this.components?.reduce((counts: IStateCount[], component: ICoverageModel) => {
+        const state: MetricStates = stateByCoverage(component.coverage ?? 0);
+        const existingCount = counts.find(count => count.state === state);
 
-    this.components?.forEach(component => {
-      const state: MetricStates = stateByCoverage(component.coverage ?? 0);
+        if (existingCount) {
+          existingCount.count++;
+        } else {
+          counts.push({ state, count: 1 });
+        }
 
-      if (counts[state]) {
-        counts[state] = { ...counts[state], count: counts[state].count + 1 };
-      } else {
-        counts[state] = { state, count: 1 };
-      }
-    });
-
-    return Object.values(counts);
+        return counts;
+      }, []) ?? []
+    );
   }
 }
