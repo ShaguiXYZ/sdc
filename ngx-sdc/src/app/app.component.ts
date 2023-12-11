@@ -11,6 +11,33 @@ import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponen
 
 @Component({
   selector: 'app-root',
+  styles: [
+    `
+      @import 'core-colors';
+
+      main {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+        width: 100vw;
+
+        .app-content {
+          flex: 1;
+          overflow: auto overlay;
+          padding: 0 16px;
+        }
+
+        footer {
+          border-top: 1px solid $grey-light-color;
+          padding: 5px 16px;
+          text-align: center;
+        }
+      }
+    `
+  ],
   template: `
     <main [@routeAnimations]="prepareRoute(outlet)">
       <nx-loading></nx-loading>
@@ -44,7 +71,7 @@ export class AppComponent implements OnInit {
       .onDataChange()
       .pipe(filter(data => data === ContextDataInfo.APP_CONFIG))
       .subscribe(data => {
-        const config = this.contextDataService.get(data) as AppConfig;
+        const config = this.contextDataService.get(data);
         this.title.setTitle(config.title);
       });
 

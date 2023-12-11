@@ -40,21 +40,6 @@
   }
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow-x: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  width: 100vw;
-
-  .app-content {
-    flex: 1;
-    overflow: auto;
-  }
-}
-
 .sdc-op {
   cursor: pointer;
   opacity: 0.3;
