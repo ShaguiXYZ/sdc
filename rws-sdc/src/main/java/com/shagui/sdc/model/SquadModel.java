@@ -36,6 +36,8 @@ public class SquadModel implements ModelInterface<Integer>, JpaExpirableData {
 
 	private Float coverage;
 
+	private Float trend;
+
 	@Column(name = "expiry_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date expiryDate;

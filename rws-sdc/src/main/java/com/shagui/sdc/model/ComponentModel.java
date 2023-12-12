@@ -39,6 +39,8 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 
 	private Float coverage;
 
+	private Float trend;
+
 	private boolean blocked;
 
 	@Column(name = "delete_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")

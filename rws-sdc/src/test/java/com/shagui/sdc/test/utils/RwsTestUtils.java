@@ -41,6 +41,7 @@ import com.shagui.sdc.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.sdc.repository.ComponentPropertyRepository;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTagRepository;
+import com.shagui.sdc.repository.DepartmentRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.repository.TagRepository;
@@ -72,6 +73,9 @@ public class RwsTestUtils {
 
 	@Mock
 	private static ComponentTagRepository componentTagRepository;
+
+	@Mock
+	private static DepartmentRepository departmentRepository;
 
 	@Mock
 	private static SquadRepository squadRepository;
@@ -109,7 +113,7 @@ public class RwsTestUtils {
 	public static ComponentUtilsConfig componentUtilsConfig() {
 		ComponentUtilsConfig config = new ComponentUtilsConfig(securityTokenConfig, componentRepository,
 				componentAnalysisRepository, componentHistoricalCoverageRepository, componentPropertyRepository,
-				componentTagRepository, squadRepository, tagRepository);
+				componentTagRepository, departmentRepository, squadRepository, tagRepository);
 
 		return config;
 	}

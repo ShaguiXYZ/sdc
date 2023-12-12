@@ -4,13 +4,14 @@ import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { BACKGROUND_CHART_COLOR } from '../../constants';
 import { SdcCoverageChartComponent } from '../sdc-charts';
+import { SdcTrendComponent } from '../sdc-trend';
 
 @Component({
   selector: 'sdc-coverage-info',
   templateUrl: './sdc-coverage-info.component.html',
   styleUrls: ['./sdc-coverage-info.component.scss'],
   standalone: true,
-  imports: [CommonModule, NxCopytextModule, SdcCoverageChartComponent]
+  imports: [CommonModule, NxCopytextModule, SdcCoverageChartComponent, SdcTrendComponent]
 })
 export class SdcCoverageInfoComponent {
   public BACKGROUND_CHART_COLOR = BACKGROUND_CHART_COLOR;

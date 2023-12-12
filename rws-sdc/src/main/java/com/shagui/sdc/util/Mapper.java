@@ -1,7 +1,6 @@
 package com.shagui.sdc.util;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 
@@ -93,22 +92,18 @@ public class Mapper {
 		List<TagDTO> tags = source.getTags().stream().map(Mapper::parse).toList();
 
 		return new ComponentDTO(source.getId(), source.getName(), parse(source.getComponentTypeArchitecture()),
-				source.getAnalysisDate(), source.getCoverage(), source.isBlocked(), parse(source.getSquad()), tags);
+				source.getAnalysisDate(), source.getCoverage(), source.getTrend(), source.isBlocked(),
+				parse(source.getSquad()), tags);
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {
-		List<Float> coverages = source.getSquads().stream().map(SquadModel::getCoverage).filter(Objects::nonNull)
-				.toList();
-
-		int numSquads = coverages.size();
-
-		Float coverage = coverages.stream().reduce(0f, (a, b) -> a + b);
-		return new DepartmentDTO(source.getId(), source.getName(), numSquads > 0 ? coverage / numSquads : null);
+		return new DepartmentDTO(source.getId(), source.getName(), source.getCoverage(),
+				source.getTrend());
 	}
 
 	public static SquadDTO parse(SquadModel source) {
 		return new SquadDTO(source.getId(), source.getName(), Mapper.parse(source.getDepartment()),
-				source.getCoverage());
+				source.getCoverage(), source.getTrend());
 	}
 
 	public static TagDTO parse(TagModel source) {

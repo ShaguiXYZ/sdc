@@ -1,6 +1,6 @@
 @if (metricsData && metricsData.componentAnalysis?.length) {
-  <div class="evolution-content nx-margin-top-2xs">
-    <div class="metrics sdc-scrollable nx-margin-right-2xs">
+  <div class="evolution-content">
+    <div class="metrics sdc-scrollable nx-margin-right-3xs">
       @for (data of metricsData.componentAnalysis; track data.metric.id) {
         <sdc-metric-info
           [analysis]="data"

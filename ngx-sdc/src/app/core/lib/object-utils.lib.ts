@@ -6,13 +6,18 @@
 export const deepCopy = <T>(item: T): T => structuredClone(item);
 // export const deepCopy = <T>(item: T): T => JSON.parse(JSON.stringify(item));
 
+type GroupedTypes = string | number | symbol;
+
+export type IndexdData<T> = Record<GroupedTypes, T[]>;
+
 //group by property
-export const groupBy = <T>(collection: T[], property: keyof T): Record<string, T[]> =>
-  collection.reduce((groups: Record<string, T[]>, item: T) => {
-    const group = item[property];
-    groups[group as string] = groups[group as string] || [];
-    groups[group as string].push(item);
-    return groups;
+export const indexBy = <T, K extends keyof T>(collection: T[], property: K): IndexdData<T> =>
+  collection.reduce((acc: Record<GroupedTypes, T[]>, item: T) => {
+    const key = item[property] as GroupedTypes;
+    acc[key] = acc[key] ?? [];
+    acc[key].push(item);
+
+    return acc;
   }, {});
 
 export const hasValue = (data: any): boolean => data !== null && data !== undefined;

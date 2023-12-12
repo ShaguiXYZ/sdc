@@ -11,7 +11,10 @@ import { L_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';
 export class DepartmentService {
   private _urlDepartments = `${environment.baseUrl}/api`;
 
-  constructor(private cache: CacheService, private http: HttpService) {}
+  constructor(
+    private cache: CacheService,
+    private http: HttpService
+  ) {}
 
   public departments(): Promise<IPageable<IDepartmentModel>> {
     return firstValueFrom(

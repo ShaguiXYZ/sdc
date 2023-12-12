@@ -40,11 +40,17 @@
 			CREATE TABLE departments (
 				id int4 NOT NULL,
 				name varchar NOT NULL,
+				coverage real,
 				expiry_date timestamp,
 				company_id int4 NOT NULL,
 				CONSTRAINT departments_pk PRIMARY KEY (id),
 				CONSTRAINT department_company_fk FOREIGN KEY (company_id) REFERENCES companies(id)
 			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20231211_10010_1">
+		<sql dbms="postgresql">
+			ALTER TABLE departments ADD trend real NULL;
 		</sql>
 	</changeSet>
 	<changeSet author="initial" id="20230707_10011">
@@ -73,6 +79,11 @@
 				CONSTRAINT squads_pk PRIMARY KEY (id),
 				CONSTRAINT squads_department_fk FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE
 			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20231211_10012_1">
+		<sql dbms="postgresql">
+			ALTER TABLE squads ADD trend real NULL;
 		</sql>
 	</changeSet>
 	<changeSet author="initial" id="20230707_10013">
@@ -108,6 +119,11 @@
 	<changeSet author="initial" id="20231117_10014_1">
 		<sql dbms="postgresql">
 			ALTER TABLE components ADD blocked boolean NOT NULL DEFAULT false;
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20231211_10014_2">
+		<sql dbms="postgresql">
+			ALTER TABLE components ADD trend real NULL;
 		</sql>
 	</changeSet>
 	<changeSet author="initial" id="20230707_10015">

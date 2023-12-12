@@ -7,13 +7,14 @@ import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
 import { TranslateModule } from '@ngx-translate/core';
 import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { styleByCoverage } from '../../lib';
+import { SdcTrendComponent } from '../sdc-trend';
 
 @Component({
   selector: 'sdc-compliance-bar-card',
   templateUrl: './sdc-compliance-bar-card.component.html',
   styleUrls: ['./sdc-compliance-bar-card.component.scss'],
   standalone: true,
-  imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, TranslateModule]
+  imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, SdcTrendComponent, TranslateModule]
 })
 export class SdcComplianceBarCardComponent {
   public barCoverage?: number;

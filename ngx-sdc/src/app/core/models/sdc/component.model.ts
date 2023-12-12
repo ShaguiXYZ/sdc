@@ -9,6 +9,7 @@ export interface IComponentDTO {
   squad: ISquadDTO;
   analysisDate?: number;
   coverage?: number;
+  trend?: number;
   blocked?: boolean;
 }
 
@@ -19,7 +20,7 @@ export interface IComponentModel extends ICoverageModel {
 
 export namespace IComponentModel {
   export const toModel = (dto: IComponentDTO): IComponentModel =>
-    new ComponentModel(dto.id, dto.name, ISquadModel.toModel(dto.squad), dto.analysisDate, dto.coverage, dto.blocked);
+    new ComponentModel(dto.id, dto.name, ISquadModel.toModel(dto.squad), dto.analysisDate, dto.coverage, dto.trend, dto.blocked);
   export const toDTO = (model: IComponentModel): IComponentDTO => ({
     ...model,
     squad: ISquadModel.toDTO(model.squad)
@@ -33,6 +34,7 @@ export class ComponentModel implements IComponentModel {
     public squad: ISquadModel,
     public analysisDate?: number,
     public coverage?: number,
+    public trend?: number,
     public blocked?: boolean
   ) {}
 }

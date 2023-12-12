@@ -29,8 +29,12 @@
             </nx-expansion-panel-title>
           </nx-expansion-panel-header>
           <div class="history-component">
-            <div class="application-graph nx-margin-top-2xs">
-              <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }" />
+            <div class="application-graph">
+              @if (metricsData.historical?.historical?.page?.length) {
+                <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }" />
+              } @else {
+                <sdc-no-data />
+              }
             </div>
             <div class="chart-ops sdc-scrollable">
               <div
@@ -94,9 +98,7 @@
                 </div>
               </div>
             } @else {
-              <div class="nx-margin-top-m">
-                <sdc-no-data />
-              </div>
+              <sdc-no-data />
             }
           </nx-tab>
         </nx-tab-group>

@@ -81,7 +81,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		ComponentModel component = componentsRepository.findExistingId(componentId);
 
 		List<ComponentAnalysisModel> savedData = executeAsyncMetricServicesAndWait(component)
-				.filter(modifiedAnalysis).map(componentAnalysisRepository::save).toList();
+				.filter(modifiedAnalysis).map(componentAnalysisRepository::saveAndFlush).toList();
 
 		ComponentUtils.updateRelatedComponentEntities(component, !savedData.isEmpty());
 
@@ -130,6 +130,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 				.filterAnalysis(metricId, componentId, squadId, departmentId, new Timestamp(date.getTime()))
 				.stream()
 				.map(AnalysisUtils.setMetricValues).map(Mapper::parse).collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public void updateTrend(int componentId) {
+		ComponentUtils.updateTrend(componentsRepository.findExistingId(componentId));
 	}
 
 	private Stream<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {

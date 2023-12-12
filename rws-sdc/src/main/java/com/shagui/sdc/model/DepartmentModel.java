@@ -39,6 +39,10 @@ public class DepartmentModel implements ModelInterface<Integer>, JpaExpirableDat
 	@JoinColumn(name = "company_id")
 	private CompanyModel company;
 
+	private Float coverage;
+
+	private Float trend;
+
 	@Column(name = "expiry_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date expiryDate;

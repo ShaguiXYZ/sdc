@@ -1,4 +1,4 @@
-import { filterByProperties, groupBy } from '../object-utils.lib';
+import { filterByProperties, indexBy } from '../object-utils.lib';
 
 describe('filterByProperties', () => {
   const collection = [
@@ -50,7 +50,7 @@ describe('groupBy', () => {
       { id: 2, name: 'Jane' },
       { id: 3, name: 'John' }
     ];
-    const result = groupBy(collection, 'name');
+    const result = indexBy(collection, 'name');
     expect(result).toEqual({
       John: [
         { id: 1, name: 'John' },
@@ -62,7 +62,7 @@ describe('groupBy', () => {
 
   it('should return an empty object when given an empty array', () => {
     const data: any[] = [];
-    const result = groupBy(data, 'name');
+    const result = indexBy(data, 'name');
     expect(result).toEqual({});
   });
 });

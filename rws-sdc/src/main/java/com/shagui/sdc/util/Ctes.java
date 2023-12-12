@@ -44,4 +44,12 @@ public class Ctes {
 		}
 	}
 
+	public static class TrendConstants {
+		public static final int TREND_DEEP = 10;
+		public static final float TREND_HEAD = 5f;
+
+		private TrendConstants() {
+		}
+	}
+
 }

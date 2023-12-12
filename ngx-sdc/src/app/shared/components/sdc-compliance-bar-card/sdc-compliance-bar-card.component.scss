@@ -5,9 +5,10 @@ $danger-color: var(--danger);
 // Defines a custom property
 @mixin define-custom-property($name, $value) {
   #{custom-property-color($name)} {
+    color: $value;
+
     .coverage {
       color: $value;
-      margin-left: 10px;
     }
 
     &::ng-deep nx-progressbar .nx-progress__indicator::after {
@@ -40,6 +41,10 @@ nx-card {
   }
 
   .card-content {
+    .coverage-info .coverage {
+      margin-left: 10px;
+    }
+
     .flex-info {
       display: flex;
       align-items: center;

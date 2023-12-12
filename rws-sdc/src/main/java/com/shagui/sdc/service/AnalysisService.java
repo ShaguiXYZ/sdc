@@ -25,4 +25,6 @@ public interface AnalysisService {
 
 	PageData<MetricAnalysisDTO> filterAnalysis(Integer metricId, Integer componentId,
 			Integer squadId, Integer departmentId, Date date);
+
+	public void updateTrend(int componentId);
 }

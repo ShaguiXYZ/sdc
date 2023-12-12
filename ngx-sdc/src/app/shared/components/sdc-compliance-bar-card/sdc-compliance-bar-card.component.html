@@ -1,14 +1,17 @@
 <nx-card [ngClass]="{ 'hide-border': hideBorder }">
   @if (component.blocked) {
-  <div class="blocked"></div>
+    <div class="blocked"></div>
   }
 
   <div class="card-content">
-    @if (coverage) {
-    <div class="{{ coverageStyle }} nx-margin-bottom-xs sdc-center">
-      <nx-progressbar [value]="barCoverage"></nx-progressbar>
-      <span class="coverage">{{ coverage }}%</span>
-    </div>
+    @if (coverage != null) {
+      <div class="coverage-info {{ coverageStyle }} nx-margin-bottom-xs sdc-center">
+        <nx-progressbar [value]="barCoverage"></nx-progressbar>
+        <span class="coverage">{{ coverage }}%</span>
+        @if (component.trend != null) {
+          <sdc-trend class="nx-margin-left-2xs" [trend]="component.trend" />
+        }
+      </div>
     }
 
     <div class="flex-info nx-margin-bottom-xs">
@@ -21,15 +24,17 @@
     </div>
     <div class="flex-info">
       @if (showDepartment) {
-      <nx-badge type="positive" (click)="onClickDepartment()">{{ component.squad.department.name }}</nx-badge>
-      } @if (showSquad) {
-      <nx-badge type="active" (click)="onClickSquad()"> {{ component.squad.name }}</nx-badge>
-      } @if (showMore) {
-      <div class="position-end">
-        <nx-link>
-          <a (click)="onClickShwoMore()">{{ 'Label.ShowMore' | translate }}</a>
-        </nx-link>
-      </div>
+        <nx-badge type="positive" (click)="onClickDepartment()">{{ component.squad.department.name }}</nx-badge>
+      }
+      @if (showSquad) {
+        <nx-badge type="active" (click)="onClickSquad()"> {{ component.squad.name }}</nx-badge>
+      }
+      @if (showMore) {
+        <div class="position-end">
+          <nx-link>
+            <a (click)="onClickShwoMore()">{{ 'Label.ShowMore' | translate }}</a>
+          </nx-link>
+        </div>
       }
     </div>
   </div>

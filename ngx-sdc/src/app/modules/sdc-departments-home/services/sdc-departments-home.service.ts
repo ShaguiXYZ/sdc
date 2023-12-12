@@ -20,12 +20,6 @@ export class SdcDepartmentsService {
   ) {
     this.data$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.DEPARTMENTS_DATA);
-
-    this.data$.next({
-      departmentFilter: this.contextData?.departmentFilter,
-      squadFilter: this.contextData?.squadFilter,
-      department: this.contextData?.department
-    });
   }
 
   public onDataChange(): Observable<Partial<SdcDepartmentsDataModel>> {

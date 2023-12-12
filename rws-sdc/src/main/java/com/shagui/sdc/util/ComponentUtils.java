@@ -4,11 +4,17 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shagui.sdc.enums.AnalysisType;
@@ -18,10 +24,12 @@ import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTagModel;
+import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.model.TagModel;
 import com.shagui.sdc.model.pk.ComponentTagPk;
+import com.shagui.sdc.util.Ctes.TrendConstants;
 import com.shagui.sdc.util.validations.NumericMap;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +66,7 @@ public class ComponentUtils {
 		if (hasNewAnalysis) {
 			updateComponent(component);
 			updateComponentSquad(component);
+			updateSquadDepartment(component.getSquad());
 			refreshTags(component);
 		}
 
@@ -100,9 +109,17 @@ public class ComponentUtils {
 		}
 	}
 
-	private static void saveHistoricalCoverage(ComponentModel component, Date date, Float coverage) {
-		config.historicalCoverageComponentRepository()
-				.create(new ComponentHistoricalCoverageModel(component, date, coverage));
+	public static void updateTrend(ComponentModel component) {
+		component.setTrend(calculateTrend(component));
+		config.componentRepository().saveAndFlush(component);
+
+		SquadModel squad = component.getSquad();
+		squad.setTrend(calculateTrend(squad));
+		config.squadRepository().saveAndFlush(squad);
+
+		DepartmentModel department = squad.getDepartment();
+		department.setTrend(calculateTrend(department));
+		config.departmentRepository().saveAndFlush(department);
 	}
 
 	private static void updateComponent(ComponentModel component) {
@@ -113,11 +130,16 @@ public class ComponentUtils {
 
 		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
 
-		if (!coverage.equals(component.getCoverage())) {
+		if (coverage != null && !coverage.equals(component.getCoverage())) {
 			component.setCoverage(coverage);
 			component.setBlocked(metricAnalysis.stream().anyMatch(ComponentAnalysisModel::isBlocker));
 			saveHistoricalCoverage(component, date, coverage);
 		}
+	}
+
+	private static void saveHistoricalCoverage(ComponentModel component, Date date, Float coverage) {
+		config.historicalCoverageComponentRepository()
+				.create(new ComponentHistoricalCoverageModel(component, date, coverage));
 	}
 
 	private static void updateComponentSquad(ComponentModel component) {
@@ -127,7 +149,21 @@ public class ComponentUtils {
 				.squadAnalysis(squad.getId(), new Timestamp(date.getTime()));
 		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
 
-		squad.setCoverage(coverage);
+		if (coverage != null) {
+			squad.setCoverage(coverage);
+		}
+	}
+
+	private static void updateSquadDepartment(SquadModel squad) {
+		Date date = new Date();
+		DepartmentModel department = squad.getDepartment();
+		List<ComponentAnalysisModel> metricAnalysis = config.componentAnalysisRepository().repository()
+				.departmentAnalysis(department.getId(), new Timestamp(date.getTime()));
+		Float coverage = AnalysisUtils.metricCoverage(metricAnalysis);
+
+		if (coverage != null) {
+			department.setCoverage(coverage);
+		}
 	}
 
 	private static void refreshTags(ComponentModel component) {
@@ -159,5 +195,55 @@ public class ComponentUtils {
 
 		config.componentTagRepository().repository().deleteByComponent_IdAndAnalysisTag(component.getId(), true);
 		config.componentTagRepository().repository().saveAll(tags.values());
+	}
+
+	private static Float calculateTrend(ComponentModel component) {
+		Page<ComponentHistoricalCoverageModel> historical = config.historicalCoverageComponentRepository().repository()
+				.findById_ComponentIdOrderById_AnalysisDateAsc(component.getId(),
+						Pageable.ofSize(TrendConstants.TREND_DEEP));
+
+		List<Float> values = historical.stream()
+				.map(ComponentHistoricalCoverageModel::getCoverage)
+				.filter(Objects::nonNull)
+				.collect(Collectors.toList());
+
+		List<Float> trend = IntStream.range(0, values.size() - 1)
+				.mapToObj(i -> values.get(i + 1) - values.get(i))
+				.collect(Collectors.toList());
+
+		return trendAverage(trend.stream());
+	}
+
+	private static Float calculateTrend(SquadModel squad) {
+		List<ComponentModel> componentList = config.componentRepository().repository().findBySquad_Id(squad.getId(),
+				Sort.unsorted());
+
+		return trendAverage(componentList.stream().map(ComponentModel::getTrend));
+	}
+
+	private static Float calculateTrend(DepartmentModel department) {
+		List<SquadModel> squadList = config.squadRepository().repository().findByDepartment(department);
+		Stream<Float> trends = squadList.stream().map(SquadModel::getTrend);
+
+		return trendAverage(trends);
+	}
+
+	private static Float trendAverage(Stream<Float> stream) {
+		List<Float> trends = stream.filter(Objects::nonNull).toList();
+
+		if (trends.isEmpty())
+			return 0.0f;
+
+		Float sum = trends.stream().reduce(null, (a, b) -> {
+			if (a == null) {
+				return b;
+			}
+
+			return a + b;
+		});
+
+		Float trend = sum / trends.size();
+
+		return TrendConstants.TREND_HEAD > Math.abs(trend) ? 0.0f : trend;
 	}
 }

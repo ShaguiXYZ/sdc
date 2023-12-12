@@ -13,6 +13,7 @@ public class DepartmentDTO {
 	private int id;
 	private String name;
 	private Float coverage;
+	private Float trend;
 
 	public DepartmentDTO(DepartmentView source) {
 		BeanUtils.copyProperties(source, this);

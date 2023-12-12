@@ -22,7 +22,6 @@ import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.ebs.ComponentInput;
-import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.service.ComponentService;
 import com.shagui.sdc.service.DataMaintenanceService;
 
@@ -32,7 +31,7 @@ class ComponentControllerTest {
 	private ComponentController controller;
 
 	@Mock
-	private AnalysisService analysisService;
+	private AnalysisController analysisController;
 
 	@Mock
 	private ComponentService componentService;
@@ -60,7 +59,7 @@ class ComponentControllerTest {
 		dto.setId(1);
 
 		when(dataMaintenanceService.componentUpdateData(any(ComponentInput.class))).thenReturn(dto);
-		when(analysisService.analyze(anyInt())).thenReturn(null);
+		when(analysisController.analyze(anyInt())).thenReturn(null);
 		when(componentService.findBy(anyInt())).thenReturn(dto);
 
 		ComponentDTO result = controller.patch(value);

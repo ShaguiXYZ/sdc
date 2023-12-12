@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.StaticRepository;
@@ -46,10 +48,31 @@ public class UrlUtils {
 					"status %s calling %s".formatted(response.status(), response.request().url()));
 		}
 
+		JavaType type = config.getObjectMapper().getTypeFactory().constructType(clazz);
+		return mapResponse(response, type);
+	}
+
+	public static <C extends Collection<T>, T> C mapResponse(Response response, Class<C> collectionClass,
+			Class<T> clazz) {
+		if (response.status() >= 400) {
+			throw new SdcCustomException(
+					"status %s calling %s".formatted(response.status(), response.request().url()));
+		}
+
+		JavaType type = config.getObjectMapper().getTypeFactory().constructCollectionType(collectionClass, clazz);
+		return mapResponse(response, type);
+	}
+
+	public static <T> T mapResponse(Response response, JavaType type) {
+		if (response.status() >= 400) {
+			throw new SdcCustomException(
+					"status %s calling %s".formatted(response.status(), response.request().url()));
+		}
+
 		try (InputStream bodyIs = response.body().asInputStream()) {
-			return config.getObjectMapper().readValue(bodyIs, clazz);
+			return config.getObjectMapper().readValue(bodyIs, type);
 		} catch (IOException ex) {
-			throw new SdcCustomException("error mapping response to %s".formatted(clazz.getName()));
+			throw new SdcCustomException("error mapping response to %s".formatted(type.getTypeName()));
 		}
 	}
 

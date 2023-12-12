@@ -10,3 +10,4 @@ export * from './sdc-no-data';
 export * from './sdc-tag';
 export * from './sdc-tags';
 export * from './sdc-time-evolution-multichart';
+export * from './sdc-trend';

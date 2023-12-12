@@ -15,6 +15,7 @@ public class SquadDTO {
 	private String name;
 	private DepartmentDTO department;
 	private Float coverage;
+	private Float trend;
 
 	public SquadDTO(SquadView source) {
 		BeanUtils.copyProperties(source, this);

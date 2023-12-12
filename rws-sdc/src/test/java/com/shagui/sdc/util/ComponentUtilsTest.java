@@ -25,6 +25,7 @@ import com.shagui.sdc.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.sdc.repository.ComponentPropertyRepository;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTagRepository;
+import com.shagui.sdc.repository.DepartmentRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.repository.TagRepository;
@@ -51,6 +52,9 @@ class ComponentUtilsTest {
 	private static ComponentTagRepository componentTagRepository;
 
 	@Mock
+	private static DepartmentRepository departmentRepository;
+
+	@Mock
 	private static SquadRepository squadRepository;
 
 	@Mock
@@ -65,13 +69,14 @@ class ComponentUtilsTest {
 		ComponentUtils.setConfig(
 				new ComponentUtilsConfig(securityTokenConfig, componentRepository, componentAnalysisRepository,
 						componentHistoricalCoverageRepository, componentPropertyRepository,
-						componentTagRepository, squadRepository, tagRepository));
+						componentTagRepository, departmentRepository, squadRepository, tagRepository));
 		AnalysisUtils.setConfig(new AnalysisUtilsConfig(metricValueRepository));
 	}
 
 	@Test
 	void createComponentPropertiesTest() {
-		when(componentPropertyRepository.save(any(ComponentPropertyModel.class))).thenReturn(RwsTestUtils.componentProperty("property_name"));
+		when(componentPropertyRepository.save(any(ComponentPropertyModel.class)))
+				.thenReturn(RwsTestUtils.componentProperty("property_name"));
 		ComponentUtils.addOrUpdatePropertyValue(RwsTestUtils.componentModelMock(), "property_name", "property_value");
 
 		verify(componentPropertyRepository, times(1)).save(any(ComponentPropertyModel.class));
@@ -80,34 +85,33 @@ class ComponentUtilsTest {
 	@Test
 	void updateRelatedComponentEntities() {
 		when(componentAnalysisRepository.componentAnalysis(anyInt(), any(Timestamp.class))).thenReturn(
-			new ArrayList<>() {
-				private static final long serialVersionUID = 1L;
+				new ArrayList<>() {
+					private static final long serialVersionUID = 1L;
 
-				{
-					add(RwsTestUtils.componentAnalysisModelMock("12.0"));
-				}
-			}
-		);
+					{
+						add(RwsTestUtils.componentAnalysisModelMock("12.0"));
+					}
+				});
 		when(metricValueRepository.metricValueByDate(anyInt(), anyInt(), any(Timestamp.class))).thenReturn(
-			new ArrayList<>() {
-				private static final long serialVersionUID = 1L;
-	
-				{
-					add(RwsTestUtils.metricValuesModelMock());
-				}
-			}
-		);
-		when(componentHistoricalCoverageRepository.save(any(ComponentHistoricalCoverageModel.class))).thenReturn(new ComponentHistoricalCoverageModel());
-		when(componentRepository.findById(anyInt())).thenReturn(Optional.of( RwsTestUtils.componentModelMock()));
+				new ArrayList<>() {
+					private static final long serialVersionUID = 1L;
+
+					{
+						add(RwsTestUtils.metricValuesModelMock());
+					}
+				});
+		when(componentHistoricalCoverageRepository.save(any(ComponentHistoricalCoverageModel.class)))
+				.thenReturn(new ComponentHistoricalCoverageModel());
+		when(componentRepository.findById(anyInt())).thenReturn(Optional.of(RwsTestUtils.componentModelMock()));
 		when(componentRepository.save(any(ComponentModel.class))).thenReturn(RwsTestUtils.componentModelMock());
 		when(squadRepository.findById(anyInt())).thenReturn(Optional.of(RwsTestUtils.squadModelMock()));
 		when(squadRepository.save(any(SquadModel.class))).thenReturn(RwsTestUtils.squadModelMock());
-		
+
 		ComponentUtils.updateRelatedComponentEntities(RwsTestUtils.componentModelMock(), true);
 		verify(componentRepository, times(1)).save(any(ComponentModel.class));
 		verify(componentHistoricalCoverageRepository, times(1)).save(any(ComponentHistoricalCoverageModel.class));
 		verify(squadRepository, times(1)).save(any(SquadModel.class));
-		
+
 	}
 
 }

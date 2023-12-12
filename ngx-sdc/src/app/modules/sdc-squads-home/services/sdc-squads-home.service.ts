@@ -20,7 +20,6 @@ export class SdcSquadsService {
   ) {
     this.summary$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.SQUADS_DATA);
-    this.summary$.next({ filter: this.contextData?.filter, squad: this.contextData?.squad });
   }
 
   public onDataChange(): Observable<Partial<SdcSquadsDataModel>> {

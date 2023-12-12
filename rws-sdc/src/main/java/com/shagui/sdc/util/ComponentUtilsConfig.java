@@ -10,6 +10,7 @@ import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTagModel;
+import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.model.TagModel;
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
@@ -20,6 +21,7 @@ import com.shagui.sdc.repository.ComponentHistoricalCoverageRepository;
 import com.shagui.sdc.repository.ComponentPropertyRepository;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTagRepository;
+import com.shagui.sdc.repository.DepartmentRepository;
 import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.repository.TagRepository;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
@@ -36,6 +38,7 @@ public class ComponentUtilsConfig {
 	private final ComponentHistoricalCoverageRepository componentHistoricalCoverageRepository;
 	private final ComponentPropertyRepository componentPropertyRepository;
 	private final ComponentTagRepository componentTagRepository;
+	private final DepartmentRepository departmentRepository;
 	private final SquadRepository squadRepository;
 	private final TagRepository tagRepository;
 
@@ -61,6 +64,10 @@ public class ComponentUtilsConfig {
 
 	public JpaCommonRepository<ComponentTagRepository, ComponentTagModel, ComponentTagPk> componentTagRepository() {
 		return () -> componentTagRepository;
+	}
+
+	public JpaCommonRepository<DepartmentRepository, DepartmentModel, Integer> departmentRepository() {
+		return () -> departmentRepository;
 	}
 
 	public JpaCommonRepository<SquadRepository, SquadModel, Integer> squadRepository() {

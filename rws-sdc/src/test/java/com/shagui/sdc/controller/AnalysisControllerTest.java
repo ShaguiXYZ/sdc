@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -57,47 +58,55 @@ class AnalysisControllerTest {
 	@Test
 	void analyzeComponentTest() {
 		when(analysisService.analyze(Mockito.anyInt())).thenReturn(dto);
+		doNothing().when(analysisService).updateTrend(Mockito.anyInt());
+		when(analysisService.analysis(Mockito.anyInt())).thenReturn(dto);
+
 		PageData<MetricAnalysisDTO> result = controller.analyze(1);
+
 		assertNotNull(result);
 	}
 
 	@Test
 	void MetricHistoryTest() {
-		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Date.class), Mockito.any(RequestPageInfo.class))).thenReturn(dto);
-		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, 1, new Date(),1,1);
+		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Date.class),
+				Mockito.any(RequestPageInfo.class))).thenReturn(dto);
+		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, 1, new Date(), 1, 1);
 		assertNotNull(result);
 	}
 
 	@Test
 	void MetricNameHistoryTest() {
-		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyString(), Mockito.any(AnalysisType.class), Mockito.any(Date.class), Mockito.any(RequestPageInfo.class))).thenReturn(dto);
-		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, "metric name",AnalysisType.GIT, new Date(),1,1);
+		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyString(), Mockito.any(AnalysisType.class),
+				Mockito.any(Date.class), Mockito.any(RequestPageInfo.class))).thenReturn(dto);
+		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, "metric name", AnalysisType.GIT, new Date(), 1,
+				1);
 		assertNotNull(result);
 	}
 
 	@Test
 	void MetricHistoryTestDateNUll() {
-		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Date.class))).thenReturn(dto);
-		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, 1, null,null,null);
+		when(analysisService.metricHistory(Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Date.class)))
+				.thenReturn(dto);
+		PageData<MetricAnalysisDTO> result = controller.metricHistory(1, 1, null, null, null);
 		assertNotNull(result);
 	}
 
 	@Test
 	void analysisTest() {
-		
 		when(analysisService.analysis(Mockito.anyInt(), Mockito.anyInt())).thenReturn(metricAnalysisDTO);
-		MetricAnalysisDTO result = controller.analysis(1,1);
+		MetricAnalysisDTO result = controller.analysis(1, 1);
 		assertNotNull(result);
-
 	}
 
 	@Test
 	void analyzeFindByTest() {
-
 		ComponentDTO value = new ComponentDTO();
 		value.setId(1);
 		when(componentService.findBy(Mockito.anyInt(), Mockito.anyString())).thenReturn(value);
 		when(analysisService.analyze(Mockito.anyInt())).thenReturn(dto);
+		doNothing().when(analysisService).updateTrend(Mockito.anyInt());
+		when(analysisService.analysis(Mockito.anyInt())).thenReturn(dto);
+
 		PageData<MetricAnalysisDTO> result = controller.analyze(1, "test");
 		assertNotNull(result);
 	}

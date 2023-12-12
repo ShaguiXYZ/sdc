@@ -22,6 +22,7 @@
     nx-tab-group.tiny-tabs {
       nx-tab-header {
         background-color: $grey-lighter-color;
+        margin-bottom: 8px;
       }
     }
   }
@@ -30,6 +31,7 @@
 .application-history {
   .history-component {
     display: flex;
+    padding-top: 8px;
 
     .application-graph {
       width: 100%;

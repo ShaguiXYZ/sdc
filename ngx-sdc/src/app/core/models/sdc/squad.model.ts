@@ -8,6 +8,7 @@ export interface ISquadDTO {
   name: string;
   department: IDepartmentDTO;
   coverage?: number;
+  trend?: number;
 }
 
 export interface ISquadModel extends ICoverageModel {
@@ -16,10 +17,16 @@ export interface ISquadModel extends ICoverageModel {
 
 export namespace ISquadModel {
   export const toModel = (dto: ISquadDTO): ISquadModel =>
-    new SquadModel(dto.id, dto.name, IDepartmentModel.toModel(dto.department), dto.coverage);
+    new SquadModel(dto.id, dto.name, IDepartmentModel.toModel(dto.department), dto.coverage, dto.trend);
   export const toDTO = (model: ISquadModel): ISquadDTO => ({ ...model, department: IDepartmentModel.toDTO(model.department) });
 }
 
 export class SquadModel implements ISquadModel {
-  constructor(public id: number, public name: string, public department: IDepartmentModel, public coverage?: number) {}
+  constructor(
+    public id: number,
+    public name: string,
+    public department: IDepartmentModel,
+    public coverage?: number,
+    public trend?: number
+  ) {}
 }

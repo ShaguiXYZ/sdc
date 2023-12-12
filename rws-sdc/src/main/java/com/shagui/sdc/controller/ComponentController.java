@@ -12,7 +12,6 @@ import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.ebs.ComponentInput;
-import com.shagui.sdc.service.AnalysisService;
 import com.shagui.sdc.service.ComponentService;
 import com.shagui.sdc.service.DataMaintenanceService;
 
@@ -23,7 +22,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @Tag(name = "components", description = "API to maintain Components")
 public class ComponentController implements ComponentRestApi {
-	private AnalysisService analysisService;
+	private AnalysisController analysisController;
 	private ComponentService componentService;
 	private DataMaintenanceService dataMaintenanceService;
 
@@ -35,7 +34,7 @@ public class ComponentController implements ComponentRestApi {
 	@Override
 	public ComponentDTO patch(ComponentInput data) {
 		ComponentDTO dto = dataMaintenanceService.componentUpdateData(data);
-		analysisService.analyze(dto.getId());
+		analysisController.analyze(dto.getId());
 
 		return componentService.findBy(dto.getId());
 	}

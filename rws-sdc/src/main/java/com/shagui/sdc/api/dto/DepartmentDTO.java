@@ -13,4 +13,5 @@ public class DepartmentDTO {
 	private int id;
 	private String name;
 	private Float coverage;
+	private Float trend;
 }

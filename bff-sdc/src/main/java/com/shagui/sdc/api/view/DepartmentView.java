@@ -15,6 +15,7 @@ public class DepartmentView {
 	private int id;
 	private String name;
 	private Float coverage;
+	private Float trend;
 
 	public DepartmentView(DepartmentDTO source) {
 		BeanUtils.copyProperties(source, this);

@@ -18,6 +18,7 @@ public class ComponentDTO {
 	private ComponentTypeArchitectureDTO componentTypeArchitecture;
 	private Date analysisDate;
 	private Float coverage;
+	private Float trend;
 	private boolean blocked;
 	private SquadDTO squad;
 	private List<TagDTO> tags;
