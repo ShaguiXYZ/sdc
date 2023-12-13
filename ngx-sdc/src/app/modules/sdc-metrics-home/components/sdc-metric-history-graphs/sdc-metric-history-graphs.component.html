@@ -1,14 +1,16 @@
-@if (metricsData && metricsData.componentAnalysis?.length) {
+@if (metricsData) {
   <div class="evolution-content">
-    <div class="metrics sdc-scrollable nx-margin-right-3xs">
-      @for (data of metricsData.componentAnalysis; track data.metric.id) {
-        <sdc-metric-info
-          [analysis]="data"
-          [selected]="metricsData.selectedAnalysis?.metric?.id === data.metric.id"
-          (selectMetric)="loadGraphData($event)"
-        />
-      }
-    </div>
+    @if (metricsData.componentAnalysis) {
+      <div class="metrics sdc-scrollable nx-margin-right-3xs">
+        @for (data of metricsData.componentAnalysis; track data.metric.id) {
+          <sdc-metric-info
+            [analysis]="data"
+            [selected]="metricsData.selectedAnalysis?.metric?.id === data.metric.id"
+            (selectMetric)="loadGraphData($event)"
+          />
+        }
+      </div>
+    }
 
     @if (metricsData.selectedAnalysis) {
       <div class="evolution-graph">
@@ -51,6 +53,4 @@
       </div>
     }
   </div>
-} @else {
-  <sdc-no-data />
 }

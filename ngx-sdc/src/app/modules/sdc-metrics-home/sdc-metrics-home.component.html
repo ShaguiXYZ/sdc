@@ -72,15 +72,15 @@
           </nx-expansion-panel-title>
         </nx-expansion-panel-header>
         <nx-tab-group class="tiny-tabs" [selectedIndex]="metricsData.selectedTabIndex" (selectedIndexChange)="onTabChage($event)">
-          @if (metricsData.component) {
-            <nx-tab [label]="'Label.MetricsHistoryGraphs' | translate">
+          <nx-tab [label]="'Label.MetricsHistoryGraphs' | translate">
+            @if (metricsData.component) {
               <sdc-metric-history-graphs
                 [componentId]="metricsData.component.id"
                 [selectedAnalysis]="metricsData.selectedAnalysis"
                 (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
               />
-            </nx-tab>
-          }
+            }
+          </nx-tab>
           <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate" style="display: flex">
             @if (metricsData.languageDistribution && lastLanguageDistribution) {
               <div class="language-distribution">
