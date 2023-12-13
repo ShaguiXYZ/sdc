@@ -46,9 +46,13 @@ public class Ctes {
 
 	public static class TrendConstants {
 		public static final int TREND_DEEP = 10;
-		public static final float TREND_HEAD = 5f;
+		public static final float TREND_HEAT = 2.5f;
 
 		private TrendConstants() {
+		}
+
+		public static float trendValue(Float trend) {
+			return trend == null || TrendConstants.TREND_HEAT > Math.abs(trend) ? 0.0f : trend;
 		}
 	}
 

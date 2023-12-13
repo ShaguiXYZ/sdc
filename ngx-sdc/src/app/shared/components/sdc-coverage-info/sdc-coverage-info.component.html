@@ -12,7 +12,9 @@
       <p nxCopytext="small">ID {{ coverage.id }}</p>
     </div>
     @if (coverage.trend != null) {
-      <sdc-trend class="nx-margin-right-2xs" [trend]="coverage.trend" />
+      <div class="coverage-trend nx-margin-right-2xs">
+        <sdc-trend [trend]="coverage.trend" />
+      </div>
     }
   </div>
 }

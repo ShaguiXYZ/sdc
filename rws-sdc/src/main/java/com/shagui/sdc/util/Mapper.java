@@ -26,6 +26,7 @@ import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.model.TagModel;
+import com.shagui.sdc.util.Ctes.TrendConstants;
 
 import feign.FeignException;
 
@@ -92,18 +93,18 @@ public class Mapper {
 		List<TagDTO> tags = source.getTags().stream().map(Mapper::parse).toList();
 
 		return new ComponentDTO(source.getId(), source.getName(), parse(source.getComponentTypeArchitecture()),
-				source.getAnalysisDate(), source.getCoverage(), source.getTrend(), source.isBlocked(),
-				parse(source.getSquad()), tags);
+				source.getAnalysisDate(), source.getCoverage(), TrendConstants.trendValue(source.getTrend()),
+				source.isBlocked(), parse(source.getSquad()), tags);
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {
 		return new DepartmentDTO(source.getId(), source.getName(), source.getCoverage(),
-				source.getTrend());
+				TrendConstants.trendValue(source.getTrend()));
 	}
 
 	public static SquadDTO parse(SquadModel source) {
 		return new SquadDTO(source.getId(), source.getName(), Mapper.parse(source.getDepartment()),
-				source.getCoverage(), source.getTrend());
+				source.getCoverage(), TrendConstants.trendValue(source.getTrend()));
 	}
 
 	public static TagDTO parse(TagModel source) {

@@ -17,7 +17,9 @@ import com.shagui.sdc.util.DictioraryReplacement;
 import com.shagui.sdc.util.UrlUtils;
 
 import feign.Response;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class GitUtils {
 
 	public enum GitOperations {
@@ -72,9 +74,10 @@ public class GitUtils {
 					.orElseGet(() -> config.gitClient().repoFile(URI.create(uriWithParams)));
 
 			return Optional.ofNullable(UrlUtils.mapResponse(response, clazz));
+		} else {
+			log.error("Not git uri for component '{}'", component.getName());
+			return Optional.empty();
 		}
-
-		return Optional.empty();
 	}
 
 	private static Optional<String> authorization(UriModel uriModel) {

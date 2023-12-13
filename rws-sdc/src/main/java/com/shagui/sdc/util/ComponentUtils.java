@@ -242,8 +242,6 @@ public class ComponentUtils {
 			return a + b;
 		});
 
-		Float trend = sum / trends.size();
-
-		return TrendConstants.TREND_HEAD > Math.abs(trend) ? 0.0f : trend;
+		return sum / trends.size();
 	}
 }
