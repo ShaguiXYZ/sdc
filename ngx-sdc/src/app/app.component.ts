@@ -1,13 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
+import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { filter } from 'rxjs';
+import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
 import { ContextDataService, StorageService } from './core/services';
 import { routingAnimation } from './shared/animations';
 import { ContextDataInfo } from './shared/constants';
-import { AppConfig } from './shared/models';
-import { NxGridModule } from '@aposin/ng-aquila/grid';
-import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +25,7 @@ import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponen
 
         .app-content {
           flex: 1;
-          overflow: auto overlay;
+          overflow: hidden scroll;
           padding: 0 16px;
         }
 

@@ -46,7 +46,7 @@ public class Ctes {
 
 	public static class TrendConstants {
 		public static final int TREND_DEEP = 10;
-		public static final float TREND_HEAT = 2.5f;
+		public static final float TREND_HEAT = 0.5f;
 
 		private TrendConstants() {
 		}

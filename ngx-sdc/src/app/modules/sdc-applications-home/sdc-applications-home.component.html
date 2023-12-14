@@ -88,7 +88,7 @@
     />
 
     @if (applicationsInfo.paging.pages > 1) {
-      <div class="pagination">
+      <div class="pagination" [attr.data-title]="'Label.ElementsByPage' | translate: { value: ELEMENTS_BY_PAGE }">
         <nx-pagination
           [count]="applicationsInfo.paging.elements"
           [page]="applicationsInfo.paging.pageIndex + 1"

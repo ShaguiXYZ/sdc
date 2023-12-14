@@ -9,6 +9,7 @@
 @import '@angular/cdk/a11y-prebuilt.css';
 
 @import 'core-colors';
+@import 'core-globals';
 
 :root {
   // color-scheme: light dark;
@@ -80,6 +81,31 @@
   &::-webkit-scrollbar {
     width: 5px;
   }
+}
+
+[data-title]:hover::before {
+  opacity: 0.8;
+  visibility: visible;
+}
+
+[data-title]::before {
+  content: attr(data-title);
+  background-color: var(--ui-06);
+  border: 1px solid var(--ui-04);
+  border-radius: 15px;
+  box-shadow: 1px 1px 3px var(--ui-06);
+  color: var(--ui-01);
+  font-size: 12px;
+  opacity: 0;
+  padding: 4px 10px;
+  transition: all 0.5s ease 0.3s;
+  visibility: hidden;
+  white-space: nowrap;
+  z-index: $z-index-bottom;
+}
+
+[data-title] {
+  position: relative;
 }
 
 /* animations */

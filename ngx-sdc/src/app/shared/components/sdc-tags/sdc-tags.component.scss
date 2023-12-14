@@ -30,7 +30,7 @@
       &.float-input,
       &.scroll-input {
         opacity: 0;
-        transition: all 0.7s ease-in-out;
+        transition: all 0.7s ease-in-out 0.5s;
         width: 0;
       }
 

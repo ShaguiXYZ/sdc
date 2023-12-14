@@ -174,6 +174,7 @@ public class ComponentUtils {
 				.filter(analysis -> MetricValueType.NUMERIC_MAP.equals(analysis.getMetric().getValueType()))
 				.flatMap(analysis -> {
 					NumericMap numericMap = new NumericMap(analysis.getMetricValue());
+
 					return numericMap.getValues().entrySet().stream().map(entry -> {
 						ComponentTagModel data = new ComponentTagModel();
 						TagModel tag = config.tagRepository().repository().findByName(entry.getKey().toLowerCase())
@@ -223,9 +224,8 @@ public class ComponentUtils {
 
 	private static Float calculateTrend(DepartmentModel department) {
 		List<SquadModel> squadList = config.squadRepository().repository().findByDepartment(department);
-		Stream<Float> trends = squadList.stream().map(SquadModel::getTrend);
 
-		return trendAverage(trends);
+		return trendAverage(squadList.stream().map(SquadModel::getTrend));
 	}
 
 	private static Float trendAverage(Stream<Float> stream) {

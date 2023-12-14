@@ -46,6 +46,7 @@
     "Coverage": "Coverage",
     "CurrentValue": "Current value",
     "DepartmentSumary": "Department summary",
+    "ElementsByPage": "{{value}} elements per page",
     "Factors": {
       "expectedValue": "Expected value",
       "goodValue": "Good value",
