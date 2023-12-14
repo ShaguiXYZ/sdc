@@ -7,12 +7,14 @@ import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponen
 import { ContextDataService, StorageService } from './core/services';
 import { routingAnimation } from './shared/animations';
 import { ContextDataInfo } from './shared/constants';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   styles: [
     `
       @import 'core-colors';
+      @import 'core-globals';
 
       main {
         display: flex;
@@ -26,7 +28,28 @@ import { ContextDataInfo } from './shared/constants';
         .app-content {
           flex: 1;
           overflow: hidden scroll;
-          padding: 0 16px;
+
+          header {
+            position: sticky;
+            top: 0;
+            z-index: $z-index-over;
+
+            animation: enhance-header linear both;
+            animation-timeline: scroll(nearest block);
+            animation-range: 0 15%;
+
+            @keyframes enhance-header {
+              from {
+                backdrop-filter: blur(0px);
+                opacity: 1;
+              }
+
+              to {
+                backdrop-filter: blur(10px);
+                opacity: 0.8;
+              }
+            }
+          }
         }
 
         footer {
@@ -43,18 +66,19 @@ import { ContextDataInfo } from './shared/constants';
       <nx-alert></nx-alert>
       <nx-notification></nx-notification>
 
-      <nx-header></nx-header>
       <div class="app-content sdc-scrollable-body">
+        <header nxLayout="grid maxwidth nogutters">
+          <nx-header headerTitle="S D C" [title]="'Header.Title' | translate"></nx-header>
+        </header>
         <div nxLayout="grid maxwidth nogutters">
           <router-outlet #outlet="outlet"></router-outlet>
         </div>
       </div>
-      <footer>My footer</footer>
     </main>
   `,
   animations: [routingAnimation],
   standalone: true,
-  imports: [AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent, NxGridModule, RouterOutlet]
+  imports: [AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent, NxGridModule, RouterOutlet, TranslateModule]
 })
 export class AppComponent implements OnInit {
   constructor(

@@ -1,5 +1,6 @@
+<div></div>
 <header nx-header (mouseleave)="mouseLeaveEvent('0')">
-  <nx-header-brand>
+  <nx-header-brand [title]="title">
     @if (logo) {
       <nx-link routerLink="">
         <figure>
@@ -8,7 +9,9 @@
       </nx-link>
     }
 
-    <nx-header-app-title>{{ 'Header.Title' | translate }}</nx-header-app-title>
+    @if (headerTitle) {
+      <nx-header-app-title>{{ headerTitle }}</nx-header-app-title>
+    }
   </nx-header-brand>
 
   <div class="header-content">

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NxButtonModule } from '@aposin/ng-aquila/button';
 import { NxContextMenuModule } from '@aposin/ng-aquila/context-menu';
@@ -50,6 +50,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public languageInfo!: ILanguageHeader;
   public logo?: string;
   public themeSwitcher = false;
+
+  @Input()
+  public headerTitle?: string;
+
+  @Input()
+  public title = '';
 
   private language$!: Subscription;
 
