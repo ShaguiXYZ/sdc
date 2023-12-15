@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NxSwitcherModule } from '@aposin/ng-aquila/switcher';
 import { SESSION_THEME_KEY, Theme } from './models';
 
@@ -9,7 +9,8 @@ import { SESSION_THEME_KEY, Theme } from './models';
   standalone: true,
   imports: [NxSwitcherModule]
 })
-export class SwitchThemeComponent implements OnInit {
+export class SwitchThemeComponent implements OnInit, OnDestroy {
+  private darkThemeMq!: MediaQueryList;
   private _theme: Theme = 'light';
 
   @Output()
@@ -17,6 +18,10 @@ export class SwitchThemeComponent implements OnInit {
 
   ngOnInit(): void {
     this.setTheme();
+  }
+
+  ngOnDestroy(): void {
+    this.darkThemeMq.removeEventListener('change', this.darkThemeMqListener.bind(this));
   }
 
   public get theme(): Theme {
@@ -39,12 +44,22 @@ export class SwitchThemeComponent implements OnInit {
     this.theme = this.theme === 'dark' ? 'light' : 'dark';
   }
 
+  // @how-to: set theme based on system and user preference
   private setTheme(): void {
     const storedTheme = localStorage.getItem(SESSION_THEME_KEY);
+
+    this.darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)');
+    this.darkThemeMq.addEventListener('change', this.darkThemeMqListener.bind(this));
 
     if (storedTheme) {
       const parsedTheme = JSON.parse(storedTheme);
       this.theme = parsedTheme.active;
+    } else {
+      this.theme = this.darkThemeMq.matches ? 'dark' : 'light';
     }
   }
+
+  private darkThemeMqListener = (e: MediaQueryListEvent): void => {
+    this.theme = e.matches ? 'dark' : 'light';
+  };
 }
