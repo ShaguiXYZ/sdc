@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
-import { hasValue, sortCoverageData } from '../../lib';
-import { IComponentDTO, IComponentModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
+import { hasValue } from '../../lib';
+import { IComponentDTO, IComponentModel, ICoverageModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
 import { CacheService } from '../context-data';
 import { HttpService, HttpStatus } from '../http';
@@ -129,7 +129,7 @@ export class ComponentService {
         .pipe(
           tap(res => {
             const dto = res as IPageable<IMetricDTO>;
-            dto.page.sort(sortCoverageData);
+            dto.page.sort(ICoverageModel.sortExpected);
           }),
           map(res => {
             const dto = res as IPageable<IMetricDTO>;

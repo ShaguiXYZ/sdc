@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { hasValue, sortCoverageData } from '../../lib';
-import { IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
+import { hasValue } from '../../lib';
+import { ICoverageModel, IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
 import { CacheService } from '../context-data';
 import { HttpStatus, HttpService } from '../http';
 import { L_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';
@@ -33,7 +33,7 @@ export class DepartmentService {
               page: dto.page
                 .filter(data => hasValue(data.coverage))
                 .map(IDepartmentModel.toModel)
-                .sort(sortCoverageData)
+                .sort(ICoverageModel.sortExpected)
             };
 
             return result;

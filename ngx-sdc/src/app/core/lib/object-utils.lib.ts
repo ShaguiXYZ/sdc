@@ -10,7 +10,7 @@ type GroupedTypes = string | number | symbol;
 
 export type IndexdData<T> = Record<GroupedTypes, T[]>;
 
-//group by property
+// @howto: use this function to indexed a collection of objects by a given property
 export const indexBy = <T, K extends keyof T>(collection: T[], property: K): IndexdData<T> =>
   collection.reduce((acc: Record<GroupedTypes, T[]>, item: T) => {
     const key = item[property] as GroupedTypes;
@@ -24,7 +24,8 @@ export const hasValue = (data: any): boolean => data !== null && data !== undefi
 
 export const isNumeric = (data: string): boolean => !isNaN(Number(data));
 
-export const filterByProperties = <T>(collection: T[], properties: keyof T | (keyof T)[], filter: string): T[] => {
+// @howto: use this function to filter a collection of objects by a given property
+export const filterBy = <T>(collection: T[], properties: keyof T | (keyof T)[], filter: string): T[] => {
   const propertyList = Array.isArray(properties) ? properties : [properties];
   const searchWords: string[] = filter
     .toLowerCase()

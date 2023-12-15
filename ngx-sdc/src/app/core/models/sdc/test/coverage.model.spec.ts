@@ -1,13 +1,13 @@
-import { sortCoverageData } from '../sdc-data.lib';
+import { ICoverageModel } from '../coverage.model';
 
-describe('sortCoverageData', () => {
+describe('ICoverageModel', () => {
   it('should sort by coverage and then by name', () => {
     const data = [
       { name: 'b', coverage: 50 },
       { name: 'a', coverage: 100 },
       { name: 'c', coverage: 75 }
     ];
-    const sortedData = data.sort(sortCoverageData);
+    const sortedData = data.sort(ICoverageModel.sort);
     expect(sortedData).toEqual([
       { name: 'b', coverage: 50 },
       { name: 'c', coverage: 75 },
@@ -21,7 +21,7 @@ describe('sortCoverageData', () => {
       { name: 'a', coverage: undefined },
       { name: 'c', coverage: 75 }
     ];
-    const sortedData = data.sort(sortCoverageData);
+    const sortedData = data.sort(ICoverageModel.sort);
     expect(sortedData).toEqual([
       { name: 'b', coverage: 50 },
       { name: 'c', coverage: 75 },

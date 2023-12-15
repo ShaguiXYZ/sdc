@@ -1,4 +1,4 @@
-import { filterByProperties, indexBy } from '../object-utils.lib';
+import { filterBy, indexBy } from '../object-utils.lib';
 
 describe('filterByProperties', () => {
   const collection = [
@@ -9,37 +9,37 @@ describe('filterByProperties', () => {
   ];
 
   it('should return an empty array when the collection is empty', () => {
-    expect(filterByProperties([], 'name', 'John')).toEqual([]);
+    expect(filterBy([], 'name', 'John')).toEqual([]);
   });
 
   it('should return the entire collection when no filter is provided', () => {
-    expect(filterByProperties(collection, 'name', '')).toEqual(collection);
+    expect(filterBy(collection, 'name', '')).toEqual(collection);
   });
 
   it('should filter by a single property', () => {
-    expect(filterByProperties(collection, 'name', 'John')).toEqual([{ name: 'John', age: 25, city: 'New York' }]);
+    expect(filterBy(collection, 'name', 'John')).toEqual([{ name: 'John', age: 25, city: 'New York' }]);
   });
 
   it('should filter by multiple properties', () => {
-    expect(filterByProperties(collection, ['name', 'city'], 'New York')).toEqual([
+    expect(filterBy(collection, ['name', 'city'], 'New York')).toEqual([
       { name: 'John', age: 25, city: 'New York' },
       { name: 'Bob', age: 35, city: 'New York' }
     ]);
   });
 
   it('should filter case-insensitively', () => {
-    expect(filterByProperties(collection, 'city', 'new york')).toEqual([
+    expect(filterBy(collection, 'city', 'new york')).toEqual([
       { name: 'John', age: 25, city: 'New York' },
       { name: 'Bob', age: 35, city: 'New York' }
     ]);
   });
 
   it('should filter by multiple search terms', () => {
-    expect(filterByProperties(collection, ['name', 'city'], 'Jo New')).toEqual([{ name: 'John', age: 25, city: 'New York' }]);
+    expect(filterBy(collection, ['name', 'city'], 'Jo New')).toEqual([{ name: 'John', age: 25, city: 'New York' }]);
   });
 
   it('should return an empty array when no matches are found', () => {
-    expect(filterByProperties(collection, 'name', 'Foo')).toEqual([]);
+    expect(filterBy(collection, 'name', 'Foo')).toEqual([]);
   });
 });
 

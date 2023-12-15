@@ -83,6 +83,14 @@
   }
 }
 
+.sdc-loading {
+  background-image: url('/assets/images/loading-spinner.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+}
+
 [data-title]:hover::before {
   opacity: 0.8;
   visibility: visible;

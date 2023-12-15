@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CacheService, HttpService } from '..';
-import { hasValue, sortCoverageData } from '../../lib';
-import { IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
+import { hasValue } from '../../lib';
+import { ICoverageModel, IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
 import { HttpStatus } from '../http';
 import { S_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
 
@@ -11,7 +11,10 @@ import { S_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
 export class SquadService {
   private _urlSquads = `${environment.baseUrl}/api`;
 
-  constructor(private cache: CacheService, private http: HttpService) {}
+  constructor(
+    private cache: CacheService,
+    private http: HttpService
+  ) {}
 
   public squads(department?: IDepartmentModel): Promise<IPageable<ISquadModel>> {
     return firstValueFrom(
@@ -31,7 +34,7 @@ export class SquadService {
                 .map(ISquadModel.toModel)
                 .filter(data => hasValue(data.coverage))
                 .filter(data => !department || data.department.id === department.id)
-                .sort(sortCoverageData)
+                .sort(ICoverageModel.sortExpected)
             };
 
             return result;

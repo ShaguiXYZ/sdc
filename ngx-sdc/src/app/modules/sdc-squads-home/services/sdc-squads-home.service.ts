@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { _console, filterByProperties } from 'src/app/core/lib';
+import { _console, filterBy } from 'src/app/core/lib';
 import { ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
@@ -34,7 +34,7 @@ export class SdcSquadsService {
         const squad = pageable.page.find(data => this.contextData?.squad?.id === data.id);
 
         if (filter?.trim().length) {
-          squads = filterByProperties(pageable.page, ['id', 'name'], filter);
+          squads = filterBy(pageable.page, ['id', 'name'], filter);
         } else {
           squads = pageable.page;
         }

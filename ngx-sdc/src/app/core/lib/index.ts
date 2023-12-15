@@ -2,7 +2,6 @@ import { environment } from 'src/environments/environment';
 
 export * from './keys.lib';
 export * from './object-utils.lib';
-export * from './sdc-data.lib';
 
 export const emptyFn = (): void => {
   /* Empty fn */

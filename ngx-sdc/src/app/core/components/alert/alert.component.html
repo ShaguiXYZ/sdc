@@ -14,7 +14,7 @@
   </div>
 
   <footer nxModalActions>
-    @for (button of alert?.buttons; track button.id) {
+    @for (button of alert?.buttons; track $index) {
       <button class="nx-margin-bottom-0" type="button" nxButton="{{ button.type }} small-medium" (click)="actionAndClose(button.action)">
         {{ button.text }}
       </button>

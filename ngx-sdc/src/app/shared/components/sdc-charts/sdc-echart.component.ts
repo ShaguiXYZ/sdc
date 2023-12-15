@@ -15,16 +15,9 @@ import { ChartSize, SdcChartSize } from './models';
         width: 100%;
       }
 
-      .loading,
       .placeholder {
         height: 100%;
         width: 100%;
-      }
-
-      .loading {
-        background-image: url('/assets/images/loading-spinner.svg');
-        background-position: center;
-        background-repeat: no-repeat;
       }
     `
   ],
@@ -35,7 +28,7 @@ import { ChartSize, SdcChartSize } from './models';
       <!-- placeholder -->
       <div class="placeholder" [ngStyle]="styleSize"></div>
     } @loading (after 300ms; minimum 1.5s) {
-      <div class="loading" [ngStyle]="styleSize"></div>
+      <div class="sdc-loading" [ngStyle]="styleSize"></div>
     }
   `,
   standalone: true,

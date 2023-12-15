@@ -1,19 +1,22 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
+import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
 import { CacheService, HttpService } from '..';
-import { hasValue, sortCoverageData } from '../../lib';
-import { AnalysisType, IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
+import { hasValue } from '../../lib';
+import { AnalysisType, ICoverageModel, IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
 import { HttpStatus } from '../http';
-import { XL_EXPIRATON_TIME, L_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
-import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
+import { L_EXPIRATON_TIME, XL_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {
   private _urlAnalysis = `${environment.baseUrl}/api/analysis`;
 
-  constructor(private cache: CacheService, private http: HttpService) {}
+  constructor(
+    private cache: CacheService,
+    private http: HttpService
+  ) {}
 
   public componentAnalysis(componentId: number): Promise<IPageable<IMetricAnalysisModel>> {
     return firstValueFrom(
@@ -29,7 +32,7 @@ export class AnalysisService {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricAnalysisModel.toModel).sort(sortCoverageData)
+              page: dto.page.map(IMetricAnalysisModel.toModel).sort(ICoverageModel.sortExpected)
             };
 
             return result;
@@ -149,7 +152,7 @@ export class AnalysisService {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricAnalysisModel.toModel).sort(sortCoverageData)
+              page: dto.page.map(IMetricAnalysisModel.toModel).sort(ICoverageModel.sortExpected)
             };
 
             return result;
