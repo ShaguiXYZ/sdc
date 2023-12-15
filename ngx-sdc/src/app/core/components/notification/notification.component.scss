@@ -11,9 +11,19 @@
 .message-content {
   margin-bottom: 5px;
 
+  transition:
+    opacity 0.7s,
+    transform 0.7s,
+    display 0.7s allow-discrete;
+
   nx-message {
     .description {
       white-space: pre-line;
     }
+  }
+
+  @starting-style {
+    opacity: 0;
+    transform: scaleY(0);
   }
 }
