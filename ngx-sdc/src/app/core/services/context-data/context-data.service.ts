@@ -55,15 +55,17 @@ export class ContextDataService {
    * @param key Key of the variable in context
    */
   public get<T = any>(key: string): T {
-    const contextData = this.contextStorage.contextData[key];
+    const contextDataValue = this.contextStorage.contextData[key];
 
-    return contextData?.configuration.referenced
+    return contextDataValue?.configuration.referenced
       ? this.contextStorage.contextData[key]?.data
       : deepCopy(this.contextStorage.contextData[key]?.data);
   }
 
   public getConfiguration(key: string): IContextDataConfigurtion {
-    return { ...this.contextStorage.contextData[key].configuration };
+    const contextDataValue = this.contextStorage.contextData[key];
+
+    return contextDataValue && { ...contextDataValue.configuration };
   }
 
   /**
@@ -111,10 +113,10 @@ export class ContextDataService {
   }
 
   private addContextData<T = any>(key: string, data: T, configuration: IContextDataConfigurtion = {}): ContextData {
-    const contextData = new ContextData(data, configuration || {});
-    this.contextStorage.contextData[key] = contextData;
+    const contextDataValue = new ContextData(data, configuration || {});
+    this.contextStorage.contextData[key] = contextDataValue;
 
-    return contextData;
+    return contextDataValue;
   }
 
   /**
