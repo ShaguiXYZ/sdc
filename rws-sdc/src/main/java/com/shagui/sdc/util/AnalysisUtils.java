@@ -40,7 +40,7 @@ public class AnalysisUtils {
 				analysis.getMetricValue(), analysis.getId().getAnalysisDate(), analysis.isBlocker());
 
 		Optional<MetricValuesModel> metricValues = config.metricValuesRepository().repository()
-				.metricValueByDate(analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),
+				.metricValuesByDate(analysis.getMetric().getId(), analysis.getComponentTypeArchitecture().getId(),
 						new Timestamp(analysis.getId().getAnalysisDate().getTime()))
 				.stream().findFirst();
 

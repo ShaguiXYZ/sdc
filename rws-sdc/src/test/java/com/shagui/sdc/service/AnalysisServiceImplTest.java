@@ -74,7 +74,7 @@ class AnalysisServiceImplTest {
 		model.add(RwsTestUtils.componentAnalysisModelMock("metric value"));
 		when(componentAnalysisRepositoryMock.componentAnalysis(anyInt(), any(Timestamp.class)))
 				.thenReturn(model);
-		when(metricValueRepositoryMock.metricValueByDate(anyInt(), anyInt(), any(Timestamp.class)))
+		when(metricValueRepositoryMock.metricValuesByDate(anyInt(), anyInt(), any(Timestamp.class)))
 				.thenReturn(new ArrayList<>() {
 					{
 						add(RwsTestUtils.metricValuesModelMock());

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Sort;
 
 import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
@@ -92,7 +93,7 @@ class ComponentUtilsTest {
 						add(RwsTestUtils.componentAnalysisModelMock("12.0"));
 					}
 				});
-		when(metricValueRepository.metricValueByDate(anyInt(), anyInt(), any(Timestamp.class))).thenReturn(
+		when(metricValueRepository.metricValuesByDate(anyInt(), anyInt(), any(Timestamp.class))).thenReturn(
 				new ArrayList<>() {
 					private static final long serialVersionUID = 1L;
 
