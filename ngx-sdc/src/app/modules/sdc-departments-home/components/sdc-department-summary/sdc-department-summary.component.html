@@ -17,19 +17,15 @@
         </div>
       </nx-tab>
       <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
-        <div class="language-distribution">
-          @if (serviceSummaryData.languageDistribution && serviceSummaryData.languageDistribution.graph.length) {
-            <div class="historical-language-distribution">
-              <sdc-time-evolution-multichart [data]="serviceSummaryData.languageDistribution" [size]="{ height: 330 }" />
-            </div>
-            @if (lastLanguageDistribution) {
-              <div class="actual-language-distribution">
-                <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate" [size]="335" />
+        <div class="language-distribution" [ngClass]="{ 'sdc-no-data': !lastLanguageDistribution }">
+          @if (lastLanguageDistribution) {
+            @if (serviceSummaryData.languageDistribution) {
+              <div class="historical-language-distribution">
+                <sdc-time-evolution-multichart [data]="serviceSummaryData.languageDistribution" [size]="{ height: 330 }" />
               </div>
             }
-          } @else {
-            <div class="no-data">
-              <sdc-no-data />
+            <div class="actual-language-distribution">
+              <sdc-pie-chart [data]="lastLanguageDistribution" [title]="'Label.ActualLanguageDistribution' | translate" [size]="335" />
             </div>
           }
         </div>

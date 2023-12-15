@@ -5,7 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AnalysisFactor, IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { DateService } from 'src/app/core/services';
-import { SdcMetricInfoComponent, SdcNoDataComponent } from 'src/app/shared/components';
+import { SdcMetricInfoComponent } from 'src/app/shared/components';
 import { ChartConfig, ChartData, ChartValue, SdcTimeEvolutionChartComponent } from 'src/app/shared/components/sdc-charts';
 import { DEFAULT_METRIC_STATE, MetricState, MetricStates, stateByCoverage } from 'src/app/shared/lib';
 import { SdcValueTypeToNumberPipe } from 'src/app/shared/pipes';
@@ -18,7 +18,7 @@ import { SdcMetricHistoryGraphsService } from './services';
   styleUrls: ['./sdc-metric-history-graphs.component.scss'],
   providers: [SdcMetricHistoryGraphsService, SdcValueTypeToNumberPipe],
   standalone: true,
-  imports: [SdcMetricInfoComponent, SdcNoDataComponent, SdcTimeEvolutionChartComponent, CommonModule, NxCopytextModule, TranslateModule]
+  imports: [SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, CommonModule, NxCopytextModule, TranslateModule]
 })
 export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   public availableFactorCharts: { [key in AnalysisFactor]: boolean } = {

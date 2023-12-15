@@ -16,7 +16,6 @@ import {
   SdcComplianceBarCardComponent,
   SdcMetricInfoComponent,
   SdcMetricsCardsComponent,
-  SdcNoDataComponent,
   SdcTagsComponent,
   SdcTimeEvolutionMultichartComponent
 } from 'src/app/shared/components';
@@ -39,7 +38,6 @@ import { SdcMetricsHomeService } from './services';
     SdcMetricsCardsComponent,
     SdcMetricInfoComponent,
     SdcMetricHistoryGraphsComponent,
-    SdcNoDataComponent,
     SdcPieChartComponent,
     SdcTagsComponent,
     SdcTimeEvolutionChartComponent,

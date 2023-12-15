@@ -12,11 +12,13 @@
         </div>
       </nx-tab>
       <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate">
-        <div class="language-distribution sdc-center">
-          @if (serviceSummaryData.languageDistribution && lastLanguageDistribution) {
+        <div class="language-distribution sdc-center" [ngClass]="{ 'sdc-no-data': !lastLanguageDistribution }">
+          @if (lastLanguageDistribution) {
             @switch (chartToShow) {
               @case ('pie') {
-                <sdc-time-evolution-multichart [data]="serviceSummaryData.languageDistribution" [size]="{ height: 330 }" />
+                @if (serviceSummaryData.languageDistribution) {
+                  <sdc-time-evolution-multichart [data]="serviceSummaryData.languageDistribution" [size]="{ height: 330 }" />
+                }
               }
               @case ('line') {
                 <sdc-pie-chart
@@ -26,13 +28,11 @@
                 />
               }
               @default {
-                <sdc-no-data />
+                <div class="sdc-no-data"></div>
               }
             }
 
             <em class="sdc-op toggle-chart fa-solid fa-chart-{{ chartToShow }}" (click)="toggleChart()"></em>
-          } @else {
-            <sdc-no-data />
           }
         </div>
       </nx-tab>

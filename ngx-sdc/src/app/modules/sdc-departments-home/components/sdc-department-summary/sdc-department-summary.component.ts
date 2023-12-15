@@ -5,7 +5,7 @@ import { NxTabsModule } from '@aposin/ng-aquila/tabs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
+import { SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
 import {
   ChartConfig,
   SdcCoverageChartComponent,
@@ -29,7 +29,6 @@ import { SdcDepartmentSummaryService } from './services';
     NxTabsModule,
     SdcCoverageChartComponent,
     SdcHorizontalBarChartComponent,
-    SdcNoDataComponent,
     SdcPieChartComponent,
     SdcTimeEvolutionMultichartComponent,
     TranslateModule

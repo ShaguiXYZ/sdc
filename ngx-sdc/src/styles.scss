@@ -88,6 +88,17 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+  height: 100%;
+  width: 100%;
+}
+
+.sdc-no-data {
+  background-image: url('/assets/images/woman-with-sunhat.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  position: absolute;
   width: 100%;
 }
 

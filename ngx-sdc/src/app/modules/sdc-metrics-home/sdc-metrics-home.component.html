@@ -28,12 +28,15 @@
               </header>
             </nx-expansion-panel-title>
           </nx-expansion-panel-header>
-          <div class="history-component">
+          <div
+            class="history-component"
+            [ngClass]="{
+              'sdc-no-data': !metricsData.historical?.historical?.page?.length
+            }"
+          >
             <div class="application-graph">
               @if (metricsData.historical?.historical?.page?.length) {
                 <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }" />
-              } @else {
-                <sdc-no-data />
               }
             </div>
             <div class="chart-ops sdc-scrollable">
@@ -82,8 +85,8 @@
             }
           </nx-tab>
           <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate" style="display: flex">
-            @if (metricsData.languageDistribution && lastLanguageDistribution) {
-              <div class="language-distribution">
+            <div class="language-distribution" [ngClass]="{ 'sdc-no-data': !metricsData.languageDistribution }">
+              @if (metricsData.languageDistribution) {
                 <div class="historical-language-distribution">
                   <sdc-time-evolution-multichart [data]="metricsData.languageDistribution" />
                 </div>
@@ -96,10 +99,8 @@
                     />
                   }
                 </div>
-              </div>
-            } @else {
-              <sdc-no-data />
-            }
+              }
+            </div>
           </nx-tab>
         </nx-tab-group>
       </nx-expansion-panel>

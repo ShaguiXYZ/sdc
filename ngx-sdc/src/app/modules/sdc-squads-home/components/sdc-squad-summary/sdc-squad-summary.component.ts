@@ -4,7 +4,7 @@ import { NxTabsModule } from '@aposin/ng-aquila/tabs';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { SdcComponentsStateCountComponent, SdcNoDataComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
+import { SdcComponentsStateCountComponent, SdcTimeEvolutionMultichartComponent } from 'src/app/shared/components';
 import { SdcCoverageChartComponent, SdcPieChartComponent } from 'src/app/shared/components/sdc-charts';
 import { BACKGROUND_SQUAD_COLOR } from 'src/app/shared/constants';
 import { IStateCount } from 'src/app/shared/models';
@@ -22,7 +22,6 @@ import { SdcSquadSummaryService } from './services';
     SdcCoverageChartComponent,
     SdcPieChartComponent,
     SdcTimeEvolutionMultichartComponent,
-    SdcNoDataComponent,
     CommonModule,
     NxTabsModule,
     TranslateModule

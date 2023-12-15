@@ -6,7 +6,6 @@ export * from './sdc-coverage-info';
 export * from './sdc-coverages';
 export * from './sdc-metric-info';
 export * from './sdc-metrics-cards';
-export * from './sdc-no-data';
 export * from './sdc-tag';
 export * from './sdc-tags';
 export * from './sdc-time-evolution-multichart';
