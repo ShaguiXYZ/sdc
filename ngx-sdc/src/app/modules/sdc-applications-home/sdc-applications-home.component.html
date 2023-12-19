@@ -88,11 +88,11 @@
     />
 
     @if (applicationsInfo.paging.pages > 1) {
-      <div class="pagination" [attr.data-title]="'Label.ElementsByPage' | translate: { value: ELEMENTS_BY_PAGE }">
+      <div class="pagination" [attr.data-title]="'Label.ElementsByPage' | translate: { value: elementsByPage }">
         <nx-pagination
           [count]="applicationsInfo.paging.elements"
           [page]="applicationsInfo.paging.pageIndex + 1"
-          [perPage]="ELEMENTS_BY_PAGE"
+          [perPage]="elementsByPage"
           (goPrev)="prevPage()"
           (goNext)="nextPage()"
           (goPage)="goToPage($event)"

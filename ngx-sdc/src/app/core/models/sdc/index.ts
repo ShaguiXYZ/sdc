@@ -1,5 +1,6 @@
 export * from './analysis-type.model';
 export * from './analysis-values.model';
+export * from './app-configuration.model';
 export * from './component.model';
 export * from './coverage.model';
 export * from './department.model';

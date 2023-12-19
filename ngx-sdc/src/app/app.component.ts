@@ -8,6 +8,7 @@ import { ContextDataService, StorageService } from './core/services';
 import { routingAnimation } from './shared/animations';
 import { ContextDataInfo } from './shared/constants';
 import { TranslateModule } from '@ngx-translate/core';
+import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 
 @Component({
   selector: 'app-root',
@@ -82,13 +83,16 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   constructor(
+    private readonly appConfiguration: AppConfigurationService,
     private readonly contextDataService: ContextDataService,
     private readonly storageService: StorageService,
     private readonly title: Title
   ) {}
 
   ngOnInit(): void {
-    this.contextDataService.set(ContextDataInfo.APP_CONFIG, { title: '- S D C -' }, { persistent: true, referenced: false });
+    this.appConfiguration.AppConfiguracions().then(config => {
+      this.contextDataService.set(ContextDataInfo.APP_CONFIG, { ...config, title: '- S D C -' }, { persistent: true, referenced: false });
+    });
 
     this.contextDataService
       .onDataChange()

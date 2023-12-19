@@ -9,6 +9,7 @@ import java.util.function.UnaryOperator;
 
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.ServiceDataDTO;
+import com.shagui.sdc.core.configuration.AppConfig;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.MetricValuesModel;
 import com.shagui.sdc.util.validations.MetricValidations;
@@ -60,7 +61,8 @@ public class AnalysisUtils {
 		List<MetricAnalysisDTO> dtos = metricAnalysis.stream().map(setMetricValues).map(Mapper::parse).toList();
 		Float coverage = calculateMetricCoverage(dtos);
 
-		return coverage == null ? null : NumericUtils.round(coverage, 2);
+		return coverage == null ? null
+				: NumericUtils.round(coverage, AppConfig.getConfig().getAnalysis().getPrecision());
 	}
 
 	private static Float calculateMetricCoverage(List<MetricAnalysisDTO> metricAnalysis) {

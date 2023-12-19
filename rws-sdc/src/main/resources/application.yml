@@ -4,6 +4,13 @@ application:
       name: '@project.artifactId@'
       version: '@project.version@'
       description: '@project.description@'
+  configuration:
+    analysis:
+      # precision: 5
+      trend-deep: 10
+      trend-heat: 0.4
+    jpa:
+      elements-by-page: 6
 
 logging:
   pattern:
@@ -67,8 +74,8 @@ management:
   endpoint:
     health:
       show-details: always
-    promoetheus:
-      show-details: always
+    # promoetheus:
+    #   show-details: always
     shutdown:
       enabled: false
 

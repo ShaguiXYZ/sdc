@@ -15,8 +15,8 @@ export class ComponentService {
   private _urlComponents = `${environment.baseUrl}/api`;
 
   constructor(
-    private cache: CacheService,
-    private http: HttpService
+    private readonly cache: CacheService,
+    private readonly http: HttpService
   ) {}
 
   public component(componentId: number): Promise<IComponentModel> {

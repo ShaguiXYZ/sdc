@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.Sort;
 
 import com.shagui.sdc.core.configuration.DictionaryConfig;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
@@ -33,7 +32,6 @@ import com.shagui.sdc.repository.TagRepository;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
 class ComponentUtilsTest {
-
 	@Mock
 	private static DictionaryConfig securityTokenConfig;
 
@@ -68,7 +66,8 @@ class ComponentUtilsTest {
 	void init() {
 		MockitoAnnotations.openMocks(this);
 		ComponentUtils.setConfig(
-				new ComponentUtilsConfig(securityTokenConfig, componentRepository, componentAnalysisRepository,
+				new ComponentUtilsConfig(securityTokenConfig, componentRepository,
+						componentAnalysisRepository,
 						componentHistoricalCoverageRepository, componentPropertyRepository,
 						componentTagRepository, departmentRepository, squadRepository, tagRepository));
 		AnalysisUtils.setConfig(new AnalysisUtilsConfig(metricValueRepository));

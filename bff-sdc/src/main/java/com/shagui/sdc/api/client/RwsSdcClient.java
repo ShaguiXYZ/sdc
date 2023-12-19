@@ -19,6 +19,7 @@ import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.api.dto.TagDTO;
+import com.shagui.sdc.api.view.SdcConfig;
 
 @FeignClient(name = "rws-sdc", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
@@ -62,6 +63,9 @@ public interface RwsSdcClient {
 	@GetMapping("component/historical/{componentId}")
 	HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
 			@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
+
+	@GetMapping("configurations")
+	SdcConfig configurations();
 
 	@GetMapping("datalist")
 	List<String> dataLists();

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
 import { _console } from 'src/app/core/lib';
-import { IPageable, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
+import { IAppConfiguration, IPageable, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
@@ -12,6 +12,7 @@ import { SdcApplicationsDataModel } from '../models';
 @Injectable()
 export class SdcApplicationsHomeService {
   public contextData?: ApplicationsContextData;
+  public emementsByPage!: number;
 
   private data$: Subject<SdcApplicationsDataModel>;
 
@@ -21,6 +22,9 @@ export class SdcApplicationsHomeService {
     private readonly squadService: SquadService,
     private readonly tagService: TagService
   ) {
+    const appConfig = this.contextDataService.get<IAppConfiguration>(ContextDataInfo.APP_CONFIG);
+    this.emementsByPage = appConfig.jpa.elementsByPage;
+
     this.data$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.APPLICATIONS_DATA);
 
@@ -30,12 +34,14 @@ export class SdcApplicationsHomeService {
       this.contextData?.filter?.tags,
       this.contextData?.filter?.metricState,
       this.contextData?.page ?? 0,
-      ELEMENTS_BY_PAGE
+      this.emementsByPage
     );
   }
 
   public populateData(filter: ApplicationsFilter, page?: number, showLoading?: boolean): void {
-    this.filterData(filter.name, filter.squad, filter.tags, filter.metricState, page ?? 0, ELEMENTS_BY_PAGE, showLoading);
+    const appConfig = this.contextDataService.get<IAppConfiguration>(ContextDataInfo.APP_CONFIG);
+
+    this.filterData(filter.name, filter.squad, filter.tags, filter.metricState, page ?? 0, appConfig.jpa.elementsByPage, showLoading);
   }
 
   public onDataChange(): Observable<SdcApplicationsDataModel> {
@@ -68,7 +74,7 @@ export class SdcApplicationsHomeService {
     tags?: string[],
     metricState?: MetricStates,
     page?: number,
-    ps?: number,
+    ps: number = ELEMENTS_BY_PAGE,
     showLoading?: boolean
   ): void {
     const range: Partial<SdcRange> | undefined = metricState ? rangeByState(MetricStates[metricState]) : undefined;

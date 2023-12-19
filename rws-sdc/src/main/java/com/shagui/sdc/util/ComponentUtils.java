@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.shagui.sdc.core.configuration.AppConfig;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.enums.MetricValueType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
@@ -29,7 +30,6 @@ import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.model.TagModel;
 import com.shagui.sdc.model.pk.ComponentTagPk;
-import com.shagui.sdc.util.Ctes.TrendConstants;
 import com.shagui.sdc.util.validations.NumericMap;
 
 import lombok.extern.slf4j.Slf4j;
@@ -201,7 +201,7 @@ public class ComponentUtils {
 	private static Float calculateTrend(ComponentModel component) {
 		Page<ComponentHistoricalCoverageModel> historical = config.historicalCoverageComponentRepository().repository()
 				.findById_ComponentIdOrderById_AnalysisDateAsc(component.getId(),
-						Pageable.ofSize(TrendConstants.TREND_DEEP));
+						Pageable.ofSize(AppConfig.getConfig().getAnalysis().getTrendDeep()));
 
 		List<Float> values = historical.stream()
 				.map(ComponentHistoricalCoverageModel::getCoverage)

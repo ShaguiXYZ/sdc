@@ -1,6 +1,7 @@
 import { UniqueIds } from 'src/app/core/lib';
 
 export const _COMPONENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
+export const _CONFIGURATION_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _DATA_LIST_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _DEPARTMENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _METRICS_CACHE_ID_ = `_${UniqueIds.next()}_`;

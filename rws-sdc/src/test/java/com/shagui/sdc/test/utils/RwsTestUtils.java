@@ -55,7 +55,6 @@ import feign.Request;
 import feign.Response;
 
 public class RwsTestUtils {
-
 	@Mock
 	private static DictionaryConfig securityTokenConfig;
 
@@ -125,15 +124,11 @@ public class RwsTestUtils {
 	}
 
 	public static UrlUtilsConfig urlUtilsConfig() {
-		UrlUtilsConfig config = new UrlUtilsConfig(new ObjectMapper());
-
-		return config;
+		return new UrlUtilsConfig(new ObjectMapper());
 	}
 
 	public static MapperConfig mapperConfig() {
-		MapperConfig config = new MapperConfig(new ObjectMapper());
-
-		return config;
+		return new MapperConfig(new ObjectMapper());
 	}
 
 	public static ComponentPropertyModel componentProperty(String name) {

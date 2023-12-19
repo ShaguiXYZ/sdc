@@ -15,7 +15,7 @@ import { IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/a
 import { ContextDataService } from 'src/app/core/services';
 import { SdcComplianceBarCardsComponent, SdcTagComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
-import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
+import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricStates } from 'src/app/shared/lib';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsHomeService } from './services';
@@ -47,7 +47,7 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
 export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
-  public ELEMENTS_BY_PAGE = ELEMENTS_BY_PAGE;
+  public elementsByPage!: number;
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
   public tags: { all: ITagModel[]; selected: ITagModel[]; availables: ITagModel[] } = { all: [], selected: [], availables: [] };
@@ -65,6 +65,8 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.elementsByPage = this.sdcApplicationsService.emementsByPage;
+
     this.subscription$.push(
       this.sdcApplicationsService.onDataChange().subscribe(info => {
         this.applicationsInfo = info;

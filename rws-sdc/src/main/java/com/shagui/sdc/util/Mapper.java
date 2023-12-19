@@ -15,6 +15,7 @@ import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.api.dto.TagDTO;
 import com.shagui.sdc.api.dto.TimeCoverageDTO;
+import com.shagui.sdc.core.configuration.AppConfig;
 import com.shagui.sdc.core.exception.ApiError;
 import com.shagui.sdc.core.exception.SdcMapperException;
 import com.shagui.sdc.model.ComponentAnalysisModel;
@@ -26,7 +27,6 @@ import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.model.TagModel;
-import com.shagui.sdc.util.Ctes.TrendConstants;
 
 import feign.FeignException;
 
@@ -93,18 +93,19 @@ public class Mapper {
 		List<TagDTO> tags = source.getTags().stream().map(Mapper::parse).toList();
 
 		return new ComponentDTO(source.getId(), source.getName(), parse(source.getComponentTypeArchitecture()),
-				source.getAnalysisDate(), source.getCoverage(), TrendConstants.trendValue(source.getTrend()),
+				source.getAnalysisDate(), source.getCoverage(),
+				AppConfig.getConfig().getAnalysis().trendValue(source.getTrend()),
 				source.isBlocked(), parse(source.getSquad()), tags);
 	}
 
 	public static DepartmentDTO parse(DepartmentModel source) {
 		return new DepartmentDTO(source.getId(), source.getName(), source.getCoverage(),
-				TrendConstants.trendValue(source.getTrend()));
+				AppConfig.getConfig().getAnalysis().trendValue(source.getTrend()));
 	}
 
 	public static SquadDTO parse(SquadModel source) {
 		return new SquadDTO(source.getId(), source.getName(), Mapper.parse(source.getDepartment()),
-				source.getCoverage(), TrendConstants.trendValue(source.getTrend()));
+				source.getCoverage(), AppConfig.getConfig().getAnalysis().trendValue(source.getTrend()));
 	}
 
 	public static TagDTO parse(TagModel source) {

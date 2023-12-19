@@ -44,15 +44,12 @@ public class Ctes {
 		}
 	}
 
-	public static class TrendConstants {
+	public static class AnalysisConstants {
+		public static final int PRECISION = 2;
 		public static final int TREND_DEEP = 10;
 		public static final float TREND_HEAT = 0.5f;
 
-		private TrendConstants() {
-		}
-
-		public static float trendValue(Float trend) {
-			return trend == null || TrendConstants.TREND_HEAT > Math.abs(trend) ? 0.0f : trend;
+		private AnalysisConstants() {
 		}
 	}
 
