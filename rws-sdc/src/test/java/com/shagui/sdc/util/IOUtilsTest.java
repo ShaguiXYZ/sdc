@@ -1,6 +1,6 @@
 package com.shagui.sdc.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ class IOUtilsTest {
 		String toTransform = "test transform";
 		InputStream stream = IOUtils.toInputStream(toTransform);
 		String string = IOUtils.toString(stream);
-		
+
 		assertEquals(toTransform, string);
 	}
 
@@ -23,7 +23,7 @@ class IOUtilsTest {
 		String toTransform = "test transform";
 		InputStream stream = IOUtils.toInputStream(toTransform);
 		String string = IOUtils.toStringJava8(stream);
-		
+
 		assertEquals(toTransform, string);
 	}
 

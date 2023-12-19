@@ -11,7 +11,7 @@ import com.shagui.sdc.api.domain.PageInfo;
 
 class ComponentsSonarDTOTest {
     @Test
-    void testConstructorAndSetterGetter() {
+    void constructorAndSetterGetter() {
         ComponentsSonarDTO dto = new ComponentsSonarDTO();
         PageInfo expectedPageInfo = new PageInfo(0, 0, 0, 0);
         List<ComponentSonarDTO> expectedComponents = new ArrayList<>();

@@ -14,13 +14,13 @@ import com.shagui.sdc.model.DepartmentModel;
 class DepartmentInputTest {
 
 	@Test
-	void testConstructor() {
+	void constructor() {
 		DepartmentInput department = new DepartmentInput();
 		assertNotNull(department);
 	}
 
 	@Test
-	void testGettersAndSetters() {
+	void gettersAndSetters() {
 		DepartmentInput department = new DepartmentInput();
 		department.setId(1);
 		department.setName("Test Department");
@@ -35,7 +35,7 @@ class DepartmentInputTest {
 	}
 
 	@Test
-	void testAsModel() {
+	void asModel() {
 		DepartmentInput department = new DepartmentInput();
 		department.setId(1);
 		department.setName("Test Department");
@@ -52,7 +52,7 @@ class DepartmentInputTest {
 	}
 
 	@Test
-	void testPatch() {
+	void patch() {
 		DepartmentInput department = new DepartmentInput();
 		department.setName("Test Department");
 		department.setCia(123);

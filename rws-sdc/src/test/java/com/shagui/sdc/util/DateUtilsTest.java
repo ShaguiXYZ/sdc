@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class DateUtilsTest {
 
     @Test
-    void testGetDatesBetweenDates() {
+    void getDatesBetweenDates() {
         LocalDate startDate = LocalDate.of(2022, 1, 1);
         LocalDate endDate = LocalDate.of(2022, 1, 5);
         List<Date> expectedDates = Arrays.asList(
@@ -30,7 +30,7 @@ class DateUtilsTest {
     }
 
     @Test
-    void testGetLastMounth() {
+    void getLastMounth() {
         int n = 3;
         Date now = new Date();
         LocalDate localleDate = dateToLocalDate(now);
@@ -41,7 +41,7 @@ class DateUtilsTest {
         List<Date> actualDates = DateUtils.getLastMounth(now, n);
         assertEquals(expectedDates, actualDates);
     }
-    
+
     private LocalDate dateToLocalDate(Date date) {
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
     }

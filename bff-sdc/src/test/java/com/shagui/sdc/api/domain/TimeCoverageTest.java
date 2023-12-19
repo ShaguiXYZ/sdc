@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 class TimeCoverageTest {
 	@Test
-	void testTimeCoverageConstructor() {
+	void timeCoverageConstructor() {
 		Float coverage = 0.5f;
 		Date analysisDate = new Date();
 		TimeCoverage source = new TimeCoverage();
@@ -23,7 +23,7 @@ class TimeCoverageTest {
 	}
 
 	@Test
-	void testTimeCoverage() {
+	void timeCoverage() {
 		TimeCoverage timeCoverage = new TimeCoverage();
 		assertNull(timeCoverage.getCoverage());
 

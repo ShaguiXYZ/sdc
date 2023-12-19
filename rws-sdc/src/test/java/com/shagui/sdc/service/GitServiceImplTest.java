@@ -52,7 +52,7 @@ class GitServiceImplTest {
 	}
 
 	@Test
-	void testAnalyze() {
+	void analyze() {
 		MetricModel metric = mock(MetricModel.class);
 		when(metric.getValue()).thenReturn("ncloc_language_distribution");
 		when(metric.getType()).thenReturn(AnalysisType.GIT);

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class MeasureSonarDTOTest {
 
     @Test
-    void testConstructorAndGetters() {
+    void constructorAndGetters() {
         String metric = "coverage";
         String value = "80.0%";
         String component = "component";

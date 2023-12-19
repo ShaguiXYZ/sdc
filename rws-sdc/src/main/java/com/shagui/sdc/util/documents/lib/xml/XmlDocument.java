@@ -62,7 +62,7 @@ public class XmlDocument implements SdcDocument {
 				log.error("Error procesing XML path: {}", path, e);
 				return Optional.empty();
 			}
-		}).filter(Optional::isPresent).map(Optional::get).toList();
+		}).flatMap(Optional::stream).toList();
 	}
 
 	@SuppressWarnings("unchecked")

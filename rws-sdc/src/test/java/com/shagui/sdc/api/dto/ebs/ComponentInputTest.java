@@ -1,7 +1,6 @@
 package com.shagui.sdc.api.dto.ebs;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -30,23 +29,23 @@ class ComponentInputTest {
 	}
 
 	@Test
-	void testConstructorAndGetters() {
+	void constructorAndGetters() {
 		ComponentInput input = new ComponentInput();
 		assertNotNull(input);
-		assertEquals(null, input.getName());
-		assertEquals(null, input.getComponentType());
-		assertEquals(null, input.getNetwork());
-		assertEquals(null, input.getDeploymentType());
-		assertEquals(null, input.getPlatform());
-		assertEquals(null, input.getArchitecture());
-		assertEquals(null, input.getLanguage());
+		assertNull(input.getName());
+		assertNull(input.getComponentType());
+		assertNull(input.getNetwork());
+		assertNull(input.getDeploymentType());
+		assertNull(input.getPlatform());
+		assertNull(input.getArchitecture());
+		assertNull(input.getLanguage());
 		assertEquals(0, input.getSquad());
-		assertEquals(null, input.getProperties());
-		assertEquals(null, input.getUriNames());
+		assertNull(input.getProperties());
+		assertNull(input.getUriNames());
 	}
 
 	@Test
-	void testSettersAndGetters() {
+	void settersAndGetters() {
 		ComponentInput input = new ComponentInput();
 		input.setName("test");
 		input.setComponentType("testType");
@@ -94,7 +93,7 @@ class ComponentInputTest {
 	}
 
 	@Test
-	void testAsModel() {
+	void asModel() {
 		when(config.componentParams()).thenReturn(new ArrayList<>() {
 			/**
 			 * 

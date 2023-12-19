@@ -27,7 +27,7 @@ class SquadInputTest {
     }
 
     @Test
-    void testGetters() {
+    void getters() {
         assertEquals(1, squadInput.getId());
         assertEquals(2, squadInput.getDepartmentId());
         assertEquals("Test Squad", squadInput.getName());
@@ -36,7 +36,7 @@ class SquadInputTest {
     }
 
     @Test
-    void testSetters() {
+    void setters() {
         squadInput.setId(4);
         squadInput.setDepartmentId(5);
         squadInput.setName("New Squad");
@@ -54,7 +54,7 @@ class SquadInputTest {
     }
 
     @Test
-    void testToModel() {
+    void toModel() {
         SquadModel squadModel = squadInput.toModel();
 
         assertEquals(1, squadModel.getId());
@@ -63,7 +63,7 @@ class SquadInputTest {
     }
 
     @Test
-    void testPatch() {
+    void patch() {
         SquadModel squadModel = new SquadModel();
         squadModel.setId(1);
         squadModel.setName("Old Squad");

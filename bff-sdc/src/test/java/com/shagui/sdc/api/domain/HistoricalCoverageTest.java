@@ -7,20 +7,20 @@ import org.junit.jupiter.api.Test;
 
 class HistoricalCoverageTest {
 	@Test
-	void testConstructor() {
+	void constructor() {
 		HistoricalCoverage<String> historicalCoverage = new HistoricalCoverage<>();
 		assertNotNull(historicalCoverage);
 	}
 
 	@Test
-	void testDataGetterAndSetter() {
+	void dataGetterAndSetter() {
 		HistoricalCoverage<String> historicalCoverage = new HistoricalCoverage<>();
 		historicalCoverage.setData("test");
 		assertEquals("test", historicalCoverage.getData());
 	}
 
 	@Test
-	void testHistoricalGetterAndSetter() {
+	void historicalGetterAndSetter() {
 		HistoricalCoverage<String> historicalCoverage = new HistoricalCoverage<>();
 		PageData<TimeCoverage> pageData = new PageData<>();
 		historicalCoverage.setHistorical(pageData);

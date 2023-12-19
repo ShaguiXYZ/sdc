@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class DependabotAlertDTOTest {
     @Test
-    void testConstructorAndGettersAndSetters() {
+    void constructorAndGettersAndSetters() {
         DependabotVulnerabilityDTO vulnerability = new DependabotVulnerabilityDTO();
         DependabotAlertDTO alert = new DependabotAlertDTO();
 

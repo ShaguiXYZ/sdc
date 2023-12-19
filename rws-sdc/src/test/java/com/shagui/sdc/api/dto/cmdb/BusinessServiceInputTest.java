@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class BusinessServiceInputTest {
 	@Test
-	void testConstructorAndGettersAndSetters() {
+	void constructorAndGettersAndSetters() {
 		BusinessServiceInput input = new BusinessServiceInput();
 		int id = 1;
 		String name = "Business Service";

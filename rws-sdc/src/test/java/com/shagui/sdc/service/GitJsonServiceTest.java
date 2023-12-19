@@ -76,7 +76,7 @@ class GitJsonServiceTest {
 	}
 
 	@Test
-	void testAnalyzeJsonMetricsNotEmpty() throws JsonParseException, JsonMappingException, IOException {
+	void analyzeJsonMetricsNotEmpty() throws JsonParseException, JsonMappingException, IOException {
 
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();

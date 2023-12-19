@@ -95,7 +95,7 @@ public class RwsTestUtils {
 	public static String JSON_DEPENDABOT_CONTENT = "[]";
 
 	public static String gitContentResponse(String content) {
-		return String.format(JSON_GIT_CONTENT, Base64.encodeBase64String(content.getBytes()));
+		return JSON_GIT_CONTENT.formatted(Base64.encodeBase64String(content.getBytes()));
 	}
 
 	public static Response response(int status, String json) {

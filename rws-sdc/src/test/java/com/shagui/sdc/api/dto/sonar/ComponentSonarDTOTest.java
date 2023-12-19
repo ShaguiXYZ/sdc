@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class ComponentSonarDTOTest {
 
     @Test
-    void testGettersAndSetters() {
+    void gettersAndSetters() {
         ComponentSonarDTO dto = new ComponentSonarDTO();
         dto.setKey("key");
         dto.setName("name");

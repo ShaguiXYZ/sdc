@@ -26,63 +26,63 @@ class ContentDTOTest {
     }
 
     @Test
-    void testGetName() {
+    void getName() {
         assertEquals("test.txt", contentDTO.getName());
     }
 
     @Test
-    void testGetPath() {
+    void getPath() {
         assertEquals("/test.txt", contentDTO.getPath());
     }
 
     @Test
-    void testGetSha() {
+    void getSha() {
         assertEquals("1234567890abcdef", contentDTO.getSha());
     }
 
     @Test
-    void testGetSize() {
+    void getSize() {
         assertEquals(10, contentDTO.getSize());
     }
 
     @Test
-    void testGetUrl() {
+    void getUrl() {
         assertEquals("https://api.github.com/repos/octocat/Hello-World/contents/test.txt", contentDTO.getUrl());
     }
 
     @Test
-    void testGetHtmlUrl() {
+    void getHtmlUrl() {
         assertEquals("https://github.com/octocat/Hello-World/blob/master/test.txt", contentDTO.getHtmlUrl());
     }
 
     @Test
-    void testGetDownloadUrl() {
+    void getDownloadUrl() {
         assertEquals("https://raw.githubusercontent.com/octocat/Hello-World/master/test.txt",
                 contentDTO.getDownloadUrl());
     }
 
     @Test
-    void testGetType() {
+    void getType() {
         assertEquals("file", contentDTO.getType());
     }
 
     @Test
-    void testGetContent() {
+    void getContent() {
         assertEquals("VGhpcyBpcyBhIHRlc3Q=", contentDTO.getContent());
     }
 
     @Test
-    void testGetEncoding() {
+    void getEncoding() {
         assertEquals("base64", contentDTO.getEncoding());
     }
 
     @Test
-    void testGetDecodedContent() {
+    void getDecodedContent() {
         assertEquals("This is a test", contentDTO.getDecodedContent());
     }
 
     @Test
-    void testContentDTO() {
+    void contentDTO() {
         assertNotNull(contentDTO);
     }
 }

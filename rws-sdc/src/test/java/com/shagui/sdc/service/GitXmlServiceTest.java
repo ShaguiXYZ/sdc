@@ -78,7 +78,7 @@ class GitXmlServiceTest {
 	}
 
 	@Test
-	void testAnalyzeEmptyMetricsEmpty() {
+	void analyzeEmptyMetricsEmpty() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 
 		List<ComponentUriModel> uris = new ArrayList<>();
@@ -100,7 +100,7 @@ class GitXmlServiceTest {
 	}
 
 	@Test
-	void testAnalyzeRuntimeException() {
+	void analyzeRuntimeException() {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		metrics.add(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
 
@@ -128,7 +128,7 @@ class GitXmlServiceTest {
 	}
 
 	@Test
-	void testAnalyzeXmlMetricsNotEmpty() throws JsonParseException, JsonMappingException, IOException {
+	void analyzeXmlMetricsNotEmpty() throws JsonParseException, JsonMappingException, IOException {
 		List<MetricModel> metrics = new ArrayList<MetricModel>();
 		MetricModel metricModel = new MetricModel();
 		metricModel.setId(1);
