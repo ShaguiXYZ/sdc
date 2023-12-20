@@ -90,7 +90,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.appConfiguration.AppConfiguracions().then(config => {
+    this.appConfiguration.appConfiguracions().then(config => {
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, { ...config, title: '- S D C -' }, { persistent: true, referenced: false });
     });
 

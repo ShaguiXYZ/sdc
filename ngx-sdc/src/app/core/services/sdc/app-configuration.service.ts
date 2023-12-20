@@ -11,7 +11,7 @@ export class AppConfigurationService {
 
   constructor(private readonly http: HttpService) {}
 
-  public AppConfiguracions(): Promise<IAppConfiguration> {
+  public appConfiguracions(): Promise<IAppConfiguration> {
     return firstValueFrom(
       this.http
         .get<IAppConfiguration>(`${this._urlConfiguration}`, {
