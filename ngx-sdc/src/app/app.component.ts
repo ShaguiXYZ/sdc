@@ -28,8 +28,11 @@ import { ContextDataInfo } from './shared/constants';
         width: 100vw;
 
         .app-content {
+          display: flex;
           flex: 1;
+          flex-direction: column;
           overflow: hidden scroll;
+          align-items: center;
 
           header {
             position: sticky;
@@ -52,12 +55,26 @@ import { ContextDataInfo } from './shared/constants';
               }
             }
           }
-        }
 
-        footer {
-          border-top: 1px solid $grey-light-color;
-          padding: 5px 16px;
-          text-align: center;
+          footer {
+            align-items: center;
+            bottom: 0;
+            display: flex;
+            height: 40px;
+            justify-content: flex-end;
+            overflow: hidden;
+            pointer-events: none;
+            position: absolute;
+            text-align: center;
+
+            .sdc-footer-actions {
+              .sdc-sse-event {
+                height: 15px;
+                pointer-events: all;
+                width: 15px;
+              }
+            }
+          }
         }
       }
     `
@@ -73,9 +90,15 @@ import { ContextDataInfo } from './shared/constants';
           <nx-header headerTitle="S D C" [title]="'Header.Title' | translate"></nx-header>
         </header>
         <div nxLayout="grid maxwidth nogutters">
-          <sdc-sse-event></sdc-sse-event>
           <router-outlet #outlet="outlet"></router-outlet>
         </div>
+        <footer nxLayout="grid maxwidth nogutters">
+          <div class="sdc-footer-actions">
+            <div class="sdc-sse-event">
+              <sdc-sse-event></sdc-sse-event>
+            </div>
+          </div>
+        </footer>
       </div>
     </main>
   `,

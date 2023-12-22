@@ -8,27 +8,68 @@ import { SseEventModel, SseService } from 'src/app/core/services';
   selector: 'sdc-sse-event',
   styles: [
     `
-      .sdc-sse-event {
-        border: 1px solid black;
-        border-radius: 100%;
+      @import 'core-globals';
+
+      .pulse {
+        color: var(--ui-01);
         cursor: pointer;
-        top: 10px;
-        height: 20px;
-        position: absolute;
-        right: 10px;
-        width: 20px;
+        background: var(--interactive-primary);
+        border-radius: 50%;
+        font-size: 1rem;
+        height: 100%;
+        position: relative;
+        width: 100%;
+        z-index: $z-index-bottom;
+
+        &::after {
+          content: '';
+          border-radius: 50%;
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          z-index: calc($z-index-bottom - 1);
+          animation: pulse 10s infinite cubic-bezier(0.66, 0, 0, 1) 5s;
+        }
+
+        &:hover {
+          background: var(--hover-primary);
+          transform: scale(1.1);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(0.95);
+          box-shadow: 0 0 0 0 var(--hover-primary);
+        }
+
+        20% {
+          transform: scale(1);
+          box-shadow: 0 0 0 10px rgba(0, 153, 255, 0);
+        }
+
+        100% {
+          transform: scale(0.95);
+          box-shadow: 0 0 0 0 rgba(0, 153, 255, 0);
+        }
       }
     `
   ],
   template: `
     @if (events.length > 0) {
-      <div class="sdc-sse-event" (click)="showEvents()"></div>
+      <div class="pulse" (click)="toggleEvents()">
+        {{ events.length }}
+      </div>
     }
   `,
   standalone: true
 })
 export class SdcSseEventComponent implements OnInit, OnDestroy {
   public events: SseEventModel[] = [];
+
+  private showEvents = false;
   private subscriptions$: Subscription[] = [];
 
   constructor(
@@ -44,16 +85,20 @@ export class SdcSseEventComponent implements OnInit, OnDestroy {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
   }
 
-  public showEvents(): void {
+  public toggleEvents(): void {
+    this.showEvents = !this.showEvents;
+
     this.events.forEach(event => {
-      if (event.type === 'ERROR') {
-        event.id = this.notificationService.error(event.type, event.message, 0, true);
+      if (this.showEvents) {
+        event.id =
+          event.type === 'ERROR'
+            ? this.notificationService.error(event.type, event.message, 0, true)
+            : this.notificationService.info(event.type, event.message, 10, false);
       } else {
-        event.id = this.notificationService.info(event.type, event.message, 10, false);
+        event.id && this.notificationService.closeNotification(event.id);
       }
     });
   }
-
   private eventObserver = (): Subscription =>
     this.sseService.getServerSentEventObserver().subscribe(event => {
       this.events = [...this.events, event];
@@ -61,6 +106,6 @@ export class SdcSseEventComponent implements OnInit, OnDestroy {
 
   private notificationObserver = (): Subscription =>
     this.notificationService.onCloseNotification().subscribe(notificationId => {
-      this.events = this.events.filter(event => event.id !== notificationId);
+      if (this.showEvents) this.events = this.events.filter(event => event.id !== notificationId);
     });
 }

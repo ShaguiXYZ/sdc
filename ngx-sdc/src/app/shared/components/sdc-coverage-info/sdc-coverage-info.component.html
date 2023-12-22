@@ -1,5 +1,5 @@
 @if (coverage) {
-  <div class="coverage-content" [ngClass]="{ selectable: selectable, selected: selected }" (click)="onClick()">
+  <article class="coverage-content" [ngClass]="{ selectable: selectable, selected: selected }" (click)="onClick()">
     <div class="coverage-chart">
       <sdc-coverage-chart
         [backgroundColor]="BACKGROUND_CHART_COLOR"
@@ -16,5 +16,5 @@
         <sdc-trend [trend]="coverage.trend" />
       </div>
     }
-  </div>
+  </article>
 }

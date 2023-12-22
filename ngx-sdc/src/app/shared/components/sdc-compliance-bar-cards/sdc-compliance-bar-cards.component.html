@@ -1,5 +1,5 @@
 @for (component of components; track component.id) {
-  <div [ngClass]="{ reveal: animation, 'nx-margin-bottom-3xs': !$last }">
+  <article [ngClass]="{ reveal: animation, 'nx-margin-bottom-3xs': !$last }">
     @defer (on viewport) {
       <sdc-compliance-bar-card
         [component]="component"
@@ -12,5 +12,5 @@
     } @placeholder {
       <div class="placeholder"></div>
     }
-  </div>
+  </article>
 }

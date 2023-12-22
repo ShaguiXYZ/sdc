@@ -3,26 +3,29 @@
     <div class="blocked"></div>
   }
 
-  <div class="card-content">
+  <article class="card-content">
     @if (coverage != null) {
-      <div class="coverage-info {{ coverageStyle }} nx-margin-bottom-xs sdc-center">
+      <section class="coverage-info {{ coverageStyle }} nx-margin-bottom-xs sdc-center">
         <nx-progressbar [value]="barCoverage"></nx-progressbar>
         <span class="coverage">{{ coverage }}%</span>
         @if (component.trend != null) {
           <sdc-trend class="nx-margin-left-2xs" [trend]="component.trend" />
         }
-      </div>
+      </section>
     }
 
-    <div class="flex-info nx-margin-bottom-xs">
+    <section class="flex-info nx-margin-bottom-xs">
       <div class="component-name">
         <span class="nx-font-weight-bold">{{ component.name }}</span>
       </div>
       <div class="position-end">
-        <span class="nx-font-weight-semibold">{{ 'ComplianceCard.ProcessDate' | translate }}: {{ component.analysisDate | date }}</span>
+        <time [dateTime]="component.analysisDate | date: 'short'"
+          >{{ 'ComplianceCard.ProcessDate' | translate }}:
+          <span class="nx-font-weight-semibold">{{ component.analysisDate | date }}</span></time
+        >
       </div>
-    </div>
-    <div class="flex-info">
+    </section>
+    <section class="flex-info">
       @if (showDepartment) {
         <nx-badge type="positive" (click)="onClickDepartment()">{{ component.squad.department.name }}</nx-badge>
       }
@@ -36,6 +39,6 @@
           </nx-link>
         </div>
       }
-    </div>
-  </div>
+    </section>
+  </article>
 </nx-card>
