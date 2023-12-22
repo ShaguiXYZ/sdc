@@ -57,7 +57,7 @@ class SonarServiceImplTest {
 		when(sonarClient.measures(any(URI.class), anyString(), anyString())).thenReturn(
 				RwsTestUtils.response(200, RwsTestUtils.JSON_SONAR_CONTENT));
 
-		List<ComponentAnalysisModel> result = service.analyze(RwsTestUtils.componentModelMock());
+		List<ComponentAnalysisModel> result = service.analyze("workflowId", RwsTestUtils.componentModelMock());
 		assertEquals(new ArrayList<>(), result);
 	}
 

@@ -40,6 +40,9 @@ class AnalysisServiceImplTest {
 	private AnalysisServiceImpl service;
 
 	@Mock
+	private SseService sseServiceMock;
+
+	@Mock
 	private ComponentRepository componentRepositoryMock;
 
 	@Mock
@@ -60,9 +63,8 @@ class AnalysisServiceImplTest {
 
 	@Test
 	void constructorTest() {
-		AnalysisServiceImpl service = new AnalysisServiceImpl(new HashMap<>(), componentRepositoryMock,
-				componentAnalysisRepositoryMock,
-				metricRepositoryMock);
+		AnalysisServiceImpl service = new AnalysisServiceImpl(sseServiceMock, new HashMap<>(), componentRepositoryMock,
+				componentAnalysisRepositoryMock, metricRepositoryMock);
 		assertNotNull(service);
 	}
 

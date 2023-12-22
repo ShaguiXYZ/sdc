@@ -44,6 +44,11 @@
       "name": "services.rws-sdc",
       "type": "java.lang.String",
       "description": "A description for 'services.rws-sdc'"
+    },
+    {
+      "name": "services.sse.timeout",
+      "type": "java.lang.Long",
+      "description": "A description for 'services.sse.timeout'"
     }
   ]
 }

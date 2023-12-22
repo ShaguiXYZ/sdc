@@ -50,7 +50,7 @@ public abstract class GitDocumentService implements AnalysisInterface {
 	}
 
 	@Override
-	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
+	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
 		Map<String, List<MetricModel>> metricsByPath = metricsByPath(component);
 
 		return metricsByPath.entrySet().parallelStream()
@@ -60,6 +60,10 @@ public abstract class GitDocumentService implements AnalysisInterface {
 								ContentDTO.class)
 						.map(data -> getResponse(component, entry.getValue(), sdcDocument(data))).orElseGet(() -> {
 							log.error("Not git info for component '{}'", component.getName());
+
+							config.sseService().emit(workflowId,
+									"Not git info for. component '%s'".formatted(component.getName()));
+
 							return new ArrayList<>();
 						}))
 				.flatMap(List::stream).toList();

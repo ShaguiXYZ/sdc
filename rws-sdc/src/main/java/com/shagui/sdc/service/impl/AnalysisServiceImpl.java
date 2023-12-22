@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.RequestPageInfo;
@@ -31,8 +32,10 @@ import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.service.AnalysisInterface;
 import com.shagui.sdc.service.AnalysisService;
+import com.shagui.sdc.service.SseService;
 import com.shagui.sdc.util.AnalysisUtils;
 import com.shagui.sdc.util.ComponentUtils;
+import com.shagui.sdc.util.HttpServletRequestUtils;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
@@ -42,14 +45,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class AnalysisServiceImpl implements AnalysisService {
-	private Map<String, AnalysisInterface> metricServices;
+	private final SseService sseService;
+	private final Map<String, AnalysisInterface> metricServices;
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentsRepository;
 	private JpaCommonRepository<ComponentAnalysisRepository, ComponentAnalysisModel, ComponentAnalysisPk> componentAnalysisRepository;
 	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
 
-	public AnalysisServiceImpl(Map<String, AnalysisInterface> metricServices, ComponentRepository componentsRepository,
+	public AnalysisServiceImpl(SseService sseService, Map<String, AnalysisInterface> metricServices,
+			ComponentRepository componentsRepository,
 			ComponentAnalysisRepository componentAnalysisRepository,
 			MetricRepository metricRepository) {
+		this.sseService = sseService;
 		this.metricServices = metricServices;
 		this.componentsRepository = () -> componentsRepository;
 		this.componentAnalysisRepository = () -> componentAnalysisRepository;
@@ -143,11 +149,15 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 		List<ComponentAnalysisModel> toSave = new ArrayList<>();
 
+		String workflowId = HttpServletRequestUtils.getWorkfowIdHeader();
+
 		metricTypes.parallelStream().forEach(type -> {
 			try {
-				toSave.addAll(metricServices.get(type.name()).analyze(component));
+				toSave.addAll(metricServices.get(type.name()).analyze(workflowId, component));
 			} catch (SdcCustomException e) {
 				log.error("Error getting task result!!!!!", e);
+				if (StringUtils.hasText(workflowId))
+					sseService.emit(workflowId, e);
 			}
 		});
 

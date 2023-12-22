@@ -1,4 +1,5 @@
 .last-item {
-    pointer-events: none; 
-    cursor: default;
+  // @howto: [SCSS] ignote pointer events so that the event is not blocked by the component
+  pointer-events: none;
+  cursor: default;
 }

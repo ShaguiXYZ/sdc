@@ -73,7 +73,7 @@ class GitServiceImplTest {
 		List<MetricModel> metrics = new ArrayList<>();
 		metrics.add(metric);
 
-		List<ComponentAnalysisModel> analysisList = gitService.analyze(component);
+		List<ComponentAnalysisModel> analysisList = gitService.analyze("workflowId", component);
 
 		assertEquals(1, analysisList.size());
 		ComponentAnalysisModel analysis = analysisList.get(0);

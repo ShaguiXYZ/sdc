@@ -7,7 +7,7 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
 
 public interface AnalysisInterface {
-	List<ComponentAnalysisModel> analyze(ComponentModel component);
+	List<ComponentAnalysisModel> analyze(String workfowId, ComponentModel component);
 
 	List<MetricModel> metrics(ComponentModel component);
 }

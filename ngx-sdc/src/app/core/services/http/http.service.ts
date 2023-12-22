@@ -16,11 +16,11 @@ import { CacheRequestOptions, RequestOptions } from './models';
 })
 export class HttpService {
   constructor(
-    private http: HttpClient,
-    private translateService: TranslateService,
-    private cache: CacheService,
-    private loadingService: LoadingService,
-    private notificationService: NotificationService
+    private readonly http: HttpClient,
+    private readonly translateService: TranslateService,
+    private readonly cache: CacheService,
+    private readonly loadingService: LoadingService,
+    private readonly notificationService: NotificationService
   ) {}
 
   public get<T>(url: string, requestOptions?: CacheRequestOptions): Observable<T | HttpEvent<T>> {

@@ -6,19 +6,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class JpaNotFoundException extends RuntimeException {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5424297196710502088L;
-
 	private final String key;
 	private final String message;
 
 	public JpaNotFoundException() {
 		this.key = null;
-		this.message = null;		
+		this.message = null;
 	}
-	
+
 	public JpaNotFoundException(String message) {
 		this.key = null;
 		this.message = message;

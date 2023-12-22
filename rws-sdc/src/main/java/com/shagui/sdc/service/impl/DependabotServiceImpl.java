@@ -18,7 +18,7 @@ import com.shagui.sdc.util.git.GitUtils;
 public class DependabotServiceImpl implements DependabotService {
 
 	@Override
-	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
+	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
 		List<DependabotAlertDTO> result = GitUtils
 				.retrieveGitData(component, GitUtils.GitOperations.DEPENDABOT_ALERTS, DependabotAlertDTO[].class)
 				.map(Arrays::asList).orElseGet(() -> new ArrayList<DependabotAlertDTO>());

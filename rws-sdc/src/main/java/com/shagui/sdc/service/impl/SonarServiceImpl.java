@@ -29,7 +29,7 @@ public class SonarServiceImpl implements SonarService {
 	private SonarClient sonarClient;
 
 	@Override
-	public List<ComponentAnalysisModel> analyze(ComponentModel component) {
+	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
 		List<ComponentAnalysisModel> analysisList = new ArrayList<>();
 		List<MetricModel> sonarMetrics = metrics(component);
 

@@ -8,6 +8,7 @@ public class Ctes {
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_AUTHORIZATION = "Authorization";
 	public static final String HEADER_SESSION_ID = "SID";
+	public static final String HEADER_WORKFLOW_ID = "WorkflowId";
 	public static final String AUTHORITIES_CLAIM = "authorities";
 
 	public static class AnalysisServicesTypes {

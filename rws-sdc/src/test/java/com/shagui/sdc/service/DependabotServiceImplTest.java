@@ -59,7 +59,7 @@ class DependabotServiceImplTest {
 		when(gitClient.repoFile(any(URI.class))).thenReturn(
 				RwsTestUtils.response(200, RwsTestUtils.JSON_DEPENDABOT_CONTENT));
 
-		List<ComponentAnalysisModel> result = service.analyze(RwsTestUtils.componentModelMock());
+		List<ComponentAnalysisModel> result = service.analyze("workflowId", RwsTestUtils.componentModelMock());
 		assertEquals(1, result.size());
 	}
 

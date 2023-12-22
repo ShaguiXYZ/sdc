@@ -45,6 +45,9 @@ class GitJsonServiceTest {
 	GitJsonServiceImpl service;
 
 	@Mock
+	private SseService sseService;
+
+	@Mock
 	private GitClient gitClient;
 
 	@Mock
@@ -64,7 +67,8 @@ class GitJsonServiceTest {
 		ReflectUtils.invoke(StaticRepository.class, "setConfig", staticRepositoryConfig);
 		ReflectUtils.invoke(UrlUtils.class, "setConfig", RwsTestUtils.urlUtilsConfig());
 
-		GitDocumentService.setConfig(new GitDocumentServiceConfig(componentTypeArchitectureMetricPropertiesRep));
+		GitDocumentService
+				.setConfig(new GitDocumentServiceConfig(sseService, componentTypeArchitectureMetricPropertiesRep));
 
 		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
@@ -108,7 +112,7 @@ class GitJsonServiceTest {
 		when(gitClient.repoFile(any(URI.class))).thenReturn(
 				RwsTestUtils.response(200, RwsTestUtils.gitContentResponse(RwsTestUtils.JSON_RESPONSE_TEST)));
 
-		List<ComponentAnalysisModel> analysis = service.analyze(component);
+		List<ComponentAnalysisModel> analysis = service.analyze("workflowId", component);
 
 		assertEquals(1, analysis.size());
 		assertEquals("100", analysis.get(0).getMetricValue());

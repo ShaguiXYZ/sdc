@@ -47,6 +47,9 @@ class GitXmlServiceTest {
 	GitXmlServiceImpl service;
 
 	@Mock
+	private SseService sseService;
+
+	@Mock
 	private GitClient gitClient;
 
 	@Mock
@@ -74,7 +77,8 @@ class GitXmlServiceTest {
 			}
 		});
 
-		GitDocumentService.setConfig(new GitDocumentServiceConfig(componentTypeArchitectureMetricPropertiesRep));
+		GitDocumentService
+				.setConfig(new GitDocumentServiceConfig(sseService, componentTypeArchitectureMetricPropertiesRep));
 	}
 
 	@Test
@@ -95,7 +99,7 @@ class GitXmlServiceTest {
 		component.setUris(uris);
 		component.setProperties(properties);
 
-		List<ComponentAnalysisModel> analize = service.analyze(component);
+		List<ComponentAnalysisModel> analize = service.analyze("workflowId", component);
 		assertEquals(new ArrayList<>(), analize);
 	}
 
@@ -124,7 +128,7 @@ class GitXmlServiceTest {
 		when(gitClient.repoFile(any(URI.class))).thenReturn(
 				RwsTestUtils.response(400, RwsTestUtils.gitContentResponse(RwsTestUtils.XML_RESPONSE_TEST)));
 
-		assertThrows(RuntimeException.class, () -> service.analyze(component));
+		assertThrows(RuntimeException.class, () -> service.analyze("workflowId", component));
 	}
 
 	@Test
@@ -161,7 +165,7 @@ class GitXmlServiceTest {
 		when(gitClient.repoFile(any(URI.class))).thenReturn(
 				RwsTestUtils.response(200, RwsTestUtils.gitContentResponse(RwsTestUtils.XML_RESPONSE_TEST)));
 
-		List<ComponentAnalysisModel> analysis = service.analyze(component);
+		List<ComponentAnalysisModel> analysis = service.analyze("workflowId", component);
 
 		assertEquals(1, analysis.size());
 		assertEquals("1", analysis.get(0).getMetricValue());

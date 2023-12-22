@@ -19,7 +19,7 @@ import com.shagui.sdc.util.analysis.CustomAnalysisFunctions;
 public class CustomAnalysisServiceImpl implements CustomAnalysisService {
 
     @Override
-    public List<ComponentAnalysisModel> analyze(ComponentModel component) {
+    public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
         List<ComponentAnalysisModel> result = List.of();
         List<MetricModel> metrics = metrics(component);
 

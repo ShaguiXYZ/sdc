@@ -2,7 +2,7 @@
 import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APP_NAME } from 'src/app/core/constants';
-import { SecurityService } from 'src/app/core/services';
+import { CONTEXT_WORKFLOW_ID, HEADER_AUTHORIZATION, HEADER_SESSION_ID, HEADER_WORKFLOW_ID, SecurityService } from 'src/app/core/services';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -28,8 +28,9 @@ export class AuthInterceptor implements HttpInterceptor {
     const httpRequest = req.clone({
       headers: req.headers
         .set('Source', source)
-        .set(`Authorization`, this.getToken())
-        .set('SID', this.getSID())
+        .set(HEADER_AUTHORIZATION, this.getToken())
+        .set(HEADER_SESSION_ID, this.getSID())
+        .set(HEADER_WORKFLOW_ID, CONTEXT_WORKFLOW_ID)
         .set('Content-Type', 'application/json')
         .set('accept', 'application/json')
     });

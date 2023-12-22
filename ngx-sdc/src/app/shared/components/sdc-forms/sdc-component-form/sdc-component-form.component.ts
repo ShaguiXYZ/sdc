@@ -50,7 +50,7 @@ export class SdcComponentFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions$.forEach(subscription => subscription.unsubscribe()); // <-- unsubscribe to prevent memory leaks
+    this.subscriptions$.forEach(subscription => subscription.unsubscribe());
   }
 
   public onSubmit(): void {

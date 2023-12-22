@@ -3,3 +3,9 @@ server:
 
 services:
   rws-sdc: http://localhost:9090/rws-sdc/api
+  sse:
+    url: http://localhost:9090/rws-sdc/api
+    timeout: 30000
+    retry:
+      # max-attempts: 3
+      backoff-period: 1000

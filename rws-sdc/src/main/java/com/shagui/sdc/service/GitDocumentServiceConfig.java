@@ -12,8 +12,12 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 public class GitDocumentServiceConfig {
-
+    private final SseService sseService;
     private ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRep;
+
+    public SseService sseService() {
+        return sseService;
+    }
 
     public JpaCommonRepository<ComponentTypeArchitectureMetricPropertiesRepository, ComponetTypeArchitectureMetricPropertiesModel, Integer> componentTypeArchitectureMetricPropertiesRepository() {
         return () -> componentTypeArchitectureMetricPropertiesRep;

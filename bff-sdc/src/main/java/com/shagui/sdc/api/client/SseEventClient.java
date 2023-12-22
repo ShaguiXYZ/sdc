@@ -1,0 +1,49 @@
+package com.shagui.sdc.api.client;
+
+import java.time.Duration;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.shagui.sdc.api.dto.sse.EventDTO;
+import com.shagui.sdc.api.dto.sse.EventType;
+import com.shagui.sdc.core.configuration.sse.SseProperties;
+import com.shagui.sdc.service.SseService;
+
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
+import reactor.util.retry.Retry;
+
+@Slf4j
+@Service
+public class SseEventClient {
+    private final SseProperties properties;
+    private final WebClient webClient;
+    private final SseService sseService;
+
+    public SseEventClient(SseProperties properties, WebClient webClient, SseService sseService) {
+        this.properties = properties;
+        this.webClient = webClient;
+        this.sseService = sseService;
+
+        consume();
+    }
+
+    private void consume() {
+        Flux<EventDTO> eventStream = this.webClient.get()
+                .uri("/events")
+                .retrieve()
+                .bodyToFlux(EventDTO.class)
+                .filter(event -> EventType.KEEP_ALIVE != event.getType())
+                .retryWhen(Retry.backoff(properties.getRetry().getMaxAttempts(),
+                        Duration.ofMillis(properties.getRetry().getBackoffPeriod())));
+
+        eventStream.subscribe(
+                event -> {
+                    log.debug("[{}] Received event: {}", event.getType(), event.getMessage());
+                    sseService.emit(event);
+                },
+                throwable -> log.error("Error receiving SSE: {}", throwable.getMessage()),
+                () -> log.info("SSE Completed!!!"));
+    }
+}

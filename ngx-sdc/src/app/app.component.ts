@@ -2,13 +2,14 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { TranslateModule } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
 import { ContextDataService, StorageService } from './core/services';
-import { routingAnimation } from './shared/animations';
-import { ContextDataInfo } from './shared/constants';
-import { TranslateModule } from '@ngx-translate/core';
 import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
+import { routingAnimation } from './shared/animations';
+import { SdcSseEventComponent } from './shared/components';
+import { ContextDataInfo } from './shared/constants';
 
 @Component({
   selector: 'app-root',
@@ -72,6 +73,7 @@ import { AppConfigurationService } from './core/services/sdc/app-configuration.s
           <nx-header headerTitle="S D C" [title]="'Header.Title' | translate"></nx-header>
         </header>
         <div nxLayout="grid maxwidth nogutters">
+          <sdc-sse-event></sdc-sse-event>
           <router-outlet #outlet="outlet"></router-outlet>
         </div>
       </div>
@@ -79,7 +81,16 @@ import { AppConfigurationService } from './core/services/sdc/app-configuration.s
   `,
   animations: [routingAnimation],
   standalone: true,
-  imports: [AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent, NxGridModule, RouterOutlet, TranslateModule]
+  imports: [
+    AlertComponent,
+    HeaderComponent,
+    LoadingComponent,
+    NotificationComponent,
+    NxGridModule,
+    RouterOutlet,
+    SdcSseEventComponent,
+    TranslateModule
+  ]
 })
 export class AppComponent implements OnInit {
   constructor(
