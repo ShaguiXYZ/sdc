@@ -11,12 +11,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
-import { IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
+import { IAppConfiguration, IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { SdcComplianceBarCardsComponent, SdcTagComponent } from 'src/app/shared/components';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricStates } from 'src/app/shared/lib';
+import { SdcMetricsContextData, SdcDepartmentsContextData, SdcSquadsContextData } from 'src/app/shared/models';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsHomeService } from './services';
 
@@ -73,7 +74,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
 
         this.groupTags();
 
-        this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
+        this.contextDataService.set<IAppConfiguration>(ContextDataInfo.APP_CONFIG, {
           ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
           title: `Applications | ${this.applicationsInfo?.name ?? ''}`
         });
@@ -91,17 +92,17 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   }
 
   public complianceClicked(component: IComponentModel): void {
-    this.contextDataService.set(ContextDataInfo.METRICS_DATA, { component });
+    this.contextDataService.set<SdcMetricsContextData>(ContextDataInfo.METRICS_DATA, { component });
     this.router.navigate([AppUrls.metrics]);
   }
 
   public departmentClicked(department: IDepartmentModel): void {
-    this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, { department });
+    this.contextDataService.set<SdcDepartmentsContextData>(ContextDataInfo.DEPARTMENTS_DATA, { department });
     this.router.navigate([AppUrls.departments]);
   }
 
   public squadClicked(squad: ISquadModel): void {
-    this.contextDataService.set(ContextDataInfo.SQUADS_DATA, { squad });
+    this.contextDataService.set<SdcSquadsContextData>(ContextDataInfo.SQUADS_DATA, { squad });
     this.router.navigate([AppUrls.squads]);
   }
 

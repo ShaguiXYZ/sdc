@@ -1,0 +1,52 @@
+@import 'core-globals';
+
+[data-title]::before {
+  right: 25px;
+  position: absolute;
+}
+
+.pulse {
+  color: var(--ui-01);
+  cursor: pointer;
+  background: var(--interactive-primary);
+  border-radius: 50%;
+  font-size: 1rem;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  z-index: $z-index-bottom;
+
+  &:hover {
+    background: var(--hover-primary);
+    transform: scale(1.1);
+  }
+
+  &::after {
+    content: '';
+    border-radius: 50%;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: calc($z-index-bottom - 1);
+    animation: pulse 10s infinite cubic-bezier(0.66, 0, 0, 1) 5s;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 var(--hover-primary);
+  }
+
+  20% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 153, 255, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 153, 255, 0);
+  }
+}

@@ -45,3 +45,6 @@ export const filterBy = <T>(collection: T[], properties: keyof T | (keyof T)[], 
 };
 
 export const propertyIn = <T>(object: any, property: string): object is T => property in object;
+
+// @howto: copy a text to the clipboard
+export const copyToClipboard = (text: string): Promise<void> => navigator.clipboard.writeText(text);

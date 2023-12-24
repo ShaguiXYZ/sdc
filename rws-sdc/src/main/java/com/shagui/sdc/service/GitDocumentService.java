@@ -12,6 +12,8 @@ import java.util.function.Function;
 
 import com.shagui.sdc.api.dto.ServiceDataDTO;
 import com.shagui.sdc.api.dto.git.ContentDTO;
+import com.shagui.sdc.api.dto.sse.EventFactory;
+import com.shagui.sdc.api.dto.sse.EventType;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
@@ -61,8 +63,9 @@ public abstract class GitDocumentService implements AnalysisInterface {
 						.map(data -> getResponse(component, entry.getValue(), sdcDocument(data))).orElseGet(() -> {
 							log.error("Not git info for component '{}'", component.getName());
 
-							config.sseService().emit(workflowId,
-									"Not git info for. component '%s'".formatted(component.getName()));
+							config.sseService().emit(EventFactory.event(workflowId, EventType.ERROR,
+									"Not git info for. component '%s'".formatted(component.getName()))
+									.referencedBy(component));
 
 							return new ArrayList<>();
 						}))

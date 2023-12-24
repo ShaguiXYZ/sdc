@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.shagui.sdc.api.ComponentRestApi;
 import com.shagui.sdc.core.exception.CustomExceptionHandler;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
+import com.shagui.sdc.service.SseService;
 
 import feign.FeignException;
 import feign.Request;
@@ -27,12 +28,16 @@ class CustomExceptionHandlerTest {
 	private MockMvc mockMvc;
 
 	@Mock
+	private SseService sseService;
+
+	@Mock
 	private ComponentRestApi controller;
 
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
-		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new CustomExceptionHandler())
+		this.mockMvc = MockMvcBuilders.standaloneSetup(controller)
+				.setControllerAdvice(new CustomExceptionHandler(sseService))
 				.build();
 	}
 
@@ -40,18 +45,18 @@ class CustomExceptionHandlerTest {
 	void genericExectionHandlerTest() throws Exception {
 		when(controller.component(anyInt())).thenThrow(new RuntimeException("Unexpected Exception"));
 
-        mockMvc.perform(get("/api/component/1"))
-                .andDo(print())
-                .andExpect(status().isNotFound());
+		mockMvc.perform(get("/api/component/1"))
+				.andDo(print())
+				.andExpect(status().isNotFound());
 	}
 
 	@Test
 	void jpaNotFoundExceptionHandlerTest() throws Exception {
 		when(controller.component(anyInt())).thenThrow(new JpaNotFoundException("JPA Exception"));
 
-        mockMvc.perform(get("/api/component/1"))
-                .andDo(print())
-                .andExpect(status().isNotFound());
+		mockMvc.perform(get("/api/component/1"))
+				.andDo(print())
+				.andExpect(status().isNotFound());
 	}
 
 	@Test

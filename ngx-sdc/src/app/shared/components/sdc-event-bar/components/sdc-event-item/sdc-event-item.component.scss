@@ -1,0 +1,64 @@
+@import 'colors';
+
+.event-item {
+  background: var(--card-background-color);
+  border: var(--card-border-width) solid var(--card-border-color);
+  border-radius: 4px;
+  color: var(--card-text-color);
+  transition:
+    background-color 0.5s ease-in-out,
+    border-color 0.5s ease-in-out,
+    display 0.7s allow-discrete,
+    opacity 0.7s;
+
+  &:hover {
+    background: var(--card-background-hover-color);
+    border-color: var(--card-border-color-hover);
+  }
+
+  header {
+    display: flex;
+    font-weight: bold;
+    padding: 8px;
+
+    .title {
+      flex: 1;
+      font-size: 1.2em;
+      overflow: hidden;
+      position: relative;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-break: break-word;
+      word-wrap: break-word;
+    }
+
+    .error {
+      color: $state-critical;
+    }
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+
+    .sdc-event-item__date {
+      font-size: 0.8em;
+      margin-bottom: 8px;
+    }
+
+    .sdc-event-item__message {
+      margin-bottom: 8px;
+      overflow: hidden;
+      position: relative;
+      text-overflow: ellipsis;
+      white-space: normal;
+      word-break: break-word;
+      word-wrap: break-word;
+    }
+  }
+
+  @starting-style {
+    opacity: 0;
+  }
+}

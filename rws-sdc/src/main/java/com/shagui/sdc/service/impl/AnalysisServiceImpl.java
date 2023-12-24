@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
+import com.shagui.sdc.api.dto.sse.EventFactory;
 import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.core.exception.SdcCustomException;
@@ -157,7 +158,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 			} catch (SdcCustomException e) {
 				log.error("Error getting task result!!!!!", e);
 				if (StringUtils.hasText(workflowId))
-					sseService.emit(workflowId, e);
+					sseService.emit(EventFactory.event(workflowId, e).referencedBy(component));
 			}
 		});
 

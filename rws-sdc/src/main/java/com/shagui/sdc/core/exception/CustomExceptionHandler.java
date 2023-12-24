@@ -3,19 +3,27 @@ package com.shagui.sdc.core.exception;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.shagui.sdc.api.dto.sse.EventFactory;
+import com.shagui.sdc.service.SseService;
+import com.shagui.sdc.util.HttpServletRequestUtils;
 import com.shagui.sdc.util.Mapper;
 
 import feign.FeignException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
+	private SseService sseService;
+
 	@ExceptionHandler({ Exception.class, RuntimeException.class })
 	ResponseEntity<ApiError> exception(Exception ex) {
 		logException(ex);
@@ -28,6 +36,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ SdcCustomException.class })
 	ResponseEntity<ApiError> exception(SdcCustomException ex) {
 		logException(ex);
+
+		String workflowId = HttpServletRequestUtils.getWorkfowIdHeader();
+		if (StringUtils.hasText(workflowId)) {
+			sseService.emit(EventFactory.event(workflowId, ex));
+		}
 
 		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(),
 				ExceptionCodes.DEFAULT_EXCEPTION_CODE);

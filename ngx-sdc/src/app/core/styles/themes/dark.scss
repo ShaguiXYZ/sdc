@@ -710,6 +710,8 @@
   --formfield-border-width: 1px;
   --formfield-active-border-width: 4px;
   --formfield-active-color: var(--interactive-text);
+  --formfield-active-border-radius: 2px;
+  --formfield-active-border-bottom-color: transparent;
   --formfield-hover-border-color: var(--ui-06);
   --formfield-disabled-text-color: var(--disabled-01);
   --formfield-disabled-border-color: var(--disabled-01);
@@ -880,6 +882,10 @@
   --pagination-compact-direction-line-height: var(--link-small-line-height);
   --pagination-compact-direction-font-weight: var(--link-small-font-weight);
   --pagination-compact-direction-letter-spacing: var(--link-small-letter-spacing);
+  --pagination-slider-icon-width: 8px;
+  --pagination-slider-icon-height: 8px;
+  --pagination-slider-icon-border-color: var(--ui-06);
+  --pagination-slider-icon-active-color: var(--ui-06);
   --natural-language-form-large-font-size: var(--heading-02-font-size);
   --natural-language-form-large-line-height: 52px;
   --natural-language-form-large-font-weight: var(--heading-02-font-weight);
@@ -987,6 +993,7 @@
   --radio-button-selected-circle-color: var(--interactive-primary);
   --radio-button-dot-background-color: transparent;
   --radio-button-selected-background-color: transparent;
+  --tab-expert-item-disabled-color: var(--disabled-01);
   --radio-button-dot-size: 8px;
   --radio-button-disabled-selected-background-color: transparent;
   --radio-button-disabled-selected-dot-color: var(--disabled-01);
@@ -1053,6 +1060,7 @@
   --slider-handle-value-letter-spacing: var(--paragraph-05-letter-spacing);
   --slider-negative-background-color: var(--negative-dimmed);
   --slider-tick-color: var(--text-01);
+  --slider-icon-size: 24px;
   --small-stage-min-height: 208px;
   --small-stage-image-min-height: 64px;
   --small-stage-image-max-height: 144px;
@@ -1132,7 +1140,6 @@
   --tab-item-border-color: var(--ui-05);
   --tab-item-active-border-color: var(--interactive-text);
   --tab-item-disabled-color: var(--disabled-01);
-  --tab-item-disabled-border-color: var(--disabled-01);
   --tab-item-font-size: var(--paragraph-02-font-size);
   --tab-item-line-height: var(--paragraph-02-line-height);
   --tab-item-font-weight: var(--paragraph-02-font-weight);

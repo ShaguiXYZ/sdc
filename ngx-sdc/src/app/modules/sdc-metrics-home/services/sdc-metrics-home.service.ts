@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { _console, emptyFn } from 'src/app/core/lib';
 import { IMetricAnalysisModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
 import { ContextDataService, DateService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
-import { MetricsContextData } from 'src/app/shared/models';
+import { SdcMetricsContextData } from 'src/app/shared/models';
 import { MetricsDataModel } from '../models';
 
 @Injectable()
 export class SdcMetricsHomeService {
-  private metricContextData!: MetricsContextData;
+  private metricContextData!: SdcMetricsContextData;
   private metricData!: MetricsDataModel;
   private data$: Subject<MetricsDataModel>;
   private tabActions: { fn: () => void }[] = [];

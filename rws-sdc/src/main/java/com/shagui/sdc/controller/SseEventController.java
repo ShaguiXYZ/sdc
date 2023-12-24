@@ -3,7 +3,7 @@ package com.shagui.sdc.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.SseEventApi;
-import com.shagui.sdc.api.dto.sse.EventDTO;
+import com.shagui.sdc.api.dto.sse.EventFactory;
 import com.shagui.sdc.service.SseService;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ public class SseEventController implements SseEventApi {
     private final SseService sseService;
 
     @Override
-    public Flux<EventDTO> getEvents() {
+    public Flux<EventFactory.EventDTO> getEvents() {
         return this.sseService.asFlux();
     }
 }

@@ -40,7 +40,7 @@ bootstrapApplication(AppComponent, {
     ),
     { provide: NX_CONTEX_CONFIG, useValue: { urls, home: AppUrls.squads, cache: { schedulerPeriod: SCHEDULER_PERIOD } } },
     { provide: NX_LANGUAGE_CONFIG, useValue: { languages: SdcLanguages } },
-    { provide: NX_HEADER_CONFIG, useValue: { logo: 'assets/images/header-logo.svg', navigation: SDC_HEADER_MENU, themeSwitcher: true } },
+    { provide: NX_HEADER_CONFIG, useValue: { logo: 'assets/images/header-logo.svg', navigation: SDC_HEADER_MENU, themeSwitcher: false } },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),

@@ -137,21 +137,3 @@
     transition-duration: 0.01ms !important;
   }
 }
-
-.reveal {
-  animation: reveal linear both;
-  animation-range: entry 5%;
-  animation-timeline: view();
-}
-
-@keyframes reveal {
-  from {
-    opacity: 0;
-    scale: 0.5;
-  }
-
-  to {
-    opacity: 1;
-    scale: 1;
-  }
-}

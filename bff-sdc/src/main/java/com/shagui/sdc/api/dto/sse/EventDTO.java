@@ -8,6 +8,7 @@ public class EventDTO {
     private String workflowId;
     private String message;
     private String date;
+    private ReferenceDTO reference;
 
     public static EventDTO of(String workflowId, EventType type, String message) {
         EventDTO event = new EventDTO();

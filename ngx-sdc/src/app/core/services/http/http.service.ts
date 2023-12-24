@@ -75,12 +75,18 @@ export class HttpService {
       false
     );
 
-    this.loadingService.showLoading = true;
+    if (requestOptions?.showLoading) {
+      this.loadingService.showLoading = true;
+    }
+
     return this.http.post<OUT>(url, body, requestOptions?.clientOptions).pipe(
       tap(this.tabControl(requestOptions)),
       finalize(() => {
         this.notificationService.closeNotification(notificationId);
-        this.loadingService.showLoading = false;
+
+        if (requestOptions?.showLoading) {
+          this.loadingService.showLoading = false;
+        }
       })
     );
   }
@@ -97,12 +103,18 @@ export class HttpService {
       false
     );
 
-    this.loadingService.showLoading = true;
+    if (requestOptions?.showLoading) {
+      this.loadingService.showLoading = requestOptions?.showLoading;
+    }
+
     return this.http.put<OUT>(url, body, requestOptions?.clientOptions).pipe(
       tap(this.tabControl(requestOptions)),
       finalize(() => {
         this.notificationService.closeNotification(notificationId);
-        this.loadingService.showLoading = false;
+
+        if (requestOptions?.showLoading) {
+          this.loadingService.showLoading = false;
+        }
       })
     );
   }

@@ -1,7 +1,7 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { ContextDataError } from '../../errors';
 import { _console, deepCopy } from '../../lib';
 import { DataInfo } from '../../models';
@@ -45,8 +45,11 @@ export class ContextDataService {
     return this.contextStorage.cache;
   }
 
-  public onDataChange(): Observable<string> {
-    return this.subject$.asObservable();
+  public onDataChange<T>(key: string): Observable<T> {
+    return this.subject$.asObservable().pipe(
+      filter(value => value === key),
+      map(() => this.get<T>(key))
+    );
   }
 
   /**

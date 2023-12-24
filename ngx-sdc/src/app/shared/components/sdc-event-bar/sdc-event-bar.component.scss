@@ -1,0 +1,82 @@
+@import 'core-globals';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.event-content {
+  backdrop-filter: blur(5px);
+  border-radius: 4px;
+  box-shadow: var(--shadow-small);
+  max-width: 400px;
+  min-width: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition:
+    max-height 0.5s ease-out,
+    opacity 0.5s ease-out;
+  padding: 12px;
+
+  &.closed {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  &.open {
+    max-height: 100%;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .event-item {
+    width: 350px;
+  }
+
+  .event-item + .event-item {
+    margin-top: 8px;
+  }
+
+  .placeholder {
+    height: 150px;
+    padding: 8px;
+    width: 350px;
+  }
+}
+
+.reveal {
+  animation: reveal linear both;
+  animation-range: entry 25%;
+  animation-timeline: view();
+}
+
+@keyframes reveal {
+  from {
+    backdrop-filter: blur(5px);
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.hide {
+  animation: hide linear both;
+  animation-range: exit 10%;
+  animation-timeline: view();
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    backdrop-filter: blur(5px);
+    opacity: 0;
+  }
+}

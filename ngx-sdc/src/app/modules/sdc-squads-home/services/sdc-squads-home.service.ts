@@ -11,19 +11,19 @@ import { SdcSquadsDataModel } from '../models';
 @Injectable()
 export class SdcSquadsService {
   private contextData!: SdcSquadsContextData;
-  private summary$: Subject<Partial<SdcSquadsDataModel>>;
+  private data$: Subject<Partial<SdcSquadsDataModel>>;
 
   constructor(
-    private contextDataService: ContextDataService,
-    private componetService: ComponentService,
-    private squadService: SquadService
+    private readonly contextDataService: ContextDataService,
+    private readonly componetService: ComponentService,
+    private readonly squadService: SquadService
   ) {
-    this.summary$ = new Subject();
+    this.data$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.SQUADS_DATA);
   }
 
   public onDataChange(): Observable<Partial<SdcSquadsDataModel>> {
-    return this.summary$.asObservable();
+    return this.data$.asObservable();
   }
 
   public availableSquads(filter?: string): void {
@@ -42,7 +42,7 @@ export class SdcSquadsService {
         this.contextData = { ...this.contextData, squad, filter };
         this.contextDataService.set(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
 
-        this.summary$.next({ squad, squads, filter });
+        this.data$.next({ squad, squads, filter });
       })
       .catch(_console.error);
   }
@@ -54,7 +54,7 @@ export class SdcSquadsService {
         this.contextData = { ...this.contextData, squad };
         this.contextDataService.set(ContextDataInfo.SQUADS_DATA, this.contextData, { persistent: true });
 
-        this.summary$.next({ squad, components: pageable.page });
+        this.data$.next({ squad, components: pageable.page });
       })
       .catch(_console.error);
   }

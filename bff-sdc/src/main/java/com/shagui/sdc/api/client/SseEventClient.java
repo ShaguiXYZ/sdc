@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.shagui.sdc.api.dto.sse.EventDTO;
-import com.shagui.sdc.api.dto.sse.EventType;
 import com.shagui.sdc.core.configuration.sse.SseProperties;
 import com.shagui.sdc.service.SseService;
 
@@ -34,7 +33,6 @@ public class SseEventClient {
                 .uri("/events")
                 .retrieve()
                 .bodyToFlux(EventDTO.class)
-                .filter(event -> EventType.KEEP_ALIVE != event.getType())
                 .retryWhen(Retry.backoff(properties.getRetry().getMaxAttempts(),
                         Duration.ofMillis(properties.getRetry().getBackoffPeriod())));
 

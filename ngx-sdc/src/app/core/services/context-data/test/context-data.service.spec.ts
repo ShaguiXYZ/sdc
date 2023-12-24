@@ -17,7 +17,7 @@ describe('ContextDataService', () => {
 
   it('should watch on change', () => {
     const service: ContextDataService = TestBed.inject(ContextDataService);
-    service.onDataChange();
+    service.onDataChange('key');
   });
 
   it('should set and get the context data', () => {

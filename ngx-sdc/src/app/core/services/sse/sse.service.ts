@@ -2,28 +2,32 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CONTEXT_WORKFLOW_ID } from '../security';
-import { SseEventModel } from './models';
+import { SseEventDTO, SseEventModel } from './models';
 
 @Injectable({ providedIn: 'root' })
-export class SseService {
+export class SseService<T = any> {
   private _urlEvents = `${environment.baseUrl}/api`;
   private eventSource: EventSource;
-  private eventObserver: Observable<SseEventModel>;
+  private eventObserver: Observable<SseEventModel<T>>;
 
   constructor() {
     this.eventSource = new EventSource(`${this._urlEvents}/events/${CONTEXT_WORKFLOW_ID}`);
     this.eventObserver = this.getServerSentEvent();
   }
 
-  private getServerSentEvent(): Observable<SseEventModel> {
-    return new Observable<SseEventModel>(observer => {
+  public onEvent(): Observable<SseEventModel<T>> {
+    return this.eventObserver;
+  }
+
+  private getServerSentEvent(): Observable<SseEventModel<T>> {
+    return new Observable<SseEventDTO<T>>(observer => {
       this.eventSource.onopen = event => {
         console.log('open sse', event);
       };
 
       this.eventSource.onmessage = event => {
-        const sseEvent: SseEventModel = JSON.parse(event.data);
-        observer.next(sseEvent);
+        const sseEvent: SseEventDTO<T> = JSON.parse(event.data);
+        observer.next(SseEventModel.fromDTO(sseEvent));
       };
 
       this.eventSource.onerror = error => {
@@ -34,9 +38,5 @@ export class SseService {
         this.eventSource.close();
       };
     });
-  }
-
-  public getServerSentEventObserver(): Observable<SseEventModel> {
-    return this.eventObserver;
   }
 }
