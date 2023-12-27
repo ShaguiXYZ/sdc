@@ -1,3 +1,5 @@
+export * from './sdc-app-footer';
+export * from './sdc-app-overlay';
 export * from './sdc-breadcrumb';
 export * from './sdc-compliance-bar-card';
 export * from './sdc-compliance-bar-cards';

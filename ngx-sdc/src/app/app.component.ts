@@ -5,12 +5,11 @@ import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
-import { SwitchThemeComponent } from './core/components/header/components';
 import { IAppConfiguration } from './core/models/sdc';
 import { ContextDataService, StorageService } from './core/services';
 import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 import { routingAnimation } from './shared/animations';
-import { SdcEventBarComponent, SdcSseEventComponent } from './shared/components';
+import { SdcAppFooterComponent, SdcAppOverlayComponent } from './shared/components';
 import { ContextDataInfo } from './shared/constants';
 
 @Component({
@@ -21,11 +20,7 @@ import { ContextDataInfo } from './shared/constants';
       <nx-loading />
       <nx-alert />
       <nx-notification />
-      <div class="overlay-content">
-        <div nxLayout="grid maxwidth nogutters" class="event-bar">
-          <sdc-event-bar />
-        </div>
-      </div>
+      <sdc-overlay />
       <div class="app-content sdc-scrollable-body">
         <header nxLayout="grid maxwidth nogutters">
           <nx-header headerTitle="S D C" [title]="'Header.Title' | translate" />
@@ -34,17 +29,7 @@ import { ContextDataInfo } from './shared/constants';
           <router-outlet #outlet="outlet" />
         </div>
       </div>
-      <footer nxLayout="grid maxwidth nogutters">
-        <div class="sdc-footer-content">
-          <div class="sdc-footer-info"></div>
-          <div class="sdc-footer-actions sdc-center">
-            <nx-switch-theme />
-            <div class="sdc-sse-event">
-              <sdc-sse-event />
-            </div>
-          </div>
-        </div>
-      </footer>
+      <sdc-footer />
     </main>
   `,
   animations: [routingAnimation],
@@ -56,9 +41,8 @@ import { ContextDataInfo } from './shared/constants';
     NotificationComponent,
     NxGridModule,
     RouterOutlet,
-    SdcEventBarComponent,
-    SdcSseEventComponent,
-    SwitchThemeComponent,
+    SdcAppFooterComponent,
+    SdcAppOverlayComponent,
     TranslateModule
   ]
 })
