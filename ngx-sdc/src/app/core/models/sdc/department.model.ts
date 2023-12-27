@@ -12,7 +12,7 @@ export interface IDepartmentDTO {
 export type IDepartmentModel = ICoverageModel;
 
 export namespace IDepartmentModel {
-  export const toModel = (dto: IDepartmentDTO): IDepartmentModel => new DepartmentModel(dto.id, dto.name, dto.coverage, dto.trend);
+  export const fromDTO = (dto: IDepartmentDTO): IDepartmentModel => new DepartmentModel(dto.id, dto.name, dto.coverage, dto.trend);
   export const toDTO = (model: IDepartmentModel): IDepartmentDTO => ({ ...model });
 }
 

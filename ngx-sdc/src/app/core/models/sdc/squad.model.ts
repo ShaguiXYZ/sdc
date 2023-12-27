@@ -16,8 +16,8 @@ export interface ISquadModel extends ICoverageModel {
 }
 
 export namespace ISquadModel {
-  export const toModel = (dto: ISquadDTO): ISquadModel =>
-    new SquadModel(dto.id, dto.name, IDepartmentModel.toModel(dto.department), dto.coverage, dto.trend);
+  export const fromDTO = (dto: ISquadDTO): ISquadModel =>
+    new SquadModel(dto.id, dto.name, IDepartmentModel.fromDTO(dto.department), dto.coverage, dto.trend);
   export const toDTO = (model: ISquadModel): ISquadDTO => ({ ...model, department: IDepartmentModel.toDTO(model.department) });
 }
 

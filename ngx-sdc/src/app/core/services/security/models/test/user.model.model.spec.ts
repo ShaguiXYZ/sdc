@@ -29,18 +29,18 @@ describe('UserModel', () => {
     expect(model).toBeTruthy();
   });
 
-  it('should not return a null value when toDto and toModel is called case one', () => {
+  it('should not return a null value when toDto and fromDTO is called case one', () => {
     model.authorities = [{ authority: AppAuthorities.business }, { authority: AppAuthorities.it }];
     const dto: IUserDTO = IUserModel.toDTO(model);
     expect(dto).not.toBeNull();
-    const mod: IUserModel = IUserModel.toModel(dto);
+    const mod: IUserModel = IUserModel.fromDTO(dto);
     expect(mod).not.toBeNull();
   });
 
-  it('should not return a null value when toDto and toModel is called case two', () => {
+  it('should not return a null value when toDto and fromDTO is called case two', () => {
     const dto: IUserDTO = IUserModel.toDTO(model);
     expect(dto).not.toBeNull();
-    const mod: IUserModel = IUserModel.toModel(dto);
+    const mod: IUserModel = IUserModel.fromDTO(dto);
     expect(mod).not.toBeNull();
   });
 });

@@ -9,10 +9,13 @@ export interface ITagModel {
 }
 
 export namespace ITagModel {
-  export const toModel = (dto: ITagDTO): ITagModel => new TagModel(dto.name, dto.analysisTag);
+  export const fromDTO = (dto: ITagDTO): ITagModel => new TagModel(dto.name, dto.analysisTag);
   export const toDTO = (model: ITagModel): ITagDTO => ({ ...model });
 }
 
 export class TagModel implements ITagModel {
-  constructor(public name: string, public analysisTag?: boolean) {}
+  constructor(
+    public name: string,
+    public analysisTag?: boolean
+  ) {}
 }

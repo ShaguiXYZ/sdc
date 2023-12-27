@@ -19,8 +19,8 @@ export interface IComponentModel extends ICoverageModel {
 }
 
 export namespace IComponentModel {
-  export const toModel = (dto: IComponentDTO): IComponentModel =>
-    new ComponentModel(dto.id, dto.name, ISquadModel.toModel(dto.squad), dto.analysisDate, dto.coverage, dto.trend, dto.blocked);
+  export const fromDTO = (dto: IComponentDTO): IComponentModel =>
+    new ComponentModel(dto.id, dto.name, ISquadModel.fromDTO(dto.squad), dto.analysisDate, dto.coverage, dto.trend, dto.blocked);
   export const toDTO = (model: IComponentModel): IComponentDTO => ({
     ...model,
     squad: ISquadModel.toDTO(model.squad)

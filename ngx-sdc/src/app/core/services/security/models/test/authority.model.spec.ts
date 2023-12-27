@@ -16,10 +16,10 @@ describe('AuthorityModel', () => {
     expect(model).toBeTruthy();
   });
 
-  it('should not return a null value when toDto and toModel is called', () => {
+  it('should not return a null value when toDto and fromDTO is called', () => {
     const dto: IAuthorityDTO = IAuthorityModel.toDTO(model);
     expect(dto).not.toBeNull();
-    const mod: AuthorityModel = IAuthorityModel.toModel(dto);
+    const mod: AuthorityModel = IAuthorityModel.fromDTO(dto);
     expect(mod).not.toBeNull();
   });
 });

@@ -21,13 +21,13 @@ export interface IMetricAnalysisModel extends Omit<ICoverageModel, 'id'> {
 }
 
 export namespace IMetricAnalysisModel {
-  export const toModel = (dto: IMetricAnalysisDTO): IMetricAnalysisModel =>
+  export const fromDTO = (dto: IMetricAnalysisDTO): IMetricAnalysisModel =>
     new MetricAnalysisModel(
       dto.analysisDate,
       dto.coverage,
-      IMetricModel.toModel(dto.metric),
+      IMetricModel.fromDTO(dto.metric),
       dto.metric.name,
-      IAnalysisValuesModel.toModel(dto.analysisValues),
+      IAnalysisValuesModel.fromDTO(dto.analysisValues),
       dto.blocker
     );
   export const toDTO = (model: IMetricAnalysisModel): IMetricAnalysisDTO => ({

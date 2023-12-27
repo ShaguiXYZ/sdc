@@ -31,7 +31,7 @@ export class SquadService {
             const result: IPageable<ISquadModel> = {
               paging: { ...dto.paging },
               page: dto.page
-                .map(ISquadModel.toModel)
+                .map(ISquadModel.fromDTO)
                 .filter(data => hasValue(data.coverage))
                 .filter(data => !department || data.department.id === department.id)
                 .sort(ICoverageModel.sortExpected)

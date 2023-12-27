@@ -16,10 +16,10 @@ describe('SessionModel', () => {
     expect(model).toBeTruthy();
   });
 
-  it('should not return a null value when toDto and toModel is called', () => {
+  it('should not return a null value when toDto and fromDTO is called', () => {
     const dto: ISessionDTO = ISessionModel.toDTO(model);
     expect(dto).not.toBeNull();
-    const mod: ISessionModel = ISessionModel.toModel(dto);
+    const mod: ISessionModel = ISessionModel.fromDTO(dto);
     expect(mod).not.toBeNull();
   });
 });

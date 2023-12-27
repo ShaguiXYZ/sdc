@@ -32,7 +32,7 @@ export class DepartmentService {
               paging: { ...dto.paging },
               page: dto.page
                 .filter(data => hasValue(data.coverage))
-                .map(IDepartmentModel.toModel)
+                .map(IDepartmentModel.fromDTO)
                 .sort(ICoverageModel.sortExpected)
             };
 

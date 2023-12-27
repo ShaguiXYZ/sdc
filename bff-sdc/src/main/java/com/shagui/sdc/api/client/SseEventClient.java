@@ -37,10 +37,7 @@ public class SseEventClient {
                         Duration.ofMillis(properties.getRetry().getBackoffPeriod())));
 
         eventStream.subscribe(
-                event -> {
-                    log.debug("[{}] Received event: {}", event.getType(), event.getMessage());
-                    sseService.emit(event);
-                },
+                sseService::emit,
                 throwable -> log.error("Error receiving SSE: {}", throwable.getMessage()),
                 () -> log.info("SSE Completed!!!"));
     }

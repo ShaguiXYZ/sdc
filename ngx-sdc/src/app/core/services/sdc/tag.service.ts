@@ -42,7 +42,7 @@ export class TagService {
             const dto = res as IPageable<ITagDTO>;
             const result: IPageable<ITagModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(ITagModel.toModel)
+              page: dto.page.map(ITagModel.fromDTO)
             };
 
             return result;
@@ -64,7 +64,7 @@ export class TagService {
             const dto = res as IPageable<ITagDTO>;
             const result: IPageable<ITagModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(ITagModel.toModel)
+              page: dto.page.map(ITagModel.fromDTO)
             };
 
             return result;
@@ -82,7 +82,7 @@ export class TagService {
           },
           successMessage: { text: 'Notifications.TagAdded' }
         })
-        .pipe(map(res => ITagModel.toModel(res as ITagDTO)))
+        .pipe(map(res => ITagModel.fromDTO(res as ITagDTO)))
     );
   }
 

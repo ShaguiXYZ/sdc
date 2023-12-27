@@ -19,7 +19,7 @@ export interface IAnalysisValuesModel {
 }
 
 export namespace IAnalysisValuesModel {
-  export const toModel = (dto: IAnalysisValuesDTO): IAnalysisValuesModel =>
+  export const fromDTO = (dto: IAnalysisValuesDTO): IAnalysisValuesModel =>
     new AnalysisValuesModel(dto.metricValue, dto.expectedValue, dto.goodValue, dto.perfectValue);
   export const toDTO = (model: IAnalysisValuesModel): IAnalysisValuesDTO => ({ ...model });
 }

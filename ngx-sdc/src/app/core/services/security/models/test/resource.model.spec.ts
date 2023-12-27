@@ -16,10 +16,10 @@ describe('ResourceModel', () => {
     expect(model).toBeTruthy();
   });
 
-  it('should not return a null value when toDto and toModel is called', () => {
+  it('should not return a null value when toDto and fromDTO is called', () => {
     const dto: IResourceDTO = IResourceModel.toDTO(model);
     expect(dto).not.toBeNull();
-    const mod: IResourceModel = IResourceModel.toModel(dto);
+    const mod: IResourceModel = IResourceModel.fromDTO(dto);
     expect(mod).not.toBeNull();
   });
 });

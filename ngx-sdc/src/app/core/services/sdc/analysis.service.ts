@@ -32,7 +32,7 @@ export class AnalysisService {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricAnalysisModel.toModel).sort(ICoverageModel.sortExpected)
+              page: dto.page.map(IMetricAnalysisModel.fromDTO).sort(ICoverageModel.sortExpected)
             };
 
             return result;
@@ -53,7 +53,7 @@ export class AnalysisService {
         .pipe(
           map(res => {
             const dto = res as IMetricAnalysisDTO;
-            const result: IMetricAnalysisModel = IMetricAnalysisModel.toModel(dto);
+            const result: IMetricAnalysisModel = IMetricAnalysisModel.fromDTO(dto);
 
             return result;
           })
@@ -86,7 +86,7 @@ export class AnalysisService {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricAnalysisModel.toModel)
+              page: dto.page.map(IMetricAnalysisModel.fromDTO)
             };
 
             return result;
@@ -132,7 +132,7 @@ export class AnalysisService {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricAnalysisModel.toModel)
+              page: dto.page.map(IMetricAnalysisModel.fromDTO)
             };
 
             return result;
@@ -152,7 +152,7 @@ export class AnalysisService {
             const dto = res as IPageable<IMetricAnalysisDTO>;
             const result: IPageable<IMetricAnalysisModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricAnalysisModel.toModel).sort(ICoverageModel.sortExpected)
+              page: dto.page.map(IMetricAnalysisModel.fromDTO).sort(ICoverageModel.sortExpected)
             };
 
             return result;

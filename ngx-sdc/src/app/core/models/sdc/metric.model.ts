@@ -47,7 +47,7 @@ export interface IMetricModel {
 }
 
 export namespace IMetricModel {
-  export const toModel = (dto: IMetricDTO): IMetricModel => new MetricModel(dto.id, dto.name, dto.type, dto.validation, dto.valueType);
+  export const fromDTO = (dto: IMetricDTO): IMetricModel => new MetricModel(dto.id, dto.name, dto.type, dto.validation, dto.valueType);
   export const toDTO = (model: IMetricModel): IMetricDTO => ({ ...model });
 }
 

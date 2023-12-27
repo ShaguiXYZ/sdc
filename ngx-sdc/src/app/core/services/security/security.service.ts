@@ -17,7 +17,10 @@ export class SecurityService {
   private _urlSecurity = `${environment.securityUrl}/bff-security/api`;
   private signIn$: Subject<ISessionModel> = new Subject();
 
-  constructor(private contextData: ContextDataService, private http: HttpService) {}
+  constructor(
+    private contextData: ContextDataService,
+    private http: HttpService
+  ) {}
 
   public get session(): ISessionModel {
     return this.securityInfo()?.session;
@@ -67,7 +70,7 @@ export class SecurityService {
   }
 
   public authUser(): Promise<IUserModel> {
-    return firstValueFrom(this.http.get<IUserDTO>(`${this._urlSecurity}/authUser`).pipe(map(user => IUserModel.toModel(user as IUserDTO))));
+    return firstValueFrom(this.http.get<IUserDTO>(`${this._urlSecurity}/authUser`).pipe(map(user => IUserModel.fromDTO(user as IUserDTO))));
   }
 
   public isBusinessUser = (): boolean =>
@@ -102,7 +105,7 @@ export class SecurityService {
         _console.log(err);
         return caught;
       }),
-      map(auth => auth.map((value: IAuthorityDTO) => IAuthorityModel.toModel(value)))
+      map(auth => auth.map((value: IAuthorityDTO) => IAuthorityModel.fromDTO(value)))
     );
   }
 }

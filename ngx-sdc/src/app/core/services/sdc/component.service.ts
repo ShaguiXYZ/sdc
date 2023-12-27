@@ -27,7 +27,7 @@ export class ComponentService {
             [HttpStatus.notFound]: { text: 'Notifications.ComponentNotFound' }
           }
         })
-        .pipe(map(res => IComponentModel.toModel(res as IComponentDTO)))
+        .pipe(map(res => IComponentModel.fromDTO(res as IComponentDTO)))
     );
   }
 
@@ -46,7 +46,7 @@ export class ComponentService {
             const dto = res as IPageable<IComponentDTO>;
             const result: IPageable<IComponentModel> = {
               paging: { ...dto.paging },
-              page: dto.page.filter(data => hasValue(data.coverage)).map(IComponentModel.toModel)
+              page: dto.page.filter(data => hasValue(data.coverage)).map(IComponentModel.fromDTO)
             };
 
             return result;
@@ -109,7 +109,7 @@ export class ComponentService {
             const dto = res as IPageable<IComponentDTO>;
             const result: IPageable<IComponentModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IComponentModel.toModel)
+              page: dto.page.map(IComponentModel.fromDTO)
             };
 
             return result;
@@ -135,7 +135,7 @@ export class ComponentService {
             const dto = res as IPageable<IMetricDTO>;
             const result: IPageable<IMetricModel> = {
               paging: { ...dto.paging },
-              page: dto.page.map(IMetricModel.toModel)
+              page: dto.page.map(IMetricModel.fromDTO)
             };
 
             return result;
@@ -166,7 +166,7 @@ export class ComponentService {
           map(res => {
             const dto = res as IHistoricalCoverage<IComponentDTO>;
             const result: IHistoricalCoverage<IComponentModel> = {
-              data: IComponentModel.toModel(dto.data),
+              data: IComponentModel.fromDTO(dto.data),
               historical: dto.historical
             };
 

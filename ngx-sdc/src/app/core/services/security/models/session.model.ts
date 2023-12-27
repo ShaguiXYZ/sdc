@@ -18,7 +18,7 @@ export class SessionModel implements ISessionModel {
 }
 
 export namespace ISessionModel {
-  export const toModel = (dto: ISessionDTO): ISessionModel => new SessionModel(dto.sid, dto.token);
+  export const fromDTO = (dto: ISessionDTO): ISessionModel => new SessionModel(dto.sid, dto.token);
   export const toDTO = (model: ISessionModel): ISessionDTO => ({
     ...model
   });
