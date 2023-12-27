@@ -45,7 +45,11 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions$.push(
-      this.eventBarService.onDataChange().subscribe(events => (this.eventBarData = { ...this.eventBarData, ...events }))
+      this.eventBarService.onDataChange().subscribe(events =>
+        Promise.resolve().then(() => {
+          this.eventBarData = { ...this.eventBarData, ...events };
+        })
+      )
     );
   }
 
