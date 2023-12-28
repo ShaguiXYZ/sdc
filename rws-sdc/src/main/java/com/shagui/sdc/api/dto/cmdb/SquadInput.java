@@ -18,17 +18,17 @@ public class SquadInput {
 	private String name;
 	private int cia;
 	private List<BusinessServiceInput> businessServices;
-	
+
 	public SquadModel toModel() {
 		SquadModel model = new SquadModel(this.getId());
-		
+
 		return patch(model);
 	}
-	
+
 	public SquadModel patch(SquadModel model) {
 		model.setName(this.getName());
 		model.setDepartment(new DepartmentModel(this.getDepartmentId()));
 
-		return model;		
+		return model;
 	}
 }

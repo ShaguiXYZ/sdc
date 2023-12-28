@@ -38,4 +38,31 @@ export class SdcEventBarService implements OnDestroy {
       eventsState: events.length ? contextData.eventsState : 'closed'
     });
   }
+
+  public readEvent(event: SseEventModel): void {
+    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+    const events = contextData.events.map(e => (e.id === event.id ? { ...e, read: !e.read } : e));
+
+    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { ...contextData, events });
+  }
+
+  public toggleEvents(): void {
+    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+    const eventsState = contextData.eventsState === 'open' ? 'closed' : 'open';
+
+    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { ...contextData, eventsState });
+  }
+
+  public markAllAsRead(): void {
+    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+    const events = contextData.events.map(e => ({ ...e, read: true }));
+
+    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { ...contextData, events });
+  }
+
+  public clearEvents = (): void => {
+    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+
+    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { ...contextData, events: [], eventsState: 'closed' });
+  };
 }

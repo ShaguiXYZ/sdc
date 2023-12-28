@@ -10,20 +10,23 @@
   backdrop-filter: blur(5px);
   border-radius: 4px;
   box-shadow: var(--shadow-small);
+  display: flex;
+  flex-direction: column;
   max-width: 400px;
   min-width: 300px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   transition:
     max-height 0.5s ease-out,
     opacity 0.5s ease-out;
-  padding: 12px;
 
   &.closed {
     max-height: 0;
     opacity: 0;
-    overflow: hidden;
     pointer-events: none;
+
+    .event-bar-items {
+      overflow-y: hidden;
+    }
   }
 
   &.open {
@@ -32,18 +35,41 @@
     pointer-events: auto;
   }
 
-  .event-item {
-    width: 350px;
+  .event-bar-options {
+    display: flex;
+    padding: 12px;
+    top: 0;
+    width: 100%;
+    z-index: $z-index-bottom;
+
+    .sdc-op + .sdc-op {
+      margin-left: 12px;
+    }
+
+    .event-bar-options__left {
+      flex: 1;
+    }
   }
 
-  .event-item + .event-item {
-    margin-top: 8px;
-  }
+  .event-bar-items {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 12px 12px 12px;
 
-  .placeholder {
-    height: 150px;
-    padding: 8px;
-    width: 350px;
+    .event-item {
+      width: 350px;
+    }
+
+    .event-item + .event-item {
+      margin-top: 8px;
+    }
+
+    .placeholder {
+      height: 150px;
+      padding: 8px;
+      width: 350px;
+    }
   }
 }
 

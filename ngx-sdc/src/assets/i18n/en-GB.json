@@ -3,6 +3,10 @@
     "RunProcess": {
       "Title": "Are you sure ?",
       "Description": "Do you want to proceed with the analysis of the component ?"
+    },
+    "ClearEvents": {
+      "Title": "Are you sure ?",
+      "Description": "Do you want to delete all events ?"
     }
   },
   "ComplianceCard": {

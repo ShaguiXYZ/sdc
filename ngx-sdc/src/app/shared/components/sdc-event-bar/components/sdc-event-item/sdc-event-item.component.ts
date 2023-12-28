@@ -18,8 +18,11 @@ import { TranslateService } from '@ngx-translate/core';
     <article class="event-item">
       <header>
         <span class="title {{ event.type.toLocaleLowerCase() }}">{{ event.type }}</span>
-        @if (closaable) {
-          <em class="sdc-op close-event fa-regular fa-circle-xmark" (click)="removeEvent()"></em>
+        @if (readable) {
+          <em class="sdc-op fa-regular" [ngClass]="{ 'fa-circle-check': event.read, 'fa-circle': !event.read }" (click)="readEvent()"></em>
+        }
+        @if (closable) {
+          <em class="sdc-op fa-regular fa-circle-xmark" (click)="removeEvent()"></em>
         }
       </header>
       <section>
@@ -49,29 +52,39 @@ export class SdcEventItemComponent {
   public event!: SseEventModel<SdcEventReference>;
 
   @Input()
-  public closaable = true;
+  public closable = true;
 
   @Input()
   public copyable = true;
 
+  @Input()
+  public readable = true;
+
   @Output()
   public onRemoveEvent: EventEmitter<SseEventModel<SdcEventReference>> = new EventEmitter();
+
+  @Output()
+  public onReadEvent: EventEmitter<SseEventModel<SdcEventReference>> = new EventEmitter();
 
   constructor(
     private readonly eventItemService: SdcEventItemService,
     private readonly notificationService: NotificationService,
-    private readonly router: Router,
     private readonly translateService: TranslateService
   ) {}
 
+  @Input()
+  public set timeOut(vaule: number) {
+    setTimeout(() => {
+      this.onRemoveEvent.emit(this.event);
+    }, vaule);
+  }
+
   public onClickComponent(): void {
-    // @howto: navigation to the metrics page, even if you are already on it
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.event.reference?.componentId &&
-        this.eventItemService.getComponent(this.event.reference.componentId).then(component => {
-          this.router.navigate([AppUrls.metrics]);
-        });
-    });
+    this.event.reference?.componentId && this.eventItemService.navigateTo(this.event.reference.componentId);
+  }
+
+  public readEvent(): void {
+    this.onReadEvent.emit(this.event);
   }
 
   public removeEvent(): void {

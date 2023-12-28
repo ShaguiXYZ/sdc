@@ -14,6 +14,7 @@ export interface SseEventModel<T = any> {
   type: SseEventType;
   message: string;
   date: string;
+  read?: boolean;
   reference?: T;
 }
 
@@ -24,6 +25,7 @@ export namespace SseEventModel {
       type: dto.type,
       message: dto.message,
       date: dto.date,
+      read: false,
       reference: { ...dto.reference }
     };
   }

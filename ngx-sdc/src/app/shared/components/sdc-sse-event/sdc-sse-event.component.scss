@@ -5,7 +5,7 @@
   position: absolute;
 }
 
-.pulse {
+.has-messages {
   color: var(--ui-01);
   cursor: pointer;
   background: var(--interactive-primary);
@@ -20,7 +20,9 @@
     background: var(--hover-primary);
     transform: scale(1.1);
   }
+}
 
+.pulse {
   &::after {
     content: '';
     border-radius: 50%;
@@ -30,7 +32,7 @@
     top: 0;
     width: 100%;
     z-index: calc($z-index-bottom - 1);
-    animation: pulse 10s infinite cubic-bezier(0.66, 0, 0, 1) 5s;
+    animation: pulse 5s infinite cubic-bezier(0.66, 0, 0, 1) 5s;
   }
 }
 
@@ -40,7 +42,7 @@
     box-shadow: 0 0 0 0 var(--hover-primary);
   }
 
-  20% {
+  60% {
     transform: scale(1);
     box-shadow: 0 0 0 10px rgba(0, 153, 255, 0);
   }

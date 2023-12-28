@@ -3,6 +3,10 @@
     "RunProcess": {
       "Title": "¿ Seguro ?",
       "Description": "¿ Quieres proceder con el análisis del componente ?"
+    },
+    "ClearEvents": {
+      "Title": "¿ Seguro ?",
+      "Description": "¿ Quieres borrar todos los eventos ?"
     }
   },
   "ComplianceCard": {

@@ -21,6 +21,15 @@
     font-weight: bold;
     padding: 8px;
 
+    .sdc-op + .sdc-op {
+      margin-left: 8px;
+    }
+
+    .fa-circle-check {
+      color: var(--success);
+      opacity: 1;
+    }
+
     .title {
       flex: 1;
       font-size: 1.2em;

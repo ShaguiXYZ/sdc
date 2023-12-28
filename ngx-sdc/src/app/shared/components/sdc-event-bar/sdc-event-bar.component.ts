@@ -7,27 +7,41 @@ import { SdcEventReference } from '../../models';
 import { SdcEventItemComponent } from './components';
 import { SdcEventBarData } from './models';
 import { SdcEventBarService } from './services';
+import { AlertService } from 'src/app/core/components';
 
 @Component({
   selector: 'sdc-event-bar',
   styleUrls: ['./sdc-event-bar.component.scss'],
   template: `
-    <div class="event-content {{ eventBarData.state }}" [class.sdc-scrollable]="eventBarData.state === 'open'">
+    <div class="event-content {{ eventBarData.state }}">
       @if (eventBarData.events.length) {
-        @for (event of eventBarData.events; track event.id) {
-          @defer (on viewport) {
-            <article class="reveal event-item">
-              <sdc-event-item [event]="event" (onRemoveEvent)="onRemoveEvent($event)" />
-            </article>
-          } @placeholder {
-            <div class="placeholder"></div>
+        <header class="event-bar-options">
+          <div class="event-bar-options__left">
+            <em class="sdc-op fa-solid fa-chevron-down" (click)="close()"></em>
+          </div>
+          <div class="event-bar-options__end">
+            <em class="sdc-op fa-solid fa-check-double" (click)="markAllAsRead()"></em>
+            <em class="sdc-op fa-regular fa-trash-can" (click)="clearEvents()"></em>
+          </div>
+        </header>
+
+        <article class="event-bar-items" [class.sdc-scrollable]="eventBarData.state === 'open'">
+          @for (event of eventBarData.events; track event.id) {
+            @defer (on viewport) {
+              <div class="reveal event-item">
+                <sdc-event-item [event]="event" (onReadEvent)="onReadEvent($event)" (onRemoveEvent)="onRemoveEvent($event)" />
+              </div>
+            } @placeholder {
+              <div class="placeholder"></div>
+            }
           }
-        }
+        </article>
       } @else {
         <sdc-event-item
           [event]="{ type: 'INFO', message: 'Label.NoEventsAvailables' | translate, date: '' }"
           [copyable]="false"
-          [closaable]="false"
+          [closable]="false"
+          [readable]="false"
         />
       }
     </div>
@@ -41,7 +55,10 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
 
   private subscriptions$: Subscription[] = [];
 
-  constructor(private eventBarService: SdcEventBarService) {}
+  constructor(
+    private readonly alertService: AlertService,
+    private readonly eventBarService: SdcEventBarService
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions$.push(
@@ -59,5 +76,28 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
 
   public onRemoveEvent(event: SseEventModel<SdcEventReference>): void {
     this.eventBarService.removeEvent(event);
+  }
+
+  public onReadEvent(event: SseEventModel<SdcEventReference>): void {
+    this.eventBarService.readEvent(event);
+  }
+
+  public close(): void {
+    this.eventBarService.toggleEvents();
+  }
+
+  public markAllAsRead(): void {
+    this.eventBarService.markAllAsRead();
+  }
+
+  public clearEvents(): void {
+    this.alertService.confirm(
+      {
+        title: 'Alerts.ClearEvents.Title',
+        text: 'Alerts.ClearEvents.Description'
+      },
+      this.eventBarService.clearEvents.bind(this.eventBarService),
+      { okText: 'Label.Yes', cancelText: 'Label.No' }
+    );
   }
 }

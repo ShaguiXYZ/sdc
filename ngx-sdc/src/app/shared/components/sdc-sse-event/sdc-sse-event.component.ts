@@ -11,9 +11,9 @@ import { SdcSseEventService } from './services';
   template: `
     <div
       class="sdc-center"
-      [ngClass]="{ pulse: count }"
-      (click)="toggleEvents()"
+      [ngClass]="{ pulse: unread, 'has-messages': count }"
       [attr.data-title]="'Label.LastAnalysisEvents' | translate: { value: count }"
+      (click)="toggleEvents()"
     >
       {{ count }}
     </div>
@@ -24,6 +24,7 @@ import { SdcSseEventService } from './services';
 })
 export class SdcSseEventComponent implements OnInit, OnDestroy {
   public count = 0;
+  public unread = 0;
   private subscriptions$: Subscription[] = [];
 
   constructor(private readonly sseEventService: SdcSseEventService) {}
@@ -32,6 +33,7 @@ export class SdcSseEventComponent implements OnInit, OnDestroy {
     this.subscriptions$.push(
       this.sseEventService.onDataChange().subscribe(events => {
         this.count = events.length;
+        this.unread = events.filter(e => !e.read).length;
       })
     );
 

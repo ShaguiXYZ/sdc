@@ -6,6 +6,7 @@ import { SdcEventReference, SdcRootContextData } from 'src/app/shared/models';
 
 @Injectable()
 export class SdcSseEventService implements OnDestroy {
+  private closeTimeout?: any;
   private subscriptions$: Subscription[] = [];
   private data$: Subject<SseEventModel<SdcEventReference>[]>;
 
@@ -19,6 +20,7 @@ export class SdcSseEventService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
+    this.sseService.close();
   }
 
   public loadData(): void {
@@ -38,6 +40,13 @@ export class SdcSseEventService implements OnDestroy {
     const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
     const eventsState = contextData.eventsState === 'open' ? 'closed' : 'open';
 
+    if (eventsState === 'open' && contextData.events.length === 0) {
+      this.closeTimeout = setTimeout(() => this.toggleEvents(), 5000);
+    } else if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = undefined;
+    }
+
     this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { ...contextData, eventsState });
   }
 
@@ -47,7 +56,13 @@ export class SdcSseEventService implements OnDestroy {
 
   private eventObserver = (): Subscription =>
     this.sseService.onEvent().subscribe(event => {
+      if (this.closeTimeout) {
+        clearTimeout(this.closeTimeout);
+        this.closeTimeout = undefined;
+      }
+
       const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+
       contextData.events = [...contextData.events, event];
       this.contextDataService.set(ContextDataInfo.ROOT_DATA, contextData);
 

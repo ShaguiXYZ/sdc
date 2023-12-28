@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CONTEXT_WORKFLOW_ID } from '../security';
@@ -7,27 +7,23 @@ import { SseEventDTO, SseEventModel } from './models';
 @Injectable({ providedIn: 'root' })
 export class SseService<T = any> {
   private _urlEvents = `${environment.baseUrl}/api`;
-  private eventSource: EventSource;
-  private eventObserver$: Observable<SseEventModel<T>>;
 
-  constructor() {
-    this.eventSource = new EventSource(`${this._urlEvents}/events/${CONTEXT_WORKFLOW_ID}`);
+  constructor(private readonly _zone: NgZone) {}
 
-    this.eventSource.onopen = event => console.log('open sse', event);
+  onEvent(): Observable<SseEventModel<T>> {
+    return new Observable<SseEventDTO<T>>(observer => {
+      const eventSource = this.getEventSource();
 
-    this.eventObserver$ = new Observable<SseEventDTO<T>>(observer => {
-      this.eventSource.onmessage = event => {
-        const sseEvent: SseEventDTO<T> = JSON.parse(event.data);
-        observer.next(SseEventModel.fromDTO(sseEvent));
-      };
-
-      this.eventSource.onerror = error => observer.error(error);
-
-      return () => this.eventSource.close();
+      eventSource.onmessage = event => this._zone.run(() => observer.next(SseEventModel.fromDTO(JSON.parse(event.data))));
+      eventSource.onerror = error => this._zone.run(() => observer.error(error));
     });
   }
 
-  public onEvent(): Observable<SseEventModel<T>> {
-    return this.eventObserver$;
+  public close(): void {
+    this.getEventSource().close();
+  }
+
+  private getEventSource(): EventSource {
+    return new EventSource(`${this._urlEvents}/events/${CONTEXT_WORKFLOW_ID}`);
   }
 }
