@@ -12,8 +12,8 @@ import { MetricsDataModel } from '../models';
 export class SdcMetricsHomeService {
   private metricContextData!: SdcMetricsContextData;
   private metricData!: MetricsDataModel;
-  private data$: Subject<MetricsDataModel>;
   private tabActions: { fn: () => void }[] = [];
+  private data$: Subject<MetricsDataModel> = new Subject();
 
   constructor(
     private readonly dateService: DateService,
@@ -24,7 +24,6 @@ export class SdcMetricsHomeService {
     private readonly squadService: SquadService,
     private readonly tagService: TagService
   ) {
-    this.data$ = new Subject();
     this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
     this.metricData = {
       component: this.metricContextData.component,

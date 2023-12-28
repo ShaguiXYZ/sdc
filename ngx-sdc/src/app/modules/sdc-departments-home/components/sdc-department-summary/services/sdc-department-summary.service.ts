@@ -10,10 +10,12 @@ import { ServiceSummaryModel } from '../models';
 @Injectable()
 export class SdcDepartmentSummaryService {
   private tabActions: { fn: (param?: any) => void }[] = [];
-  private data$: Subject<Partial<ServiceSummaryModel>>;
+  private data$: Subject<Partial<ServiceSummaryModel>> = new Subject();
 
-  constructor(private readonly analysisService: AnalysisService, private readonly dateService: DateService) {
-    this.data$ = new Subject();
+  constructor(
+    private readonly analysisService: AnalysisService,
+    private readonly dateService: DateService
+  ) {
     this.tabActions = [{ fn: emptyFn }, { fn: this.languageDistribution }];
   }
 

@@ -14,7 +14,7 @@ export class SdcApplicationsHomeService {
   public contextData?: ApplicationsContextData;
   public emementsByPage!: number;
 
-  private data$: Subject<SdcApplicationsDataModel>;
+  private data$: Subject<SdcApplicationsDataModel> = new Subject();
 
   constructor(
     private readonly contextDataService: ContextDataService,
@@ -24,8 +24,6 @@ export class SdcApplicationsHomeService {
   ) {
     const appConfig = this.contextDataService.get<IAppConfiguration>(ContextDataInfo.APP_CONFIG);
     this.emementsByPage = appConfig.jpa.elementsByPage;
-
-    this.data$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.APPLICATIONS_DATA);
 
     this.filterData(

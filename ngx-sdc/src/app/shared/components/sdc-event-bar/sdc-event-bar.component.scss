@@ -38,7 +38,6 @@
   .event-bar-options {
     display: flex;
     padding: 12px;
-    top: 0;
     width: 100%;
     z-index: $z-index-bottom;
 
@@ -55,7 +54,7 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 12px 12px 12px;
+    padding: 0 8px 8px 8px;
 
     .event-item {
       width: 350px;

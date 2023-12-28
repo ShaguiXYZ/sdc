@@ -8,11 +8,9 @@ import { SdcEventBarData } from '../models';
 @Injectable()
 export class SdcEventBarService implements OnDestroy {
   private subscriptions$: Subscription[] = [];
-  private data$: Subject<Partial<SdcEventBarData>>;
+  private data$: Subject<Partial<SdcEventBarData>> = new Subject();
 
   constructor(private readonly contextDataService: ContextDataService) {
-    this.data$ = new Subject();
-
     this.subscriptions$.push(
       this.contextDataService.onDataChange<SdcRootContextData>(ContextDataInfo.ROOT_DATA).subscribe(contextData => {
         this.data$.next({ events: contextData.events.filter(event => event.type === 'ERROR'), state: contextData.eventsState });

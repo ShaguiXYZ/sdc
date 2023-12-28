@@ -7,10 +7,12 @@ import { ComponentService, DataListService } from 'src/app/core/services/sdc';
 export class ComponentFormService {
   private emptyObservableFn = () => of([]);
   private dynamicBackendOptions?: { [key: string]: (term: string) => Observable<string[]> };
-  private data$: Subject<Partial<IComponentModel>>;
+  private data$: Subject<Partial<IComponentModel>> = new Subject();
 
-  constructor(private readonly dataListService: DataListService, private readonly componentService: ComponentService) {
-    this.data$ = new Subject();
+  constructor(
+    private readonly dataListService: DataListService,
+    private readonly componentService: ComponentService
+  ) {
     this.dataListValues().then(data => (this.dynamicBackendOptions = data));
   }
 

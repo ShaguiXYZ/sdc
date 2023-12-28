@@ -11,14 +11,12 @@ import { ContextDataInfo } from 'src/app/shared/constants';
 @Injectable()
 export class SdcMetricHistoryGraphsService {
   private metricData!: MetricsHistoryDataModel;
-  private data$: Subject<MetricsHistoryDataModel>;
+  private data$: Subject<MetricsHistoryDataModel> = new Subject();
 
   constructor(
     private readonly analysisService: AnalysisService,
     private readonly contextDataService: ContextDataService
-  ) {
-    this.data$ = new Subject();
-  }
+  ) {}
 
   public onDataChange(): Observable<MetricsHistoryDataModel> {
     return this.data$.asObservable();

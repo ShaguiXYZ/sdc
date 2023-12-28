@@ -8,13 +8,12 @@ import { SdcEventReference, SdcRootContextData } from 'src/app/shared/models';
 export class SdcSseEventService implements OnDestroy {
   private closeTimeout?: any;
   private subscriptions$: Subscription[] = [];
-  private data$: Subject<SseEventModel<SdcEventReference>[]>;
+  private data$: Subject<SseEventModel<SdcEventReference>[]> = new Subject();
 
   constructor(
     private readonly contextDataService: ContextDataService,
     private readonly sseService: SseService<SdcEventReference>
   ) {
-    this.data$ = new Subject();
     this.subscriptions$.push(this.eventObserver(), this.contextDataObserver());
   }
 
@@ -36,21 +35,7 @@ export class SdcSseEventService implements OnDestroy {
     this.data$.next(events);
   }
 
-  public toggleEvents(): void {
-    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
-    const eventsState = contextData.eventsState === 'open' ? 'closed' : 'open';
-
-    if (eventsState === 'open' && contextData.events.length === 0) {
-      this.closeTimeout = setTimeout(() => this.toggleEvents(), 5000);
-    } else if (this.closeTimeout) {
-      clearTimeout(this.closeTimeout);
-      this.closeTimeout = undefined;
-    }
-
-    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { ...contextData, eventsState });
-  }
-
-  public onDataChange(): Observable<SseEventModel[]> {
+  public onDataChange(): Observable<SseEventModel<SdcEventReference>[]> {
     return this.data$.asObservable();
   }
 
@@ -73,4 +58,18 @@ export class SdcSseEventService implements OnDestroy {
     this.contextDataService.onDataChange<SdcRootContextData>(ContextDataInfo.ROOT_DATA).subscribe(contextData => {
       this.data$.next(contextData.events);
     });
+
+  public toggleEvents(): void {
+    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+    const eventsState = contextData.eventsState === 'open' ? 'closed' : 'open';
+
+    if (eventsState === 'open' && contextData.events.length === 0) {
+      this.closeTimeout = setTimeout(() => this.toggleEvents(), 5000);
+    } else if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = undefined;
+    }
+
+    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { ...contextData, eventsState });
+  }
 }

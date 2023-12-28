@@ -11,14 +11,13 @@ import { SdcDepartmentsDataModel } from '../models';
 @Injectable()
 export class SdcDepartmentsService {
   private contextData!: SdcDepartmentsContextData;
-  private data$: Subject<Partial<SdcDepartmentsDataModel>>;
+  private data$: Subject<Partial<SdcDepartmentsDataModel>> = new Subject();
 
   constructor(
     private contextDataService: ContextDataService,
     private departmentService: DepartmentService,
     private squadService: SquadService
   ) {
-    this.data$ = new Subject();
     this.contextData = this.contextDataService.get(ContextDataInfo.DEPARTMENTS_DATA);
   }
 
