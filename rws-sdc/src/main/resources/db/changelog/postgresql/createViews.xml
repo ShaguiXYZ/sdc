@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="initial" id="10022023_30001">
+		<sql dbms="postgresql">
+            CREATE OR REPLACE VIEW summary_view
+            AS SELECT c.id,
+                c.name,
+                'COMPONENT'::text AS element_type
+               FROM components c
+            UNION
+             SELECT s.id,
+                s.name,
+                'SQUAD'::text AS element_type
+               FROM squads s
+            UNION
+             SELECT d.id,
+                d.name,
+                'DEPARTMENT'::text AS element_type
+               FROM departments d
+            UNION
+             SELECT m.id,
+                m.name,
+                'METRIC'::text AS element_type
+               FROM metrics m;
+		</sql>
+	</changeSet>
+</databaseChangeLog>

@@ -163,6 +163,11 @@
 			ALTER TABLE component_analysis ADD blocker boolean NOT NULL DEFAULT false;
 		</sql>
 	</changeSet>
+	<changeSet author="initial" id="20231219_10016_2">
+		<sql dbms="postgresql">
+			CREATE INDEX component_analysis_component_id_idx ON	component_analysis USING btree (component_id, metric_id);
+		</sql>
+	</changeSet>
 	<changeSet author="initial" id="20230707_10017">
 		<sql dbms="postgresql">
 			CREATE TABLE component_properties (
@@ -230,7 +235,6 @@
 				CONSTRAINT tags_pk PRIMARY KEY (id)
 			);
 			CREATE UNIQUE INDEX tags_name_idx ON tags (LOWER("name"));
-
 		</sql>
 	</changeSet>
 	<changeSet author="initial" id="20231119_00025">
@@ -242,8 +246,8 @@
 				analysis_tag boolean NOT NULL DEFAULT false,
 				CONSTRAINT component_tags_pk PRIMARY KEY (component_id,tag_id),
 				CONSTRAINT component_tags_component_fk FOREIGN KEY (component_id) REFERENCES components(id) ON DELETE CASCADE ON UPDATE CASCADE,
-				CONSTRAINT "component_tags_tag:fk" FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE ON UPDATE CASCADE
+				CONSTRAINT component_tags_tag_fk FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE ON UPDATE CASCADE
 			);
 		</sql>
-	</changeSet>				
+	</changeSet>
 </databaseChangeLog>

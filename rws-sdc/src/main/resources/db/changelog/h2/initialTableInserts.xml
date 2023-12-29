@@ -4,374 +4,428 @@
 	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-	<changeSet author="initial" id="10022023_50001">
+	<changeSet author="initial" id="20230707_50006">
 		<sql dbms="h2">
-			INSERT INTO architectures (architecture_name) VALUES
-				 ('MICROSERVICES'),
-				 ('LEGACY'),
-				 ('ANGULAR'),
-				 ('SEA'),
-				 ('UNI_REPO');
+			INSERT INTO companies (id,name,codes) VALUES
+			(1,'CORP1','CORP. 1'),
+			(2,'CORP2','CORP. 2'),
+			(3,'CORP3','CORP. 3'),
+			(4,'CORP4','CORP. 4'),
+			(5,'CORP5','CORP. 5'),
+			(6,'CORP6','CORP. 6'),
+			(7,'CORP7','CORP. 7'),
+			(8,'CORP9','CORP. 8'),
+			(9,'CORP8','CORP. 9');
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50002">
+	<changeSet author="initial" id="20230707_50007">
 		<sql dbms="h2">
-			INSERT INTO companies (company_id,company_name,company_codes) VALUES
-				 (2,'Allianz','ALZ,AZS'),
-				 (3,'Colombia','AZC,COL'),
-				 (4,'Brazil','AZB,BRA'),
-				 (8,'Portugal','AZP'),
-				 (7,'Fenix Direct','FD'),
-				 (1,'Allianz Popular','APO'),
-				 (6,'Allianz Mexico','AZM,MEX'),
-				 (5,'Allianz Argentina','AZA,ARG'),
-				 (9,'Amaya','AMA');
+			INSERT INTO departments (id,name,coverage,expiry_date,company_id,trend) VALUES
+			(1,'TEC.DEPARTMENT',NULL,NULL,3,NULL),
+			(0,'GENERIC DEPARTMENT',NULL,NULL,2,NULL);
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50003">
+	<changeSet author="initial" id="20230707_50008">
 		<sql dbms="h2">
-			INSERT INTO departments (department_id,department_name,company_id) VALUES
-				 (0,'ENTIDAD GENERICA',2),
-				 (13,'GCIA. DE TECNOLOGIA',3),
-				 (16,'OFIC. DIRECTAS (AREA 6 DIVISIÓN 47)',4),
-				 (73,'INFRASTRUCTURE',2),
-				 (74,'OFIC. DIRECTAS (AREA * DIVISIÓN 48)',2),
-				 (96,'GLOBAL PLATFORM',4),
-				 (104,'SUPERINT DESENV SIST SINISTROS, COML, FI',4),
-				 (108,'OFIC. DIRECTAS (AREA * DIVISIÓN 99)',9),
-				 (103,'SUPERINT INFRAESTRUTURA E ARQUITETURA',4),
-				 (109,'SUPERINT DESENV SISTEMAS DE PRODUTOS, RE',4);
-			INSERT INTO departments (department_id,department_name,company_id) VALUES
-				 (70,'EPAC IBERIAN P&amp;C',2),
-				 (110,'EPAC IBERIAN LIFE &amp; MARKETING',2),
-				 (111,'BMP CROSS FUNCTION',2),
-				 (78,'OFIC. DIRECTAS (AREA * DIVISIÓN 99)',2),
-				 (113,'BUSINESS APPLICATIONS - TEAM 1',2),
-				 (114,'GLOBAL SYSTEM INTEGRATION 1',2),
-				 (115,'GLOBAL SYSTEM INTEGRATION 2',2),
-				 (116,'TRANSITIONAL APPLICATIONS &amp; DECOMMISSION',2),
-				 (118,'BMP P&amp;C',2),
-				 (112,'OFIC. DIRECTAS (AREA * DIVISIÓN 58)',2);
-			INSERT INTO departments (department_id,department_name,company_id) VALUES
-				 (120,'BUSINESS APPLICATIONS - TEAM 2',2),
-				 (121,'DTMF IT DEVELOPMENT PORTUGAL',8),
-				 (122,'DTMF IT OPERATIONS AND INCIDENT MGMT',8),
-				 (123,'DTMF IT SHARED SERVICES',8),
-				 (72,'OFIC. DIRECTAS (AREA * DIVISIÓN 47)',2),
-				 (124,'SERVICE OPERATIONS',2),
-				 (126,'OFIC. DIRECTAS (AREA * DIVISIÓN 99)',3),
-				 (129,'EPAC CORE',2),
-				 (131,'INFRASTRUCTURE &amp; SECURITY',2),
-				 (132,'FINANCE &amp; GOVERNANCE',2);
-			INSERT INTO departments (department_id,department_name,company_id) VALUES
-				 (133,'QA &amp; IT STANDARDS, TRAINING',2),
-				 (134,'REGIONAL SERVICES',2),
-				 (135,'GSI CLAIMS',2),
-				 (130,'OPERATIONS  &amp; PEOPLE FUNCTION',2),
-				 (136,'NEARSHORE SERVICES GERMANY',2),
-				 (137,'OFIC. DIRECTAS (AREA * DIVISIÓN 99)',2);
+			INSERT INTO squads (id,name,coverage,expiry_date,department_id,trend) VALUES
+			(2,'INFRAESTRUCTURA Y COMUNICACIONES',NULL,NULL,1,NULL),
+			(1,'DEV SQUAD',NULL,NULL,0,NULL),
+			(3,'SHAGUI DEV GROUP',NULL,NULL,0,NULL);
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50004">
+	<changeSet author="initial" id="20230707_50009">
 		<sql dbms="h2">
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (42,'CO_DIR. DE DESARROLLO',13),
-				 (75,'CO_DIR. INFRAESTRUCTURA Y COMUNICACIONES',13),
-				 (89,'BR_GER INFRAESTRUTURA, SERVICOS E ARQUITETU',16),
-				 (90,'BR_GER GOVERNANCA E QUALIDADE',16),
-				 (175,'RE_MAINFRAME &amp; STORAGE',73),
-				 (176,'RE_NETWORKING',73),
-				 (178,'RE_APPLICATION SERVERS',73),
-				 (179,'RE_SAP &amp; DBA',73),
-				 (180,'RE_SECURITY',74),
-				 (265,'SAP SERVICES - TEAM 2',96);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (287,'BR_GER SIST BACK OFFICE, IMPRESSAO, CORPORA',104),
-				 (289,'BR_GER SIST SAUDE, VIDA, AGRO E AUTO',104),
-				 (290,'BR_GER SISTEMAS FINANCEIRO, CONTABIL, RH E',104),
-				 (292,'BR_GER SISTEMAS LEGAL, COMERCIAL E COBRANCA',104),
-				 (293,'BR_GER SISTEMAS SINISTROS E SUSTENTACAO SAS',104),
-				 (300,'BBVA USUARIO FICTICIO',108),
-				 (304,'BR_GER INFRAESTRUTURA E OPERACOES DE SI',103),
-				 (305,'BR_GER SIST CORPORATE, P&amp;C, TRANSPORTES, AG',109),
-				 (306,'BR_GER SIST AUTOMOVEL',109),
-				 (307,'BR_GER SIST SAUDE, VIDA E AGRO',109);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (312,'IB_IBERIA P&amp;C &amp; PORTFOLIO',70),
-				 (314,'IB_AGROSEGUROS',70),
-				 (315,'IB_COMMERCIAL &amp; FISCAL',70),
-				 (316,'IB_MARKETING &amp; CONNECTIVITY',110),
-				 (317,'IB_CLAIMS CONVENIOS &amp; OUTPUTS',110),
-				 (318,'IB_VIDA',110),
-				 (320,'BB_JV CORPORATE PRODUCTS',111),
-				 (321,'BB_JV INTEGRATION',111),
-				 (332,'RE_OPERATIONS &amp; PEOPLE FUNCTION',78),
-				 (333,'BMP3',113);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (334,'BMP1',113),
-				 (335,'ARCHITECTURE 1',113),
-				 (336,'QUALITY ASSURANCE',114),
-				 (339,'BACK OFFICE &amp; PAYMENT',114),
-				 (340,'FRONT &amp; MIDDLE OFFICE',114),
-				 (343,'ABS OPERATIONS',115),
-				 (344,'DEVOPS GATEWAY PLATFORM',115),
-				 (345,'ITMP component',115),
-				 (347,'ARCHITECTURE 2',113),
-				 (349,'SPAIN FACTORY TL / APPLICATION OWNER SP/',116);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (353,'IB_DOCUMENT MANAGEMENT',111),
-				 (354,'IB_COLLECTION &amp; PAYMENTS',111),
-				 (355,'IB_PRIVATE CAR',118),
-				 (356,'IB_POLICY &amp; PORTFOLIO MNGT.',118),
-				 (360,'IB_MULTIRISK PRODUCTS',118),
-				 (361,'RE_SYSTEM ARCHITECTURE',112),
-				 (365,'SAP SERVICES - TEAM 1',120),
-				 (366,'DIGITAL INTERACTION - TEAM 1',120),
-				 (367,'DIGITAL INTERACTION - TEAM 2',120),
-				 (368,'DTMF IT DEV THIRD PARTIES PT',121);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (369,'DTMF IT DEV BPI E PRODUTOS',121),
-				 (370,'DTMF IT DEV CLAIMS &amp; FISCAL',121),
-				 (371,'DTMF IT MAINFRAME AND STORAGE',122),
-				 (372,'DTMF IT DATABASE AND SAP',122),
-				 (373,'DTMF IT NETWORK AND SERVERS',122),
-				 (375,'DTMF IT PLANNING AND OPERATION',123),
-				 (377,'DTMF IT SERVICE DESK E WORKPLACE',123),
-				 (380,'RE_CPI',72),
-				 (381,'RE_BATCH OPERATIONS',124),
-				 (382,'RE_WORKPLACE &amp; APPLICATIONS',124);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (383,'RE_SERVICE DESK',124),
-				 (384,'IB_IT RRHH',111),
-				 (390,'DIR. SEGURIDAD DE INFORMATICA',126),
-				 (391,'DTMF IT SERVICE AND APPLICATION MGMT',123),
-				 (392,'RE_FINANCE &amp; GOVERNANCE',78),
-				 (394,'RE_DEVELOPMENT TOOLING &amp; IT SUPPORT',129),
-				 (395,'RE_COMMUNICATION MANAGEMENT',129),
-				 (396,'RE_CORE POLICY',129),
-				 (397,'RE_PAYMENT &amp; COLLECTION &amp; REINSURANCE',129),
-				 (398,'RE_CLAIMS MANAGEMENT',129);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (399,'RE_OFICINA EPAC CORE',129),
-				 (401,'IB_OTHER MOTOR',118),
-				 (402,'BUSINESS CONTINUITY',112),
-				 (403,'BMP4',113),
-				 (404,'BMP2',113),
-				 (406,'AZP INFRASTRUCTURE',131),
-				 (407,'FINANCE, RISK &amp; LEGAL',132),
-				 (408,'RE_QA &amp; IT STANDARDS',133),
-				 (409,'RE_FINANCIAL ACCOUNTING',134),
-				 (410,'RE_SALES, CUSTOMERS &amp; DISTRIBUTION',134);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (411,'RE_BUSINESS INTELLIGENCE',134),
-				 (412,'RE_CPI',134),
-				 (413,'IB_DATA ANALYTICS AND INTEGRATION',135),
-				 (414,'IB_CLAIMS HANDLING',135),
-				 (415,'IB_PROVIDERS &amp; CUSTOMERS',135),
-				 (416,'IB_LOCAL AGREEMENTS',135),
-				 (417,'RE_DEMAND METHODOLOGY &amp; TOOLS',112),
-				 (420,'ORGANIZATIONAL MANAGEMENT',130),
-				 (421,'PEOPLE ATTRACTION &amp; DEVELOPMENT',130),
-				 (422,'PEOPLE OPERATIONS &amp; MANAGEMENT - SWP &amp; D',130);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (423,'INTERNAL IT',130),
-				 (424,'PEOPLE OPERATIONS &amp; MANAGEMENT - BRANCH',130),
-				 (425,'FINANCE HUB',132),
-				 (428,'ARCHITECTURE 3',113),
-				 (429,'CLAIMS BMP',113),
-				 (430,'ITMP OPERATIONS',113),
-				 (431,'SPAIN FACTORY TL / SERVICE EXCELLENCE',116),
-				 (432,'TEAM 1',136),
-				 (433,'BR_GER ARQUITETURA E INOVACAO',103),
-				 (434,'BR_GER WORKPLACE E SUPORTE CORRETORES',103);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (435,'TEAM 2',136),
-				 (437,'BUSINESS ANALYSIS',114),
-				 (438,'PROCUREMENT HUB',132),
-				 (439,'ACCOUNT MANAGEMENT',137),
-				 (440,'RISK MANAGEMENT',132),
-				 (441,'BTM',116),
-				 (442,'AZP SPAIN INFRASTRUCTURE &amp; WORKPLACE',131),
-				 (443,'DATA HUB',120),
-				 (444,'SCRUM MASTERS',114),
-				 (445,'SERVICES &amp; QUALITY ASSURANCE',130);
-			INSERT INTO squads (squad_id,squad_name,department_id) VALUES
-				 (0,'ENTIDAD GENERICA',0);
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="10022023_50005">
-		<sql dbms="h2">
-			INSERT INTO metrics (metric_name,metric_type,metric_value_type,metric_validation) VALUES
-				 ('coverage','SONAR','NUMERIC','LTE'),
-				 ('alert_status','SONAR',NULL,NULL),
-				 ('bugs','SONAR','NUMERIC','GTE'),
-				 ('reliability_rating','SONAR',NULL,NULL),
-				 ('vulnerabilities','SONAR','NUMERIC','GTE'),
-				 ('security_rating','SONAR',NULL,NULL),
-				 ('security_hotspots_reviewed','SONAR',NULL,NULL),
-				 ('security_review_rating','SONAR',NULL,NULL),
-				 ('code_smells','SONAR',NULL,NULL),
-				 ('sqale_rating','SONAR',NULL,NULL);
-			INSERT INTO metrics (metric_name,metric_type,metric_value_type,metric_validation) VALUES
-				 ('duplicated_lines_density','SONAR','NUMERIC','GTE'),
-				 ('ncloc','SONAR',NULL,NULL),
-				 ('ncloc_language_distribution','SONAR',NULL,NULL),
-				 ('projects','SONAR',NULL,NULL),
-				 ('parent/version','GIT','VERSION','LTE'),
-				 ('properties/java.version','GIT','VERSION','LTE');
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="10022023_50006">
-		<sql dbms="h2">
-			INSERT INTO component_types (component_type_name) VALUES
-				 ('BACKEND'),
-				 ('FRONTEND'),
-				 ('CONTAINER');
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="10022023_50007">
-		<sql dbms="h2">
-			INSERT INTO uris (uri_name,uri_value,uri_type,uri_source) VALUES
-				 ('public-repo','https://api.github.com/repos','GIT','https://github.com/${project}'),
-				 ('private-repo','https://api.github.com/repos', 'GIT','https://github.com/${project}'),
-				 ('sonar-repo-example','https://sonarqube.inria.fr/sonarqube/api','SONAR','https://sonarqube.inria.fr/sonarqube/dashboard?id=${project}');
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="10022023_50008">
-		<sql dbms="h2">
-			INSERT INTO request_properties (request_property_key,request_property_value) VALUES
-				 ('Accept','application/vnd.github.v4.raw'),
-				 ('Authorization','token ${git-authorization}');
-		</sql>
-	</changeSet>
-				 
-	<changeSet author="initial" id="10022023_50009">
-		<sql dbms="h2">
-			INSERT INTO uri_request_properties (uri_id,request_property_id) VALUES
-				 (2,1),
-				 (2,2);
+			INSERT INTO metrics (name,value,type,description,metric_value_type,metric_validation,blocker) VALUES
+			('Junit Coverage','coverage','SONAR',NULL,'NUMERIC','LTE',false),
+			('Alert Status','alert_status','SONAR',NULL,NULL,NULL,false),
+			('Bugs','bugs','SONAR',NULL,'NUMERIC','GTE',false),
+			('Reliability Rating','reliability_rating','SONAR',NULL,NULL,NULL,false),
+			('Vulnerabilities','vulnerabilities','SONAR',NULL,'NUMERIC','GTE',false),
+			('Security Rating','security_rating','SONAR',NULL,NULL,NULL,false),
+			('Recurity Hotspots Reviewed','security_hotspots_reviewed','SONAR',NULL,NULL,NULL,false),
+			('Security Review Rating','security_review_rating','SONAR',NULL,NULL,NULL,false),
+			('Code Smells','code_smells','SONAR',NULL,NULL,NULL,false),
+			('Technical Debt','sqale_index','SONAR',NULL,NULL,NULL,false);
+	   		INSERT INTO metrics (name,value,type,description,metric_value_type,metric_validation,blocker) VALUES
+			('Duplicated Lines Density','duplicated_lines_density','SONAR',NULL,'NUMERIC','GTE',false),
+			('ncloc','ncloc','SONAR',NULL,NULL,NULL,false),
+			('Language Distribution','ncloc_language_distribution','SONAR',NULL,'NUMERIC_MAP',NULL,false),
+			('Projects','projects','SONAR',NULL,NULL,NULL,false),
+			('Info Violations','info_violations','SONAR',NULL,'NUMERIC','GTE',false),
+			('Minor Errors','minor_violations','SONAR',NULL,'NUMERIC','GTE',false),
+			('Major Errors','major_violations','SONAR',NULL,'NUMERIC','GTE',false),
+			('Critical Errors','critical_violations','SONAR',NULL,'NUMERIC','GTE',true),
+			('Blocker Errors','blocker_violations','SONAR',NULL,'NUMERIC','GTE',true),
+			('Legacy parent version','#get{parent/version}','GIT_XML',NULL,'VERSION','LTE',false);
+	   		INSERT INTO metrics (name,value,type,description,metric_value_type,metric_validation,blocker) VALUES
+			('Bff Java Version','#get{properties/java.version}','GIT_XML',NULL,'VERSION','LTE',false),
+			('Microservice Parent Version','#get{parent/version}','GIT_XML',NULL,'VERSION','LTE',false),
+			('Angular Version','#get{devDependencies.@angular/cli}','GIT_JSON',NULL,'VERSION','LTE',false),
+			('Low Vulnerabilites','low_severity','DEPENDABOT',NULL,'NUMERIC','GTE',false),
+			('Medium Vulnerabilities','medium_severity','DEPENDABOT',NULL,'NUMERIC','GTE',false),
+			('High Vulnerabilites','high_severity','DEPENDABOT',NULL,'NUMERIC','GTE',false),
+			('Critical Vulnerabilities','critical_severity','DEPENDABOT',NULL,'NUMERIC','GTE',true),
+			('Code Lines','lines','SONAR',NULL,'NUMERIC',NULL,false),
+			('Deprecated Libraries','deprecated_library','GIT_XML',NULL,'BOOLEAN','EQ',true),
+			('Code Lines','lines','GIT',NULL,'NUMERIC',NULL,false);
+	   		INSERT INTO metrics (name,value,type,description,metric_value_type,metric_validation,blocker) VALUES
+			('Language Distribution','ncloc_language_distribution','GIT',NULL,'NUMERIC_MAP',NULL,false);
 		</sql>
 	</changeSet>
 
-	<changeSet author="initial" id="10022023_50010">
+	<changeSet author="initial" id="20230707_50014">
 		<sql dbms="h2">
-			INSERT INTO component_type_architectures (component_type_id,architecture_id) VALUES
-				 (1,1),
-				 (1,2),
-				 (2,3),
-				 (2,4),
-				 (2,1),
-				 (3,5);
+			INSERT INTO component_type_architectures (component_type,network,deployment_type,platform,architecture,language) VALUES
+			('frontend::library','none','none','cloud','rws','typescript'),
+			('frontend::library','none','none','on-premises','rws','typescript'),
+			('frontend::library','user-integration','static','cloud','sea::legacy','javascript'),
+			('frontend::library','user-integration','static','on-premises','sea::legacy','javascript'),
+			('frontend::library','user-integration','jboss','cloud','sea::legacy','java'),
+			('frontend::library','user-integration','jboss','on-premises','sea::legacy','java'),
+			('frontend::angular','user-integration::public','container','cloud','rws','typescript'),
+			('frontend::angular','user-integration::public','static','on-premises','rws','typescript'),
+			('frontend::angular','user-integration::private','container','cloud','rws','typescript'),
+			('frontend::angular','user-integration::private','static','on-premises','rws','typescript');
+	   		INSERT INTO component_type_architectures (component_type,network,deployment_type,platform,architecture,language) VALUES
+			('frontend::bff','user-integration::public','container','cloud','rws','java'),
+			('frontend::bff','user-integration::public','jboss','on-premises','rws','java'),
+			('frontend::bff','user-integration::private','container','cloud','rws','java'),
+			('frontend::bff','user-integration::private','jboss','on-premises','rws','java'),
+			('frontend::ssr','user-integration::public','container','cloud','sea::legacy','java'),
+			('frontend::ssr','user-integration::public','jboss','on-premises','sea::legacy','java'),
+			('frontend::ssr','user-integration::private','container','cloud','sea::legacy','java'),
+			('frontend::ssr','user-integration::private','jboss','on-premises','sea::legacy','java'),
+			('frontend::anonymous','user-integration','container','cloud','rws','java'),
+			('frontend::anonymous','user-integration','jboss','on-premises','rws','java');
+	   		INSERT INTO component_type_architectures (component_type,network,deployment_type,platform,architecture,language) VALUES
+			('frontend::anonymous','user-integration','container','cloud','rws','typescript'),
+			('frontend::anonymous','user-integration','jboss','on-premises','rws','typescript'),
+			('integration::rest','third-party-integration::public','container','cloud','rws','java'),
+			('integration::rest','third-party-integration::public','jboss','on-premises','rws','java'),
+			('integration::rest','third-party-integration::private','container','cloud','rws','java'),
+			('integration::rest','third-party-integration::private','jboss','on-premises','rws','java'),
+			('integration::soap','third-party-integration::public','container','cloud','rws','java'),
+			('integration::soap','third-party-integration::public','jboss','cloud','axis::legacy','java'),
+			('integration::soap','third-party-integration::public','jboss','on-premises','axis::legacy','java'),
+			('integration::soap','third-party-integration::private','jboss','cloud','axis::legacy','java');
+	   		INSERT INTO component_type_architectures (component_type,network,deployment_type,platform,architecture,language) VALUES
+			('integration::soap','third-party-integration::private','jboss','on-premises','axis::legacy','java'),
+			('backend::library','none','none','cloud','rws','java'),
+			('backend::library','none','jboss','on-premises','rws','java'),
+			('backend::starter','none','none','cloud','rws','java'),
+			('backend::starter','none','jboss','on-premises','rws','java'),
+			('backend::library','business-logic','jboss','cloud','module::legacy','java'),
+			('backend::library','business-logic','jboss','on-premises','module::legacy','java'),
+			('backend::library','business-logic','jboss','cloud','shared::legacy','java'),
+			('backend::library','business-logic','jboss','on-premises','shared::legacy','java'),
+			('backend::rest','business-logic','container','cloud','rws','java');
+	   		INSERT INTO component_type_architectures (component_type,network,deployment_type,platform,architecture,language) VALUES
+			('backend::rest','business-logic','jboss','on-premises','rws','java'),
+			('integration::soap','third-party-integration::public','jboss','on-premises','rws','java'),
+			('integration::soap','third-party-integration::private','container','cloud','rws','java'),
+			('integration::soap','third-party-integration::private','jboss','on-premises','rws','java'),
+			('backend::rest','business-logic','jboss','cloud','rws::legacy','java'),
+			('backend::rest','business-logic','jboss','on-premises','rws::legacy','java'),
+			('backend::batch','business-logic','container','cloud','rws','java'),
+			('backend::batch','business-logic','standalone','on-premises','rws','java'),
+			('backend::batch','business-logic','container','cloud','batch::legacy','java'),
+			('backend::batch','business-logic','standalone','on-premises','batch::legacy','java');
+	   		INSERT INTO component_type_architectures (component_type,network,deployment_type,platform,architecture,language) VALUES
+			('backend::ebs','business-logic','container','cloud','rws','java'),
+			('backend::ebs','business-logic','jboss','on-premises','rws','java');
+	   
 		</sql>
 	</changeSet>
 
-	<changeSet author="initial" id="10022023_50011">
+	<changeSet author="initial" id="20230707_50015">
 		<sql dbms="h2">
-			INSERT INTO components (component_name,component_type_architecture_id,squad_id) VALUES
-				 ('rws-empty',1,42),
-				 ('bff-empty',1,42),
-				 ('storm:aff3ct:gitlab:master',3,75),
-				 ('cardamom:mmg:github:master',3,75),
-				 ('bff-sdc',1,42),
-				 ('rws-sdc',1,42),
-				 ('ngx-sdc',1,42);		
+			INSERT INTO components (name,coverage,expiry_date,component_type_architecture_id,squad_id,analysis_date,delete_date,delete_user,blocked,trend) VALUES
+			('tadaam:hwloc:github:v2.3',NULL,NULL,15,2,NULL,NULL,NULL,false,NULL),
+			('ui-studio',NULL,NULL,9,3,NULL,NULL,NULL,false,NULL),
+			('atope',NULL,NULL,7,1,NULL,NULL,NULL,false,NULL),
+			('angular-ref',NULL,NULL,7,1,NULL,NULL,NULL,false,NULL),
+			('cardamom:mmg:github:master',NULL,NULL,15,2,NULL,NULL,NULL,false,NULL),
+			('empty',NULL,NULL,7,1,NULL,NULL,NULL,false,NULL),
+			('ng-aquila',NULL,NULL,7,1,NULL,NULL,NULL,false,NULL),
+			('sdc',NULL,NULL,9,3,NULL,NULL,NULL,false,NULL),
+			('security',NULL,NULL,9,3,NULL,NULL,NULL,false,NULL),
+			('storm:aff3ct:gitlab:master',NULL,NULL,15,2,NULL,NULL,NULL,false,NULL);
 		</sql>
 	</changeSet>
 				 
-	<changeSet author="initial" id="10022023_50012">
+	<changeSet author="initial" id="20230707_50016">
 		<sql dbms="h2">
-			INSERT INTO component_uris (component_id,uri_id) VALUES
-				 (1,1),
-				 (2,1),
-				 (3,3),
-				 (4,3),
-				 (5,2),
-				 (6,2),
-				 (7,2);
-		</sql>
+			INSERT INTO component_uris (component_id,uri_name) VALUES
+			(1,'git-public'),
+			(2,'git-private'),
+			(3,'sonar-repo'),
+			(4,'sonar-repo'),
+			(5,'sonar-repo'),
+			(6,'git-private'),
+			(7,'git-public'),
+			(8,'git-private'),
+			(9,'git-private'),
+			(10,'git-private');
+			INSERT INTO component_uris (component_id,uri_name) VALUES
+			(10,'sonar-repo');
+	   	</sql>
 	</changeSet>
 
-	<changeSet author="initial" id="10022023_50013">
+	<changeSet author="initial" id="20230707_50017">
 		<sql dbms="h2">
 			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (1,15),
-				 (1,16),
-				 (2,15),
-				 (3,1),
-				 (3,2),
-				 (3,3),
-				 (3,4),
-				 (3,5),
-				 (3,6),
-				 (3,7),
-				 (3,8);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (3,9),
-				 (3,10),
-				 (3,11),
-				 (3,12),
-				 (3,13),
-				 (3,14),
-				 (4,1),
-				 (4,2),
-				 (4,3),
-				 (4,4);
-			INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
-				 (4,5),
-				 (4,6),
-				 (4,7),
-				 (4,8),
-				 (4,9),
-				 (4,10),
-				 (4,11),
-				 (4,12),
-				 (4,13),
-				 (4,14);
-		</sql>
+			(7,20),
+			(7,21),
+			(7,22),
+			(7,23),
+			(7,24),
+			(7,25),
+			(7,26),
+			(7,27),
+			(7,28),
+			(7,29);
+	   		INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+			(7,30),
+			(7,31),
+			(9,20),
+			(9,21),
+			(9,22),
+			(9,23),
+			(9,24),
+			(9,25),
+			(9,26),
+			(9,27);
+	   		INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+			(9,28),
+			(9,29),
+			(9,30),
+			(9,31),
+			(15,1),
+			(15,2),
+			(15,3),
+			(15,4),
+			(15,5),
+			(15,6);
+	   		INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+			(15,7),
+			(15,8),
+			(15,9),
+			(15,10),
+			(15,11),
+			(15,12),
+			(15,13),
+			(15,14),
+			(15,15),
+			(15,16);
+	   		INSERT INTO component_type_architecture_metrics (component_type_architecture_id,metric_id) VALUES
+			(15,17),
+			(15,18),
+			(15,19),
+			(15,28);
+	   </sql>
 	</changeSet>
 
-	<changeSet author="initial" id="10022023_50014">
+	<changeSet author="initial" id="20230707_50018">
 		<sql dbms="h2">
-			INSERT INTO component_properties (component_property_name,component_property_value,component_id) VALUES
-				 ('organization','shaguixyz',1),
-				 ('component_repository','empty',1),
-				 ('xml_path','pom.xml',1),
-				 ('component_path','rws-empty',1),
-				 ('organization','shaguixyz',2),
-				 ('component_repository','empty',2),
-				 ('xml_path','pom.xml',2),
-				 ('component_path','bff-empty',2),
-				 ('organization','shaguixyz',5),
-				 ('component_repository','sdc',5),
-				 ('component_path','bff-sdc',5),
-				 ('xml_path','pom.xml',5),
-				 ('organization','shaguixyz',6),
-				 ('component_repository','sdc',6),
-				 ('component_path','rws-sdc',6),
-				 ('xml_path','pom.xml',6),
-				 ('organization','shaguixyz',7),
-				 ('component_repository','sdc',7),
-				 ('component_path','ngx-sdc',7),
-				 ('xml_path','pom.xml',7);
+			INSERT INTO component_properties (name,value,component_id) VALUES
+			('organization','shaguixyz',1),
+			('ngx_path','',1),
+			('bff_path','',1),
+			('rws_path','',1),
+			('organization','shaguixyz',2),
+			('ngx_path','ngx-ui-editor',2),
+			('bff_path','bff-ui-editor',2),
+			('rws_path','rws-ui-editor',2),
+			('organization','shaguixyz',6);
+	   		INSERT INTO component_properties (name,value,component_id) VALUES
+			('ngx_path','ngx-empty',6),
+			('rws_path','rws-empty',6),
+			('bff_path','bff-empty',6),
+			('organization','allianz',7),
+			('ngx_path','',7),
+			('bff_path','',7),
+			('rws_path','',7),
+			('organization','shaguixyz',8),
+			('ngx_path','ngx-sdc',8),
+			('rws_path','rws-sdc',8),
+			('bff_path','bff-sdc',8),
+			('organization','shaguixyz',9),
+			('bff_path','',9);
+	   		INSERT INTO component_properties (name,value,component_id) VALUES
+			('rws_path','',9),
+			('ngx_path','',10),
+			('organization','allianz',10),
+			('bff_path','rws-bff-aquila-web',10);
+	   </sql>
+	</changeSet>
+	
+	<changeSet author="initial" id="20230707_50019">
+		<sql dbms="h2">
+			INSERT INTO metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+			(20,7,'2023-03-01 10:57:21.597993',60,'2.7','2.7','3.1'),
+			(21,7,'2023-03-01 10:57:21.597993',60,'11','11','17'),
+			(22,7,'2023-03-01 10:57:21.597993',60,'2.2','3.1','3.1.5'),
+			(23,7,'2023-03-01 10:57:21.597993',60,'16.0','~16.2','~16.2'),
+			(25,7,'2023-03-01 10:57:21.597993',60,'250','100','50'),
+			(26,7,'2023-03-01 10:57:21.597993',60,'50','10','0'),
+			(27,7,'2023-03-01 10:57:21.597993',60,'0','0','0'),
+			(29,7,'2023-03-01 10:57:21.597993',60,'','','false'),
+			(20,9,'2023-03-01 10:57:21.597993',60,'2.7','2.7','3.1'),
+			(21,9,'2023-03-01 10:57:21.597993',60,'11','11','17');
+	   		INSERT INTO metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+			(22,9,'2023-03-01 10:57:21.597993',60,'2.2','3.1','3.1.5'),
+			(23,9,'2023-03-01 10:57:21.597993',60,'16.0','~16.2','~16.2'),
+			(25,9,'2023-03-01 10:57:21.597993',60,'250','100','50'),
+			(26,9,'2023-03-01 10:57:21.597993',60,'50','10','0'),
+			(27,9,'2023-03-01 10:57:21.597993',60,'0','0','0'),
+			(29,9,'2023-03-01 10:57:21.597993',60,'','','false'),
+			(1,15,'2023-03-01 10:57:21.597993',250,'70','85','90'),
+			(3,15,'2023-03-01 10:57:21.597993',40,'30','20','5'),
+			(4,15,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
+			(5,15,'2023-03-01 10:57:21.597993',60,'5','3','0');
+	   		INSERT INTO metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+			(6,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(7,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(8,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(9,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(10,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(11,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(12,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(13,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(14,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(15,15,'2023-03-01 10:57:21.597993',60,'5','3','0');
+	   		INSERT INTO metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
+			(16,15,'2023-03-01 10:57:21.597993',60,'5','3','0'),
+			(17,15,'2023-03-01 10:57:21.597993',60,'10','5','0'),
+			(18,15,'2023-03-01 10:57:21.597993',60,'0',NULL,'0'),
+			(19,15,'2023-03-01 10:57:21.597993',60,'0',NULL,'0');  
 		</sql>
 	</changeSet>
 	
-	<changeSet author="initial" id="10022023_50015">
+	<changeSet author="initial" id="20230707_50020">
 		<sql dbms="h2">
-			INSERT INTO metric_values (metric_id,component_type_architecture_id,metric_value_date,metric_value_weight,metric_expected_value,metric_good_value,metric_perfect_value) VALUES
-				 (1,3,'2023-03-01 10:57:21.597993',60,'50','60','90'),
-				 (3,3,'2023-03-01 10:57:21.597993',40,'30','20','5'),
-				 (4,3,'2023-03-01 10:57:21.597993',10,'1.4','5','5'),
-				 (5,3,'2023-03-01 10:57:21.597993',60,'40','25','5'),
-				 (15,1,'2023-03-01 10:57:21.597993',80,'2.5.1',null,'2.6.1'),
-				 (16,1,'2023-03-01 10:57:21.597993',20,'8','10','11');
+			INSERT INTO component_type_architecture_metrics_properties (component_type_architecture_id,metric_id,name,value) VALUES
+			(7,20,'PATH','pom.xml'),
+			(7,21,'PATH','#{bff_path}/pom.xml'),
+			(7,22,'PATH','#{rws_path}/pom.xml'),
+			(7,23,'PATH','#{ngx_path}/package.json'),
+			(7,29,'PATH','pom.xml'),
+			(9,21,'PATH','#{bff_path}/pom.xml'),
+			(9,22,'PATH','#{rws_path}/pom.xml'),
+			(9,23,'PATH','#{ngx_path}/package.json');
+   		</sql>
+	</changeSet>
+	
+	<!-- 
+	<changeSet author="initial" id="20231118_50021">
+		<sql dbms="h2">
+			INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+			(7,'2023-12-11 17:52:46.56',30,7,'55591',false),
+			(7,'2023-12-11 17:52:46.56',31,7,'Java=38816;CSS=73;HTML=16702',false),
+			(6,'2023-12-11 17:52:59.807',23,7,'~8.3.5',false),
+			(6,'2023-12-11 17:53:00.094',30,7,'43705',false),
+			(6,'2023-12-11 17:53:00.054',31,7,'TypeScript=37128;CSS=3151;JavaScript=1833;HTML=1593',false),
+			(3,'2023-12-11 17:53:31.971',1,15,'75.9',false),
+			(3,'2023-12-11 17:53:31.971',2,15,'ERROR',false),
+			(3,'2023-12-11 17:53:31.971',3,15,'85',false),
+			(3,'2023-12-11 17:53:31.971',4,15,'3.0',false),
+			(3,'2023-12-11 17:53:31.971',5,15,'1832',false);
+	   		INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+			(3,'2023-12-11 17:53:31.971',6,15,'4.0',false),
+			(3,'2023-12-11 17:53:31.971',8,15,'1.0',false),
+			(3,'2023-12-11 17:53:31.971',9,15,'17824',false),
+			(3,'2023-12-11 17:53:31.971',10,15,'40096',false),
+			(3,'2023-12-11 17:53:31.971',11,15,'6.8',false),
+			(3,'2023-12-11 17:53:31.971',12,15,'70958',false),
+			(3,'2023-12-11 17:53:31.971',13,15,'cxx=70958',false),
+			(3,'2023-12-11 17:53:31.971',15,15,'12196',false),
+			(3,'2023-12-11 17:53:31.971',16,15,'1086',false),
+			(3,'2023-12-11 17:53:31.971',17,15,'5182',false);
+	   		INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+			(3,'2023-12-11 17:53:31.971',18,15,'1115',true),
+			(3,'2023-12-11 17:53:31.971',19,15,'162',true),
+			(3,'2023-12-11 17:53:31.971',28,15,'120608',false),
+			(1,'2023-12-11 17:53:41.411',23,7,'14.2.10',false),
+			(1,'2023-12-11 17:53:41.722',30,7,'0',false),
+			(1,'2023-12-11 17:53:41.722',31,7,'',false),
+			(1,'2023-12-11 17:53:41.796',22,7,'2.6.1',false),
+			(1,'2023-12-11 17:53:41.795',21,7,'9',false),
+			(1,'2023-12-11 17:53:42.036',20,7,'0.0.1-RELEASE',false),
+			(1,'2023-12-11 17:53:42.406',29,7,'true',true);
+	   		INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+			(10,'2023-12-11 17:53:57.868',23,7,'^17.0.0',false),
+			(10,'2023-12-11 17:53:58.108',30,7,'3709913',false),
+			(10,'2023-12-11 17:53:58.091',31,7,'TypeScript=3080534;CSS=4659;Shell=155;SCSS=475459;JavaScript=23105;HTML=122592;Groovy=3409',false),
+			(2,'2023-12-11 17:54:09.856',24,9,'0',false),
+			(2,'2023-12-11 17:54:09.856',25,9,'0',false),
+			(2,'2023-12-11 17:54:09.856',26,9,'0',false),
+			(2,'2023-12-11 17:54:09.856',27,9,'0',false),
+			(2,'2023-12-11 17:54:09.924',23,9,'~17.0.5',false),
+			(2,'2023-12-11 17:54:10.193',30,9,'988847',false),
+			(2,'2023-12-11 17:54:10.17',31,9,'TypeScript=310229;Java=485064;SCSS=156638;JavaScript=2048;HTML=34868',false);
+	   		INSERT INTO component_analysis (component_id,analysis_date,metric_id,component_type_architecture_id,value,blocker) VALUES
+			(5,'2023-12-11 17:54:49.98',24,9,'0',false),
+			(5,'2023-12-11 17:54:49.98',25,9,'0',false),
+			(5,'2023-12-11 17:54:49.98',26,9,'0',false),
+			(5,'2023-12-11 17:54:49.98',27,9,'0',false),
+			(5,'2023-12-11 17:54:50.027',30,9,'0',false),
+			(5,'2023-12-11 17:54:50.027',31,9,'',false);
 		</sql>
 	</changeSet>
-</databaseChangeLog>
+		
+	<changeSet author="initial" id="20231118_50022">
+		<sql dbms="h2">
+			INSERT INTO component_historical_coverages (component_id,historical_coverage_date,historical_coverage_vaue) VALUES
+			(7,'2023-12-11 17:52:46.93',0.0),
+			(6,'2023-12-11 17:53:00.217',10.0),
+			(3,'2023-12-11 17:53:32.401',24.08),
+			(1,'2023-12-11 17:53:42.514',18.0),
+			(10,'2023-12-11 17:53:58.161',100.0),
+			(2,'2023-12-11 17:54:10.308',100.0),
+			(5,'2023-12-11 17:54:50.218',100.0);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20231211_50023">
+		<sql dbms="h2">
+			INSERT INTO tags (name) VALUES
+			('java'),
+			('css'),
+			('html'),
+			('typescript'),
+			('javascript'),
+			('cxx'),
+			('shell'),
+			('scss'),
+			('groovy');	   
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20231211_50024">
+		<sql dbms="h2">
+			INSERT INTO component_tags (component_id,tag_id,"owner",analysis_tag) VALUES
+			(7,2,NULL,true),
+			(7,1,NULL,true),
+			(7,3,NULL,true),
+			(6,2,NULL,true),
+			(6,3,NULL,true),
+			(6,4,NULL,true),
+			(6,5,NULL,true),
+			(3,6,NULL,true),
+			(10,2,NULL,true),
+			(10,9,NULL,true);
+			INSERT INTO component_tags (component_id,tag_id,"owner",analysis_tag) VALUES
+			(10,8,NULL,true),
+			(10,7,NULL,true),
+			(10,3,NULL,true),
+			(10,4,NULL,true),
+			(10,5,NULL,true),
+			(2,1,NULL,true),
+			(2,8,NULL,true),
+			(2,3,NULL,true),
+			(2,4,NULL,true),
+			(2,5,NULL,true);
+		</sql>
+	</changeSet>
+ 	--></databaseChangeLog>
