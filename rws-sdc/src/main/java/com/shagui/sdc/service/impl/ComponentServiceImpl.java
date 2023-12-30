@@ -25,6 +25,7 @@ import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
+import com.shagui.sdc.util.jpa.JpaUtils;
 
 @Service
 public class ComponentServiceImpl implements ComponentService {
@@ -76,7 +77,8 @@ public class ComponentServiceImpl implements ComponentService {
 	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Range range) {
 		return componentRepository.repository()
-				.filter(jpaStringMask(name), squadId, tags, range.getMin(), range.getMax(), coverageWithNameSort())
+				.filter(JpaUtils.jpaStringMask(name), squadId, tags, range.getMin(), range.getMax(),
+						coverageWithNameSort())
 				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
 
@@ -84,7 +86,7 @@ public class ComponentServiceImpl implements ComponentService {
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Range range,
 			RequestPageInfo pageInfo) {
 		Page<ComponentModel> models = componentRepository.repository()
-				.filter(jpaStringMask(name), squadId, tags, range.getMin(), range.getMax(),
+				.filter(JpaUtils.jpaStringMask(name), squadId, tags, range.getMin(), range.getMax(),
 						pageInfo.getPageable(coverageWithNameSort()));
 
 		return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(models));
@@ -121,11 +123,6 @@ public class ComponentServiceImpl implements ComponentService {
 						"no result found for component type architecture %s, %s, %s, %s, %s, %s ".formatted(
 								dto.getComponentType(), dto.getArchitecture(), dto.getNetwork(),
 								dto.getDeploymentType(), dto.getPlatform(), dto.getLanguage())));
-	}
-
-	private String jpaStringMask(String value) {
-		// Repalce all spaces with % to allow for partial matches
-		return StringUtils.hasText(value) ? value.toLowerCase().replaceAll("\\s+", "%") : value;
 	}
 
 	private Sort coverageWithNameSort() {

@@ -18,8 +18,11 @@ import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
+import com.shagui.sdc.api.dto.SummaryViewDTO;
 import com.shagui.sdc.api.dto.TagDTO;
 import com.shagui.sdc.api.view.SdcConfig;
+
+import io.swagger.v3.oas.annotations.Parameter;
 
 @FeignClient(name = "rws-sdc", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
@@ -97,6 +100,13 @@ public interface RwsSdcClient {
 
 	@GetMapping("squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId, @RequestParam(required = false) Integer page);
+
+	@GetMapping("summary/filter")
+	PageData<SummaryViewDTO> summaryFilter(
+			@RequestParam(required = false) @Parameter(description = "Summary name") String name,
+			@RequestParam(required = false) @Parameter(description = "Summary types") Set<String> types,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@GetMapping("tags")
 	PageData<TagDTO> tags(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);

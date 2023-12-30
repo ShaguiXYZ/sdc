@@ -13,6 +13,7 @@ import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
+import com.shagui.sdc.api.dto.SummaryViewDTO;
 import com.shagui.sdc.api.dto.TagDTO;
 import com.shagui.sdc.api.dto.TimeCoverageDTO;
 import com.shagui.sdc.core.configuration.AppConfig;
@@ -26,6 +27,7 @@ import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.DepartmentModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
+import com.shagui.sdc.model.SummaryViewModel;
 import com.shagui.sdc.model.TagModel;
 
 import feign.FeignException;
@@ -127,4 +129,9 @@ public class Mapper {
 	public static TimeCoverageDTO parse(ComponentHistoricalCoverageModel source) {
 		return new TimeCoverageDTO(source.getCoverage(), source.getId().getAnalysisDate());
 	}
+
+	public static SummaryViewDTO parse(SummaryViewModel source) {
+		return new SummaryViewDTO(source.getId().getId(), source.getName(), source.getId().getType());
+	}
+
 }

@@ -16,10 +16,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Embeddable
 public class ComponentUriPk implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8380578041243171512L;
 
 	@Column(name = "component_id", nullable = false)
 	private int componentId;
