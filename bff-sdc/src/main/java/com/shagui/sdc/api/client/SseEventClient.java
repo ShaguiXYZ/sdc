@@ -13,6 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.util.retry.Retry;
 
+/**
+ * (SSE - is a technology where a browser receives automatic updates from a
+ * server via HTTP connection)
+ * 
+ * @howto: server-sent events client
+ */
 @Slf4j
 @Service
 public class SseEventClient {

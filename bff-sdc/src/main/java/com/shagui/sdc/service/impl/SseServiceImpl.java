@@ -11,6 +11,12 @@ import com.shagui.sdc.service.SseService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
+/**
+ * (SSE - is a technology where a browser receives automatic updates from a
+ * server via HTTP connection)
+ * 
+ * @howto: server-sent events service
+ */
 @Service
 public class SseServiceImpl implements SseService {
     private final Sinks.Many<EventDTO> sink;
