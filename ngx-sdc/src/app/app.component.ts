@@ -9,7 +9,7 @@ import { IAppConfiguration } from './core/models/sdc';
 import { ContextDataService, StorageService } from './core/services';
 import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 import { routingAnimation } from './shared/animations';
-import { SdcAppFooterComponent, SdcAppOverlayComponent } from './shared/components';
+import { SdcAppFooterComponent, SdcOverlayComponent } from './shared/components';
 import { ContextDataInfo } from './shared/constants';
 
 @Component({
@@ -42,7 +42,7 @@ import { ContextDataInfo } from './shared/constants';
     NxGridModule,
     RouterOutlet,
     SdcAppFooterComponent,
-    SdcAppOverlayComponent,
+    SdcOverlayComponent,
     TranslateModule
   ]
 })

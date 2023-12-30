@@ -50,4 +50,4 @@ import { SdcEventBarComponent } from '../sdc-event-bar';
   standalone: true,
   imports: [CommonModule, NxGridModule, SdcEventBarComponent]
 })
-export class SdcAppOverlayComponent {}
+export class SdcOverlayComponent {}
