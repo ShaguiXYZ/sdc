@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IComponentModel, ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
+import { SdcRouteService } from 'src/app/core/services/sdc';
 import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
-import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { ApplicationsContextData, IStateCount } from 'src/app/shared/models';
 import { SdcSquadSummaryComponent } from './components';
@@ -38,13 +37,13 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   private summary$!: Subscription;
 
   constructor(
-    private readonly router: Router,
     private readonly contextDataService: ContextDataService,
-    private readonly sdcSummaryService: SdcSquadsService
+    private readonly routerService: SdcRouteService,
+    private readonly summaryService: SdcSquadsService
   ) {}
 
   ngOnInit(): void {
-    this.summary$ = this.sdcSummaryService.onDataChange().subscribe((data: Partial<SdcSquadsDataModel>) => {
+    this.summary$ = this.summaryService.onDataChange().subscribe((data: Partial<SdcSquadsDataModel>) => {
       this.squadsData = { ...this.squadsData, ...data };
       this.worstComponents = this.squadsData?.components ? this.squadsData.components.slice(0, 3) : [];
 
@@ -54,21 +53,19 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.sdcSummaryService.loadData();
+    this.summaryService.loadData();
   }
 
   ngOnDestroy(): void {
-    this.summary$.unsubscribe();
+    this.summary$?.unsubscribe();
   }
 
   public complianceClicked(component: IComponentModel): void {
-    this.contextDataService.set(ContextDataInfo.METRICS_DATA, { component });
-    this.router.navigate([AppUrls.metrics]);
+    this.routerService.toComponent(component);
   }
 
   public departmentClicked(department: IDepartmentModel): void {
-    this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, { department });
-    this.router.navigate([AppUrls.departments]);
+    this.routerService.toDepartment(department);
   }
 
   public showAll(): void {
@@ -79,20 +76,18 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
         }
       };
 
-      this.contextDataService.set(ContextDataInfo.APPLICATIONS_DATA, applicationsContextData);
-
-      this.router.navigate([AppUrls.applications]);
+      this.routerService.toApplications(applicationsContextData);
     }
   }
 
   public onSearchSquadChanged(filter: string): void {
     if (this.squadsData) {
-      this.sdcSummaryService.availableSquads(filter);
+      this.summaryService.availableSquads(filter);
     }
   }
 
   public onClickSquad(event: ICoverageModel) {
-    this.sdcSummaryService.selectedSquad(event as ISquadModel);
+    this.summaryService.selectedSquad(event as ISquadModel);
   }
 
   public onClickStateCount(event: IStateCount) {
@@ -104,9 +99,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
         }
       };
 
-      this.contextDataService.set(ContextDataInfo.APPLICATIONS_DATA, applicationsContextData);
-
-      this.router.navigate([AppUrls.applications]);
+      this.routerService.toApplications(applicationsContextData);
     }
   }
 }

@@ -7,7 +7,8 @@ export enum AppUrls {
   squads = 'squads',
   applications = 'applications',
   metrics = 'metrics',
-  test = 'test'
+  test = 'test',
+  routing = 'routing'
 }
 
 export const urls: RouteConfig = {

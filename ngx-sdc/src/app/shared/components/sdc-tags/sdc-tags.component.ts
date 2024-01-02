@@ -16,8 +16,6 @@ import { ViewType, defaultViewType } from './models';
   imports: [CommonModule, FormsModule, NxFormfieldModule, NxInputModule, ReactiveFormsModule, SdcTagComponent, TranslateModule]
 })
 export class SdcTagsComponent implements OnInit {
-  @ViewChild('nameInput', { static: true }) nameInput!: ElementRef;
-
   public form!: FormGroup;
 
   @Input()
@@ -31,6 +29,9 @@ export class SdcTagsComponent implements OnInit {
 
   @Output()
   public remove: EventEmitter<ITagModel> = new EventEmitter<ITagModel>();
+
+  @ViewChild('nameInput', { static: true })
+  private nameInput!: ElementRef;
 
   // pattern for name input allowing only letters and numbers and _ beguining with a letter
   private namePattern: RegExp = /^[a-zA-Z]\w*$/;

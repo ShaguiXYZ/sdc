@@ -9,7 +9,7 @@ import { IAppConfiguration } from './core/models/sdc';
 import { ContextDataService, StorageService } from './core/services';
 import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 import { routingAnimation } from './shared/animations';
-import { SdcAppFooterComponent, SdcOverlayComponent } from './shared/components';
+import { SdcAppFooterComponent, SdcOverlayComponent, SdcOverlayService } from './shared/components';
 import { ContextDataInfo } from './shared/constants';
 
 @Component({
@@ -21,7 +21,7 @@ import { ContextDataInfo } from './shared/constants';
       <nx-alert />
       <nx-notification />
       <sdc-overlay />
-      <div class="app-content sdc-scrollable-body">
+      <div class="app-content sdc-scrollable-body" (click)="onClick($event)">
         <header nxLayout="grid maxwidth nogutters">
           <nx-header headerTitle="S D C" [title]="'Header.Title' | translate" />
         </header>
@@ -52,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly appConfiguration: AppConfigurationService,
     private readonly contextDataService: ContextDataService,
+    private readonly overlayService: SdcOverlayService,
     private readonly storageService: StorageService,
     private readonly title: Title
   ) {}
@@ -79,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
   }
 
-  // Detect the Closing of a Browser Tab
+  // @howto: Detect the Closing of a Browser Tab
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
     event.preventDefault();
@@ -92,30 +93,12 @@ export class AppComponent implements OnInit, OnDestroy {
     event.stopPropagation();
   }
 
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    // Detect platform
-    if (navigator.userAgent.toLowerCase().includes('windows')) {
-      this.handleWindowsKeyEvents(event);
-    } else {
-      this.handleMacKeyEvents(event);
-    }
-  }
-
+  // @howto: animation on route change
   public prepareRoute(outlet: RouterOutlet) {
     if (outlet.isActivated) return outlet.activatedRouteData?.['animation'];
   }
 
-  private handleMacKeyEvents(event: KeyboardEvent) {
-    // MetaKey documentation
-    // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
-
-    // Action on Cmd + S
-    event.metaKey && event.key === 's' && event.preventDefault();
-  }
-
-  private handleWindowsKeyEvents(event: KeyboardEvent) {
-    // Action on Ctrl + S
-    event.ctrlKey && event.key === 's' && event.preventDefault();
+  onClick(event: any) {
+    this.overlayService.defaultOverlayState();
   }
 }

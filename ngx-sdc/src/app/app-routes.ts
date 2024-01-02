@@ -34,5 +34,10 @@ export const routes: Routes = configContextRoutes([
     loadComponent: () => import('./modules/sdc-test-page/sdc-test-page.component').then(c => c.SdcTestComponent),
     data: { animation: AppUrls.test },
     canDeactivate: []
+  },
+  {
+    path: AppUrls.routing,
+    loadComponent: () => import('./modules/sdc-routing/sdc-routing').then(c => c.SdcRoutingComponent),
+    canDeactivate: []
   }
 ]);

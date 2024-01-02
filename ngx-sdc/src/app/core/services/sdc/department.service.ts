@@ -16,6 +16,18 @@ export class DepartmentService {
     private http: HttpService
   ) {}
 
+  public department(id: number): Promise<IDepartmentModel> {
+    return firstValueFrom(
+      this.http
+        .get<IDepartmentDTO>(`${this._urlDepartments}/department/${id}`, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { text: 'Notifications.DepartmentNotFound' }
+          }
+        })
+        .pipe(map(res => IDepartmentModel.fromDTO(res as IDepartmentDTO)))
+    );
+  }
+
   public departments(): Promise<IPageable<IDepartmentModel>> {
     return firstValueFrom(
       this.http

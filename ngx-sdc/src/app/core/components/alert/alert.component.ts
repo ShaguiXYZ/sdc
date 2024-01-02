@@ -16,14 +16,17 @@ import { AlertService } from './services';
   imports: [CommonModule, NxButtonModule, NxCopytextModule, NxHeadlineModule, NxModalModule]
 })
 export class AlertComponent implements OnInit, OnDestroy {
-  @ViewChild('alertBody') templateAlertRef!: TemplateRef<any>;
-
   public alert?: AlertModel;
   public alertSubscription!: Subscription;
 
+  @ViewChild('alertBody')
+  private templateAlertRef!: TemplateRef<any>;
   private templateAlertDialogRef!: NxModalRef<any>;
 
-  constructor(private dialogService: NxDialogService, private alertService: AlertService) {}
+  constructor(
+    private dialogService: NxDialogService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {
     this.alertSubscription = this.alertService.onAlert().subscribe((alert?: AlertModel) => {

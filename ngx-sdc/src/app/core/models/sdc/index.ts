@@ -8,4 +8,5 @@ export * from './metric-analysis.model';
 export * from './metric.model';
 export * from './pageable.model';
 export * from './squad.model';
+export * from './summary-view.model';
 export * from './tag.model';

@@ -28,9 +28,6 @@ import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
   ]
 })
 export class SdcCoveragesComponent implements OnInit, OnDestroy {
-  @ViewChild('searchInput', { static: true })
-  private searchInput!: ElementRef;
-
   @Input()
   public title = '';
 
@@ -52,6 +49,8 @@ export class SdcCoveragesComponent implements OnInit, OnDestroy {
   @Output()
   public selectCoverage: EventEmitter<ICoverageModel> = new EventEmitter();
 
+  @ViewChild('searchInput', { static: true })
+  private searchInput!: ElementRef;
   private subscription$!: Subscription;
 
   ngOnInit(): void {

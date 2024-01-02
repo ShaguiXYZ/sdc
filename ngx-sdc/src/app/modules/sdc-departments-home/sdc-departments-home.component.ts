@@ -1,16 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
+import { SdcRouteService } from 'src/app/core/services/sdc';
 import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
-import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
-import { SdcSquadsContextData } from 'src/app/shared/models';
 import { SdcDepartmentSummaryComponent } from './components';
 import { SdcDepartmentsDataModel } from './models';
 import { SdcDepartmentsService } from './services';
@@ -37,13 +35,13 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
   private summary$!: Subscription;
 
   constructor(
-    private readonly router: Router,
     private readonly contextDataService: ContextDataService,
-    private readonly sdcDepartmentService: SdcDepartmentsService
+    private readonly departmentService: SdcDepartmentsService,
+    private readonly routerService: SdcRouteService
   ) {}
 
   ngOnInit(): void {
-    this.summary$ = this.sdcDepartmentService.onDataChange().subscribe(data => {
+    this.summary$ = this.departmentService.onDataChange().subscribe(data => {
       this.departmentsData = { ...this.departmentsData, ...data };
 
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
@@ -52,7 +50,7 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.sdcDepartmentService.loadData();
+    this.departmentService.loadData();
   }
 
   ngOnDestroy(): void {
@@ -61,7 +59,7 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
 
   public onSearchDepartmentChanged(filter: string): void {
     if (this.departmentsData) {
-      this.sdcDepartmentService.availableDepartments(filter);
+      this.departmentService.availableDepartments(filter);
     }
   }
 
@@ -74,14 +72,12 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
   }
 
   public onClickSquad(squad: ICoverageModel) {
-    const squadContextData: SdcSquadsContextData = { squad: squad as ISquadModel };
-    this.contextDataService.set(ContextDataInfo.SQUADS_DATA, squadContextData);
-    this.router.navigate([AppUrls.squads]);
+    this.routerService.toSquad(squad as ISquadModel);
   }
 
   private squadsByDepartmernt(department?: IDepartmentModel, filter?: string) {
     if (department) {
-      this.sdcDepartmentService.availableSquads(department, filter);
+      this.departmentService.availableSquads(department, filter);
     }
   }
 }

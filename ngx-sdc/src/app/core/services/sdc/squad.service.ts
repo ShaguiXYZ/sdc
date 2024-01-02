@@ -16,6 +16,18 @@ export class SquadService {
     private http: HttpService
   ) {}
 
+  public squad(id: number): Promise<ISquadModel> {
+    return firstValueFrom(
+      this.http
+        .get<ISquadDTO>(`${this._urlSquads}/squad/${id}`, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { text: 'Notifications.SquadNotFound' }
+          }
+        })
+        .pipe(map(res => ISquadModel.fromDTO(res as ISquadDTO)))
+    );
+  }
+
   public squads(department?: IDepartmentModel): Promise<IPageable<ISquadModel>> {
     return firstValueFrom(
       this.http

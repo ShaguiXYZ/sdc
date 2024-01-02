@@ -6,6 +6,8 @@ export * from './sdc-coverage-info';
 export * from './sdc-coverages';
 export * from './sdc-event-bar';
 export * from './sdc-footer';
+export * from './sdc-global-search';
+export * from './sdc-keys';
 export * from './sdc-metric-info';
 export * from './sdc-metrics-cards';
 export * from './sdc-overlay';

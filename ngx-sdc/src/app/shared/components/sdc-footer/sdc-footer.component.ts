@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { SdcSseEventComponent } from '../sdc-sse-event';
 import { SwitchThemeComponent } from 'src/app/core/components/header/components';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { SdcKeysComponent } from '../sdc-keys';
 
 @Component({
   selector: 'sdc-footer',
@@ -18,7 +19,10 @@ import { NxGridModule } from '@aposin/ng-aquila/grid';
         width: 100%;
 
         .sdc-footer-info {
+          display: flex;
+          align-items: center;
           flex: 1;
+          justify-content: flex-start;
         }
 
         .sdc-footer-content {
@@ -44,7 +48,9 @@ import { NxGridModule } from '@aposin/ng-aquila/grid';
   template: `
     <footer nxLayout="grid maxwidth nogutters">
       <div class="sdc-footer-content">
-        <div class="sdc-footer-info"></div>
+        <div class="sdc-footer-info">
+          <sdc-keys />
+        </div>
         <div class="sdc-footer-actions sdc-center">
           <nx-switch-theme />
           <div class="sdc-sse-event">
@@ -54,7 +60,7 @@ import { NxGridModule } from '@aposin/ng-aquila/grid';
       </div>
     </footer>
   `,
-  imports: [CommonModule, NxGridModule, SdcSseEventComponent, SwitchThemeComponent],
+  imports: [CommonModule, NxGridModule, SdcKeysComponent, SdcSseEventComponent, SwitchThemeComponent],
   standalone: true
 })
 export class SdcAppFooterComponent {}

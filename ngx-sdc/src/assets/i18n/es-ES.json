@@ -50,6 +50,9 @@
     "ComponentMetrics": "Métricas de {{name}}",
     "CopyToClipboard": "Copiado en el portapapeles",
     "Coverage": "Cobertura",
+    "Ctrl": {
+      "K": "Buscar"
+    },
     "CurrentValue": "Valor Actual",
     "DepartmentSumary": "Resumen del departamento",
     "ElementsByPage": "{{value}} Elementos por página",

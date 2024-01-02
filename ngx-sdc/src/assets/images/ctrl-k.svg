@@ -1,0 +1,40 @@
+<svg width="446" height="139" xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>CTRL+Key</title>
+  <defs>
+    <linearGradient id="linearGradient607">
+      <stop id="stop608" offset="0" stop-color="#cfcfcf" />
+      <stop id="stop609" offset="1" stop-color="#efefef" />
+    </linearGradient>
+    <linearGradient id="linearGradient565">
+      <stop id="stop566" offset="0" stop-color="#9d9d9f" />
+      <stop id="stop567" offset="1" stop-color="#e5e5e5" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" id="linearGradient613" spreadMethod="pad"
+      x1="0.23529" x2="0.82805" xlink:href="#linearGradient607" y1="0.85156" y2="0.125" />
+    <linearGradient gradientUnits="objectBoundingBox" id="linearGradient615" spreadMethod="pad"
+      x1="0.10732" x2="0.87805" xlink:href="#linearGradient565" y1="0.82031" y2="0.07813" />
+    <linearGradient id="linearGradient620" xlink:href="#linearGradient607" />
+  </defs>
+  <g>
+    <title>Layer 1</title>
+    <path
+      d="m74.67641,31.59542l-3.192,0l0,3.192l-2.664,0l0,-3.192l-3.192,0l0,-2.688l3.192,0l0,-3.192l2.664,0l0,3.192l3.192,0l0,2.688z"
+      id="path612" transform="translate(-49,-64) scale(4.41500997543335) " stroke-width="0.28313"
+      fill="#000000" />
+    <rect height="139.46495" id="rect614" ry="14.59302" width="222.76657" x="0" y="0.00021"
+      stroke="#acb0b0" stroke-width="1pt" fill-rule="evenodd" fill="url(#linearGradient615)" />
+    <rect height="107.05391" id="rect612" ry="8.12134" width="185.31398" x="19.66402" y="14.80853"
+      stroke="url(#linearGradient620)" stroke-width="2.5" fill-rule="evenodd"
+      fill="url(#linearGradient613)" />
+    <rect height="139.46495" id="rect621" ry="20.66907" width="148.54411" x="296.99048" y="0"
+      stroke-width="0.81659pt" stroke="#acb0b0" fill-rule="evenodd" fill="url(#linearGradient615)" />
+    <rect height="107.05391" id="rect622" rx="7.51694" ry="10.3253" width="107.66589" x="316.65453"
+      y="14.80829" stroke-width="2.5" stroke="url(#linearGradient620)" fill-rule="evenodd"
+      fill="url(#linearGradient613)" />
+    <text xml:space="preserve" text-anchor="middle" font-family="Arial" font-size="49" id="svg_2"
+      y="84.48355" x="107.63094" stroke-width="0" stroke="#000000" fill="#000000">CTRL</text>
+    <text id="svg_3" xml:space="preserve" text-anchor="middle" font-family="Arial" font-size="49"
+      y="82.98355" x="370.13094" stroke-width="0" fill="#000000" stroke="#000000">K</text>
+  </g>
+</svg>

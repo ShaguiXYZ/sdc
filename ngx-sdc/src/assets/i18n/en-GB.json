@@ -50,6 +50,9 @@
     "ComponentMetrics": "{{name}} metrics",
     "CopyToClipboard": "Copied to clipboard",
     "Coverage": "Coverage",
+    "Ctrl": {
+      "K": "Search"
+    },
     "CurrentValue": "Current value",
     "DepartmentSumary": "Department summary",
     "ElementsByPage": "{{value}} elements per page",

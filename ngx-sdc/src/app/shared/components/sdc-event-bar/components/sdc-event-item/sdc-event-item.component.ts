@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationService } from 'src/app/core/components';
+import { copyToClipboard } from 'src/app/core/lib';
 import { SseEventModel } from 'src/app/core/services';
-import { AppUrls } from 'src/app/shared/config/routing';
+import { SDC_DEFAULT_NOTIFICATION_DURATION } from 'src/app/shared/constants';
 import { SdcEventReference } from 'src/app/shared/models';
 import { SdcEventItemService } from './services';
-import { copyToClipboard } from 'src/app/core/lib';
-import { NotificationService } from 'src/app/core/components';
-import { SDC_DEFAULT_NOTIFICATION_DURATION } from 'src/app/shared/constants';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'sdc-event-item',

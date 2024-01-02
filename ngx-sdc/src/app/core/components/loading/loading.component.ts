@@ -13,12 +13,15 @@ import { LoadingService } from './services';
   imports: [CommonModule, NxModalModule, NxSpinnerModule]
 })
 export class LoadingComponent implements OnInit, OnDestroy {
-  @ViewChild('loadingBody') templateLoadingRef!: TemplateRef<any>;
+  @ViewChild('loadingBody')
+  private templateLoadingRef!: TemplateRef<any>;
   private templateLoadingDialogRef!: NxModalRef<any>;
-
   private loadingObs!: Subscription;
 
-  constructor(private dialogService: NxDialogService, private loadingService: LoadingService) {}
+  constructor(
+    private dialogService: NxDialogService,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
     this.loadingObs = this.loadingService.uiShowLoading.subscribe((show: boolean) => {
