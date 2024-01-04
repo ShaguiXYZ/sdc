@@ -1,18 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
+import $ from 'src/app/core/lib/dom.lib';
 import { ISummaryViewModel, SummaryViewType } from 'src/app/core/models/sdc';
+import { SdcCoverageChartComponent } from '../sdc-charts';
+import { OverlayItemState } from '../sdc-overlay/models';
 import { SdcTagComponent } from '../sdc-tag';
 import { SdcGlobalSearchService } from './services';
-import { SdcCoverageChartComponent } from '../sdc-charts';
+import { BACKGROUND_CHART_COLOR } from '../../constants';
 
 @Component({
   selector: 'sdc-global-search',
   styleUrls: ['./sdc-global-search.component.scss'],
   template: `
-    <div class="sdc-search-content">
+    <div class="sdc-search-content  {{ state }}">
       <div class="sdc-search-form">
         <div class="inp-border sdc-search-input">
           <input #searchInput class="input" type="text" [placeholder]="'Label.Search' | translate" autocomplete="off" />
@@ -32,7 +35,11 @@ import { SdcCoverageChartComponent } from '../sdc-charts';
             <div class="sdc-search-result-item" (click)="goTo(item)">
               <div class="sdc-search-result-coverage">
                 @if (item.coverage) {
-                  <sdc-coverage-chart [size]="45" [coverage]="{ id: item.id, name: '', coverage: item.coverage }" />
+                  <sdc-coverage-chart
+                    [backgroundColor]="BACKGROUND_CHART_COLOR"
+                    [coverage]="{ id: item.id, name: '', coverage: item.coverage }"
+                    [size]="45"
+                  />
                 }
               </div>
               <div class=" sdc-cut-text sdc-search-result-item-name">{{ item.name }}</div>
@@ -50,9 +57,11 @@ import { SdcCoverageChartComponent } from '../sdc-charts';
   imports: [CommonModule, SdcCoverageChartComponent, SdcTagComponent, TranslateModule]
 })
 export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
+  public BACKGROUND_CHART_COLOR = BACKGROUND_CHART_COLOR;
   public data$: Subject<ISummaryViewModel[]>;
   public elementTypes: SummaryViewType[] = [];
 
+  private _state: OverlayItemState = 'closed';
   private selectedTypes: SummaryViewType[] = [];
 
   @ViewChild('searchInput', { static: true })
@@ -70,6 +79,16 @@ export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription$.forEach(subscription => subscription.unsubscribe());
+  }
+
+  public get state(): OverlayItemState {
+    return this._state;
+  }
+  @Input()
+  public set state(value: OverlayItemState) {
+    this._state = value;
+
+    setTimeout(() => $('.sdc-search-input input')?.focus(), 300);
   }
 
   public toggleType(type: SummaryViewType): void {

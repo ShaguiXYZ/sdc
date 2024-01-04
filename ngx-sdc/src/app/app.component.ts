@@ -9,7 +9,8 @@ import { IAppConfiguration } from './core/models/sdc';
 import { ContextDataService, StorageService } from './core/services';
 import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 import { routingAnimation } from './shared/animations';
-import { SdcAppFooterComponent, SdcOverlayComponent, SdcOverlayService } from './shared/components';
+import { SdcAppFooterComponent, SdcOverlayComponent } from './shared/components';
+import { SdcOverlayService } from './shared/components/sdc-overlay/services';
 import { ContextDataInfo } from './shared/constants';
 
 @Component({

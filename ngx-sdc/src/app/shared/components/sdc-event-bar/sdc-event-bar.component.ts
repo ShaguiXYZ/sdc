@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { AlertService } from 'src/app/core/components';
 import { SseEventModel } from 'src/app/core/services';
 import { SdcEventReference } from '../../models';
+import { OverlayItemState } from '../sdc-overlay/models';
 import { SdcEventItemComponent } from './components';
 import { SdcEventBarData } from './models';
 import { SdcEventBarService } from './services';
-import { AlertService } from 'src/app/core/components';
 
 @Component({
   selector: 'sdc-event-bar',
   styleUrls: ['./sdc-event-bar.component.scss'],
   template: `
-    <div class="event-content {{ eventBarData.state }}">
+    <div class="event-content {{ state }}">
       @if (eventBarData.events.length) {
         <header class="event-bar-options">
           <div class="event-bar-options__left">
@@ -25,7 +26,7 @@ import { AlertService } from 'src/app/core/components';
           </div>
         </header>
 
-        <article class="event-bar-items" [class.sdc-scrollable]="eventBarData.state === 'open'">
+        <article class="event-bar-items" [class.sdc-scrollable]="state === 'open'">
           @for (event of eventBarData.events; track event.id) {
             @defer (on viewport) {
               <div class="reveal event-item">
@@ -51,7 +52,10 @@ import { AlertService } from 'src/app/core/components';
   imports: [CommonModule, SdcEventItemComponent, TranslateModule]
 })
 export class SdcEventBarComponent implements OnInit, OnDestroy {
-  public eventBarData: SdcEventBarData = { events: [], state: 'closed' };
+  public eventBarData: SdcEventBarData = { events: [] };
+
+  @Input()
+  public state: OverlayItemState = 'closed';
 
   private subscriptions$: Subscription[] = [];
 

@@ -3,15 +3,16 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { ContextDataService, SseEventModel, SseService } from 'src/app/core/services';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcEventReference, SdcRootContextData } from 'src/app/shared/models';
+import { SdcOverlayService } from '../../sdc-overlay/services';
 
 @Injectable()
 export class SdcSseEventService implements OnDestroy {
-  private closeTimeout?: any;
   private subscriptions$: Subscription[] = [];
   private data$: Subject<SseEventModel<SdcEventReference>[]> = new Subject();
 
   constructor(
     private readonly contextDataService: ContextDataService,
+    private readonly overlayService: SdcOverlayService,
     private readonly sseService: SseService<SdcEventReference>
   ) {
     this.subscriptions$.push(this.eventObserver(), this.contextDataObserver());
@@ -24,13 +25,9 @@ export class SdcSseEventService implements OnDestroy {
 
   public loadData(): void {
     const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
-    const { events, eventsState } = contextData || { events: [], eventsState: 'closed' };
+    const { events } = contextData || { events: [] };
 
-    this.contextDataService.set<SdcRootContextData>(
-      ContextDataInfo.ROOT_DATA,
-      { events, eventsState },
-      { persistent: true, referenced: true }
-    );
+    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { events }, { persistent: true, referenced: true });
 
     this.data$.next(events);
   }
@@ -41,11 +38,6 @@ export class SdcSseEventService implements OnDestroy {
 
   private eventObserver = (): Subscription =>
     this.sseService.onEvent().subscribe(event => {
-      if (this.closeTimeout) {
-        clearTimeout(this.closeTimeout);
-        this.closeTimeout = undefined;
-      }
-
       const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
 
       contextData.events = [...contextData.events, event];
@@ -60,16 +52,6 @@ export class SdcSseEventService implements OnDestroy {
     });
 
   public toggleEvents(): void {
-    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
-    const eventsState = contextData.eventsState === 'open' ? 'closed' : 'open';
-
-    if (eventsState === 'open' && contextData.events.length === 0) {
-      this.closeTimeout = setTimeout(() => this.toggleEvents(), 5000);
-    } else if (this.closeTimeout) {
-      clearTimeout(this.closeTimeout);
-      this.closeTimeout = undefined;
-    }
-
-    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { ...contextData, eventsState });
+    this.overlayService.toggleEventBar();
   }
 }

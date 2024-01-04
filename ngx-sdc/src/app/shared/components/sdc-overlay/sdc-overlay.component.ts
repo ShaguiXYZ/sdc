@@ -3,22 +3,19 @@ import { Component } from '@angular/core';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { SdcEventBarComponent } from '../sdc-event-bar';
 import { SdcGlobalSearchComponent } from '../sdc-global-search';
-import { SdcOverlayService } from './services';
 import { SdcOverlayModel } from './models';
-import $ from 'src/app/core/lib/dom.lib';
+import { SdcOverlayService } from './services';
 
 @Component({
   selector: 'sdc-overlay',
   styleUrls: ['./sdc-overlay.component.scss'],
   template: `
-    <div class="overlay-content">
-      <div nxLayout="grid maxwidth nogutters" class="overlay-items">
-        <div nxLayout="grid maxwidth nogutters" class="event-bar overlay-item">
-          <sdc-event-bar />
-        </div>
-        <div class="global-search overlay-item" [ngClass]="{ 'item-hidden': !overlayModel.showGlobalSearch }">
-          <sdc-global-search />
-        </div>
+    <div nxLayout="grid maxwidth nogutters" class="overlay-items">
+      <div nxLayout="grid maxwidth nogutters" class="event-bar overlay-item">
+        <sdc-event-bar [state]="overlayModel.eventBarState" />
+      </div>
+      <div class="global-search overlay-item">
+        <sdc-global-search [state]="overlayModel.globalSearchState" />
       </div>
     </div>
   `,
@@ -26,17 +23,11 @@ import $ from 'src/app/core/lib/dom.lib';
   imports: [CommonModule, NxGridModule, SdcEventBarComponent, SdcGlobalSearchComponent]
 })
 export class SdcOverlayComponent {
-  public overlayModel: SdcOverlayModel = { showGlobalSearch: false };
+  public overlayModel: SdcOverlayModel = { globalSearchState: 'closed', eventBarState: 'closed' };
 
   constructor(overlayService: SdcOverlayService) {
     overlayService.onDataChange().subscribe(data => {
-      const { showGlobalSearch } = this.overlayModel;
-
       this.overlayModel = { ...this.overlayModel, ...data };
-
-      if (!showGlobalSearch && this.overlayModel.showGlobalSearch) {
-        setTimeout(() => $('.sdc-search-input input')?.focus(), 300);
-      }
     });
   }
 }

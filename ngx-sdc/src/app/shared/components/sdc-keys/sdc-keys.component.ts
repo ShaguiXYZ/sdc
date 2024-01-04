@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
+import { SdcOverlayService } from '../sdc-overlay/services';
 import { SdcKeyComponent } from './components';
-import { SdcOverlayService } from '../sdc-overlay';
 
 @Component({
   selector: 'sdc-keys',
@@ -76,7 +76,7 @@ export class SdcKeysComponent {
   private eventKeyActions(event: KeyboardEvent) {
     switch (event.key.toUpperCase()) {
       case 'ESCAPE':
-        this.overlayService.toggleGlobalSearch(false);
+        this.overlayService.toggleGlobalSearch('closed');
         event.preventDefault();
         break;
       default:

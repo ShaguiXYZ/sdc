@@ -9,8 +9,17 @@
   max-height: 100%;
   width: 100%;
 
+  &.open {
+    pointer-events: auto;
+  }
+
+  &.closed {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .sdc-search-form {
-    padding: 16px 16px 0 16px;
+    padding: 8px;
 
     .sdc-search-input {
       width: 100%;
@@ -47,15 +56,16 @@
     }
 
     .sdc-search-type {
+      background: var(--ui-02);
       display: flex;
       justify-content: space-evenly;
       flex-wrap: wrap;
-      margin-top: 16px;
+      margin-top: 4px;
+      padding: 4px 0;
       width: 100%;
 
       .label-type {
         align-items: center;
-        background: var(--ui-02);
         border-radius: 25px;
         cursor: pointer;
         padding: 4px 8px;
@@ -71,7 +81,7 @@
   .sdc-search-result {
     border-radius: 8px;
     flex: 1;
-    margin: 16px;
+    margin: 8px;
     overflow-x: hidden;
     overflow-y: auto;
 
@@ -105,7 +115,7 @@
 
       .sdc-search-result-item-name {
         flex: 1;
-        font-size: 1.4em;
+        font-size: 1.2em;
         line-height: 1.4em;
       }
 
