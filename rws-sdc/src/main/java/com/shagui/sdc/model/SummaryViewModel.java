@@ -18,6 +18,6 @@ import lombok.Setter;
 public class SummaryViewModel implements ModelInterface<SummaryViewPk> {
     @EmbeddedId
     private SummaryViewPk id;
-
     private String name;
+    private Float coverage;
 }

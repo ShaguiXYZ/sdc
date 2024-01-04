@@ -97,10 +97,22 @@
         color: var(--hover-primary);
       }
 
+      .sdc-search-result-coverage {
+        height: 45px;
+        margin-right: 8px;
+        width: 45px;
+      }
+
       .sdc-search-result-item-name {
         flex: 1;
         font-size: 1.4em;
         line-height: 1.4em;
+      }
+
+      .sdc-search-result-item-type {
+        display: flex;
+        justify-content: center;
+        min-width: 125px;
       }
 
       @starting-style {

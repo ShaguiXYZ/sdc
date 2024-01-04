@@ -6,6 +6,7 @@ import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { ISummaryViewModel, SummaryViewType } from 'src/app/core/models/sdc';
 import { SdcTagComponent } from '../sdc-tag';
 import { SdcGlobalSearchService } from './services';
+import { SdcCoverageChartComponent } from '../sdc-charts';
 
 @Component({
   selector: 'sdc-global-search',
@@ -29,7 +30,12 @@ import { SdcGlobalSearchService } from './services';
         @for (item of data$ | async; track item.trackId) {
           @defer (on viewport) {
             <div class="sdc-search-result-item" (click)="goTo(item)">
-              <div class="sdc-search-result-item-name">{{ item.name }}</div>
+              <div class="sdc-search-result-coverage">
+                @if (item.coverage) {
+                  <sdc-coverage-chart [size]="45" [coverage]="{ id: item.id, name: '', coverage: item.coverage }" />
+                }
+              </div>
+              <div class=" sdc-cut-text sdc-search-result-item-name">{{ item.name }}</div>
               <div class="sdc-search-result-item-type"><sdc-tag [data]="{ name: item.type }" /></div>
             </div>
           } @placeholder {
@@ -41,7 +47,7 @@ import { SdcGlobalSearchService } from './services';
   `,
   providers: [SdcGlobalSearchService],
   standalone: true,
-  imports: [CommonModule, SdcTagComponent, TranslateModule]
+  imports: [CommonModule, SdcCoverageChartComponent, SdcTagComponent, TranslateModule]
 })
 export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
   public data$: Subject<ISummaryViewModel[]>;

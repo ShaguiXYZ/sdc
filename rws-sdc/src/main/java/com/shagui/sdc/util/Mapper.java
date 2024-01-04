@@ -131,7 +131,8 @@ public class Mapper {
 	}
 
 	public static SummaryViewDTO parse(SummaryViewModel source) {
-		return new SummaryViewDTO(source.getId().getId(), source.getName(), source.getId().getType());
+		return new SummaryViewDTO(source.getId().getId(), source.getName(), source.getId().getType(),
+				source.getCoverage());
 	}
 
 }

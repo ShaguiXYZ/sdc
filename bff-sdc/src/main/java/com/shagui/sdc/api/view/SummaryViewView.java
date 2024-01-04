@@ -15,6 +15,7 @@ public class SummaryViewView {
     private Integer id;
     private String name;
     private String type;
+    private Float coverage;
 
     public SummaryViewView(SummaryViewDTO source) {
         BeanUtils.copyProperties(source, this);

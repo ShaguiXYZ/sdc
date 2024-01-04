@@ -10,23 +10,21 @@
             CREATE OR REPLACE VIEW summary_view
             AS SELECT c.id,
                 c.name,
+                c.coverage,
                 'COMPONENT'::text AS element_type
                FROM components c
             UNION
              SELECT s.id,
                 s.name,
+                s.coverage,
                 'SQUAD'::text AS element_type
                FROM squads s
             UNION
              SELECT d.id,
                 d.name,
+                d.coverage,
                 'DEPARTMENT'::text AS element_type
-               FROM departments d
-            UNION
-             SELECT m.id,
-                m.name,
-                'METRIC'::text AS element_type
-               FROM metrics m;
+               FROM departments d;
 		</sql>
 	</changeSet>
 </databaseChangeLog>

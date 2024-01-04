@@ -13,4 +13,5 @@ public class SummaryViewDTO {
     private Integer id;
     private String name;
     private SummaryType type;
+    private Float coverage;
 }
