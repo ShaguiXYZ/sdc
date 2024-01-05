@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
-            "allowedCommonJsDependencies": ["lodash", "rfdc"],
+            "allowedCommonJsDependencies": ["rfdc"],
             "outputPath": "dist/ngx-sdc",
             "index": "src/index.html",
             "main": "src/main.ts",
