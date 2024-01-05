@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ServiceDataDTO {
+	private String workflowId;
 	private ComponentModel component;
 	private MetricModel metric;
 }

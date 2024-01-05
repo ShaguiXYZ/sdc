@@ -8,26 +8,40 @@ import java.util.function.Function;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.dto.git.DependabotAlertDTO;
+import com.shagui.sdc.api.dto.sse.EventFactory;
+import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.service.DependabotService;
+import com.shagui.sdc.service.SseService;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.git.GitUtils;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service(Ctes.AnalysisServicesTypes.DEPENDABOT)
 public class DependabotServiceImpl implements DependabotService {
+	private final SseService sseService;
 
 	@Override
 	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
-		List<DependabotAlertDTO> result = GitUtils
-				.retrieveGitData(component, GitUtils.GitOperations.DEPENDABOT_ALERTS, DependabotAlertDTO[].class)
-				.map(Arrays::asList).orElseGet(() -> new ArrayList<DependabotAlertDTO>());
+		try {
+			List<DependabotAlertDTO> result = GitUtils
+					.retrieveGitData(component, GitUtils.GitOperations.DEPENDABOT_ALERTS,
+							DependabotAlertDTO[].class)
+					.map(Arrays::asList).orElseGet(() -> new ArrayList<DependabotAlertDTO>());
 
-		return this.metrics(component).stream().map(metric -> {
-			String value = MetricLibrary.Library.valueOf(metric.getValue().toUpperCase()).apply(result);
+			return this.metrics(component).stream().map(metric -> {
+				String value = MetricLibrary.Library.valueOf(metric.getValue().toUpperCase()).apply(result);
 
-			return new ComponentAnalysisModel(component, metric, value);
-		}).toList();
+				return new ComponentAnalysisModel(component, metric, value);
+			}).toList();
+		} catch (SdcCustomException e) {
+			sseService.emitError(EventFactory.event(workflowId, e).referencedBy(component));
+
+			return List.of();
+		}
 	}
 
 	private static class MetricLibrary {

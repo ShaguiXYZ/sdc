@@ -2,6 +2,7 @@ package com.shagui.sdc.util;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -58,7 +59,9 @@ public class AnalysisUtils {
 	};
 
 	public static Float metricCoverage(List<ComponentAnalysisModel> metricAnalysis) {
-		List<MetricAnalysisDTO> dtos = metricAnalysis.stream().map(setMetricValues).map(Mapper::parse).toList();
+		List<MetricAnalysisDTO> dtos = metricAnalysis.stream().filter(Objects::nonNull)
+				.map(setMetricValues)
+				.map(Mapper::parse).toList();
 		Float coverage = calculateMetricCoverage(dtos);
 
 		return coverage == null ? null

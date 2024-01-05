@@ -35,12 +35,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler({ SdcCustomException.class })
 	ResponseEntity<ApiError> exception(SdcCustomException ex) {
-		logException(ex);
-
 		String workflowId = HttpServletRequestUtils.getWorkfowIdHeader();
-		if (StringUtils.hasText(workflowId)) {
-			sseService.emit(EventFactory.event(workflowId, ex));
-		}
+
+		sseService.emitError(EventFactory.event(workflowId, ex));
 
 		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(),
 				ExceptionCodes.DEFAULT_EXCEPTION_CODE);

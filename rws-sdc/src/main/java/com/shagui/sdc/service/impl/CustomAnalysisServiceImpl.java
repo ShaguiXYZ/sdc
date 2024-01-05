@@ -23,17 +23,18 @@ public class CustomAnalysisServiceImpl implements CustomAnalysisService {
         List<ComponentAnalysisModel> result = List.of();
         List<MetricModel> metrics = metrics(component);
 
-        metrics.parallelStream().map(analyzeMetric(component)).forEach(result::add);
+        metrics.parallelStream().map(analyzeMetric(workflowId, component)).forEach(result::add);
 
         return result;
     }
 
-    private Function<MetricModel, ComponentAnalysisModel> analyzeMetric(ComponentModel component) {
+    private Function<MetricModel, ComponentAnalysisModel> analyzeMetric(String workflowId, ComponentModel component) {
         return metric -> {
             String fn = DictioraryReplacement.fn(metric.getValue()).orElseGet(metric::getValue);
             String value = MetricLibrary.Library.valueOf(fn.toUpperCase())
-                    .apply(new ServiceDataDTO(component, metric)).orElseGet(() -> CustomAnalysisFunctions.notDataFound
-                            .apply(new ServiceDataDTO(component, metric)).get());
+                    .apply(new ServiceDataDTO(workflowId, component, metric))
+                    .orElseGet(() -> CustomAnalysisFunctions.notDataFound
+                            .apply(new ServiceDataDTO(workflowId, component, metric)).get());
 
             ComponentAnalysisModel analysis = new ComponentAnalysisModel();
             analysis.setComponent(component);

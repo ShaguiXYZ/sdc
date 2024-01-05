@@ -8,6 +8,7 @@ public class ExceptionCodes {
 	public static final String NOT_FOUND_COMPONENT = "Exception.NotFound.Component";
 	public static final String NOT_FOUND_COMPONENTTYPE_ARCHITECTURE = "Exception.NotFound.ComponentTypeArchitecture";
 	public static final String NOT_FOUND_METRIC = "Exception.NotFound.Metric";
+	public static final String WORKFLOW_ID_NOT_FOUND = "Exception.WorkflowId.NotFound";
 
 	public static final String DEFAULT_EXCEPTION_CODE = BAD_REQUEST;
 

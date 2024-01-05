@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.domain.PageData;
+import com.shagui.sdc.api.domain.Reference;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.sse.EventFactory;
@@ -156,13 +157,13 @@ public class AnalysisServiceImpl implements AnalysisService {
 			try {
 				toSave.addAll(metricServices.get(type.name()).analyze(workflowId, component));
 			} catch (SdcCustomException e) {
-				log.error("Error getting task result!!!!!", e);
-				if (StringUtils.hasText(workflowId))
-					sseService.emit(EventFactory.event(workflowId, e).referencedBy(component));
+				sseService.emitError(EventFactory.event(workflowId, e).referencedBy(component));
+
+				log.error("Error on analysis of component {} with metric type {}", component.getName(), type, e);
 			}
 		});
 
-		return toSave.stream().map(data -> {
+		return toSave.stream().filter(Objects::nonNull).map(data -> {
 			ComponentAnalysisModel model = AnalysisUtils.setMetricValues.apply(data);
 			model.setBlocker(isBlockerAnaysis(model));
 

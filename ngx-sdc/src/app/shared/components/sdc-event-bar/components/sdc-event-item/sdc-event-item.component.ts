@@ -34,8 +34,13 @@ import { SdcEventItemService } from './services';
         @if (event.reference) {
           <div class="sdc-event-item__reference">
             <nx-link>
-              <a (click)="onClickComponent()">{{ event.reference.componentName }}</a>
+              <a (click)="onClickComponent()"
+                ><span>{{ event.reference.componentName }}</span></a
+              >
             </nx-link>
+            @if (event.reference.metricName) {
+              <span> - ({{ event.reference.metricName }})</span>
+            }
           </div>
         }
       </section>

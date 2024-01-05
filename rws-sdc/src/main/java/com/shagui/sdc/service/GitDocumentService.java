@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -53,23 +54,28 @@ public abstract class GitDocumentService implements AnalysisInterface {
 
 	@Override
 	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
-		Map<String, List<MetricModel>> metricsByPath = metricsByPath(component);
+		Map<String, List<MetricModel>> metricsByPath = metricsByPath(workflowId, component);
 
 		return metricsByPath.entrySet().parallelStream()
-				.map(entry -> GitUtils
-						.retrieveGitData(
-								component, "contents/%s".formatted(entry.getKey()), Optional.empty(),
-								ContentDTO.class)
-						.map(data -> getResponse(component, entry.getValue(), sdcDocument(data))).orElseGet(() -> {
-							log.error("Not git info for component '{}'", component.getName());
+				.map(entry -> {
+					try {
+						return GitUtils
+								.retrieveGitData(component, "contents/%s".formatted(entry.getKey()),
+										Optional.empty(), ContentDTO.class)
+								.map(data -> getResponse(workflowId, component, entry.getValue(), sdcDocument(data)))
+								.orElseGet(() -> {
+									config.sseService().emitError(EventFactory
+											.event(workflowId, EventType.ERROR,
+													"Not git info for component '%s'".formatted(component.getName()))
+											.referencedBy(component));
 
-							config.sseService().emit(EventFactory.event(workflowId, EventType.ERROR,
-									"Not git info for. component '%s'".formatted(component.getName()))
-									.referencedBy(component));
-
-							return new ArrayList<>();
-						}))
-				.flatMap(List::stream).toList();
+									return new ArrayList<>();
+								});
+					} catch (SdcCustomException ex) {
+						config.sseService().emitError(EventFactory.event(workflowId, ex).referencedBy(component));
+						return null;
+					}
+				}).filter(Objects::nonNull).flatMap(List::stream).toList();
 	}
 
 	@Override
@@ -87,9 +93,9 @@ public abstract class GitDocumentService implements AnalysisInterface {
 		}
 	}
 
-	private List<ComponentAnalysisModel> getResponse(ComponentModel component, List<MetricModel> metrics,
-			SdcDocument docuemnt) {
-		return metrics.stream().map(execute(component, docuemnt)).toList();
+	private List<ComponentAnalysisModel> getResponse(String workflowId, ComponentModel component,
+			List<MetricModel> metrics, SdcDocument docuemnt) {
+		return metrics.stream().map(execute(workflowId, component, docuemnt)).toList();
 	}
 
 	private SdcDocument sdcDocument(ContentDTO gitData) {
@@ -113,52 +119,67 @@ public abstract class GitDocumentService implements AnalysisInterface {
 		return SdcDocumentFactory.newInstance(is, documentOf());
 	}
 
-	private Map<String, List<MetricModel>> metricsByPath(ComponentModel component) {
+	private Map<String, List<MetricModel>> metricsByPath(String workflowId, ComponentModel component) {
 		Map<String, List<MetricModel>> paths = new HashMap<>();
 		Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true);
 
 		metrics(component).forEach(metric -> {
-			Optional<ComponetTypeArchitectureMetricPropertiesModel> property = GitDocumentService.config
+			ComponetTypeArchitectureMetricPropertiesModel property = GitDocumentService.config
 					.componentTypeArchitectureMetricPropertiesRepository()
 					.repository().findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(
 							component.getComponentTypeArchitecture(), metric,
-							ComponentTypeArchitectureMetricConstants.PATH);
+							ComponentTypeArchitectureMetricConstants.PATH)
+					.orElseGet(() -> {
+						config.sseService().emitError(EventFactory
+								.event(workflowId, EventType.ERROR,
+										"No path of origin has been defined for metric '%s' (%s) component type '%s' and architecture '%s' (%s)"
+												.formatted(
+														metric.getName(), metric.getId(),
+														component.getComponentTypeArchitecture()
+																.getComponentType(),
+														component.getComponentTypeArchitecture()
+																.getArchitecture(),
+														component.getComponentTypeArchitecture().getId()))
+								.referencedBy(component, metric));
 
-			String path = property.map(p -> replacement.replace(p.getValue(), ""))
-					.map(p -> p.replaceFirst("^/+", ""))
-					.orElseThrow(() -> new SdcCustomException(
-							"No path of origin has been defined for metric '%s' (%s) component type %s and architecture %s (%s)"
-									.formatted(
-											metric.getName(), metric.getId(),
-											component.getComponentTypeArchitecture().getComponentType(),
-											component.getComponentTypeArchitecture().getArchitecture(),
-											component.getComponentTypeArchitecture().getId())));
+						return null;
+					});
 
-			List<MetricModel> pathMetrics = Optional.ofNullable(paths.get(path)).orElseGet(ArrayList::new);
+			if (property == null) {
+				return;
+			}
 
-			if (pathMetrics.isEmpty()) {
-				pathMetrics.add(metric);
-				paths.put(path, pathMetrics);
-			} else {
-				pathMetrics.add(metric);
+			try {
+				String path = replacement.replace(property.getValue(), "").replaceFirst("^/+", "");
+				List<MetricModel> pathMetrics = Optional.ofNullable(paths.get(path)).orElseGet(ArrayList::new);
+
+				if (pathMetrics.isEmpty()) {
+					pathMetrics.add(metric);
+					paths.put(path, pathMetrics);
+				} else {
+					pathMetrics.add(metric);
+				}
+			} catch (SdcCustomException ex) {
+				config.sseService().emitError(EventFactory.event(workflowId, ex).referencedBy(component, metric));
 			}
 		});
 
 		return paths;
 	}
 
-	private Function<MetricModel, ComponentAnalysisModel> execute(ComponentModel component, SdcDocument docuemnt) {
+	private Function<MetricModel, ComponentAnalysisModel> execute(String workflowId, ComponentModel component,
+			SdcDocument docuemnt) {
 		return metric -> {
 			String fn = DictioraryReplacement.fn(metric.getValue()).orElseGet(metric::getValue);
 
 			if (isGenericFn(fn)) {
 				String value = MetricLibrary.Library.valueOf(fn.toUpperCase())
-						.apply(new DocumentServiceDataDTO(component, metric, docuemnt))
-						.orElseGet(AnalysisUtils.notDataFound(new ServiceDataDTO(component, metric)));
+						.apply(new DocumentServiceDataDTO(workflowId, component, metric, docuemnt))
+						.orElseGet(AnalysisUtils.notDataFound(new ServiceDataDTO(workflowId, component, metric)));
 
 				return new ComponentAnalysisModel(component, metric, value);
 			} else {
-				return executeMetricFn(fn, new DocumentServiceDataDTO(component, metric, docuemnt));
+				return executeMetricFn(fn, new DocumentServiceDataDTO(workflowId, component, metric, docuemnt));
 			}
 		};
 	}

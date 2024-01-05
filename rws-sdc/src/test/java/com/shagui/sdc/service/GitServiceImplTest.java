@@ -33,6 +33,9 @@ class GitServiceImplTest {
 	private ComponentUtilsConfig componentConfig;
 
 	@Mock
+	private SseService sseService;
+
+	@Mock
 	private GitUtilsConfig gitConfig;
 
 	@Mock
@@ -41,7 +44,7 @@ class GitServiceImplTest {
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
-		gitService = new GitServiceImpl();
+		gitService = new GitServiceImpl(sseService);
 
 		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>());
 		when(staticRepositoryConfig.datalists()).thenReturn(new ArrayList<>());

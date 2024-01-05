@@ -8,6 +8,8 @@ import com.shagui.sdc.api.dto.sse.EventFactory;
 import com.shagui.sdc.api.dto.sse.EventType;
 import com.shagui.sdc.service.SseService;
 
+import io.micrometer.common.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
@@ -17,6 +19,7 @@ import reactor.core.publisher.Sinks;
  * 
  * @howto: server-sent events service
  */
+@Slf4j
 @Service
 public class SseServiceImpl implements SseService {
     private final Sinks.Many<EventFactory.EventDTO> sink;
@@ -35,9 +38,13 @@ public class SseServiceImpl implements SseService {
     }
 
     @Override
-    public void emit(EventFactory.EventDTO event) {
-        if (event != null) {
-            this.sink.tryEmitNext(event);
+    public void emitError(EventFactory.EventDTO event) {
+        if (event != null && EventType.ERROR.equals(event.getType())) {
+            if (StringUtils.isNotBlank(event.getWorkflowId())) {
+                this.sink.tryEmitNext(event);
+            }
+
+            log.error("SSE: {}", event.getMessage());
         }
     }
 }

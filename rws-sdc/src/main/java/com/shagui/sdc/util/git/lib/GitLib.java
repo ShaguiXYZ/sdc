@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.shagui.sdc.api.dto.ServiceDataDTO;
+import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.util.git.GitUtils;
 
 public class GitLib {
@@ -31,8 +32,9 @@ public class GitLib {
 	};
 
 	@SuppressWarnings("unchecked")
-	private static Map<String, Integer> languages(ServiceDataDTO serviceData) {
-		return GitUtils.retrieveGitData(serviceData.getComponent(), GitUtils.GitOperations.LANGUAGES, HashMap.class)
+	private static Map<String, Integer> languages(ServiceDataDTO serviceData) throws SdcCustomException {
+		return GitUtils
+				.retrieveGitData(serviceData.getComponent(), GitUtils.GitOperations.LANGUAGES, HashMap.class)
 				.orElseGet(HashMap::new);
 	}
 }

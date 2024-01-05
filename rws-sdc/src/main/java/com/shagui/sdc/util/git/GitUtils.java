@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.util.StringUtils;
 
+import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -17,9 +18,7 @@ import com.shagui.sdc.util.DictioraryReplacement;
 import com.shagui.sdc.util.UrlUtils;
 
 import feign.Response;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class GitUtils {
 
 	public enum GitOperations {
@@ -55,11 +54,13 @@ public class GitUtils {
 		GitUtils.config = config;
 	}
 
-	public static <T> Optional<T> retrieveGitData(ComponentModel component, GitOperations operation, Class<T> clazz) {
+	public static <T> Optional<T> retrieveGitData(ComponentModel component, GitOperations operation,
+			Class<T> clazz) {
 		return retrieveGitData(component, operation.path(), operation.params(), clazz);
 	}
 
-	public static <T> Optional<T> retrieveGitData(ComponentModel component, String operation, Optional<String> params,
+	public static <T> Optional<T> retrieveGitData(ComponentModel component, String operation,
+			Optional<String> params,
 			Class<T> clazz) {
 		Optional<UriModel> uriModel = UrlUtils.componentUri(component, UriType.GIT);
 
@@ -75,8 +76,7 @@ public class GitUtils {
 
 			return Optional.ofNullable(UrlUtils.mapResponse(response, clazz));
 		} else {
-			log.error("Not git uri for component '{}'", component.getName());
-			return Optional.empty();
+			throw new SdcCustomException("Not git uri for. component '%s'".formatted(component.getName()));
 		}
 	}
 

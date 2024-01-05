@@ -11,8 +11,9 @@ import lombok.Getter;
 public class DocumentServiceDataDTO extends ServiceDataDTO {
 	private SdcDocument docuemnt;
 
-	public DocumentServiceDataDTO(ComponentModel component, MetricModel metric, SdcDocument docuemnt) {
-		super(component, metric);
+	public DocumentServiceDataDTO(String workflowId, ComponentModel component, MetricModel metric,
+			SdcDocument docuemnt) {
+		super(workflowId, component, metric);
 		this.docuemnt = docuemnt;
 	}
 }
