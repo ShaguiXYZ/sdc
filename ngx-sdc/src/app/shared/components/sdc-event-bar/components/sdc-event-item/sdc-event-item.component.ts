@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationService } from 'src/app/core/components';
+import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService } from 'src/app/core/components';
 import { copyToClipboard } from 'src/app/core/lib';
 import { SseEventModel } from 'src/app/core/services';
-import { SDC_DEFAULT_NOTIFICATION_DURATION } from 'src/app/shared/constants';
 import { SdcEventReference } from 'src/app/shared/models';
 import { SdcEventItemService } from './services';
 
@@ -13,7 +12,7 @@ import { SdcEventItemService } from './services';
   selector: 'sdc-event-item',
   styleUrls: ['./sdc-event-item.component.scss'],
   template: `
-    <article class="event-item">
+    <article class="event-item" [class.fade-out]="fadeOut">
       <header>
         <span class="title {{ event.type.toLocaleLowerCase() }}">{{ event.type }}</span>
         @if (readable) {
@@ -39,7 +38,7 @@ import { SdcEventItemService } from './services';
               >
             </nx-link>
             @if (event.reference.metricName) {
-              <span> - ({{ event.reference.metricName }})</span>
+              <span class="sdc-event-item__metric">({{ event.reference.metricName }})</span>
             }
           </div>
         }
@@ -50,7 +49,9 @@ import { SdcEventItemService } from './services';
   providers: [SdcEventItemService],
   imports: [CommonModule, NxLinkModule]
 })
-export class SdcEventItemComponent {
+export class SdcEventItemComponent implements OnDestroy {
+  public fadeOut = false;
+
   @Input()
   public event!: SseEventModel<SdcEventReference>;
 
@@ -69,17 +70,29 @@ export class SdcEventItemComponent {
   @Output()
   public onReadEvent: EventEmitter<SseEventModel<SdcEventReference>> = new EventEmitter();
 
+  private _timeout?: NodeJS.Timeout;
+  private fadeOutTimeout?: NodeJS.Timeout;
+
   constructor(
     private readonly eventItemService: SdcEventItemService,
     private readonly notificationService: NotificationService,
     private readonly translateService: TranslateService
   ) {}
 
+  ngOnDestroy(): void {
+    this._timeout && clearTimeout(this._timeout);
+    this.fadeOutTimeout && clearTimeout(this.fadeOutTimeout);
+  }
+
   @Input()
-  public set timeOut(vaule: number) {
-    setTimeout(() => {
-      this.onRemoveEvent.emit(this.event);
-    }, vaule);
+  public set timeout(value: number) {
+    this._timeout && clearTimeout(this._timeout);
+
+    if (value) {
+      this._timeout = setTimeout(() => {
+        this.removeEvent();
+      }, value);
+    }
   }
 
   public onClickComponent(): void {
@@ -91,7 +104,11 @@ export class SdcEventItemComponent {
   }
 
   public removeEvent(): void {
-    this.onRemoveEvent.emit(this.event);
+    this.fadeOut = true;
+
+    this.fadeOutTimeout = setTimeout(() => {
+      this.onRemoveEvent.emit(this.event);
+    }, 700);
   }
 
   public copyToClipboard(): void {
@@ -99,7 +116,7 @@ export class SdcEventItemComponent {
       this.notificationService.info(
         this.translateService.instant('Label.CopyToClipboard'),
         this.event.message,
-        SDC_DEFAULT_NOTIFICATION_DURATION,
+        DEFAULT_TIMEOUT_NOTIFICATIONS,
         false
       );
     });

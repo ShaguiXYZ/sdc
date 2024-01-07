@@ -5,11 +5,11 @@ import { Subject, Subscription, debounceTime, distinctUntilChanged, fromEvent, m
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import $ from 'src/app/core/lib/dom.lib';
 import { ISummaryViewModel, SummaryViewType } from 'src/app/core/models/sdc';
+import { BACKGROUND_CHART_COLOR } from '../../constants';
 import { SdcCoverageChartComponent } from '../sdc-charts';
 import { OverlayItemState } from '../sdc-overlay/models';
 import { SdcTagComponent } from '../sdc-tag';
 import { SdcGlobalSearchService } from './services';
-import { BACKGROUND_CHART_COLOR } from '../../constants';
 
 @Component({
   selector: 'sdc-global-search',
@@ -87,8 +87,7 @@ export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
   @Input()
   public set state(value: OverlayItemState) {
     this._state = value;
-
-    setTimeout(() => $('.sdc-search-input input')?.focus(), 300);
+    setTimeout(() => this._state === 'open' && $('.sdc-search-input input')?.focus(), 300);
   }
 
   public toggleType(type: SummaryViewType): void {

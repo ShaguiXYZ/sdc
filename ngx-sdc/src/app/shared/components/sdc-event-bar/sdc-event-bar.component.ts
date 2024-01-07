@@ -9,6 +9,7 @@ import { OverlayItemState } from '../sdc-overlay/models';
 import { SdcEventItemComponent } from './components';
 import { SdcEventBarData } from './models';
 import { SdcEventBarService } from './services';
+import { DEFAULT_TIMEOUT_EVENT } from './constants';
 
 @Component({
   selector: 'sdc-event-bar',
@@ -30,7 +31,12 @@ import { SdcEventBarService } from './services';
           @for (event of eventBarData.events; track event.id) {
             @defer (on viewport) {
               <div class="reveal event-item">
-                <sdc-event-item [event]="event" (onReadEvent)="onReadEvent($event)" (onRemoveEvent)="onRemoveEvent($event)" />
+                <sdc-event-item
+                  [event]="event"
+                  [timeout]="event.read ? DEFAULT_TIMEOUT_EVENT : 0"
+                  (onReadEvent)="onReadEvent($event)"
+                  (onRemoveEvent)="onRemoveEvent($event)"
+                />
               </div>
             } @placeholder {
               <div class="placeholder"></div>
@@ -52,11 +58,11 @@ import { SdcEventBarService } from './services';
   imports: [CommonModule, SdcEventItemComponent, TranslateModule]
 })
 export class SdcEventBarComponent implements OnInit, OnDestroy {
+  public DEFAULT_TIMEOUT_EVENT = DEFAULT_TIMEOUT_EVENT;
   public eventBarData: SdcEventBarData = { events: [] };
 
-  @Input()
-  public state: OverlayItemState = 'closed';
-
+  private _state: OverlayItemState = 'closed';
+  private _timeout?: NodeJS.Timeout;
   private subscriptions$: Subscription[] = [];
 
   constructor(
@@ -66,16 +72,27 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions$.push(
-      this.eventBarService.onDataChange().subscribe(events =>
+      this.eventBarService.onDataChange().subscribe(events => {
         Promise.resolve().then(() => {
           this.eventBarData = { ...this.eventBarData, ...events };
-        })
-      )
+          this.controlEmptyEvents();
+        });
+      })
     );
   }
 
   ngOnDestroy(): void {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
+  }
+
+  public get state(): OverlayItemState {
+    return this._state;
+  }
+  @Input()
+  public set state(value: OverlayItemState) {
+    this._state = value;
+
+    this.controlEmptyEvents();
   }
 
   public onRemoveEvent(event: SseEventModel<SdcEventReference>): void {
@@ -103,5 +120,13 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
       this.eventBarService.clearEvents.bind(this.eventBarService),
       { okText: 'Label.Yes', cancelText: 'Label.No' }
     );
+  }
+
+  private controlEmptyEvents(): NodeJS.Timeout {
+    this._timeout && clearTimeout(this._timeout);
+
+    return setTimeout(() => {
+      !this.eventBarData.events.length && this._state === 'open' && this.close();
+    }, 5000);
   }
 }

@@ -36,13 +36,32 @@
   }
 
   .event-bar-options {
+    backdrop-filter: blur(5px);
+    background: var(--dropdown-panel-header-background-color);
     display: flex;
-    padding: 12px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    padding: 8px;
     width: 100%;
     z-index: $z-index-bottom;
 
     .sdc-op + .sdc-op {
       margin-left: 12px;
+    }
+
+    .sdc-op {
+      border-radius: 100%;
+      color: var(--dropdown-panel-header-text-color);
+      cursor: pointer;
+      padding: 8px;
+      transition:
+        background-color 0.5s ease-out,
+        color 0.5s ease-out;
+
+      &:hover {
+        color: var(--text-02);
+        background-color: var(--dropdown-item-hover-color);
+      }
     }
 
     .event-bar-options__left {
@@ -51,7 +70,9 @@
   }
 
   .event-bar-items {
-    flex: 1;
+    align-items: end;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0 8px 8px 8px;

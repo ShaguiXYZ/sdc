@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ISummaryViewModel, SummaryViewType } from 'src/app/core/models/sdc';
 import { SdcRouteService, SummaryViewService } from 'src/app/core/services/sdc';
+import { SdcOverlayService } from '../../sdc-overlay/services';
 
 @Injectable()
 export class SdcGlobalSearchService {
@@ -9,6 +10,7 @@ export class SdcGlobalSearchService {
 
   constructor(
     private readonly summaryViewService: SummaryViewService,
+    private readonly overlayService: SdcOverlayService,
     private readonly routeService: SdcRouteService
   ) {}
 
@@ -33,5 +35,7 @@ export class SdcGlobalSearchService {
       [SummaryViewType.SQUAD]: this.routeService.toSquadById,
       [SummaryViewType.DEPARTMENT]: this.routeService.toDepartmentById
     })[item.type]?.(item.id);
+
+    this.overlayService.defaultOverlayState();
   }
 }

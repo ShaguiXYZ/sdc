@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.domain.Range;

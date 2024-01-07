@@ -5,51 +5,69 @@
   position: absolute;
 }
 
-.has-messages {
-  color: var(--ui-01);
-  cursor: pointer;
-  background: var(--interactive-primary);
+.num-events {
+  background: var(--button-emphasis-disabled-background-color);
   border-radius: 50%;
+  color: var(--button-emphasis-disabled-text-color);
+  cursor: pointer;
   font-size: 1rem;
+  font-weight: 600;
   height: 100%;
+  margin-left: 0.5em;
   position: relative;
+  transition:
+    background-color 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
   width: 100%;
   z-index: $z-index-bottom;
 
-  &:hover {
-    background: var(--hover-primary);
-    transform: scale(1.1);
-  }
-}
-
-// @howto: pulse animation
-.pulse {
-  &::after {
-    content: '';
+  &.has-messages {
+    background: var(--button-emphasis-active-background-color);
     border-radius: 50%;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: calc($z-index-bottom - 1);
-    animation: pulse 5s infinite cubic-bezier(0.66, 0, 0, 1) 5s;
-  }
-}
+    color: var(--button-emphasis-text-color);
 
-@keyframes pulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 var(--hover-primary);
+    &:hover {
+      background: var(--button-emphasis-hover-background-color);
+      transform: scale(1.1);
+    }
   }
 
-  60% {
-    transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(0, 153, 255, 0);
+  &:not(.has-messages) {
+    &:hover {
+      background: var(--button-emphasis-disabled-background-color);
+      transform: scale(1.1);
+    }
   }
 
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(0, 153, 255, 0);
+  // @howto: pulse animation
+  &.pulse {
+    &::after {
+      content: '';
+      border-radius: 50%;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: calc($z-index-bottom - 1);
+      animation: pulse 5s infinite cubic-bezier(0.66, 0, 0, 1) 5s;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 var(--button-emphasis-active-background-color);
+    }
+
+    60% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(0, 153, 255, 0);
+    }
+
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 153, 255, 0);
+    }
   }
 }

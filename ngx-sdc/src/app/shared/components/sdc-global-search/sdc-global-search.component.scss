@@ -1,3 +1,4 @@
+@import 'colors';
 @import 'core-globals';
 
 .sdc-search-content {
@@ -8,6 +9,7 @@
   flex-direction: column;
   max-height: 100%;
   width: 100%;
+  transition: opacity 0.7s ease-in-out;
 
   &.open {
     pointer-events: auto;
@@ -30,11 +32,11 @@
         padding: 2px;
 
         &:focus-within {
-          background: linear-gradient(330.28deg, #2cfff2 0%, #1e78ff 30.73%, #ff54a6 55.73%, #ff6e1d 79.17%, #ff3e3e 100%);
+          background: linear-gradient(330.28deg, $state-critical 0%, $state-risk 30.73%, $state-acceptable 75.73%, $state-perfect 100%);
         }
 
         &:hover {
-          background: linear-gradient(330.28deg, #2cfff2 0%, #1e78ff 30.73%, #ff54a6 55.73%, #ff6e1d 79.17%, #ff3e3e 100%);
+          background: linear-gradient(330.28deg, $state-critical 0%, $state-risk 30.73%, $state-acceptable 75.73%, $state-perfect 100%);
         }
       }
 

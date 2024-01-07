@@ -14,10 +14,8 @@ import java.util.stream.Stream;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.domain.PageData;
-import com.shagui.sdc.api.domain.Reference;
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.api.dto.MetricAnalysisDTO;
 import com.shagui.sdc.api.dto.sse.EventFactory;

@@ -10,7 +10,7 @@ import { SdcSseEventService } from './services';
   styleUrls: ['./sdc-sse-event.component.scss'],
   template: `
     <div
-      class="sdc-center"
+      class="num-events sdc-center"
       [ngClass]="{ pulse: unread, 'has-messages': count }"
       [attr.data-title]="'Label.LastAnalysisEvents' | translate: { value: count }"
       (click)="toggleEvents()"

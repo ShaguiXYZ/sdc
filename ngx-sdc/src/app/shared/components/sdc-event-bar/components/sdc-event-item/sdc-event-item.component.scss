@@ -5,15 +5,26 @@
   border: var(--card-border-width) solid var(--card-border-color);
   border-radius: 4px;
   color: var(--card-text-color);
+  display: flex;
+  flex-direction: column;
+  max-height: 250px;
+  opacity: 1;
+  overflow: hidden;
   transition:
     background-color 0.5s ease-in-out,
     border-color 0.5s ease-in-out,
-    display 0.7s allow-discrete,
-    opacity 0.7s;
+    max-height 0.7s ease-in-out,
+    opacity 0.5s ease-in-out 0.2s;
 
   &:hover {
     background: var(--card-background-hover-color);
     border-color: var(--card-border-color-hover);
+  }
+
+  &.fade-out {
+    max-height: 0px;
+    opacity: 0;
+    pointer-events: none;
   }
 
   header {
@@ -64,6 +75,13 @@
       white-space: normal;
       word-break: break-word;
       word-wrap: break-word;
+    }
+
+    .sdc-event-item__metric {
+      color: var(--accent-01);
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-left: 8px;
     }
   }
 

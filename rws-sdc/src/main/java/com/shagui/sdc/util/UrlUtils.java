@@ -19,6 +19,7 @@ import com.shagui.sdc.model.ComponentModel;
 import feign.Response;
 
 public class UrlUtils {
+	private static final String STATUS_MESSAGE = "status %s for url %s";
 
 	private static UrlUtilsConfig config;
 
@@ -44,8 +45,10 @@ public class UrlUtils {
 
 	public static <T> T mapResponse(Response response, Class<T> clazz) {
 		if (response.status() >= 400) {
+			response.close();
+
 			throw new SdcCustomException(
-					"status %s calling %s".formatted(response.status(), response.request().url()));
+					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
 		}
 
 		JavaType type = config.getObjectMapper().getTypeFactory().constructType(clazz);
@@ -55,8 +58,10 @@ public class UrlUtils {
 	public static <C extends Collection<T>, T> C mapResponse(Response response, Class<C> collectionClass,
 			Class<T> clazz) {
 		if (response.status() >= 400) {
+			response.close();
+
 			throw new SdcCustomException(
-					"status %s calling %s".formatted(response.status(), response.request().url()));
+					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
 		}
 
 		JavaType type = config.getObjectMapper().getTypeFactory().constructCollectionType(collectionClass, clazz);
@@ -65,13 +70,17 @@ public class UrlUtils {
 
 	public static <T> T mapResponse(Response response, JavaType type) {
 		if (response.status() >= 400) {
+			response.close();
+
 			throw new SdcCustomException(
-					"status %s calling %s".formatted(response.status(), response.request().url()));
+					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
 		}
 
 		try (InputStream bodyIs = response.body().asInputStream()) {
 			return config.getObjectMapper().readValue(bodyIs, type);
 		} catch (IOException ex) {
+			response.close();
+
 			throw new SdcCustomException("error mapping response to %s".formatted(type.getTypeName()));
 		}
 	}
