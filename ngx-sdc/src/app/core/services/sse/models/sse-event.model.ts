@@ -5,7 +5,7 @@ export type SseEventType = 'ERROR' | 'INFO';
 export interface SseEventDTO<T = any> {
   type: SseEventType;
   message: string;
-  date: string;
+  date: number;
   reference?: T;
 }
 
@@ -13,7 +13,7 @@ export interface SseEventModel<T = any> {
   id?: string;
   type: SseEventType;
   message: string;
-  date: string;
+  date: number;
   read?: boolean;
   reference?: T;
 }

@@ -1,5 +1,7 @@
 package com.shagui.sdc.api.dto.sse;
 
+import java.util.Date;
+
 import lombok.Getter;
 
 @Getter
@@ -7,7 +9,7 @@ public class EventDTO {
     private EventType type;
     private String workflowId;
     private String message;
-    private String date;
+    private long date;
     private ReferenceDTO reference;
 
     public static EventDTO of(String workflowId, EventType type, String message) {
@@ -16,7 +18,7 @@ public class EventDTO {
         event.type = type;
         event.workflowId = workflowId;
         event.message = message;
-        event.date = String.valueOf(System.currentTimeMillis());
+        event.date = (new Date()).getTime();
 
         return event;
     }

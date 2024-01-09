@@ -1,5 +1,7 @@
 package com.shagui.sdc.api.dto.sse;
 
+import java.util.Date;
+
 import com.shagui.sdc.api.domain.Reference;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.model.ComponentModel;
@@ -25,14 +27,14 @@ public class EventFactory {
         private EventType type;
         private String workflowId;
         private String message;
-        private String date;
+        private long date;
         private Reference reference;
 
         private EventDTO(String workflowId, EventType type, String mesage) {
             this.type = type;
             this.message = mesage;
             this.workflowId = workflowId;
-            this.date = String.valueOf(System.currentTimeMillis());
+            this.date = (new Date()).getTime();
         }
 
         private EventDTO(String workflowId, SdcCustomException exception) {
