@@ -41,15 +41,15 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class GitDocumentService implements AnalysisInterface {
 	private static GitDocumentServiceConfig config;
 
-	protected GitDocumentService() {
+	protected static void setConfig(GitDocumentServiceConfig config) {
+		GitDocumentService.config = config;
 	}
 
 	protected abstract Class<? extends SdcDocument> documentOf();
 
 	protected abstract ComponentAnalysisModel executeMetricFn(String fn, DocumentServiceDataDTO data);
 
-	protected static void setConfig(GitDocumentServiceConfig config) {
-		GitDocumentService.config = config;
+	protected GitDocumentService() {
 	}
 
 	@Override

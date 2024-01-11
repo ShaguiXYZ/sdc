@@ -1,6 +1,6 @@
-import { DefaultCountdownSeed } from '../seed';
+import { DefaultCountDownSeed } from '../seed';
 
-export interface CountdownSeed {
+export interface CountDownSeed {
   // period: Countdown refresh time
   period?: () => number;
   // next: Next countdown value
@@ -13,4 +13,4 @@ export interface CountdownSeed {
   warn?: () => boolean;
 }
 
-export const DEFAULT_SEED = (config?: any): CountdownSeed => new DefaultCountdownSeed(config);
+export const DEFAULT_SEED = (config?: any): CountDownSeed => new DefaultCountDownSeed(config);

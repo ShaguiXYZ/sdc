@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { CountdownSeed, DEFAULT_COUNT_DOWN_PERIOD } from '.';
-import { NX_COUNTDOWN_SEED } from './models/countdown.model';
+import { DEFAULT_COUNT_DOWN_PERIOD, NX_COUNT_DOWN_SEED } from './models/count-down.model';
+import { CountDownSeed } from './models';
 
 @Injectable()
 export class CountDownService {
@@ -11,7 +11,7 @@ export class CountDownService {
   private onTick$: Subject<any>;
   private onWarn$: Subject<any>;
 
-  constructor(@Inject(NX_COUNTDOWN_SEED) private seed: CountdownSeed) {
+  constructor(@Inject(NX_COUNT_DOWN_SEED) private seed: CountDownSeed) {
     this.onExpired$ = new Subject<any>();
     this.onTick$ = new Subject<any>();
     this.onWarn$ = new Subject<any>();

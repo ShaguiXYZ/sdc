@@ -1,4 +1,4 @@
-import { CountdownSeed, DEFAULT_COUNT_DOWN_PERIOD, DEFAULT_COUNT_TIMEOUT } from '..';
+import { CountDownSeed, DEFAULT_COUNT_DOWN_PERIOD, DEFAULT_COUNT_TIMEOUT } from '../models';
 
 interface CountDownConfig {
   period: number;
@@ -11,7 +11,7 @@ const DEFAULT_SETTINGS: CountDownConfig = {
   period: DEFAULT_COUNT_DOWN_PERIOD
 };
 
-export class DefaultCountdownSeed implements CountdownSeed {
+export class DefaultCountDownSeed implements CountDownSeed {
   private _settings: CountDownConfig;
   private currentCount = 0;
 

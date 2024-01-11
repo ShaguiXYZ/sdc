@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CountDownService, DEFAULT_SEED, NX_COUNTDOWN_SEED } from '.';
+import { CountDownService } from './count-down.service';
+import { DEFAULT_SEED, NX_COUNT_DOWN_SEED } from './models';
 
 @NgModule({
   imports: [],
@@ -10,7 +11,7 @@ export class CountDownModule {
   public static forRoot(): ModuleWithProviders<CountDownModule> {
     return {
       ngModule: CountDownModule,
-      providers: [CountDownService, { provide: NX_COUNTDOWN_SEED, useValue: DEFAULT_SEED() }]
+      providers: [CountDownService, { provide: NX_COUNT_DOWN_SEED, useValue: DEFAULT_SEED() }]
     };
   }
 }
