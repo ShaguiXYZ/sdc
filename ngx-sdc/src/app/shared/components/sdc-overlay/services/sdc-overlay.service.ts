@@ -7,6 +7,7 @@ import { OverlayItemState, SdcOverlayModel } from '../models';
 })
 export class SdcOverlayService {
   public static readonly DEFAULT_OVERLAY_STATE: SdcOverlayModel = {
+    helpState: 'closed',
     globalSearchState: 'closed',
     eventBarState: 'closed'
   };
@@ -28,8 +29,13 @@ export class SdcOverlayService {
     this.data$.next(this.overlayModel);
   }
 
+  public toggleHelp(state?: OverlayItemState) {
+    this.overlayModel.helpState = state ?? OverlayItemState.toggle(this.overlayModel.helpState);
+    this.data$.next(this.overlayModel);
+  }
+
   public defaultOverlayState() {
-    this.overlayModel = { ...this.overlayModel, globalSearchState: 'closed' };
+    this.overlayModel = { ...this.overlayModel, globalSearchState: 'closed', helpState: 'closed' };
     this.data$.next(this.overlayModel);
   }
 }

@@ -3,7 +3,7 @@ import { Subject, Subscription } from 'rxjs';
 import { ContextDataService, SseEventModel } from 'src/app/core/services';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcRootContextData } from 'src/app/shared/models';
-import { SdcOverlayService } from '../../sdc-overlay/services';
+import { SdcOverlayService } from '../../../services';
 import { SdcEventBarData } from '../models';
 
 @Injectable()

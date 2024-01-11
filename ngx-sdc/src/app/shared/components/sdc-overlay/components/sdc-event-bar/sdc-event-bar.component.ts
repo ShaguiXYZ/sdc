@@ -4,12 +4,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components';
 import { SseEventModel } from 'src/app/core/services';
-import { SdcEventReference } from '../../models';
-import { OverlayItemState } from '../sdc-overlay/models';
+import { SdcEventReference } from 'src/app/shared/models';
+import { OverlayItemState } from '../../models';
 import { SdcEventItemComponent } from './components';
+import { DEFAULT_TIMEOUT_EVENT } from './constants';
 import { SdcEventBarData } from './models';
 import { SdcEventBarService } from './services';
-import { DEFAULT_TIMEOUT_EVENT } from './constants';
 
 @Component({
   selector: 'sdc-event-bar',
@@ -45,7 +45,7 @@ import { DEFAULT_TIMEOUT_EVENT } from './constants';
         </article>
       } @else {
         <sdc-event-item
-          [event]="{ type: 'INFO', message: 'Label.NoEventsAvailables' | translate, date: now() }"
+          [event]="{ type: 'INFO', message: 'Label.NoEventsAvailables' | translate, date: now }"
           [copyable]="false"
           [closable]="false"
           [readable]="false"
@@ -60,7 +60,7 @@ import { DEFAULT_TIMEOUT_EVENT } from './constants';
 export class SdcEventBarComponent implements OnInit, OnDestroy {
   public DEFAULT_TIMEOUT_EVENT = DEFAULT_TIMEOUT_EVENT;
   public eventBarData: SdcEventBarData = { events: [] };
-  public now = (): number => new Date().getTime();
+  public now = Date.now();
 
   private _state: OverlayItemState = 'closed';
   private _timeout?: NodeJS.Timeout;

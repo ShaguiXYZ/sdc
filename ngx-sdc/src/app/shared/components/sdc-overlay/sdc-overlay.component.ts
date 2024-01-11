@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
-import { SdcEventBarComponent } from '../sdc-event-bar';
-import { SdcGlobalSearchComponent } from '../sdc-global-search';
+import { SdcEventBarComponent, SdcGlobalSearchComponent } from './components';
 import { SdcOverlayModel } from './models';
 import { SdcOverlayService } from './services';
 

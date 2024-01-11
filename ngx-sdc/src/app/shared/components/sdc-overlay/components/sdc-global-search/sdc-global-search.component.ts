@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NxCheckboxModule } from '@aposin/ng-aquila/checkbox';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import $ from 'src/app/core/lib/dom.lib';
 import { ISummaryViewModel, SummaryViewType } from 'src/app/core/models/sdc';
-import { BACKGROUND_CHART_COLOR } from '../../constants';
-import { SdcCoverageChartComponent } from '../sdc-charts';
-import { OverlayItemState } from '../sdc-overlay/models';
-import { SdcTagComponent } from '../sdc-tag';
+import { BACKGROUND_CHART_COLOR } from 'src/app/shared/constants';
+import { SdcCoverageChartComponent } from '../../../sdc-charts';
+import { SdcTagComponent } from '../../../sdc-tag';
+import { OverlayItemState } from '../../models';
 import { SdcGlobalSearchService } from './services';
-import { NxCheckboxModule } from '@aposin/ng-aquila/checkbox';
 
 @Component({
   selector: 'sdc-global-search',

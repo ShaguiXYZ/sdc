@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ISummaryViewModel, SummaryViewType } from 'src/app/core/models/sdc';
 import { SdcRouteService, SummaryViewService } from 'src/app/core/services/sdc';
-import { SdcOverlayService } from '../../sdc-overlay/services';
+import { SdcOverlayService } from '../../../services';
 
 @Injectable()
 export class SdcGlobalSearchService {

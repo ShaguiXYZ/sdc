@@ -23,6 +23,10 @@ import { SdcKeysComponent } from '../sdc-keys';
           align-items: center;
           flex: 1;
           justify-content: flex-start;
+
+          .sdc-footer-info-text {
+            margin-right: 12px;
+          }
         }
 
         .sdc-footer-content {
@@ -49,6 +53,7 @@ import { SdcKeysComponent } from '../sdc-keys';
     <footer nxLayout="grid maxwidth nogutters">
       <div class="sdc-footer-content">
         <div class="sdc-footer-info">
+          <span class="sdc-footer-info-text">© 2023</span>
           <sdc-keys />
         </div>
         <div class="sdc-footer-actions sdc-center">

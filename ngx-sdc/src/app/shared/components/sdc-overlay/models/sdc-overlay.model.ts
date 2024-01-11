@@ -7,6 +7,7 @@ export namespace OverlayItemState {
 }
 
 export interface SdcOverlayModel {
+  helpState: OverlayItemState;
   globalSearchState: OverlayItemState;
   eventBarState: OverlayItemState;
 }
