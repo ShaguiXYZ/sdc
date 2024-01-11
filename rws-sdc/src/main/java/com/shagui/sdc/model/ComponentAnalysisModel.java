@@ -2,6 +2,8 @@ package com.shagui.sdc.model;
 
 import java.util.Date;
 
+import com.shagui.sdc.model.pk.ComponentAnalysisPk;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -11,9 +13,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-
-import com.shagui.sdc.model.pk.ComponentAnalysisPk;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -74,5 +73,4 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 		this.metricValue = value;
 		this.blocker = blocker;
 	}
-
 }

@@ -18,13 +18,19 @@ export class SdcGlobalSearchService {
     return this.data$;
   }
 
-  public getSummaryViews(name: string, types: any = [], page?: number, ps?: number): void {
+  public getSummaryViews(name: string, types: { [key in SummaryViewType]: boolean }, page?: number, ps?: number): void {
     if (name === '') {
       this.data$.next([]);
       return;
     }
 
-    this.summaryViewService.getSummaryViews(name, types, page, ps).then(data => {
+    const selectedTypes = Object.entries(types).reduce((acc, [key, value]) => {
+      value && acc.push(key as SummaryViewType);
+
+      return acc;
+    }, [] as SummaryViewType[]);
+
+    this.summaryViewService.getSummaryViews(name, selectedTypes, page, ps).then(data => {
       this.data$.next(data.page);
     });
   }

@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { SdcOverlayService } from '../sdc-overlay/services';
 import { SdcKeyComponent } from './components';
+import SdcScreenRecorder from 'src/app/core/lib/screen-recorder.lib';
 
 @Component({
   selector: 'sdc-keys',
@@ -39,6 +40,8 @@ export class SdcKeysComponent {
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     // @howto: Detect platform
+    this.eventKeyActions(event);
+
     if (navigator.userAgent.toLowerCase().includes('windows')) {
       this.handleWindowsKeyEvents(event);
     } else {
@@ -50,12 +53,10 @@ export class SdcKeysComponent {
     // MetaKey documentation
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
 
-    this.eventKeyActions(event);
     event.metaKey && this.eventCtrlKeyActions(event);
   }
 
   private handleWindowsKeyEvents(event: KeyboardEvent) {
-    this.eventKeyActions(event);
     event.ctrlKey && this.eventCtrlKeyActions(event);
   }
 
@@ -65,6 +66,11 @@ export class SdcKeysComponent {
         this.overlayService.toggleGlobalSearch();
         event.preventDefault();
         break;
+      case 'R':
+        SdcScreenRecorder.startRecording();
+        event.preventDefault();
+        break;
+      case 'P':
       case 'S':
         event.preventDefault();
         break;
@@ -73,13 +79,14 @@ export class SdcKeysComponent {
     }
   }
 
-  private eventKeyActions(event: KeyboardEvent) {
+  private eventKeyActions(event: KeyboardEvent): void {
     switch (event.key.toUpperCase()) {
       case 'ESCAPE':
-        this.overlayService.toggleGlobalSearch('closed');
+        this.overlayService.defaultOverlayState();
         event.preventDefault();
         break;
       default:
+        // Add a default case here
         break;
     }
   }

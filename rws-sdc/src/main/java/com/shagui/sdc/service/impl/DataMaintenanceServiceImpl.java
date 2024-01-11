@@ -51,8 +51,8 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Value("classpath:data/departments-squads.json")
 	private Resource jsonDepartmentsSquads;
 
-	private ObjectMapper mapper;
-	private ResourceLoader resourceLoader;
+	private final ObjectMapper mapper;
+	private final ResourceLoader resourceLoader;
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 	private JpaCommonRepository<ComponentUriRepository, ComponentUriModel, ComponentUriPk> componentUriRepository;
 	private JpaCommonRepository<SquadRepository, SquadModel, Integer> squadRepository;

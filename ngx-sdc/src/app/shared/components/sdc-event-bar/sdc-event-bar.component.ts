@@ -45,7 +45,7 @@ import { DEFAULT_TIMEOUT_EVENT } from './constants';
         </article>
       } @else {
         <sdc-event-item
-          [event]="{ type: 'INFO', message: 'Label.NoEventsAvailables' | translate, date: '' }"
+          [event]="{ type: 'INFO', message: 'Label.NoEventsAvailables' | translate, date: now() }"
           [copyable]="false"
           [closable]="false"
           [readable]="false"
@@ -60,6 +60,7 @@ import { DEFAULT_TIMEOUT_EVENT } from './constants';
 export class SdcEventBarComponent implements OnInit, OnDestroy {
   public DEFAULT_TIMEOUT_EVENT = DEFAULT_TIMEOUT_EVENT;
   public eventBarData: SdcEventBarData = { events: [] };
+  public now = (): number => new Date().getTime();
 
   private _state: OverlayItemState = 'closed';
   private _timeout?: NodeJS.Timeout;

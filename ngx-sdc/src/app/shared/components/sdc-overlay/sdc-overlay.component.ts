@@ -23,7 +23,7 @@ import { SdcOverlayService } from './services';
   imports: [CommonModule, NxGridModule, SdcEventBarComponent, SdcGlobalSearchComponent]
 })
 export class SdcOverlayComponent {
-  public overlayModel: SdcOverlayModel = { globalSearchState: 'closed', eventBarState: 'closed' };
+  public overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;
 
   constructor(overlayService: SdcOverlayService) {
     overlayService.onDataChange().subscribe(data => {

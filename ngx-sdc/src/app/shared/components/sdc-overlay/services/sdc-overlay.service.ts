@@ -6,7 +6,12 @@ import { OverlayItemState, SdcOverlayModel } from '../models';
   providedIn: 'root'
 })
 export class SdcOverlayService {
-  private overlayModel: SdcOverlayModel = { globalSearchState: 'closed', eventBarState: 'closed' };
+  public static readonly DEFAULT_OVERLAY_STATE: SdcOverlayModel = {
+    globalSearchState: 'closed',
+    eventBarState: 'closed'
+  };
+
+  private overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;
   private data$: Subject<SdcOverlayModel> = new Subject<SdcOverlayModel>();
 
   public onDataChange() {

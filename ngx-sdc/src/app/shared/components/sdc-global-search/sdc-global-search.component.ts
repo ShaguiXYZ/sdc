@@ -10,6 +10,7 @@ import { SdcCoverageChartComponent } from '../sdc-charts';
 import { OverlayItemState } from '../sdc-overlay/models';
 import { SdcTagComponent } from '../sdc-tag';
 import { SdcGlobalSearchService } from './services';
+import { NxCheckboxModule } from '@aposin/ng-aquila/checkbox';
 
 @Component({
   selector: 'sdc-global-search',
@@ -22,10 +23,9 @@ import { SdcGlobalSearchService } from './services';
         </div>
         <div class="sdc-search-type">
           @for (type of elementTypes; track type) {
-            <label class="label-type" [for]="type">
+            <nx-checkbox [id]="type" [checked]="selectedTypes[type]" (change)="toggleType(type)">
               {{ type | titlecase }}
-              <input type="checkbox" [id]="type" (change)="toggleType(type)" />
-            </label>
+            </nx-checkbox>
           }
         </div>
       </div>
@@ -54,22 +54,25 @@ import { SdcGlobalSearchService } from './services';
   `,
   providers: [SdcGlobalSearchService],
   standalone: true,
-  imports: [CommonModule, SdcCoverageChartComponent, SdcTagComponent, TranslateModule]
+  imports: [CommonModule, NxCheckboxModule, SdcCoverageChartComponent, SdcTagComponent, TranslateModule]
 })
 export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
   public BACKGROUND_CHART_COLOR = BACKGROUND_CHART_COLOR;
   public data$: Subject<ISummaryViewModel[]>;
-  public elementTypes: SummaryViewType[] = [];
+  public elementTypes: SummaryViewType[] = Object.values(SummaryViewType);
+  public selectedTypes: { [key in SummaryViewType]: boolean } = {
+    COMPONENT: false,
+    DEPARTMENT: false,
+    SQUAD: false
+  };
 
   private _state: OverlayItemState = 'closed';
-  private selectedTypes: SummaryViewType[] = [];
 
   @ViewChild('searchInput', { static: true })
   private searchInput!: ElementRef;
   private subscription$: Array<Subscription> = [];
 
   constructor(private readonly globalSearchService: SdcGlobalSearchService) {
-    this.elementTypes = Object.values(SummaryViewType);
     this.data$ = this.globalSearchService.onDataChange();
   }
 
@@ -91,11 +94,7 @@ export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
   }
 
   public toggleType(type: SummaryViewType): void {
-    if (this.selectedTypes.includes(type)) {
-      this.selectedTypes = this.selectedTypes.filter(selectedType => selectedType !== type);
-    } else {
-      this.selectedTypes.push(type);
-    }
+    this.selectedTypes[type] = !this.selectedTypes[type];
 
     this.searchData(this.searchInput.nativeElement.value, this.selectedTypes);
   }
@@ -116,12 +115,12 @@ export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  private searchData(name: string, types: SummaryViewType[]): void {
-    const sanitizedValue = this.sanetizeName(this.searchInput.nativeElement.value);
+  private searchData(name: string, types: { [key in SummaryViewType]: boolean }): void {
+    const sanitizedValue = this.sanetizeName(name);
     const validWords = sanitizedValue.split(' ').filter((word: string) => word.length > 2);
     const searchValue = validWords.length > 0 ? validWords.join(' ') : '';
 
-    this.globalSearchService.getSummaryViews(searchValue, this.selectedTypes);
+    this.globalSearchService.getSummaryViews(searchValue, types);
   }
 
   private sanetizeName(name: string): string {

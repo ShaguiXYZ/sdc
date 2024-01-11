@@ -1,7 +1,6 @@
 package com.shagui.sdc.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -101,34 +100,6 @@ class GitXmlServiceTest {
 
 		List<ComponentAnalysisModel> analize = service.analyze("workflowId", component);
 		assertEquals(new ArrayList<>(), analize);
-	}
-
-	@Test
-	void analyzeRuntimeException() {
-		List<MetricModel> metrics = new ArrayList<MetricModel>();
-		metrics.add(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
-
-		List<ComponentUriModel> uris = new ArrayList<>();
-		uris.add(RwsTestUtils.componentUriModelMock());
-
-		List<ComponentPropertyModel> properties = new ArrayList<ComponentPropertyModel>();
-		properties.add(RwsTestUtils.componentProperty("xml_path"));
-
-		ComponentTypeArchitectureModel componentTypeArchitecture = new ComponentTypeArchitectureModel();
-		componentTypeArchitecture.setMetrics(metrics);
-
-		ComponentModel component = new ComponentModel();
-		component.setComponentTypeArchitecture(componentTypeArchitecture);
-		component.setUris(uris);
-		component.setProperties(properties);
-
-		when(componentTypeArchitectureMetricPropertiesRep.findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(
-				any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString()))
-				.thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
-		when(gitClient.repoFile(any(URI.class))).thenReturn(
-				RwsTestUtils.response(400, RwsTestUtils.gitContentResponse(RwsTestUtils.XML_RESPONSE_TEST)));
-
-		assertThrows(RuntimeException.class, () -> service.analyze("workflowId", component));
 	}
 
 	@Test

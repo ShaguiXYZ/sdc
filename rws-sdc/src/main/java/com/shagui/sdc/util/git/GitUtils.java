@@ -60,8 +60,7 @@ public class GitUtils {
 	}
 
 	public static <T> Optional<T> retrieveGitData(ComponentModel component, String operation,
-			Optional<String> params,
-			Class<T> clazz) {
+			Optional<String> params, Class<T> clazz) {
 		Optional<UriModel> uriModel = UrlUtils.componentUri(component, UriType.GIT);
 
 		if (uriModel.isPresent()) {
