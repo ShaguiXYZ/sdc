@@ -36,16 +36,15 @@
                 class="factor factor-{{ factor }} sdc-center"
                 [ngClass]="{ show: availableFactorCharts[factor], fade: !availableFactorCharts[factor] }"
               >
-                <label class="factor-label" for="factor-{{ $index }}">
+                <nx-checkbox
+                  class="factor-checkbox  factor-{{ factor }}"
+                  id="factor-{{ $index }}"
+                  [checked]="metricsData.showFactorCharts && metricsData.showFactorCharts[factor]"
+                  (change)="toggleFactorChart(factor)"
+                  [disabled]="!availableFactorCharts[factor]"
+                >
                   {{ 'Label.Factors.' + factor | translate }}
-                  <input
-                    type="checkbox"
-                    id="factor-{{ $index }}"
-                    [checked]="metricsData.showFactorCharts && metricsData.showFactorCharts[factor]"
-                    (change)="toggleFactorChart(factor)"
-                    [disabled]="!availableFactorCharts[factor]"
-                  />
-                </label>
+                </nx-checkbox>
               </div>
             }
           </div>

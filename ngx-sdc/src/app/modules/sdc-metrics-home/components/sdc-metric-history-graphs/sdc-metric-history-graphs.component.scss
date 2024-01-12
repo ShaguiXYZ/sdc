@@ -33,16 +33,16 @@
       .factor {
         padding: 0 8px;
 
-        &.factor-expectedValue {
-          color: $state-risk;
+        .factor-expectedValue ::ng-deep .nx-checkbox__control {
+          background-color: $state-risk;
         }
 
-        &.factor-goodValue {
-          color: $state-acceptable;
+        .factor-goodValue ::ng-deep .nx-checkbox__control {
+          background-color: $state-acceptable;
         }
 
-        &.factor-perfectValue {
-          color: $state-perfect;
+        .factor-perfectValue ::ng-deep .nx-checkbox__control {
+          background-color: $state-perfect;
         }
 
         &.fade {

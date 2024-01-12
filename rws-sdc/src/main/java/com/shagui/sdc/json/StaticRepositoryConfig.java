@@ -7,8 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,15 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class StaticRepositoryConfig {
-	@Value("classpath:data/uris.json")
-	private Resource jsonUris;
-
-	@Value("classpath:data/datalists.json")
-	private Resource jsonDatalists;
-
-	@Value("classpath:data/component-params.json")
-	private Resource jsonComponentParams;
-
 	private ObjectMapper mapper;
 
 	private List<UriModel> uris = new ArrayList<>();
@@ -43,9 +35,10 @@ public class StaticRepositoryConfig {
 
 	@PostConstruct
 	public void init() {
-		uris = mapResource(jsonUris, UriModel[].class).map(Arrays::asList).orElseGet(ArrayList::new);
-		datalists = mapResource(jsonDatalists, DataListModel[].class).map(Arrays::asList).orElseGet(ArrayList::new);
-		componentParams = mapResource(jsonComponentParams, ComponentParamsModel[].class).map(Arrays::asList)
+		uris = loadResource("data/uris.json", UriModel[].class).map(Arrays::asList).orElseGet(ArrayList::new);
+		datalists = loadResource("data/datalists.json", DataListModel[].class).map(Arrays::asList)
+				.orElseGet(ArrayList::new);
+		componentParams = loadResource("data/component-params.json", ComponentParamsModel[].class).map(Arrays::asList)
 				.orElseGet(ArrayList::new);
 
 		StaticRepository.setConfig(this);
@@ -61,6 +54,10 @@ public class StaticRepositoryConfig {
 
 	public List<ComponentParamsModel> componentParams() {
 		return componentParams;
+	}
+
+	private <T> Optional<T> loadResource(@NonNull String resource, Class<T> clazz) {
+		return mapResource(new ClassPathResource(resource), clazz);
 	}
 
 	private <T> Optional<T> mapResource(Resource resource, Class<T> clazz) {

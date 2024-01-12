@@ -10,12 +10,14 @@ import { SdcOverlayService } from './services';
   styleUrls: ['./sdc-overlay.component.scss'],
   template: `
     <div nxLayout="grid maxwidth nogutters" class="overlay-items">
-      <div nxLayout="grid maxwidth nogutters" class="event-bar overlay-item">
-        <sdc-event-bar [state]="overlayModel.eventBarState" />
-      </div>
-      <div class="global-search overlay-item">
-        <sdc-global-search [state]="overlayModel.globalSearchState" />
-      </div>
+      @defer {
+        <div nxLayout="grid maxwidth nogutters" class="event-bar overlay-item">
+          <sdc-event-bar [state]="overlayModel.eventBarState" />
+        </div>
+        <div class="global-search overlay-item">
+          <sdc-global-search [state]="overlayModel.globalSearchState" />
+        </div>
+      }
     </div>
   `,
   standalone: true,

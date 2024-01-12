@@ -1,5 +1,6 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { NxCheckboxModule } from '@aposin/ng-aquila/checkbox';
 import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -18,7 +19,7 @@ import { SdcMetricHistoryGraphsService } from './services';
   styleUrls: ['./sdc-metric-history-graphs.component.scss'],
   providers: [SdcMetricHistoryGraphsService, SdcValueTypeToNumberPipe],
   standalone: true,
-  imports: [SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, CommonModule, NxCopytextModule, TranslateModule]
+  imports: [CommonModule, NxCopytextModule, NxCheckboxModule, SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, TranslateModule]
 })
 export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   public availableFactorCharts: { [key in AnalysisFactor]: boolean } = {
