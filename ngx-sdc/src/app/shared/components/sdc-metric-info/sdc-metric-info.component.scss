@@ -13,6 +13,7 @@
 }
 
 .metric {
+  cursor: pointer;
   display: flex;
   padding: 5px;
   position: relative;
@@ -21,9 +22,9 @@
   width: 100%;
 
   &.selected {
-    color: var(--action-selected-color);
     background-color: $background-color-1;
     border-radius: 4px;
+    color: var(--action-selected-color);
     outline-color: darken($background-color-1, 10%);
     outline-style: auto;
   }
@@ -31,7 +32,6 @@
   &:hover {
     outline-color: darken($background-color-1, 25%);
     outline-style: auto;
-    cursor: pointer;
   }
 
   .blocker {

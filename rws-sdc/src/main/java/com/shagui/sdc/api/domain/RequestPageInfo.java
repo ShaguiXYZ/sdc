@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.lang.NonNull;
 
 import com.shagui.sdc.core.configuration.AppConfig;
 
@@ -30,7 +31,7 @@ public class RequestPageInfo {
 		return PageRequest.of(page, size);
 	}
 
-	public Pageable getPageable(Sort sort) {
+	public Pageable getPageable(@NonNull Sort sort) {
 		return PageRequest.of(page, size, sort);
 	}
 }

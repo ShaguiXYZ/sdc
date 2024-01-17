@@ -7,7 +7,7 @@
         </div>
       </div>
     }
-    <div class="coverages" [ngClass]="{ 'data-loaded': departmentsData.department, 'no-data-loaded': !departmentsData.department }">
+    <div class="coverages" [ngClass]="{ 'no-data-loaded': !departmentsData.department }">
       <div class="nx-margin-right-3xs" [ngClass]="{ 'width-50': departmentsData.department, 'width-100': !departmentsData.department }">
         <sdc-coverages
           [coverages]="departmentsData.departments"

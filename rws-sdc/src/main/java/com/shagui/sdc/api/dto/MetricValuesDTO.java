@@ -1,6 +1,7 @@
 package com.shagui.sdc.api.dto;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.NonNull;
 
 import com.shagui.sdc.model.MetricValuesModel;
 
@@ -16,8 +17,8 @@ public class MetricValuesDTO {
 	private String value;
 	private String goodValue;
 	private String perfectValue;
-	
-	public MetricValuesDTO(MetricValuesModel model) {
+
+	public MetricValuesDTO(@NonNull MetricValuesModel model) {
 		BeanUtils.copyProperties(model, this);
 	}
 }

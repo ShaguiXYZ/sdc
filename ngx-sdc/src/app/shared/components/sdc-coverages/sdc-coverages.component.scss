@@ -1,53 +1,50 @@
 @import 'colors';
 
 .card-content {
+  border-radius: 4px;
   height: 100%;
-  position: relative;
+  padding: 0;
+  width: -webkit-fill-available;
+  width: -moz-available;
 
-  nx-card {
-    border-radius: 4px;
-    bottom: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    width: -webkit-fill-available;
-    width: -moz-available;
+  ::ng-deep div.nx-card-inner {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+  }
 
-    .coverages {
-      bottom: 0;
-      overflow-x: hidden;
-      overflow-y: auto;
-      position: absolute;
-      top: 75px;
-      width: -webkit-fill-available;
-      width: -moz-available;
+  .card-header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
 
-      .loading,
-      .placeholder {
-        height: 55px;
-        width: 55px;
-      }
-
-      .loading {
-        margin: 0 auto;
+    ::ng-deep nx-formfield {
+      .nx-formfield__wrapper {
+        padding: 0;
       }
     }
 
-    .card-header {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      position: relative;
+    .header-left {
+      flex-grow: 1;
+    }
+  }
 
-      ::ng-deep nx-formfield {
-        .nx-formfield__wrapper {
-          padding: 0;
-        }
-      }
+  .coverages {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: -webkit-fill-available;
+    width: -moz-available;
 
-      .header-left {
-        flex-grow: 1;
-      }
+    .loading,
+    .placeholder {
+      height: 55px;
+      width: 55px;
+    }
+
+    .loading {
+      margin: 0 auto;
     }
   }
 }

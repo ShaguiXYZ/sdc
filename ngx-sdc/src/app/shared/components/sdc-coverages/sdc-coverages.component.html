@@ -1,33 +1,31 @@
-<div class="card-content">
-  <nx-card>
-    <header class="card-header">
-      <div class="header-left">
-        <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ title }}</h4>
-      </div>
-      <div class="header-right">
-        <nx-formfield id="data-name">
-          <input #searchInput nxInput type="text" [placeholder]="'Label.Search' | translate" autocomplete="off" [(ngModel)]="filter" />
-          <span nxFormfieldSuffix>
-            <em class="fa-solid fa-magnifying-glass"></em>
-          </span>
-        </nx-formfield>
-      </div>
-    </header>
-    <div class="coverages sdc-scrollable nx-margin-right-s nx-margin-bottom-m">
-      @if (coverages) {
-        @for (coverage of coverages; track coverage.id) {
-          @defer (on viewport) {
-            <sdc-coverage-info
-              [coverage]="coverage"
-              [selectable]="selectable"
-              [selected]="selected === coverage.id"
-              (selectCoverage)="onClickCoverage($event)"
-            />
-          } @placeholder {
-            <div class="placeholder"></div>
-          }
+<nx-card class="card-content">
+  <header class="card-header">
+    <div class="header-left">
+      <h4 nxHeadline="subsection-xsmall" class="nx-font-weight-bold">{{ title }}</h4>
+    </div>
+    <div class="header-right">
+      <nx-formfield id="data-name">
+        <input #searchInput nxInput type="text" [placeholder]="'Label.Search' | translate" autocomplete="off" [(ngModel)]="filter" />
+        <span nxFormfieldSuffix>
+          <em class="fa-solid fa-magnifying-glass"></em>
+        </span>
+      </nx-formfield>
+    </div>
+  </header>
+  <div class="coverages sdc-scrollable nx-margin-top-m">
+    @if (coverages) {
+      @for (coverage of coverages; track coverage.id) {
+        @defer (on viewport) {
+          <sdc-coverage-info
+            [coverage]="coverage"
+            [selectable]="selectable"
+            [selected]="selected === coverage.id"
+            (selectCoverage)="onClickCoverage($event)"
+          />
+        } @placeholder {
+          <div class="placeholder"></div>
         }
       }
-    </div>
-  </nx-card>
-</div>
+    }
+  </div>
+</nx-card>

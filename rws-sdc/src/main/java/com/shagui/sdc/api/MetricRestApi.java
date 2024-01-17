@@ -22,23 +22,23 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = { "/api/metric", "/api/metrics" }, produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface MetricRestApi {
 	@Operation(summary = "Retrieve metric by Id")
-	@GetMapping({ "{metricId}" })
+	@GetMapping({ "metric/{metricId}" })
 	MetricDTO metric(@PathVariable @Parameter(description = "metric identifier") int metricId);
 
 	@Operation(summary = "Retrieve all available metrics")
-	@GetMapping
+	@GetMapping("metrics")
 	PageData<MetricDTO> metrics();
 
 	@Operation(summary = "Create new metric")
-	@PostMapping
+	@PostMapping("metric")
 	@ResponseStatus(HttpStatus.CREATED)
 	MetricDTO create(@RequestBody MetricDTO metric);
 
 	@Operation(summary = "Create new metric")
-	@PostMapping("values")
+	@PostMapping("metric/values")
 	@ResponseStatus(HttpStatus.CREATED)
 	MetricDTO createValues(@RequestParam String name, @RequestParam(required = false) String description,
 			@RequestParam(required = false) AnalysisType type, @RequestParam MetricValueType valueType,
@@ -46,7 +46,7 @@ public interface MetricRestApi {
 			@RequestParam(required = false, defaultValue = "false") boolean blocker);
 
 	@Operation(summary = "Update an specific Metric", description = "Field metricId should match the metricId from url")
-	@PutMapping("{metricId}")
+	@PutMapping("metric/{metricId}")
 	@ResponseStatus(HttpStatus.OK)
 	MetricDTO update(@PathVariable @Parameter(description = "metric identifier") int metricId,
 			@RequestBody MetricDTO metric);

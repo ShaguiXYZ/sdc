@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.NonNull;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
 
@@ -22,17 +23,20 @@ public interface CastTo<T> {
 		}
 	}
 
-	private T parseNoArgsConstructor(Object source) {
+	private T parseNoArgsConstructor(@NonNull Object source) {
 		try {
 			Constructor<T> constructor = targetClass().getConstructor();
 			T target = constructor.newInstance();
-			BeanUtils.copyProperties(source, target);
+
+			if (null != target) {
+				BeanUtils.copyProperties(source, target);
+			}
 
 			return target;
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
 			throw new SdcCustomException("An empty constructor or a %s constructor is needed".formatted(
-                    source.getClass().getSimpleName()), e);
+					source.getClass().getSimpleName()), e);
 		}
 	}
 }

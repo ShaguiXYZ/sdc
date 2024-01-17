@@ -1,11 +1,8 @@
 .summary-content {
   .coverages {
     display: flex;
+    max-height: 300px;
     width: 100%;
-  }
-
-  .data-loaded {
-    min-height: 350px;
   }
 
   .no-data-loaded {
