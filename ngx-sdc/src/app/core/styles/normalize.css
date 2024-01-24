@@ -9,6 +9,17 @@
   box-sizing: inherit;
 }
 
+img,
+picture,
+video,
+embed,
+iframe,
+object,
+audio {
+  display: block;
+  max-width: 100%;
+}
+
 html,
 :host {
   font-family: var(--font-family);
@@ -16,6 +27,7 @@ html,
 
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 body {

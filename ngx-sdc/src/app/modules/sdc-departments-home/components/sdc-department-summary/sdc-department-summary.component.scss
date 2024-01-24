@@ -13,15 +13,19 @@
 
   .language-distribution {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     position: relative;
 
     .actual-language-distribution {
       padding-top: 10px;
+      margin-right: 10px;
     }
 
     .historical-language-distribution {
       height: 100%;
-      width: 100%;
+      flex: 1;
+      min-width: 350px;
     }
 
     .no-data {
@@ -32,10 +36,13 @@
   .summary-charts {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
     .summary-bar-chart {
-      flex-grow: 1;
+      flex: 1;
+      min-width: 350px;
       padding: 0 25px;
+      width: 100%;
 
       .title {
         text-align: center;
@@ -44,7 +51,7 @@
 
     .summary-pie-chart {
       max-width: 450px;
-      min-width: 300px;
+      // min-width: 300px;
       width: 100%;
     }
   }

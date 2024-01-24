@@ -58,12 +58,16 @@
 
   .language-distribution {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
     .actual-language-distribution {
       padding-top: 10px;
     }
 
     .historical-language-distribution {
+      flex: 1;
+      min-width: 350px;
       width: 100%;
     }
   }
