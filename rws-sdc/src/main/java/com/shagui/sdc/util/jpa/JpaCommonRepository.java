@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.lang.NonNull;
 
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
@@ -73,7 +74,7 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 		return save(model);
 	}
 
-	default T update(K id, T model) {
+	default T update(@NonNull K id, T model) {
 		Optional<T> data = repository().findById(id);
 
 		if (data.isEmpty() || !data.get().getId().equals(model.getId())) {

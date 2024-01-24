@@ -49,7 +49,7 @@ public class ComponentTypeArchitectureModel implements ModelInterface<Integer> {
 	@Column(nullable = false)
 	private String language;
 
-	@OneToMany(mappedBy = "componentTypeArchitecture", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "componentTypeArchitecture", fetch = FetchType.LAZY)
 	private List<ComponentModel> components;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

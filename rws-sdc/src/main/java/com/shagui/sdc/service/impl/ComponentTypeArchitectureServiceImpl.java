@@ -18,6 +18,8 @@ import com.shagui.sdc.api.dto.MetricValuesDTO;
 import com.shagui.sdc.api.dto.MetricValuesOutDTO;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.AnalysisType;
+import com.shagui.sdc.json.StaticRepository;
+import com.shagui.sdc.json.model.DataLists;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponetTypeArchitectureMetricPropertiesModel;
 import com.shagui.sdc.model.MetricModel;
@@ -64,8 +66,34 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 
 	@Override
 	public ComponentTypeArchitectureDTO update(int componentTypeArchitectureId, ComponentTypeArchitectureDTO data) {
+		ComponentTypeArchitectureModel model = componentTypeArchitectureRepository.findExistingId(data.getId());
+
+		model.setArchitecture(StaticRepository.datalistValues(DataLists.ARCHITECTURES).stream().filter(
+				architecture -> Objects.equals(architecture.toLowerCase(), data.getArchitecture().toLowerCase()))
+				.findFirst().orElse(model.getArchitecture()));
+
+		model.setComponentType(StaticRepository.datalistValues(DataLists.COMPONENT_TYPES).stream().filter(
+				componentType -> Objects.equals(componentType.toLowerCase(), data.getComponentType().toLowerCase()))
+				.findFirst().orElse(model.getComponentType()));
+
+		model.setDeploymentType(StaticRepository.datalistValues(DataLists.DEPLOYMENT_TYPES).stream().filter(
+				deploymentType -> Objects.equals(deploymentType.toLowerCase(), data.getDeploymentType().toLowerCase()))
+				.findFirst().orElse(model.getDeploymentType()));
+
+		model.setLanguage(StaticRepository.datalistValues(DataLists.LANGUAGES).stream().filter(
+				language -> Objects.equals(language.toLowerCase(), data.getLanguage().toLowerCase())).findFirst()
+				.orElse(model.getLanguage()));
+
+		model.setNetwork(StaticRepository.datalistValues(DataLists.NETWORKS).stream().filter(
+				network -> Objects.equals(network.toLowerCase(), data.getNetwork().toLowerCase())).findFirst()
+				.orElse(model.getNetwork()));
+
+		model.setPlatform(StaticRepository.datalistValues(DataLists.PLATFORMS).stream().filter(
+				platform -> Objects.equals(platform.toLowerCase(), data.getPlatform().toLowerCase())).findFirst()
+				.orElse(model.getPlatform()));
+
 		return Mapper
-				.parse(componentTypeArchitectureRepository.update(componentTypeArchitectureId, Mapper.parse(data)));
+				.parse(componentTypeArchitectureRepository.update(componentTypeArchitectureId, model));
 	}
 
 	@Transactional

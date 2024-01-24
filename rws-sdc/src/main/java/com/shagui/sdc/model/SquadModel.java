@@ -46,7 +46,7 @@ public class SquadModel implements ModelInterface<Integer>, JpaExpirableData {
 	@JoinColumn(name = "department_id")
 	private DepartmentModel department;
 
-	@OneToMany(mappedBy = "squad", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "squad", fetch = FetchType.LAZY)
 	@OrderBy("name ASC")
 	private List<ComponentModel> components = new ArrayList<>();
 

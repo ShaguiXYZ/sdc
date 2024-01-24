@@ -67,14 +67,6 @@ class ComponentControllerTest {
 	}
 
 	@Test
-	void updateTest() {
-		ComponentDTO value = new ComponentDTO();
-		when(componentService.update(anyInt(), any(ComponentDTO.class))).thenReturn(value);
-		ComponentDTO result = controller.update(1, value);
-		assertNotNull(result);
-	}
-
-	@Test
 	void filterPageNullTest() {
 		PageData<ComponentDTO> value = new PageData<ComponentDTO>(new ArrayList<ComponentDTO>());
 		when(componentService.filter(anyString(), anyInt(), anySet(), any(Range.class))).thenReturn(value);

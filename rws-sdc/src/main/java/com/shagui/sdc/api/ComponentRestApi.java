@@ -8,7 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,12 +33,6 @@ public interface ComponentRestApi {
 	@PatchMapping("component")
 	@ResponseStatus(HttpStatus.CREATED)
 	ComponentDTO patch(@RequestBody ComponentInput data);
-
-	@Operation(summary = "Update an specific Component", description = "Field componentId should match the componentId from url")
-	@PutMapping("component/{componentId}")
-	@ResponseStatus(HttpStatus.OK)
-	ComponentDTO update(@PathVariable @Parameter(description = "component identifier") int componentId,
-			@RequestBody ComponentDTO component);
 
 	@Operation(summary = "Retrieve squad components")
 	@GetMapping("components/squad/{squadId}")

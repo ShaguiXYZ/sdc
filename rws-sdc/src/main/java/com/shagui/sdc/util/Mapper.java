@@ -79,7 +79,7 @@ public class Mapper {
 	}
 
 	public static ComponentTypeArchitectureDTO parse(ComponentTypeArchitectureModel source) {
-		return new ComponentTypeArchitectureDTO(source.getComponentType(), source.getArchitecture(),
+		return new ComponentTypeArchitectureDTO(source.getId(), source.getComponentType(), source.getArchitecture(),
 				source.getNetwork(), source.getDeploymentType(), source.getPlatform(), source.getLanguage());
 	}
 

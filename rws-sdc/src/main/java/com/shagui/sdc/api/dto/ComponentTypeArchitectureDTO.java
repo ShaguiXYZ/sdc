@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ComponentTypeArchitectureDTO {
+	private Integer id;
 	private String componentType;
 	private String architecture;
 	private String network;

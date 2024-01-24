@@ -40,11 +40,6 @@ public class ComponentController implements ComponentRestApi {
 	}
 
 	@Override
-	public ComponentDTO update(int id, ComponentDTO component) {
-		return componentService.update(id, component);
-	}
-
-	@Override
 	public PageData<ComponentDTO> squadComponents(int squadId, Integer page, Integer ps) {
 		if (page == null) {
 			return componentService.squadComponents(squadId);

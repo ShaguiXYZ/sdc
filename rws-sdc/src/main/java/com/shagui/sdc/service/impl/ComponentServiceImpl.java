@@ -55,11 +55,6 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public ComponentDTO update(Integer id, ComponentDTO component) {
-		return Mapper.parse(componentRepository.update(id, componentModel(component)));
-	}
-
-	@Override
 	public PageData<ComponentDTO> squadComponents(int squadId) {
 		return componentRepository.repository().findBySquad_Id(squadId, coverageWithNameSort())
 				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
