@@ -83,7 +83,8 @@
     "name": "Language Distribution",
     "description": "Language Distribution (SONAR)",
     "value": "ncloc_language_distribution",
-    "type": "SONAR"
+    "type": "SONAR",
+    "valueType": "NUMERIC_MAP"
   },
   {
     "name": "Projects",
@@ -221,6 +222,7 @@
     "name": "Language Distribution",
     "description": "Language Distribution (GIT)",
     "value": "ncloc_language_distribution",
-    "type": "GIT"
+    "type": "GIT",
+    "valueType": "NUMERIC_MAP"
   }
 ]

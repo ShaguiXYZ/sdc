@@ -7,20 +7,20 @@ export const routes: Routes = configContextRoutes([
   {
     path: AppUrls.departments,
     loadComponent: () => import('./modules/sdc-departments-home/sdc-departments-home.component').then(c => c.SdcDepartmentsHomeComponent),
-    data: { animation: AppUrls.departments },
+    data: { animation: AppUrls.departments, help: AppUrls.departments },
     canDeactivate: []
   },
   {
     path: AppUrls.squads,
     loadComponent: () => import('./modules/sdc-squads-home/sdc-squads-home.component').then(c => c.SdcSquadsHomeComponent),
-    data: { animation: AppUrls.squads },
+    data: { animation: AppUrls.squads, help: AppUrls.squads },
     canDeactivate: []
   },
   {
     path: AppUrls.applications,
     loadComponent: () =>
       import('./modules/sdc-applications-home/sdc-applications-home.component').then(c => c.SdcApplicationsHomeComponent),
-    data: { animation: AppUrls.applications },
+    data: { animation: AppUrls.applications, help: AppUrls.applications },
     canDeactivate: []
   },
   {

@@ -1,0 +1,30 @@
+@import 'colors';
+
+.color-critical {
+  background: $state-critical;
+}
+
+.color-with_risk {
+  background: $state-risk;
+}
+
+.color-acceptable {
+  background: $state-acceptable;
+}
+
+.color-perfect {
+  background: $state-perfect;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.vertical-align {
+  display: flex;
+  flex-direction: column;
+}

@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components';
 import { SseEventModel } from 'src/app/core/services';
 import { SdcEventReference } from 'src/app/shared/models';
-import { OverlayItemState } from '../../models';
+import { OverlayItemStatus } from '../../models';
 import { SdcEventItemComponent } from './components';
 import { DEFAULT_TIMEOUT_EVENT } from './constants';
 import { SdcEventBarData } from './models';
@@ -62,7 +62,7 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
   public eventBarData: SdcEventBarData = { events: [] };
   public now = Date.now();
 
-  private _state: OverlayItemState = 'closed';
+  private _state: OverlayItemStatus = 'closed';
   private _timeout?: NodeJS.Timeout;
   private subscriptions$: Subscription[] = [];
 
@@ -86,11 +86,11 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
   }
 
-  public get state(): OverlayItemState {
+  public get state(): OverlayItemStatus {
     return this._state;
   }
   @Input()
-  public set state(value: OverlayItemState) {
+  public set state(value: OverlayItemStatus) {
     this._state = value;
 
     this.controlEmptyEvents();

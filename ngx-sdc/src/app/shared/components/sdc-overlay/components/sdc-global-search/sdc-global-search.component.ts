@@ -9,7 +9,7 @@ import { ISummaryViewModel, SummaryViewType } from 'src/app/core/models/sdc';
 import { BACKGROUND_CHART_COLOR } from 'src/app/shared/constants';
 import { SdcCoverageChartComponent } from '../../../sdc-charts';
 import { SdcTagComponent } from '../../../sdc-tag';
-import { OverlayItemState } from '../../models';
+import { OverlayItemStatus } from '../../models';
 import { SdcGlobalSearchService } from './services';
 
 @Component({
@@ -66,7 +66,7 @@ export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
     SQUAD: false
   };
 
-  private _state: OverlayItemState = 'closed';
+  private _state: OverlayItemStatus = 'closed';
 
   @ViewChild('searchInput', { static: true })
   private searchInput!: ElementRef;
@@ -84,11 +84,11 @@ export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
     this.subscription$.forEach(subscription => subscription.unsubscribe());
   }
 
-  public get state(): OverlayItemState {
+  public get state(): OverlayItemStatus {
     return this._state;
   }
   @Input()
-  public set state(value: OverlayItemState) {
+  public set state(value: OverlayItemStatus) {
     this._state = value;
     setTimeout(() => this._state === 'open' && $('.sdc-search-input input')?.focus(), 300);
   }

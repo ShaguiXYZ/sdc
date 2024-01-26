@@ -1,0 +1,111 @@
+@import 'colors';
+@import 'core-colors';
+
+.sdc-help-content {
+  backdrop-filter: blur(5px);
+  border-radius: 4px;
+  box-shadow: var(--shadow-small);
+  display: flex;
+  height: 100%;
+  padding: 4px;
+  width: 100%;
+
+  header {
+    text-wrap: balance;
+  }
+
+  article *:not(header) {
+    text-wrap: pretty;
+  }
+
+  &.open {
+    pointer-events: auto;
+    transition:
+      opacity 0.2s ease-in-out,
+      scale 0.2s ease-in-out;
+  }
+
+  &.closed {
+    opacity: 0;
+    pointer-events: none;
+    scale: 0;
+    transition:
+      opacity 0.2s ease-in-out,
+      scale 0.2s ease-in-out;
+  }
+
+  .help-index {
+    background: var(--ui-02);
+    border-radius: 4px;
+    box-shadow: var(--shadow-small);
+    flex-direction: column;
+    margin-right: 5px;
+    max-width: 250px;
+    min-width: 200px;
+    width: 25%;
+
+    .help-index-items {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      padding: 0 16px;
+
+      .help-index-item {
+        align-items: center;
+        color: var(--color-text-primary);
+        cursor: pointer;
+        display: flex;
+        font-size: 14px;
+        font-weight: 400;
+        height: 40px;
+        padding: 0 16px;
+
+        &:hover {
+          outline-color: darken($background-color-1, 25%);
+          outline-style: auto;
+        }
+
+        &.active {
+          color: var(--action-selected-color);
+          background-color: $background-color-1;
+          border-radius: 4px;
+          outline-color: darken($background-color-1, 10%);
+          outline-style: auto;
+        }
+      }
+    }
+  }
+
+  .help-data {
+    background: var(--ui-02);
+    border-radius: 0 4px 4px 0;
+    box-shadow: var(--shadow-small);
+    flex: 1;
+    max-height: 100%;
+    overflow: hidden scroll;
+    padding: 8px;
+    width: 100%;
+
+    .help-media {
+      padding: 16px;
+    }
+
+    .help-paragraph {
+      margin: 0 0 16px 0;
+      padding: 0 16px;
+
+      .help-paragraph-header {
+        margin: 0 0 8px 0;
+      }
+    }
+  }
+
+  .help-index-header,
+  .help-header {
+    align-items: center;
+    display: flex;
+    height: 48px;
+    justify-content: center;
+    padding: 0 16px;
+  }
+}

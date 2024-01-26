@@ -1,0 +1,107 @@
+{
+  "labels": {
+    "indexTitle": "Índice"
+  },
+  "entries": {
+    "introcutory": {
+      "indexEntry": "Introduccion",
+      "title": "Introduccion",
+      "paragraphs": [
+        {
+          "body": "Welcome to the SDC!"
+        },
+        {
+          "body": "This is a game about managing a squad of soldiers in a futuristic world. You will be able to manage your squad, send them on missions, and even create your own missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        },
+        {
+          "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+        }
+      ]
+    },
+    "squads": {
+      "indexEntry": "Squads",
+      "title": "Squads",
+      "media": "assets/media/sdc_squads.webm",
+      "paragraphs": [
+        {
+          "title": "Squads",
+          "body": "Descripcion de squads"
+        }
+      ]
+    },
+    "departments": {
+      "indexEntry": "Departamentos",
+      "title": "Departamentos",
+      "media": "assets/media/sdc_departments.webm",
+      "paragraphs": [
+        {
+          "title": "Departamentos",
+          "body": "Departamentos are the basic unit of the game. They are composed of 3 to 5 soldiers. Each squad has a leader, who is the one that w"
+        }
+      ]
+    },
+    "applications": {
+      "indexEntry": "Aplicaciones",
+      "title": "Aplicaciones",
+      "media": "assets/media/sdc_departments.webm",
+      "paragraphs": [
+        {
+          "title": "Aplicaciones",
+          "body": "Aplicaciones are the basic unit of the game. They are composed of 3 to 5 soldiers. Each squad has a leader, who is the one that w"
+        }
+      ]
+    },
+    "appendix": {
+      "indexEntry": "Appendix",
+      "title": "Appendix",
+      "paragraphs": [
+        {
+          "body": "App colors:"
+        },
+        {
+          "body": [
+            "<div class=\"vertical-align\">",
+            "<div><div class=\"indicator color-critical\"></div> - Critical</div>",
+            "<div><div class=\"indicator color-with_risk\"></div> - With risk</div>",
+            "<div><div class=\"indicator color-acceptable\"></div> - Acceptable</div>",
+            "<div><div class=\"indicator color-perfect\"></div> - Perfect</div>",
+            "</div>"
+          ]
+        }
+      ]
+    }
+  }
+}

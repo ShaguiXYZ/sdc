@@ -4,7 +4,6 @@ import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricStates, stateByCoverage } from '../../lib';
 import { IStateCount } from '../../models';
 import { SdcStateCountComponent } from './components';
-import { DataInfo } from 'src/app/core/models';
 
 @Component({
   selector: 'sdc-components-state-count',

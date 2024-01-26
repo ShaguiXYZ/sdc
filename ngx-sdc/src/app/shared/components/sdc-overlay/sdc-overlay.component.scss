@@ -32,11 +32,23 @@
     justify-content: center;
     max-height: 80%;
     top: 10%;
-    transition: opacity 0.5s ease-in-out;
     width: 100%;
 
     sdc-global-search {
       max-width: 650px;
+      width: 75%;
+    }
+  }
+
+  .sdc-help {
+    display: flex;
+    height: 80%;
+    justify-content: center;
+    top: 10%;
+    width: 100%;
+
+    sdc-help {
+      max-width: 1250px;
       width: 75%;
     }
   }

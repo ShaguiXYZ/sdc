@@ -44,14 +44,14 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly dateService: DateService,
-    private readonly sdcMetricHistoryGraphsService: SdcMetricHistoryGraphsService,
+    private readonly metricHistoryGraphsService: SdcMetricHistoryGraphsService,
     private readonly titleCasePipe: TitleCasePipe,
     private readonly translateService: TranslateService,
     private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe
   ) {}
 
   ngOnInit(): void {
-    this.data$ = this.sdcMetricHistoryGraphsService.onDataChange().subscribe(metricsData => {
+    this.data$ = this.metricHistoryGraphsService.onDataChange().subscribe(metricsData => {
       this.metricsData = metricsData;
       this.metricChartConfig = {
         ...this.metricGraphConfig(),
@@ -59,7 +59,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
       };
     });
 
-    this.sdcMetricHistoryGraphsService.loadInitData(this.componentId, this.selectedAnalysis);
+    this.metricHistoryGraphsService.loadInitData(this.componentId, this.selectedAnalysis);
   }
 
   ngOnDestroy(): void {
@@ -67,12 +67,12 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   }
 
   public loadGraphData(analysis: IMetricAnalysisModel): void {
-    this.sdcMetricHistoryGraphsService.analysisHistoryData(this.componentId, analysis);
+    this.metricHistoryGraphsService.analysisHistoryData(this.componentId, analysis);
     this.selectedAnalysisChange.emit(analysis);
   }
 
   public toggleFactorChart(factor: AnalysisFactor): void {
-    this.sdcMetricHistoryGraphsService.toggleFactorChart(factor);
+    this.metricHistoryGraphsService.toggleFactorChart(factor);
   }
 
   private metricGraphConfig(): ChartConfig {

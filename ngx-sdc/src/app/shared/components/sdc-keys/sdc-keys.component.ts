@@ -86,6 +86,7 @@ export class SdcKeysComponent {
         event.preventDefault();
         break;
       case 'F1':
+        this.overlayService.toggleHelp();
         event.preventDefault();
         break;
       default:

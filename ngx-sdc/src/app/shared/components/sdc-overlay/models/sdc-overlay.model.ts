@@ -1,13 +1,13 @@
-export type OverlayItemState = 'open' | 'closed';
+export type OverlayItemStatus = 'open' | 'closed';
 
-export namespace OverlayItemState {
-  export const toggle = (state: OverlayItemState): OverlayItemState => {
+export namespace OverlayItemStatus {
+  export const toggle = (state: OverlayItemStatus): OverlayItemStatus => {
     return state === 'open' ? 'closed' : 'open';
   };
 }
 
 export interface SdcOverlayModel {
-  helpState: OverlayItemState;
-  globalSearchState: OverlayItemState;
-  eventBarState: OverlayItemState;
+  helpState: OverlayItemStatus;
+  globalSearchState: OverlayItemStatus;
+  eventBarState: OverlayItemStatus;
 }

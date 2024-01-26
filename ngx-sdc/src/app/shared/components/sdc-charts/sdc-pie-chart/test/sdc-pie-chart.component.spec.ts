@@ -1,8 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SdcPieChartComponent } from '../sdc-pie-chart.component';
-
 import { NGX_ECHARTS_CONFIG } from 'ngx-echarts';
+import { SdcPieChartComponent } from '../sdc-pie-chart.component';
 
 describe('SdcPieChartComponent', () => {
   let component: SdcPieChartComponent;
