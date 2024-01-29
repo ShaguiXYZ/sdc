@@ -26,10 +26,12 @@
   .summary-charts {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
-    .summary-coverage,
     .summary-count {
       flex: 1;
+      max-width: 300px;
+      min-width: 200px;
     }
   }
 }
