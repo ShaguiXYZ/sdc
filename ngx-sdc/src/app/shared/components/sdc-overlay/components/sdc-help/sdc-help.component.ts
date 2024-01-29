@@ -15,11 +15,11 @@ import { SdcHelpService } from './services';
     @if (config) {
       <div class="sdc-help-content  {{ state }}">
         <article class="help-index sdc-scrollable">
-          <header class="help-index-header" nxHeadline="subsection-medium" [innerHtml]="config.labels['indexTitle']"></header>
+          <header class="help-header" nxHeadline="subsection-medium" [innerHtml]="config.labels['indexTitle']"></header>
           <section class="help-index-items">
             @for (page of config.pages; track page) {
               <div
-                class="help-index-item sdc-cut-text"
+                class="help-index-item"
                 [ngClass]="{ active: page.key === config.page }"
                 nxHeadline="subsection-xsmall"
                 [innerHtml]="page.indexEntry"
@@ -28,20 +28,24 @@ import { SdcHelpService } from './services';
             }
           </section>
         </article>
-        @if (config.data) {
+        @if (config.body) {
           <article class="help-data sdc-scrollable">
-            <header class="help-header" nxHeadline="subsection-medium" [innerHtml]="config.data.title"></header>
+            <header class="help-header" nxHeadline="subsection-medium" [innerHtml]="config.body.title"></header>
             <section class="help-paragraphs">
-              @if (config.data.media) {
-                <video class="help-media" [src]="config.data.media" controls autoplay="false"></video>
+              @if (config.body.media) {
+                <video class="help-media" [src]="config.body.media" controls autoplay="false"></video>
               }
-              @for (paragraph of config.data.paragraphs; track $index) {
-                <article class="help-paragraph">
-                  @if (paragraph.title) {
-                    <header class="help-paragraph-header" nxHeadline="subsection-small" [innerHtml]="paragraph.title"></header>
-                  }
-                  <section class="help-paragraph-body" [innerHtml]="paragraph.body | helpParagraph"></section>
-                </article>
+              @for (paragraph of config.body.paragraphs; track $index) {
+                @defer (on viewport) {
+                  <article class="help-paragraph">
+                    @if (paragraph.title) {
+                      <header class="help-paragraph-header" nxHeadline="subsection-small" [innerHtml]="paragraph.title"></header>
+                    }
+                    <section class="help-paragraph-body" [innerHtml]="paragraph.body | helpParagraph"></section>
+                  </article>
+                } @placeholder {
+                  <div class="placeholder"></div>
+                }
               }
             </section>
           </article>

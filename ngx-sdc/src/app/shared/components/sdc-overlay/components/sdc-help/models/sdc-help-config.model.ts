@@ -1,7 +1,7 @@
-import { SdcHelpEntryModel } from './sdc-help.model';
+import { SdcHelpBodyModel, SdcHelpEntryModel } from './sdc-help.model';
 
 export interface SdcHelpConfig {
-  data?: SdcHelpEntryModel;
+  body?: SdcHelpBodyModel;
   labels: { [key: string]: string };
   page: string;
   pages: { key: string; indexEntry: string }[];

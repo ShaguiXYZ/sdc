@@ -5,36 +5,15 @@
   "entries": {
     "applications": {
       "indexEntry": "Applications",
-      "title": "Applications",
-      "media": "assets/media/sdc_departments.webm",
-      "paragraphs": [
-        {
-          "title": "Applications",
-          "body": "Applications are the basic unit of the game. They are composed of 3 to 5 soldiers. Each squad has a leader, who is the one that w"
-        }
-      ]
+      "body": "enGB/applications.json"
     },
     "departments": {
       "indexEntry": "Departments",
-      "title": "Departments",
-      "media": "assets/media/sdc_departments.webm",
-      "paragraphs": [
-        {
-          "title": "Departments",
-          "body": "<span class=\"danger\">Departments</span> are the basic unit of the game. They are composed of 3 to 5 soldiers. Each squad has a leader, who is the one that w"
-        }
-      ]
+      "body": "enGB/departments.json"
     },
     "squads": {
       "indexEntry": "Squads",
-      "title": "Squads",
-      "media": "assets/media/sdc_squads.webm",
-      "paragraphs": [
-        {
-          "title": "Squads",
-          "body": "Squads are the basic unit of the game. They are composed of 3 to 5 soldiers. Each squad has a leader, who is the one that w"
-        }
-      ]
+      "body": "enGB/squads.json"
     }
   }
 }

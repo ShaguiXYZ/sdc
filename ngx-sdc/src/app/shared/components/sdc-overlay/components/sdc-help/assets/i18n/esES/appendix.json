@@ -1,0 +1,18 @@
+{
+  "title": "Appendix",
+  "paragraphs": [
+    {
+      "body": "App colors:"
+    },
+    {
+      "body": [
+        "<div class=\"vertical-align\">",
+        "<div><div class=\"indicator color-critical\"></div> - Critical</div>",
+        "<div><div class=\"indicator color-with_risk\"></div> - With risk</div>",
+        "<div><div class=\"indicator color-acceptable\"></div> - Acceptable</div>",
+        "<div><div class=\"indicator color-perfect\"></div> - Perfect</div>",
+        "</div>"
+      ]
+    }
+  ]
+}
