@@ -1,0 +1,61 @@
+{
+  "title": "Appendix C: ",
+  "paragraphs": [
+    {
+      "title": "# Calculating metric coverage",
+      "body": "Each metric associated with a type of component/architecture can fall into one of three possible ranges: expected, good, or perfect."
+    },
+    {
+      "body": "Every metric is assigned a weight, which represents its relative importance compared to other metrics."
+    },
+    {
+      "body": "Each metric is also assigned a comparison operation, such as Equal, Less than, Greater than, Less than or equal, or Greater than or equal."
+    },
+    {
+      "title": "## Calculating the coverage of a metric",
+      "body": "The value returned by the API call is compared against the configured range values. Based on the associated comparison operation, a fixed coverage percentage is determined:"
+    },
+    {
+      "body": [
+        "<ul class=\"nx-margin-left-m\">",
+        "   <li>If the value does not reach the expected range: 10% coverage.</li>",
+        "   <li>If the value falls between the expected and good ranges: 50% coverage.</li>",
+        "   <li>If the value falls between the good and perfect ranges: 75% coverage.</li>",
+        "   <li>If the value is equal to or higher than the perfect range: 100% coverage.</li>",
+        "</ul>"
+      ]
+    },
+    {
+      "title": "## Calculating Metric List Coverage",
+      "body": "To calculate the coverage of a list of metrics, the following formula is applied:"
+    },
+    {
+      "body": [
+        "<ul class=\"nx-margin-left-m\">",
+        "   <li><strong>totalWeight:</strong> The sum of weights of all the metrics to be validated.</li>",
+        "   <li><strong>relativeWeight:</strong> The weight of a metric divided by the totalWeight.</li>",
+        "   <li><strong>relativeMetricCoverage:</strong> The metric coverage multiplied by the relativeWeight.</li>",
+        "   <li><strong>total coverage of the metrics:</strong> The sum of relative coverage for each metric.</li>",
+        "</ul>"
+      ]
+    },
+    {
+      "title": "## Calculating Component Coverage",
+      "body": "To calculate the coverage of a component, select all the metrics associated with the component (based on component/architecture), and apply the coverage calculation formula to this list of metrics."
+    },
+    {
+      "body": "To enhance performance, this calculation is performed during component analysis and the results are stored in the database."
+    },
+    {
+      "title": "## Calculating Squad Coverage",
+      "body": "To calculate the coverage of a squad, select all the metrics associated with the squad, and apply the coverage calculation formula to this list of metrics."
+    },
+    {
+      "body": "To enhance performance, this calculation is performed during squad analysis and the results are saved in the database."
+    },
+    {
+      "title": "## Calculating Department Coverage",
+      "body": "The coverage of a department is determined by taking the average of the coverage values of its squads."
+    }
+  ]
+}

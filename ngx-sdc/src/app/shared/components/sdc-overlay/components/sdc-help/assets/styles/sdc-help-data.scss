@@ -1,30 +1,59 @@
 @import 'colors';
 
-.color-critical {
-  background: $state-critical;
-}
+.sdc-help-content {
+  .color-critical {
+    background: $state-critical;
+  }
 
-.color-with_risk {
-  background: $state-risk;
-}
+  .color-with_risk {
+    background: $state-risk;
+  }
 
-.color-acceptable {
-  background: $state-acceptable;
-}
+  .color-acceptable {
+    background: $state-acceptable;
+  }
 
-.color-perfect {
-  background: $state-perfect;
-}
+  .color-perfect {
+    background: $state-perfect;
+  }
 
-.indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 5px;
-}
+  .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
 
-.vertical-align {
-  display: flex;
-  flex-direction: column;
+  .vertical-align {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .metric {
+    border-radius: 4px;
+    box-shadow: var(--shadow-small);
+    padding: 8px;
+
+    header {
+      color: var(--info);
+      margin-bottom: 10px;
+      font-size: large;
+    }
+
+    .property {
+      display: flex;
+
+      .title {
+        color: var(--text-01);
+        font-weight: bold;
+        margin-right: 5px;
+        width: 135px;
+      }
+
+      .description {
+        flex: 1;
+      }
+    }
+  }
 }

@@ -4,24 +4,32 @@
   },
   "entries": {
     "introcutory": {
-      "indexEntry": "Introduccion",
+      "indexEntry": "<strong>Introduccion</strong>",
       "body": "esES/introcutory.json"
     },
     "squads": {
-      "indexEntry": "Squads",
+      "indexEntry": "<strong>Squads</strong>",
       "body": "esES/squads.json"
     },
     "departments": {
-      "indexEntry": "Departamentos",
+      "indexEntry": "<strong>Departamentos</strong>",
       "body": "esES/departments.json"
     },
     "applications": {
-      "indexEntry": "Aplicaciones",
+      "indexEntry": "<strong>Aplicaciones</strong>",
       "body": "esES/applications.json"
     },
-    "appendix": {
-      "indexEntry": "Appendix",
-      "body": "esES/appendix.json"
+    "appendix-a": {
+      "indexEntry": "<span><strong>Appendix A.</strong> Colores</span>",
+      "body": "esES/appendix-a.json"
+    },
+    "appendix-b": {
+      "indexEntry": "<span><strong>Appendix B.</strong> Métricas</span>",
+      "body": "esES/appendix-b.json"
+    },
+    "appendix-c": {
+      "indexEntry": "<span><strong>Appendix C.</strong> Calculating Coverage</span>",
+      "body": "esES/appendix-c.json"
     }
   }
 }

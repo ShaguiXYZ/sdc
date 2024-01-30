@@ -51,7 +51,6 @@
       display: flex;
       flex-direction: column;
       overflow: auto;
-      padding: 0 16px;
 
       .help-index-item {
         align-items: center;
@@ -82,7 +81,7 @@
 
   .help-data {
     background: var(--ui-02);
-    border-radius: 0 4px 4px 0;
+    border-radius: 4px;
     box-shadow: var(--shadow-small);
     flex: 1;
     max-height: 100%;
@@ -129,6 +128,8 @@
     @keyframes enhance-header {
       to {
         backdrop-filter: blur(5px);
+        height: 25px;
+        font-size: 18px;
         opacity: 0.8;
       }
     }

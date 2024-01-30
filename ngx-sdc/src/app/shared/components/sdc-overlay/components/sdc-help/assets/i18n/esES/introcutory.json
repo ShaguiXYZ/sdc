@@ -1,47 +1,28 @@
 {
-  "title": "Introduccion",
+  "title": "Introducción",
   "paragraphs": [
     {
-      "body": "Welcome to the SDC!"
+      "title": "# ¿Qué es SDC?",
+      "body": "SDC, que significa Software Development Console, sirve como una plataforma integral que ofrece métricas detalladas relacionadas con tecnología, calidad y seguridad para aplicaciones."
     },
     {
-      "body": "This is a game about managing a squad of soldiers in a futuristic world. You will be able to manage your squad, send them on missions, and even create your own missions."
+      "body": "En este proyecto, todos los usuarios comparten los mismos roles, lo que les otorga acceso a todos los datos disponibles. Esta característica única permite a los usuarios comparar fácilmente estadísticas entre diferentes componentes o equipos, facilitando una revisión simplificada y eficiente del estado del proyecto."
     },
     {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+      "title": "# Descripción funcional",
+      "body": "El enfoque central de la aplicación gira en torno a los componentes. Cada componente está vinculado a un equipo y a un tipo de componente o arquitectura específica. A su vez, cada equipo está asociado a un departamento."
     },
     {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+      "body": "El objetivo principal de la aplicación es definir métricas derivadas de varios servicios como Sonar y Git. Estas métricas permiten el cálculo de un valor de referencia, que ayuda a medir el estado técnico de un componente, equipo o departamento."
     },
     {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+      "body": "Para obtener los valores de las métricas, la aplicación realiza llamadas a API a diferentes servicios. Cada llamada a la API devuelve un resultado de tipo cadena para cada métrica."
     },
     {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+      "body": "La configuración de la métrica define el tipo de respuesta esperada de una llamada a API a un servicio y cómo comparar esa respuesta con otras respuestas del mismo tipo (por ejemplo, valores numéricos, versiones, etc.)."
     },
     {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
-    },
-    {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
-    },
-    {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
-    },
-    {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
-    },
-    {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
-    },
-    {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
-    },
-    {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
-    },
-    {
-      "body": "The game is divided in two parts: the management part, and the missions part. In the management part you will be able to manage your squad, and in the missions part you will be able to send your squad on missions."
+      "body": "Las métricas están vinculadas a un tipo de componente o arquitectura específica. Todos los componentes asociados al mismo tipo de arquitectura comparten el mismo conjunto de métricas."
     }
   ]
 }

@@ -1,0 +1,135 @@
+{
+  "title": "Appendix A: S D C Metrics",
+  "paragraphs": [
+    {
+      "title": "# Available Metrics in SDC",
+      "body": "These are the available metrics in SDC:"
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>Angular Version</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">Check that the Angular version used by the component is greater than the one defined in the metric definition</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">Software Architecture</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">GIT: We will access the GIT API to analyze the package.json and validate the version used by the SPA</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Numerical comparison, greater or equal than</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\">ngx-rws-architecture/versions at master · azibl-common/ngx-rws-architecture</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">SPA Angular</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\">Higth</div></section>",
+        "</article>"
+      ]
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>Microservice parent version</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">Check that the version of the parent used by the microservice is greater than the one defined in the metric definition</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">Software Architecture</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">GIT: We will access the GIT API to analyze the pom.xml and validate the version used by the microservice</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Numerical comparison, greater or equal than</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\">rws-architecture/versions at master · azibl-common/rws-architecture</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">RWS</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\">medium</div></section>",
+        "</article>"
+      ]
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>Legacy parent version</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">Check that the version of the parent used by the legacy service is greater than the one defined in the metric definition</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">Software Architecture</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">GIT: We will access the GIT API to analyze the pom.xml and validate the version used by the legacy service</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Numerical comparison, greater or equal than</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\">rws-architecture-legacy/versions at master · ePac-Core/rws-architecture-legacy</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">RWS - legacy</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\">medium</div></section>",
+        "</article>"
+      ]
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>Critical Vulnerabilities</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">Critical security vulnerabilities detected on GITHUB (Dependabot)</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">Security</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">Access to GIT API to obtain vulnerabilities, we need URL and credentials to access this data</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Numerical comparison, less than</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\">0</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">Allr</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\">Higth</div></section>",
+        "</article>"
+      ]
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>High Vulnerabilities</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">High security vulnerabilities detected on GITHUB (Dependabot)</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">Security</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">Access to GIT API to obtain vulnerabilities, we need URL and credentials to access this data</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Numerical comparison, less than</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\">5</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">All</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\">medium</div></section>",
+        "</article>"
+      ]
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>Medium Vulnerabilities</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">Medium security vulnerabilities detected on GITHUB (Dependabot)</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">Security</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">Access to GIT API to obtain vulnerabilities, we need URL and credentials to access this data</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Numerical comparison, less than</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\">10</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">All</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\">low</div></section>",
+        "</article>"
+      ]
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>Low Vulnerabilities</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">Low security vulnerabilities detected on GITHUB (Dependabot)</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">Security</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">Access to GIT API to obtain vulnerabilities, we need URL and credentials to access this data</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Informational, no threshold needed</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\"></div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">All</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\"></div></section>",
+        "</article>"
+      ]
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>Junit coverage</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">Unit testing coverage</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">QA</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">Access Sonar to obtain the coverage percentage associated with the evaluated component</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Numerical comparison, greater than</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\">RWS and SPA > 70%. Java Legacy don't have coverage.</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">RWS and Angular</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\">Low weight for legacy, higher weight for microservices and Angular</div></section>",
+        "</article>"
+      ]
+    },
+    {
+      "body": [
+        "<article class=\"metric\">",
+        "    <header>Technical Debt</header>",
+        "    <section class=\"property\"><div class=\"title\">Description:</div><div class=\"description\"><div class=\"description\">Technical debt in Sonar of the component</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type:</div><div class=\"description\">QA</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Source:</div><div class=\"description\">Access Sonar to obtain the technical debt in number of days associated with the evaluated component</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Type of calculation:</div><div class=\"description\">Numerical comparison, less than</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Thresholds:</div><div class=\"description\">RWS > 10 days alertOthers 30 days but it will probably be balanced and will depend on the component's typology.</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Component technolog</div><div class=\"description\">All</div></section>",
+        "    <section class=\"property\"><div class=\"title\">Weigh</div><div class=\"description\">Low</div></section>",
+        "</article>"
+      ]
+    }
+  ]
+}
