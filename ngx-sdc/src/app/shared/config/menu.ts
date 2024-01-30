@@ -17,23 +17,23 @@ export const SDC_HEADER_MENU = {
       name: 'Header.Menu.Applications',
       collapsed: true,
       routerLink: AppUrls.applications
-    },
-    {
-      id: 'test',
-      name: 'Header.Menu.TestPage',
-      collapsed: true,
-      children: [
-        {
-          id: 'test@1',
-          name: 'Header.Test.Components',
-          routerLink: AppUrls.test
-        },
-        {
-          id: 'test@2',
-          name: 'Header.Test.2'
-        }
-      ]
     }
+    // {
+    //   id: 'test',
+    //   name: 'Header.Menu.TestPage',
+    //   collapsed: true,
+    //   children: [
+    //     {
+    //       id: 'test@1',
+    //       name: 'Header.Test.Components',
+    //       routerLink: AppUrls.test
+    //     },
+    //     {
+    //       id: 'test@2',
+    //       name: 'Header.Test.2'
+    //     }
+    //   ]
+    // }
   ],
   activeParent: ''
 };
