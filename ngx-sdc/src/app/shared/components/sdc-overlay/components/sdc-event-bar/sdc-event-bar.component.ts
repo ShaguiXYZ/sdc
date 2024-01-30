@@ -80,6 +80,8 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
         });
       })
     );
+
+    this.eventBarService.initialize();
   }
 
   ngOnDestroy(): void {

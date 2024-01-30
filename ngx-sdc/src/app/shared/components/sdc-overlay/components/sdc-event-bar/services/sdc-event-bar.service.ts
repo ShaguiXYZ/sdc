@@ -26,6 +26,12 @@ export class SdcEventBarService implements OnDestroy {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
   }
 
+  public initialize(): void {
+    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+
+    this.data$.next({ events: contextData.events.filter(event => event.type === 'ERROR') });
+  }
+
   public onDataChange(): Subject<Partial<SdcEventBarData>> {
     return this.data$;
   }
