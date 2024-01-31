@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
+import com.shagui.sdc.api.dto.CompanyDTO;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.ComponentTagDTO;
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
@@ -19,6 +20,7 @@ import com.shagui.sdc.api.dto.TimeCoverageDTO;
 import com.shagui.sdc.core.configuration.AppConfig;
 import com.shagui.sdc.core.exception.ApiError;
 import com.shagui.sdc.core.exception.SdcMapperException;
+import com.shagui.sdc.model.CompanyModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentHistoricalCoverageModel;
 import com.shagui.sdc.model.ComponentModel;
@@ -57,6 +59,14 @@ public class Mapper {
 		error.setMessage(ex.getMessage());
 
 		return error;
+	}
+
+	public static CompanyDTO parse(CompanyModel source) {
+		return new CompanyDTO(source.getId(), source.getName(), source.getCodes());
+	}
+
+	public static CompanyModel parse(CompanyDTO source) {
+		return config.getObjectMapper().convertValue(source, CompanyModel.class);
 	}
 
 	public static MetricAnalysisDTO parse(ComponentAnalysisModel source) {

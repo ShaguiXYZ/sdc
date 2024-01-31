@@ -20,9 +20,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "companies")
-public class CompanyModel {
+public class CompanyModel implements ModelInterface<Integer> {
 	@Id
-	private int id;
+	private Integer id;
 
 	@Column(nullable = false)
 	private String name;
