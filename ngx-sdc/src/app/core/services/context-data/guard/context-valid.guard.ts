@@ -20,9 +20,9 @@ export class ContextValidGuard {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (route.routeConfig?.path) {
       const urlInfo = urlInfoBykey(route.routeConfig.path, this.contextConfig);
-      const canNavigate = !urlInfo?.requiredData?.some(data => this.contextData.get(data) === undefined);
+      const incompleteContext = urlInfo?.requiredData?.some(data => this.contextData.get(data) === undefined);
 
-      if (!canNavigate) {
+      if (incompleteContext) {
         this.notificationService.error(
           this.translateService.instant('Notifications.Error'),
           this.translateService.instant('Notifications.ContextParamsNotFound'),
@@ -35,7 +35,7 @@ export class ContextValidGuard {
         }
       }
 
-      return canNavigate;
+      return !incompleteContext;
     }
 
     return true;

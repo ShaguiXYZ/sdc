@@ -1,12 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { isNumeric } from 'src/app/core/lib';
-import { ValueType } from 'src/app/core/models/sdc';
+import { IAppConfigurationModel, ValueType } from 'src/app/core/models/sdc';
+import { ContextDataService } from 'src/app/core/services';
+import { ContextDataInfo } from '../constants';
 
 @Pipe({
   name: 'sdcValueTypeToNumber'
 })
 export class SdcValueTypeToNumberPipe implements PipeTransform {
   private DEC_SUB = 3;
+
+  constructor(private readonly contextDataService: ContextDataService) {
+    const appConfig = contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
+
+    this.DEC_SUB = appConfig?.analysis.precision ?? this.DEC_SUB;
+  }
 
   transform(value?: string, type: ValueType = ValueType.NUMERIC): number | undefined {
     switch (type) {

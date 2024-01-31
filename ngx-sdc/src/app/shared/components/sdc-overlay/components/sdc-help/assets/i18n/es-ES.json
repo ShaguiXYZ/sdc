@@ -30,6 +30,10 @@
     "appendix-c": {
       "indexEntry": "<span><strong>Appendix C.</strong> Calculating Coverage</span>",
       "body": "esES/appendix-c.json"
+    },
+    "credits": {
+      "indexEntry": "<strong>Créditos</strong>",
+      "body": "esES/credits.json"
     }
   }
 }

@@ -32,8 +32,12 @@ import { SdcHelpService } from './services';
           <article #helpData class="help-data sdc-scrollable">
             <header class="help-header" nxHeadline="subsection-medium" [innerHtml]="config.body.title"></header>
             <section class="help-paragraphs">
-              @if (config.body.media) {
-                <video class="help-media" [src]="config.body.media" controls autoplay="false"></video>
+              @if (config.body.media && state === 'open') {
+                @defer (on viewport) {
+                  <video class="help-media" [src]="config.body.media" controls autoplay="false"></video>
+                } @placeholder {
+                  <div class="placeholder"></div>
+                }
               }
               @for (paragraph of config.body.paragraphs; track $index) {
                 @defer (on viewport) {
