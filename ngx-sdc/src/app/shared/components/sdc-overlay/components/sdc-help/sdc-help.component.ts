@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -29,7 +29,7 @@ import { SdcHelpService } from './services';
           </section>
         </article>
         @if (config.body) {
-          <article class="help-data sdc-scrollable">
+          <article #helpData class="help-data sdc-scrollable">
             <header class="help-header" nxHeadline="subsection-medium" [innerHtml]="config.body.title"></header>
             <section class="help-paragraphs">
               @if (config.body.media) {
@@ -64,6 +64,8 @@ export class SdcHelpComponent implements OnInit, OnDestroy {
   public config?: SdcHelpConfig;
   public index: string[] = [];
 
+  @ViewChild('helpData')
+  private helpData!: ElementRef;
   private subscriptions: Subscription[] = [];
 
   constructor(private readonly helpService: SdcHelpService) {}
@@ -83,6 +85,7 @@ export class SdcHelpComponent implements OnInit, OnDestroy {
   }
 
   public loadHelp(appendix: string): void {
+    this.helpData.nativeElement.scrollTop = 0;
     this.helpService.appendix = appendix;
   }
 }
