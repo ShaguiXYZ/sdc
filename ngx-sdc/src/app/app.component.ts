@@ -5,7 +5,7 @@ import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
-import { IAppConfiguration } from './core/models/sdc';
+import { IAppConfigurationModel } from './core/models/sdc';
 import { ContextDataService, StorageService } from './core/services';
 import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 import { routingAnimation } from './shared/animations';
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.appConfiguration.appConfiguracions().then(config => {
-      this.contextDataService.set<IAppConfiguration>(
+      this.contextDataService.set<IAppConfigurationModel>(
         ContextDataInfo.APP_CONFIG,
         { ...config, title: '- S D C -' },
         { persistent: true, referenced: false }
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions$.push(
-      this.contextDataService.onDataChange<IAppConfiguration>(ContextDataInfo.APP_CONFIG).subscribe(config => {
+      this.contextDataService.onDataChange<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG).subscribe(config => {
         this.title.setTitle(config.title);
       })
     );

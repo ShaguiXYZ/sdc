@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
 import { _console } from 'src/app/core/lib';
-import { IAppConfiguration, IPageable, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
+import { IAppConfigurationModel, IPageable, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
@@ -22,7 +22,7 @@ export class SdcApplicationsHomeService {
     private readonly squadService: SquadService,
     private readonly tagService: TagService
   ) {
-    const appConfig = this.contextDataService.get<IAppConfiguration>(ContextDataInfo.APP_CONFIG);
+    const appConfig = this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
     this.emementsByPage = appConfig.jpa.elementsByPage;
     this.contextData = this.contextDataService.get(ContextDataInfo.APPLICATIONS_DATA);
 
@@ -37,7 +37,7 @@ export class SdcApplicationsHomeService {
   }
 
   public populateData(filter: ApplicationsFilter, page?: number, showLoading?: boolean): void {
-    const appConfig = this.contextDataService.get<IAppConfiguration>(ContextDataInfo.APP_CONFIG);
+    const appConfig = this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
 
     this.filterData(filter.name, filter.squad, filter.tags, filter.metricState, page ?? 0, appConfig.jpa.elementsByPage, showLoading);
   }

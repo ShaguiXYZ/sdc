@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { hasValue } from 'src/app/core/lib';
-import { IAppConfiguration, IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
+import { IAppConfigurationModel, IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import { SdcComplianceBarCardsComponent, SdcTagComponent } from 'src/app/shared/components';
@@ -71,7 +71,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
 
         this.groupTags();
 
-        this.contextDataService.set<IAppConfiguration>(ContextDataInfo.APP_CONFIG, {
+        this.contextDataService.set<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG, {
           ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
           title: `Applications | ${this.applicationsInfo?.name ?? ''}`
         });

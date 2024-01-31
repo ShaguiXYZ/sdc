@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IAppConfiguration } from '../../models/sdc';
+import { IAppConfigurationDTO, IAppConfigurationModel } from '../../models/sdc';
 import { HttpService, HttpStatus } from '../http';
 import { _CONFIGURATION_CACHE_ID_ } from './constants';
 
@@ -11,16 +11,16 @@ export class AppConfigurationService {
 
   constructor(private readonly http: HttpService) {}
 
-  public appConfiguracions(): Promise<IAppConfiguration> {
+  public appConfiguracions(): Promise<IAppConfigurationModel> {
     return firstValueFrom(
       this.http
-        .get<IAppConfiguration>(`${this._urlConfiguration}`, {
+        .get<IAppConfigurationDTO>(`${this._urlConfiguration}`, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Notifications.ConfigurationNotFound' }
           },
           cache: this.configurationCacheId()
         })
-        .pipe(map(res => res as IAppConfiguration))
+        .pipe(map(res => IAppConfigurationModel.fromDTO(res as IAppConfigurationDTO)))
     );
   }
 
