@@ -1,0 +1,32 @@
+<svg width="149" height="139" xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>CTRL+J</title>
+  <defs>
+    <linearGradient id="linearGradient607">
+      <stop id="stop608" offset="0" stop-color="#cfcfcf" />
+      <stop id="stop609" offset="1" stop-color="#efefef" />
+    </linearGradient>
+    <linearGradient id="linearGradient565">
+      <stop id="stop566" offset="0" stop-color="#9d9d9f" />
+      <stop id="stop567" offset="1" stop-color="#e5e5e5" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" id="linearGradient613" spreadMethod="pad"
+      x1="0.23529" x2="0.82805" xlink:href="#linearGradient607" y1="0.85156" y2="0.125" />
+    <linearGradient gradientUnits="objectBoundingBox" id="linearGradient615" spreadMethod="pad"
+      x1="0.10732" x2="0.87805" xlink:href="#linearGradient565" y1="0.82031" y2="0.07813" />
+    <linearGradient id="linearGradient620" xlink:href="#linearGradient607" />
+    <pattern height="100" width="100" y="0" x="0" patternUnits="userSpaceOnUse" id="gridpattern">
+      <image height="100" width="100" y="0" x="0" />
+    </pattern>
+  </defs>
+  <g>
+    <title>Layer 1</title>
+    <rect height="139.46495" id="rect621" ry="20.66907" width="148.54411" x="0" y="0"
+      stroke-width="0.81659pt" stroke="#acb0b0" fill-rule="evenodd" fill="url(#linearGradient615)" />
+    <rect height="107.05391" id="rect622" rx="7.51694" ry="10.3253" width="107.66589" x="19.66405"
+      y="14.80829" stroke-width="2.5" stroke="url(#linearGradient620)" fill-rule="evenodd"
+      fill="url(#linearGradient613)" />
+    <text id="svg_3" xml:space="preserve" text-anchor="middle" font-family="Arial" font-size="49"
+      y="82.98355" x="73.14046" stroke-width="0" fill="#000000" stroke="#000000">F1</text>
+  </g>
+</svg>

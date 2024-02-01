@@ -24,10 +24,10 @@ export class SdcSseEventService implements OnDestroy {
   }
 
   public loadData(): void {
-    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA);
     const { events } = contextData || { events: [] };
 
-    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.ROOT_DATA, { events }, { persistent: true, referenced: true });
+    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA, { events }, { persistent: true, referenced: true });
 
     this.data$.next(events);
   }
@@ -38,16 +38,16 @@ export class SdcSseEventService implements OnDestroy {
 
   private eventObserver = (): Subscription =>
     this.sseService.onEvent().subscribe(event => {
-      const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.ROOT_DATA);
+      const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA);
 
       contextData.events = [...contextData.events, event];
-      this.contextDataService.set(ContextDataInfo.ROOT_DATA, contextData);
+      this.contextDataService.set(ContextDataInfo.OVERLAY_DATA, contextData);
 
       this.data$.next(contextData.events);
     });
 
   private contextDataObserver = (): Subscription =>
-    this.contextDataService.onDataChange<SdcRootContextData>(ContextDataInfo.ROOT_DATA).subscribe(contextData => {
+    this.contextDataService.onDataChange<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA).subscribe(contextData => {
       this.data$.next(contextData.events);
     });
 

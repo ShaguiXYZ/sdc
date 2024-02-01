@@ -42,7 +42,7 @@ springdoc:
 
 rest:
   security:
-    enabled: false
+    enabled: true
     api-matcher:
       - /api/**
       - /v3/api-docs/**
