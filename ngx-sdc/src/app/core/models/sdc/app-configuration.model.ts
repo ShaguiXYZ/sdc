@@ -10,11 +10,16 @@ export interface IJpaConfig {
   elementsByPage: number;
 }
 
+export interface IAppSecurityConfig {
+  enabled: boolean;
+}
+
 export interface IAppConfigurationDTO {
   bffVersion: string;
   rwsVersion: string;
   analysis: IAnalysisConfig;
   jpa: IJpaConfig;
+  security: IAppSecurityConfig;
   title: string;
 }
 
@@ -26,6 +31,7 @@ export interface IAppConfigurationModel {
   };
   analysis: IAnalysisConfig;
   jpa: IJpaConfig;
+  security: IAppSecurityConfig;
   title: string;
 }
 
@@ -35,6 +41,7 @@ export namespace IAppConfigurationModel {
       { bffVersion: dto.bffVersion, ngxVersion: version, rwsVersion: dto.rwsVersion },
       dto.analysis,
       dto.jpa,
+      dto.security,
       dto.title
     );
 }
@@ -48,6 +55,7 @@ export class AppConfigurationModel implements IAppConfigurationModel {
     },
     public analysis: IAnalysisConfig,
     public jpa: IJpaConfig,
+    public security: IAppSecurityConfig,
     public title: string
   ) {}
 }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.ConfigurationsApi;
 import com.shagui.sdc.api.client.RwsSdcClient;
-import com.shagui.sdc.api.view.SdcConfig;
+import com.shagui.sdc.api.config.SdcConfig;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 

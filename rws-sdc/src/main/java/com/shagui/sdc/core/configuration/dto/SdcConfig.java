@@ -18,6 +18,7 @@ public class SdcConfig {
     private String rwsVersion;
     private AnalysisConfig analysis;
     private JpaConfig jpa;
+    private SecurityConfig security;
 
     public SdcConfig() {
         this.analysis = new AnalysisConfig();

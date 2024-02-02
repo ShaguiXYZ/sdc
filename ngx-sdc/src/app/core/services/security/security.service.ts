@@ -39,7 +39,7 @@ export class SecurityService {
     if (securityInfo) {
       this.contextData.set(CONTEXT_SECURITY_KEY, { ...securityInfo, user }, { persistent: true });
     } else {
-      throw new SecurityError('Valid token not returned');
+      throw new SecurityError('Not valid token returned');
     }
   }
 
@@ -96,7 +96,7 @@ export class SecurityService {
   }
 
   private securityInfo(): ISecurityModel {
-    return this.contextData.get(CONTEXT_SECURITY_KEY) as ISecurityModel;
+    return this.contextData.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
   }
 
   private getAuthoritiesByUID(uid: string): Observable<IAuthorityModel[]> {

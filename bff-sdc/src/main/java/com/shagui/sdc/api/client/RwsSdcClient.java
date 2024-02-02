@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shagui.sdc.api.config.SdcConfig;
 import com.shagui.sdc.api.domain.HistoricalCoverage;
 import com.shagui.sdc.api.domain.PageData;
 import com.shagui.sdc.api.dto.ComponentDTO;
@@ -20,7 +21,6 @@ import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.api.dto.SummaryViewDTO;
 import com.shagui.sdc.api.dto.TagDTO;
-import com.shagui.sdc.api.view.SdcConfig;
 
 import io.swagger.v3.oas.annotations.Parameter;
 

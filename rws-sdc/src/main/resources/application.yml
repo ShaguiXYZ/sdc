@@ -11,6 +11,8 @@ application:
       trend-heat: 0.4
     jpa:
       elements-by-page: 6
+    security:
+      enabled: ${rest.security.enabled}
 
 logging:
   pattern:
