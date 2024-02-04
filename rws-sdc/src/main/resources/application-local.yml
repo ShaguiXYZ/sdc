@@ -1,13 +1,15 @@
 rest:
   security:
-    issuerUri: http://localhost:9092/rws-security
+    issuer-uri: http://localhost:9092/rws-security
     api-matcher:
-      - /api/**
-      - /v3/api-docs/**
-      - /swagger.json
-      - /swagger-ui.html
-      - /swagger-ui/**
-      - /swagger-resources/**
-      - /webjars/**
-      - /h2-console/**
-      - /h2-ui/**
+      - api: /api/**
+      - api: /api/public/**
+        permit-all: true
+      - api: /v3/api-docs/**
+      - api: /swagger.json
+      - api: /swagger-ui.html
+      - api: /swagger-ui/**
+      - api: /swagger-resources/**
+      - api: /webjars/**
+      - api: /h2-console/**
+      - api: /h2-ui/**

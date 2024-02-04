@@ -39,16 +39,19 @@ springdoc:
       enabled: true
     operationsSorter: alpha
     tags-sorter: alpha
-  packagesToScan: com.shagui.sdc.controller
-  pathsToMatch: /api/**
+  packages-to-scan: com.shagui.sdc.controller
+  paths-to-match: /api/**
 
 rest:
   security:
     enabled: true
     api-matcher:
-      - /api/**
-      - /v3/api-docs/**
-      - /webjars/**
+      - api: /api/**
+      - api: /api/public/**
+        permit-all: true
+      - api: /v3/api-docs/**
+      - api: /v3/api-docs/**
+      - api: /webjars/**
     cors:
       allowed-origins: '*'
       allowed-headers: '*'

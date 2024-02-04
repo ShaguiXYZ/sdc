@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -18,8 +19,8 @@ import com.shagui.sdc.core.configuration.security.filter.AuthorizationFilter;
 @EnableWebSecurity
 @Import({ SecurityProperties.class })
 public class SecurityConfig {
-	private final SecurityClient securityClient;
 	private final SecurityProperties securityProperties;
+	private final SecurityClient securityClient;
 
 	public SecurityConfig(SecurityProperties securityProperties, SecurityClient securityClient) {
 		this.securityProperties = securityProperties;
@@ -34,11 +35,11 @@ public class SecurityConfig {
 
 		// Set permissions on endpoints
 		http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-				.requestMatchers(securityProperties.getApiMatcher()).permitAll());
+				.requestMatchers(securityProperties.allRegex()).permitAll());
 
 		if (securityProperties.isEnabled()) {
 			// Add JWT token filter
-			http.addFilterAfter(new AuthorizationFilter(this.securityClient),
+			http.addFilterAfter(new AuthorizationFilter(this.securityProperties, this.securityClient),
 					UsernamePasswordAuthenticationFilter.class);
 		}
 
@@ -47,9 +48,10 @@ public class SecurityConfig {
 
 	private CorsConfigurationSource corsConfigurationSource() {
 		UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration corsConfiguration = securityProperties.getCorsConfiguration();
 
-		if (null != securityProperties.getCorsConfiguration()) {
-			configurationSource.registerCorsConfiguration("/**", securityProperties.getCorsConfiguration());
+		if (null != corsConfiguration) {
+			configurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		}
 
 		return configurationSource;
