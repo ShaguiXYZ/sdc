@@ -26,7 +26,10 @@
         (clickDepartment)="departmentClicked($event)"
       />
     </div>
-    <div class="coverages" [ngClass]="{ 'nx-margin-x-3xs width-50': squadsData.squad, 'no-data-loaded width-100': !squadsData.squad }">
+    <div
+      class="coverages"
+      [ngClass]="{ 'nx-margin-bottom-3xs nx-margin-x-3xs width-50': squadsData.squad, 'no-data-loaded width-100': !squadsData.squad }"
+    >
       <sdc-coverages
         [filter]="squadsData.filter"
         [coverages]="squadsData.squads"
