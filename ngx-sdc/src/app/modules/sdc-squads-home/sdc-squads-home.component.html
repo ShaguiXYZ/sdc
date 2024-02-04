@@ -1,6 +1,6 @@
 @if (squadsData) {
   <div class="summary-content nx-margin-y-2xs">
-    <div [ngClass]="{ 'width-50': squadsData.squad, 'width-0': !squadsData.squad }" class="summary nx-margin-right-3xs">
+    <div class="nx-margin-x-3xs" [ngClass]="{ 'nx-margin-bottom-3xs width-50': squadsData.squad, 'width-0': !squadsData.squad }">
       @if (squadsData.squad) {
         <div class="nx-margin-bottom-2xs">
           <sdc-squad-summary
@@ -26,7 +26,7 @@
         (clickDepartment)="departmentClicked($event)"
       />
     </div>
-    <div [ngClass]="{ 'width-50': squadsData.squad, 'width-100': !squadsData.squad }" class="coverages nx-margin-left-3xs">
+    <div class="coverages" [ngClass]="{ 'nx-margin-x-3xs width-50': squadsData.squad, 'no-data-loaded width-100': !squadsData.squad }">
       <sdc-coverages
         [filter]="squadsData.filter"
         [coverages]="squadsData.squads"

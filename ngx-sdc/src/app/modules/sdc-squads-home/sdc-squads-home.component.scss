@@ -1,8 +1,10 @@
 .summary-content {
   display: flex;
+  max-height: inherit;
+  flex-wrap: wrap;
 
-  .summary {
-    min-height: 806px;
+  .no-data-loaded {
+    min-height: 700px;
   }
 
   .coverages {
@@ -26,10 +28,13 @@
 }
 
 .width-50 {
-  transition: width 0.5s ease-in-out;
-  width: 50%;
+  flex: 1;
+  min-width: 350px;
+  transition:
+    min-width 0.5s ease-in-out,
+    width 0.5s ease-in-out;
 }
 
 .width-100 {
-  width: 100%;
+  min-width: 100%;
 }
