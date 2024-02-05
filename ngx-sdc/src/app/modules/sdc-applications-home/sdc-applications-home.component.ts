@@ -75,13 +75,12 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
           ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
           title: `Applications | ${this.applicationsInfo?.name ?? ''}`
         });
-      })
+      }),
+      this.searchBoxConfig()
     );
 
-    this.subscription$.push(this.searchBoxConfig());
-
     this.createForm();
-    this.loadData();
+    this.initialize().then(() => this.applicationsService.loadData());
   }
 
   ngOnDestroy(): void {
@@ -186,12 +185,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private groupTags(): void {
-    this.tags.selected = this.tags.all.filter(tag => this.applicationsInfo?.tags?.includes(tag.name)) ?? [];
-    this.tags.availables = this.tags.all.filter(tag => !this.applicationsInfo?.tags?.includes(tag.name)) ?? [];
-  }
-
-  private async loadData() {
+  private async initialize() {
     const [coverages, squads, tags] = await Promise.all([
       this.applicationsService.availableCoverages(),
       this.applicationsService.availableSquads(),
@@ -203,6 +197,11 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     this.tags.all = tags.page;
     this.tags.all.sort((a, b) => a.name.localeCompare(b.name));
     this.groupTags();
+  }
+
+  private groupTags(): void {
+    this.tags.selected = this.tags.all.filter(tag => this.applicationsInfo?.tags?.includes(tag.name)) ?? [];
+    this.tags.availables = this.tags.all.filter(tag => !this.applicationsInfo?.tags?.includes(tag.name)) ?? [];
   }
 
   private createForm(): void {

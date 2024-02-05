@@ -23,7 +23,21 @@ export class SdcApplicationsHomeService {
     private readonly tagService: TagService
   ) {
     const appConfig = this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
+
     this.emementsByPage = appConfig.jpa.elementsByPage;
+    this.contextData = this.contextDataService.get(ContextDataInfo.APPLICATIONS_DATA);
+
+    this.filterData(
+      this.contextData?.filter?.name,
+      this.contextData?.filter?.squad,
+      this.contextData?.filter?.tags,
+      this.contextData?.filter?.metricState,
+      this.contextData?.page ?? 0,
+      this.emementsByPage
+    );
+  }
+
+  public loadData(): void {
     this.contextData = this.contextDataService.get(ContextDataInfo.APPLICATIONS_DATA);
 
     this.filterData(
