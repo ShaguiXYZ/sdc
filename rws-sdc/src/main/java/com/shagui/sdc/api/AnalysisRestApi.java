@@ -21,31 +21,20 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = { "/api/analysis" }, produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface AnalysisRestApi {
 	@Operation(summary = "Retrieve last component analysis")
-	@GetMapping("get/{componentId}")
+	@GetMapping("public/analysis/get/{componentId}")
 	PageData<MetricAnalysisDTO> analysis(
 			@PathVariable @Parameter(description = "Component identifier") int componentId);
 
 	@Operation(summary = "Retrieve last component analysis metric")
-	@GetMapping("get/{componentId}/{metricId}")
+	@GetMapping("public/analysis/get/{componentId}/{metricId}")
 	MetricAnalysisDTO analysis(@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);
 
-	@Operation(summary = "Run analysis for a component name of a squad")
-	@PostMapping("{squadId}/{componentName}")
-	@ResponseStatus(HttpStatus.CREATED)
-	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "squad id") int squadId,
-			@PathVariable @Parameter(description = "component name") String componentName);
-
-	@Operation(summary = "Run analysis for a component")
-	@PostMapping("{componentId}")
-	@ResponseStatus(HttpStatus.CREATED)
-	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "component identifier") int componentId);
-
 	@Operation(summary = "Retrieve component metric history")
-	@GetMapping("{componentId}/{metricId}")
+	@GetMapping("public/analysis/{componentId}/{metricId}")
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId,
@@ -54,7 +43,7 @@ public interface AnalysisRestApi {
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@Operation(summary = "Retrieve component metric history")
-	@GetMapping("{componentId}/{metricName}/{type}")
+	@GetMapping("public/analysis/{componentId}/{metricName}/{type}")
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric name") String metricName,
@@ -64,9 +53,20 @@ public interface AnalysisRestApi {
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@Operation(summary = "Retrieve annual summary of a NUMERIC_MAP metric")
-	@GetMapping("annualSum")
+	@GetMapping("public/analysis/annualSum")
 	PageData<MetricAnalysisDTO> annualSum(@RequestParam(required = true) String metricName,
 			@RequestParam(required = true) AnalysisType metricType,
 			@RequestParam(required = false) Integer componentId,
 			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Integer departmentId);
+
+	@Operation(summary = "Run analysis for a component name of a squad")
+	@PostMapping("analysis/{squadId}/{componentName}")
+	@ResponseStatus(HttpStatus.CREATED)
+	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "squad id") int squadId,
+			@PathVariable @Parameter(description = "component name") String componentName);
+
+	@Operation(summary = "Run analysis for a component")
+	@PostMapping("analysis/{componentId}")
+	@ResponseStatus(HttpStatus.CREATED)
+	PageData<MetricAnalysisDTO> analyze(@PathVariable @Parameter(description = "component identifier") int componentId);
 }

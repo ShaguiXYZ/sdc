@@ -25,10 +25,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = { "/api/componentTypeArchitecture" }, produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface ComponentTypeArchitectureApi {
 	@Operation(summary = "Retrieve component type - architecture list")
-	@GetMapping
+	@GetMapping("public/componentTypeArchitecture")
 	PageData<ComponentTypeArchitectureDTO> componentTypeArchitecture(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,
 			@RequestParam(required = false) @Parameter(description = "architecture") String architecture,
@@ -38,19 +38,20 @@ public interface ComponentTypeArchitectureApi {
 			@RequestParam(required = false) @Parameter(description = "language") String language);
 
 	@Operation(summary = "Update Component Type - Architecture")
-	@PatchMapping("{componentTypeArchitectureId}")
+	@PatchMapping("componentTypeArchitecture/{componentTypeArchitectureId}")
 	@ResponseStatus(HttpStatus.OK)
 	ComponentTypeArchitectureDTO update(
 			@PathVariable @Parameter(description = "component type - architecture identifier") int componentTypeArchitectureId,
 			@RequestBody ComponentTypeArchitectureDTO data);
 
 	@Operation(summary = "Create new elements of Component Type - Architecture")
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping(name = "componentTypeArchitecture", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.CREATED)
 	List<ComponentTypeArchitectureDTO> create(@RequestBody List<ComponentTypeArchitectureDTO> data);
 
 	@Operation(summary = "Associate metrics with a type of component and/or architecture")
-	@PostMapping("metricsByArchitecture")
+	@PostMapping("componentTypeArchitecture/metricsByArchitecture")
 	@ResponseStatus(HttpStatus.CREATED)
 	List<ComponentTypeArchitectureDTO> componentTypeArchitectureMetrics(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,
@@ -58,7 +59,7 @@ public interface ComponentTypeArchitectureApi {
 			@RequestBody List<MetricPropertiesDTO> metricProperties);
 
 	@Operation(summary = "Create new ranges for a metric and a type of component and/or architecture")
-	@PostMapping("metricValues")
+	@PostMapping("componentTypeArchitecture/metricValues")
 	@ResponseStatus(HttpStatus.CREATED)
 	List<MetricValuesOutDTO> addMetricValues(
 			@RequestParam(required = false) @Parameter(description = "component type") String componentType,

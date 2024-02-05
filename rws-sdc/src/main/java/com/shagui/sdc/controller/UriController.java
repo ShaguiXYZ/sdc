@@ -18,7 +18,7 @@ public class UriController implements UriRestApi {
 	private UriService uriService;
 
 	@Override
-	public List<UriModel> availables() {
+	public List<UriModel> uris() {
 		return uriService.availables();
 	}
 }

@@ -15,9 +15,9 @@ import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = { "/api/summary" }, produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface SummaryViewApi {
-    @GetMapping("filter")
+    @GetMapping("public/summary/filter")
     PageData<SummaryViewDTO> filter(
             @RequestParam(required = false) @Parameter(description = "Summary name") String name,
             @RequestParam(required = false) @Parameter(description = "Summary types") Set<SummaryType> types,

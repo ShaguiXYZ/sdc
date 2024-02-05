@@ -25,11 +25,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface MetricRestApi {
 	@Operation(summary = "Retrieve metric by Id")
-	@GetMapping({ "metric/{metricId}" })
+	@GetMapping({ "public/metric/{metricId}" })
 	MetricDTO metric(@PathVariable @Parameter(description = "metric identifier") int metricId);
 
 	@Operation(summary = "Retrieve all available metrics")
-	@GetMapping("metrics")
+	@GetMapping("public/metrics")
 	PageData<MetricDTO> metrics();
 
 	@Operation(summary = "Create new metric")

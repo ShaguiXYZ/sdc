@@ -44,22 +44,6 @@ public class AnalysisController implements AnalysisRestApi {
 	}
 
 	@Override
-	public PageData<MetricAnalysisDTO> analyze(int squadId, String componentName) {
-		ComponentDTO component = componentService.findBy(squadId, componentName);
-
-		return analyze(component.getId());
-	}
-
-	@Override
-	public PageData<MetricAnalysisDTO> analyze(int componentId) {
-		if (!analysisService.analyze(componentId).getPage().isEmpty()) {
-			analysisService.updateTrend(componentId);
-		}
-
-		return analysisService.analysis(componentId);
-	}
-
-	@Override
 	public PageData<MetricAnalysisDTO> metricHistory(int componentId, int metricId, Date from, Integer page,
 			Integer ps) {
 		if (page == null) {
@@ -102,6 +86,22 @@ public class AnalysisController implements AnalysisRestApi {
 		}
 
 		return PageData.empty();
+	}
+
+	@Override
+	public PageData<MetricAnalysisDTO> analyze(int squadId, String componentName) {
+		ComponentDTO component = componentService.findBy(squadId, componentName);
+
+		return analyze(component.getId());
+	}
+
+	@Override
+	public PageData<MetricAnalysisDTO> analyze(int componentId) {
+		if (!analysisService.analyze(componentId).getPage().isEmpty()) {
+			analysisService.updateTrend(componentId);
+		}
+
+		return analysisService.analysis(componentId);
 	}
 
 	private <T extends Mergeable<T>> T merge(List<MetricAnalysisDTO> page, Class<T> clazz) {

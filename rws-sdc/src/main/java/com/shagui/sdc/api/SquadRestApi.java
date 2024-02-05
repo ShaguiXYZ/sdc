@@ -17,17 +17,17 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface SquadRestApi {
 	@Operation(summary = "Retrieve squad by id")
-	@GetMapping("squad/{squadId}")
+	@GetMapping("public/squad/{squadId}")
 	SquadDTO squad(@PathVariable @Parameter(description = "Squad identifier") int squadId);
 
 	@Operation(summary = "Retrieve available squads")
-	@GetMapping("squads")
+	@GetMapping("public/squads")
 	PageData<SquadDTO> squads(
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@Operation(summary = "Retrieve available squads")
-	@GetMapping("squads/{departmentId}")
+	@GetMapping("public/squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(
 			@PathVariable @Parameter(description = "Department identifier") int departmentId,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,

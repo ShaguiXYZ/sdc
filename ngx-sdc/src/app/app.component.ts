@@ -26,11 +26,9 @@ import { ContextDataInfo } from './shared/constants';
         <header nxLayout="grid maxwidth nogutters">
           <nx-header headerTitle="S D C" [title]="'Header.Title' | translate" />
         </header>
-        @if (!securityEnebled) {
-          <div nxLayout="grid maxwidth nogutters" [@routeAnimations]="prepareRoute(outlet)">
-            <router-outlet #outlet="outlet" />
-          </div>
-        }
+        <div nxLayout="grid maxwidth nogutters" [@routeAnimations]="prepareRoute(outlet)">
+          <router-outlet #outlet="outlet" />
+        </div>
       </div>
       <sdc-footer />
     </main>
@@ -81,10 +79,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
-  }
-
-  public get securityEnebled(): boolean {
-    return this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG)?.security.enabled;
   }
 
   // @howto: Detect the Closing of a Browser Tab

@@ -26,19 +26,19 @@ import io.swagger.v3.oas.annotations.Parameter;
 
 @FeignClient(name = "rws-sdc", url = "${services.rws-sdc}", primary = false)
 public interface RwsSdcClient {
-	@GetMapping("analysis/get/{componentId}")
+	@GetMapping("public/analysis/get/{componentId}")
 	PageData<MetricAnalysisDTO> analysis(@PathVariable int componentId);
 
-	@GetMapping("analysis/get/{componentId}/{metricId}")
+	@GetMapping("public/analysis/get/{componentId}/{metricId}")
 	MetricAnalysisDTO analysis(@PathVariable int componentId, @PathVariable int metricId);
 
-	@GetMapping("analysis/{componentId}/{metricId}")
+	@GetMapping("public/analysis/{componentId}/{metricId}")
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable int componentId, @PathVariable int metricId,
 			@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer ps);
 
-	@GetMapping("analysis/{componentId}/{metricName}/{type}")
+	@GetMapping("public/analysis/{componentId}/{metricName}/{type}")
 	PageData<MetricAnalysisDTO> metricHistory(
 			@PathVariable int componentId,
 			@PathVariable String metricName,
@@ -46,7 +46,7 @@ public interface RwsSdcClient {
 			@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer ps);
 
-	@GetMapping("analysis/annualSum")
+	@GetMapping("public/analysis/annualSum")
 	PageData<MetricAnalysisDTO> annualSum(
 			@RequestParam(required = true) String metricName,
 			@RequestParam(required = true) String metricType,
@@ -57,61 +57,61 @@ public interface RwsSdcClient {
 	@PostMapping(value = "analysis/{componentId}")
 	PageData<MetricAnalysisDTO> analyze(@PathVariable int componentId);
 
-	@GetMapping("component/{componentId}")
+	@GetMapping("public/component/{componentId}")
 	ComponentDTO component(@PathVariable int componentId);
 
-	@GetMapping("component/{componentId}/metrics")
+	@GetMapping("public/component/{componentId}/metrics")
 	PageData<MetricDTO> componentMetrics(@PathVariable int componentId);
 
-	@GetMapping("component/historical/{componentId}")
+	@GetMapping("public/component/historical/{componentId}")
 	HistoricalCoverage<ComponentDTO> componentHistoricalCoverage(@PathVariable int componentId,
 			@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
 
 	@GetMapping("public/configurations")
 	SdcConfig configurations();
 
-	@GetMapping("datalist")
+	@GetMapping("public/datalist/availables")
 	List<String> dataLists();
 
-	@GetMapping("datalist/{datalist}")
+	@GetMapping("public/datalist/{datalist}")
 	List<String> dataListValues(@PathVariable String datalist);
 
-	@GetMapping("components/squad/{squadId}")
+	@GetMapping("public/components/squad/{squadId}")
 	PageData<ComponentDTO> squadComponents(@PathVariable int squadId, @RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer ps);
 
-	@GetMapping("components/filter")
+	@GetMapping("public/components/filter")
 	PageData<ComponentDTO> filter(@RequestParam(required = false) String name,
 			@RequestParam(required = false) Integer squadId, @RequestParam(required = false) Set<String> tags,
 			@RequestParam(required = false) Float coverageMin, @RequestParam(required = false) Float coverageMax,
 			@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
 
-	@GetMapping("department/{departmentId}")
+	@GetMapping("public/department/{departmentId}")
 	DepartmentDTO department(@PathVariable int departmentId);
 
-	@GetMapping("departments")
+	@GetMapping("public/departments")
 	PageData<DepartmentDTO> departments(@RequestParam(required = false) Integer page);
 
-	@GetMapping("squad/{squadId}")
+	@GetMapping("public/squad/{squadId}")
 	SquadDTO squad(@PathVariable int squadId);
 
-	@GetMapping("squads")
+	@GetMapping("public/squads")
 	PageData<SquadDTO> squads(@RequestParam(required = false) Integer page);
 
-	@GetMapping("squads/{departmentId}")
+	@GetMapping("public/squads/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId, @RequestParam(required = false) Integer page);
 
-	@GetMapping("summary/filter")
+	@GetMapping("public/summary/filter")
 	PageData<SummaryViewDTO> summaryFilter(
 			@RequestParam(required = false) @Parameter(description = "Summary name") String name,
 			@RequestParam(required = false) @Parameter(description = "Summary types") Set<String> types,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
-	@GetMapping("tags")
+	@GetMapping("public/tags")
 	PageData<TagDTO> tags(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer ps);
 
-	@GetMapping("tags/component/{componentId}")
+	@GetMapping("public/tags/component/{componentId}")
 	PageData<TagDTO> componentTags(@PathVariable int componentId, @RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer ps);
 

@@ -1,6 +1,6 @@
 rest:
   security:
-    enabled: false
+    enabled: true
     issuer-uri: http://localhost:9092/rws-security
     api-matcher:
       - api: /api/**

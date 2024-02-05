@@ -12,9 +12,9 @@ import feign.Headers;
 import io.swagger.v3.oas.annotations.Operation;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = { "/api/uri" }, produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface UriRestApi {
 	@Operation(summary = "Retrieves the available uris")
-	@GetMapping
-	List<UriModel> availables();
+	@GetMapping("public/uris")
+	List<UriModel> uris();
 }

@@ -17,11 +17,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface DepartmentRestApi {
 	@Operation(summary = "Retrieve department by id")
-	@GetMapping("department/{departmentId}")
+	@GetMapping("public/department/{departmentId}")
 	DepartmentDTO department(@PathVariable @Parameter(description = "Department identifier") int departmentId);
 
 	@Operation(summary = "Retrieve available departments")
-	@GetMapping("departments")
+	@GetMapping("public/departments")
 	PageData<DepartmentDTO> departments(
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);

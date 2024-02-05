@@ -26,21 +26,16 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface ComponentRestApi {
 	@Operation(summary = "Retrieve component by Id")
-	@GetMapping("component/{componentId}")
+	@GetMapping("public/component/{componentId}")
 	ComponentDTO component(@PathVariable @Parameter(description = "component identifier") int componentId);
 
-	@Operation(summary = "Create new component")
-	@PatchMapping("component")
-	@ResponseStatus(HttpStatus.CREATED)
-	ComponentDTO patch(@RequestBody ComponentInput data);
-
 	@Operation(summary = "Retrieve squad components")
-	@GetMapping("components/squad/{squadId}")
+	@GetMapping("public/components/squad/{squadId}")
 	PageData<ComponentDTO> squadComponents(@PathVariable @Parameter(description = "Squad identifier") int squadId,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
-	@GetMapping("components/filter")
+	@GetMapping("public/components/filter")
 	PageData<ComponentDTO> filter(
 			@RequestParam(required = false) @Parameter(description = "Component name") String name,
 			@RequestParam(required = false) @Parameter(description = "Squad identifier") Integer squadId,
@@ -51,12 +46,17 @@ public interface ComponentRestApi {
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
 	@Operation(summary = "Retrieve component metrics")
-	@GetMapping("component/{componentId}/metrics")
+	@GetMapping("public/component/{componentId}/metrics")
 	PageData<MetricDTO> componentMetrics(
 			@PathVariable @Parameter(description = "component identifier") int componentId);
 
 	@Operation(summary = "Retrieve component dictionary")
-	@GetMapping("component/{componentId}/dictionary")
+	@GetMapping("public/component/{componentId}/dictionary")
 	Map<String, String> dictionary(
 			@PathVariable @Parameter(description = "component identifier") int componentId);
+
+	@Operation(summary = "Create new component")
+	@PatchMapping("component")
+	@ResponseStatus(HttpStatus.CREATED)
+	ComponentDTO patch(@RequestBody ComponentInput data);
 }

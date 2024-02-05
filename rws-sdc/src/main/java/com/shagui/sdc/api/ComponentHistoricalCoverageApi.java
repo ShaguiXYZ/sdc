@@ -13,9 +13,9 @@ import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = { "/api/component/historical" }, produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface ComponentHistoricalCoverageApi {
-	@GetMapping("{componentId}")
+	@GetMapping("public/component/historical/{componentId}")
 	HistoricalCoverageDTO<ComponentDTO> historicalCoverage(
 			@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,

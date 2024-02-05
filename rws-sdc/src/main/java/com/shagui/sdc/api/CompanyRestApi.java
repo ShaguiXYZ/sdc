@@ -22,11 +22,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface CompanyRestApi {
     @Operation(summary = "Retrieve Company by Id")
-    @GetMapping({ "company/{companyId}" })
+    @GetMapping({ "public/company/{companyId}" })
     CompanyDTO company(@PathVariable @Parameter(description = "company identifier") int companyId);
 
     @Operation(summary = "Retrieve all Companies")
-    @GetMapping({ "companies" })
+    @GetMapping({ "public/companies" })
     PageData<CompanyDTO> companies();
 
     @Operation(summary = "Update Companies")

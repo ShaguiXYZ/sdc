@@ -22,13 +22,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface TagRestApi {
         @Operation(summary = "Retrieve all tags")
-        @GetMapping("tags")
+        @GetMapping("public/tags")
         PageData<TagDTO> tags(
                         @RequestParam(required = false) @Parameter(description = "Page number") Integer page,
                         @RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
         @Operation(summary = "Retrieve all component tags")
-        @GetMapping("tags/component/{componentId}")
+        @GetMapping("public/tags/component/{componentId}")
         PageData<TagDTO> componentTags(
                         @PathVariable @Parameter(description = "component identifier") int componentId,
                         @RequestParam(required = false) @Parameter(description = "Page number") Integer page,

@@ -32,14 +32,6 @@ public class ComponentController implements ComponentRestApi {
 	}
 
 	@Override
-	public ComponentDTO patch(ComponentInput data) {
-		ComponentDTO dto = dataMaintenanceService.componentUpdateData(data);
-		analysisController.analyze(dto.getId());
-
-		return componentService.findBy(dto.getId());
-	}
-
-	@Override
 	public PageData<ComponentDTO> squadComponents(int squadId, Integer page, Integer ps) {
 		if (page == null) {
 			return componentService.squadComponents(squadId);
@@ -67,5 +59,13 @@ public class ComponentController implements ComponentRestApi {
 	@Override
 	public Map<String, String> dictionary(int componentId) {
 		return componentService.dictionary(componentId);
+	}
+
+	@Override
+	public ComponentDTO patch(ComponentInput data) {
+		ComponentDTO dto = dataMaintenanceService.componentUpdateData(data);
+		analysisController.analyze(dto.getId());
+
+		return componentService.findBy(dto.getId());
 	}
 }
