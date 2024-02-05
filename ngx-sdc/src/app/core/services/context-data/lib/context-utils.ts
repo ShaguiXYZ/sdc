@@ -1,7 +1,7 @@
 import { PRIMARY_OUTLET, Route, Router, UrlTree } from '@angular/router';
 import { deepCopy, hasValue } from 'src/app/core/lib';
-import { ContextValidGuard } from '../guard';
 import { ContextConfig, RouterInfo, UrlInfo } from '../models';
+import { contextValidGuard } from '../guard';
 
 export const urlInfoBykey = (key: string, contextConfig: ContextConfig): UrlInfo => contextConfig.urls[key];
 
@@ -28,7 +28,7 @@ export const configContextRoutes = (routes: Route[]): Route[] => {
   return routes.map(route => {
     if (!hasValue(route.redirectTo)) {
       route.canActivate = Object.assign([], route.canActivate ?? []);
-      route.canActivate.push(ContextValidGuard);
+      route.canActivate.push(contextValidGuard);
     }
 
     return route;

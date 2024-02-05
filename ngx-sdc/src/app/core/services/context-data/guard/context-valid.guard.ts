@@ -1,5 +1,5 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService } from 'src/app/core/components/notification';
 import { NX_CONTEX_CONFIG } from '../constatnts';
@@ -7,37 +7,32 @@ import { ContextDataService } from '../context-data.service';
 import { urlInfoBykey } from '../lib';
 import { ContextConfig } from '../models';
 
-@Injectable({ providedIn: 'root' })
-export class ContextValidGuard {
-  constructor(
-    @Optional() @Inject(NX_CONTEX_CONFIG) private readonly contextConfig: ContextConfig,
-    private router: Router,
-    private contextData: ContextDataService,
-    private notificationService: NotificationService,
-    private translateService: TranslateService
-  ) {}
+export const contextValidGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+  const contextConfig: ContextConfig = inject(NX_CONTEX_CONFIG, { optional: true }) ?? ({} as ContextConfig);
+  const contextData: ContextDataService = inject(ContextDataService);
+  const notificationService: NotificationService = inject(NotificationService);
+  const router: Router = inject(Router);
+  const translateService: TranslateService = inject(TranslateService);
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (route.routeConfig?.path) {
-      const urlInfo = urlInfoBykey(route.routeConfig.path, this.contextConfig);
-      const incompleteContext = urlInfo?.requiredData?.some(data => this.contextData.get(data) === undefined);
+  if (route.routeConfig?.path) {
+    const urlInfo = urlInfoBykey(route.routeConfig.path, contextConfig);
+    const incompleteContext = urlInfo?.requiredData?.some(data => contextData.get(data) === undefined);
 
-      if (incompleteContext) {
-        this.notificationService.error(
-          this.translateService.instant('Notifications.Error'),
-          this.translateService.instant('Notifications.ContextParamsNotFound'),
-          DEFAULT_TIMEOUT_NOTIFICATIONS,
-          true
-        );
+    if (incompleteContext) {
+      notificationService.error(
+        translateService.instant('Notifications.Error'),
+        translateService.instant('Notifications.ContextParamsNotFound'),
+        DEFAULT_TIMEOUT_NOTIFICATIONS,
+        true
+      );
 
-        if (route.routeConfig.path !== this.contextConfig.home) {
-          this.router.navigate([this.contextConfig.home]);
-        }
+      if (route.routeConfig.path !== contextConfig.home) {
+        return router.createUrlTree([contextConfig.home]);
       }
-
-      return !incompleteContext;
     }
 
-    return true;
+    return !incompleteContext;
   }
-}
+
+  return true;
+};
