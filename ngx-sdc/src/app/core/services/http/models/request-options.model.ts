@@ -6,4 +6,6 @@ export interface RequestOptions {
   responseStatusMessage?: DataInfo<MessageModal>;
   showLoading?: boolean;
   successMessage?: MessageModal;
+  onSuccess?: (res: any) => void;
+  onError?: (err: any) => void;
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
-import { SdcEventBarComponent, SdcGlobalSearchComponent, SdcHelpComponent } from './components';
+import { SdcEventBarComponent, SdcGlobalSearchComponent, SdcHelpComponent, SdcLoginComponent } from './components';
 import { SdcOverlayModel } from './models';
 import { SdcOverlayService } from './services';
 
@@ -17,14 +17,17 @@ import { SdcOverlayService } from './services';
         <div class="global-search overlay-item">
           <sdc-global-search [state]="overlayModel.globalSearchState" />
         </div>
-        <div class="sdc-help overlay-item">
+        <div class="help overlay-item">
           <sdc-help [state]="overlayModel.helpState" help="squads" />
+        </div>
+        <div class="login overlay-item">
+          <sdc-login [state]="overlayModel.loginState" />
         </div>
       </div>
     }
   `,
   standalone: true,
-  imports: [CommonModule, NxGridModule, SdcEventBarComponent, SdcGlobalSearchComponent, SdcHelpComponent]
+  imports: [CommonModule, NxGridModule, SdcEventBarComponent, SdcGlobalSearchComponent, SdcHelpComponent, SdcLoginComponent]
 })
 export class SdcOverlayComponent {
   public overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;

@@ -141,11 +141,16 @@ export class AnalysisService {
     );
   }
 
-  public analize(componentId: number): Promise<IPageable<IMetricAnalysisModel>> {
+  public analize(componentId: number, onError?: (error?: any) => void): Promise<IPageable<IMetricAnalysisModel>> {
     return firstValueFrom(
       this.http
         .post<IPageable<IMetricAnalysisDTO>, any>(`${this._urlAnalysis}/${componentId}`, undefined, {
-          successMessage: { text: 'Notifications.ComponentAnalized' }
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { text: 'Notifications.TagError' },
+            [HttpStatus.unauthorized]: { text: 'Notifications.Unauthorized' }
+          },
+          successMessage: { text: 'Notifications.ComponentAnalized' },
+          onError
         })
         .pipe(
           map(res => {

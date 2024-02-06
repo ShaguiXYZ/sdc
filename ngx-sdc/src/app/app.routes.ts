@@ -3,7 +3,6 @@ import { configContextRoutes } from './core/services';
 import { AppUrls } from './shared/config/routing';
 
 export const routes: Routes = configContextRoutes([
-  { path: AppUrls.root, redirectTo: AppUrls.squads, pathMatch: 'full' },
   {
     path: AppUrls.departments,
     loadComponent: () => import('./modules/sdc-departments-home/sdc-departments-home.component').then(c => c.SdcDepartmentsHomeComponent),
@@ -39,5 +38,6 @@ export const routes: Routes = configContextRoutes([
     path: AppUrls.routing,
     loadComponent: () => import('./modules/sdc-routing/sdc-routing').then(c => c.SdcRoutingComponent),
     canDeactivate: []
-  }
+  },
+  { path: AppUrls.root, pathMatch: 'full', redirectTo: AppUrls.squads }
 ]);

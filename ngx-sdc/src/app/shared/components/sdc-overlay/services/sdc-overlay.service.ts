@@ -7,9 +7,10 @@ import { OverlayItemStatus, SdcOverlayModel } from '../models';
 })
 export class SdcOverlayService {
   public static readonly DEFAULT_OVERLAY_STATE: SdcOverlayModel = {
-    helpState: 'closed',
+    eventBarState: 'closed',
     globalSearchState: 'closed',
-    eventBarState: 'closed'
+    helpState: 'closed',
+    loginState: 'closed'
   };
 
   private overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;
@@ -19,14 +20,14 @@ export class SdcOverlayService {
     return this.data$.asObservable();
   }
 
-  public toggleGlobalSearch(state?: OverlayItemStatus) {
-    this.defaultOverlayState();
-    this.overlayModel.globalSearchState = state ?? OverlayItemStatus.toggle(this.overlayModel.globalSearchState);
+  public toggleEventBar(state?: OverlayItemStatus) {
+    this.overlayModel.eventBarState = state ?? OverlayItemStatus.toggle(this.overlayModel.eventBarState);
     this.data$.next(this.overlayModel);
   }
 
-  public toggleEventBar(state?: OverlayItemStatus) {
-    this.overlayModel.eventBarState = state ?? OverlayItemStatus.toggle(this.overlayModel.eventBarState);
+  public toggleGlobalSearch(state?: OverlayItemStatus) {
+    this.defaultOverlayState();
+    this.overlayModel.globalSearchState = state ?? OverlayItemStatus.toggle(this.overlayModel.globalSearchState);
     this.data$.next(this.overlayModel);
   }
 
@@ -36,8 +37,13 @@ export class SdcOverlayService {
     this.data$.next(this.overlayModel);
   }
 
+  public toggleLogin(state?: OverlayItemStatus) {
+    this.overlayModel.loginState = state ?? OverlayItemStatus.toggle(this.overlayModel.loginState);
+    this.data$.next(this.overlayModel);
+  }
+
   public defaultOverlayState() {
-    this.overlayModel = { ...this.overlayModel, globalSearchState: 'closed', helpState: 'closed' };
+    this.overlayModel = { ...this.overlayModel, globalSearchState: 'closed', helpState: 'closed', loginState: 'closed' };
     this.data$.next(this.overlayModel);
   }
 }

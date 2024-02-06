@@ -2,7 +2,7 @@ import { RouteConfig } from 'src/app/core/services/context-data/models';
 import { ContextDataInfo } from '../constants';
 
 export enum AppUrls {
-  root = '',
+  root = '**',
   departments = 'departments',
   squads = 'squads',
   applications = 'applications',

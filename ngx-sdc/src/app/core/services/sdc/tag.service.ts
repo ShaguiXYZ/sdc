@@ -73,14 +73,16 @@ export class TagService {
     );
   }
 
-  public addTag(componentId: number, name: string): Promise<ITagModel> {
+  public addTag(componentId: number, name: string, onError?: (err: any) => void): Promise<ITagModel> {
     return firstValueFrom(
       this.http
         .post<ITagDTO, any>(`${this._urlTags}/tag/create/${componentId}/${name}`, undefined, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.TagError' }
+            [HttpStatus.notFound]: { text: 'Notifications.TagError' },
+            [HttpStatus.unauthorized]: { text: 'Notifications.Unauthorized' }
           },
-          successMessage: { text: 'Notifications.TagAdded' }
+          successMessage: { text: 'Notifications.TagAdded' },
+          onError
         })
         .pipe(map(res => ITagModel.fromDTO(res as ITagDTO)))
     );

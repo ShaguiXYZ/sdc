@@ -63,6 +63,7 @@
     },
     "FindByApplicationName": "Find by application",
     "LastAnalysisEvents": "Last analysis events  {{value}}",
+    "Login": "Login",
     "Metrics": "Metrics",
     "MetricsHistoryGraphs": "Metric history",
     "MyApplications": "My Applications",
@@ -74,6 +75,7 @@
     "OptimumValue": "Recommended optimum value",
     "OtherDepartments": "Other departments",
     "OtherSquads": "Other squads",
+    "Password": "Password",
     "RemoveTag": "Remove tag",
     "Search": "Type to search",
     "SelectedDate": "Selected date",
@@ -82,6 +84,7 @@
     "Squads": "Squads",
     "SquadSumary": "Squad summary",
     "Tags": "Tags",
+    "Username": "Username",
     "Yes": "Yes"
   },
   "Language": {
@@ -102,7 +105,8 @@
     "ProcesingDetail": "Procesing",
     "Success": "Success",
     "TagAdded": "Tag added",
-    "TagRemoved": "Tag removed"
+    "TagRemoved": "Tag removed",
+    "Unauthorized": "Unauthorized"
   },
   "Tooltip": {
     "RunProcess": "Analize {{name}}"

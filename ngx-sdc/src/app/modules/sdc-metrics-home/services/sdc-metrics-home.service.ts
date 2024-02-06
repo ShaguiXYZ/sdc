@@ -7,6 +7,7 @@ import { AnalysisService, ComponentService, DepartmentService, SquadService, Tag
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
 import { SdcMetricsContextData } from 'src/app/shared/models';
 import { MetricsDataModel } from '../models';
+import { SdcOverlayService } from 'src/app/shared/components/sdc-overlay/services';
 
 @Injectable()
 export class SdcMetricsHomeService {
@@ -21,6 +22,7 @@ export class SdcMetricsHomeService {
     private readonly analysisService: AnalysisService,
     private readonly componentService: ComponentService,
     private readonly contextDataService: ContextDataService,
+    private readonly overlayService: SdcOverlayService,
     private readonly squadService: SquadService,
     private readonly tagService: TagService
   ) {
@@ -68,7 +70,7 @@ export class SdcMetricsHomeService {
 
   public analyze = (): void => {
     this.analysisService
-      .analize(this.metricData.component.id)
+      .analize(this.metricData.component.id, this.onAnalyzeError)
       .then(analysis => {
         if (analysis.page.length) {
           this.componentService
@@ -101,7 +103,7 @@ export class SdcMetricsHomeService {
   }
 
   public addTag(tag: ITagModel): void {
-    this.tagService.addTag(this.metricData.component.id, tag.name).then(tag => {
+    this.tagService.addTag(this.metricData.component.id, tag.name, this.onNewTagError).then(tag => {
       this.metricData.tags = [...(this.metricData.tags ?? []), tag];
       this.data$.next(this.metricData);
     });
@@ -137,5 +139,13 @@ export class SdcMetricsHomeService {
         });
       }
     });
+  };
+
+  private onAnalyzeError = (error: any): void => {
+    this.overlayService.toggleLogin();
+  };
+
+  private onNewTagError = (error: any): void => {
+    this.overlayService.toggleLogin();
   };
 }

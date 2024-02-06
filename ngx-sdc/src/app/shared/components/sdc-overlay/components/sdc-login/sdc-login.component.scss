@@ -1,0 +1,94 @@
+.sdc-login {
+  backdrop-filter: blur(5px);
+  border-radius: 4px;
+  box-shadow: var(--shadow-small);
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  padding: 4px;
+  width: 100%;
+
+  &.open {
+    pointer-events: auto;
+    transition:
+      opacity 0.2s ease-in-out,
+      scale 0.2s ease-in-out;
+  }
+
+  &.closed {
+    opacity: 0;
+    pointer-events: none;
+    scale: 0;
+    transition:
+      opacity 0.2s ease-in-out,
+      scale 0.2s ease-in-out;
+  }
+
+  .sdc-login__container {
+    background: var(--ui-02);
+    border-radius: 4px;
+    box-shadow: var(--shadow-small);
+    flex: 1;
+    max-height: 100%;
+    padding: 0 8px 8px 8px;
+    width: 100%;
+
+    .sdc-login__header {
+      padding: 8px 0;
+
+      .sdc-login__title {
+        color: var(--text-01);
+        font-size: var(--font-size-3xl);
+        font-weight: bold;
+        margin: 0;
+        text-align: center;
+      }
+    }
+
+    .sdc-login__body {
+      padding: 8px 0;
+
+      .sdc-login__form {
+        display: flex;
+        flex-direction: column;
+
+        .sdc-login__form-group {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 8px;
+
+          .sdc-login__label {
+            color: var(--text-01);
+            font-size: var(--font-size-lg);
+            margin-bottom: 4px;
+          }
+
+          .sdc-login__input {
+            background: var(--ui-01);
+            border: 1px solid var(--ui-02);
+            border-radius: 4px;
+            color: var(--text-01);
+            font-size: var(--font-size-lg);
+            padding: 8px;
+          }
+        }
+
+        .sdc-login__button {
+          background: var(--accent-01);
+          border: none;
+          border-radius: 4px;
+          color: var(--text-01);
+          cursor: pointer;
+          font-size: var(--font-size-lg);
+          margin-top: 8px;
+          padding: 8px;
+          transition: background 0.2s ease-in-out;
+
+          &:hover {
+            background: var(--accent-02);
+          }
+        }
+      }
+    }
+  }
+}

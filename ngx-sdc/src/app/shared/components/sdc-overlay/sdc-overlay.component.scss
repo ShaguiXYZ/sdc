@@ -41,7 +41,7 @@
     }
   }
 
-  .sdc-help {
+  .help {
     display: flex;
     height: 80%;
     justify-content: center;
@@ -52,5 +52,17 @@
       max-width: 1250px;
       width: 85%;
     }
+  }
+
+  .login {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    // @howto: Align the login form to the center of the screen
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 }

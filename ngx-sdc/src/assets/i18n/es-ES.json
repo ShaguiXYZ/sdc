@@ -63,6 +63,7 @@
     },
     "FindByApplicationName": "Buscar por aplicación",
     "LastAnalysisEvents": "Últimos eventos de análisis {{value}}",
+    "Login": "Iniciar sesión",
     "Metrics": "Métricas",
     "MetricsHistoryGraphs": "Historial de métricas",
     "MyApplications": "Mis Aplicaciones",
@@ -74,6 +75,7 @@
     "OptimumValue": "Valor óptimo recomendado",
     "OtherDepartments": "Otros departamentos",
     "OtherSquads": "Otros squads",
+    "Password": "Contraseña",
     "RemoveTag": "Eliminar tag",
     "Search": "Buscar",
     "SelectedDate": "Fecha seleccionada",
@@ -82,6 +84,7 @@
     "Squads": "Squads",
     "SquadSumary": "Resumen del squad",
     "Tags": "Tags",
+    "Username": "Usuario",
     "Yes": "Si"
   },
   "Language": {
@@ -102,7 +105,8 @@
     "ProcesingDetail": "Procesando",
     "Success": "Ok",
     "TagAdded": "Tag añadido",
-    "TagRemoved": "Tag eliminado"
+    "TagRemoved": "Tag eliminado",
+    "Unauthorized": "No autorizado"
   },
   "Tooltip": {
     "RunProcess": "Analiza {{name}}"

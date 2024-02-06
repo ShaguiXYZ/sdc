@@ -48,11 +48,7 @@ export class HttpService {
       }
 
       return this.http.get<T>(url, requestOptions?.clientOptions).pipe(
-        tap(data => {
-          if (cacheId) {
-            this.cache.set(cacheId, data, expiration);
-          }
-        }),
+        tap(data => cacheId && this.cache.set(cacheId, data, expiration)),
         tap(this.tabControl(requestOptions)),
         finalize(() => {
           if (requestOptions?.showLoading) {
@@ -162,9 +158,15 @@ export class HttpService {
     );
   }
 
-  private tabControl = (requestOptions?: RequestOptions) => ({
-    next: () => this.success(requestOptions?.successMessage),
-    error: (err: HttpErrorResponse) => this.error(err, requestOptions?.responseStatusMessage)
+  private tabControl = <T>(requestOptions?: RequestOptions) => ({
+    next: (data: T) => {
+      requestOptions?.onSuccess?.(data);
+      this.success(requestOptions?.successMessage);
+    },
+    error: (err: HttpErrorResponse) => {
+      requestOptions?.onError?.(err);
+      this.error(err, requestOptions?.responseStatusMessage);
+    }
   });
 
   private success(message?: MessageModal): void {
@@ -182,21 +184,19 @@ export class HttpService {
       let title;
       let message: string;
 
-      switch (err.status) {
-        case HttpStatus.notFound:
-        case HttpStatus.conflict:
-          title = responseStatusMessage[err.status].title ?? '';
-          message = responseStatusMessage[err.status].text as string;
-          break;
-        default:
-          message = 'Notifications.GeneralError';
+      const statusMessage = responseStatusMessage[err.status];
+
+      if (statusMessage) {
+        title = statusMessage.title;
+        message = statusMessage.text as string;
+      } else {
+        message = 'Notifications.GeneralError';
       }
 
       this.notificationService.error(
         this.translateService.instant(title ?? 'Notifications.Error'),
         message?.trim() ? this.translateService.instant(message) : message,
-        DEFAULT_TIMEOUT_NOTIFICATIONS,
-        true
+        DEFAULT_TIMEOUT_NOTIFICATIONS
       );
     }
   }
