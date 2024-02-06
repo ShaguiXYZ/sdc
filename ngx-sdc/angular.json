@@ -18,13 +18,13 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser-esbuild",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "allowedCommonJsDependencies": ["rfdc"],
             "outputPath": "dist/ngx-sdc/browser",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets", "src/.htaccess"],
@@ -46,7 +46,6 @@
               "sourceMap": true,
               "namedChunks": true,
               "extractLicenses": false,
-              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -76,11 +75,15 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -89,7 +92,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "port": 4205,
-            "buildTarget": "ngx-ui-editor:build"
+            "buildTarget": "ngx-sdc:build"
           },
           "configurations": {
             "local": {
@@ -113,10 +116,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "codeCoverageExclude": ["/**/*mock*.ts"],
             "assets": ["src/assets", "src/favicon.ico", "src/.htaccess"],
             "styles": ["src/styles.scss"],
@@ -139,16 +142,12 @@
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/styles",
-                "src/app/core/styles"
-              ]
+              "includePaths": ["src/styles", "src/app/core/styles"]
             },
             "inlineStyleLanguage": "scss"
           },
           "configurations": {
             "local": {
-              "buildOptimizer": false,
               "outputHashing": "none",
               "fileReplacements": [
                 {
@@ -170,7 +169,6 @@
               ]
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
               "sourceMap": true,
               "extractLicenses": false
@@ -195,9 +193,7 @@
         "prerender": {
           "builder": "@angular-devkit/build-angular:prerender",
           "options": {
-            "routes": [
-              "/"
-            ]
+            "routes": ["/"]
           },
           "configurations": {
             "production": {

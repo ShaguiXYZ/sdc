@@ -10,7 +10,7 @@ import { ContextDataInfo } from '../constants';
 export class SdcValueTypeToNumberPipe implements PipeTransform {
   private DEC_SUB = 3;
 
-  constructor(private readonly contextDataService: ContextDataService) {
+  constructor(public readonly contextDataService: ContextDataService) {
     const appConfig = contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
 
     this.DEC_SUB = appConfig?.analysis.precision ?? this.DEC_SUB;

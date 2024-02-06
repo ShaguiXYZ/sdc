@@ -1,4 +1,4 @@
-import { version } from 'package.json';
+import packageInfo from 'package.json';
 
 export interface IAnalysisConfig {
   precision: number;
@@ -38,7 +38,7 @@ export interface IAppConfigurationModel {
 export namespace IAppConfigurationModel {
   export const fromDTO = (dto: IAppConfigurationDTO): IAppConfigurationModel =>
     new AppConfigurationModel(
-      { bffVersion: dto.bffVersion, ngxVersion: version, rwsVersion: dto.rwsVersion },
+      { bffVersion: dto.bffVersion, ngxVersion: packageInfo.version, rwsVersion: dto.rwsVersion },
       dto.analysis,
       dto.jpa,
       dto.security,

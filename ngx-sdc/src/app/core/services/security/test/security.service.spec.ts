@@ -93,7 +93,7 @@ describe('SecurityService', () => {
     service.securityInfo = () => undefined;
     expect(() => {
       service.user = user;
-    }).toThrow(new Error('Valid token not returned'));
+    }).toThrow(new Error('Not valid token returned'));
   });
 
   it('should return true when isBusinessUser is called', () => {
