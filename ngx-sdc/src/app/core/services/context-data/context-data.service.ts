@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { ContextDataError } from '../../errors';
-import { _console, deepCopy } from '../../lib';
+import { deepCopy } from '../../lib';
 import { DataInfo } from '../../models';
 import { NX_CONTEX_CONFIG, contextStorageID } from './constatnts';
 import { routerData } from './lib';
@@ -86,9 +86,6 @@ export class ContextDataService {
     }
 
     this.addContextData(key, data, config);
-
-    _console.log(`${key} added`, this.contextStorage.contextData);
-
     this.subject$.next(key);
   }
 
@@ -100,9 +97,6 @@ export class ContextDataService {
     }
 
     this.addContextData(key, { ...contextDataValue?.data, ...data }, contextDataValue?.configuration);
-
-    _console.log(`${key} patched`, this.contextStorage.contextData);
-
     this.subject$.next(key);
   }
 

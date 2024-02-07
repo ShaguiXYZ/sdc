@@ -63,12 +63,7 @@ export class HttpService {
   }
 
   public post<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
-    const notificationId = this.notificationService.info(
-      this.translateService.instant(requestOptions?.procesingMessage?.title ?? 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.text ?? 'Notifications.ProcesingDetail'),
-      0,
-      false
-    );
+    const notificationId = this.procesingNotification(requestOptions);
 
     if (requestOptions?.showLoading) {
       this.loadingService.showLoading = true;
@@ -91,12 +86,7 @@ export class HttpService {
   }
 
   public put<OUT, IN>(url: string, body?: IN, requestOptions?: RequestOptions): Observable<OUT | HttpEvent<OUT>> {
-    const notificationId = this.notificationService.info(
-      this.translateService.instant(requestOptions?.procesingMessage?.title ?? 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.text ?? 'Notifications.ProcesingDetail'),
-      0,
-      false
-    );
+    const notificationId = this.procesingNotification(requestOptions);
 
     if (requestOptions?.showLoading) {
       this.loadingService.showLoading = requestOptions?.showLoading;
@@ -134,12 +124,7 @@ export class HttpService {
   }
 
   public delete<T>(url: string, requestOptions?: RequestOptions): Observable<any> {
-    const notificationId = this.notificationService.info(
-      this.translateService.instant(requestOptions?.procesingMessage?.title ?? 'Notifications.Procesing'),
-      this.translateService.instant(requestOptions?.procesingMessage?.text ?? 'Notifications.ProcesingDetail'),
-      0,
-      false
-    );
+    const notificationId = this.procesingNotification(requestOptions);
 
     if (requestOptions?.showLoading) {
       this.loadingService.showLoading = true;
@@ -200,4 +185,10 @@ export class HttpService {
       );
     }
   }
+
+  private procesingNotification = (requestOptions?: RequestOptions): string =>
+    this.notificationService.info(
+      this.translateService.instant(requestOptions?.procesingMessage?.title ?? 'Notifications.Procesing'),
+      this.translateService.instant(requestOptions?.procesingMessage?.text ?? 'Notifications.ProcesingDetail')
+    );
 }

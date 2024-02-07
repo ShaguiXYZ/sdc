@@ -24,22 +24,20 @@ export class SecurityService {
   ) {}
 
   public get session(): ISessionModel {
-    return this.securityInfo()?.session;
+    return this.getSecurityInfo()?.session;
   }
   public set session(session: ISessionModel) {
-    const securityInfo = { ...this.securityInfo(), session };
-
-    this.contextDataService.set(CONTEXT_SECURITY_KEY, securityInfo, { persistent: true });
+    this.setSecurityInfo({ ...this.getSecurityInfo(), session });
   }
 
   public get user(): IUserModel {
-    return this.securityInfo()?.user;
+    return this.getSecurityInfo()?.user;
   }
   public set user(user: IUserModel) {
-    const securityInfo = this.securityInfo();
+    const securityInfo = this.getSecurityInfo();
 
     if (securityInfo) {
-      this.contextDataService.set(CONTEXT_SECURITY_KEY, { ...securityInfo, user }, { persistent: true });
+      this.setSecurityInfo({ ...securityInfo, user });
     } else {
       throw new SecurityError('Not valid token returned');
     }
@@ -67,16 +65,8 @@ export class SecurityService {
   }
 
   public logout(): Promise<void> {
-    sessionStorage.removeItem(contextStorageID);
-
-    if (!this.securityInfo()) {
-      return firstValueFrom(
-        this.http._put<ISessionModel>(`${this._urlSecurity}/logout`).pipe(
-          map(() => {
-            this.contextDataService.delete(CONTEXT_SECURITY_KEY);
-          })
-        )
-      );
+    if (!this.getSecurityInfo()) {
+      return firstValueFrom(this.http._put<ISessionModel>(`${this._urlSecurity}/logout`).pipe(map(() => this.removeSecurityInfo())));
     }
 
     return Promise.resolve();
@@ -86,7 +76,19 @@ export class SecurityService {
     return firstValueFrom(this.http.get<IUserDTO>(`${this._urlSecurity}/authUser`).pipe(map(user => IUserModel.fromDTO(user as IUserDTO))));
   }
 
-  private securityInfo(): ISecurityModel {
-    return this.contextDataService.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
+  private getSecurityInfo(): ISecurityModel {
+    const data = sessionStorage.getItem(contextStorageID);
+
+    return data && JSON.parse(data); // this.contextDataService.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
+  }
+
+  private setSecurityInfo(securityInfo: ISecurityModel): void {
+    sessionStorage.setItem(contextStorageID, JSON.stringify(securityInfo));
+    this.contextDataService.set<ISecurityModel>(CONTEXT_SECURITY_KEY, securityInfo, { persistent: true });
+  }
+
+  private removeSecurityInfo(): void {
+    sessionStorage.removeItem(contextStorageID);
+    this.contextDataService.delete(CONTEXT_SECURITY_KEY);
   }
 }

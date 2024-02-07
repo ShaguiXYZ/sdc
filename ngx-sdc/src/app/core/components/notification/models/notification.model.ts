@@ -10,7 +10,7 @@ export class NotificationModel {
     public title: string,
     public description: string,
     public type: CONTEXT,
-    public timeout: number = timeout ?? DEFAULT_TIMEOUT_NOTIFICATIONS,
+    public timeout: number = DEFAULT_TIMEOUT_NOTIFICATIONS,
     public closable: boolean = false,
     public button?: ButtonModel
   ) {

@@ -16,11 +16,11 @@ import { SdcLoginService } from './services';
         <section class="sdc-login__body">
           <form class="sdc-login__form" [formGroup]="form" (submit)="login()">
             <div class="sdc-login__form-group">
-              <label class="sdc-login__label" for="userName">{{ 'Label.userName' | translate }}</label>
+              <label class="sdc-login__label" for="userName">{{ 'Label.UserName' | translate }}</label>
               <input class="sdc-login__input" type="text" id="userName" name="userName" formControlName="userName" />
               @if (form.get('userName')?.invalid && form.get('userName')?.touched) {
                 <div class="sdc-login__error">
-                  {{ 'Error.Username' | translate }}
+                  {{ 'Error.UserName' | translate }}
                 </div>
               }
             </div>

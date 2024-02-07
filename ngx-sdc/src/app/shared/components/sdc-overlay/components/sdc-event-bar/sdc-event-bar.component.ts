@@ -23,7 +23,7 @@ import { SdcEventBarService } from './services';
           </div>
           <div class="event-bar-options__end">
             <em class="sdc-op fa-solid fa-check-double" (click)="markAllAsRead()"></em>
-            <em class="sdc-op fa-regular fa-trash-can" (click)="clearEvents()"></em>
+            <!-- <em class="sdc-op fa-regular fa-trash-can" (click)="clearEvents()"></em> -->
           </div>
         </header>
 
@@ -33,6 +33,7 @@ import { SdcEventBarService } from './services';
               <div class="reveal event-item">
                 <sdc-event-item
                   [event]="event"
+                  [closable]="false"
                   [timeout]="event.read ? DEFAULT_TIMEOUT_EVENT : 0"
                   (onReadEvent)="onReadEvent($event)"
                   (onRemoveEvent)="onRemoveEvent($event)"

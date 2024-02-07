@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { ContextDataService, SseEventModel } from 'src/app/core/services';
 import { ContextDataInfo } from 'src/app/shared/constants';
-import { SdcRootContextData } from 'src/app/shared/models';
+import { SdcOverlayContextData } from 'src/app/shared/models';
 import { SdcOverlayService } from '../../../services';
 import { SdcEventBarData } from '../models';
 
@@ -16,7 +16,7 @@ export class SdcEventBarService implements OnDestroy {
     private readonly overlayService: SdcOverlayService
   ) {
     this.subscriptions$.push(
-      this.contextDataService.onDataChange<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA).subscribe(contextData => {
+      this.contextDataService.onDataChange<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA).subscribe(contextData => {
         this.data$.next({ events: contextData.events.filter(event => event.type === 'ERROR') });
       })
     );
@@ -27,7 +27,7 @@ export class SdcEventBarService implements OnDestroy {
   }
 
   public initialize(): void {
-    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA);
+    const contextData = this.contextDataService.get<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA);
 
     this.data$.next({ events: contextData.events.filter(event => event.type === 'ERROR') });
   }
@@ -37,33 +37,33 @@ export class SdcEventBarService implements OnDestroy {
   }
 
   public removeEvent(event: SseEventModel): void {
-    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA);
+    const contextData = this.contextDataService.get<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA);
     const events = contextData.events.filter(e => e.id !== event.id);
 
-    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA, {
+    this.contextDataService.set<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA, {
       ...contextData,
       events
     });
   }
 
   public readEvent(event: SseEventModel): void {
-    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA);
+    const contextData = this.contextDataService.get<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA);
     const events = contextData.events.map(e => (e.id === event.id ? { ...e, read: !e.read } : e));
 
-    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA, { ...contextData, events });
+    this.contextDataService.set<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA, { ...contextData, events });
   }
 
   public markAllAsRead(): void {
-    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA);
+    const contextData = this.contextDataService.get<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA);
     const events = contextData.events.map(e => ({ ...e, read: true }));
 
-    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA, { ...contextData, events });
+    this.contextDataService.set<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA, { ...contextData, events });
   }
 
   public clearEvents = (): void => {
-    const contextData = this.contextDataService.get<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA);
+    const contextData = this.contextDataService.get<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA);
 
-    this.contextDataService.set<SdcRootContextData>(ContextDataInfo.OVERLAY_DATA, { ...contextData, events: [] });
+    this.contextDataService.set<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA, { ...contextData, events: [] });
   };
 
   public toggleEvents(): void {
