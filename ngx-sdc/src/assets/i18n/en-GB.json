@@ -20,6 +20,13 @@
       "perfect": "perfect"
     }
   },
+  "Error": {
+    "UserName": "The user name is required",
+    "Password": "The password is required",
+    "401": "Unauthorized",
+    "404": "Not found",
+    "500": "Internal server error"
+  },
   "Dropdown": {
     "Filter": {
       "Coverage": "Degree of compliance",
@@ -84,7 +91,7 @@
     "Squads": "Squads",
     "SquadSumary": "Squad summary",
     "Tags": "Tags",
-    "Username": "Username",
+    "UserName": "Username",
     "Yes": "Yes"
   },
   "Language": {

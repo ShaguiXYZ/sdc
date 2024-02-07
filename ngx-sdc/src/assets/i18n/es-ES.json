@@ -27,6 +27,13 @@
       "Tags": "Tags"
     }
   },
+  "Error": {
+    "UserName": "El usuario es requerido",
+    "Password": "La contraseña es requerida",
+    "401": "No autorizado",
+    "404": "Página no encontrada",
+    "500": "Error interno del servidor"
+  },
   "Header": {
     "Help": "Ayuda",
     "Menu": {
@@ -84,7 +91,7 @@
     "Squads": "Squads",
     "SquadSumary": "Resumen del squad",
     "Tags": "Tags",
-    "Username": "Usuario",
+    "UserName": "Usuario",
     "Yes": "Si"
   },
   "Language": {

@@ -38,7 +38,7 @@
 
       .sdc-login__title {
         color: var(--text-01);
-        font-size: var(--font-size-3xl);
+        font-size: var(--heading-05-font-size);
         font-weight: bold;
         margin: 0;
         text-align: center;
@@ -59,7 +59,7 @@
 
           .sdc-login__label {
             color: var(--text-01);
-            font-size: var(--font-size-lg);
+            font-size: var(--small-label-font-size);
             margin-bottom: 4px;
           }
 
@@ -68,24 +68,31 @@
             border: 1px solid var(--ui-02);
             border-radius: 4px;
             color: var(--text-01);
-            font-size: var(--font-size-lg);
+            font-size: var(--code-input-font-size);
             padding: 8px;
+          }
+
+          .sdc-login__error {
+            color: var(--danger);
+            font-size: 12px;
+            margin-top: 4px;
           }
         }
 
         .sdc-login__button {
-          background: var(--accent-01);
+          background: var(--button-primary-background-color);
           border: none;
           border-radius: 4px;
-          color: var(--text-01);
+          color: var(--button-primary-text-color);
           cursor: pointer;
-          font-size: var(--font-size-lg);
+          font-size: var(--button-small-font-size);
           margin-top: 8px;
           padding: 8px;
           transition: background 0.2s ease-in-out;
 
           &:hover {
-            background: var(--accent-02);
+            background: var(--button-primary-hover-background-color);
+            color: var(--button-primary-hover-text-color);
           }
         }
       }

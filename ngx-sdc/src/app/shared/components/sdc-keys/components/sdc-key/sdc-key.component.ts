@@ -41,7 +41,7 @@ export class SdcKeyComponent {
 
   @Input()
   public set key(value: string) {
-    this.svgKey = `url('assets/images/ctrl-${value.toLowerCase()}.svg')`;
+    this.svgKey = value && `url('assets/images/ctrl-${value.toLowerCase()}.svg')`;
   }
 
   @Input()

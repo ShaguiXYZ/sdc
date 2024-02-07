@@ -10,4 +10,8 @@ export class HttpServiceMock {
   put() {
     /* Mock method */
   }
+
+  _put() {
+    /* Mock method */
+  }
 }

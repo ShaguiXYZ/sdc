@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { _console, emptyFn } from 'src/app/core/lib';
 import { IMetricAnalysisModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
-import { ContextDataService, DateService } from 'src/app/core/services';
+import { ContextDataService, DateService, HttpStatus } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
 import { SdcMetricsContextData } from 'src/app/shared/models';
@@ -70,7 +70,7 @@ export class SdcMetricsHomeService {
 
   public analyze = (): void => {
     this.analysisService
-      .analize(this.metricData.component.id, this.onAnalyzeError)
+      .analize(this.metricData.component.id, { [HttpStatus.unauthorized]: this.onUnauthorizedAnalysis })
       .then(analysis => {
         if (analysis.page.length) {
           this.componentService
@@ -103,7 +103,7 @@ export class SdcMetricsHomeService {
   }
 
   public addTag(tag: ITagModel): void {
-    this.tagService.addTag(this.metricData.component.id, tag.name, this.onNewTagError).then(tag => {
+    this.tagService.addTag(this.metricData.component.id, tag.name, { [HttpStatus.unauthorized]: this.onNewTagError }).then(tag => {
       this.metricData.tags = [...(this.metricData.tags ?? []), tag];
       this.data$.next(this.metricData);
     });
@@ -141,7 +141,7 @@ export class SdcMetricsHomeService {
     });
   };
 
-  private onAnalyzeError = (error: any): void => {
+  private onUnauthorizedAnalysis = (error: any): void => {
     this.overlayService.toggleLogin();
   };
 

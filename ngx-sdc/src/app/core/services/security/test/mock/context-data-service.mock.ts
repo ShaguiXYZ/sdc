@@ -1,14 +1,14 @@
 import { ContextDataServiceMock } from 'src/app/core/mock/services';
-import { AppAuthorities, ISecurityModel, IUserModel } from '../../models';
+import { ISecurityModel, IUserModel } from '../../models';
 
 export const securityModel: ISecurityModel = {
   session: { sid: '', token: '' },
-  user: { userName: '', authorities: [{ authority: AppAuthorities.business }], email: '', name: '', surname: '', secondSurname: '' }
+  user: { userName: '', authorities: [], email: '', name: '', surname: '', secondSurname: '' }
 };
 
 export const user: IUserModel = {
   userName: '',
-  authorities: [{ authority: AppAuthorities.business }],
+  authorities: [],
   email: '',
   name: '',
   surname: '',

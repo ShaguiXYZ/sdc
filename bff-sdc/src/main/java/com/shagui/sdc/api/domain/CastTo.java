@@ -13,7 +13,7 @@ public interface CastTo<T> {
 
 	public Class<T> targetClass();
 
-	default T parse(Object source) {
+	default T parse(@NonNull Object source) {
 		try {
 			Constructor<T> constructor = targetClass().getConstructor(source.getClass());
 			return constructor.newInstance(source);

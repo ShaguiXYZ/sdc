@@ -7,6 +7,7 @@ import { IPageable, ITagDTO, ITagModel } from '../../models/sdc';
 import { CacheService } from '../context-data';
 import { HttpService, HttpStatus } from '../http';
 import { XS_EXPIRATON_TIME, _TAGS_CACHE_ID_ } from './constants';
+import { DataInfo } from '../../models';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
@@ -73,16 +74,15 @@ export class TagService {
     );
   }
 
-  public addTag(componentId: number, name: string, onError?: (err: any) => void): Promise<ITagModel> {
+  public addTag(componentId: number, name: string, onError?: DataInfo<(error: any) => void>): Promise<ITagModel> {
     return firstValueFrom(
       this.http
         .post<ITagDTO, any>(`${this._urlTags}/tag/create/${componentId}/${name}`, undefined, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.TagError' },
-            [HttpStatus.unauthorized]: { text: 'Notifications.Unauthorized' }
+            [HttpStatus.notFound]: { text: 'Error.404' },
+            [HttpStatus.unauthorized]: { text: 'Error.401', fn: onError?.[HttpStatus.unauthorized] }
           },
-          successMessage: { text: 'Notifications.TagAdded' },
-          onError
+          successMessage: { text: 'Notifications.TagAdded' }
         })
         .pipe(map(res => ITagModel.fromDTO(res as ITagDTO)))
     );

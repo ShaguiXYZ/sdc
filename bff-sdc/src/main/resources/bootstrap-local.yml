@@ -2,6 +2,7 @@ server:
   port: 8080
 
 services:
+  rws-security: http://localhost:9092/rws-security
   rws-sdc: http://localhost:9090/rws-sdc/api
   sse:
     url: http://localhost:9090/rws-sdc/api

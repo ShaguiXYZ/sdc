@@ -45,7 +45,7 @@ public interface ComponentTypeArchitectureApi {
 			@RequestBody ComponentTypeArchitectureDTO data);
 
 	@Operation(summary = "Create new elements of Component Type - Architecture")
-	@PostMapping(name = "componentTypeArchitecture", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+	@PostMapping(value = "componentTypeArchitecture", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.CREATED)
 	List<ComponentTypeArchitectureDTO> create(@RequestBody List<ComponentTypeArchitectureDTO> data);

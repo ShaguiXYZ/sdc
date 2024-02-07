@@ -2,7 +2,6 @@ package com.shagui.sdc.core.configuration.security.filter;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
@@ -31,7 +30,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 			@NonNull FilterChain chain)
 			throws ServletException, IOException {
 		try {
-			if (isPublicRequest(securityProperties.publicRegex(), request) || null != this.securityClient.authUser()) {
+			if (isPublicRequest(request, securityProperties.publicRegex()) || null != this.securityClient.authUser()) {
 				chain.doFilter(request, response);
 			}
 		} catch (FeignException e) {
@@ -52,7 +51,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 		}
 	}
 
-	private boolean isPublicRequest(String[] regex, HttpServletRequest request) {
+	private boolean isPublicRequest(HttpServletRequest request, String... regex) {
 		return Arrays.stream(regex)
 				.anyMatch(exp -> AntPathRequestMatcher.antMatcher(exp).matches(request));
 	}

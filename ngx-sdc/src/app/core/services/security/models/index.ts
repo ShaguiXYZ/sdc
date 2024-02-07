@@ -1,4 +1,3 @@
-export * from './authority.model';
 export * from './register.model';
 export * from './resource.model';
 export * from './security.model';

@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
-import { firstValueFrom, Observable, Subject } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, Subject, firstValueFrom } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { contextStorageID } from '../context-data';
-import { ContextDataService } from '../context-data/context-data.service';
-import { HttpStatus, HttpService } from '../http';
-import { CONTEXT_SECURITY_KEY } from './constants';
-import { AppAuthorities, IAuthorityDTO, IAuthorityModel, ISecurityModel, ISessionModel, IUserDTO, IUserModel } from './models';
-import { _console } from '../../lib';
 import { SecurityError } from '../../errors';
+import { ContextDataService } from '../context-data/context-data.service';
+import { HttpService } from '../http';
+import { CONTEXT_SECURITY_KEY } from './constants';
+import { ISecurityModel, ISessionDTO, ISessionModel, IUserDTO, IUserModel } from './models';
+
+import packageInfo from 'package.json';
+import { contextStorageID } from '../context-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityService {
-  private _urlSecurity = `${environment.securityUrl}/bff-security/api`;
+  private _urlSecurity = `${environment.securityUrl}/api`;
   private signIn$: Subject<ISessionModel> = new Subject();
 
   constructor(
-    private contextData: ContextDataService,
-    private http: HttpService
+    private readonly contextDataService: ContextDataService,
+    private readonly http: HttpService
   ) {}
 
   public get session(): ISessionModel {
@@ -28,7 +29,7 @@ export class SecurityService {
   public set session(session: ISessionModel) {
     const securityInfo = { ...this.securityInfo(), session };
 
-    this.contextData.set(CONTEXT_SECURITY_KEY, securityInfo, { persistent: true });
+    this.contextDataService.set(CONTEXT_SECURITY_KEY, securityInfo, { persistent: true });
   }
 
   public get user(): IUserModel {
@@ -36,76 +37,56 @@ export class SecurityService {
   }
   public set user(user: IUserModel) {
     const securityInfo = this.securityInfo();
+
     if (securityInfo) {
-      this.contextData.set(CONTEXT_SECURITY_KEY, { ...securityInfo, user }, { persistent: true });
+      this.contextDataService.set(CONTEXT_SECURITY_KEY, { ...securityInfo, user }, { persistent: true });
     } else {
       throw new SecurityError('Not valid token returned');
     }
   }
 
-  public logout() {
+  public onSignIn(): Observable<ISessionModel> {
+    return this.signIn$.asObservable();
+  }
+
+  public login(loginData: { userName: string; password: string }): Promise<ISessionModel> {
+    return firstValueFrom(
+      this.http
+        .post<ISessionDTO, { resource: string; userName: string; password: string }>(`${this._urlSecurity}/login`, {
+          ...loginData,
+          resource: packageInfo.name
+        })
+        .pipe(
+          map(session => {
+            this.session = ISessionModel.fromDTO(session as ISessionDTO);
+            return this.session;
+          }),
+          tap(session => this.signIn$.next(session))
+        )
+    );
+  }
+
+  public logout(): Promise<void> {
     sessionStorage.removeItem(contextStorageID);
 
     if (!this.securityInfo()) {
-      this.http.put<ISessionModel, ISessionModel>(`${this._urlSecurity}/logout`).subscribe({
-        next: event => {
-          this.contextData.delete(CONTEXT_SECURITY_KEY);
-          this.changeWindowLocationHref(environment.baseAuth);
-        },
-        error: err => {
-          _console.log(err);
-
-          if (err.status === HttpStatus.forbidden) {
-            this.changeWindowLocationHref(environment.baseAuth);
-          }
-        }
-      });
-    } else {
-      this.changeWindowLocationHref(environment.baseAuth);
+      return firstValueFrom(
+        this.http._put<ISessionModel>(`${this._urlSecurity}/logout`).pipe(
+          map(() => {
+            this.contextDataService.delete(CONTEXT_SECURITY_KEY);
+          })
+        )
+      );
     }
-  }
 
-  private changeWindowLocationHref(href: string) {
-    globalThis.location.href = href;
+    return Promise.resolve();
   }
 
   public authUser(): Promise<IUserModel> {
     return firstValueFrom(this.http.get<IUserDTO>(`${this._urlSecurity}/authUser`).pipe(map(user => IUserModel.fromDTO(user as IUserDTO))));
   }
 
-  public isBusinessUser = (): boolean =>
-    this.securityInfo()
-      ?.user?.authorities?.map(auth => auth.authority)
-      .includes(AppAuthorities.business);
-
-  public isItUser = (): boolean =>
-    ISecurityModel.getUser(this.securityInfo())
-      ?.authorities?.map(auth => auth.authority)
-      .includes(AppAuthorities.it);
-
-  public uidIsItUser = (uid: string): Promise<boolean> =>
-    firstValueFrom(
-      this.getAuthoritiesByUID(uid).pipe(map(authorities => authorities.map(auth => auth.authority).includes(AppAuthorities.it)))
-    );
-
-  public uidSameProfile = (authority: string): boolean =>
-    ISecurityModel.getUser(this.securityInfo()).authorities?.some(auth => auth.authority === authority);
-
-  public onSignIn(): Observable<ISessionModel> {
-    return this.signIn$.asObservable();
-  }
-
   private securityInfo(): ISecurityModel {
-    return this.contextData.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
-  }
-
-  private getAuthoritiesByUID(uid: string): Observable<IAuthorityModel[]> {
-    return this.http.get<IAuthorityDTO[]>(`${this._urlSecurity}/authorities/${uid}`).pipe(
-      catchError((err, caught: Observable<any>) => {
-        _console.log(err);
-        return caught;
-      }),
-      map(auth => auth.map((value: IAuthorityDTO) => IAuthorityModel.fromDTO(value)))
-    );
+    return this.contextDataService.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
   }
 }

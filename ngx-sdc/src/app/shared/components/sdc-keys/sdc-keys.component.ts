@@ -21,11 +21,6 @@ import SdcScreenRecorder from 'src/app/core/lib/screen-recorder.lib';
   ],
   template: `
     <div class="sdc-keys-content">
-      <!-- <div class="sdc-keys">
-        <div class="sdc-key">
-          <sdc-key key="K" label="Label.Search"></sdc-key>
-        </div>
-      </div> -->
       <div class="selected-key">
         <sdc-key key="K" label="Label.Ctrl.K"></sdc-key>
       </div>
@@ -80,7 +75,7 @@ export class SdcKeysComponent {
   }
 
   private eventKeyActions(event: KeyboardEvent): void {
-    switch (event.key.toUpperCase()) {
+    switch (event.key?.toUpperCase()) {
       case 'ESCAPE':
         this.overlayService.defaultOverlayState();
         event.preventDefault();

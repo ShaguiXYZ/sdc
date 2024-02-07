@@ -1,10 +1,9 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable @typescript-eslint/no-namespace */
-import { IAuthorityDTO, IAuthorityModel } from '.';
 
 export interface IUserDTO {
   userName: string;
-  authorities: IAuthorityDTO[];
+  authorities: string[];
   email: string;
 
   // Person data
@@ -15,7 +14,7 @@ export interface IUserDTO {
 
 export interface IUserModel {
   userName: string;
-  authorities: IAuthorityModel[];
+  authorities: string[];
   email: string;
 
   // Person data
@@ -28,7 +27,7 @@ export class UserModel implements IUserModel {
   constructor(
     public userName: string,
     public email: string,
-    public authorities: IAuthorityModel[],
+    public authorities: string[],
     public name: string,
     public surname: string,
     public secondSurname: string
@@ -37,17 +36,10 @@ export class UserModel implements IUserModel {
 
 export namespace IUserModel {
   export const fromDTO = (dto: IUserDTO): IUserModel =>
-    new UserModel(
-      dto.userName,
-      dto.email,
-      dto.authorities ? dto.authorities.map(auth => IAuthorityModel.fromDTO(auth)) : [],
-      dto.name,
-      dto.surname,
-      dto.secondSurname
-    );
+    new UserModel(dto.userName, dto.email, dto.authorities ?? [], dto.name, dto.surname, dto.secondSurname);
 
   export const toDTO = (model: IUserModel): IUserDTO => ({
     ...model,
-    authorities: model.authorities ? model.authorities.map(auth => IAuthorityModel.toDTO(auth)) : []
+    authorities: model.authorities ?? []
   });
 }

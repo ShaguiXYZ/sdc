@@ -6,10 +6,9 @@ import { finalize, tap } from 'rxjs/operators';
 import { LoadingService } from '../../components/loading/services';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS } from '../../components/notification';
 import { NotificationService } from '../../components/notification/services';
-import { DataInfo, MessageModal } from '../../models';
+import { DataInfo } from '../../models';
 import { CacheService } from '../context-data';
-import { HttpStatus } from './constants';
-import { CacheRequestOptions, RequestOptions } from './models';
+import { CacheRequestOptions, RequestOptions, StatusMessage } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -169,7 +168,7 @@ export class HttpService {
     }
   });
 
-  private success(message?: MessageModal): void {
+  private success(message?: StatusMessage): void {
     if (message) {
       this.notificationService.success(
         this.translateService.instant(message.title ?? 'Notifications.Success'),
@@ -179,7 +178,7 @@ export class HttpService {
     }
   }
 
-  private error(err: HttpErrorResponse, responseStatusMessage?: DataInfo<MessageModal>): void {
+  private error(err: HttpErrorResponse, responseStatusMessage?: DataInfo<StatusMessage>): void {
     if (responseStatusMessage) {
       let title;
       let message: string;
@@ -189,6 +188,7 @@ export class HttpService {
       if (statusMessage) {
         title = statusMessage.title;
         message = statusMessage.text as string;
+        statusMessage.fn?.(err);
       } else {
         message = 'Notifications.GeneralError';
       }

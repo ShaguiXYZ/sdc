@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { DEFAULT_COUNT_DOWN_PERIOD, NX_COUNT_DOWN_SEED } from './models/count-down.model';
 import { CountDownSeed } from './models';
+import { DEFAULT_COUNT_DOWN_PERIOD, NX_COUNT_DOWN_SEED } from './models/count-down.model';
 
 @Injectable()
 export class CountDownService {
-  private intervalId?: number;
+  private intervalId?: NodeJS.Timeout;
 
   private onExpired$: Subject<void>;
   private onTick$: Subject<any>;
@@ -19,8 +19,7 @@ export class CountDownService {
 
   public startCountdown = () => {
     this.stopCountdown();
-
-    this.intervalId = window.setInterval(this.tick, this.seed.period?.() ?? DEFAULT_COUNT_DOWN_PERIOD);
+    this.intervalId = globalThis.setInterval(this.tick, this.seed.period?.() ?? DEFAULT_COUNT_DOWN_PERIOD);
   };
 
   public stopCountdown = () => {
