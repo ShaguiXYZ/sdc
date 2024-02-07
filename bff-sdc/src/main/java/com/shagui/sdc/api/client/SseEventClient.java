@@ -36,7 +36,7 @@ public class SseEventClient {
 
     private void consume() {
         Flux<EventDTO> eventStream = this.webClient.get()
-                .uri("/events")
+                .uri("/sse")
                 .retrieve()
                 .bodyToFlux(EventDTO.class)
                 .retryWhen(Retry.backoff(properties.getRetry().getMaxAttempts(),
