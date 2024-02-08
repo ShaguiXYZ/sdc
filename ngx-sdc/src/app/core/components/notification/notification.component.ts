@@ -8,8 +8,8 @@ import { NotificationService } from './services';
 
 @Component({
   selector: 'nx-notification',
-  templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
+  templateUrl: './notification.component.html',
   standalone: true,
   imports: [CommonModule, NxButtonModule, NxMessageModule]
 })

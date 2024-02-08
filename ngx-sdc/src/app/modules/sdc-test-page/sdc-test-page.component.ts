@@ -6,8 +6,8 @@ import { SdcComponentFormComponent } from 'src/app/shared/components/sdc-forms/s
 
 @Component({
   selector: 'sdc-test-page',
-  templateUrl: './sdc-test-page.component.html',
   styleUrls: ['./sdc-test-page.component.scss'],
+  templateUrl: './sdc-test-page.component.html',
   standalone: true,
   imports: [SdcComponentFormComponent, SdcTagsComponent]
 })

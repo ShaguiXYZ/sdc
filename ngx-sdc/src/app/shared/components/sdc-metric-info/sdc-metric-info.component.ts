@@ -6,8 +6,8 @@ import { MetricStates, stateByCoverage, styleByCoverage } from '../../lib';
 
 @Component({
   selector: 'sdc-metric-info',
-  templateUrl: './sdc-metric-info.component.html',
   styleUrls: ['./sdc-metric-info.component.scss'],
+  templateUrl: './sdc-metric-info.component.html',
   standalone: true,
   imports: [CommonModule]
 })

@@ -13,8 +13,8 @@ import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 
 @Component({
   selector: 'sdc-coverages',
-  templateUrl: './sdc-coverages.component.html',
   styleUrls: ['./sdc-coverages.component.scss'],
+  templateUrl: './sdc-coverages.component.html',
   standalone: true,
   imports: [
     CommonModule,

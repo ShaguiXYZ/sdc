@@ -19,8 +19,8 @@ import { SdcDepartmentSummaryService } from './services';
 
 @Component({
   selector: 'sdc-department-summary',
-  templateUrl: './sdc-department-summary.component.html',
   styleUrls: ['./sdc-department-summary.component.scss'],
+  templateUrl: './sdc-department-summary.component.html',
   providers: [SdcDepartmentSummaryService, TitleCasePipe],
   standalone: true,
   imports: [

@@ -9,16 +9,8 @@ import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SwitchThemeComponent } from './components';
-import {
-  DEFAULT_HEADER_MENU,
-  IHeaderConfig,
-  ILanguageHeader,
-  INavHeaderItem,
-  INavigation,
-  ISecurityHeader,
-  NX_HEADER_CONFIG
-} from './models';
-import { HeaderLanguageService, HeaderSecurityService } from './services';
+import { DEFAULT_HEADER_MENU, IHeaderConfig, ILanguageHeader, INavHeaderItem, INavigation, NX_HEADER_CONFIG } from './models';
+import { HeaderLanguageService } from './services';
 
 /**
  * Component for a header with two levels menu.
@@ -28,9 +20,9 @@ import { HeaderLanguageService, HeaderSecurityService } from './services';
  */
 @Component({
   selector: 'nx-header',
-  templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [HeaderLanguageService, HeaderSecurityService],
+  templateUrl: './header.component.html',
+  providers: [HeaderLanguageService],
   standalone: true,
   imports: [
     CommonModule,
@@ -46,7 +38,6 @@ import { HeaderLanguageService, HeaderSecurityService } from './services';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public navigation!: INavigation;
-  public securityInfo!: ISecurityHeader;
   public languageInfo!: ILanguageHeader;
   public logo?: string;
   public themeSwitcher = false;
@@ -61,13 +52,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     @Optional() @Inject(NX_HEADER_CONFIG) private config: IHeaderConfig,
-    private readonly languageService: HeaderLanguageService,
-    private readonly securityService: HeaderSecurityService
+    private readonly languageService: HeaderLanguageService
   ) {}
 
   ngOnInit() {
     this.navigation = this.config?.navigation ?? DEFAULT_HEADER_MENU;
-    this.securityInfo = this.securityService.info;
     this.languageInfo = this.languageService.info;
     this.themeSwitcher = this.config?.themeSwitcher ?? false;
     this.logo = this.config?.logo;
@@ -101,9 +90,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
     }
-  }
-
-  public signout() {
-    this.securityService.signout();
   }
 }

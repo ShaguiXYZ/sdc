@@ -26,8 +26,8 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
 
 @Component({
   selector: 'sdc-applications-home',
-  templateUrl: './sdc-applications-home.component.html',
   styleUrls: ['./sdc-applications-home.component.scss'],
+  templateUrl: './sdc-applications-home.component.html',
   providers: [SdcApplicationsHomeService, { provide: NX_PAGINATION_TEXTS, useValue: myPaginationTexts }],
   standalone: true,
   imports: [

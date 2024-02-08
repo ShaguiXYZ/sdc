@@ -15,8 +15,8 @@ import { SdcMetricHistoryGraphsService } from './services';
 
 @Component({
   selector: 'sdc-metric-history-graphs',
-  templateUrl: './sdc-metric-history-graphs.component.html',
   styleUrls: ['./sdc-metric-history-graphs.component.scss'],
+  templateUrl: './sdc-metric-history-graphs.component.html',
   providers: [SdcMetricHistoryGraphsService, SdcValueTypeToNumberPipe],
   standalone: true,
   imports: [CommonModule, NxCopytextModule, NxCheckboxModule, SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, TranslateModule]

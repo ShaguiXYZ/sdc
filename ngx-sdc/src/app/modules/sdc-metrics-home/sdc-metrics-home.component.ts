@@ -28,8 +28,8 @@ import { SdcMetricsHomeService } from './services';
 
 @Component({
   selector: 'sdc-metrics-home',
-  templateUrl: './sdc-metrics-home.component.html',
   styleUrls: ['./sdc-metrics-home.component.scss'],
+  templateUrl: './sdc-metrics-home.component.html',
   providers: [SdcMetricsHomeService, TitleCasePipe],
   standalone: true,
   imports: [

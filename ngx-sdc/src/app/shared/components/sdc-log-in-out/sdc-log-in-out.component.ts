@@ -6,13 +6,6 @@ import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 
 @Component({
   selector: 'sdc-log-in-out',
-  template: `
-    <div class="sdc-log-in-out" [ngClass]="{ 'sdc-user': user, 'sdc-not-user': !user }">
-      <em class="fa-solid fa-user" [ngClass]="{ 'fa-user': user, 'fa-user-slash': !user }" (click)="toggleAuthentication()">
-        {{ user?.userName }}</em
-      >
-    </div>
-  `,
   styles: [
     `
       .sdc-log-in-out {
@@ -41,6 +34,13 @@ import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
       }
     `
   ],
+  template: `
+    <div class="sdc-log-in-out" [ngClass]="{ 'sdc-user': user, 'sdc-not-user': !user }">
+      <em class="fa-solid fa-user" [ngClass]="{ 'fa-user': user, 'fa-user-slash': !user }" (click)="toggleAuthentication()">
+        {{ user?.userName }}</em
+      >
+    </div>
+  `,
   imports: [CommonModule, NxTooltipModule],
   standalone: true
 })

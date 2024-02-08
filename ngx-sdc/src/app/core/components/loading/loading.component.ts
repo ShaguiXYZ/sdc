@@ -7,8 +7,8 @@ import { LoadingService } from './services';
 
 @Component({
   selector: 'nx-loading',
-  templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss'],
+  templateUrl: './loading.component.html',
   standalone: true,
   imports: [CommonModule, NxModalModule, NxSpinnerModule]
 })

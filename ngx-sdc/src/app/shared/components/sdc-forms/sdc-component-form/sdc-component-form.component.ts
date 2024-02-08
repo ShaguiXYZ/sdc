@@ -14,8 +14,8 @@ import { ComponentFormService } from './services';
 
 @Component({
   selector: 'sdc-component-form',
-  templateUrl: './sdc-component-form.component.html',
   styleUrls: ['./sdc-component-form.component.scss'],
+  templateUrl: './sdc-component-form.component.html',
   providers: [ComponentFormService],
   standalone: true,
   imports: [

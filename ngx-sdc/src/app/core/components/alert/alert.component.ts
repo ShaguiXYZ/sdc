@@ -10,8 +10,8 @@ import { AlertService } from './services';
 
 @Component({
   selector: 'nx-alert',
-  templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
+  templateUrl: './alert.component.html',
   standalone: true,
   imports: [CommonModule, NxButtonModule, NxCopytextModule, NxHeadlineModule, NxModalModule]
 })

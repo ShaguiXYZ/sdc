@@ -16,8 +16,8 @@ import { SdcSquadsService } from './services';
 
 @Component({
   selector: 'sdc-squads-home',
-  templateUrl: './sdc-squads-home.component.html',
   styleUrls: ['./sdc-squads-home.component.scss'],
+  templateUrl: './sdc-squads-home.component.html',
   providers: [SdcSquadsService],
   standalone: true,
   imports: [

@@ -66,11 +66,6 @@
       @if (themeSwitcher) {
         <nx-switch-theme></nx-switch-theme>
       }
-      @if (securityInfo.isUserLogged) {
-        <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="user">
-          <em class="fa-solid fa-user"></em>{{ securityInfo.currentUser?.userName }}
-        </nx-link>
-      }
 
       <nx-link class="nx-margin-left-xs" [nxContextMenuTriggerFor]="language">
         <em class="fa-solid fa-globe nx-margin-right-2xs"></em>{{ 'Language.' + languageInfo.currentLanguage | translate }}
@@ -89,14 +84,5 @@
         </button>
       }
     }
-  </ng-template>
-</nx-context-menu>
-
-<nx-context-menu #user="nxContextMenu">
-  <ng-template nxContextMenuContent>
-    <button nxContextMenuItem type="button" (click)="signout()">
-      <em class="fa-solid fa-arrow-right-from-bracket"></em>
-      {{ 'Security.logout' | translate }}
-    </button>
   </ng-template>
 </nx-context-menu>

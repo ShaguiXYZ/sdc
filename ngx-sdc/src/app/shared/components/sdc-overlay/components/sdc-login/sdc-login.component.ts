@@ -4,45 +4,15 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { TranslateModule } from '@ngx-translate/core';
 import { OverlayItemStatus } from '../../models';
 import { SdcLoginService } from './services';
+import { NxPopoverModule } from '@aposin/ng-aquila/popover';
 
 @Component({
   selector: 'sdc-login',
-  template: `
-    <section class="sdc-login  {{ state }}">
-      <article class="sdc-login__container">
-        <header class="sdc-login__header">
-          <h1 class="sdc-login__title">{{ 'Label.Login' | translate }}</h1>
-        </header>
-        <section class="sdc-login__body">
-          <form class="sdc-login__form" [formGroup]="form" (submit)="login()">
-            <div class="sdc-login__form-group">
-              <label class="sdc-login__label" for="userName">{{ 'Label.UserName' | translate }}</label>
-              <input class="sdc-login__input" type="text" id="userName" name="userName" formControlName="userName" />
-              @if (form.get('userName')?.invalid && form.get('userName')?.touched) {
-                <div class="sdc-login__error">
-                  {{ 'Error.UserName' | translate }}
-                </div>
-              }
-            </div>
-            <div class="sdc-login__form-group">
-              <label class="sdc-login__label" for="password">{{ 'Label.Password' | translate }}</label>
-              <input class="sdc-login__input" type="password" id="password" name="password" formControlName="password" />
-              @if (form.get('password')?.invalid && form.get('password')?.touched) {
-                <div class="sdc-login__error">
-                  {{ 'Error.Password' | translate }}
-                </div>
-              }
-            </div>
-            <button class="sdc-login__button" type="submit">{{ 'Label.Login' | translate }}</button>
-          </form>
-        </section>
-      </article>
-    </section>
-  `,
-  providers: [SdcLoginService],
   styleUrls: ['./sdc-login.component.scss'],
+  templateUrl: './sdc-login.component.html',
+  providers: [SdcLoginService],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule]
+  imports: [CommonModule, FormsModule, NxPopoverModule, ReactiveFormsModule, TranslateModule]
 })
 export class SdcLoginComponent implements OnInit {
   public form!: FormGroup;

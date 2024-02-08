@@ -5,8 +5,8 @@ import { ITagModel } from 'src/app/core/models/sdc';
 
 @Component({
   selector: 'sdc-tag',
-  templateUrl: './sdc-tag.component.html',
   styleUrls: ['./sdc-tag.component.scss'],
+  templateUrl: './sdc-tag.component.html',
   standalone: true,
   imports: [CommonModule, TranslateModule]
 })

@@ -13,8 +13,8 @@ import { SdcSquadSummaryService } from './services';
 
 @Component({
   selector: 'sdc-squad-summary',
-  templateUrl: './sdc-squad-summary.component.html',
   styleUrls: ['./sdc-squad-summary.component.scss'],
+  templateUrl: './sdc-squad-summary.component.html',
   providers: [SdcSquadSummaryService],
   standalone: true,
   imports: [

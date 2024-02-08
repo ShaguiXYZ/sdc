@@ -8,15 +8,18 @@ import { IBreadcrumbConfigModel } from './models';
 
 @Component({
   selector: 'sdc-breadcrumb',
-  templateUrl: './sdc-breadcrumb.component.html',
   styleUrls: ['./sdc-breadcrumb.component.scss'],
+  templateUrl: './sdc-breadcrumb.component.html',
   standalone: true,
   imports: [CommonModule, NxBreadcrumbModule, SdcBreadcrumbComponent, TranslateModule]
 })
 export class SdcBreadcrumbComponent implements OnInit {
   public breadcrumbConfig?: IBreadcrumbConfigModel;
 
-  constructor(private contextDataService: ContextDataService, private location: Location) {}
+  constructor(
+    private contextDataService: ContextDataService,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     this.breadcrumbConfig = this.contextDataService.get(ContextDataInfo.BREADCRUMBS_DATA);

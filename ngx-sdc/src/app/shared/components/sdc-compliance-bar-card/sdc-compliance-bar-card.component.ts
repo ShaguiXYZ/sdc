@@ -11,8 +11,8 @@ import { SdcTrendComponent } from '../sdc-trend';
 
 @Component({
   selector: 'sdc-compliance-bar-card',
-  templateUrl: './sdc-compliance-bar-card.component.html',
   styleUrls: ['./sdc-compliance-bar-card.component.scss'],
+  templateUrl: './sdc-compliance-bar-card.component.html',
   standalone: true,
   imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, SdcTrendComponent, TranslateModule]
 })

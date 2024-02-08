@@ -15,8 +15,8 @@ import { SdcDepartmentsService } from './services';
 
 @Component({
   selector: 'sdc-departments-home',
-  templateUrl: './sdc-departments-home.component.html',
   styleUrls: ['./sdc-departments-home.component.scss'],
+  templateUrl: './sdc-departments-home.component.html',
   providers: [SdcDepartmentsService],
   standalone: true,
   imports: [

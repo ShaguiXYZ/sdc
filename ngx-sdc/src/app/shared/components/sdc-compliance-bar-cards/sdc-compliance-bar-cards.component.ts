@@ -6,8 +6,8 @@ import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card/sdc-co
 
 @Component({
   selector: 'sdc-compliance-bar-cards',
-  templateUrl: './sdc-compliance-bar-cards.component.html',
   styleUrls: ['./sdc-compliance-bar-cards.component.scss'],
+  templateUrl: './sdc-compliance-bar-cards.component.html',
   standalone: true,
   imports: [CommonModule, SdcComplianceBarCardComponent, TranslateModule]
 })

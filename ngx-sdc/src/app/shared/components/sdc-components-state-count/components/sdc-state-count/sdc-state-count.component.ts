@@ -7,8 +7,8 @@ import { IStateCount } from 'src/app/shared/models';
 
 @Component({
   selector: 'sdc-state-count',
-  templateUrl: './sdc-state-count.component.html',
   styleUrls: ['./sdc-state-count.component.scss'],
+  templateUrl: './sdc-state-count.component.html',
   standalone: true,
   imports: [CommonModule, NxLinkModule, TranslateModule]
 })

@@ -8,8 +8,8 @@ import { SdcTrendComponent } from '../sdc-trend';
 
 @Component({
   selector: 'sdc-coverage-info',
-  templateUrl: './sdc-coverage-info.component.html',
   styleUrls: ['./sdc-coverage-info.component.scss'],
+  templateUrl: './sdc-coverage-info.component.html',
   standalone: true,
   imports: [CommonModule, NxCopytextModule, SdcCoverageChartComponent, SdcTrendComponent]
 })
