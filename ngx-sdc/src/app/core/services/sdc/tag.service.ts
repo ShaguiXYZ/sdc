@@ -88,12 +88,13 @@ export class TagService {
     );
   }
 
-  public removeTag(componentId: number, name: string): Promise<void> {
+  public removeTag(componentId: number, name: string, onError?: DataInfo<(error: any) => void>): Promise<void> {
     return firstValueFrom(
       this.http
         .delete(`${this._urlTags}/tag/delete/${componentId}/${name}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.TagError' }
+            [HttpStatus.notFound]: { text: 'Notifications.TagError' },
+            [HttpStatus.unauthorized]: { text: 'Error.401', fn: onError?.[HttpStatus.unauthorized] }
           },
           successMessage: { text: 'Notifications.TagRemoved' }
         })

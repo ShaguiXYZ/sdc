@@ -13,7 +13,6 @@ import com.shagui.sdc.api.dto.security.UserDTO;
 import com.shagui.sdc.core.exception.BadRequestException;
 import com.shagui.sdc.core.exception.ExceptionCodes;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
-import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentTagModel;
 import com.shagui.sdc.model.TagModel;

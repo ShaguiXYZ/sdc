@@ -77,7 +77,7 @@ export class SdcMetricsHomeService implements OnDestroy {
 
   public analyze = (): void => {
     this.analysisService
-      .analize(this.metricData.component.id, { [HttpStatus.unauthorized]: this.onUnauthorizedAnalysis })
+      .analize(this.metricData.component.id, { [HttpStatus.unauthorized]: this.onUnauthorizedError })
       .then(analysis => {
         if (analysis.page.length) {
           this.componentService
@@ -110,14 +110,14 @@ export class SdcMetricsHomeService implements OnDestroy {
   }
 
   public addTag(tag: ITagModel): void {
-    this.tagService.addTag(this.metricData.component.id, tag.name, { [HttpStatus.unauthorized]: this.onNewTagError }).then(tag => {
+    this.tagService.addTag(this.metricData.component.id, tag.name, { [HttpStatus.unauthorized]: this.onUnauthorizedError }).then(tag => {
       this.metricData.tags = [...(this.metricData.tags ?? []), tag];
       this.data$.next(this.metricData);
     });
   }
 
   public removeTag(tag: ITagModel): void {
-    this.tagService.removeTag(this.metricData.component.id, tag.name).then(() => {
+    this.tagService.removeTag(this.metricData.component.id, tag.name, { [HttpStatus.unauthorized]: this.onUnauthorizedError }).then(() => {
       this.metricData.tags = this.metricData.tags?.filter(t => t.name !== tag.name);
       this.data$.next(this.metricData);
     });
@@ -148,11 +148,7 @@ export class SdcMetricsHomeService implements OnDestroy {
     });
   };
 
-  private onUnauthorizedAnalysis = (error: any): void => {
-    this.overlayService.toggleLogin();
-  };
-
-  private onNewTagError = (error: any): void => {
+  private onUnauthorizedError = (error: any): void => {
     this.overlayService.toggleLogin();
   };
 }

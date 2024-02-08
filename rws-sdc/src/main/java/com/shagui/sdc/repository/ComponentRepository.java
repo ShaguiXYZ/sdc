@@ -56,7 +56,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	 */
 	@Query("""
 			SELECT cm FROM ComponentModel cm \
-			INNER JOIN cm.tags t \
+			JOIN cm.tags t \
 			WHERE \
 			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
@@ -70,7 +70,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 	@Query("""
 			SELECT cm FROM ComponentModel cm \
-			INNER JOIN cm.tags t \
+			JOIN cm.tags t \
 			WHERE \
 			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
