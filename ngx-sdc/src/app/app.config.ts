@@ -1,6 +1,6 @@
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideClientHydration, withHttpTransferCacheOptions, withNoHttpTransferCache } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -29,7 +29,17 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
-    provideClientHydration(),
+    provideClientHydration(
+      /**
+       * @howto: prevent ssr caching of http requests
+       *
+       * ref: https://angular.io/guide/ssr#caching-http-requests
+       */
+      withNoHttpTransferCache()
+      // withHttpTransferCacheOptions({
+      //   filter: req => req.method === 'GET'
+      // })
+    ),
     { provide: NX_CONTEX_CONFIG, useValue: { urls, home: AppUrls.squads, cache: { schedulerPeriod: SCHEDULER_PERIOD } } },
     { provide: NX_LANGUAGE_CONFIG, useValue: { languages: SdcLanguages } },
     { provide: NX_HEADER_CONFIG, useValue: { logo: 'assets/images/header-logo.svg', navigation: SDC_HEADER_MENU, themeSwitcher: false } },
