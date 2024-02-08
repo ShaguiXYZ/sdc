@@ -1,10 +1,5 @@
 @import 'core-globals';
 
-[data-title]::before {
-  right: 25px;
-  position: absolute;
-}
-
 .num-events {
   background: var(--button-emphasis-disabled-background-color);
   border-radius: 50%;

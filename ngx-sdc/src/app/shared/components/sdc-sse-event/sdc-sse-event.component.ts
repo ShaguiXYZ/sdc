@@ -1,6 +1,7 @@
 // create new component
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SdcSseEventService } from './services';
@@ -12,7 +13,8 @@ import { SdcSseEventService } from './services';
     <div
       class="num-events sdc-center"
       [ngClass]="{ pulse: unread, 'has-messages': count }"
-      [attr.data-title]="'Label.LastAnalysisEvents' | translate: { value: count }"
+      [nxTooltip]="'Label.LastAnalysisEvents' | translate: { value: count }"
+      nxTooltipPosition="top"
       (click)="toggleEvents()"
     >
       {{ count }}
@@ -20,7 +22,7 @@ import { SdcSseEventService } from './services';
   `,
   providers: [SdcSseEventService],
   standalone: true,
-  imports: [CommonModule, TranslateModule]
+  imports: [CommonModule, NxTooltipModule, TranslateModule]
 })
 export class SdcSseEventComponent implements OnInit, OnDestroy {
   public count = 0;

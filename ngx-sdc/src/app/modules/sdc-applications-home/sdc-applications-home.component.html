@@ -88,11 +88,13 @@
     />
 
     @if (applicationsInfo.paging.pages > 1) {
-      <div class="pagination nx-margin-top-2xs" [attr.data-title]="'Label.ElementsByPage' | translate: { value: elementsByPage }">
+      <div class="pagination nx-margin-top-2xs">
         <nx-pagination
           [count]="applicationsInfo.paging.elements"
           [page]="applicationsInfo.paging.pageIndex + 1"
           [perPage]="elementsByPage"
+          [nxTooltip]="'Label.ElementsByPage' | translate: { value: elementsByPage }"
+          nxTooltipPosition="left"
           (goPrev)="prevPage()"
           (goNext)="nextPage()"
           (goPage)="goToPage($event)"

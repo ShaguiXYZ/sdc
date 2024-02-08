@@ -18,6 +18,7 @@ import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricStates } from 'src/app/shared/lib';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsHomeService } from './services';
+import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'
@@ -37,6 +38,7 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
     NxInputModule,
     NxPaginationModule,
     NxRadioToggleModule,
+    NxTooltipModule,
     ReactiveFormsModule,
     SdcComplianceBarCardsComponent,
     SdcTagComponent,

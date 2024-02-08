@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 
 @Component({
   selector: 'sdc-trend',
@@ -8,13 +9,14 @@ import { Component, Input } from '@angular/core';
     <div class="coverage-trend-background color--{{ trend > 0 ? 'acceptable' : trend < 0 ? 'critical' : 'with_risk' }}"></div>
     <div
       class="coverage-trend sdc-center color--{{ trend > 0 ? 'acceptable' : trend < 0 ? 'critical' : 'with_risk' }}"
-      [attr.data-title]="trend"
+      [nxTooltip]="trend.toString()"
+      nxTooltipPosition="left"
     >
       <em class="sdc-center fa-regular fa-{{ trend > 0 ? 'face-smile' : trend < 0 ? 'face-frown' : 'face-meh' }}" aria-hidden="true"></em>
     </div>
   `,
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, NxTooltipModule]
 })
 export class SdcTrendComponent {
   private _trend!: number;

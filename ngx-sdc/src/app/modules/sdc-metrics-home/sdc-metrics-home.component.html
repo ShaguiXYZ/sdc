@@ -43,6 +43,7 @@
               <div
                 class="sdc-op"
                 [nxTooltip]="'Tooltip.ComponentMetrics' | translate: { name: metricsData.component.name }"
+                nxTooltipPosition="left"
                 (click)="openMetricsCards()"
               >
                 <em class="fa-solid fa-align-justify"></em>
@@ -50,6 +51,7 @@
               <div
                 class="sdc-op"
                 [nxTooltip]="'Tooltip.RunProcess' | translate: { name: metricsData.component.name }"
+                nxTooltipPosition="left"
                 (click)="onRunProcess()"
               >
                 <em class="fa-solid fa-arrows-spin"></em>

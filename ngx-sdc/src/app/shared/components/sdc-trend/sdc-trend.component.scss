@@ -22,11 +22,6 @@
   position: relative;
 }
 
-[data-title]::before {
-  right: 25px;
-  position: absolute;
-}
-
 .coverage-trend,
 .coverage-trend-background {
   border-radius: 100%;
