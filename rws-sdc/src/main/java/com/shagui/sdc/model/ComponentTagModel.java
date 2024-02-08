@@ -42,5 +42,6 @@ public class ComponentTagModel implements ModelInterface<ComponentTagPk> {
         this.id = new ComponentTagPk(component.getId(), tag.getId());
         this.component = component;
         this.tag = tag;
+        this.owner = tag.getOwner();
     }
 }

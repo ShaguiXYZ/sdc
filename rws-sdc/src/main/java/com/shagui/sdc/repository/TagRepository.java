@@ -11,19 +11,27 @@ import org.springframework.data.jpa.repository.Query;
 import com.shagui.sdc.model.TagModel;
 
 public interface TagRepository extends JpaRepository<TagModel, Integer> {
-        public Optional<TagModel> findByName(String name);
+        Optional<TagModel> findByName(String name);
 
         @Query("""
                         SELECT new TagModel(t.id, t.name, ct.analysisTag, ct.owner) FROM TagModel t \
-                        INNER JOIN t.components c ON c.id = :componentId \
-                        INNER JOIN ComponentTagModel ct ON ct.id.componentId = c.id AND ct.id.tagId = t.id
+                        INNER JOIN ComponentTagModel ct ON (ct.owner LIKE :owner \
+                        AND ct.id.componentId = :componentId AND ct.id.tagId = t.id) \
+                        WHERE t.name = :name
                         """)
-        public List<TagModel> findByComponent(int componentId);
+        Optional<TagModel> findByOwnedTag(String name, String owner, int componentId);
 
         @Query("""
                         SELECT new TagModel(t.id, t.name, ct.analysisTag, ct.owner) FROM TagModel t \
-                        INNER JOIN t.components c ON c.id = :componentId \
-                        INNER JOIN ComponentTagModel ct ON ct.id.componentId = c.id AND ct.id.tagId = t.id
+                        INNER JOIN ComponentTagModel ct ON ((ct.owner IS NULL OR ct.owner LIKE :owner) \
+                        AND ct.id.componentId = :componentId AND ct.id.tagId = t.id)
                         """)
-        public Page<TagModel> findByComponent(int componentId, Pageable pageable);
+        List<TagModel> findByComponent(int componentId, String owner);
+
+        @Query("""
+                        SELECT new TagModel(t.id, t.name, ct.analysisTag, ct.owner) FROM TagModel t \
+                        INNER JOIN ComponentTagModel ct ON ((ct.owner IS NULL OR ct.owner LIKE :owner) \
+                        AND ct.id.componentId = :componentId AND ct.id.tagId = t.id)
+                        """)
+        Page<TagModel> findByComponent(int componentId, String owner, Pageable pageable);
 }

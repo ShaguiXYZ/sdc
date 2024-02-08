@@ -30,8 +30,14 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 			@NonNull FilterChain chain)
 			throws ServletException, IOException {
 		try {
-			if (isPublicRequest(request, securityProperties.publicRegex()) || null != this.securityClient.authUser()) {
+			if (isPublicRequest(request, securityProperties.publicRegex())
+					|| this.securityClient.authUser().isPresent()) {
 				chain.doFilter(request, response);
+			} else {
+				ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, "Unauthorized", "Unauthorized");
+
+				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+				response.getWriter().write(Mapper.parse(apiError));
 			}
 		} catch (FeignException e) {
 			HttpStatus status = Arrays.asList(HttpStatus.values()).stream()

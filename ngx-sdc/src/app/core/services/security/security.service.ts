@@ -16,7 +16,7 @@ import { contextStorageID } from '../context-data';
 })
 export class SecurityService {
   private _urlSecurity = `${environment.securityUrl}/api`;
-  private signIn$: Subject<ISessionModel> = new Subject();
+  private _SignInSignOut$: Subject<ISessionModel | undefined> = new Subject();
 
   constructor(
     private readonly contextDataService: ContextDataService,
@@ -43,8 +43,8 @@ export class SecurityService {
     }
   }
 
-  public onSignIn(): Observable<ISessionModel> {
-    return this.signIn$.asObservable();
+  public onSignInOut(): Observable<ISessionModel | undefined> {
+    return this._SignInSignOut$.asObservable();
   }
 
   public login(loginData: { userName: string; password: string }): Promise<ISessionModel> {
@@ -59,14 +59,19 @@ export class SecurityService {
             this.session = ISessionModel.fromDTO(session as ISessionDTO);
             return this.session;
           }),
-          tap(session => this.signIn$.next(session))
+          tap(session => this._SignInSignOut$.next(session))
         )
     );
   }
 
   public logout(): Promise<void> {
     if (!this.getSecurityInfo()) {
-      return firstValueFrom(this.http._put<ISessionModel>(`${this._urlSecurity}/logout`).pipe(map(() => this.removeSecurityInfo())));
+      return firstValueFrom(
+        this.http._put<ISessionModel>(`${this._urlSecurity}/logout`).pipe(
+          map(() => this.removeSecurityInfo()),
+          tap(() => this._SignInSignOut$.next(undefined))
+        )
+      );
     }
 
     return Promise.resolve();
@@ -77,18 +82,18 @@ export class SecurityService {
   }
 
   private getSecurityInfo(): ISecurityModel {
-    const data = sessionStorage.getItem(contextStorageID);
+    const data = localStorage.getItem(contextStorageID);
 
     return data && JSON.parse(data); // this.contextDataService.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
   }
 
   private setSecurityInfo(securityInfo: ISecurityModel): void {
-    sessionStorage.setItem(contextStorageID, JSON.stringify(securityInfo));
+    localStorage.setItem(contextStorageID, JSON.stringify(securityInfo));
     this.contextDataService.set<ISecurityModel>(CONTEXT_SECURITY_KEY, securityInfo, { persistent: true });
   }
 
   private removeSecurityInfo(): void {
-    sessionStorage.removeItem(contextStorageID);
+    localStorage.removeItem(contextStorageID);
     this.contextDataService.delete(CONTEXT_SECURITY_KEY);
   }
 }

@@ -1,5 +1,7 @@
 package com.shagui.sdc.api.client;
 
+import java.util.Optional;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -15,7 +17,12 @@ public interface SecurityClient {
 			@RequestHeader(value = Ctes.HEADER_AUTHORIZATION, required = true) String authorizationHeader,
 			@RequestHeader(value = Ctes.HEADER_SESSION_ID, required = true) String sidHeader);
 
-	default UserDTO authUser() {
-		return ping(HttpServletRequestUtils.getAuthorizationHeader(), HttpServletRequestUtils.getSIDHeader());
+	default Optional<UserDTO> authUser() {
+		try {
+			return Optional.ofNullable(
+					ping(HttpServletRequestUtils.getAuthorizationHeader(), HttpServletRequestUtils.getSIDHeader()));
+		} catch (Exception e) {
+			return Optional.empty();
+		}
 	}
 }

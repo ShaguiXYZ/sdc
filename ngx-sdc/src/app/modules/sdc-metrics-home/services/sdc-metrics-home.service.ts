@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { _console, emptyFn } from 'src/app/core/lib';
 import { IMetricAnalysisModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
-import { ContextDataService, DateService, HttpStatus } from 'src/app/core/services';
+import { ContextDataService, DateService, HttpStatus, SecurityService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
 import { SdcMetricsContextData } from 'src/app/shared/models';
@@ -10,11 +10,12 @@ import { MetricsDataModel } from '../models';
 import { SdcOverlayService } from 'src/app/shared/components/sdc-overlay/services';
 
 @Injectable()
-export class SdcMetricsHomeService {
+export class SdcMetricsHomeService implements OnDestroy {
   private metricContextData!: SdcMetricsContextData;
   private metricData!: MetricsDataModel;
   private tabActions: { fn: () => void }[] = [];
   private data$: Subject<MetricsDataModel> = new Subject();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly dateService: DateService,
@@ -23,9 +24,11 @@ export class SdcMetricsHomeService {
     private readonly componentService: ComponentService,
     private readonly contextDataService: ContextDataService,
     private readonly overlayService: SdcOverlayService,
+    private readonly securityService: SecurityService,
     private readonly squadService: SquadService,
     private readonly tagService: TagService
   ) {
+    this.subscriptions.push(this.securityService.onSignInOut().subscribe(() => this.loadInitData()));
     this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
     this.metricData = {
       component: this.metricContextData.component,
@@ -34,6 +37,10 @@ export class SdcMetricsHomeService {
     };
     this.tabActions = [{ fn: emptyFn }, { fn: this.languageDistribution }];
     this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   public set metricAnalysisSeleted(analysis: IMetricAnalysisModel) {
