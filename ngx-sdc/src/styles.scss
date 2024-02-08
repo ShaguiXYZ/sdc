@@ -42,12 +42,15 @@
 }
 
 .sdc-op {
+  color: var(--hover-primary);
   cursor: pointer;
-  opacity: 0.3;
-  transition: opacity 0.5s ease-in-out;
+  opacity: 0.5;
+  transition:
+    opacity 0.5s ease-in-out,
+    color 0.5s ease-in-out;
 
   &:hover {
-    color: var(--link-hover-color);
+    color: var(--active-primary);
     opacity: 1;
   }
 }

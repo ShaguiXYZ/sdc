@@ -1,7 +1,5 @@
 package com.shagui.sdc.api.view.security;
 
-import java.util.List;
-
 import com.shagui.sdc.api.dto.security.UserDTO;
 
 import lombok.Data;
@@ -15,7 +13,6 @@ public class UserView {
 	private String name;
 	private String surname;
 	private String secondSurname;
-	private List<String> authorities;
 
 	public UserView(UserDTO source) {
 		this.userName = source.getUserName();
@@ -23,6 +20,5 @@ public class UserView {
 		this.name = source.getPerson().getName();
 		this.surname = source.getPerson().getSurname();
 		this.secondSurname = source.getPerson().getSecondSurname();
-		this.authorities = source.getAuthorities();
 	}
 }

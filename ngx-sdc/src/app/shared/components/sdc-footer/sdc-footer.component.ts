@@ -4,55 +4,18 @@ import { SdcSseEventComponent } from '../sdc-sse-event';
 import { SwitchThemeComponent } from 'src/app/core/components/header/components';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { SdcKeysComponent } from '../sdc-keys';
+import { SdcLogInOutComponent } from '../sdc-log-in-out';
 
 @Component({
   selector: 'sdc-footer',
-  styles: [
-    `
-      footer {
-        bottom: 0;
-        display: flex;
-        max-height: 50px;
-        overflow: hidden;
-        position: absolute;
-        text-align: center;
-        width: 100%;
-
-        .sdc-footer-info {
-          display: flex;
-          align-items: center;
-          flex: 1;
-          justify-content: flex-start;
-
-          .sdc-footer-info-text {
-            margin-right: 12px;
-          }
-        }
-
-        .sdc-footer-content {
-          align-items: center;
-          border-top: 1px solid var(--header-border-color);
-          display: flex;
-          flex-direction: row;
-          width: 100%;
-
-          .sdc-footer-actions {
-            border-left: 1px solid var(--header-border-color);
-
-            .sdc-sse-event {
-              height: 15px;
-              margin: 12px;
-              width: 15px;
-            }
-          }
-        }
-      }
-    `
-  ],
+  styleUrls: ['./sdc-footer.component.scss'],
   template: `
     <footer nxLayout="grid maxwidth nogutters">
       <div class="sdc-footer-content">
         <div class="sdc-footer-info">
+          <div class="sdc-log-in-out">
+            <sdc-log-in-out />
+          </div>
           <span class="sdc-footer-info-text">© 2023</span>
           <sdc-keys />
         </div>
@@ -65,7 +28,7 @@ import { SdcKeysComponent } from '../sdc-keys';
       </div>
     </footer>
   `,
-  imports: [CommonModule, NxGridModule, SdcKeysComponent, SdcSseEventComponent, SwitchThemeComponent],
+  imports: [CommonModule, NxGridModule, SdcKeysComponent, SdcLogInOutComponent, SdcSseEventComponent, SwitchThemeComponent],
   standalone: true
 })
 export class SdcAppFooterComponent {}

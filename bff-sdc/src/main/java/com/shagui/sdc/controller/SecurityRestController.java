@@ -24,8 +24,6 @@ public class SecurityRestController implements SecurityRestApi {
 
 	@Override
 	public SessionView login(LoginViewModel login) {
-		log.debug("Login :: {}", login);
-
 		SessionDTO dto = null;
 
 		try {

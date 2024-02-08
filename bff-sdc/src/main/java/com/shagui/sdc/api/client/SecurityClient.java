@@ -21,7 +21,7 @@ public interface SecurityClient {
 	SessionDTO login(@RequestParam("resource") String resource, @RequestParam("username") String username,
 			@RequestParam("password") String pwd);
 
-	@PutMapping("logout")
+	@PutMapping("close")
 	SessionDTO closeSession(
 			@RequestHeader(value = HttpServletRequestUtils.HEADER_AUTHORIZATION, required = true) String authorizationHeader,
 			@RequestHeader(value = HttpServletRequestUtils.HEADER_SESSION_ID, required = true) String sidHeader);

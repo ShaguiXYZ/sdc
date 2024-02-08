@@ -16,7 +16,7 @@ import { contextStorageID } from '../context-data';
 })
 export class SecurityService {
   private _urlSecurity = `${environment.securityUrl}/api`;
-  private _SignInSignOut$: Subject<ISessionModel | undefined> = new Subject();
+  private _SignInSignOut$: Subject<ISecurityModel | undefined> = new Subject();
 
   constructor(
     private readonly contextDataService: ContextDataService,
@@ -43,12 +43,12 @@ export class SecurityService {
     }
   }
 
-  public onSignInOut(): Observable<ISessionModel | undefined> {
+  public onSignInOut(): Observable<ISecurityModel | undefined> {
     return this._SignInSignOut$.asObservable();
   }
 
-  public login(loginData: { userName: string; password: string }): Promise<ISessionModel> {
-    return firstValueFrom(
+  public async login(loginData: { userName: string; password: string }): Promise<ISessionModel> {
+    await firstValueFrom(
       this.http
         .post<ISessionDTO, { resource: string; userName: string; password: string }>(`${this._urlSecurity}/login`, {
           ...loginData,
@@ -58,14 +58,17 @@ export class SecurityService {
           map(session => {
             this.session = ISessionModel.fromDTO(session as ISessionDTO);
             return this.session;
-          }),
-          tap(session => this._SignInSignOut$.next(session))
+          })
         )
     );
+
+    this.authUser().then(user => (this.user = user));
+
+    return this.session;
   }
 
   public logout(): Promise<void> {
-    if (!this.getSecurityInfo()) {
+    if (this.getSecurityInfo()) {
       return firstValueFrom(
         this.http._put<ISessionModel>(`${this._urlSecurity}/logout`).pipe(
           map(() => this.removeSecurityInfo()),
@@ -90,6 +93,8 @@ export class SecurityService {
   private setSecurityInfo(securityInfo: ISecurityModel): void {
     localStorage.setItem(contextStorageID, JSON.stringify(securityInfo));
     this.contextDataService.set<ISecurityModel>(CONTEXT_SECURITY_KEY, securityInfo, { persistent: true });
+
+    this._SignInSignOut$.next(securityInfo);
   }
 
   private removeSecurityInfo(): void {
