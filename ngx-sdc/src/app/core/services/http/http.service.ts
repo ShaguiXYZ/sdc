@@ -172,7 +172,7 @@ export class HttpService {
 
       if (statusMessage) {
         title = statusMessage.title;
-        message = statusMessage.text as string;
+        message = (statusMessage.text as string) ?? err.message;
         statusMessage.fn?.(err);
       } else {
         message = 'Notifications.GeneralError';

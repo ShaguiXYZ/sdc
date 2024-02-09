@@ -63,6 +63,7 @@
     "CurrentValue": "Current value",
     "DepartmentSumary": "Department summary",
     "ElementsByPage": "{{value}} elements per page",
+    "EMail": "E-mail",
     "Factors": {
       "expectedValue": "Expected value",
       "goodValue": "Good value",
@@ -91,6 +92,8 @@
     "Squads": "Squads",
     "SquadSumary": "Squad summary",
     "Tags": "Tags",
+    "ToLogin": "Click to login",
+    "ToLogout": "Click to logout",
     "UserName": "Username",
     "Yes": "Yes"
   },

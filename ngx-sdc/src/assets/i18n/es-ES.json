@@ -63,6 +63,7 @@
     "CurrentValue": "Valor Actual",
     "DepartmentSumary": "Resumen del departamento",
     "ElementsByPage": "{{value}} Elementos por página",
+    "EMail": "Correo electrónico",
     "Factors": {
       "expectedValue": "Valor esperado",
       "goodValue": "Valor bueno",
@@ -91,6 +92,8 @@
     "Squads": "Squads",
     "SquadSumary": "Resumen del squad",
     "Tags": "Tags",
+    "ToLogin": "Click para iniciar sesión",
+    "ToLogout": "Click para cerrar sesión",
     "UserName": "Usuario",
     "Yes": "Si"
   },

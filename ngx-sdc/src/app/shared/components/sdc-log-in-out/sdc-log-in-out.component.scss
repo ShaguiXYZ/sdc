@@ -1,0 +1,68 @@
+.sdc-log-in-out {
+  border: 1px solid var(--sdc-primary-color);
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  min-width: 50px;
+  opacity: 0.6;
+  padding: 5px 15px;
+  transition:
+    opacity 0.5s ease-in-out,
+    background-color 1s ease-in-out;
+
+  &.sdc-user {
+    background-color: var(--success);
+    color: var(--avatar-color);
+  }
+
+  &.sdc-not-user {
+    background-color: var(--warning);
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.sdc-user-container {
+  background-color: var(--sdc-primary-color);
+  border-radius: 5px;
+  color: var(--sdc-primary-color-contrast);
+
+  > header {
+    background: var(--ui-02);
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    justify-content: center;
+    padding: 10px;
+
+    em::before {
+      font-size: 1.5rem;
+      margin-right: 10px;
+    }
+  }
+
+  .sdc-user-data {
+    padding: 10px 20px;
+
+    .sdc-user-field + .sdc-user-field {
+      margin-top: 10px;
+    }
+
+    .sdc-user-field {
+      label {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.sdc-user-info {
+  background: var(--ui-02);
+  color: var(--accent-01);
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 2px 10px;
+  text-align: center;
+}

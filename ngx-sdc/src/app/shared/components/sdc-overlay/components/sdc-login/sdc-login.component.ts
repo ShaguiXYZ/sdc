@@ -4,7 +4,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { TranslateModule } from '@ngx-translate/core';
 import { OverlayItemStatus } from '../../models';
 import { SdcLoginService } from './services';
-import { NxPopoverModule } from '@aposin/ng-aquila/popover';
 
 @Component({
   selector: 'sdc-login',
@@ -12,7 +11,7 @@ import { NxPopoverModule } from '@aposin/ng-aquila/popover';
   templateUrl: './sdc-login.component.html',
   providers: [SdcLoginService],
   standalone: true,
-  imports: [CommonModule, FormsModule, NxPopoverModule, ReactiveFormsModule, TranslateModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class SdcLoginComponent implements OnInit {
   public form!: FormGroup;

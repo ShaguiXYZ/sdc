@@ -4,7 +4,7 @@ import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SecurityError } from '../../errors';
 import { ContextDataService } from '../context-data/context-data.service';
-import { HttpService } from '../http';
+import { HttpService, HttpStatus } from '../http';
 import { CONTEXT_SECURITY_KEY } from './constants';
 import { ISecurityModel, ISessionDTO, ISessionModel, IUserDTO, IUserModel } from './models';
 
@@ -70,10 +70,16 @@ export class SecurityService {
   public logout(): Promise<void> {
     if (this.getSecurityInfo()) {
       return firstValueFrom(
-        this.http._put<ISessionModel>(`${this._urlSecurity}/logout`).pipe(
-          map(() => this.removeSecurityInfo()),
-          tap(() => this._SignInSignOut$.next(undefined))
-        )
+        this.http
+          ._put<ISessionDTO>(`${this._urlSecurity}/logout`, undefined, {
+            responseStatusMessage: {
+              [HttpStatus.unauthorized]: { fn: this.removeSecurityInfo }
+            }
+          })
+          .pipe(
+            map(() => this.removeSecurityInfo()),
+            tap(() => this._SignInSignOut$.next(undefined))
+          )
       );
     }
 
@@ -97,8 +103,8 @@ export class SecurityService {
     this._SignInSignOut$.next(securityInfo);
   }
 
-  private removeSecurityInfo(): void {
+  private removeSecurityInfo = (): void => {
     localStorage.removeItem(contextStorageID);
     this.contextDataService.delete(CONTEXT_SECURITY_KEY);
-  }
+  };
 }

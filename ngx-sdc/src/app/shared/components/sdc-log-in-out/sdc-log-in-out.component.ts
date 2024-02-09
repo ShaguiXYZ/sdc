@@ -1,47 +1,50 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NxPopoverModule } from '@aposin/ng-aquila/popover';
 import { IUserModel, SecurityService } from 'src/app/core/services';
 import { SdcOverlayService } from '../sdc-overlay/services';
-import { CommonModule } from '@angular/common';
-import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
+import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'sdc-log-in-out',
-  styles: [
-    `
-      .sdc-log-in-out {
-        border: 1px solid var(--sdc-primary-color);
-        border-radius: 50px;
-        cursor: pointer;
-        font-size: 1rem;
-        opacity: 0.6;
-        padding: 5px 15px;
-        transition:
-          opacity 0.5s ease-in-out,
-          background-color 1s ease-in-out;
-
-        &.sdc-user {
-          background-color: var(--success);
-          color: var(--avatar-color);
-        }
-
-        &.sdc-not-user {
-          background-color: var(--warning);
-        }
-
-        &:hover {
-          opacity: 1;
-        }
-      }
-    `
-  ],
+  styleUrls: ['./sdc-log-in-out.component.scss'],
   template: `
-    <div class="sdc-log-in-out" [ngClass]="{ 'sdc-user': user, 'sdc-not-user': !user }">
-      <em class="fa-solid fa-user" [ngClass]="{ 'fa-user': user, 'fa-user-slash': !user }" (click)="toggleAuthentication()">
-        {{ user?.userName }}</em
-      >
+    <div
+      class="sdc-log-in-out sdc-user"
+      [ngClass]="{ 'sdc-user': user, 'sdc-not-user': !user }"
+      [nxPopoverTriggerFor]="popoverUserData"
+      nxPopoverDirection="top"
+      nxPopoverTrigger="hover"
+      (click)="toggleAuthentication()"
+    >
+      <em class="fa-solid fa-user" [ngClass]="{ 'fa-user': user, 'fa-user-slash': !user }"></em>
     </div>
+
+    <nx-popover #popoverUserData>
+      @if (user) {
+        <article class="sdc-user-container">
+          <header>
+            <em class="fa-solid fa-user"> {{ user.userName }}</em>
+          </header>
+          <section class="sdc-user-data">
+            <div class="sdc-user-field">
+              <label nxCopytext="large">{{ 'Label.Name' | translate }}</label>
+              <p nxCopytext="medium">{{ user.name }} {{ user.surname }} {{ user.secondSurname }}</p>
+            </div>
+            <div class="sdc-user-field">
+              <label nxCopytext="large">{{ 'Label.EMail' | translate }}</label>
+              <p nxCopytext="medium">{{ user.email }}</p>
+            </div>
+          </section>
+        </article>
+        <div class="sdc-user-info">{{ 'Label.ToLogout' | translate }}</div>
+      } @else {
+        <div class="sdc-user-info">{{ 'Label.ToLogin' | translate }}</div>
+      }
+    </nx-popover>
   `,
-  imports: [CommonModule, NxTooltipModule],
+  imports: [CommonModule, NxCopytextModule, NxPopoverModule, TranslateModule],
   standalone: true
 })
 export class SdcLogInOutComponent implements OnInit {
