@@ -5,7 +5,7 @@
   display: flex;
   height: 100%;
   overflow: hidden;
-  padding: 4px;
+  padding: 8px;
   width: 100%;
 
   &.open {
@@ -24,9 +24,22 @@
       scale 0.2s ease-in-out;
   }
 
+  .sdc-waiting-login {
+    padding: 16px;
+
+    .sdc-waiting-login__spinner {
+      margin: 8px;
+    }
+
+    .sdc-waiting-login__message {
+      font-size: var(--small-label-font-size);
+      text-align: center;
+    }
+  }
+
   .sdc-login__container {
     background: var(--ui-02);
-    border-radius: 4px;
+    border-radius: 24px 4px 4px 4px;
     box-shadow: var(--shadow-small);
     flex: 1;
     max-height: 100%;
@@ -96,6 +109,13 @@
           }
         }
       }
+    }
+
+    .sdc_login__error {
+      color: var(--danger);
+      font-size: 12px;
+      margin-top: 8px;
+      text-align: center;
     }
   }
 }

@@ -6,9 +6,14 @@ export namespace OverlayItemStatus {
   };
 }
 
+export interface OverlayState {
+  loaded?: boolean;
+  status: OverlayItemStatus;
+}
+
 export interface SdcOverlayModel {
-  eventBarState: OverlayItemStatus;
-  globalSearchState: OverlayItemStatus;
-  helpState: OverlayItemStatus;
-  loginState: OverlayItemStatus;
+  eventBarState: OverlayState;
+  globalSearchState: OverlayState;
+  helpState: OverlayState;
+  loginState: OverlayState;
 }

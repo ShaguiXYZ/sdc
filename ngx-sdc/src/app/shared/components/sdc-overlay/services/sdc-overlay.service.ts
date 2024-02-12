@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { OverlayItemStatus, SdcOverlayModel } from '../models';
 
 @Injectable({
@@ -7,43 +7,64 @@ import { OverlayItemStatus, SdcOverlayModel } from '../models';
 })
 export class SdcOverlayService {
   public static readonly DEFAULT_OVERLAY_STATE: SdcOverlayModel = {
-    eventBarState: 'closed',
-    globalSearchState: 'closed',
-    helpState: 'closed',
-    loginState: 'closed'
+    eventBarState: { status: 'closed' },
+    globalSearchState: { status: 'closed' },
+    helpState: { status: 'closed' },
+    loginState: { status: 'closed' }
   };
 
   private overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;
   private data$: Subject<SdcOverlayModel> = new Subject<SdcOverlayModel>();
 
-  public onDataChange() {
+  public onDataChange(): Observable<SdcOverlayModel> {
     return this.data$.asObservable();
   }
 
-  public toggleEventBar(state?: OverlayItemStatus) {
-    this.overlayModel.eventBarState = state ?? OverlayItemStatus.toggle(this.overlayModel.eventBarState);
+  public toggleEventBar(status?: OverlayItemStatus) {
+    this.overlayModel.eventBarState.status = status ?? OverlayItemStatus.toggle(this.overlayModel.eventBarState.status);
     this.data$.next(this.overlayModel);
   }
 
-  public toggleGlobalSearch(state?: OverlayItemStatus) {
+  public toggleGlobalSearch(status?: OverlayItemStatus) {
     this.defaultOverlayState();
-    this.overlayModel.globalSearchState = state ?? OverlayItemStatus.toggle(this.overlayModel.globalSearchState);
+    this.overlayModel.globalSearchState.status = status ?? OverlayItemStatus.toggle(this.overlayModel.globalSearchState.status);
     this.data$.next(this.overlayModel);
   }
 
-  public toggleHelp(state?: OverlayItemStatus) {
+  public toggleHelp(status?: OverlayItemStatus) {
     this.defaultOverlayState();
-    this.overlayModel.helpState = state ?? OverlayItemStatus.toggle(this.overlayModel.helpState);
+    this.overlayModel.helpState.status = status ?? OverlayItemStatus.toggle(this.overlayModel.helpState.status);
     this.data$.next(this.overlayModel);
   }
 
-  public toggleLogin(state?: OverlayItemStatus) {
-    this.overlayModel.loginState = state ?? OverlayItemStatus.toggle(this.overlayModel.loginState);
+  public toggleLogin() {
+    if (this.overlayModel.loginState.loaded) {
+      this.overlayModel.loginState.status = 'closed';
+
+      const timeout = setTimeout(() => {
+        this.overlayModel.loginState.loaded = false;
+        clearTimeout(timeout);
+      }, 200);
+    } else {
+      this.overlayModel.loginState.loaded = true;
+
+      const timeout = setTimeout(() => {
+        this.overlayModel.loginState.status = 'open';
+        clearTimeout(timeout);
+      }, 50);
+    }
+
     this.data$.next(this.overlayModel);
   }
 
   public defaultOverlayState() {
-    this.overlayModel = { ...this.overlayModel, globalSearchState: 'closed', helpState: 'closed', loginState: 'closed' };
+    this.overlayModel = {
+      ...this.overlayModel,
+      globalSearchState: { status: 'closed' },
+      helpState: { status: 'closed' },
+      loginState: { status: 'closed' }
+    };
+
     this.data$.next(this.overlayModel);
   }
 }

@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   max-height: 100%;
+  padding: 8px;
   width: 100%;
 
   &.open {
@@ -27,6 +28,8 @@
   }
 
   .sdc-search-form {
+    background: var(--ui-02);
+    border-radius: 4px;
     padding: 8px;
 
     .sdc-search-input {
@@ -64,8 +67,6 @@
     }
 
     .sdc-search-type {
-      background: var(--ui-02);
-      border-radius: 67px;
       display: flex;
       justify-content: space-evenly;
       flex-wrap: wrap;
@@ -75,7 +76,6 @@
 
       .label-type {
         align-items: center;
-        border-radius: 25px;
         cursor: pointer;
         padding: 4px 8px;
         transition: background-color 0.3s ease-in-out;
@@ -90,7 +90,7 @@
   .sdc-search-result {
     border-radius: 8px;
     flex: 1;
-    margin: 8px;
+    margin-top: 8px;
     overflow-x: hidden;
     overflow-y: auto;
 

@@ -1,4 +1,4 @@
-import { SdcHelpBodyModel, SdcHelpEntryModel } from './sdc-help.model';
+import { SdcHelpBodyModel } from './sdc-help.model';
 
 export interface SdcHelpConfig {
   body?: SdcHelpBodyModel;

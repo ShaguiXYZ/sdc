@@ -34,9 +34,9 @@ import { SdcMetricsHomeService } from './services';
   standalone: true,
   imports: [
     SdcComplianceBarCardComponent,
-    SdcMetricsCardsComponent,
-    SdcMetricInfoComponent,
     SdcMetricHistoryGraphsComponent,
+    SdcMetricInfoComponent,
+    SdcMetricsCardsComponent,
     SdcPieChartComponent,
     SdcTagsComponent,
     SdcTimeEvolutionChartComponent,

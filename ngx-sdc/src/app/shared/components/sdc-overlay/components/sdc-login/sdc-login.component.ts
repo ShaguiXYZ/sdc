@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { OverlayItemStatus } from '../../models';
 import { SdcLoginService } from './services';
+import { Subscription } from 'rxjs';
+import { SdcLoginModel } from './models';
 
 @Component({
   selector: 'sdc-login',
@@ -13,14 +15,27 @@ import { SdcLoginService } from './services';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule]
 })
-export class SdcLoginComponent implements OnInit {
+export class SdcLoginComponent implements OnInit, OnDestroy {
+  public loginData: SdcLoginModel = { authenticating: false };
   public form!: FormGroup;
   public _state: OverlayItemStatus = 'closed';
+
+  private subcriptions: Subscription[] = [];
 
   constructor(private readonly loginService: SdcLoginService) {}
 
   ngOnInit(): void {
+    this.subcriptions.push(
+      this.loginService.onDataChange().subscribe(data => {
+        this.loginData = data;
+      })
+    );
+
     this.createForm();
+  }
+
+  ngOnDestroy(): void {
+    this.subcriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   public get state(): string {
@@ -34,6 +49,7 @@ export class SdcLoginComponent implements OnInit {
 
   public login(): void {
     if (this.form.valid) {
+      this.loginData = { authenticating: true };
       this.loginService.login(this.form.value);
     }
   }

@@ -74,6 +74,9 @@
 
 .sdc-scrollable,
 .sdc-scrollable-body {
+  // scrollbar-color: inherit $grey-lighter-color;
+  // scrollbar-width: thin;
+
   &::-webkit-scrollbar {
     background-color: $grey-lighter-color;
     width: 2px;

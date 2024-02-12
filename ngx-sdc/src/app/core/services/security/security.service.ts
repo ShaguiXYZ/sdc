@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SecurityError } from '../../errors';
 import { ContextDataService } from '../context-data/context-data.service';
@@ -47,6 +47,11 @@ export class SecurityService {
     return this._SignInSignOut$.asObservable();
   }
 
+  public forceLogout(): void {
+    this.removeSecurityInfo();
+    this._SignInSignOut$.next(undefined);
+  }
+
   public async login(loginData: { userName: string; password: string }): Promise<ISessionModel> {
     await firstValueFrom(
       this.http
@@ -58,6 +63,10 @@ export class SecurityService {
           map(session => {
             this.session = ISessionModel.fromDTO(session as ISessionDTO);
             return this.session;
+          }),
+          catchError(() => {
+            this.removeSecurityInfo();
+            return Promise.reject(new SecurityError('Invalid credentials'));
           })
         )
     );
@@ -77,8 +86,8 @@ export class SecurityService {
             }
           })
           .pipe(
-            map(() => this.removeSecurityInfo()),
-            tap(() => this._SignInSignOut$.next(undefined))
+            tap(() => this.removeSecurityInfo()),
+            map(() => this._SignInSignOut$.next(undefined))
           )
       );
     }

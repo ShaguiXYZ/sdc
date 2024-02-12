@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -59,6 +59,11 @@ import { SdcHelpService } from './services';
   `,
   standalone: true,
   imports: [CommonModule, NxHeadlineModule, TranslateModule, SdcHelpParagraphPipe],
+  /**
+   * @howto: Remove the encapsulation to allow the styles to be applied to the parent component
+   *
+   * ref: https://angular.io/api/core/ViewEncapsulation
+   */
   encapsulation: ViewEncapsulation.None
 })
 export class SdcHelpComponent implements OnInit, OnDestroy {
