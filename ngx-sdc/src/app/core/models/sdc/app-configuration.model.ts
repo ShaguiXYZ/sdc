@@ -21,6 +21,7 @@ export interface IAppConfigurationDTO {
   jpa: IJpaConfig;
   security: IAppSecurityConfig;
   title: string;
+  copyright?: string;
 }
 
 export interface IAppConfigurationModel {
@@ -33,6 +34,7 @@ export interface IAppConfigurationModel {
   jpa: IJpaConfig;
   security: IAppSecurityConfig;
   title: string;
+  copyright?: string;
 }
 
 export namespace IAppConfigurationModel {
@@ -42,7 +44,8 @@ export namespace IAppConfigurationModel {
       dto.analysis,
       dto.jpa,
       dto.security,
-      dto.title
+      dto.title,
+      dto.copyright
     );
 }
 
@@ -56,6 +59,7 @@ export class AppConfigurationModel implements IAppConfigurationModel {
     public analysis: IAnalysisConfig,
     public jpa: IJpaConfig,
     public security: IAppSecurityConfig,
-    public title: string
+    public title: string,
+    public copyright?: string
   ) {}
 }

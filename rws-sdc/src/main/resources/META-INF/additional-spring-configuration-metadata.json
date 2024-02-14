@@ -44,6 +44,11 @@
       "name": "rest.security.issuer-uri",
       "type": "java.lang.String",
       "description": "A description for 'rest.security.issuer-uri'"
+    },
+    {
+      "name": "application.info.app.copyright",
+      "type": "java.lang.String",
+      "description": "A description for 'application.info.app.copyright'"
     }
   ]
 }

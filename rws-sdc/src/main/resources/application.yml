@@ -4,6 +4,7 @@ application:
       name: '@project.artifactId@'
       version: '@project.version@'
       description: '@project.description@'
+      copyright: '2023'
   configuration:
     analysis:
       # precision: 5
@@ -48,7 +49,7 @@ rest:
     api-matcher:
       - api: /api/**
       - api: /api/public/**
-        permit-all: true
+        public: true
       - api: /v3/api-docs/**
       - api: /v3/api-docs/**
       - api: /webjars/**

@@ -16,6 +16,8 @@ import lombok.Setter;
 public class SdcConfig {
     @Value("${application.info.app.version}")
     private String rwsVersion;
+    @Value("${application.info.app.copyright}")
+    private String copyright;
     private AnalysisConfig analysis;
     private JpaConfig jpa;
     private SecurityConfig security;

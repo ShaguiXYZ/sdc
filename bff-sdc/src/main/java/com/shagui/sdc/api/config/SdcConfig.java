@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter()
 public class SdcConfig {
     private static String bffVersion;
+    private String copyright;
     private String rwsVersion;
     private AnalysisConfig analysis;
     private JpaConfig jpa;

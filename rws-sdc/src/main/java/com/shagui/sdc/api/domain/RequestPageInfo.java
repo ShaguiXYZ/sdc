@@ -27,6 +27,7 @@ public class RequestPageInfo {
 		this.size = Objects.nonNull(size) && size > 0 ? size : AppConfig.getConfig().getJpa().getElementsByPage();
 	}
 
+	@NonNull
 	public Pageable getPageable() {
 		return PageRequest.of(page, size);
 	}
