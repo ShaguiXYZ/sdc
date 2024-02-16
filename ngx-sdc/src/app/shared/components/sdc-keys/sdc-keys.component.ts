@@ -20,7 +20,7 @@ import SdcScreenRecorder from 'src/app/core/lib/screen-recorder.lib';
     `
   ],
   template: `
-    <div class="sdc-keys-content">
+    <div class="sdc-keys-content" (click)="toggleGlobalSearch()">
       <div class="selected-key">
         <sdc-key key="K" label="Label.Ctrl.K"></sdc-key>
       </div>
@@ -44,6 +44,10 @@ export class SdcKeysComponent {
     }
   }
 
+  public toggleGlobalSearch() {
+    this.overlayService.toggleGlobalSearch();
+  }
+
   private handleMacKeyEvents(event: KeyboardEvent) {
     // MetaKey documentation
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
@@ -58,7 +62,7 @@ export class SdcKeysComponent {
   private eventCtrlKeyActions(event: KeyboardEvent) {
     switch (event.key.toUpperCase()) {
       case 'K':
-        this.overlayService.toggleGlobalSearch();
+        this.toggleGlobalSearch();
         event.preventDefault();
         break;
       case 'R':

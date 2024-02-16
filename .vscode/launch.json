@@ -1,0 +1,89 @@
+{
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:4205",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost with sourcemaps",
+      "url": "http://localhost:4205",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${webRoot}/*",
+        "webpack:///src/*": "${webRoot}/*",
+        "webpack:///*": "*",
+        "webpack:///./~/*": "${webRoot}/node_modules/*"
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost (Incognito)",
+      "url": "http://localhost:4205",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": "${workspaceFolder}/.vscode/chrome",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${webRoot}/*",
+        "webpack:///src/*": "${webRoot}/*",
+        "webpack:///*": "*",
+        "webpack:///./~/*": "${webRoot}/node_modules/*"
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost (Incognito with Extensions)",
+      "url": "http://localhost:4205",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": "${workspaceFolder}/.vscode/chrome",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${webRoot}/*",
+        "webpack:///src/*": "${webRoot}/*",
+        "webpack:///*": "*",
+        "webpack:///./~/*": "${webRoot}/node_modules/*"
+      },
+      "runtimeArgs": [
+        "--disable-extensions-except=${workspaceFolder}/.vscode/chrome/extensions",
+        "--load-extension=${workspaceFolder}/.vscode/chrome/extensions"
+      ]
+    },
+    {
+      "version": "dev",
+      "name": "Iniciar Edge para localhost",
+      "request": "launch",
+      "type": "msedge",
+      "url": "http://localhost:4205",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-SpringBoot<bff-sdc>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.shagui.SpringBoot",
+      "projectName": "bff-sdc",
+      "args": "--spring.profiles.active=local",
+      "vmArgs": "-Dspring.profiles.active=local",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-SpringBoot<rws-sdc>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.shagui.SpringBoot",
+      "projectName": "rws-sdc",
+      "args": "--spring.profiles.active=dev",
+      "vmArgs": "-Dspring.profiles.active=dev -Ddb.domain=localhost:5432 -Ddb.user=shagui -Ddb.password= -Dgit.token=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",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

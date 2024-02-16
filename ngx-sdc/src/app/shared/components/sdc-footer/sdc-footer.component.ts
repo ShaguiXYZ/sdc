@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { SdcSseEventComponent } from '../sdc-sse-event';
-import { SwitchThemeComponent } from 'src/app/core/components/header/components';
+import { Component } from '@angular/core';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { SwitchThemeComponent } from 'src/app/core/components/header/components';
+import { IAppConfigurationModel } from 'src/app/core/models/sdc';
+import { ContextDataService } from 'src/app/core/services';
+import { ContextDataInfo } from '../../constants';
 import { SdcKeysComponent } from '../sdc-keys';
 import { SdcLogInOutComponent } from '../sdc-log-in-out';
-import { ContextDataService } from 'src/app/core/services';
-import { IAppConfigurationModel } from 'src/app/core/models/sdc';
-import { ContextDataInfo } from '../../constants';
+import { SdcSseEventComponent } from '../sdc-sse-event';
 
 @Component({
   selector: 'sdc-footer',
@@ -19,7 +19,7 @@ import { ContextDataInfo } from '../../constants';
           <div class="sdc-log-in-out">
             <sdc-log-in-out />
           </div>
-          @if (appConfig.copyright) {
+          @if (appConfig && appConfig.copyright) {
             <span class="sdc-footer-info-text">© {{ appConfig.copyright }}</span>
           }
           <sdc-keys />
@@ -36,12 +36,10 @@ import { ContextDataInfo } from '../../constants';
   imports: [CommonModule, NxGridModule, SdcKeysComponent, SdcLogInOutComponent, SdcSseEventComponent, SwitchThemeComponent],
   standalone: true
 })
-export class SdcAppFooterComponent implements OnInit {
-  public appConfig!: IAppConfigurationModel;
-
+export class SdcAppFooterComponent {
   constructor(private readonly contextDataService: ContextDataService) {}
 
-  ngOnInit(): void {
-    this.appConfig = this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
+  public get appConfig(): IAppConfigurationModel | undefined {
+    return this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
   }
 }
