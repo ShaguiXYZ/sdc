@@ -62,6 +62,8 @@ export class SecurityService {
         .pipe(
           map(session => {
             this.session = ISessionModel.fromDTO(session as ISessionDTO);
+            this.authUser().then(user => (this.user = user));
+
             return this.session;
           }),
           catchError(() => {
@@ -70,8 +72,6 @@ export class SecurityService {
           })
         )
     );
-
-    this.authUser().then(user => (this.user = user));
 
     return this.session;
   }

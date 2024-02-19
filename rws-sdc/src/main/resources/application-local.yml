@@ -4,7 +4,7 @@ rest:
     api-matcher:
       - api: /api/**
       - api: /api/public/**
-        permit-all: true
+        public: true
       - api: /v3/api-docs/**
       - api: /swagger.json
       - api: /swagger-ui.html

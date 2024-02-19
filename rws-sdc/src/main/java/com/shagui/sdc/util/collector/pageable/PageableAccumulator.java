@@ -21,6 +21,7 @@ public class PageableAccumulator<T> {
 	public PageableAccumulator<T> combine(PageableAccumulator<T> other) {
 		PageData<T> dto = other.finish();
 		this.paginated.addAll(dto.getPage());
+
 		return this;
 	}
 

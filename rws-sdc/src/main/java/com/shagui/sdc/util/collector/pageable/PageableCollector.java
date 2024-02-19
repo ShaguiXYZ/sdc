@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PageableCollector<T> implements Collector<T, PageableAccumulator<T>, PageData<T>> {
 	private PageInfo paging;
-	
+
 	public PageableCollector(Page<?> page) {
 		this.paging = new PageInfo(page);
 	}
@@ -47,6 +47,7 @@ public class PageableCollector<T> implements Collector<T, PageableAccumulator<T>
 	public Set<Characteristics> characteristics() {
 		Set<Characteristics> chars = new HashSet<>();
 		chars.add(Characteristics.CONCURRENT);
+
 		return chars;
 	}
 

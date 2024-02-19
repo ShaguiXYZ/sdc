@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 public class SecurityProperties {
 	private boolean enabled;
 	private List<ApiMatcher> apiMatcher = new ArrayList<>();
-	private String issuerUri;
 	private CorsConfiguration cors;
 
 	public CorsConfiguration getCorsConfiguration() {
@@ -41,5 +40,6 @@ public class SecurityProperties {
 	public static class ApiMatcher {
 		String api;
 		boolean isPublic;
+		List<String> roles;
 	}
 }

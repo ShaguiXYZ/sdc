@@ -46,12 +46,16 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public PageData<TagDTO> tags() {
-        return tagRepository.repository().findAll().stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
+        String owner = securityClient.authUser().map(UserDTO::getUserName).orElse(null);
+
+        return tagRepository.repository().findTags(owner).stream().map(Mapper::parse)
+                .collect(SdcCollectors.toPageable());
     }
 
     @Override
     public PageData<TagDTO> tags(RequestPageInfo pageInfo) {
-        Page<TagModel> tags = tagRepository.repository().findAll(pageInfo.getPageable());
+        String owner = securityClient.authUser().map(UserDTO::getUserName).orElse(null);
+        Page<TagModel> tags = tagRepository.repository().findTags(owner, pageInfo.getPageable());
 
         return tags.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(tags));
     }
@@ -60,7 +64,7 @@ public class TagServiceImpl implements TagService {
     public PageData<TagDTO> componentTags(int componentId) {
         String owner = securityClient.authUser().map(UserDTO::getUserName).orElse(null);
 
-        return tagRepository.repository().findByComponent(componentId, owner).stream().map(Mapper::parse)
+        return tagRepository.repository().findComponentTags(componentId, owner).stream().map(Mapper::parse)
                 .collect(SdcCollectors.toPageable());
     }
 
@@ -68,7 +72,7 @@ public class TagServiceImpl implements TagService {
     public PageData<TagDTO> componentTags(int componentId, RequestPageInfo pageInfo) {
         String owner = securityClient.authUser().map(UserDTO::getUserName).orElse(null);
 
-        Page<TagModel> tags = tagRepository.repository().findByComponent(componentId, owner, pageInfo.getPageable());
+        Page<TagModel> tags = tagRepository.repository().findComponentTags(componentId, owner, pageInfo.getPageable());
 
         return tags.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(tags));
     }
@@ -95,7 +99,7 @@ public class TagServiceImpl implements TagService {
     public void delete(int componentId, String name) {
         ComponentModel component = componentRepository.findExistingId(componentId);
         UserDTO user = securityClient.authUser().orElseThrow(BadRequestException::new);
-        TagModel tag = tagRepository.repository().findByOwnedTag(name, user.getUserName(), componentId)
+        TagModel tag = tagRepository.repository().findTagByComponent(name, componentId, user.getUserName())
                 .orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_COMPONENT,
                         "no tag %s found for the component %s".formatted(name, component.getName())));
 

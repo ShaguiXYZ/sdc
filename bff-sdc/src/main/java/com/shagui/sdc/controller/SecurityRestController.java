@@ -40,7 +40,9 @@ public class SecurityRestController implements SecurityRestApi {
 	@Override
 	public UserView authUser() {
 		UserDTO user = securityClient.authUser();
-		return CastFactory.getInstance(UserView.class).parse(securityClient.findUser(user.getUserName()));
+		UserDTO toReturnDto = securityClient.findUser(user.getUserName()).withAuthorities(user.getAuthorities());
+
+		return CastFactory.getInstance(UserView.class).parse(toReturnDto);
 	}
 
 	@Override
