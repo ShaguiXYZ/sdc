@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.domain.Range;
@@ -33,7 +34,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 	default Page<ComponentModel> filter(String name, Integer squadId, Set<String> tags,
 			Float coverageMin, Float coverageMax, Pageable pageable) {
-		if (tags != null && !tags.isEmpty()) {
+		if (!CollectionUtils.isEmpty(tags)) {
 			return filter0(name, squadId, tags, coverageMin, coverageMax, tags.size(), pageable);
 		}
 
@@ -42,7 +43,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 	default List<ComponentModel> filter(String name, Integer squadId, Set<String> tags,
 			Float coverageMin, Float coverageMax, Sort sort) {
-		if (tags != null && !tags.isEmpty()) {
+		if (!CollectionUtils.isEmpty(tags)) {
 			return filter0(name, squadId, tags, coverageMin, coverageMax, tags.size(), sort);
 		}
 
@@ -174,7 +175,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 
 	private long countBy(EntityManager em, String name, SquadModel squad, Range range) {
 		TypedQuery<Long> query = filterQuery(em, "SELECT count(cm) FROM ComponentModel cm", name, squad, range,
-				new ArrayList<>(), Long.class);
+				null, Long.class);
 
 		return query.getSingleResult();
 	}
@@ -199,7 +200,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			strQuery.append(" WHERE ").append(whereCondition);
 		}
 
-		if (!orderBy.isEmpty()) {
+		if (!CollectionUtils.isEmpty(orderBy)) {
 			strQuery.append(" ORDER BY ").append(orderBy.stream().collect(Collectors.joining(",")));
 		}
 

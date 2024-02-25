@@ -148,6 +148,7 @@ export class AnalysisService {
         .post<IPageable<IMetricAnalysisDTO>, any>(`${this._urlAnalysis}/${componentId}`, undefined, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: 'Error.404' },
+            [HttpStatus.locked]: { text: 'Error.423', fn: onError?.[HttpStatus.locked] },
             [HttpStatus.unauthorized]: { text: 'Error.401', fn: onError?.[HttpStatus.unauthorized] }
           },
           successMessage: { text: 'Notifications.ComponentAnalized' }

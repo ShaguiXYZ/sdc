@@ -52,6 +52,10 @@ public class AnalysisUtils {
 			updatedModel.setExpectedValue(value.getValue());
 			updatedModel.setGoodValue(value.getGoodValue());
 			updatedModel.setPerfectValue(value.getPerfectValue());
+
+			/**
+			 * Validate the component metrics and set the coverage value
+			 */
 			updatedModel.setCoverage(MetricValidations.validate(updatedModel));
 		}
 

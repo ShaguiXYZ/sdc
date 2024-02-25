@@ -1,38 +1,107 @@
 package com.shagui.sdc.core.configuration.security;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
 
-import lombok.Data;
+import com.shagui.sdc.api.client.SecurityClient;
+import com.shagui.sdc.api.dto.security.UserDTO;
+
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-@Data
 @Slf4j
 @Configuration
 @ConfigurationProperties(prefix = "rest.security")
 public class SecurityProperties {
+	private final SecurityClient securityClient;
+
+	@Getter()
+	@Setter()
 	private boolean enabled;
+	@Getter()
 	private List<ApiMatcher> apiMatcher = new ArrayList<>();
+	@Getter()
+	@Setter()
 	private CorsConfiguration cors;
+
+	private List<String> publicApis = new ArrayList<>();
+	private List<String> noRoleApis = new ArrayList<>();
+	private Map<String, List<String>> rolesByApi = new HashMap<>();
+
+	@Getter()
+	private HttpStatus status = HttpStatus.UNAUTHORIZED;
+
+	public SecurityProperties(SecurityClient securityClient) {
+		this.securityClient = securityClient;
+	}
+
+	public void setApiMatcher(List<ApiMatcher> apiMatcher) {
+		this.apiMatcher = apiMatcher;
+
+		this.publicApis = apiMatcher.stream()
+				.filter(ApiMatcher::isPublic)
+				.map(ApiMatcher::getApi)
+				.toList();
+
+		this.rolesByApi = apiMatcher.stream()
+				.filter(api -> !api.isPublic())
+				.collect(HashMap::new, (map, api) -> map.put(api.getApi(), api.getRoles()), HashMap::putAll);
+
+		this.noRoleApis = rolesByApi.entrySet().stream()
+				.filter(entry -> CollectionUtils.isEmpty(entry.getValue()))
+				.map(Map.Entry::getKey)
+				.toList();
+
+		this.rolesByApi = this.rolesByApi.entrySet().stream()
+				.filter(entry -> !CollectionUtils.isEmpty(entry.getValue()))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+	}
 
 	public CorsConfiguration getCorsConfiguration() {
 		log.debug("getCorsConfiguration");
 		return cors;
 	}
 
-	public String[] allRegex() {
-		return apiMatcher != null ? apiMatcher.stream().map(ApiMatcher::getApi).toArray(String[]::new) : new String[0];
+	public boolean isAuthorizedRequest(HttpServletRequest request) {
+		if (isPublicRequest(request)) {
+			return true;
+		}
+
+		Optional<UserDTO> user = securityClient.authUser();
+		if (user.isEmpty()) {
+			this.status = HttpStatus.UNAUTHORIZED;
+			return false;
+		}
+
+		List<String> allowedRoles = rolesByApi.entrySet().stream()
+				.filter(entry -> AntPathRequestMatcher.antMatcher(entry.getKey()).matches(request))
+				.flatMap(entry -> entry.getValue().stream()).toList();
+
+		if (CollectionUtils.isEmpty(allowedRoles)) {
+			this.status = HttpStatus.UNAUTHORIZED;
+			return noRoleApis.stream().anyMatch(exp -> AntPathRequestMatcher.antMatcher(exp).matches(request));
+		} else {
+			this.status = HttpStatus.LOCKED;
+			return user.get().getAuthorities().stream()
+					.anyMatch(authority -> allowedRoles.contains(authority.getAuthority()));
+		}
 	}
 
-	public String[] publicRegex() {
-		return apiMatcher != null ? apiMatcher.stream().filter(ApiMatcher::isPublic).map(ApiMatcher::getApi)
-				.toArray(String[]::new) : new String[0];
+	private boolean isPublicRequest(HttpServletRequest request) {
+		return publicApis.stream().anyMatch(exp -> AntPathRequestMatcher.antMatcher(exp).matches(request));
 	}
 
 	@Getter()

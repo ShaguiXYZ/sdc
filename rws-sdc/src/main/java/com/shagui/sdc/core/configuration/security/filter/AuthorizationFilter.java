@@ -1,14 +1,11 @@
 package com.shagui.sdc.core.configuration.security.filter;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.shagui.sdc.api.client.SecurityClient;
 import com.shagui.sdc.core.configuration.security.SecurityProperties;
 import com.shagui.sdc.core.exception.ApiError;
 import com.shagui.sdc.util.Mapper;
@@ -23,26 +20,26 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AuthorizationFilter extends OncePerRequestFilter {
 	private final SecurityProperties securityProperties;
-	private final SecurityClient securityClient;
 
 	@Override
 	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
 			@NonNull FilterChain chain)
 			throws ServletException, IOException {
 		try {
-			if (isPublicRequest(request, securityProperties.publicRegex())
-					|| this.securityClient.authUser().isPresent()) {
+			if (securityProperties.isAuthorizedRequest(request)) {
 				chain.doFilter(request, response);
 			} else {
-				ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, "Unauthorized", "Unauthorized");
+				ApiError apiError = new ApiError(securityProperties.getStatus(), "Unauthorized", "Unauthorized");
 
-				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+				response.setStatus(securityProperties.getStatus().value());
 				response.getWriter().write(Mapper.parse(apiError));
 			}
 		} catch (FeignException e) {
-			HttpStatus status = Arrays.asList(HttpStatus.values()).stream()
-					.filter(st -> st.value() == e.status()).findFirst()
-					.orElse(HttpStatus.INTERNAL_SERVER_ERROR);
+			HttpStatus status = HttpStatus.resolve(e.status());
+
+			if (status == null) {
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
 
 			ApiError apiError = new ApiError(status, e.getLocalizedMessage(), e.getMessage());
 
@@ -55,10 +52,5 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.getWriter().write(Mapper.parse(errorResponse));
 		}
-	}
-
-	private boolean isPublicRequest(HttpServletRequest request, String... regex) {
-		return Arrays.stream(regex)
-				.anyMatch(exp -> AntPathRequestMatcher.antMatcher(exp).matches(request));
 	}
 }

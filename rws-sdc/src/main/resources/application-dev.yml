@@ -3,6 +3,10 @@ rest:
     enabled: true
     issuer-uri: http://localhost:9092/rws-security
     api-matcher:
+      - api: /api/analysis/**
+        roles:
+          # - ADMIN
+          - ROLE_ADMIN
       - api: /api/**
       - api: /api/sse/**
         public: true

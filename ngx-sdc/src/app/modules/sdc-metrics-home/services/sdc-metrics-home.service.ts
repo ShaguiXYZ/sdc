@@ -77,7 +77,10 @@ export class SdcMetricsHomeService implements OnDestroy {
 
   public analyze = (): void => {
     this.analysisService
-      .analize(this.metricData.component.id, { [HttpStatus.unauthorized]: this.onUnauthorizedError })
+      .analize(this.metricData.component.id, {
+        [HttpStatus.unauthorized]: this.onUnauthorizedError,
+        [HttpStatus.locked]: this.onLockedError
+      })
       .then(analysis => {
         if (analysis.page.length) {
           this.componentService
@@ -158,5 +161,9 @@ export class SdcMetricsHomeService implements OnDestroy {
 
   private onUnauthorizedError = (error: any): void => {
     this.overlayService.toggleLogin();
+  };
+
+  private onLockedError = (error: any): void => {
+    console.log('onLockedError', error);
   };
 }

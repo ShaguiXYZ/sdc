@@ -12,7 +12,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.shagui.sdc.api.client.SecurityClient;
 import com.shagui.sdc.core.configuration.security.filter.AuthorizationFilter;
 
 @Configuration
@@ -20,11 +19,9 @@ import com.shagui.sdc.core.configuration.security.filter.AuthorizationFilter;
 @Import({ SecurityProperties.class })
 public class SecurityConfig {
 	private final SecurityProperties securityProperties;
-	private final SecurityClient securityClient;
 
-	public SecurityConfig(SecurityProperties securityProperties, SecurityClient securityClient) {
+	public SecurityConfig(SecurityProperties securityProperties) {
 		this.securityProperties = securityProperties;
-		this.securityClient = securityClient;
 	}
 
 	@Bean
@@ -34,12 +31,11 @@ public class SecurityConfig {
 		http.headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));
 
 		// Set permissions on endpoints
-		http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-				.requestMatchers(securityProperties.allRegex()).permitAll());
+		http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.anyRequest().permitAll());
 
 		if (securityProperties.isEnabled()) {
 			// Add JWT token filter
-			http.addFilterAfter(new AuthorizationFilter(this.securityProperties, this.securityClient),
+			http.addFilterAfter(new AuthorizationFilter(this.securityProperties),
 					UsernamePasswordAuthenticationFilter.class);
 		}
 

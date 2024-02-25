@@ -25,6 +25,7 @@
     "Password": "The password is required",
     "401": "Unauthorized",
     "404": "Not found",
+    "423": "Locked",
     "500": "Internal server error"
   },
   "Dropdown": {

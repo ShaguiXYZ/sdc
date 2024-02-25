@@ -7,5 +7,6 @@ export class HttpStatus {
   public static readonly forbidden = 403;
   public static readonly notFound = 404;
   public static readonly conflict = 409;
+  public static readonly locked = 423;
   public static readonly internalServerError = 500;
 }
