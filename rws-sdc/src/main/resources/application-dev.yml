@@ -5,7 +5,7 @@ rest:
     api-matcher:
       - api: /api/analysis/**
         roles:
-          # - ADMIN
+          - ADMIN
           - ROLE_ADMIN
       - api: /api/**
       - api: /api/sse/**

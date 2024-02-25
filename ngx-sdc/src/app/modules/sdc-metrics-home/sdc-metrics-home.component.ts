@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components/alert';
 import { IComponentModel, IDepartmentModel, IMetricAnalysisModel, ISquadModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
-import { ContextDataService, DateService } from 'src/app/core/services';
+import { ContextDataService, DateService, IfRoleDirective } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import {
   SdcComplianceBarCardComponent,
@@ -33,6 +33,7 @@ import { SdcMetricsHomeService } from './services';
   providers: [SdcMetricsHomeService, TitleCasePipe],
   standalone: true,
   imports: [
+    IfRoleDirective,
     SdcComplianceBarCardComponent,
     SdcMetricHistoryGraphsComponent,
     SdcMetricInfoComponent,

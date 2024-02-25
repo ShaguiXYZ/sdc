@@ -8,6 +8,7 @@
       (clickSquad)="squadClicked($event)"
     />
     <sdc-tags
+      *ifRole="['ADMIN', 'BUSINESS']"
       [tags]="metricsData.tags || []"
       [removable]="true"
       viewType="scroll"
@@ -49,6 +50,7 @@
                 <em class="fa-solid fa-align-justify"></em>
               </div>
               <div
+                *ifRole="['ADMIN']"
                 class="sdc-op"
                 [nxTooltip]="'Tooltip.RunProcess' | translate: { name: metricsData.component.name }"
                 nxTooltipPosition="left"
