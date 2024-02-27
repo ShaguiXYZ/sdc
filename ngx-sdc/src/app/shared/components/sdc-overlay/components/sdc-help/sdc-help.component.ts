@@ -7,6 +7,7 @@ import { OverlayItemStatus } from '../../models';
 import { SdcHelpConfig } from './models';
 import { SdcHelpParagraphPipe } from './pipe';
 import { SdcHelpService } from './services';
+import { SdcHelpEntry } from './constants';
 
 @Component({
   selector: 'sdc-help',
@@ -81,8 +82,8 @@ export class SdcHelpComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.helpService.onDataChange().subscribe(data => {
-        this.config = data;
+      this.helpService.onDataChange().subscribe(config => {
+        this.config = config;
       })
     );
 
@@ -93,7 +94,7 @@ export class SdcHelpComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  public loadHelp(appendix: string): void {
+  public loadHelp(appendix: SdcHelpEntry): void {
     this.helpData.nativeElement.scrollTop = 0;
     this.helpService.appendix = appendix;
   }

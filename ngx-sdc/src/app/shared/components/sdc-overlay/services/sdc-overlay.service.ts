@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { OverlayItemStatus, SdcOverlayModel } from '../models';
 
 @Injectable({

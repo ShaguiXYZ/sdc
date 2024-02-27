@@ -1,8 +1,9 @@
 import { DataInfo } from 'src/app/core/models';
+import { SdcHelpEntry } from '../constants';
 
 export interface SdcHelpModel {
   labels: { [key: string]: string };
-  entries: DataInfo<SdcHelpEntryModel>;
+  entries: DataInfo<SdcHelpEntryModel, SdcHelpEntry>;
 }
 
 export interface SdcHelpEntryModel {

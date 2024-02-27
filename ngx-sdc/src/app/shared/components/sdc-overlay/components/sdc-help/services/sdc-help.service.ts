@@ -1,13 +1,14 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subject, Subscription, filter } from 'rxjs';
+import { DataInfo } from 'src/app/core/models';
 import { LanguageService } from 'src/app/core/services';
-import { SdcHelpBodyModel, SdcHelpConfig, SdcHelpModel } from '../models';
+import { SdcHelpEntry } from '../constants';
+import { SdcHelpConfig, SdcHelpEntryModel, SdcHelpModel } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class SdcHelpService implements OnDestroy {
-  private _appendix: string = '';
-  private schema?: SdcHelpModel;
+  private _appendix = SdcHelpEntry.INTRODUCTORY;
   private subscriptions: Subscription[] = [];
   private data$: Subject<SdcHelpConfig> = new Subject();
 
@@ -17,61 +18,60 @@ export class SdcHelpService implements OnDestroy {
   ) {
     this.subscriptions.push(
       this.languageService.asObservable().subscribe(() => {
-        this.importSchema(this.languageService.getLang());
+        this.importHelpConfig(this.appendix, this.languageService.getLang());
       }),
-      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-        this.router.routerState.snapshot.root.firstChild?.data?.['help'] &&
-          (this.appendix = this.router.routerState.snapshot.root.firstChild?.data?.['help']);
-      })
+      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(this.initAppendix)
     );
-
-    this.importSchema(this.languageService.getLang());
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  public get appendix(): string {
+  public get appendix(): keyof DataInfo<SdcHelpEntryModel, SdcHelpEntry> {
     return this._appendix;
   }
-  public set appendix(value: string) {
+  public set appendix(value: keyof DataInfo<SdcHelpEntryModel, SdcHelpEntry>) {
     this._appendix = value;
-    this.importBody(this.appendix);
+    this.importHelpConfig(this.appendix);
   }
 
   public onDataChange(): Subject<SdcHelpConfig> {
     return this.data$;
   }
 
-  public initialize(): void {
-    this.appendix = this.router.routerState.snapshot.root.firstChild?.data?.['help'];
-  }
+  public initialize = (): void => {
+    this.initAppendix();
+    this.importHelpConfig(this.appendix);
+  };
 
-  private importBody(appendix: string): void {
-    if (this.schema) {
-      const entries = this.schema.entries;
-      const config: SdcHelpConfig = {
-        labels: this.schema.labels,
-        page: appendix,
-        pages: Object.keys(entries).map(key => ({ key, indexEntry: entries[key].indexEntry }))
-      };
+  private initAppendix = (): void => {
+    this.appendix = this.router.routerState.snapshot.root.firstChild?.data?.['help'] ?? SdcHelpEntry.INTRODUCTORY;
+  };
 
-      const entry = entries[appendix];
+  private importHelpConfig = async (
+    appendix: SdcHelpEntry = SdcHelpEntry.INTRODUCTORY,
+    lang: string = this.languageService.getLang()
+  ): Promise<void> => import(`../assets/i18n/${lang}.json`).then(schema => schema && this.importBody(appendix, schema));
 
-      if (entry) {
-        import(`../assets/i18n/${entry.body}`).then((data: SdcHelpBodyModel) => {
-          config.body = data;
-          this.data$.next(config);
-        });
-      }
+  private importBody(appendix: SdcHelpEntry, schema: SdcHelpModel): void {
+    const entries = schema.entries;
+    const config: SdcHelpConfig = {
+      labels: schema.labels,
+      page: appendix,
+      pages: Object.keys(entries).map(key => ({
+        key: key as SdcHelpEntry,
+        indexEntry: entries[key as SdcHelpEntry].indexEntry
+      }))
+    };
+
+    const entry = entries[appendix];
+
+    if (entry) {
+      import(`../assets/i18n/${entry.body}`).then(body => {
+        config.body = body;
+        this.data$.next(config);
+      });
     }
   }
-
-  private importSchema = (lang: string): void => {
-    import(`../assets/i18n/${lang}.json`).then(data => {
-      this.schema = data;
-      this.appendix && this.importBody(this.appendix);
-    });
-  };
 }
