@@ -71,22 +71,8 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.data$ = this.metricsService.onDataChange().subscribe(metricsData => {
-      this.metricsData = metricsData;
-      this.applicationCoverageGraphConfig(this.metricsData.historical);
-
-      this.lastLanguageDistribution =
-        (this.metricsData.languageDistribution?.graph.length &&
-          this.metricsData.languageDistribution.graph?.[this.metricsData.languageDistribution.graph.length - 1].data) ||
-        undefined;
-
-      this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
-        ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
-        title: `Metrics | ${this.metricsData.component.name ?? ''}`
-      });
-    });
-
-    this.metricsService.loadInitData();
+    this.metricsService.loadInitData().then(this.populateData);
+    this.data$ = this.metricsService.onDataChange().subscribe(this.populateData);
   }
 
   ngOnDestroy(): void {
@@ -144,6 +130,21 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   public onTagRemove(tag: ITagModel): void {
     this.metricsService.removeTag(tag);
   }
+
+  private populateData = (metricsData: MetricsDataModel): void => {
+    this.metricsData = metricsData;
+    this.applicationCoverageGraphConfig(this.metricsData.historical);
+
+    this.lastLanguageDistribution =
+      (this.metricsData.languageDistribution?.graph.length &&
+        this.metricsData.languageDistribution.graph?.[this.metricsData.languageDistribution.graph.length - 1].data) ||
+      undefined;
+
+    this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
+      ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+      title: `Metrics | ${this.metricsData.component.name ?? ''}`
+    });
+  };
 
   private applicationCoverageGraphConfig(historical?: IHistoricalCoverage<IComponentModel>): void {
     const analysis = historical?.historical.page ?? [];

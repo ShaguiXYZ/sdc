@@ -2,6 +2,7 @@ package com.shagui.sdc.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -43,7 +44,7 @@ public class GitServiceImpl implements GitService {
 					sseService.emitError(EventFactory.event(workflowId, e).referencedBy(component, metric));
 					return null;
 				}
-			}).toList();
+			}).filter(Objects::nonNull).toList();
 		}
 
 		return analysisList;

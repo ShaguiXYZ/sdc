@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { _console, emptyFn } from 'src/app/core/lib';
-import { IMetricAnalysisModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
+import { IMetricAnalysisModel, IPageable, ITagModel, ValueType } from 'src/app/core/models/sdc';
 import { ContextDataService, DateService, HttpStatus, SecurityService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
@@ -55,10 +55,10 @@ export class SdcMetricsHomeService implements OnDestroy {
     this.contextDataService.set(ContextDataInfo.METRICS_DATA, this.metricContextData);
   }
 
-  public loadInitData(): void {
-    this.availableTags();
+  public async loadInitData(): Promise<MetricsDataModel> {
+    await this.availableTags();
 
-    this.data$.next(this.metricData);
+    return this.metricData;
   }
 
   public onDataChange(): Observable<MetricsDataModel> {
@@ -105,11 +105,11 @@ export class SdcMetricsHomeService implements OnDestroy {
       .catch(_console.error);
   };
 
-  public availableTags(): void {
-    this.tagService.componentTags(this.metricData.component.id).then(tags => {
-      this.metricData.tags = tags.page;
-      this.data$.next(this.metricData);
-    });
+  public async availableTags(): Promise<void> {
+    const tags: IPageable<ITagModel> = await this.tagService.componentTags(this.metricData.component.id);
+
+    this.metricData.tags = tags.page;
+    this.data$.next(this.metricData);
   }
 
   public addTag(tag: ITagModel): void {

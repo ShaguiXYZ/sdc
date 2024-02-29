@@ -94,6 +94,7 @@
           [page]="applicationsInfo.paging.pageIndex + 1"
           [perPage]="elementsByPage"
           [nxTooltip]="'Label.ElementsByPage' | translate: { value: elementsByPage }"
+          type="advanced"
           nxTooltipPosition="left"
           (goPrev)="prevPage()"
           (goNext)="nextPage()"

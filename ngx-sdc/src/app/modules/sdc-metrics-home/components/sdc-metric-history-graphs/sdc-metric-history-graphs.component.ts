@@ -51,6 +51,8 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.metricHistoryGraphsService.loadInitData(this.componentId, this.selectedAnalysis).then(data => (this.metricsData = data));
+
     this.data$ = this.metricHistoryGraphsService.onDataChange().subscribe(metricsData => {
       this.metricsData = metricsData;
       this.metricChartConfig = {
@@ -58,8 +60,6 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
         data: this.chartData(this.metricsData?.historicalAnalysis ?? [], this.metricsData.showFactorCharts)
       };
     });
-
-    this.metricHistoryGraphsService.loadInitData(this.componentId, this.selectedAnalysis);
   }
 
   ngOnDestroy(): void {

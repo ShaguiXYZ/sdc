@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { _console } from 'src/app/core/lib';
-import { AnalysisFactor, EvaluableValueType, IMetricAnalysisModel } from 'src/app/core/models/sdc';
-import { AnalysisService } from 'src/app/core/services/sdc';
-import { MetricsHistoryDataModel } from '../models';
+import { AnalysisFactor, EvaluableValueType, IMetricAnalysisModel, IPageable } from 'src/app/core/models/sdc';
 import { ContextDataService } from 'src/app/core/services';
-import { SdcMetricsContextData } from 'src/app/shared/models';
+import { AnalysisService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants';
+import { SdcMetricsContextData } from 'src/app/shared/models';
+import { MetricsHistoryDataModel } from '../models';
 
 @Injectable()
 export class SdcMetricHistoryGraphsService {
@@ -22,38 +21,30 @@ export class SdcMetricHistoryGraphsService {
     return this.data$.asObservable();
   }
 
-  public loadInitData(componentId: number, selectedAnalysis?: IMetricAnalysisModel): void {
-    this.analysisService
-      .componentAnalysis(componentId)
-      .then(data => {
-        const componentAnalysis = data.page.filter(
-          an => an.metric.valueType && EvaluableValueType.isEvaluableValueType(an.metric.valueType)
-        );
+  public async loadInitData(componentId: number, selectedAnalysis?: IMetricAnalysisModel): Promise<MetricsHistoryDataModel> {
+    const data: IPageable<IMetricAnalysisModel> = await this.analysisService.componentAnalysis(componentId);
 
-        this.metricData = {
-          ...this.metricData,
-          componentAnalysis,
-          showFactorCharts: this.contextDataService.get<SdcMetricsContextData>(ContextDataInfo.METRICS_DATA)?.showFactorCharts
-        };
+    const componentAnalysis = data.page.filter(an => an.metric.valueType && EvaluableValueType.isEvaluableValueType(an.metric.valueType));
 
-        if (componentAnalysis.length) {
-          this.metricData.selectedAnalysis = selectedAnalysis ?? componentAnalysis[0];
-          this.analysisHistoryData(componentId, this.metricData.selectedAnalysis);
-        } else {
-          this.data$.next(this.metricData);
-        }
-      })
-      .catch(_console.error);
+    this.metricData = {
+      ...this.metricData,
+      componentAnalysis,
+      showFactorCharts: this.contextDataService.get<SdcMetricsContextData>(ContextDataInfo.METRICS_DATA)?.showFactorCharts
+    };
+
+    if (componentAnalysis.length) {
+      this.metricData.selectedAnalysis = selectedAnalysis ?? componentAnalysis[0];
+      await this.analysisHistoryData(componentId, this.metricData.selectedAnalysis);
+    }
+
+    return this.metricData;
   }
 
-  public analysisHistoryData(componentId: number, analysis: IMetricAnalysisModel): void {
-    this.analysisService
-      .metricHistory(componentId, analysis.metric.id)
-      .then(data => {
-        this.metricData = { ...this.metricData, historicalAnalysis: data.page, selectedAnalysis: analysis };
-        this.data$.next(this.metricData);
-      })
-      .catch(_console.error);
+  public async analysisHistoryData(componentId: number, analysis: IMetricAnalysisModel): Promise<void> {
+    const data: IPageable<IMetricAnalysisModel> = await this.analysisService.metricHistory(componentId, analysis.metric.id);
+
+    this.metricData = { ...this.metricData, historicalAnalysis: data.page, selectedAnalysis: analysis };
+    this.data$.next(this.metricData);
   }
 
   /**
