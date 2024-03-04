@@ -97,16 +97,12 @@ public class ComponentUtils {
 	}
 
 	public static void addOrUpdatePropertyValue(ComponentModel component, String propertyName, String propertyValue) {
-		Optional<ComponentPropertyModel> propertyModel = config.componentPropertyRepository().repository()
-				.findByComponent_IdAndName(component.getId(), propertyName);
+		ComponentPropertyModel propertyModel = config.componentPropertyRepository().repository()
+				.findByComponent_IdAndName(component.getId(), propertyName)
+				.orElseGet(() -> new ComponentPropertyModel(component, propertyName, propertyValue));
+		propertyModel.setValue(propertyValue);
 
-		if (propertyModel.isPresent()) {
-			propertyModel.get().setValue(propertyValue);
-			config.componentPropertyRepository().update(propertyModel.get().getId(), propertyModel.get());
-		} else {
-			ComponentPropertyModel property = new ComponentPropertyModel(component, propertyName, propertyValue);
-			config.componentPropertyRepository().create(property);
-		}
+		config.componentPropertyRepository().saveAndFlush(propertyModel);
 	}
 
 	public static void updateTrend(ComponentModel component) {

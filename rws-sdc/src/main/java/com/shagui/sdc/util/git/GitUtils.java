@@ -69,11 +69,11 @@ public class GitUtils {
 
 			String uriWithParams = params.map(addParams(uri)).orElse(uri);
 
-			Response response = authorization(uriModel.get()).map(
+			try (Response response = authorization(uriModel.get()).map(
 					authorizationHeader -> config.gitClient().repoFile(URI.create(uriWithParams), authorizationHeader))
-					.orElseGet(() -> config.gitClient().repoFile(URI.create(uriWithParams)));
-
-			return Optional.ofNullable(UrlUtils.mapResponse(response, clazz));
+					.orElseGet(() -> config.gitClient().repoFile(URI.create(uriWithParams)))) {
+				return Optional.ofNullable(UrlUtils.mapResponse(response, clazz));
+			}
 		} else {
 			throw new SdcCustomException("Not git uri for. component '%s'".formatted(component.getName()));
 		}

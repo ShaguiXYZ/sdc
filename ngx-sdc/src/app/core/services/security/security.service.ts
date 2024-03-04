@@ -47,10 +47,10 @@ export class SecurityService {
     return this._SignInSignOut$.asObservable();
   }
 
-  public forceLogout(): void {
+  public forceLogout = (): void => {
     this.removeSecurityInfo();
     this._SignInSignOut$.next(undefined);
-  }
+  };
 
   public async login(loginData: { userName: string; password: string }): Promise<ISessionModel> {
     await firstValueFrom(
@@ -82,7 +82,7 @@ export class SecurityService {
         this.http
           ._put<ISessionDTO>(`${this._urlSecurity}/logout`, undefined, {
             responseStatusMessage: {
-              [HttpStatus.unauthorized]: { fn: this.removeSecurityInfo }
+              [HttpStatus.unauthorized]: { fn: this.forceLogout }
             }
           })
           .pipe(

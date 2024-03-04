@@ -29,14 +29,7 @@ export class SdcMetricsHomeService implements OnDestroy {
     private readonly tagService: TagService
   ) {
     this.subscriptions.push(this.securityService.onSignInOut().subscribe(() => this.loadInitData()));
-    this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
-    this.metricData = {
-      component: this.metricContextData.component,
-      selectedAnalysis: this.metricContextData.selected,
-      selectedTabIndex: this.metricContextData.selectedTabIndex
-    };
     this.tabActions = [{ fn: emptyFn }, { fn: this.languageDistribution }];
-    this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
   }
 
   ngOnDestroy(): void {
@@ -56,7 +49,16 @@ export class SdcMetricsHomeService implements OnDestroy {
   }
 
   public async loadInitData(): Promise<MetricsDataModel> {
-    await this.availableTags();
+    this.metricContextData = this.contextDataService.get(ContextDataInfo.METRICS_DATA);
+    this.metricData = {
+      component: this.metricContextData.component,
+      selectedAnalysis: this.metricContextData.selected,
+      selectedTabIndex: this.metricContextData.selectedTabIndex
+    };
+
+    this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
+
+    await this.availableTags().catch(_console.error);
 
     return this.metricData;
   }

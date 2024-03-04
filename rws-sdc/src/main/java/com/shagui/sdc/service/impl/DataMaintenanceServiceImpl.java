@@ -129,7 +129,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 				.findByComponentTypeAndArchitectureAndNetworkAndDeploymentTypeAndPlatformAndLanguage(
 						data.getComponentType(), data.getArchitecture(), data.getNetwork(), data.getDeploymentType(),
 						data.getPlatform(), data.getLanguage())
-				.orElseThrow(JpaNotFoundException::new);
+				.orElseThrow(componentTypeArchitectureNotFound(data));
 
 		ComponentModel component = componentRepository.repository()
 				.findBySquad_IdAndName(squadModel.getId(), data.getName()).orElseGet(defaultComponent(data));
@@ -196,6 +196,13 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 			component.getUris().add(componentUriRepository.save(uriModel));
 		};
+	}
+
+	private Supplier<JpaNotFoundException> componentTypeArchitectureNotFound(ComponentInput data) {
+		return () -> new JpaNotFoundException(String.format(
+				"ComponentType: [%s], Architecture: [%s], DeploymentType:  [%s], Language: [%s], Network: [%s], Platform: [%s]  Not found for component '%s'",
+				data.getComponentType(), data.getArchitecture(), data.getDeploymentType(),
+				data.getLanguage(), data.getNetwork(), data.getPlatform(), data.getName()));
 	}
 
 	private Supplier<ComponentModel> defaultComponent(ComponentInput input) {

@@ -3,6 +3,7 @@ package com.shagui.sdc.service.impl;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -67,39 +68,20 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	@Override
 	public ComponentTypeArchitectureDTO update(int componentTypeArchitectureId, ComponentTypeArchitectureDTO data) {
 		ComponentTypeArchitectureModel model = componentTypeArchitectureRepository.findExistingId(data.getId());
+		normalizeData(model).accept(Mapper.parse(data));
 
-		model.setArchitecture(StaticRepository.datalistValues(DataLists.ARCHITECTURES).stream().filter(
-				architecture -> Objects.equals(architecture.toLowerCase(), data.getArchitecture().toLowerCase()))
-				.findFirst().orElse(model.getArchitecture()));
-
-		model.setComponentType(StaticRepository.datalistValues(DataLists.COMPONENT_TYPES).stream().filter(
-				componentType -> Objects.equals(componentType.toLowerCase(), data.getComponentType().toLowerCase()))
-				.findFirst().orElse(model.getComponentType()));
-
-		model.setDeploymentType(StaticRepository.datalistValues(DataLists.DEPLOYMENT_TYPES).stream().filter(
-				deploymentType -> Objects.equals(deploymentType.toLowerCase(), data.getDeploymentType().toLowerCase()))
-				.findFirst().orElse(model.getDeploymentType()));
-
-		model.setLanguage(StaticRepository.datalistValues(DataLists.LANGUAGES).stream().filter(
-				language -> Objects.equals(language.toLowerCase(), data.getLanguage().toLowerCase())).findFirst()
-				.orElse(model.getLanguage()));
-
-		model.setNetwork(StaticRepository.datalistValues(DataLists.NETWORKS).stream().filter(
-				network -> Objects.equals(network.toLowerCase(), data.getNetwork().toLowerCase())).findFirst()
-				.orElse(model.getNetwork()));
-
-		model.setPlatform(StaticRepository.datalistValues(DataLists.PLATFORMS).stream().filter(
-				platform -> Objects.equals(platform.toLowerCase(), data.getPlatform().toLowerCase())).findFirst()
-				.orElse(model.getPlatform()));
-
-		return Mapper
-				.parse(componentTypeArchitectureRepository.update(componentTypeArchitectureId, model));
+		return Mapper.parse(componentTypeArchitectureRepository.update(componentTypeArchitectureId, model));
 	}
 
 	@Transactional
 	@Override
 	public List<ComponentTypeArchitectureDTO> create(List<ComponentTypeArchitectureDTO> data) {
-		return data.stream().map(Mapper::parse).map(componentTypeArchitectureRepository::create).map(Mapper::parse)
+		List<ComponentTypeArchitectureModel> models = data.stream().map(Mapper::parse).toList();
+
+		models.forEach(this::normalizeData);
+
+		return models.stream()
+				.map(componentTypeArchitectureRepository::create).map(Mapper::parse)
 				.toList();
 	}
 
@@ -142,6 +124,45 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 
 			return model;
 		}).map(metricValueRepository::create).map(MetricValuesOutDTO::new).toList();
+	}
+
+	private Consumer<ComponentTypeArchitectureModel> normalizeData(ComponentTypeArchitectureModel source) {
+		return model -> {
+			model.setArchitecture(StaticRepository.datalistValues(DataLists.ARCHITECTURES).stream().filter(
+					architecture -> Objects.equals(architecture.toLowerCase(), source.getArchitecture().toLowerCase()))
+					.findFirst().orElseThrow(
+							() -> new SdcCustomException(
+									"Architecture '%s' Not found".formatted(source.getArchitecture()))));
+
+			model.setComponentType(StaticRepository.datalistValues(DataLists.COMPONENT_TYPES).stream().filter(
+					componentType -> Objects.equals(componentType.toLowerCase(),
+							source.getComponentType().toLowerCase()))
+					.findFirst().orElseThrow(
+							() -> new SdcCustomException(
+									"Component Type '%s' Not found".formatted(source.getComponentType()))));
+
+			model.setDeploymentType(StaticRepository.datalistValues(DataLists.DEPLOYMENT_TYPES).stream().filter(
+					deploymentType -> Objects.equals(deploymentType.toLowerCase(),
+							source.getDeploymentType().toLowerCase()))
+					.findFirst().orElseThrow(
+							() -> new SdcCustomException(
+									"Deployment Type '%s' Not found".formatted(source.getDeploymentType()))));
+
+			model.setLanguage(StaticRepository.datalistValues(DataLists.LANGUAGES).stream().filter(
+					language -> Objects.equals(language.toLowerCase(), source.getLanguage().toLowerCase())).findFirst()
+					.orElseThrow(
+							() -> new SdcCustomException("Language '%s' Not found".formatted(source.getLanguage()))));
+
+			model.setNetwork(StaticRepository.datalistValues(DataLists.NETWORKS).stream().filter(
+					network -> Objects.equals(network.toLowerCase(), source.getNetwork().toLowerCase())).findFirst()
+					.orElseThrow(
+							() -> new SdcCustomException("Network '%s' Not found".formatted(source.getNetwork()))));
+
+			model.setPlatform(StaticRepository.datalistValues(DataLists.PLATFORMS).stream().filter(
+					platform -> Objects.equals(platform.toLowerCase(), source.getPlatform().toLowerCase())).findFirst()
+					.orElseThrow(
+							() -> new SdcCustomException("Platform '%s' Not found".formatted(source.getPlatform()))));
+		};
 	}
 
 	private List<ComponentTypeArchitectureModel> componentTypeArchitectures(String componentType, String architecture) {

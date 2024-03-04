@@ -1,6 +1,4 @@
 {
-  "java.compile.nullAnalysis.mode": "automatic",
-  "java.configuration.updateBuildConfiguration": "interactive",
   "files.exclude": {
     "**/.angular": true,
     "**/node_modules": true,
