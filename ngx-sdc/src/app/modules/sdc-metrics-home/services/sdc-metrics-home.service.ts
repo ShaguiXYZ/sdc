@@ -1,13 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { _console, emptyFn } from 'src/app/core/lib';
-import { IMetricAnalysisModel, IPageable, ITagModel, ValueType } from 'src/app/core/models/sdc';
+import { IMetricAnalysisModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
 import { ContextDataService, DateService, HttpStatus, SecurityService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService, TagService } from 'src/app/core/services/sdc';
+import { SdcOverlayService } from 'src/app/shared/components/sdc-overlay/services';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
 import { SdcMetricsContextData } from 'src/app/shared/models';
 import { MetricsDataModel } from '../models';
-import { SdcOverlayService } from 'src/app/shared/components/sdc-overlay/services';
 
 @Injectable()
 export class SdcMetricsHomeService implements OnDestroy {
@@ -28,7 +28,11 @@ export class SdcMetricsHomeService implements OnDestroy {
     private readonly squadService: SquadService,
     private readonly tagService: TagService
   ) {
-    this.subscriptions.push(this.securityService.onSignInOut().subscribe(() => this.loadInitData()));
+    this.subscriptions.push(
+      this.securityService.onSignInOut().subscribe(() => {
+        this.loadTags();
+      })
+    );
     this.tabActions = [{ fn: emptyFn }, { fn: this.languageDistribution }];
   }
 
@@ -56,9 +60,9 @@ export class SdcMetricsHomeService implements OnDestroy {
       selectedTabIndex: this.metricContextData.selectedTabIndex
     };
 
-    this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
+    this.loadTags();
 
-    await this.availableTags().catch(_console.error);
+    this.tabSelected = this.metricContextData.selectedTabIndex ?? 0;
 
     return this.metricData;
   }
@@ -102,17 +106,10 @@ export class SdcMetricsHomeService implements OnDestroy {
             .catch(_console.error);
         }
 
-        this.availableTags();
+        this.loadTags().then(() => this.data$.next(this.metricData));
       })
       .catch(_console.error);
   };
-
-  public async availableTags(): Promise<void> {
-    const tags: IPageable<ITagModel> = await this.tagService.componentTags(this.metricData.component.id);
-
-    this.metricData.tags = tags.page;
-    this.data$.next(this.metricData);
-  }
 
   public addTag(tag: ITagModel): void {
     this.tagService
@@ -134,6 +131,10 @@ export class SdcMetricsHomeService implements OnDestroy {
         this.metricData.tags = this.metricData.tags?.filter(t => t.name !== tag.name);
         this.data$.next(this.metricData);
       });
+  }
+
+  private async loadTags(): Promise<void> {
+    this.metricData.tags = (await this.tagService.componentTags(this.metricData.component.id)).page;
   }
 
   private languageDistribution = (): void => {

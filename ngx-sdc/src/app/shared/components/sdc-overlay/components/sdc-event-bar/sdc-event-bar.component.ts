@@ -33,7 +33,6 @@ import { SdcEventBarService } from './services';
               <div class="reveal event-item">
                 <sdc-event-item
                   [event]="event"
-                  [closable]="false"
                   [timeout]="event.read ? DEFAULT_TIMEOUT_EVENT : 0"
                   (onReadEvent)="onReadEvent($event)"
                   (onRemoveEvent)="onRemoveEvent($event)"
