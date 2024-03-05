@@ -1,4 +1,4 @@
-package com.shagui.sdc.util.validations;
+package com.shagui.sdc.util.validations.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,13 +7,14 @@ import org.junit.jupiter.api.Test;
 
 class NumericTest {
 
-//	@Test
-//	void pojoModelTest() {
-//		final Object[] constructorParameters = { "1" };
-//		Class<?>[] constructorParameterTypes = { String.class };
-//		assertPojoMethodsFor(Numeric.class).create(Numeric.class, constructorParameters, constructorParameterTypes)
-//				.testing(EQUALS, HASH_CODE).areWellImplemented();
-//	}
+	// @Test
+	// void pojoModelTest() {
+	// final Object[] constructorParameters = { "1" };
+	// Class<?>[] constructorParameterTypes = { String.class };
+	// assertPojoMethodsFor(Numeric.class).create(Numeric.class,
+	// constructorParameters, constructorParameterTypes)
+	// .testing(EQUALS, HASH_CODE).areWellImplemented();
+	// }
 
 	@Test
 	void constructorTest() {

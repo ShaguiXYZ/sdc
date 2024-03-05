@@ -1,4 +1,4 @@
-package com.shagui.sdc.util.validations;
+package com.shagui.sdc.util.validations.types;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -6,13 +6,14 @@ import org.junit.jupiter.api.Test;
 
 class BoolTest {
 
-//	@Test
-//	void pojoModelTest() {
-//		final Object[] constructorParameters = { "true" };
-//		Class<?>[] constructorParameterTypes = { String.class };
-//		assertPojoMethodsFor(Bool.class).create(Bool.class, constructorParameters, constructorParameterTypes)
-//				.testing(EQUALS, HASH_CODE).areWellImplemented();
-//	}
+	// @Test
+	// void pojoModelTest() {
+	// final Object[] constructorParameters = { "true" };
+	// Class<?>[] constructorParameterTypes = { String.class };
+	// assertPojoMethodsFor(Bool.class).create(Bool.class, constructorParameters,
+	// constructorParameterTypes)
+	// .testing(EQUALS, HASH_CODE).areWellImplemented();
+	// }
 
 	@Test
 	void constructorTest() {

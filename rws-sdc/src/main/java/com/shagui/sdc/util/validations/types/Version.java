@@ -1,4 +1,4 @@
-package com.shagui.sdc.util.validations;
+package com.shagui.sdc.util.validations.types;
 
 import java.util.Arrays;
 import java.util.List;

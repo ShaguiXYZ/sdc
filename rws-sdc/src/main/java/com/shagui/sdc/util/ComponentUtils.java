@@ -30,7 +30,7 @@ import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.model.TagModel;
 import com.shagui.sdc.model.pk.ComponentTagPk;
-import com.shagui.sdc.util.validations.NumericMap;
+import com.shagui.sdc.util.validations.types.NumericMap;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -102,7 +102,7 @@ public class ComponentUtils {
 				.orElseGet(() -> new ComponentPropertyModel(component, propertyName, propertyValue));
 		propertyModel.setValue(propertyValue);
 
-		config.componentPropertyRepository().saveAndFlush(propertyModel);
+		config.componentPropertyRepository().save(propertyModel);
 	}
 
 	public static void updateTrend(ComponentModel component) {

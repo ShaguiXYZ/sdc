@@ -25,8 +25,8 @@ public class ComponentHistoricalCoverageServiceImpl implements ComponentHistoric
 	private JpaCommonRepository<ComponentHistoricalCoverageRepository, ComponentHistoricalCoverageModel, ComponentHistoricalCoveragePk> componentHistoricalCoverageRepository;
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 
-	public ComponentHistoricalCoverageServiceImpl(ComponentRepository componentRepository,
-			ComponentHistoricalCoverageRepository componentHistoricalCoverageRepository) {
+	public ComponentHistoricalCoverageServiceImpl(final ComponentRepository componentRepository,
+			final ComponentHistoricalCoverageRepository componentHistoricalCoverageRepository) {
 		this.componentRepository = () -> componentRepository;
 		this.componentHistoricalCoverageRepository = () -> componentHistoricalCoverageRepository;
 	}

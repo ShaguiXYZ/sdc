@@ -35,9 +35,9 @@ public class TagServiceImpl implements TagService {
     private JpaCommonRepository<ComponentTagRepository, ComponentTagModel, ComponentTagPk> componentTagRepository;
     private JpaCommonRepository<TagRepository, TagModel, Integer> tagRepository;
 
-    public TagServiceImpl(SecurityClient securityClient, ComponentRepository componentRepository,
-            ComponentTagRepository componentTagRepository,
-            TagRepository tagRepository) {
+    public TagServiceImpl(SecurityClient securityClient, final ComponentRepository componentRepository,
+            final ComponentTagRepository componentTagRepository,
+            final TagRepository tagRepository) {
         this.securityClient = securityClient;
         this.componentRepository = () -> componentRepository;
         this.componentTagRepository = () -> componentTagRepository;

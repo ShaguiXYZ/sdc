@@ -77,6 +77,7 @@ class ComponentUtilsTest {
 	void createComponentPropertiesTest() {
 		when(componentPropertyRepository.save(any(ComponentPropertyModel.class)))
 				.thenReturn(RwsTestUtils.componentProperty("property_name"));
+
 		ComponentUtils.addOrUpdatePropertyValue(RwsTestUtils.componentModelMock(), "property_name", "property_value");
 
 		verify(componentPropertyRepository, times(1)).save(any(ComponentPropertyModel.class));

@@ -41,10 +41,11 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
 	private JpaCommonRepository<MetricValueRepository, MetricValuesModel, Integer> metricValueRepository;
 
-	public ComponentTypeArchitectureServiceImpl(ComponentTypeArchitectureRepository componentTypeArchitectureRepository,
-			ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRepository,
-			MetricRepository metricRepository,
-			MetricValueRepository metricValueRepository) {
+	public ComponentTypeArchitectureServiceImpl(
+			final ComponentTypeArchitectureRepository componentTypeArchitectureRepository,
+			final ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRepository,
+			final MetricRepository metricRepository,
+			final MetricValueRepository metricValueRepository) {
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
 		this.componentTypeArchitectureMetricPropertiesRepository = () -> componentTypeArchitectureMetricPropertiesRepository;
 		this.metricRepository = () -> metricRepository;

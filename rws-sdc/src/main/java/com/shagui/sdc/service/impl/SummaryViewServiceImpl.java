@@ -24,7 +24,7 @@ import com.shagui.sdc.util.jpa.JpaUtils;
 public class SummaryViewServiceImpl implements SummaryViewService {
     private final JpaReadOnlyCommonRepository<SummaryViewRepository, SummaryViewModel, SummaryViewPk> summaryViewRepository;
 
-    public SummaryViewServiceImpl(SummaryViewRepository summaryViewRepository) {
+    public SummaryViewServiceImpl(final SummaryViewRepository summaryViewRepository) {
         this.summaryViewRepository = () -> summaryViewRepository;
     }
 

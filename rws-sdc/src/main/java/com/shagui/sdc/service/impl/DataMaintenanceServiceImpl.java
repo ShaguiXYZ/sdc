@@ -60,10 +60,10 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 
 	public DataMaintenanceServiceImpl(ObjectMapper mapper, ResourceLoader resourceLoader,
-			ComponentRepository componentRepository,
-			ComponentUriRepository componentUriRepository, SquadRepository squadRepository,
-			DepartmentRepository departmentRepository,
-			ComponentTypeArchitectureRepository componentTypeArchitectureRepository) {
+			final ComponentRepository componentRepository,
+			final ComponentUriRepository componentUriRepository, SquadRepository squadRepository,
+			final DepartmentRepository departmentRepository,
+			final ComponentTypeArchitectureRepository componentTypeArchitectureRepository) {
 		this.mapper = mapper;
 		this.resourceLoader = resourceLoader;
 		this.componentRepository = () -> componentRepository;

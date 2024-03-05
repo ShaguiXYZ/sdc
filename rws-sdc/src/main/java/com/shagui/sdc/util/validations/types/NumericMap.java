@@ -1,4 +1,4 @@
-package com.shagui.sdc.util.validations;
+package com.shagui.sdc.util.validations.types;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.shagui.sdc.util.SdcStringUtils;
+import com.shagui.sdc.util.validations.Mergeable;
 
 import lombok.EqualsAndHashCode;
 

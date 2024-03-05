@@ -31,8 +31,8 @@ public class ComponentServiceImpl implements ComponentService {
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 
-	public ComponentServiceImpl(ComponentRepository componentRepository,
-			ComponentTypeArchitectureRepository componentTypeArchitectureRepository) {
+	public ComponentServiceImpl(final ComponentRepository componentRepository,
+			final ComponentTypeArchitectureRepository componentTypeArchitectureRepository) {
 		this.componentRepository = () -> componentRepository;
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
 	}

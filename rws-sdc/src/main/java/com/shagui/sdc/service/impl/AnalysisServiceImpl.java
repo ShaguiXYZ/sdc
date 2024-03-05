@@ -52,9 +52,9 @@ public class AnalysisServiceImpl implements AnalysisService {
 	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
 
 	public AnalysisServiceImpl(SseService sseService, Map<String, AnalysisInterface> metricServices,
-			ComponentRepository componentsRepository,
-			ComponentAnalysisRepository componentAnalysisRepository,
-			MetricRepository metricRepository) {
+			final ComponentRepository componentsRepository,
+			final ComponentAnalysisRepository componentAnalysisRepository,
+			final MetricRepository metricRepository) {
 		this.sseService = sseService;
 		this.metricServices = metricServices;
 		this.componentsRepository = () -> componentsRepository;
@@ -83,7 +83,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 	@Override
 	@Transactional
-	public PageData<MetricAnalysisDTO> analyze(int componentId) {
+	public synchronized PageData<MetricAnalysisDTO> analyze(int componentId) {
 		ComponentModel component = componentsRepository.findExistingId(componentId);
 
 		List<ComponentAnalysisModel> savedData = executeAsyncMetricServicesAndWait(component)

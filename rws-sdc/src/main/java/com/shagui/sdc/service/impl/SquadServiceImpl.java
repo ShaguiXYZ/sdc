@@ -20,7 +20,7 @@ import com.shagui.sdc.util.jpa.JpaCommonRepository;
 public class SquadServiceImpl implements SquadService {
 	private JpaCommonRepository<SquadRepository, SquadModel, Integer> squadRepository;
 
-	public SquadServiceImpl(SquadRepository squadRepository) {
+	public SquadServiceImpl(final SquadRepository squadRepository) {
 		this.squadRepository = () -> squadRepository;
 	}
 

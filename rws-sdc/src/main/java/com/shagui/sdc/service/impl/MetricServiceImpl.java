@@ -18,7 +18,7 @@ import com.shagui.sdc.util.jpa.JpaCommonRepository;
 public class MetricServiceImpl implements MetricService {
 	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
 
-	public MetricServiceImpl(MetricRepository metricRepository) {
+	public MetricServiceImpl(final MetricRepository metricRepository) {
 		this.metricRepository = () -> metricRepository;
 	}
 
@@ -32,8 +32,8 @@ public class MetricServiceImpl implements MetricService {
 		return Mapper
 				.parse(metricRepository.repository().findByNameIgnoreCaseAndType(metricName, metricType)
 						.orElseThrow(() -> new JpaNotFoundException(ExceptionCodes.NOT_FOUND_METRIC,
-                "no result found for metric '%s' and type '%s'".formatted(metricName,
-                        metricType.name()))));
+								"no result found for metric '%s' and type '%s'".formatted(metricName,
+										metricType.name()))));
 	}
 
 	@Override

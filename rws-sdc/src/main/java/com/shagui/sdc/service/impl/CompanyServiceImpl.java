@@ -17,7 +17,7 @@ import com.shagui.sdc.util.jpa.JpaCommonRepository;
 public class CompanyServiceImpl implements CompanyService {
     private JpaCommonRepository<CompanyRepository, CompanyModel, Integer> companyRepository;
 
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
+    public CompanyServiceImpl(final CompanyRepository companyRepository) {
         this.companyRepository = () -> companyRepository;
     }
 
