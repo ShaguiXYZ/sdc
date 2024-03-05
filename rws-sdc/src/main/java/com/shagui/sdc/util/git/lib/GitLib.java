@@ -2,7 +2,6 @@ package com.shagui.sdc.util.git.lib;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -20,15 +19,22 @@ public class GitLib {
 	public static final Function<ServiceDataDTO, Optional<String>> nclocLanguageDistribution = serviceData -> {
 		Map<String, Integer> data = languages(serviceData);
 
-		return Optional
-				.of(data.entrySet().stream().map(entry -> "%s=%s".formatted(entry.getKey(), entry.getValue()))
+		return data.isEmpty() ? Optional.empty()
+				: Optional.of(data.entrySet().stream()
+						.map(entry -> entry.getKey() + "=" + entry.getValue())
 						.collect(Collectors.joining(";")));
 	};
 
 	public static final Function<ServiceDataDTO, Optional<String>> lines = serviceData -> {
 		Map<String, Integer> data = languages(serviceData);
 
-		return Optional.of(data.entrySet().stream().map(Entry::getValue).reduce(0, (a, b) -> a + b).toString());
+		if (data.isEmpty()) {
+			return Optional.empty();
+		}
+
+		int totalLines = data.values().stream().mapToInt(Integer::intValue).sum();
+
+		return Optional.of(Integer.toString(totalLines));
 	};
 
 	@SuppressWarnings("unchecked")
