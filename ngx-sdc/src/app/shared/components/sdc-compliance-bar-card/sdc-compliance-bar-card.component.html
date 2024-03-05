@@ -17,6 +17,7 @@
     <section class="flex-info nx-margin-bottom-xs">
       <div class="component-name">
         <span class="nx-font-weight-bold">{{ component.name }}</span>
+        <em class="sdc-op nx-margin-left-2xs fa-regular fa-copy" (click)="copyToClipboard()"></em>
       </div>
       <div class="position-end">
         <time [dateTime]="component.analysisDate | date: 'short'"

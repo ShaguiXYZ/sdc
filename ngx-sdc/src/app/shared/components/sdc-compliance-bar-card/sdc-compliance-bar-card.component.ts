@@ -4,7 +4,9 @@ import { NxBadgeModule } from '@aposin/ng-aquila/badge';
 import { NxCardModule } from '@aposin/ng-aquila/card';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService } from 'src/app/core/components';
+import { copyToClipboard } from 'src/app/core/lib';
 import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { styleByCoverage } from '../../lib';
 import { SdcTrendComponent } from '../sdc-trend';
@@ -35,6 +37,11 @@ export class SdcComplianceBarCardComponent {
 
   @Input()
   public hideBorder = false;
+
+  constructor(
+    private readonly notificationService: NotificationService,
+    private readonly translateService: TranslateService
+  ) {}
 
   @Input()
   set component(value: IComponentModel) {
@@ -69,5 +76,16 @@ export class SdcComplianceBarCardComponent {
 
   public onClickSquad() {
     this.clickSquad.emit(this.component.squad);
+  }
+
+  public copyToClipboard(): void {
+    copyToClipboard(this.component.name).then(() => {
+      this.notificationService.info(
+        this.translateService.instant('Label.CopyToClipboard'),
+        this.component.name,
+        DEFAULT_TIMEOUT_NOTIFICATIONS,
+        false
+      );
+    });
   }
 }
