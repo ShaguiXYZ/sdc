@@ -63,16 +63,11 @@ public abstract class GitDocumentService implements AnalysisInterface {
 								.retrieveGitData(component, "contents/%s".formatted(entry.getKey()),
 										Optional.empty(), ContentDTO.class)
 								.map(data -> getResponse(workflowId, component, entry.getValue(), sdcDocument(data)))
-								.orElseGet(() -> {
-									config.sseService().emitError(EventFactory
-											.event(workflowId, EventType.ERROR,
-													"Not git info for component '%s'".formatted(component.getName()))
-											.referencedBy(component));
-
-									return new ArrayList<>();
-								});
+								.orElseThrow(() -> new SdcCustomException(
+										"Not git info for component '%s'".formatted(component.getName())));
 					} catch (SdcCustomException ex) {
 						config.sseService().emitError(EventFactory.event(workflowId, ex).referencedBy(component));
+
 						return null;
 					}
 				}).filter(Objects::nonNull).flatMap(List::stream).toList();
