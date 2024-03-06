@@ -13,4 +13,6 @@ public class DependabotAlertDTO {
 	private String state;
 	@JsonProperty("security_vulnerability")
 	private DependabotVulnerabilityDTO vulnerability;
+	@JsonProperty("security_advisory")
+	private DependabotAdvisoryDTO advisory;
 }

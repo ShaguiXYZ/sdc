@@ -7,6 +7,6 @@ public interface JpaIntegerIdRepository extends JpaAutoincrementRepository<Integ
 
 	@Override
 	default Integer nextId() {
-		return maxId().map(id -> id + 1).orElse(1);
+		return maxId().map(id -> ++id).orElse(1);
 	}
 }

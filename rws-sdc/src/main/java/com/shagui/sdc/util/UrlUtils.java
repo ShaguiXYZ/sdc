@@ -47,8 +47,6 @@ public class UrlUtils {
 
 	public static <T> T mapResponse(Response response, Class<T> clazz) {
 		if (response.status() >= 400) {
-			response.close();
-
 			throw new SdcCustomException(
 					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
 		}

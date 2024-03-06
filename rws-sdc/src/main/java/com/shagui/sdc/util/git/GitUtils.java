@@ -2,10 +2,14 @@ package com.shagui.sdc.util.git;
 
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
@@ -22,7 +26,7 @@ import feign.Response;
 public class GitUtils {
 
 	public enum GitOperations {
-		DEPENDABOT_ALERTS("dependabot/alerts", "state=open"), LANGUAGES("languages");
+		DEPENDABOT_ALERTS("dependabot/alerts", "state=open&per_page=100"), LANGUAGES("languages");
 
 		private String path;
 		private String params = null;
@@ -54,20 +58,32 @@ public class GitUtils {
 		GitUtils.config = config;
 	}
 
-	public static <T> Optional<T> retrieveGitData(ComponentModel component, GitOperations operation,
-			Class<T> clazz) {
+	public static <T> Optional<T> retrieveGitData(ComponentModel component, GitOperations operation, Class<T> clazz) {
 		return retrieveGitData(component, operation.path(), operation.params(), clazz);
 	}
 
-	public static <T> Optional<T> retrieveGitData(ComponentModel component, String operation,
-			Optional<String> params, Class<T> clazz) {
+	public static <T> Optional<T> retrieveGitData(ComponentModel component, GitOperations operation,
+			Map<String, String> paramValues, Class<T> clazz) {
+		return retrieveGitData(component, operation.path(), operation.params(), paramValues, clazz);
+	}
+
+	public static <T> Optional<T> retrieveGitData(ComponentModel component, String operation, Optional<String> params,
+			Class<T> clazz) {
+		return retrieveGitData(component, operation, params, Collections.emptyMap(), clazz);
+	}
+
+	private static <T> Optional<T> retrieveGitData(ComponentModel component, String operation, Optional<String> params,
+			Map<String, String> paramValues, Class<T> clazz) {
 		Optional<UriModel> uriModel = UrlUtils.componentUri(component, UriType.GIT);
+		paramValues = paramValues == null ? Collections.emptyMap() : paramValues;
 
 		if (uriModel.isPresent()) {
 			String uri = Arrays.asList(uriModel.get().getValue(), operation).stream().filter(StringUtils::hasText)
 					.collect(Collectors.joining("/"));
 
-			String uriWithParams = params.map(addParams(uri)).orElse(uri);
+			String uriWithParams = params
+					.map(addParams(uri, paramValues))
+					.orElse(uri);
 
 			try (Response response = authorization(uriModel.get()).map(
 					authorizationHeader -> config.gitClient().repoFile(URI.create(uriWithParams), authorizationHeader))
@@ -85,8 +101,18 @@ public class GitUtils {
 		return authorization.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
 	}
 
-	private static Function<String, String> addParams(String uri) {
-		return params -> Arrays.asList(uri, params).stream().filter(StringUtils::hasText)
-				.collect(Collectors.joining("?"));
+	private static Function<String, String> addParams(String uri, Map<String, String> paramValues) {
+		String params = CollectionUtils.isEmpty(paramValues) ? ""
+				: paramValues.entrySet().stream()
+						.map(entry -> entry.getKey() + "=" + entry.getValue())
+						.collect(Collectors.joining("&"));
+
+		return existingParams -> {
+			String updatedParams = Stream.of(existingParams, params)
+					.filter(StringUtils::hasText)
+					.collect(Collectors.joining("&"));
+
+			return StringUtils.hasText(updatedParams) ? uri + "?" + updatedParams : uri;
+		};
 	}
 }

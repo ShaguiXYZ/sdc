@@ -2,8 +2,12 @@ package com.shagui.sdc.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
@@ -27,19 +31,29 @@ public class DependabotServiceImpl implements DependabotService {
 	@Override
 	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
 		try {
-			List<DependabotAlertDTO> result = GitUtils
-					.retrieveGitData(component, GitUtils.GitOperations.DEPENDABOT_ALERTS,
-							DependabotAlertDTO[].class)
-					.map(Arrays::asList).orElseGet(() -> new ArrayList<DependabotAlertDTO>());
+			List<DependabotAlertDTO> result = Stream.iterate(1, page -> ++page)
+					.map(page -> {
+						Map<String, String> uriParams = new HashMap<>();
+						uriParams.put("page", Integer.toString(page));
 
-			return this.metrics(component).stream().map(metric -> {
-				String value = MetricLibrary.Library.valueOf(metric.getValue().toUpperCase()).apply(result);
+						Optional<DependabotAlertDTO[]> alerts = GitUtils.retrieveGitData(component,
+								GitUtils.GitOperations.DEPENDABOT_ALERTS, uriParams,
+								DependabotAlertDTO[].class);
 
-				return new ComponentAnalysisModel(component, metric, value);
-			}).toList();
+						return alerts.map(Arrays::asList).orElse(new ArrayList<>());
+					})
+					.takeWhile(data -> !data.isEmpty())
+					.flatMap(List::stream)
+					.toList();
+
+			return this.metrics(component).stream()
+					.map(metric -> {
+						String value = MetricLibrary.Library.valueOf(metric.getValue().toUpperCase()).apply(result);
+						return new ComponentAnalysisModel(component, metric, value);
+					})
+					.toList();
 		} catch (SdcCustomException e) {
 			sseService.emitError(EventFactory.event(workflowId, e).referencedBy(component));
-
 			return List.of();
 		}
 	}
