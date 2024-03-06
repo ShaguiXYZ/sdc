@@ -82,7 +82,7 @@
       "mainClass": "com.shagui.SpringBoot",
       "projectName": "rws-sdc",
       "args": "--spring.profiles.active=dev",
-      "vmArgs": "-Dspring.profiles.active=dev -Ddb.domain=localhost:5432 -Ddb.user=shagui -Ddb.password= -Dgit.token=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",
+      "vmArgs": "-Dspring.profiles.active=dev -Ddb.domain=localhost:5432 -Ddb.user=shagui -Ddb.password= -Dgit.token=${env:GIT_TOKEN}",
       "envFile": "${workspaceFolder}/.env"
     }
   ]
