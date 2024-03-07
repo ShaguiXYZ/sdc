@@ -1,7 +1,7 @@
 package com.shagui.sdc.service.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.shagui.sdc.api.dto.git.DependabotAlertDTO;
 import com.shagui.sdc.api.dto.sse.EventFactory;
@@ -40,9 +41,9 @@ public class DependabotServiceImpl implements DependabotService {
 								GitUtils.GitOperations.DEPENDABOT_ALERTS, uriParams,
 								DependabotAlertDTO[].class);
 
-						return alerts.map(Arrays::asList).orElse(new ArrayList<>());
+						return alerts.map(Arrays::asList).orElse(Collections.emptyList());
 					})
-					.takeWhile(data -> !data.isEmpty())
+					.takeWhile(data -> !CollectionUtils.isEmpty(data))
 					.flatMap(List::stream)
 					.toList();
 

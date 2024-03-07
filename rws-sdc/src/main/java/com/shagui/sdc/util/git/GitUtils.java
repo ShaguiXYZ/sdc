@@ -75,15 +75,12 @@ public class GitUtils {
 	private static <T> Optional<T> retrieveGitData(ComponentModel component, String operation, Optional<String> params,
 			Map<String, String> paramValues, Class<T> clazz) {
 		Optional<UriModel> uriModel = UrlUtils.componentUri(component, UriType.GIT);
-		paramValues = paramValues == null ? Collections.emptyMap() : paramValues;
 
 		if (uriModel.isPresent()) {
 			String uri = Arrays.asList(uriModel.get().getValue(), operation).stream().filter(StringUtils::hasText)
 					.collect(Collectors.joining("/"));
 
-			String uriWithParams = params
-					.map(addParams(uri, paramValues))
-					.orElse(uri);
+			String uriWithParams = params.map(addParams(uri, paramValues)).orElse(uri);
 
 			try (Response response = authorization(uriModel.get()).map(
 					authorizationHeader -> config.gitClient().repoFile(URI.create(uriWithParams), authorizationHeader))
@@ -102,6 +99,7 @@ public class GitUtils {
 	}
 
 	private static Function<String, String> addParams(String uri, Map<String, String> paramValues) {
+		paramValues = CollectionUtils.isEmpty(paramValues) ? Collections.emptyMap() : paramValues;
 		String params = CollectionUtils.isEmpty(paramValues) ? ""
 				: paramValues.entrySet().stream()
 						.map(entry -> entry.getKey() + "=" + entry.getValue())

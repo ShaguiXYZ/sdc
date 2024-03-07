@@ -116,6 +116,11 @@ public class JsonDocument implements SdcDocument {
 			}
 		}
 
+		@Override
+		public String toString() {
+			return (this.startToken.equals(JsonToken.START_ARRAY) ? "[%s]" : ".%s").formatted(this.key);
+		}
+
 		/**
 		 * Advances the cursor to the next entry in the current JSON Object or Array.
 		 */
@@ -145,11 +150,6 @@ public class JsonDocument implements SdcDocument {
 			} else {
 				skipToNextImpl(parser, depth - 1);
 			}
-		}
-
-		@Override
-		public String toString() {
-			return (this.startToken.equals(JsonToken.START_ARRAY) ? "[%s]" : ".%s").formatted(this.key);
 		}
 	}
 }
