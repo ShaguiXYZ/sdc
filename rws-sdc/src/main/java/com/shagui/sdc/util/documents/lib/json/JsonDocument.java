@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonFactory;
@@ -70,7 +71,7 @@ public class JsonDocument implements SdcDocument {
 	}
 
 	private String toKeyString(List<JSONKey> keys, final int idx) {
-		return ((Function<String, String>) x -> x.startsWith(".") ? x.substring(1) : x)
+		return ((UnaryOperator<String>) x -> x.startsWith(".") ? x.substring(1) : x)
 				.apply(keys.subList(0, idx).stream().map(JSONKey::toString).collect(Collectors.joining()));
 	}
 
@@ -93,9 +94,10 @@ public class JsonDocument implements SdcDocument {
 		 */
 		public void advanceCursor(final JsonParser parser) throws IOException {
 			final JsonToken token = parser.nextToken();
+
 			if (!this.startToken.equals(token)) {
 				throw new SdcCustomException(
-                        "Expected token of type '%s', got: '%s'".formatted(this.startToken, token));
+						"Expected token of type '%s', got: '%s'".formatted(this.startToken, token));
 			}
 
 			if (JsonToken.START_ARRAY.equals(this.startToken)) {
@@ -126,11 +128,12 @@ public class JsonDocument implements SdcDocument {
 		 */
 		private static void skipToNext(final JsonParser parser) throws IOException {
 			final JsonToken token = parser.nextToken();
+
 			if (JsonToken.START_ARRAY.equals(token) || JsonToken.START_OBJECT.equals(token)
 					|| JsonToken.FIELD_NAME.equals(token)) {
 				skipToNextImpl(parser, 1);
 			} else if (JsonToken.END_ARRAY.equals(token) || JsonToken.END_OBJECT.equals(token)) {
-				throw new SdcCustomException("Could not find requested key");
+				throw new SdcCustomException("Could not find requested key '%s'".formatted(token.asString()));
 			}
 		}
 

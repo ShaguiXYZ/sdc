@@ -3,6 +3,7 @@ package com.shagui.sdc.api.dto;
 import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.NonNull;
 
 import com.shagui.sdc.api.domain.CastFactory;
 import com.shagui.sdc.api.view.ComponentView;
@@ -21,7 +22,7 @@ public class ComponentDTO {
 	private boolean blocked;
 	private SquadDTO squad;
 
-	public ComponentDTO(ComponentView source) {
+	public ComponentDTO(@NonNull ComponentView source) {
 		BeanUtils.copyProperties(source, this);
 
 		this.squad = CastFactory.getInstance(SquadDTO.class).parse(source.getSquad());

@@ -58,15 +58,14 @@ management:
   endpoint:
     health:
       show-details: always
-    promoetheus:
-      show-details: always
+    # promoetheus:
+    #   show-details: always
     shutdown:
       enabled: false
-
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 60000
-        readTimeout: 10000
-        loggerLevel: basic
+# feign:
+#   client:
+#     config:
+#       default:
+#         connectTimeout: 60000
+#         readTimeout: 10000
+#         loggerLevel: basic

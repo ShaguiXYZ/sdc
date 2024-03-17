@@ -1,6 +1,7 @@
 package com.shagui.sdc.api.dto;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.NonNull;
 
 import com.shagui.sdc.api.view.AnalysisValuesView;
 
@@ -15,7 +16,7 @@ public class AnalysisValuesDTO {
 	private String goodValue;
 	private String perfectValue;
 
-	public AnalysisValuesDTO(AnalysisValuesView source) {
+	public AnalysisValuesDTO(@NonNull AnalysisValuesView source) {
 		BeanUtils.copyProperties(source, this);
 	}
 }
