@@ -1,6 +1,7 @@
+import { INavigation } from 'src/app/core/components';
 import { AppUrls } from './routing';
 
-export const SDC_HEADER_MENU = {
+export const SDC_HEADER_MENU: INavigation = {
   routes: [
     {
       id: '1',
@@ -16,6 +17,7 @@ export const SDC_HEADER_MENU = {
       id: '3',
       name: 'Header.Menu.Applications',
       collapsed: true,
+      roles: ['ADMIN'],
       routerLink: AppUrls.applications
     }
     // {

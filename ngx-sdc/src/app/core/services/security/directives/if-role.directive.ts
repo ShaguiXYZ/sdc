@@ -19,8 +19,8 @@ export class IfRoleDirective implements OnDestroy {
   }
 
   @Input()
-  set ifRole(roles: string[]) {
-    this.roles = roles;
+  set ifRole(roles: string[] | undefined) {
+    this.roles = roles ?? [];
     this.checkRoles();
   }
 
@@ -28,9 +28,9 @@ export class IfRoleDirective implements OnDestroy {
     this.security$.unsubscribe();
   }
 
-  private checkRoles() {
+  private checkRoles(): void {
     const userRoles = this.securityService.user?.authorities ?? [];
-    const shouldShow = this.roles.some(role => userRoles.includes(role));
+    const shouldShow = !this.roles?.length || this.roles.some(role => userRoles.includes(role));
 
     shouldShow ? this.viewContainer.createEmbeddedView(this.templateRef) : this.viewContainer.clear();
   }

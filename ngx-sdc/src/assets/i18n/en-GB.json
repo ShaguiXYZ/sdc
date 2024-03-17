@@ -36,6 +36,7 @@
     }
   },
   "Header": {
+    "Description": "Software Development Console",
     "Help": "Help",
     "Menu": {
       "Applications": "Applications",
@@ -43,7 +44,7 @@
       "Squads": "Squads",
       "TestPage": "Test page"
     },
-    "Title": "Software Development Console"
+    "Title": "S D C"
   },
   "Label": {
     "AddTag": "Add tag",

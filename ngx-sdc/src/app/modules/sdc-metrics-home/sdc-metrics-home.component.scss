@@ -61,6 +61,10 @@
     flex-wrap: wrap;
     justify-content: center;
 
+    .actual-language-distribution {
+      padding-top: 25px;
+    }
+
     .historical-language-distribution {
       flex: 1;
       min-width: 350px;

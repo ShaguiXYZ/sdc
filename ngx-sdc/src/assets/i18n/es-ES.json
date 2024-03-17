@@ -36,6 +36,7 @@
     "500": "Error interno del servidor"
   },
   "Header": {
+    "Description": "Consola de desarrollo de software",
     "Help": "Ayuda",
     "Menu": {
       "Applications": "Aplicaciones",
@@ -43,7 +44,7 @@
       "Squads": "Squads",
       "TestPage": "Test page"
     },
-    "Title": "Software Development Console"
+    "Title": "S D C"
   },
   "Label": {
     "AddTag": "Añadir tag",

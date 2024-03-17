@@ -33,6 +33,7 @@ import { SdcMetricsHomeService } from './services';
   providers: [SdcMetricsHomeService, TitleCasePipe],
   standalone: true,
   imports: [
+    CommonModule,
     IfRoleDirective,
     SdcComplianceBarCardComponent,
     SdcMetricHistoryGraphsComponent,
@@ -42,7 +43,6 @@ import { SdcMetricsHomeService } from './services';
     SdcTagsComponent,
     SdcTimeEvolutionChartComponent,
     SdcTimeEvolutionMultichartComponent,
-    CommonModule,
     NxAccordionModule,
     NxButtonModule,
     NxModalModule,

@@ -5,6 +5,7 @@ export const DEFAULT_HEADER_MENU: INavigation = {
 export interface INavigationItem {
   id: string;
   name: string;
+  roles?: string[];
   routerLink?: string;
 }
 

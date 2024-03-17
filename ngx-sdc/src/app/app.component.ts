@@ -24,7 +24,7 @@ import { ContextDataInfo } from './shared/constants';
       <sdc-overlay />
       <div class="app-content sdc-scrollable-body" (click)="onClick($event)">
         <header nxLayout="grid maxwidth nogutters">
-          <nx-header headerTitle="S D C" [title]="'Header.Title' | translate" />
+          <nx-header [headerTitle]="'Header.Title' | translate" [title]="'Header.Description' | translate" />
         </header>
         <div nxLayout="grid maxwidth nogutters" [@routeAnimations]="prepareRoute(outlet)">
           <router-outlet #outlet="outlet" />
