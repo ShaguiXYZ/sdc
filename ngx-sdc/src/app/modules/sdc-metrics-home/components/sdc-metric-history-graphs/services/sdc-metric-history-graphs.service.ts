@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Observable, Subject } from 'rxjs';
 import { AnalysisFactor, EvaluableValueType, IMetricAnalysisModel, IPageable } from 'src/app/core/models/sdc';
-import { ContextDataService } from 'src/app/core/services';
 import { AnalysisService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcMetricsContextData } from 'src/app/shared/models';

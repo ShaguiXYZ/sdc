@@ -1,12 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NxDialogService, NxModalModule } from '@aposin/ng-aquila/modal';
 import { TranslateModule } from '@ngx-translate/core';
-import { emptyFn } from 'src/app/core/lib';
+import { LoadingService, emptyFn } from '@shagui/ng-shagui/core';
 import { NxDialogServiceMock } from 'src/app/core/mock/services/dialog-service.mock';
 import { LoadingComponent } from '../loading.component';
-import { LoadingService } from '../services';
 import { LoadingServiceMock } from './service/loading-service.mock';
 
 describe('LoadingComponent', () => {

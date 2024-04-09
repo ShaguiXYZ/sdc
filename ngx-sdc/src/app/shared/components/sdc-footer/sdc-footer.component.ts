@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { ContextDataService } from '@shagui/ng-shagui/core';
 import { SwitchThemeComponent } from 'src/app/core/components/header/components';
 import { IAppConfigurationModel } from 'src/app/core/models/sdc';
-import { ContextDataService } from 'src/app/core/services';
 import { ContextDataInfo } from '../../constants';
 import { SdcKeysComponent } from '../sdc-keys';
 import { SdcLogInOutComponent } from '../sdc-log-in-out';

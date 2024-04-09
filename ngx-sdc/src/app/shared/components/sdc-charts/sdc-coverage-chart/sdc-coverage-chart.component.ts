@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { DataInfo } from '@shagui/ng-shagui/core';
 import { EChartsOption } from 'echarts';
-import { DataInfo } from 'src/app/core/models';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { SdcEchartComponent } from '../sdc-echart.component';

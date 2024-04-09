@@ -1,4 +1,4 @@
-import { UniqueIds } from 'src/app/core/lib';
+import { UniqueIds } from '@shagui/ng-shagui/core';
 
 export type SseEventType = 'ERROR' | 'INFO';
 

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ContextDataService, filterBy } from '@shagui/ng-shagui/core';
 import { Observable, Subject } from 'rxjs';
-import { _console, filterBy } from 'src/app/core/lib';
 import { ISquadModel } from 'src/app/core/models/sdc';
-import { ContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcSquadsContextData } from 'src/app/shared/models';
@@ -43,7 +42,7 @@ export class SdcSquadsService {
 
         this.data$.next({ squad, squads, filter });
       })
-      .catch(_console.error);
+      .catch(console.error);
   }
 
   public selectedSquad(squad: ISquadModel): void {
@@ -55,7 +54,7 @@ export class SdcSquadsService {
 
         this.data$.next({ squad, components: pageable.page });
       })
-      .catch(_console.error);
+      .catch(console.error);
   }
 
   public loadData(): void {

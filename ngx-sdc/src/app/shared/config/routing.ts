@@ -1,4 +1,4 @@
-import { RouteConfig } from 'src/app/core/services/context-data/models';
+import { RouteConfig } from '@shagui/ng-shagui/core';
 import { ContextDataInfo } from '../constants';
 
 export enum AppUrls {

@@ -11,6 +11,7 @@ import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
       class="coverage-trend sdc-center color--{{ trend > 0 ? 'acceptable' : trend < 0 ? 'critical' : 'with_risk' }}"
       [nxTooltip]="trend.toString()"
       nxTooltipPosition="left"
+      aria-label="trend-icon"
     >
       <em class="sdc-center fa-regular fa-{{ trend > 0 ? 'face-smile' : trend < 0 ? 'face-frown' : 'face-meh' }}" aria-hidden="true"></em>
     </div>

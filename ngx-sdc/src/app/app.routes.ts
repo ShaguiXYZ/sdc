@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { configContextRoutes } from './core/services';
+import { configContextRoutes } from '@shagui/ng-shagui/core';
 import { AppUrls } from './shared/config/routing';
 
 export const routes: Routes = configContextRoutes([
@@ -29,14 +29,14 @@ export const routes: Routes = configContextRoutes([
     canDeactivate: []
   },
   {
-    path: AppUrls.test,
-    loadComponent: () => import('./modules/sdc-test-page/sdc-test-page.component').then(c => c.SdcTestComponent),
-    data: { animation: AppUrls.test },
+    path: AppUrls.routing,
+    loadComponent: () => import('./modules/sdc-routing/sdc-routing').then(c => c.SdcRoutingComponent),
     canDeactivate: []
   },
   {
-    path: AppUrls.routing,
-    loadComponent: () => import('./modules/sdc-routing/sdc-routing').then(c => c.SdcRoutingComponent),
+    path: AppUrls.test,
+    loadComponent: () => import('./modules/sdc-test-page/sdc-test-page.component').then(c => c.SdcTestComponent),
+    data: { animation: AppUrls.test },
     canDeactivate: []
   },
   { path: AppUrls.root, pathMatch: 'full', redirectTo: AppUrls.squads }

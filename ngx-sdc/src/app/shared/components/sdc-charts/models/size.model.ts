@@ -1,4 +1,4 @@
-import { DataInfo } from 'src/app/core/models';
+import { DataInfo } from '@shagui/ng-shagui/core';
 
 export type ChartSize =
   | number

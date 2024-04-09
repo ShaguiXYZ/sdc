@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
+import { ScreenRecorder } from '@shagui/ng-shagui/core';
 import { SdcOverlayService } from '../sdc-overlay/services';
 import { SdcKeyComponent } from './components';
-import SdcScreenRecorder from 'src/app/core/lib/screen-recorder.lib';
 
 @Component({
   selector: 'sdc-keys',
@@ -66,7 +66,7 @@ export class SdcKeysComponent {
         event.preventDefault();
         break;
       case 'R':
-        SdcScreenRecorder.startRecording();
+        ScreenRecorder.startRecording();
         event.preventDefault();
         break;
       case 'P':

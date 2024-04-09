@@ -6,11 +6,12 @@ import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/mo
 import { NxTabsModule } from '@aposin/ng-aquila/tabs';
 import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components/alert';
 import { IComponentModel, IDepartmentModel, IMetricAnalysisModel, ISquadModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
-import { ContextDataService, DateService, IfRoleDirective } from 'src/app/core/services';
+import { DateService, IfRoleDirective } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import {
   SdcComplianceBarCardComponent,

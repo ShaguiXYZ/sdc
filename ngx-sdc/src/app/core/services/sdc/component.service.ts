@@ -1,13 +1,12 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CacheService, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
-import { hasValue } from '../../lib';
 import { IComponentDTO, IComponentModel, ICoverageModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
-import { CacheService } from '../context-data';
-import { HttpService, HttpStatus } from '../http';
 import { XS_EXPIRATON_TIME, _COMPONENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
@@ -16,7 +15,8 @@ export class ComponentService {
 
   constructor(
     private readonly cache: CacheService,
-    private readonly http: HttpService
+    private readonly http: HttpService,
+    private readonly translate: TranslateService
   ) {}
 
   public component(componentId: number): Promise<IComponentModel> {
@@ -24,7 +24,7 @@ export class ComponentService {
       this.http
         .get<IComponentDTO>(`${this._urlComponents}/component/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.ComponentNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.ComponentNotFound') }
           }
         })
         .pipe(map(res => IComponentModel.fromDTO(res as IComponentDTO)))
@@ -37,7 +37,7 @@ export class ComponentService {
         .get<IPageable<IComponentDTO>>(`${this._urlComponents}/components/squad/${squadId}`, {
           showLoading: true,
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.ComponentsNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.ComponentsNotFound') }
           },
           cache: { id: this.squadCacheId(squadId), ttl: XS_EXPIRATON_TIME }
         })
@@ -101,7 +101,7 @@ export class ComponentService {
           showLoading,
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.ComponentsNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.ComponentsNotFound') }
           }
         })
         .pipe(
@@ -123,7 +123,7 @@ export class ComponentService {
       this.http
         .get<IPageable<IMetricDTO>>(`${this._urlComponents}/component/${componentId}/metrics`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.MetricsNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.MetricsNotFound') }
           }
         })
         .pipe(
@@ -159,7 +159,7 @@ export class ComponentService {
         .get<IHistoricalCoverage<IComponentDTO>>(`${this._urlComponents}/component/historical/${componentId}`, {
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.HistoricalNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.HistoricalNotFound') }
           }
         })
         .pipe(

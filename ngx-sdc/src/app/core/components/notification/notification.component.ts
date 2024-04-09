@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NxButtonModule } from '@aposin/ng-aquila/button';
 import { NxMessageModule } from '@aposin/ng-aquila/message';
+import { NotificationModel, NotificationService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
-import { NotificationModel } from './models';
-import { NotificationService } from './services';
 
 @Component({
   selector: 'nx-notification',

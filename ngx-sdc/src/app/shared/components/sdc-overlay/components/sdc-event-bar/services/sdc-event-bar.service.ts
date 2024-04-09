@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subject, Subscription } from 'rxjs';
-import { ContextDataService, SseEventModel } from 'src/app/core/services';
+import { SseEventModel } from 'src/app/core/services';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcOverlayContextData } from 'src/app/shared/models';
 import { SdcOverlayService } from '../../../services';

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { hasValue } from 'src/app/core/lib';
+import { hasValue } from '@shagui/ng-shagui/core';
 import { IMetricAnalysisModel, iconByType } from 'src/app/core/models/sdc';
 import { MetricStates, stateByCoverage, styleByCoverage } from '../../lib';
 

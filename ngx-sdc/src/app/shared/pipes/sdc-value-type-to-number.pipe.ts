@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNumeric } from 'src/app/core/lib';
+import { ContextDataService, isNumeric } from '@shagui/ng-shagui/core';
 import { IAppConfigurationModel, ValueType } from 'src/app/core/models/sdc';
-import { ContextDataService } from 'src/app/core/services';
 import { ContextDataInfo } from '../constants';
 
 @Pipe({

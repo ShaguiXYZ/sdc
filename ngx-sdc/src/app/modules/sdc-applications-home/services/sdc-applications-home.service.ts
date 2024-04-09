@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Observable, Subject, firstValueFrom, of } from 'rxjs';
-import { _console } from 'src/app/core/lib';
 import { IAppConfigurationModel, IPageable, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
-import { ContextDataService } from 'src/app/core/services';
 import { ComponentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { ContextDataInfo, ELEMENTS_BY_PAGE } from 'src/app/shared/constants';
 import { MetricState, MetricStates, rangeByState, styleByName } from 'src/app/shared/lib';
@@ -109,6 +108,6 @@ export class SdcApplicationsHomeService {
           paging: pageable.paging
         });
       })
-      .catch(_console.error);
+      .catch(console.error);
   }
 }

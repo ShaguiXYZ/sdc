@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
+import { CacheService, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CacheService, HttpService } from '..';
-import { hasValue } from '../../lib';
 import { ICoverageModel, IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
-import { HttpStatus } from '../http';
 import { S_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class SquadService {
   private _urlSquads = `${environment.baseUrl}/api`;
 
   constructor(
-    private cache: CacheService,
-    private http: HttpService
+    private readonly cache: CacheService,
+    private readonly http: HttpService,
+    private readonly translate: TranslateService
   ) {}
 
   public squad(id: number): Promise<ISquadModel> {
@@ -21,7 +21,7 @@ export class SquadService {
       this.http
         .get<ISquadDTO>(`${this._urlSquads}/squad/${id}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.SquadNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.SquadNotFound') }
           }
         })
         .pipe(map(res => ISquadModel.fromDTO(res as ISquadDTO)))
@@ -33,7 +33,7 @@ export class SquadService {
       this.http
         .get<IPageable<ISquadDTO>>(`${this._urlSquads}/squads`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.SquadsNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.SquadsNotFound') }
           },
           cache: { id: _SQUADS_CACHE_ID_, ttl: S_EXPIRATON_TIME }
         })

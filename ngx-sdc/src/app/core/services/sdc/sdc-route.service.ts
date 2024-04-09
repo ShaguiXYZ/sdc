@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ContextDataService } from '@shagui/ng-shagui/core';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { ApplicationsContextData } from 'src/app/shared/models';
 import { IComponentModel, IDepartmentModel, ISquadModel } from '../../models/sdc';
-import { ContextDataService } from '../context-data';
 import { ComponentService } from './component.service';
 import { DepartmentService } from './department.service';
 import { SquadService } from './squad.service';

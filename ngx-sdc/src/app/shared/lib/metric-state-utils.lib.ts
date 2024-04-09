@@ -1,4 +1,4 @@
-import { hasValue } from '../../core/lib/object-utils.lib';
+import { hasValue } from '@shagui/ng-shagui/core';
 import { StateColors } from '../constants';
 import { SdcRange } from '../models';
 
@@ -60,4 +60,4 @@ export const rangeByState = (state: MetricStates): SdcRange =>
       max: MetricState[MetricStates.ACCEPTABLE].value
     },
     [MetricStates.PERFECT]: { min: MetricState[MetricStates.ACCEPTABLE].value, max: 101 }
-  }[state]);
+  })[state];

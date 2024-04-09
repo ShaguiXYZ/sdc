@@ -1,4 +1,4 @@
-import { ButtonConfig } from 'src/app/core/models';
+import { ButtonConfig } from '@shagui/ng-shagui/core';
 
 export interface ILanguageHeader {
   languageButtons: ButtonConfig[];

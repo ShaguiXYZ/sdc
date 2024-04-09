@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { DataInfo } from 'src/app/core/models';
+import { DataInfo } from '@shagui/ng-shagui/core';
 import { SdcChartData } from '../../models';
 import { ChartConfig, ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRecord } from '../sdc-charts';
 

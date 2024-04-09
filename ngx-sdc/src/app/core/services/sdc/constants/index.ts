@@ -1,4 +1,4 @@
-import { UniqueIds } from 'src/app/core/lib';
+import { UniqueIds } from '@shagui/ng-shagui/core';
 
 export const _COMPONENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _CONFIGURATION_CACHE_ID_ = `_${UniqueIds.next()}_`;

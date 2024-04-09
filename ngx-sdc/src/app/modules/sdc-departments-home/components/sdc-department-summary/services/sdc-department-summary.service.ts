@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { emptyFn } from '@shagui/ng-shagui/core';
 import { Observable, Subject } from 'rxjs';
-import { emptyFn } from 'src/app/core/lib';
 import { ValueType } from 'src/app/core/models/sdc';
 import { DateService } from 'src/app/core/services';
 import { AnalysisService } from 'src/app/core/services/sdc';

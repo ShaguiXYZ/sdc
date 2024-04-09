@@ -3,10 +3,10 @@ import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { TranslateModule } from '@ngx-translate/core';
+import { ContextDataService, StorageService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
 import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
 import { IAppConfigurationModel } from './core/models/sdc';
-import { ContextDataService, StorageService } from './core/services';
 import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 import { routingAnimation } from './shared/animations';
 import { SdcAppFooterComponent, SdcOverlayComponent } from './shared/components';
@@ -95,9 +95,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   // @howto: animation on route change
-  public prepareRoute(outlet: RouterOutlet) {
-    if (outlet.isActivated) return outlet.activatedRouteData?.['animation'];
-  }
+  public prepareRoute = (outlet: RouterOutlet) => outlet.isActivated && outlet.activatedRouteData?.['animation'];
 
   public onClick(event: any) {
     this.overlayService.defaultOverlayState();

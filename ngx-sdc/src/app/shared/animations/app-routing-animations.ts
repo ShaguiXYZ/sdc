@@ -1,7 +1,7 @@
-import { animate, animateChild, group, query, style, transition, trigger } from '@angular/animations';
+import { AnimationMetadata, animate, animateChild, group, query, style, transition, trigger } from '@angular/animations';
 import { AppUrls } from '../config/routing';
 
-const horizontalSlideTo = (direction: 'left' | 'right') => {
+const horizontalSlideTo = (direction: 'left' | 'right'): AnimationMetadata[] => {
   const optional = { optional: true };
 
   return [
@@ -27,7 +27,7 @@ const horizontalSlideTo = (direction: 'left' | 'right') => {
   ];
 };
 
-const animationFade = [
+const animationFade: AnimationMetadata[] = [
   query(
     ':enter',
     [

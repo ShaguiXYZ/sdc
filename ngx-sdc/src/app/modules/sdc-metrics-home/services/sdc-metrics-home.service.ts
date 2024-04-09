@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { ContextDataService, HttpStatus, emptyFn } from '@shagui/ng-shagui/core';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { _console, emptyFn } from 'src/app/core/lib';
 import { IMetricAnalysisModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
-import { ContextDataService, DateService, HttpStatus, SecurityService } from 'src/app/core/services';
+import { DateService, SecurityService } from 'src/app/core/services';
 import { AnalysisService, ComponentService, DepartmentService, SquadService, TagService } from 'src/app/core/services/sdc';
 import { SdcOverlayService } from 'src/app/shared/components/sdc-overlay/services';
 import { ContextDataInfo, LANGUAGE_DISTIBUTION_METRIC } from 'src/app/shared/constants';
@@ -78,7 +78,7 @@ export class SdcMetricsHomeService implements OnDestroy {
         this.metricData.historical = historical;
         this.data$.next(this.metricData);
       })
-      .catch(_console.error);
+      .catch(console.error);
   }
 
   public analyze = (): void => {
@@ -103,12 +103,12 @@ export class SdcMetricsHomeService implements OnDestroy {
 
               this.historicalComponentData();
             })
-            .catch(_console.error);
+            .catch(console.error);
         }
 
         this.loadTags().then(() => this.data$.next(this.metricData));
       })
-      .catch(_console.error);
+      .catch(console.error);
   };
 
   public addTag(tag: ITagModel): void {

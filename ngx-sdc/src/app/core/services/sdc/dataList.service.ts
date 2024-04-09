@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { HttpService } from '@shagui/ng-shagui/core';
 import { Observable, firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CacheService, HttpService } from '..';
 import { XXL_EXPIRATON_TIME, _DATA_LIST_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class DataListService {
   private _urlDataLists = `${environment.baseUrl}/api`;
+
+  constructor(private readonly http: HttpService) {}
 
   public availableDataLists(): Promise<string[]> {
     return firstValueFrom(
@@ -17,7 +19,6 @@ export class DataListService {
         .pipe(map(res => res as string[]))
     );
   }
-  constructor(private cache: CacheService, private http: HttpService) {}
 
   public dataListValues(key: string): Observable<string[]> {
     return this.http

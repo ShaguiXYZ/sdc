@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { DataInfo } from '@shagui/ng-shagui/core';
 import { EChartsOption } from 'echarts';
-import { DataInfo } from 'src/app/core/models';
 import { legendPosition } from '../lib';
 import { ChartConfig, ChartData, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';

@@ -20,9 +20,7 @@ import com.shagui.sdc.api.dto.security.UserDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Configuration
 @ConfigurationProperties(prefix = "rest.security")
 public class SecurityProperties {
@@ -31,8 +29,7 @@ public class SecurityProperties {
 	@Getter()
 	@Setter()
 	private boolean enabled;
-	@Getter()
-	private List<ApiMatcher> apiMatcher = new ArrayList<>();
+
 	@Getter()
 	@Setter()
 	private CorsConfiguration cors;
@@ -49,8 +46,6 @@ public class SecurityProperties {
 	}
 
 	public void setApiMatcher(List<ApiMatcher> apiMatcher) {
-		this.apiMatcher = apiMatcher;
-
 		this.publicApis = apiMatcher.stream()
 				.filter(ApiMatcher::isPublic)
 				.map(ApiMatcher::getApi)
@@ -71,7 +66,6 @@ public class SecurityProperties {
 	}
 
 	public CorsConfiguration getCorsConfiguration() {
-		log.debug("getCorsConfiguration");
 		return cors;
 	}
 

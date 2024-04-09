@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { NxCardModule } from '@aposin/ng-aquila/card';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxInputModule } from '@aposin/ng-aquila/input';
+import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { SdcCoverageInfoComponent } from '../sdc-coverage-info';
-import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 
 @Component({
   selector: 'sdc-coverages',

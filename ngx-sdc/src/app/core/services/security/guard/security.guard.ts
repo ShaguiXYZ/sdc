@@ -1,7 +1,7 @@
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { CONTEXT_SECURITY_KEY, ISecurityModel, SecurityService } from '../..';
-import { ContextConfig, ContextDataService, NX_CONTEX_CONFIG } from '../../context-data';
 import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { ContextConfig, ContextDataService, NX_CONTEX_CONFIG } from '@shagui/ng-shagui/core';
+import { CONTEXT_SECURITY_KEY, ISecurityModel, SecurityService } from '../..';
 
 export const authGuard = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const contextData: ContextDataService = inject(ContextDataService);

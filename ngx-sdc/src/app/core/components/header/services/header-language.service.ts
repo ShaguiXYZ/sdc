@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { ButtonConfig } from '@shagui/ng-shagui/core';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { ButtonConfig } from 'src/app/core/models';
 import { LanguageService } from 'src/app/core/services';
 import { ILanguageHeader } from '../models';
 

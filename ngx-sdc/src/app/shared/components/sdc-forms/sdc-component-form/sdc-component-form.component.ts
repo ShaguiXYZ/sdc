@@ -8,8 +8,8 @@ import { NxCardModule } from '@aposin/ng-aquila/card';
 import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
 import { NxInputModule } from '@aposin/ng-aquila/input';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, Subscription, of } from 'rxjs';
-import { emptyFn } from 'src/app/core/lib';
+import { emptyFn } from '@shagui/ng-shagui/core';
+import { Observable, Subscription } from 'rxjs';
 import { ComponentFormService } from './services';
 
 @Component({

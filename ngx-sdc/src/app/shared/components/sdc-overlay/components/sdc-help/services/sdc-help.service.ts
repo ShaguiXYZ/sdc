@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { DataInfo } from '@shagui/ng-shagui/core';
 import { Subject, Subscription, filter } from 'rxjs';
-import { DataInfo } from 'src/app/core/models';
 import { LanguageService } from 'src/app/core/services';
 import { SdcHelpEntry } from '../constants';
 import { SdcHelpConfig, SdcHelpEntryModel, SdcHelpModel } from '../models';

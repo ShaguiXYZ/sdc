@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ContextDataService, filterBy } from '@shagui/ng-shagui/core';
 import { Observable, Subject } from 'rxjs';
-import { _console, filterBy } from 'src/app/core/lib';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
-import { ContextDataService } from 'src/app/core/services';
 import { DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcDepartmentsContextData } from 'src/app/shared/models';
@@ -43,7 +42,7 @@ export class SdcDepartmentsService {
 
         this.data$.next({ department, departments, departmentFilter: filter });
       })
-      .catch(_console.error);
+      .catch(console.error);
   }
 
   public availableSquads(department: IDepartmentModel, filter?: string): void {
@@ -58,7 +57,7 @@ export class SdcDepartmentsService {
 
         this.data$.next({ department, squads, squadsInView, squadFilter: filter });
       })
-      .catch(_console.error);
+      .catch(console.error);
   }
 
   public loadData(): void {

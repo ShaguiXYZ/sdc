@@ -1,21 +1,20 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CacheService, DataInfo, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { hasValue } from '../../lib';
 import { IPageable, ITagDTO, ITagModel } from '../../models/sdc';
-import { CacheService } from '../context-data';
-import { HttpService, HttpStatus } from '../http';
 import { XS_EXPIRATON_TIME, _TAGS_CACHE_ID_ } from './constants';
-import { DataInfo } from '../../models';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
   private _urlTags = `${environment.baseUrl}/api`;
 
   constructor(
-    private cache: CacheService,
-    private http: HttpService
+    private readonly cache: CacheService,
+    private readonly http: HttpService,
+    private readonly translate: TranslateService
   ) {}
 
   public tags(page?: number, ps?: number): Promise<IPageable<ITagModel>> {
@@ -34,7 +33,7 @@ export class TagService {
         .get<IPageable<ITagDTO>>(`${this._urlTags}/tags`, {
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.TagNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.TagNotFound') }
           },
           cache: { id: _TAGS_CACHE_ID_, ttl: XS_EXPIRATON_TIME }
         })
@@ -57,7 +56,7 @@ export class TagService {
       this.http
         .get<IPageable<ITagDTO>>(`${this._urlTags}/tags/component/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.TagNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.TagNotFound') }
           }
         })
         .pipe(
@@ -79,10 +78,10 @@ export class TagService {
       this.http
         .post<ITagDTO, any>(`${this._urlTags}/tag/create/${componentId}/${name}`, undefined, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Error.404' },
-            [HttpStatus.unauthorized]: { text: 'Error.401', fn: onError?.[HttpStatus.unauthorized] }
+            [HttpStatus.notFound]: { text: this.translate.instant('Error.404') },
+            [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
           },
-          successMessage: { text: 'Notifications.TagAdded' }
+          successMessage: { text: this.translate.instant('Notifications.TagAdded') }
         })
         .pipe(map(res => ITagModel.fromDTO(res as ITagDTO)))
     );
@@ -93,10 +92,10 @@ export class TagService {
       this.http
         .delete(`${this._urlTags}/tag/delete/${componentId}/${name}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.TagError' },
-            [HttpStatus.unauthorized]: { text: 'Error.401', fn: onError?.[HttpStatus.unauthorized] }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.TagError') },
+            [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
           },
-          successMessage: { text: 'Notifications.TagRemoved' }
+          successMessage: { text: this.translate.instant('Notifications.TagRemoved') }
         })
         .pipe(map(res => res as void))
     );

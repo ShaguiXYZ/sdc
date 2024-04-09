@@ -3,13 +3,12 @@ import { Observable, Subject, firstValueFrom } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SecurityError } from '../../errors';
-import { ContextDataService } from '../context-data/context-data.service';
-import { HttpService, HttpStatus } from '../http';
 import { CONTEXT_SECURITY_KEY } from './constants';
 import { ISecurityModel, ISessionDTO, ISessionModel, IUserDTO, IUserModel } from './models';
 
+import { ContextDataService, HttpService, HttpStatus } from '@shagui/ng-shagui/core';
 import packageInfo from 'package.json';
-import { contextStorageID } from '../context-data';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,8 @@ export class SecurityService {
 
   constructor(
     private readonly contextDataService: ContextDataService,
-    private readonly http: HttpService
+    private readonly http: HttpService,
+    private readonly translate: TranslateService
   ) {}
 
   public get session(): ISessionModel {
@@ -55,10 +55,20 @@ export class SecurityService {
   public async login(loginData: { userName: string; password: string }): Promise<ISessionModel> {
     await firstValueFrom(
       this.http
-        .post<ISessionDTO, { resource: string; userName: string; password: string }>(`${this._urlSecurity}/login`, {
-          ...loginData,
-          resource: packageInfo.name
-        })
+        .post<ISessionDTO, { resource: string; userName: string; password: string }>(
+          `${this._urlSecurity}/login`,
+          {
+            ...loginData,
+            resource: packageInfo.name
+          },
+          {
+            procesingMessage: { text: this.translate.instant('Notifications.LoginProcessing') },
+            successMessage: {
+              title: this.translate.instant('Notifications.LoginSuccess'),
+              text: this.translate.instant('Notifications.LoginSuccess')
+            }
+          }
+        )
         .pipe(
           map(session => {
             this.session = ISessionModel.fromDTO(session as ISessionDTO);
@@ -100,20 +110,20 @@ export class SecurityService {
   }
 
   private getSecurityInfo(): ISecurityModel {
-    const data = localStorage.getItem(contextStorageID);
+    const data = localStorage.getItem(CONTEXT_SECURITY_KEY);
 
     return data && JSON.parse(data); // this.contextDataService.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
   }
 
   private setSecurityInfo(securityInfo: ISecurityModel): void {
-    localStorage.setItem(contextStorageID, JSON.stringify(securityInfo));
+    localStorage.setItem(CONTEXT_SECURITY_KEY, JSON.stringify(securityInfo));
     this.contextDataService.set<ISecurityModel>(CONTEXT_SECURITY_KEY, securityInfo, { persistent: true });
 
     this._SignInSignOut$.next(securityInfo);
   }
 
   private removeSecurityInfo = (): void => {
-    localStorage.removeItem(contextStorageID);
+    localStorage.removeItem(CONTEXT_SECURITY_KEY);
     this.contextDataService.delete(CONTEXT_SECURITY_KEY);
   };
 }

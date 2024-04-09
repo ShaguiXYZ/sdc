@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DataInfo } from '@shagui/ng-shagui/core';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { DataInfo } from 'src/app/core/models';
 import { ChartSize, SdcChartSize } from './models';
 
 @Component({

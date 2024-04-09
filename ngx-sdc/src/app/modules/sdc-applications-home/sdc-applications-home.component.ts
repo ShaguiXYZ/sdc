@@ -6,19 +6,18 @@ import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
 import { NxInputModule } from '@aposin/ng-aquila/input';
 import { IPaginationTexts, NX_PAGINATION_TEXTS, NxPaginationModule } from '@aposin/ng-aquila/pagination';
 import { NxRadioToggleModule } from '@aposin/ng-aquila/radio-toggle';
+import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { ContextDataService, hasValue } from '@shagui/ng-shagui/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
-import { hasValue } from 'src/app/core/lib';
 import { IAppConfigurationModel, IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
-import { ContextDataService } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import { SdcComplianceBarCardsComponent, SdcTagComponent } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { MetricStates } from 'src/app/shared/lib';
 import { SdcApplicationsDataModel } from './models';
 import { SdcApplicationsHomeService } from './services';
-import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 
 const myPaginationTexts: Partial<IPaginationTexts> = {
   ofLabel: 'of'

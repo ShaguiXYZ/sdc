@@ -1,22 +1,21 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CacheService, DataInfo, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
-import { CacheService, HttpService } from '..';
-import { hasValue } from '../../lib';
 import { AnalysisType, ICoverageModel, IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
-import { HttpStatus } from '../http';
 import { L_EXPIRATON_TIME, XL_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
-import { DataInfo } from '../../models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {
   private _urlAnalysis = `${environment.baseUrl}/api/analysis`;
 
   constructor(
-    private cache: CacheService,
-    private http: HttpService
+    private readonly cache: CacheService,
+    private readonly http: HttpService,
+    private readonly translate: TranslateService
   ) {}
 
   public componentAnalysis(componentId: number): Promise<IPageable<IMetricAnalysisModel>> {
@@ -24,7 +23,7 @@ export class AnalysisService {
       this.http
         .get<IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/get/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.AnalysisNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.AnalysisNotFound') }
           },
           cache: { id: this.analysisCacheId(componentId), ttl: L_EXPIRATON_TIME }
         })
@@ -47,7 +46,7 @@ export class AnalysisService {
       this.http
         .get<IMetricAnalysisDTO>(`${this._urlAnalysis}/get/${componentId}/${metricId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.AnalysisNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.AnalysisNotFound') }
           },
           cache: { id: this.analysisCacheId(componentId, metricId), ttl: L_EXPIRATON_TIME }
         })
@@ -78,7 +77,7 @@ export class AnalysisService {
         .get<IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}/${metricId}`, {
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Notifications.MetricAbalysisNotFound' }
+            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.MetricAbalysisNotFound') }
           },
           cache: { id: this.historyCacheId(componentId, metricId), ttl: L_EXPIRATON_TIME }
         })
@@ -147,11 +146,11 @@ export class AnalysisService {
       this.http
         .post<IPageable<IMetricAnalysisDTO>, any>(`${this._urlAnalysis}/${componentId}`, undefined, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: 'Error.404' },
-            [HttpStatus.locked]: { text: 'Error.423', fn: onError?.[HttpStatus.locked] },
-            [HttpStatus.unauthorized]: { text: 'Error.401', fn: onError?.[HttpStatus.unauthorized] }
+            [HttpStatus.notFound]: { text: this.translate.instant('Error.404') },
+            [HttpStatus.locked]: { text: this.translate.instant('Error.423'), fn: onError?.[HttpStatus.locked] },
+            [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
           },
-          successMessage: { text: 'Notifications.ComponentAnalized' }
+          successMessage: { text: this.translate.instant('Notifications.ComponentAnalized') }
         })
         .pipe(
           map(res => {
