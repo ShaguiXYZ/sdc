@@ -29,11 +29,25 @@
 .search-options {
   display: flex;
   flex-wrap: wrap;
+  padding-top: 10px;
+
+  .nx-formfield ::ng-deep .nx-formfield__wrapper {
+    padding: 0;
+  }
 
   .search-left {
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
+  }
+
+  .search-right {
+    display: flex;
+
+    .reset-form {
+      display: flex;
+      margin-left: 25px;
+    }
   }
 
   #component-name {

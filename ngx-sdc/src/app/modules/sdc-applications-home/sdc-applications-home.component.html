@@ -75,6 +75,10 @@
             <em class="fa-solid fa-magnifying-glass"></em>
           </span>
         </nx-formfield>
+
+        <div class="sdc-op reset-form nx-formfield__wrapper" (click)="resetFilter()">
+          <em class="fa-solid fa-filter-circle-xmark fa-xl" [nxTooltip]="'Tooltip.ClearSearchForm' | translate"></em>
+        </div>
       </div>
     </div>
   </form>

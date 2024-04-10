@@ -122,6 +122,7 @@
     "Unauthorized": "Unauthorized"
   },
   "Tooltip": {
+    "ClearSearchForm": "Clear search form",
     "RunProcess": "Analize {{name}}"
   }
 }

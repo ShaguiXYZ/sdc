@@ -122,6 +122,7 @@
     "Unauthorized": "No autorizado"
   },
   "Tooltip": {
+    "ClearSearchForm": "Limpiar formulario de búsqueda",
     "RunProcess": "Analiza {{name}}"
   }
 }

@@ -139,6 +139,17 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  public resetFilter(): void {
+    this.form.reset();
+
+    this.applicationsService.populateData({
+      metricState: this.form.controls['coverage'].value,
+      name: this.form.controls['name'].value,
+      squad: this.form.controls['squadId'].value,
+      tags: this.form.controls['tags'].value
+    });
+  }
+
   public prevPage(): void {
     if (this.applicationsInfo) {
       this.applicationsInfo.paging.pageIndex--;
