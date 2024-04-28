@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -27,6 +28,7 @@ import com.shagui.sdc.api.dto.ebs.ComponentPropertyInput;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.json.StaticRepository;
+import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
@@ -149,7 +151,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	private void maintainComponentProperties(List<ComponentPropertyInput> properties, ComponentModel component) {
 		Map<String, ComponentPropertyModel> propertyMap = component.getProperties().stream()
 				.collect(Collectors.toMap(ComponentPropertyModel::getName, Function.identity(), (data1, data2) -> {
-					log.warn("duplicate key founf!");
+					log.warn("duplicate key found!");
 					return data2;
 				}));
 
@@ -186,9 +188,16 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	private Consumer<String> saveUriComponent(ComponentModel component) {
 		return (String uri) -> {
-			if (StaticRepository.uris().stream().noneMatch(model -> model.getName().equals(uri))) {
-				throw new SdcCustomException("Not %s uri present!!!".formatted(uri));
-			}
+			UriModel staticUriModel = StaticRepository.uris().stream().filter(model -> model.getName().equals(uri))
+					.findFirst().orElseThrow(() -> new SdcCustomException("Not %s uri present!!!".formatted(uri)));
+
+			Optional<ComponentUriModel> componentUriModelByType = component.getUris().stream()
+					.filter(componentUri -> StaticRepository.uris().stream()
+							.anyMatch(staticUri -> staticUri.getName().equals(componentUri.getId().getUriName())
+									&& staticUri.getType().equals(staticUriModel.getType())))
+					.findFirst();
+
+			componentUriModelByType.ifPresent(affectedUri -> component.getUris().remove(affectedUri));
 
 			ComponentUriModel uriModel = new ComponentUriModel();
 			uriModel.setId(new ComponentUriPk(component.getId(), uri));
