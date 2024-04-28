@@ -144,7 +144,7 @@ export class AnalysisService {
   public analize(componentId: number, onError?: DataInfo<(error: any) => void>): Promise<IPageable<IMetricAnalysisModel>> {
     return firstValueFrom(
       this.http
-        .post<IPageable<IMetricAnalysisDTO>, any>(`${this._urlAnalysis}/${componentId}`, undefined, {
+        .post<undefined, IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}`, undefined, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Error.404') },
             [HttpStatus.locked]: { text: this.translate.instant('Error.423'), fn: onError?.[HttpStatus.locked] },

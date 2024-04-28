@@ -55,7 +55,7 @@ export class SecurityService {
   public async login(loginData: { userName: string; password: string }): Promise<ISessionModel> {
     await firstValueFrom(
       this.http
-        .post<ISessionDTO, { resource: string; userName: string; password: string }>(
+        .post<{ resource: string; userName: string; password: string }, ISessionDTO>(
           `${this._urlSecurity}/login`,
           {
             ...loginData,
@@ -90,7 +90,7 @@ export class SecurityService {
     if (this.getSecurityInfo()) {
       return firstValueFrom(
         this.http
-          ._put<ISessionDTO>(`${this._urlSecurity}/logout`, undefined, {
+          .put<ISessionDTO>(`${this._urlSecurity}/logout`, undefined, {
             responseStatusMessage: {
               [HttpStatus.unauthorized]: { fn: this.forceLogout }
             }
