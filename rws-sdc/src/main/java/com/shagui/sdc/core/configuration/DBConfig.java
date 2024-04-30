@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-//@Configuration
+// @Configuration
 @ConditionalOnProperty(name = { "spring.datasource.url", "spring.datasource.username",
 		"spring.datasource.driverClassName", "spring.jpa.properties.hibernate.dialect" })
 @EnableJpaRepositories(basePackages = "com.shagui.sdc.repository")
@@ -32,7 +32,7 @@ public class DBConfig {
 	@Value("${spring.datasource.username}")
 	private String dbUser;
 
-	@Value("${spring.datasource.password:}")
+	@Value("${spring.datasource.password:null}")
 	private String dbPassword;
 
 	@Value("${spring.datasource.driverClassName}")
