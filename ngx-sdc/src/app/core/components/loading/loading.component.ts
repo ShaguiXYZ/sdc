@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
-import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
 import { LoadingService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
 
@@ -10,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./loading.component.scss'],
   templateUrl: './loading.component.html',
   standalone: true,
-  imports: [CommonModule, NxModalModule, NxSpinnerModule]
+  imports: [CommonModule, NxModalModule]
 })
 export class LoadingComponent implements OnInit, OnDestroy {
   @ViewChild('loadingBody')
