@@ -43,7 +43,7 @@ class SonarServiceImplTest {
 		ReflectUtils.invoke(StaticRepository.class, "setConfig", staticRepositoryConfig);
 		ReflectUtils.invoke(UrlUtils.class, "setConfig", RwsTestUtils.urlUtilsConfig());
 
-		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>() {
+		when(staticRepositoryConfig.uris().values()).thenReturn(new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
 
 			{

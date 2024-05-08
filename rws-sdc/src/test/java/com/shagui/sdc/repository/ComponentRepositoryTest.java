@@ -26,6 +26,7 @@ import com.shagui.sdc.test.utils.RwsTestUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
+@SuppressWarnings("removal")
 @ExtendWith(MockitoExtension.class)
 class ComponentRepositoryTest {
 
@@ -56,7 +57,7 @@ class ComponentRepositoryTest {
 	@Test
 	void filterTest() {
 		when(query.setParameter(anyString(), any())).thenReturn(query);
-		
+
 		doCallRealMethod().when(componentRepository).filter(any(EntityManager.class), anyString(),
 				any(SquadModel.class), any(Range.class));
 		Page<ComponentModel> page = componentRepository.filter(em, "to find", RwsTestUtils.squadModelMock(),
@@ -69,7 +70,7 @@ class ComponentRepositoryTest {
 	void filterPageableTest() {
 		when(query.setParameter(anyString(), any())).thenReturn(query);
 		when(query.getSingleResult()).thenReturn(0l);
-		
+
 		doCallRealMethod().when(componentRepository).filter(any(EntityManager.class), anyString(),
 				any(SquadModel.class), any(Range.class), any(Pageable.class));
 		Page<ComponentModel> page = componentRepository.filter(em, "to find", RwsTestUtils.squadModelMock(),

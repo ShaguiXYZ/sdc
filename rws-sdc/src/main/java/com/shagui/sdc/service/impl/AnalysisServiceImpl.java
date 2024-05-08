@@ -144,12 +144,10 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	private Stream<ComponentAnalysisModel> executeAsyncMetricServicesAndWait(ComponentModel component) {
+		String workflowId = HttpServletRequestUtils.getWorkfowIdHeader();
 		Set<AnalysisType> metricTypes = component.getComponentTypeArchitecture().getMetrics().stream()
 				.map(MetricModel::getType).collect(Collectors.toSet());
-
 		List<ComponentAnalysisModel> toSave = new ArrayList<>();
-
-		String workflowId = HttpServletRequestUtils.getWorkfowIdHeader();
 
 		metricTypes.parallelStream().forEach(type -> {
 			try {

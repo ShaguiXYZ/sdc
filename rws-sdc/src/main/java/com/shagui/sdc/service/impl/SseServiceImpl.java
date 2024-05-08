@@ -3,12 +3,12 @@ package com.shagui.sdc.service.impl;
 import java.time.Duration;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.shagui.sdc.api.dto.sse.EventFactory;
 import com.shagui.sdc.api.dto.sse.EventType;
 import com.shagui.sdc.service.SseService;
 
-import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
@@ -40,7 +40,7 @@ public class SseServiceImpl implements SseService {
     @Override
     public void emitError(EventFactory.EventDTO event) {
         if (event != null && EventType.ERROR.equals(event.getType())) {
-            if (StringUtils.isNotBlank(event.getWorkflowId())) {
+            if (StringUtils.hasText(event.getWorkflowId())) {
                 this.sink.tryEmitNext(event);
             }
 

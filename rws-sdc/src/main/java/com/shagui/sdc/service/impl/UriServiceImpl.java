@@ -12,6 +12,6 @@ import com.shagui.sdc.service.UriService;
 public class UriServiceImpl implements UriService {
 	@Override
 	public List<UriModel> availables() {
-		return StaticRepository.uris();
+		return StaticRepository.uris().values().stream().toList();
 	}
 }

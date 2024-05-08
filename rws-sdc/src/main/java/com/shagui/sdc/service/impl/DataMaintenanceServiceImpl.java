@@ -53,6 +53,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Value("classpath:data/departments-squads.json")
 	private Resource jsonDepartmentsSquads;
 
+	private final DataMaintenanceService self;
 	private final ObjectMapper mapper;
 	private final ResourceLoader resourceLoader;
 	private JpaCommonRepository<ComponentRepository, ComponentModel, Integer> componentRepository;
@@ -61,7 +62,8 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	private JpaCommonRepository<DepartmentRepository, DepartmentModel, Integer> departmentRepository;
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
 
-	public DataMaintenanceServiceImpl(ObjectMapper mapper, ResourceLoader resourceLoader,
+	public DataMaintenanceServiceImpl(ObjectMapper mapper,
+			ResourceLoader resourceLoader,
 			final ComponentRepository componentRepository,
 			final ComponentUriRepository componentUriRepository, SquadRepository squadRepository,
 			final DepartmentRepository departmentRepository,
@@ -73,6 +75,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 		this.squadRepository = () -> squadRepository;
 		this.departmentRepository = () -> departmentRepository;
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
+		this.self = this;
 	}
 
 	@Transactional
@@ -82,7 +85,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 			InputStream is = jsonDepartmentsSquads.getInputStream();
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
 
-			return departmentsUpdateData(Arrays.asList(input));
+			return self.departmentsUpdateData(Arrays.asList(input));
 		} catch (IOException e) {
 			throw new SdcCustomException("Error reading departments", e);
 		}
@@ -97,7 +100,6 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 			InputStream is = resource.getInputStream();
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
 
-			DataMaintenanceService self = this; // Create a reference to 'this'
 			return self.departmentsUpdateData(Arrays.asList(input)); // Call the transactional method via the reference
 		} catch (IOException e) {
 			throw new SdcCustomException("Error reading departments", e);
@@ -120,7 +122,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Transactional
 	@Override
 	public List<DepartmentDTO> departmentsUpdateData(List<DepartmentInput> departments) {
-		return departments.stream().map(this::departmentUpdateData).toList();
+		return departments.stream().map(self::departmentUpdateData).toList();
 	}
 
 	@Transactional
@@ -155,18 +157,15 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 					return data2;
 				}));
 
-		properties.forEach(input -> {
-			if (input.isToDelete()) {
-				propertyMap.remove(input.getName());
-			} else {
-				propertyMap.merge(input.getName(),
-						new ComponentPropertyModel(component, input.getName(), input.getValue()),
-						(oldValue, newValue) -> {
-							oldValue.setValue(newValue.getValue());
-							return oldValue;
-						});
-			}
-		});
+		properties.stream().filter(ComponentPropertyInput::isToDelete)
+				.forEach(property -> propertyMap.remove(property.getName()));
+
+		properties.forEach(input -> propertyMap.merge(input.getName(),
+				new ComponentPropertyModel(component, input.getName(), input.getValue()),
+				(oldValue, newValue) -> {
+					oldValue.setValue(newValue.getValue());
+					return oldValue;
+				}));
 
 		component.getProperties().clear();
 		component.getProperties().addAll(new ArrayList<>(propertyMap.values()));
@@ -188,28 +187,31 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 
 	private Consumer<String> saveUriComponent(ComponentModel component) {
 		return (String uri) -> {
-			UriModel staticUriModel = StaticRepository.uris().stream().filter(model -> model.getName().equals(uri))
-					.findFirst().orElseThrow(() -> new SdcCustomException("Not %s uri present!!!".formatted(uri)));
+			UriModel staticUriModel = Optional.ofNullable(StaticRepository.uris().get(uri))
+					.orElseThrow(() -> new SdcCustomException("Not %s uri present!!!".formatted(uri)));
 
-			Optional<ComponentUriModel> componentUriModelByType = component.getUris().stream()
-					.filter(componentUri -> StaticRepository.uris().stream()
-							.anyMatch(staticUri -> staticUri.getName().equals(componentUri.getId().getUriName())
-									&& staticUri.getType().equals(staticUriModel.getType())))
-					.findFirst();
-
-			componentUriModelByType.ifPresent(affectedUri -> component.getUris().remove(affectedUri));
+			List<ComponentUriModel> uris = component.getUris().stream()
+					.filter(componentUri -> !componentUri.getId().getUriName().equals(uri))
+					.filter(componentUri -> null == staticUriModel.getType()
+							|| StaticRepository.uris().values().stream()
+									.noneMatch(staticUri -> staticUri.getType().equals(staticUriModel.getType())
+											&& staticUri.getName().equals(componentUri.getId().getUriName())))
+					.toList();
 
 			ComponentUriModel uriModel = new ComponentUriModel();
 			uriModel.setId(new ComponentUriPk(component.getId(), uri));
 			uriModel.setComponent(component);
 
-			component.getUris().add(componentUriRepository.save(uriModel));
+			uris.add(componentUriRepository.save(uriModel));
+
+			component.getUris().clear();
+			component.getUris().addAll(uris);
 		};
 	}
 
 	private Supplier<JpaNotFoundException> componentTypeArchitectureNotFound(ComponentInput data) {
 		return () -> new JpaNotFoundException(String.format(
-				"ComponentType: [%s], Architecture: [%s], DeploymentType:  [%s], Language: [%s], Network: [%s], Platform: [%s]  Not found for component '%s'",
+				"ComponentType: [%s], Architecture: [%s], DeploymentType: [%s], Language: [%s], Network: [%s], Platform: [%s]  Not found for component '%s'",
 				data.getComponentType(), data.getArchitecture(), data.getDeploymentType(),
 				data.getLanguage(), data.getNetwork(), data.getPlatform(), data.getName()));
 	}

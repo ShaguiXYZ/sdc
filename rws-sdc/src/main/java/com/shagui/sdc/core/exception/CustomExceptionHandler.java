@@ -38,7 +38,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 		sseService.emitError(EventFactory.event(workflowId, ex));
 
-		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(),
+		ApiError apiError = new ApiError(ex.getHttpStatus(), ex.getMessage(),
 				ExceptionCodes.DEFAULT_EXCEPTION_CODE);
 		return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
 	}

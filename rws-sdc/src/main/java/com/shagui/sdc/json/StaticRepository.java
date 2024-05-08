@@ -2,6 +2,7 @@ package com.shagui.sdc.json;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.shagui.sdc.json.model.ComponentParamsModel;
 import com.shagui.sdc.json.model.DataListModel;
@@ -19,7 +20,7 @@ public class StaticRepository {
 		StaticRepository.config = config;
 	}
 
-	public static List<UriModel> uris() {
+	public static Map<String, UriModel> uris() {
 		return config.uris();
 	}
 

@@ -46,7 +46,7 @@ class GitServiceImplTest {
 		MockitoAnnotations.openMocks(this);
 		gitService = new GitServiceImpl(sseService);
 
-		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>());
+		when(staticRepositoryConfig.uris().values()).thenReturn(new ArrayList<>());
 		when(staticRepositoryConfig.datalists()).thenReturn(new ArrayList<>());
 		when(staticRepositoryConfig.componentParams()).thenReturn(new ArrayList<>());
 

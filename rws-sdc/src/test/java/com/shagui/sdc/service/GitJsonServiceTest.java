@@ -70,7 +70,7 @@ class GitJsonServiceTest {
 		GitDocumentService
 				.setConfig(new GitDocumentServiceConfig(sseService, componentTypeArchitectureMetricPropertiesRep));
 
-		when(staticRepositoryConfig.uris()).thenReturn(new ArrayList<>() {
+		when(staticRepositoryConfig.uris().values()).thenReturn(new ArrayList<>() {
 			private static final long serialVersionUID = 1L;
 
 			{

@@ -38,6 +38,7 @@ import com.shagui.sdc.repository.TagRepository;
 import com.shagui.sdc.service.impl.ComponentServiceImpl;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
+@SuppressWarnings("removal")
 class ComponentServiceImplTest {
 
 	@InjectMocks

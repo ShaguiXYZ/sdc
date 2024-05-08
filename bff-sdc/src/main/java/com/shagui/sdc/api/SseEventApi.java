@@ -18,5 +18,6 @@ import reactor.core.publisher.Flux;
 @RequestMapping(path = { "/api" }, produces = { MediaType.TEXT_EVENT_STREAM_VALUE })
 public interface SseEventApi {
     @GetMapping(value = "/events/{workflowId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    Flux<EventDTO> getEvents(@PathVariable String workflowId, @RequestParam(required = false) List<EventType> types);
+    Flux<EventDTO> getEvents(@PathVariable(required = true) String workflowId,
+            @RequestParam(required = false) List<EventType> types);
 }

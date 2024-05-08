@@ -60,7 +60,7 @@ public class DictioraryReplacement {
 					} else {
 						if (strict) {
 							throw new SdcCustomException(
-                                    "[STRICT] Not key '%s' found in repository".formatted(key));
+									"[STRICT] Not key '%s' found in repository".formatted(key));
 						}
 
 						log.debug("Not key '{}' found in repository", key);
@@ -76,15 +76,15 @@ public class DictioraryReplacement {
 		}
 	}
 
-	public static Optional<String> value(String key) {
-		return value(null, key);
-	}
-
 	public static Optional<String> fn(String value) {
 		Pattern p = Pattern.compile("(?<=\\#)([\\w]*)(?=\\{)");
 		Matcher m = p.matcher(value);
 
 		return m.find() ? Optional.of(m.group().trim()) : Optional.empty();
+	}
+
+	public static Optional<String> value(String key) {
+		return value(null, key);
 	}
 
 	public static Optional<String> value(String fn, String key, Character... chars) {

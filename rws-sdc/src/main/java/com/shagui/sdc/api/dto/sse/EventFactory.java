@@ -7,6 +7,7 @@ import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 public class EventFactory {
@@ -30,14 +31,14 @@ public class EventFactory {
         private long date;
         private Reference reference;
 
-        private EventDTO(String workflowId, EventType type, String mesage) {
+        private EventDTO(@NotNull String workflowId, EventType type, String mesage) {
             this.type = type;
             this.message = mesage;
             this.workflowId = workflowId;
             this.date = (new Date()).getTime();
         }
 
-        private EventDTO(String workflowId, SdcCustomException exception) {
+        private EventDTO(@NotNull String workflowId, @NotNull SdcCustomException exception) {
             this(workflowId, EventType.ERROR, exception.getMessage());
             this.reference = exception.getReference();
         }

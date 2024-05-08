@@ -17,6 +17,6 @@ public class PageData<T> {
 	}
 
 	public static <T> PageData<T> empty() {
-		return new PageData<>(new PageInfo(0, 0, 0, 0), List.of());
+		return new PageData<>(PageInfo.empty(), List.of());
 	}
 }

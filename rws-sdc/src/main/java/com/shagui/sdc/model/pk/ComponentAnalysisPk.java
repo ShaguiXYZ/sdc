@@ -3,20 +3,17 @@ package com.shagui.sdc.model.pk;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-
-import org.hibernate.annotations.CreationTimestamp;
-
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable

@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.shagui.sdc.core.exception.SdcCustomException;
@@ -16,7 +17,6 @@ import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.model.RequestPropertiesModel;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.model.ComponentUriModel;
 
 import feign.Response;
 
@@ -100,11 +100,11 @@ public class UrlUtils {
 	}
 
 	private static Optional<UriModel> uriModel(ComponentModel component, UriType type) {
-		List<UriModel> uris = new ArrayList<>(StaticRepository.uris());
-		List<ComponentUriModel> componentUris = new ArrayList<>(component.getUris());
+		Stream<Entry<String, UriModel>> uris = StaticRepository.uris().entrySet().stream()
+				.filter(entry -> entry.getValue().getType().equals(type));
 
-		return uris.stream().filter(uri -> type.equals(uri.getType()))
-				.filter(uri -> componentUris.stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName())))
+		return uris.map(Entry::getValue)
+				.filter(uri -> component.getUris().stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName())))
 				.findFirst();
 	}
 }

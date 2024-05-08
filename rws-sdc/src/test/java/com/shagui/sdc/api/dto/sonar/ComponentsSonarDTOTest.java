@@ -13,7 +13,7 @@ class ComponentsSonarDTOTest {
     @Test
     void constructorAndSetterGetter() {
         ComponentsSonarDTO dto = new ComponentsSonarDTO();
-        PageInfo expectedPageInfo = new PageInfo(0, 0, 0, 0);
+        PageInfo expectedPageInfo = PageInfo.empty();
         List<ComponentSonarDTO> expectedComponents = new ArrayList<>();
         dto.setPaging(expectedPageInfo);
         dto.setComponents(expectedComponents);

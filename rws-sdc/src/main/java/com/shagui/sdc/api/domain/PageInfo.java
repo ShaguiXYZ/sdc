@@ -14,7 +14,11 @@ public class PageInfo {
 	private int pageSize;
 	private int pages;
 	private long elements;
-	
+
+	public static PageInfo empty() {
+		return new PageInfo(0, 0, 0, 0);
+	}
+
 	public PageInfo(Page<?> page) {
 		this.pageIndex = page.getNumber();
 		this.pageSize = page.getNumberOfElements();
