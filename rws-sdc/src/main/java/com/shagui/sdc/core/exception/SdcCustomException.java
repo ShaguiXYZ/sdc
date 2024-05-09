@@ -7,6 +7,8 @@ import com.shagui.sdc.api.domain.Reference;
 import lombok.Getter;
 
 public class SdcCustomException extends RuntimeException {
+	private static final HttpStatus DEFAULT_STATUS = HttpStatus.BAD_REQUEST;
+
 	@Getter
 	private final transient HttpStatus httpStatus;
 
@@ -14,45 +16,40 @@ public class SdcCustomException extends RuntimeException {
 	private final transient Reference reference;
 
 	public SdcCustomException(String message) {
-		this(HttpStatus.BAD_REQUEST, message);
-
+		this(DEFAULT_STATUS, message);
 	}
 
 	public SdcCustomException(HttpStatus httpStatus, String message) {
-		super(message);
-		this.reference = null;
-		this.httpStatus = httpStatus;
+		this(httpStatus, message, null, null);
 	}
 
 	public SdcCustomException(String message, Throwable cause) {
-		this(HttpStatus.BAD_REQUEST, message, cause);
-
+		this(DEFAULT_STATUS, message, cause);
 	}
 
 	public SdcCustomException(HttpStatus httpStatus, String message, Throwable cause) {
-		super(message, cause);
-		this.reference = null;
-		this.httpStatus = httpStatus;
+		this(httpStatus, message, cause, null);
 	}
 
 	public SdcCustomException(String message, Reference reference) {
-		this(HttpStatus.BAD_REQUEST, message, reference);
+		this(DEFAULT_STATUS, message, reference);
 	}
 
 	public SdcCustomException(HttpStatus httpStatus, String message, Reference reference) {
-		super(message);
-		this.reference = reference;
-		this.httpStatus = httpStatus;
+		this(httpStatus, message, null, reference);
 	}
 
 	public SdcCustomException(String message, Throwable cause, Reference reference) {
-		this(HttpStatus.BAD_REQUEST, message, cause, reference);
-
+		this(DEFAULT_STATUS, message, cause, reference);
 	}
 
 	public SdcCustomException(HttpStatus httpStatus, String message, Throwable cause, Reference reference) {
 		super(message, cause);
 		this.reference = reference;
-		this.httpStatus = httpStatus;
+		this.httpStatus = defaultHttpStatus(httpStatus);
+	}
+
+	private HttpStatus defaultHttpStatus(HttpStatus status) {
+		return status == null ? DEFAULT_STATUS : status;
 	}
 }

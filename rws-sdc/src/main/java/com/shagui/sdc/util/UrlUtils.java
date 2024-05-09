@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.springframework.http.HttpStatus;
+
 import com.fasterxml.jackson.databind.JavaType;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.UriType;
@@ -72,7 +74,7 @@ public class UrlUtils {
 		if (response.status() >= 400) {
 			response.close();
 
-			throw new SdcCustomException(
+			throw new SdcCustomException(HttpStatus.resolve(response.status()),
 					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
 		}
 
