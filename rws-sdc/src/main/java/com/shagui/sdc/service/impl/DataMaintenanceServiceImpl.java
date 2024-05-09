@@ -168,7 +168,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 				}));
 
 		component.getProperties().clear();
-		component.getProperties().addAll(new ArrayList<>(propertyMap.values()));
+		component.getProperties().addAll(propertyMap.values());
 	}
 
 	private DepartmentModel maintainDepartment(DepartmentInput data) {
@@ -202,10 +202,12 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 			uriModel.setId(new ComponentUriPk(component.getId(), uri));
 			uriModel.setComponent(component);
 
-			uris.add(componentUriRepository.save(uriModel));
+			// uris is a inmutable list, so we need to create a new list with the updated
+			List<ComponentUriModel> updatedUris = new ArrayList<>(uris);
 
+			updatedUris.add(componentUriRepository.save(uriModel));
 			component.getUris().clear();
-			component.getUris().addAll(uris);
+			component.getUris().addAll(updatedUris);
 		};
 	}
 
