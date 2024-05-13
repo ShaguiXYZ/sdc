@@ -11,7 +11,8 @@ import lombok.Setter;
 @Setter
 public class UriModel {
 	private String name;
-	private String value;
+	private String api;
+	private String url;
 	private UriType type;
 	private List<RequestPropertiesModel> properties;
 }

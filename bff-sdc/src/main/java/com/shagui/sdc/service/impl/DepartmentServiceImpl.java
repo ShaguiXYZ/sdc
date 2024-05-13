@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-	private RwsSdcClient rwsSdcClient;
+	private final RwsSdcClient rwsSdcClient;
 
 	@Override
 	public DepartmentDTO department(int departmentId) {

@@ -361,7 +361,8 @@ public class RwsTestUtils {
 	public static UriModel uriModelMock(UriType type) {
 		UriModel uri = new UriModel();
 		uri.setName("uri_name");
-		uri.setValue("");
+		uri.setApi("");
+		uri.setUrl("");
 		uri.setType(type);
 		uri.setProperties(new ArrayList<>());
 

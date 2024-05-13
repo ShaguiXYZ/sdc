@@ -1,13 +1,13 @@
 package com.shagui.sdc.controller;
 
-import java.util.List;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.UriRestApi;
-import com.shagui.sdc.enums.UriType;
-import com.shagui.sdc.json.model.UriModel;
+import com.shagui.sdc.api.domain.CastFactory;
+import com.shagui.sdc.api.view.SquadView;
+import com.shagui.sdc.api.view.UriView;
 import com.shagui.sdc.service.UriService;
+import com.shagui.sdc.util.Mapper;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -16,15 +16,10 @@ import lombok.AllArgsConstructor;
 @RestController
 @Tag(name = "uris", description = "API to maintain Uris")
 public class UriController implements UriRestApi {
-	private UriService uriService;
+    private final UriService uriService;
 
-	@Override
-	public List<UriModel> uris() {
-		return uriService.availables();
-	}
-
-	@Override
-	public UriModel componentUri(int componentId, UriType type) {
-		return uriService.componentUri(componentId, type);
-	}
+    @Override
+    public UriView componentUri(int componentId, String type) {
+        return CastFactory.getInstance(UriView.class).parse(uriService.componentUri(componentId, type));
+    }
 }

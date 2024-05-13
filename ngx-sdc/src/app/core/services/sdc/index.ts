@@ -7,3 +7,4 @@ export * from './sdc-route.service';
 export * from './squad.service';
 export * from './summary-view.service';
 export * from './tag.service';
+export * from './uri.service';

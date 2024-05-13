@@ -10,7 +10,7 @@
     <div class="metric-name sdc-cut-text">{{ analysis.metric.name }}</div>
     <div class="extra-info sdc-cut-text">
       {{ analysis.analysisValues.metricValue || '-' }}
-      <em [class]="analysisIcon"></em>
+      <em [class]="analysisIcon" (click)="navToSource()"></em>
     </div>
   </div>
 </div>

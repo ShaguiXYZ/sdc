@@ -21,6 +21,7 @@ import com.shagui.sdc.api.dto.MetricDTO;
 import com.shagui.sdc.api.dto.SquadDTO;
 import com.shagui.sdc.api.dto.SummaryViewDTO;
 import com.shagui.sdc.api.dto.TagDTO;
+import com.shagui.sdc.api.dto.UriDTO;
 
 import io.swagger.v3.oas.annotations.Parameter;
 
@@ -120,4 +121,8 @@ public interface RwsSdcClient {
 
 	@DeleteMapping("tag/delete/{componentId}/{name}")
 	void deleteComponentTag(@PathVariable int componentId, @PathVariable String name);
+
+	@GetMapping("uri/component/{componentId}/type/{type}")
+	UriDTO componentUri(@PathVariable(required = true) @Parameter(description = "Component Id") int componentId,
+			@PathVariable(required = true) @Parameter(description = "Uri Type") String type);
 }

@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class AnalysisServiceImpl implements AnalysisService {
-	private RwsSdcClient rwsSdcClient;
+	private final RwsSdcClient rwsSdcClient;
 
 	@Override
 	public PageData<MetricAnalysisDTO> analysis(int componentId) {

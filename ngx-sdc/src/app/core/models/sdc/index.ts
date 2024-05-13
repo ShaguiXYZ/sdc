@@ -10,3 +10,4 @@ export * from './pageable.model';
 export * from './squad.model';
 export * from './summary-view.model';
 export * from './tag.model';
+export * from './uri.model';

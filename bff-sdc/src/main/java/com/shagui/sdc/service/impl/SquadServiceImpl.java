@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class SquadServiceImpl implements SquadService {
-	private RwsSdcClient rwsSdcClient;
+	private final RwsSdcClient rwsSdcClient;
 
 	@Override
 	public SquadDTO squad(int squadId) {

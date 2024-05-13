@@ -1,25 +1,28 @@
 [
-	{
-		"name": "git-public",
-		"value": "https://api.github.com/repos/#{organization}/#{$name}",
-		"type": "GIT",
-		"properties": []
-	},
-	{
-		"name": "git-private",
-		"value": "https://api.github.com/repos/#{organization}/#{$name}",
-		"type": "GIT",
-		"properties": [
-			{
-				"name": "Authorization",
-				"value": "#{git-authorization-type} #{git-authorization}"
-			}
-		]
-	},
-	{
-		"name": "sonar-repo",
-		"value": "https://sonarqube.inria.fr/sonarqube/api",
-		"type": "SONAR",
-		"properties": []
-	}
+  {
+    "name": "git-public",
+    "api": "https://api.github.com/repos/#{organization}/#{$name}",
+    "url": "https://github.com/#{organization}/#{$name}",
+    "type": "GIT",
+    "properties": []
+  },
+  {
+    "name": "git-private",
+    "api": "https://api.github.com/repos/#{organization}/#{$name}",
+    "url": "https://github.com/#{organization}/#{$name}",
+    "type": "GIT",
+    "properties": [
+      {
+        "name": "Authorization",
+        "value": "#{git-authorization-type} #{git-authorization}"
+      }
+    ]
+  },
+  {
+    "name": "sonar-repo",
+    "api": "https://sonarqube.inria.fr/sonarqube/api",
+    "url": "https://sonarqube.inria.fr/sonarqube/dashboard?id=#{$name}",
+    "type": "SONAR",
+    "properties": []
+  }
 ]

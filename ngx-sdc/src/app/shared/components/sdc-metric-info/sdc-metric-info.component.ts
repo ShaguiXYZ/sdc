@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { hasValue } from '@shagui/ng-shagui/core';
-import { IMetricAnalysisModel, iconByType } from 'src/app/core/models/sdc';
+import { AnalysisType, IMetricAnalysisModel, IUriModel, UriType, iconByType, uriTypeByAnalysisType } from 'src/app/core/models/sdc';
 import { MetricStates, stateByCoverage, styleByCoverage } from '../../lib';
+import { SdcMetricInfoService } from './services';
 
 @Component({
   selector: 'sdc-metric-info',
   styleUrls: ['./sdc-metric-info.component.scss'],
   templateUrl: './sdc-metric-info.component.html',
+  providers: [SdcMetricInfoService],
   standalone: true,
   imports: [CommonModule]
 })
@@ -15,7 +17,15 @@ export class SdcMetricInfoComponent {
   @Input()
   public selected = false;
 
+  @Output()
+  public selectMetric: EventEmitter<IMetricAnalysisModel> = new EventEmitter();
+
+  public style = '';
+
   private _analysis!: IMetricAnalysisModel;
+
+  constructor(private readonly metricInfoService: SdcMetricInfoService) {}
+
   public get analysis(): IMetricAnalysisModel {
     return this._analysis;
   }
@@ -24,11 +34,6 @@ export class SdcMetricInfoComponent {
     this._analysis = value;
     this.style = styleByCoverage(this.analysis.coverage);
   }
-
-  @Output()
-  public selectMetric: EventEmitter<IMetricAnalysisModel> = new EventEmitter();
-
-  public style = '';
 
   get icon(): string {
     return hasValue(this.analysis?.coverage)
@@ -48,4 +53,12 @@ export class SdcMetricInfoComponent {
   public onClick() {
     this.selectMetric.emit(this.analysis);
   }
+
+  public navToSource() {
+    this.uriByType(this.analysis.metric.type)
+      .then(uri => window.open(uri.url, '_blank'))
+      .catch(console.error);
+  }
+
+  private uriByType = (type: AnalysisType): Promise<IUriModel> => this.metricInfoService.componentUriByType(uriTypeByAnalysisType(type));
 }

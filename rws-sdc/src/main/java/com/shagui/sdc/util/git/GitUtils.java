@@ -77,7 +77,7 @@ public class GitUtils {
 		Optional<UriModel> uriModel = UrlUtils.componentUri(component, UriType.GIT);
 
 		if (uriModel.isPresent()) {
-			String uri = Arrays.asList(uriModel.get().getValue(), operation).stream().filter(StringUtils::hasText)
+			String uri = Arrays.asList(uriModel.get().getApi(), operation).stream().filter(StringUtils::hasText)
 					.collect(Collectors.joining("/"));
 
 			String uriWithParams = params.map(addParams(uri, paramValues)).orElse(uri);
@@ -86,6 +86,8 @@ public class GitUtils {
 					authorizationHeader -> config.gitClient().repoFile(URI.create(uriWithParams), authorizationHeader))
 					.orElseGet(() -> config.gitClient().repoFile(URI.create(uriWithParams)))) {
 				return Optional.ofNullable(UrlUtils.mapResponse(response, clazz));
+			} catch (Exception e) {
+				throw new SdcCustomException("Not git uri for. component '%s'".formatted(component.getName()), e);
 			}
 		} else {
 			throw new SdcCustomException("Not git uri for. component '%s'".formatted(component.getName()));

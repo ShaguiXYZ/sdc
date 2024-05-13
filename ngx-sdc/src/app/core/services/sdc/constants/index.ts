@@ -7,6 +7,7 @@ export const _DEPARTMENT_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _METRICS_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _SQUADS_CACHE_ID_ = `_${UniqueIds.next()}_`;
 export const _TAGS_CACHE_ID_ = `_${UniqueIds.next()}_`;
+export const _URI_CACHE_ID_ = `_${UniqueIds.next()}_`;
 
 export const XS_EXPIRATON_TIME = 60 * 1000; // 1 Minute
 export const S_EXPIRATON_TIME = 15 * XS_EXPIRATON_TIME;

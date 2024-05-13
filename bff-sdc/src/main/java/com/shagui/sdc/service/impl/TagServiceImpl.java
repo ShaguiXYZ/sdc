@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class TagServiceImpl implements TagService {
-    private RwsSdcClient rwsSdcClient;
+    private final RwsSdcClient rwsSdcClient;
 
     @Override
     public PageData<TagDTO> tags(Integer page, Integer ps) {

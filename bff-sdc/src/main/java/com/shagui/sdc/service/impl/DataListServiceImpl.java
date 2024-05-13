@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class DataListServiceImpl implements DataListService {
-    private RwsSdcClient rwsSdcClient;
+    private final RwsSdcClient rwsSdcClient;
 
     @Override
     public List<String> dataLists() {

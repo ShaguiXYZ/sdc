@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class ComponentServiceImpl implements ComponentService {
-	private RwsSdcClient rwsSdcClient;
+	private final RwsSdcClient rwsSdcClient;
 
 	@Override
 	public ComponentDTO findBy(int componentId) {
