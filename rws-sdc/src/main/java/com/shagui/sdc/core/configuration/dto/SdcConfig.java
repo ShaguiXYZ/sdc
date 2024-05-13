@@ -19,11 +19,11 @@ public class SdcConfig {
     @Value("${application.info.app.copyright}")
     private String copyright;
     private AnalysisConfig analysis;
-    private JpaConfig jpa;
+    private ViewConfig view;
     private SecurityConfig security;
 
     public SdcConfig() {
         this.analysis = new AnalysisConfig();
-        this.jpa = new JpaConfig();
+        this.view = new ViewConfig();
     }
 }

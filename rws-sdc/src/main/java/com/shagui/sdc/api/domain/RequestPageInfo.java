@@ -19,12 +19,12 @@ public class RequestPageInfo {
 	private Integer size;
 
 	public RequestPageInfo(Integer page) {
-		this(page, AppConfig.getConfig().getJpa().getElementsByPage());
+		this(page, AppConfig.getConfig().getView().getElementsByPage());
 	}
 
 	public RequestPageInfo(Integer page, Integer size) {
 		this.page = Objects.nonNull(page) ? page : 0;
-		this.size = Objects.nonNull(size) && size > 0 ? size : AppConfig.getConfig().getJpa().getElementsByPage();
+		this.size = Objects.nonNull(size) && size > 0 ? size : AppConfig.getConfig().getView().getElementsByPage();
 	}
 
 	@NonNull

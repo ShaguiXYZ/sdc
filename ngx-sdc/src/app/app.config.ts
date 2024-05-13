@@ -46,7 +46,6 @@ export const appConfig: ApplicationConfig = {
       provide: NX_CONTEX_CONFIG,
       useValue: { appName: APP_NAME.toUpperCase(), urls, home: AppUrls.squads, cache: { schedulerPeriod: SCHEDULER_PERIOD } }
     },
-
     { provide: NX_LANGUAGE_CONFIG, useValue: { languages: SdcLanguages } },
     { provide: NX_HEADER_CONFIG, useValue: { logo: 'assets/images/header-logo.svg', navigation: SDC_HEADER_MENU, themeSwitcher: false } },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

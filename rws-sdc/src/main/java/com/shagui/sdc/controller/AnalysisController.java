@@ -107,6 +107,8 @@ public class AnalysisController implements AnalysisRestApi {
 	private <T extends Mergeable<T>> T merge(List<MetricAnalysisDTO> page, Class<T> clazz) {
 		return page.stream()
 				.map(data -> ValidationsUtils.cast(data.getAnalysisValues().getMetricValue(), clazz))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
 				.reduce(null, (a, b) -> {
 					if (a == null) {
 						return b;

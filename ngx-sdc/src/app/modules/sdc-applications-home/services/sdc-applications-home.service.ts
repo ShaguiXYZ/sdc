@@ -23,7 +23,7 @@ export class SdcApplicationsHomeService {
   ) {
     const appConfig = this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
 
-    this.emementsByPage = appConfig.jpa.elementsByPage;
+    this.emementsByPage = appConfig.view.elementsByPage;
     this.contextData = this.contextDataService.get(ContextDataInfo.APPLICATIONS_DATA);
 
     this.filterData(
@@ -52,7 +52,7 @@ export class SdcApplicationsHomeService {
   public populateData(filter: ApplicationsFilter, page?: number, showLoading?: boolean): void {
     const appConfig = this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);
 
-    this.filterData(filter.name, filter.squad, filter.tags, filter.metricState, page ?? 0, appConfig.jpa.elementsByPage, showLoading);
+    this.filterData(filter.name, filter.squad, filter.tags, filter.metricState, page ?? 0, appConfig.view.elementsByPage, showLoading);
   }
 
   public onDataChange(): Observable<SdcApplicationsDataModel> {

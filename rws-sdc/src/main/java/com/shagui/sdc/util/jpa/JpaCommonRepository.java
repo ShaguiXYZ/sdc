@@ -68,7 +68,6 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 			if (data.isPresent()) {
 				throw new JpaNotFoundException();
 			}
-
 		}
 
 		return save(model);

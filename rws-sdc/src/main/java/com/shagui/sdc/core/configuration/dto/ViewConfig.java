@@ -7,10 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JpaConfig {
+public class ViewConfig {
     private int elementsByPage;
 
-    public JpaConfig() {
+    public ViewConfig() {
         this.elementsByPage = Ctes.JPA.ELEMENTS_BY_PAGE;
     }
 }

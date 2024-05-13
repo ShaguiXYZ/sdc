@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JpaConfig {
+public class ViewConfig {
     private int elementsByPage;
 }

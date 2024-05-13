@@ -6,7 +6,7 @@ import com.shagui.sdc.util.validations.types.NumericMap;
 import com.shagui.sdc.util.validations.types.Version;
 
 public enum MetricValueType {
-	NUMERIC(Numeric.class), NUMERIC_MAP(NumericMap.class), VERSION(Version.class), BOOLEAN(Bool.class);
+	BOOLEAN(Bool.class), NUMERIC(Numeric.class), NUMERIC_MAP(NumericMap.class), VERSION(Version.class);
 
 	@SuppressWarnings("rawtypes")
 	private Class clazz;

@@ -2,7 +2,6 @@ package com.shagui.sdc.util.validations;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.enums.MetricState;
@@ -30,7 +29,7 @@ public class MetricValidations {
 	private static <T extends Comparable<T>> Float validate(AnalysisValuesDTO values, MetricValidation validation,
 			Class<T> clazz) {
 		Float coverage = null;
-		T value = ValidationsUtils.cast(values.getMetricValue(), clazz);
+		T value = ValidationsUtils.cast(values.getMetricValue(), clazz).orElse(null);
 		MetricValidation metricValidation = (value == null || validation == null) ? MetricValidation.NA : validation;
 		List<MetricControl<T>> control = controlValues(values, clazz);
 
@@ -70,24 +69,14 @@ public class MetricValidations {
 
 	private static <T extends Comparable<T>> List<MetricControl<T>> controlValues(AnalysisValuesDTO analysis,
 			Class<T> clazz) {
-
-		T perfectValue = ValidationsUtils.cast(analysis.getPerfectValue(), clazz);
-		T goodValue = ValidationsUtils.cast(analysis.getGoodValue(), clazz);
-		T expectedValue = ValidationsUtils.cast(analysis.getExpectedValue(), clazz);
-
 		List<MetricControl<T>> control = new ArrayList<>();
 
-		if (Objects.nonNull(perfectValue)) {
-			control.add(new MetricControl<>(perfectValue, MetricState.PERFECT.coverage()));
-		}
-
-		if (Objects.nonNull(goodValue)) {
-			control.add(new MetricControl<>(goodValue, MetricState.ACCEPTABLE.coverage()));
-		}
-
-		if (Objects.nonNull(expectedValue)) {
-			control.add(new MetricControl<>(expectedValue, MetricState.WITH_RISK.coverage()));
-		}
+		ValidationsUtils.cast(analysis.getPerfectValue(), clazz)
+				.ifPresent(value -> control.add(new MetricControl<>(value, MetricState.PERFECT.coverage())));
+		ValidationsUtils.cast(analysis.getGoodValue(), clazz)
+				.ifPresent(value -> control.add(new MetricControl<>(value, MetricState.ACCEPTABLE.coverage())));
+		ValidationsUtils.cast(analysis.getExpectedValue(), clazz)
+				.ifPresent(value -> control.add(new MetricControl<>(value, MetricState.WITH_RISK.coverage())));
 
 		return control;
 	}

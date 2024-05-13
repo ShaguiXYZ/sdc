@@ -6,7 +6,7 @@ export interface IAnalysisConfig {
   trendHeat: number;
 }
 
-export interface IJpaConfig {
+export interface IViewConfig {
   elementsByPage: number;
 }
 
@@ -18,7 +18,7 @@ export interface IAppConfigurationDTO {
   bffVersion: string;
   rwsVersion: string;
   analysis: IAnalysisConfig;
-  jpa: IJpaConfig;
+  view: IViewConfig;
   security: IAppSecurityConfig;
   title: string;
   copyright?: string;
@@ -31,7 +31,7 @@ export interface IAppConfigurationModel {
     rwsVersion: string;
   };
   analysis: IAnalysisConfig;
-  jpa: IJpaConfig;
+  view: IViewConfig;
   security: IAppSecurityConfig;
   title: string;
   copyright?: string;
@@ -42,7 +42,7 @@ export namespace IAppConfigurationModel {
     new AppConfigurationModel(
       { bffVersion: dto.bffVersion, ngxVersion: packageInfo.version, rwsVersion: dto.rwsVersion },
       dto.analysis,
-      dto.jpa,
+      dto.view,
       dto.security,
       dto.title,
       dto.copyright
@@ -57,7 +57,7 @@ export class AppConfigurationModel implements IAppConfigurationModel {
       rwsVersion: string;
     },
     public analysis: IAnalysisConfig,
-    public jpa: IJpaConfig,
+    public view: IViewConfig,
     public security: IAppSecurityConfig,
     public title: string,
     public copyright?: string

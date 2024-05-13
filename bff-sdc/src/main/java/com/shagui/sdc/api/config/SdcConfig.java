@@ -10,7 +10,7 @@ public class SdcConfig {
     private String copyright;
     private String rwsVersion;
     private AnalysisConfig analysis;
-    private JpaConfig jpa;
+    private ViewConfig view;
     private SecurityConfig security;
 
     public static void setBffVersion(String bffVersion) {
