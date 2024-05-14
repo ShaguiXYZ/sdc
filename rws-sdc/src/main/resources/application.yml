@@ -10,7 +10,7 @@ application:
       # precision: 5
       trend-deep: 10
       trend-heat: 0.4
-    jpa:
+    view:
       elements-by-page: 6
     security:
       enabled: ${rest.security.enabled}
