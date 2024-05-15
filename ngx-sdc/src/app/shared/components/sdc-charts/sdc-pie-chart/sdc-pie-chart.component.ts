@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { EChartsOption } from 'echarts';
 import { stringGraphToRecord } from '../lib';
@@ -9,6 +9,7 @@ import { SdcEchartComponent } from '../sdc-echart.component';
 @Component({
   selector: 'sdc-pie-chart',
   template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, SdcEchartComponent, NxHeadlineModule]
 })

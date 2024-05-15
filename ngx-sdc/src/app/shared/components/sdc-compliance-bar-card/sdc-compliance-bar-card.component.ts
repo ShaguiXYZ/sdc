@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NxBadgeModule } from '@aposin/ng-aquila/badge';
 import { NxCardModule } from '@aposin/ng-aquila/card';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
@@ -14,6 +14,7 @@ import { SdcTrendComponent } from '../sdc-trend';
   selector: 'sdc-compliance-bar-card',
   styleUrls: ['./sdc-compliance-bar-card.component.scss'],
   templateUrl: './sdc-compliance-bar-card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, SdcTrendComponent, TranslateModule]
 })

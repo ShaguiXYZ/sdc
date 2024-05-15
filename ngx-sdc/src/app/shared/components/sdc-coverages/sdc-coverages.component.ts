@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NxCardModule } from '@aposin/ng-aquila/card';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
@@ -15,6 +15,7 @@ import { SdcCoverageInfoComponent } from '../sdc-coverage-info';
   selector: 'sdc-coverages',
   styleUrls: ['./sdc-coverages.component.scss'],
   templateUrl: './sdc-coverages.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     CommonModule,

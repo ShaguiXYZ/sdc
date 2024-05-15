@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricStates, stateByCoverage } from '../../lib';
 import { IStateCount } from '../../models';
@@ -14,6 +14,7 @@ import { SdcStateCountComponent } from './components';
       </div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, SdcStateCountComponent]
 })

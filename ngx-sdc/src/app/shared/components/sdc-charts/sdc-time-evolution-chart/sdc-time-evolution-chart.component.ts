@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
 import { EChartsOption } from 'echarts';
 import { legendPosition } from '../lib';
@@ -9,6 +9,7 @@ import { SdcEchartComponent } from '../sdc-echart.component';
 @Component({
   selector: 'sdc-time-evolution-chart',
   template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, SdcEchartComponent]
 })

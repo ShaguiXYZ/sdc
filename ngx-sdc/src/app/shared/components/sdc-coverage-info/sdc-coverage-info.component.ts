@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { BACKGROUND_CHART_COLOR } from '../../constants';
@@ -10,6 +10,7 @@ import { SdcTrendComponent } from '../sdc-trend';
   selector: 'sdc-coverage-info',
   styleUrls: ['./sdc-coverage-info.component.scss'],
   templateUrl: './sdc-coverage-info.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, NxCopytextModule, SdcCoverageChartComponent, SdcTrendComponent]
 })

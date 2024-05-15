@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { ChartConfig, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
@@ -7,6 +7,7 @@ import { SdcEchartComponent } from '../sdc-echart.component';
 @Component({
   selector: 'sdc-horizontal-bar-chart',
   template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, SdcEchartComponent]
 })

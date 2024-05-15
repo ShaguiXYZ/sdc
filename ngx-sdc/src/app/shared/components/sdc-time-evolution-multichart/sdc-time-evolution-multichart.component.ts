@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
 import { SdcChartData } from '../../models';
 import { ChartConfig, ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRecord } from '../sdc-charts';
@@ -7,6 +7,7 @@ import { ChartConfig, ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRe
 @Component({
   selector: 'sdc-time-evolution-multichart',
   template: `<sdc-time-evolution-chart [config]="metricChartConfig" [size]="size" />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [SdcTimeEvolutionChartComponent, CommonModule]
 })

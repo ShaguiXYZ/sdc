@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ITagModel } from 'src/app/core/models/sdc';
 
@@ -7,6 +7,7 @@ import { ITagModel } from 'src/app/core/models/sdc';
   selector: 'sdc-tag',
   styleUrls: ['./sdc-tag.component.scss'],
   templateUrl: './sdc-tag.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, TranslateModule]
 })

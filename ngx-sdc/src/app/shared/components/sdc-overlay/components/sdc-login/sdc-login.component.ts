@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { OverlayItemStatus } from '../../models';
-import { SdcLoginService } from './services';
 import { Subscription } from 'rxjs';
+import { OverlayItemStatus } from '../../models';
 import { SdcLoginModel } from './models';
+import { SdcLoginService } from './services';
 
 @Component({
   selector: 'sdc-login',

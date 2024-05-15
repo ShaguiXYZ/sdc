@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -31,6 +31,7 @@ import { ChartSize, SdcChartSize } from './models';
       <div class="sdc-loading" [ngStyle]="styleSize"></div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, NgxEchartsModule]
 })

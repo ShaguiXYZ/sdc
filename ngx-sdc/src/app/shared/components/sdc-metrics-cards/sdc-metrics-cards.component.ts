@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { IMetricAnalysisModel } from 'src/app/core/models/sdc';
 import { AnalysisService } from 'src/app/core/services/sdc';
@@ -8,6 +8,7 @@ import { SdcMetricInfoComponent } from '../sdc-metric-info';
 @Component({
   selector: 'sdc-metrics-cards',
   templateUrl: './sdc-metrics-cards.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [SdcMetricInfoComponent, CommonModule, TranslateModule]
 })

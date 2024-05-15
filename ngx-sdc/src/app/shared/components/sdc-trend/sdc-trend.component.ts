@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 
 @Component({
@@ -16,6 +16,7 @@ import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
       <em class="sdc-center fa-regular fa-{{ trend > 0 ? 'face-smile' : trend < 0 ? 'face-frown' : 'face-meh' }}" aria-hidden="true"></em>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, NxTooltipModule]
 })

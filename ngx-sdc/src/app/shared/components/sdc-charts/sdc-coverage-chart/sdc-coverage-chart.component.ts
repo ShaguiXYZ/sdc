@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
 import { EChartsOption } from 'echarts';
 import { ICoverageModel } from 'src/app/core/models/sdc';
@@ -9,6 +9,7 @@ import { SdcEchartComponent } from '../sdc-echart.component';
 @Component({
   selector: 'sdc-coverage-chart',
   template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, SdcEchartComponent]
 })

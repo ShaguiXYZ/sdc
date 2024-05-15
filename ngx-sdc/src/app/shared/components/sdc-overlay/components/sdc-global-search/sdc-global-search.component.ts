@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NxCheckboxModule } from '@aposin/ng-aquila/checkbox';
 import { TranslateModule } from '@ngx-translate/core';
 import { $ } from '@shagui/ng-shagui/core';
@@ -52,6 +52,7 @@ import { SdcGlobalSearchService } from './services';
       </div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [SdcGlobalSearchService],
   standalone: true,
   imports: [CommonModule, NxCheckboxModule, SdcCoverageChartComponent, SdcTagComponent, TranslateModule]

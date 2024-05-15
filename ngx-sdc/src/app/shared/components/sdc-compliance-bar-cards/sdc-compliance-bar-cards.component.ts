@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card/sdc-compliance-bar-card.component';
@@ -8,6 +8,7 @@ import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card/sdc-co
   selector: 'sdc-compliance-bar-cards',
   styleUrls: ['./sdc-compliance-bar-cards.component.scss'],
   templateUrl: './sdc-compliance-bar-cards.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, SdcComplianceBarCardComponent, TranslateModule]
 })
