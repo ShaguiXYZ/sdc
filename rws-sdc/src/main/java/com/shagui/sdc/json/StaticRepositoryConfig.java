@@ -29,6 +29,7 @@ public class StaticRepositoryConfig {
 	private final ObjectMapper mapper;
 
 	private Map<String, UriModel> uris = new HashMap<>();
+	private Map<String, String> dictionary = new HashMap<>();
 	private List<DataListModel> datalists = new ArrayList<>();
 	private List<ComponentParamsModel> componentParams = new ArrayList<>();
 
@@ -36,18 +37,26 @@ public class StaticRepositoryConfig {
 		this.mapper = mapper;
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		this.uris = loadResource("data/uris.json", UriModel[].class).map(Arrays::asList)
 				.orElseGet(ArrayList::new).stream().collect(Collectors.toMap(UriModel::getName, u -> u));
 
+		this.dictionary = loadResource("data/dictionary.json", HashMap.class).orElseGet(HashMap::new);
+
 		this.datalists = loadResource("data/datalists.json", DataListModel[].class).map(Arrays::asList)
 				.orElseGet(ArrayList::new);
+
 		this.componentParams = loadResource("data/component-params.json", ComponentParamsModel[].class)
 				.map(Arrays::asList)
 				.orElseGet(ArrayList::new);
 
 		StaticRepository.setConfig(this);
+	}
+
+	public Map<String, String> dictionary() {
+		return dictionary;
 	}
 
 	public Map<String, UriModel> uris() {

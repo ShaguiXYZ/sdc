@@ -6,15 +6,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.UnaryOperator;
+import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.util.StringUtils;
+
 import com.shagui.sdc.core.exception.SdcCustomException;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class DictioraryReplacement {
 	private DictioraryReplacement() {
 	}
@@ -44,31 +44,33 @@ public class DictioraryReplacement {
 		}
 
 		public String replace(String source, String defaultValue) {
+			String sourceToReplace = StringUtils.hasText(source) ? source : "";
+			String result = sourceToReplace;
 			Pattern p = Pattern.compile(DictionaryPattern.pattern('-'));
-			Matcher m = p.matcher(source);
-
-			String result = source;
+			Matcher m = p.matcher(sourceToReplace);
 			Set<String> keys = new HashSet<>();
 
-			while (m.find()) {
-				String key = m.group();
+			result = m.results()
+					.map(MatchResult::group)
+					.filter(keys::add)
+					.reduce(result, (acc, key) -> replaceByDictionaryValue(key, acc, defaultValue));
 
-				if (keys.add(key)) {
-					if (dictionary.containsKey(key)) {
-						result = result.replaceAll(PRE_EXP.apply(null) + key.replace("$", "\\$") + POST_EXP,
-								dictionary.get(key));
-					} else {
-						if (strict) {
-							throw new SdcCustomException(
-									"[STRICT] Not key '%s' found in repository".formatted(key));
-						}
+			return result;
+		}
 
-						log.debug("Not key '{}' found in repository", key);
+		private String replaceByDictionaryValue(String key, String source, String defaultValue) {
+			String result = source;
 
-						if (defaultValue != null) {
-							result = result.replaceAll(PRE_EXP.apply(null) + key + POST_EXP, defaultValue);
-						}
-					}
+			if (dictionary.containsKey(key)) {
+				result = source.replaceAll(PRE_EXP.apply(null) + key.replace("$", "\\$") + POST_EXP,
+						dictionary.get(key));
+			} else {
+				if (strict) {
+					throw new SdcCustomException(String.format("[STRICT] Not key '%s' found in repository", key));
+				}
+
+				if (defaultValue != null) {
+					result = source.replaceAll(PRE_EXP.apply(null) + key + POST_EXP, defaultValue);
 				}
 			}
 

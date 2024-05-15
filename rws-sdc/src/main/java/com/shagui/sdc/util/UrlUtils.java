@@ -19,6 +19,7 @@ import com.shagui.sdc.json.StaticRepository;
 import com.shagui.sdc.json.model.RequestPropertiesModel;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.util.DictioraryReplacement.Replacement;
 
 import feign.Response;
 
@@ -90,11 +91,10 @@ public class UrlUtils {
 	public static Optional<UriModel> componentUri(ComponentModel component, UriType type) {
 		return Optional.ofNullable(uriModel(component, type).map(data -> {
 			UriModel uri = config.getObjectMapper().convertValue(data, UriModel.class);
-			uri.setApi(DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true)
-					.replace(data.getApi()));
+			Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true);
 
-			uri.setUrl(DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true)
-					.replace(data.getUrl()));
+			uri.setApi(replacement.replace(data.getApi()));
+			uri.setUrl(replacement.replace(data.getUrl()));
 
 			return uri;
 		}).orElse(null));
