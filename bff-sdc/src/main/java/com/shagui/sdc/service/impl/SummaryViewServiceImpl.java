@@ -14,11 +14,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class SummaryViewServiceImpl implements SummaryViewService {
-    private final RwsSdcClient rwsSdcClient;
+	private final RwsSdcClient rwsSdcClient;
 
-    @Override
-    public PageData<SummaryViewDTO> filter(String name, Set<String> types, Integer page, Integer ps) {
-        return rwsSdcClient.summaryFilter(name, types, page, ps);
-    }
+	@Override
+	public PageData<SummaryViewDTO> filter(String name, Set<String> types, Integer page, Integer ps) {
+		return rwsSdcClient.summaryFilter(name, types, page, ps);
+	}
 
 }

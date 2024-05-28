@@ -109,6 +109,7 @@
   },
   "Notifications": {
     "AnalysisNotFound": "Analysis not found",
+    "AnalyzingComponent": "Analyzing component",
     "ComponentAnalized": "Component analized",
     "ContextParamsNotFound": "Context params no found",
     "Error": "Error",

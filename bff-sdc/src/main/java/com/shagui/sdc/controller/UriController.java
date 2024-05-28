@@ -4,10 +4,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.UriRestApi;
 import com.shagui.sdc.api.domain.CastFactory;
-import com.shagui.sdc.api.view.SquadView;
 import com.shagui.sdc.api.view.UriView;
 import com.shagui.sdc.service.UriService;
-import com.shagui.sdc.util.Mapper;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

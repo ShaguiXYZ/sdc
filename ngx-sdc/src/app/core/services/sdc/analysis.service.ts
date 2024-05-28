@@ -150,6 +150,7 @@ export class AnalysisService {
             [HttpStatus.locked]: { text: this.translate.instant('Error.423'), fn: onError?.[HttpStatus.locked] },
             [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
           },
+          procesingMessage: { text: this.translate.instant('Notifications.AnalyzingComponent') },
           successMessage: { text: this.translate.instant('Notifications.ComponentAnalized') }
         })
         .pipe(

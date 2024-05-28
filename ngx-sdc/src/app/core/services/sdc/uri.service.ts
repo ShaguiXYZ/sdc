@@ -22,11 +22,11 @@ export class UriService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Notifications.UriNotFound') }
           },
-          cache: { id: this.uriCacheId(componentId), ttl: XS_EXPIRATON_TIME }
+          cache: { id: this.uriCacheId(componentId, type), ttl: XS_EXPIRATON_TIME }
         })
         .pipe(map(res => IUriModel.fromDTO(res as IUriDTO)))
     );
   }
 
-  private uriCacheId = (componentId: number): string => `${_URI_CACHE_ID_}_URI_${componentId}_`;
+  private uriCacheId = (componentId: number, type: UriType): string => `${_URI_CACHE_ID_}_URI_${componentId}_${type}_`;
 }
