@@ -62,25 +62,35 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 	}
 
 	default T create(T model) {
-		if (model.getId() != null) {
-			Optional<T> data = repository().findById(model.getId());
+		checkFreeId(model).ifPresent(id -> {
+			throw new JpaNotFoundException("Can't create model with id: '%s' because it already exists.".formatted(id));
+		});
 
-			if (data.isPresent()) {
-				throw new JpaNotFoundException();
-			}
+		return save(model);
+	}
+
+	default T createAndFlush(T model) {
+		checkFreeId(model).ifPresent(id -> {
+			throw new JpaNotFoundException("Can't create model with id: '%s' because it already exists.".formatted(id));
+		});
+
+		return save(model, true);
+	}
+
+	default T update(@NonNull K id, T model) {
+		if (!model.getId().equals(id) || checkFreeId(model).isEmpty()) {
+			throw new JpaNotFoundException("Can't update model with id: '%s' because it doesn't exist.".formatted(id));
 		}
 
 		return save(model);
 	}
 
-	default T update(@NonNull K id, T model) {
-		Optional<T> data = repository().findById(id);
-
-		if (data.isEmpty() || !data.get().getId().equals(model.getId())) {
-			throw new JpaNotFoundException();
+	default T updateAndFlush(@NonNull K id, T model) {
+		if (!model.getId().equals(id) || checkFreeId(model).isEmpty()) {
+			throw new JpaNotFoundException("Can't update model with id: '%s' because it doesn't exist.".formatted(id));
 		}
 
-		return save(model);
+		return save(model, true);
 	}
 
 	default void delete(T model) {
@@ -104,6 +114,16 @@ public interface JpaCommonRepository<R extends JpaRepository<T, K>, T extends Mo
 		}
 
 		return flush ? repository().saveAndFlush(model) : repository().save(model);
+	}
+
+	private Optional<K> checkFreeId(T model) {
+		return Optional.ofNullable(model.getId()).flatMap(id -> {
+			if (repository().existsById(id)) {
+				return Optional.of(id);
+			}
+
+			return Optional.empty();
+		});
 	}
 
 	private List<T> saveAll(Iterable<T> data, boolean flush) {

@@ -15,6 +15,10 @@ public class DateUtils {
     private DateUtils() {
     }
 
+    public static Date now() {
+        return new Date();
+    }
+
     public static List<Date> getDatesBetweenDates(Date startDate, Date endDate) {
         return Stream.iterate(startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
                 date -> date.plusDays(1))

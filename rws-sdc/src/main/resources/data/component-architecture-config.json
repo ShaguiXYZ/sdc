@@ -1,0 +1,1743 @@
+{
+  "defaultDef": [
+    {
+      "metricName": "Blocker Errors",
+      "type": "SONAR",
+      "params": {},
+      "values": {
+        "weight": 100,
+        "value": "0",
+        "goodValue": "0",
+        "perfectValue": "0"
+      }
+    },
+    {
+      "metricName": "Code Lines",
+      "type": "SONAR",
+      "params": {},
+      "values": {}
+    },
+    {
+      "metricName": "Code Smells",
+      "type": "SONAR",
+      "params": {},
+      "values": {
+        "weight": 10,
+        "value": "100",
+        "goodValue": "20",
+        "perfectValue": "0"
+      }
+    },
+    {
+      "metricName": "Critical Errors",
+      "type": "SONAR",
+      "params": {},
+      "values": {
+        "weight": 75,
+        "value": "0",
+        "goodValue": "0",
+        "perfectValue": "0"
+      }
+    },
+    {
+      "metricName": "Junit Coverage",
+      "type": "SONAR",
+      "params": {},
+      "values": {
+        "weight": 75,
+        "value": "70",
+        "goodValue": "80",
+        "perfectValue": "95"
+      }
+    },
+    {
+      "metricName": "Language Distribution",
+      "type": "SONAR",
+      "params": {},
+      "values": {}
+    },
+    {
+      "metricName": "Language Distribution",
+      "type": "GIT",
+      "params": {},
+      "values": {}
+    },
+    {
+      "metricName": "Technical Debt",
+      "type": "SONAR",
+      "params": {},
+      "values": {
+        "weight": 25,
+        "value": "30",
+        "goodValue": "10",
+        "perfectValue": "0"
+      }
+    },
+    {
+      "metricName": "Code Lines",
+      "type": "GIT",
+      "params": {},
+      "values": {}
+    },
+    {
+      "metricName": "Critical Vulnerabilities",
+      "type": "DEPENDABOT",
+      "params": {},
+      "values": {
+        "weight": 100,
+        "value": "0",
+        "goodValue": "0",
+        "perfectValue": "0"
+      }
+    },
+    {
+      "metricName": "High Vulnerabilites",
+      "type": "DEPENDABOT",
+      "params": {},
+      "values": {
+        "weight": 50,
+        "value": "5",
+        "goodValue": "2",
+        "perfectValue": "0"
+      }
+    },
+    {
+      "metricName": "Low Vulnerabilites",
+      "type": "DEPENDABOT",
+      "params": {},
+      "values": {}
+    },
+    {
+      "metricName": "Medium Vulnerabilities",
+      "type": "DEPENDABOT",
+      "params": {},
+      "values": {
+        "weight": 25,
+        "value": "10",
+        "goodValue": "5",
+        "perfectValue": "0"
+      }
+    },
+    {
+      "metricName": "Angular Version",
+      "type": "GIT_JSON",
+      "params": {
+        "PATH": "#{ngx_path}/package.json"
+      },
+      "values": {
+        "weight": 50,
+        "value": "15.0.0",
+        "goodValue": "16.0.0",
+        "perfectValue": "17.0.0"
+      }
+    },
+    {
+      "metricName": "Deprecated Libraries",
+      "type": "GIT_XML",
+      "params": {
+        "PATH": "#{rws_path}/pom.xml"
+      },
+      "values": {
+        "weight": 100,
+        "value": "false",
+        "goodValue": "false",
+        "perfectValue": "false"
+      }
+    },
+    {
+      "metricName": "Legacy parent version",
+      "type": "GIT_XML",
+      "params": {
+        "PATH": "pom.xml"
+      },
+      "values": {
+        "weight": 50,
+        "value": "6.5.3-RELEASE",
+        "goodValue": "6.5.3-RELEASE",
+        "perfectValue": "6.5.3-RELEASE"
+      }
+    },
+    {
+      "metricName": "Microservice Parent Version",
+      "type": "GIT_XML",
+      "params": {
+        "PATH": "pom.xml"
+      },
+      "values": {
+        "weight": 50,
+        "value": "7.17.0-RELEASE",
+        "goodValue": "7.19.0-RELEASE",
+        "perfectValue": "7.21.1-RELEASE"
+      }
+    }
+  ],
+  "definitions": [
+    {
+      "componentType": "backend::copy",
+      "architecture": "z/os",
+      "network": "enterprise",
+      "deploymentType": "mainframe",
+      "platform": "on-premise",
+      "language": "cobol",
+      "metrics": [
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "30",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "100",
+            "goodValue": "20",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "backend::copy",
+      "architecture": "rws",
+      "network": "none",
+      "deploymentType": "none",
+      "platform": "on-premise",
+      "language": "java",
+      "metrics": [
+        {
+          "metricName": "Microservice Parent Version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "7.17.0-RELEASE",
+            "goodValue": "7.19.0-RELEASE",
+            "perfectValue": "7.21.1-RELEASE"
+          }
+        },
+        {
+          "metricName": "Junit Coverage",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "70",
+            "goodValue": "80",
+            "perfectValue": "95"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "20",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Deprecated Libraries",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "#{rws_path}/pom.xml"
+          },
+          "values": {
+            "weight": 100,
+            "value": "false",
+            "goodValue": "false",
+            "perfectValue": "false"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "backend::starter",
+      "architecture": "rws",
+      "network": "none",
+      "deploymentType": "none",
+      "platform": "on-premise",
+      "language": "java",
+      "metrics": [
+        {
+          "metricName": "Microservice Parent Version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "7.17.0-RELEASE",
+            "goodValue": "7.19.0-RELEASE",
+            "perfectValue": "7.21.1-RELEASE"
+          }
+        },
+        {
+          "metricName": "Junit Coverage",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "70",
+            "goodValue": "80",
+            "perfectValue": "95"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "20",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Deprecated Libraries",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "#{rws_path}/pom.xml"
+          },
+          "values": {
+            "weight": 100,
+            "value": "false",
+            "goodValue": "false",
+            "perfectValue": "false"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "frontend::angular",
+      "architecture": "rws",
+      "network": "user-interaction::both",
+      "deploymentType": "container",
+      "platform": "cloud",
+      "language": "typescript",
+      "metrics": [
+        {
+          "metricName": "Angular Version",
+          "type": "GIT_JSON",
+          "params": {
+            "PATH": "#{ngx_path}/package.json"
+          },
+          "values": {
+            "weight": 50,
+            "value": "15.0.0",
+            "goodValue": "16.0.0",
+            "perfectValue": "17.0.0"
+          }
+        },
+        {
+          "metricName": "Microservice Parent Version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "7.17.0-RELEASE",
+            "goodValue": "7.19.0-RELEASE",
+            "perfectValue": "7.21.1-RELEASE"
+          }
+        },
+        {
+          "metricName": "Junit Coverage",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "70",
+            "goodValue": "80",
+            "perfectValue": "95"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "20",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Deprecated Libraries",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "#{rws_path}/pom.xml"
+          },
+          "values": {
+            "weight": 100,
+            "value": "false",
+            "goodValue": "false",
+            "perfectValue": "false"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "frontend::angular",
+      "architecture": "rws",
+      "network": "user-interaction::both",
+      "deploymentType": "static",
+      "platform": "on-premise",
+      "language": "typescript",
+      "metrics": [
+        {
+          "metricName": "Angular Version",
+          "type": "GIT_JSON",
+          "params": {
+            "PATH": "#{ngx_path}/package.json"
+          },
+          "values": {
+            "weight": 50,
+            "value": "15.0.0",
+            "goodValue": "16.0.0",
+            "perfectValue": "17.0.0"
+          }
+        },
+        {
+          "metricName": "Microservice Parent Version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "7.17.0-RELEASE",
+            "goodValue": "7.19.0-RELEASE",
+            "perfectValue": "7.21.1-RELEASE"
+          }
+        },
+        {
+          "metricName": "Junit Coverage",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "70",
+            "goodValue": "80",
+            "perfectValue": "95"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "20",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Deprecated Libraries",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "#{rws_path}/pom.xml"
+          },
+          "values": {
+            "weight": 100,
+            "value": "false",
+            "goodValue": "false",
+            "perfectValue": "false"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "frontend::bff",
+      "architecture": "rws",
+      "network": "user-interaction::both",
+      "deploymentType": "container",
+      "platform": "cloud",
+      "language": "java",
+      "metrics": [
+        {
+          "metricName": "Microservice Parent Version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "7.17.0-RELEASE",
+            "goodValue": "7.19.0-RELEASE",
+            "perfectValue": "7.21.1-RELEASE"
+          }
+        },
+        {
+          "metricName": "Junit Coverage",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "70",
+            "goodValue": "80",
+            "perfectValue": "95"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "20",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Deprecated Libraries",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "#{rws_path}/pom.xml"
+          },
+          "values": {
+            "weight": 100,
+            "value": "false",
+            "goodValue": "false",
+            "perfectValue": "false"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "frontend::bff",
+      "architecture": "rws",
+      "network": "user-interaction::both",
+      "deploymentType": "jboss",
+      "platform": "on-premise",
+      "language": "java",
+      "metrics": [
+        {
+          "metricName": "Microservice Parent Version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "7.17.0-RELEASE",
+            "goodValue": "7.19.0-RELEASE",
+            "perfectValue": "7.21.1-RELEASE"
+          }
+        },
+        {
+          "metricName": "Junit Coverage",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "70",
+            "goodValue": "80",
+            "perfectValue": "95"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 75,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "20",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Deprecated Libraries",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "#{rws_path}/pom.xml"
+          },
+          "values": {
+            "weight": 100,
+            "value": "false",
+            "goodValue": "false",
+            "perfectValue": "false"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "frontend::ssr",
+      "architecture": "sea::legacy",
+      "network": "user-interaction::public",
+      "deploymentType": "jboss",
+      "platform": "cloud",
+      "language": "java",
+      "metrics": [
+        {
+          "metricName": "Legacy parent version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "6.5.3-RELEASE",
+            "goodValue": "6.5.3-RELEASE",
+            "perfectValue": "6.5.3-RELEASE"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "30",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "100",
+            "goodValue": "20",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "frontend::ssr",
+      "architecture": "sea::legacy",
+      "network": "user-interaction::private",
+      "deploymentType": "jboss",
+      "platform": "cloud",
+      "language": "java",
+      "metrics": [
+        {
+          "metricName": "Legacy parent version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "6.5.3-RELEASE",
+            "goodValue": "6.5.3-RELEASE",
+            "perfectValue": "6.5.3-RELEASE"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "30",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "100",
+            "goodValue": "20",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "frontend::ssr",
+      "architecture": "sea::legacy",
+      "network": "user-interaction::both",
+      "deploymentType": "jboss",
+      "platform": "cloud",
+      "language": "java",
+      "metrics": [
+        {
+          "metricName": "Legacy parent version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "6.5.3-RELEASE",
+            "goodValue": "6.5.3-RELEASE",
+            "perfectValue": "6.5.3-RELEASE"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "30",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "100",
+            "goodValue": "20",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    },
+    {
+      "componentType": "frontend::ssr",
+      "architecture": "sea::legacy",
+      "network": "user-interaction::both",
+      "deploymentType": "jboss",
+      "platform": "on-premise",
+      "language": "java",
+      "metrics": [
+        {
+          "metricName": "Legacy parent version",
+          "type": "GIT_XML",
+          "params": {
+            "PATH": "pom.xml"
+          },
+          "values": {
+            "weight": 50,
+            "value": "6.5.3-RELEASE",
+            "goodValue": "6.5.3-RELEASE",
+            "perfectValue": "6.5.3-RELEASE"
+          }
+        },
+        {
+          "metricName": "Critical Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "High Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 50,
+            "value": "5",
+            "goodValue": "2",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Medium Vulnerabilities",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "10",
+            "goodValue": "5",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Low Vulnerabilites",
+          "type": "DEPENDABOT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Technical Debt",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 25,
+            "value": "30",
+            "goodValue": "10",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Blocker Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 100,
+            "value": "0",
+            "goodValue": "0",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Critical Errors",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Lines",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Code Smells",
+          "type": "SONAR",
+          "params": {},
+          "values": {
+            "weight": 10,
+            "value": "100",
+            "goodValue": "20",
+            "perfectValue": "0"
+          }
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "SONAR",
+          "params": {},
+          "values": {}
+        },
+        {
+          "metricName": "Language Distribution",
+          "type": "GIT",
+          "params": {},
+          "values": {}
+        }
+      ]
+    }
+  ]
+}

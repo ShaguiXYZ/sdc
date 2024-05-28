@@ -12,15 +12,18 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.dto.ComponentDTO;
 import com.shagui.sdc.api.dto.DepartmentDTO;
+import com.shagui.sdc.api.dto.MetricPropertiesDTO;
 import com.shagui.sdc.api.dto.cmdb.DepartmentInput;
 import com.shagui.sdc.api.dto.cmdb.SquadInput;
 import com.shagui.sdc.api.dto.ebs.ComponentInput;
@@ -34,14 +37,19 @@ import com.shagui.sdc.model.ComponentPropertyModel;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
 import com.shagui.sdc.model.ComponentUriModel;
 import com.shagui.sdc.model.DepartmentModel;
+import com.shagui.sdc.model.MetricModel;
+import com.shagui.sdc.model.MetricValuesModel;
 import com.shagui.sdc.model.SquadModel;
 import com.shagui.sdc.model.pk.ComponentUriPk;
 import com.shagui.sdc.repository.ComponentRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
 import com.shagui.sdc.repository.ComponentUriRepository;
 import com.shagui.sdc.repository.DepartmentRepository;
+import com.shagui.sdc.repository.MetricRepository;
+import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.repository.SquadRepository;
 import com.shagui.sdc.service.DataMaintenanceService;
+import com.shagui.sdc.util.ComponentTypeArchitectureUtils;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
 
@@ -61,13 +69,17 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	private JpaCommonRepository<SquadRepository, SquadModel, Integer> squadRepository;
 	private JpaCommonRepository<DepartmentRepository, DepartmentModel, Integer> departmentRepository;
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
+	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
+	private JpaCommonRepository<MetricValueRepository, MetricValuesModel, Integer> metricValueRepository;
 
 	public DataMaintenanceServiceImpl(ObjectMapper mapper,
 			ResourceLoader resourceLoader,
 			final ComponentRepository componentRepository,
 			final ComponentUriRepository componentUriRepository, SquadRepository squadRepository,
 			final DepartmentRepository departmentRepository,
-			final ComponentTypeArchitectureRepository componentTypeArchitectureRepository) {
+			final ComponentTypeArchitectureRepository componentTypeArchitectureRepository,
+			final MetricRepository metricRepository,
+			final MetricValueRepository metricValueRepository) {
 		this.mapper = mapper;
 		this.resourceLoader = resourceLoader;
 		this.componentRepository = () -> componentRepository;
@@ -75,14 +87,15 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 		this.squadRepository = () -> squadRepository;
 		this.departmentRepository = () -> departmentRepository;
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
+		this.metricRepository = () -> metricRepository;
+		this.metricValueRepository = () -> metricValueRepository;
 		this.self = this;
 	}
 
 	@Transactional
 	@Override
 	public List<DepartmentDTO> jsonUpdateDepartments() {
-		try {
-			InputStream is = jsonDepartmentsSquads.getInputStream();
+		try (InputStream is = jsonDepartmentsSquads.getInputStream()) {
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
 
 			return self.departmentsUpdateData(Arrays.asList(input));
@@ -96,8 +109,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	public List<DepartmentDTO> jsonUpdateDepartments(String path) {
 		Resource resource = resourceLoader.getResource("classpath:" + path);
 
-		try {
-			InputStream is = resource.getInputStream();
+		try (InputStream is = resource.getInputStream()) {
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
 
 			return self.departmentsUpdateData(Arrays.asList(input)); // Call the transactional method via the reference
@@ -133,8 +145,7 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 				.findByComponentTypeAndArchitectureAndNetworkAndDeploymentTypeAndPlatformAndLanguage(
 						data.getComponentType(), data.getArchitecture(), data.getNetwork(), data.getDeploymentType(),
 						data.getPlatform(), data.getLanguage())
-				.orElseThrow(componentTypeArchitectureNotFound(data));
-
+				.orElseGet(newComponentTypeArchitecture(data));
 		ComponentModel component = componentRepository.repository()
 				.findBySquad_IdAndName(squadModel.getId(), data.getName()).orElseGet(defaultComponent(data));
 
@@ -211,14 +222,76 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 		};
 	}
 
+	private Supplier<ComponentTypeArchitectureModel> newComponentTypeArchitecture(ComponentInput data) {
+		return () -> createNewComponentTypeArchitecture(data).orElseThrow(componentTypeArchitectureNotFound(data));
+	}
+
+	private Optional<ComponentTypeArchitectureModel> createNewComponentTypeArchitecture(ComponentInput data) {
+		ComponentTypeArchitectureModel model = new ComponentTypeArchitectureModel();
+		model.setComponentType(data.getComponentType());
+		model.setArchitecture(data.getArchitecture());
+		model.setDeploymentType(data.getDeploymentType());
+		model.setLanguage(data.getLanguage());
+		model.setNetwork(data.getNetwork());
+		model.setPlatform(data.getPlatform());
+
+		ComponentTypeArchitectureUtils.normalizeData(model).accept(model);
+
+		return StaticRepository.componentArchitectureConfig().metrics(model).map(metricsDef -> {
+			List<MetricModel> metrics = metricsDef.stream()
+					.map(metricDef -> metricRepository.repository()
+							.findByNameIgnoreCaseAndType(metricDef.getMetricName(), metricDef.getType())
+							.orElseThrow(() -> new JpaNotFoundException(
+									"Metric '%s' Not found for type '%s'".formatted(metricDef.getMetricName(),
+											metricDef.getType()))))
+					.toList();
+
+			model.setMetrics(metrics);
+
+			ComponentTypeArchitectureModel savedModel = componentTypeArchitectureRepository.createAndFlush(model);
+
+			List<MetricPropertiesDTO> metricProperties = metricsDef.stream().map(metricDef -> {
+				MetricPropertiesDTO property = new MetricPropertiesDTO();
+				property.setMetricName(metricDef.getMetricName());
+				property.setType(metricDef.getType());
+				property.setParams(metricDef.getParams());
+
+				return property;
+			}).toList();
+
+			ComponentTypeArchitectureUtils.saveMetricProperties(savedModel, metricProperties, metrics);
+
+			metricsDef.stream().filter(metricDef -> metricDef.getValues() != null)
+					.filter(metricDef -> StringUtils.hasText(metricDef.getValues().getValue())
+							|| StringUtils.hasText(metricDef.getValues().getGoodValue())
+							|| StringUtils.hasText(metricDef.getValues().getPerfectValue()))
+					.forEach(metricDef -> {
+						MetricValuesModel metricValuesModel = new MetricValuesModel();
+						metricValuesModel.setComponentTypeArchitecture(savedModel);
+						metricValuesModel.setMetric(metrics.stream()
+								.filter(metric -> metric.getName().equalsIgnoreCase(metricDef.getMetricName())
+										&& metric.getType().equals(metricDef.getType()))
+								.findFirst().orElseThrow(() -> new JpaNotFoundException(
+										"Metric '%s' Not found for type '%s'".formatted(metricDef.getMetricName(),
+												metricDef.getType()))));
+
+						BeanUtils.copyProperties(metricDef.getValues(), metricValuesModel);
+
+						metricValueRepository.create(metricValuesModel);
+					});
+
+			return Optional.ofNullable(savedModel);
+		}).orElse(Optional.empty());
+	}
+
+	private Supplier<ComponentModel> defaultComponent(ComponentInput input) {
+		return input::asModel;
+	}
+
 	private Supplier<JpaNotFoundException> componentTypeArchitectureNotFound(ComponentInput data) {
 		return () -> new JpaNotFoundException(String.format(
 				"ComponentType: [%s], Architecture: [%s], DeploymentType: [%s], Language: [%s], Network: [%s], Platform: [%s]  Not found for component '%s'",
 				data.getComponentType(), data.getArchitecture(), data.getDeploymentType(),
 				data.getLanguage(), data.getNetwork(), data.getPlatform(), data.getName()));
-	}
-
-	private Supplier<ComponentModel> defaultComponent(ComponentInput input) {
-		return input::asModel;
 	}
 }

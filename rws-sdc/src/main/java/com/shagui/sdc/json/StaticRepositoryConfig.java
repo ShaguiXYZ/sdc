@@ -16,6 +16,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shagui.sdc.json.model.ComponentArchitectureConfigModel;
 import com.shagui.sdc.json.model.ComponentParamsModel;
 import com.shagui.sdc.json.model.DataListModel;
 import com.shagui.sdc.json.model.UriModel;
@@ -32,6 +33,7 @@ public class StaticRepositoryConfig {
 	private Map<String, String> dictionary = new HashMap<>();
 	private List<DataListModel> datalists = new ArrayList<>();
 	private List<ComponentParamsModel> componentParams = new ArrayList<>();
+	private ComponentArchitectureConfigModel componentArchitectureConfig;
 
 	public StaticRepositoryConfig(ObjectMapper mapper) {
 		this.mapper = mapper;
@@ -52,6 +54,9 @@ public class StaticRepositoryConfig {
 				.map(Arrays::asList)
 				.orElseGet(ArrayList::new);
 
+		this.componentArchitectureConfig = loadResource("data/component-architecture-config.json",
+				ComponentArchitectureConfigModel.class).orElseGet(ComponentArchitectureConfigModel::new);
+
 		StaticRepository.setConfig(this);
 	}
 
@@ -69,6 +74,10 @@ public class StaticRepositoryConfig {
 
 	public List<ComponentParamsModel> componentParams() {
 		return componentParams;
+	}
+
+	public ComponentArchitectureConfigModel componentArchitectureConfig() {
+		return componentArchitectureConfig;
 	}
 
 	private <T> Optional<T> loadResource(@NonNull String resourcePath, Class<T> clazz) {

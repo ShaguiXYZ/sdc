@@ -1,11 +1,7 @@
 package com.shagui.sdc.service.impl;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -19,17 +15,14 @@ import com.shagui.sdc.api.dto.MetricValuesDTO;
 import com.shagui.sdc.api.dto.MetricValuesOutDTO;
 import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.AnalysisType;
-import com.shagui.sdc.json.StaticRepository;
-import com.shagui.sdc.json.model.DataLists;
 import com.shagui.sdc.model.ComponentTypeArchitectureModel;
-import com.shagui.sdc.model.ComponetTypeArchitectureMetricPropertiesModel;
 import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.model.MetricValuesModel;
-import com.shagui.sdc.repository.ComponentTypeArchitectureMetricPropertiesRepository;
 import com.shagui.sdc.repository.ComponentTypeArchitectureRepository;
 import com.shagui.sdc.repository.MetricRepository;
 import com.shagui.sdc.repository.MetricValueRepository;
 import com.shagui.sdc.service.ComponentTypeArchitectureService;
+import com.shagui.sdc.util.ComponentTypeArchitectureUtils;
 import com.shagui.sdc.util.Mapper;
 import com.shagui.sdc.util.collector.SdcCollectors;
 import com.shagui.sdc.util.jpa.JpaCommonRepository;
@@ -37,17 +30,14 @@ import com.shagui.sdc.util.jpa.JpaCommonRepository;
 @Service
 public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchitectureService {
 	private JpaCommonRepository<ComponentTypeArchitectureRepository, ComponentTypeArchitectureModel, Integer> componentTypeArchitectureRepository;
-	private JpaCommonRepository<ComponentTypeArchitectureMetricPropertiesRepository, ComponetTypeArchitectureMetricPropertiesModel, Integer> componentTypeArchitectureMetricPropertiesRepository;
 	private JpaCommonRepository<MetricRepository, MetricModel, Integer> metricRepository;
 	private JpaCommonRepository<MetricValueRepository, MetricValuesModel, Integer> metricValueRepository;
 
 	public ComponentTypeArchitectureServiceImpl(
 			final ComponentTypeArchitectureRepository componentTypeArchitectureRepository,
-			final ComponentTypeArchitectureMetricPropertiesRepository componentTypeArchitectureMetricPropertiesRepository,
 			final MetricRepository metricRepository,
 			final MetricValueRepository metricValueRepository) {
 		this.componentTypeArchitectureRepository = () -> componentTypeArchitectureRepository;
-		this.componentTypeArchitectureMetricPropertiesRepository = () -> componentTypeArchitectureMetricPropertiesRepository;
 		this.metricRepository = () -> metricRepository;
 		this.metricValueRepository = () -> metricValueRepository;
 	}
@@ -69,7 +59,7 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	@Override
 	public ComponentTypeArchitectureDTO update(int componentTypeArchitectureId, ComponentTypeArchitectureDTO data) {
 		ComponentTypeArchitectureModel model = componentTypeArchitectureRepository.findExistingId(data.getId());
-		normalizeData(model).accept(Mapper.parse(data));
+		ComponentTypeArchitectureUtils.normalizeData(model).accept(Mapper.parse(data));
 
 		return Mapper.parse(componentTypeArchitectureRepository.update(componentTypeArchitectureId, model));
 	}
@@ -79,7 +69,7 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 	public List<ComponentTypeArchitectureDTO> create(List<ComponentTypeArchitectureDTO> data) {
 		List<ComponentTypeArchitectureModel> models = data.stream().map(Mapper::parse).toList();
 
-		models.forEach(this::normalizeData);
+		models.forEach(ComponentTypeArchitectureUtils::normalizeData);
 
 		return models.stream()
 				.map(componentTypeArchitectureRepository::create).map(Mapper::parse)
@@ -96,12 +86,12 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 		List<MetricModel> metrics = metricProperties.stream()
 				.map(metricProperty -> metricRepository.repository()
 						.findByNameIgnoreCaseAndType(metricProperty.getMetricName(), metricProperty.getType())
-						.orElseThrow(notMetricFound(metricProperty)))
+						.orElseThrow(ComponentTypeArchitectureUtils.notMetricFound(metricProperty)))
 				.toList();
 
 		return componentTypeArchitectures.stream()
-				.map(patchComponentTypeArchitectureMetrics(metrics))
-				.map(saveMetricProperties(metricProperties, metrics))
+				.map(ComponentTypeArchitectureUtils.patchMetrics(metrics))
+				.map(ComponentTypeArchitectureUtils.saveMetricProperties(metricProperties, metrics))
 				.map(Mapper::parse).toList();
 	}
 
@@ -111,13 +101,12 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 		MetricModel metric = metricRepository.repository().findByNameIgnoreCaseAndType(metricName, metricType)
 				.orElseThrow(() -> new SdcCustomException("Metric '%s' Not found".formatted(metricName)));
 
-		List<ComponentTypeArchitectureModel> componentTypeArchitectures = componentTypeArchitectures(componentType,
+		Stream<ComponentTypeArchitectureModel> componentTypeArchitectures = componentTypeArchitectures(componentType,
 				architecture).stream()
 				.filter(componentTypeArchitecture -> componentTypeArchitecture.getMetrics().stream()
-						.anyMatch(caMetric -> caMetric.getId().equals(metric.getId())))
-				.toList();
+						.anyMatch(caMetric -> caMetric.getId().equals(metric.getId())));
 
-		return componentTypeArchitectures.stream().map(componentTypeArchitecture -> {
+		return componentTypeArchitectures.map(componentTypeArchitecture -> {
 			MetricValuesModel model = new MetricValuesModel();
 			model.setComponentTypeArchitecture(componentTypeArchitecture);
 			model.setMetric(metric);
@@ -125,45 +114,6 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 
 			return model;
 		}).map(metricValueRepository::create).map(MetricValuesOutDTO::new).toList();
-	}
-
-	private Consumer<ComponentTypeArchitectureModel> normalizeData(ComponentTypeArchitectureModel source) {
-		return model -> {
-			model.setArchitecture(StaticRepository.datalistValues(DataLists.ARCHITECTURES).stream().filter(
-					architecture -> Objects.equals(architecture.toLowerCase(), source.getArchitecture().toLowerCase()))
-					.findFirst().orElseThrow(
-							() -> new SdcCustomException(
-									"Architecture '%s' Not found".formatted(source.getArchitecture()))));
-
-			model.setComponentType(StaticRepository.datalistValues(DataLists.COMPONENT_TYPES).stream().filter(
-					componentType -> Objects.equals(componentType.toLowerCase(),
-							source.getComponentType().toLowerCase()))
-					.findFirst().orElseThrow(
-							() -> new SdcCustomException(
-									"Component Type '%s' Not found".formatted(source.getComponentType()))));
-
-			model.setDeploymentType(StaticRepository.datalistValues(DataLists.DEPLOYMENT_TYPES).stream().filter(
-					deploymentType -> Objects.equals(deploymentType.toLowerCase(),
-							source.getDeploymentType().toLowerCase()))
-					.findFirst().orElseThrow(
-							() -> new SdcCustomException(
-									"Deployment Type '%s' Not found".formatted(source.getDeploymentType()))));
-
-			model.setLanguage(StaticRepository.datalistValues(DataLists.LANGUAGES).stream().filter(
-					language -> Objects.equals(language.toLowerCase(), source.getLanguage().toLowerCase())).findFirst()
-					.orElseThrow(
-							() -> new SdcCustomException("Language '%s' Not found".formatted(source.getLanguage()))));
-
-			model.setNetwork(StaticRepository.datalistValues(DataLists.NETWORKS).stream().filter(
-					network -> Objects.equals(network.toLowerCase(), source.getNetwork().toLowerCase())).findFirst()
-					.orElseThrow(
-							() -> new SdcCustomException("Network '%s' Not found".formatted(source.getNetwork()))));
-
-			model.setPlatform(StaticRepository.datalistValues(DataLists.PLATFORMS).stream().filter(
-					platform -> Objects.equals(platform.toLowerCase(), source.getPlatform().toLowerCase())).findFirst()
-					.orElseThrow(
-							() -> new SdcCustomException("Platform '%s' Not found".formatted(source.getPlatform()))));
-		};
 	}
 
 	private List<ComponentTypeArchitectureModel> componentTypeArchitectures(String componentType, String architecture) {
@@ -179,64 +129,5 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 		} else {
 			return componentTypeArchitectureRepository.repository().findByArchitecture(architecture);
 		}
-	}
-
-	private UnaryOperator<ComponentTypeArchitectureModel> patchComponentTypeArchitectureMetrics(
-			List<MetricModel> metrics) {
-		return componentTypeArchitecture -> {
-			List<MetricModel> metricsToSave = metrics.stream().filter(metric -> componentTypeArchitecture.getMetrics()
-					.stream().noneMatch(m -> Objects.equals(m.getId(), metric.getId()))).toList();
-
-			if (metricsToSave.isEmpty()) {
-				return componentTypeArchitecture;
-			} else {
-				componentTypeArchitecture.getMetrics().addAll(metricsToSave);
-				return componentTypeArchitectureRepository.saveAndFlush(componentTypeArchitecture);
-			}
-		};
-	}
-
-	private UnaryOperator<ComponentTypeArchitectureModel> saveMetricProperties(List<MetricPropertiesDTO> properties,
-			List<MetricModel> metrics) {
-		return componentTypeArchitecture -> {
-			properties.forEach(property -> {
-				MetricModel metric = metrics.stream().filter(
-						data -> Objects.equals(data.getName().toLowerCase(), property.getMetricName().toLowerCase())
-								&& Objects.equals(data.getType(), property.getType()))
-						.findFirst().orElseThrow(notMetricFound(property));
-
-				saveComponentTypeArchitectureMetricProperties(componentTypeArchitecture, metric, property.getParams());
-			});
-
-			return componentTypeArchitecture;
-		};
-	}
-
-	private List<ComponetTypeArchitectureMetricPropertiesModel> saveComponentTypeArchitectureMetricProperties(
-			ComponentTypeArchitectureModel componentTypeArchitecture,
-			MetricModel metric, Map<String, String> properties) {
-
-		return properties.entrySet().stream().map(entry -> {
-			ComponetTypeArchitectureMetricPropertiesModel property = componentTypeArchitectureMetricPropertiesRepository
-					.repository().findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(componentTypeArchitecture,
-							metric, entry.getKey())
-					.orElseGet(() -> {
-						ComponetTypeArchitectureMetricPropertiesModel newProperty = new ComponetTypeArchitectureMetricPropertiesModel();
-						newProperty.setComponentTypeArchitecture(componentTypeArchitecture);
-						newProperty.setMetric(metric);
-						newProperty.setName(entry.getKey());
-
-						return newProperty;
-					});
-
-			property.setValue(entry.getValue());
-
-			return property;
-		}).map(componentTypeArchitectureMetricPropertiesRepository::save).toList();
-	}
-
-	private Supplier<SdcCustomException> notMetricFound(MetricPropertiesDTO property) {
-		return () -> new SdcCustomException(
-				"Not metric '%s' (%s) found".formatted(property.getMetricName(), property.getType()));
 	}
 }

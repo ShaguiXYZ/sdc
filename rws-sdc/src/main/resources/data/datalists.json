@@ -1,68 +1,66 @@
 [
-	{
-		"name": "architectures",
-		"values": [
-			"rws",
-			"rws::legacy",
-			"sea::legacy",
-			"axis::legacy",
-			"module::legacy",
-			"shared::legacy",
-			"batch::legacy"
-		]
-	},
-	{
-		"name": "component_types",
-		"values": [
-			"frontend::library",
-			"frontend::angular",
-			"frontend::bff",
-			"frontend::ssr",
-			"frontend::anonymous",
-			"integration::rest",
-			"integration::soap",
-			"backend::library",
-			"backend::starter",
-			"backend::rest",
-			"backend::batch",
-			"backend::ebs"
-		]
-	},
-	{
-		"name": "networks",
-		"values": [
-			"none",
-			"user-integration",
-			"user-integration::public",
-			"user-integration::private",
-			"third-party-integration::public",
-			"third-party-integration::private",
-			"business-logic"
-		]
-	},
-	{
-		"name": "platforms",
-		"values": [
-			"cloud",
-			"on-premises"
-		]
-	},
-	{
-		"name": "languages",
-		"values": [
-			"typescript",
-			"javascript",
-			"java"
-		]
-	},
-	{
-		"name": "deployment_types",
-		"values": [
-			"none",
-			"static",
-			"jboss",
-			"container",
-			"standalone"
-		]
-	}
+  {
+    "name": "architectures",
+    "values": [
+      "apigee::proxy",
+      "axis::legacy",
+      "batch::legacy",
+      "custom",
+      "module::legacy",
+      "rws",
+      "rws::capacitor",
+      "rws::legacy",
+      "sea::legacy",
+      "shared::legacy",
+      "z/os"
+    ]
+  },
+  {
+    "name": "component_types",
+    "values": [
+      "backend::batch",
+      "backend::cics",
+      "backend::copy",
+      "backend::ebs",
+      "backend::library",
+      "backend::rest",
+      "backend::starter",
+      "frontend::angular",
+      "frontend::anonymous",
+      "frontend::bff",
+      "frontend::bfm",
+      "frontend::library",
+      "frontend::mobility",
+      "frontend::ssr",
+      "integration::rest",
+      "integration::soap",
+      "interaction::soap",
+      "middleware::cache",
+      "proxy",
+      "tooling"
+    ]
+  },
+  {
+    "name": "networks",
+    "values": [
+      "business-logic",
+      "enterprise",
+      "none",
+      "proxy::in",
+      "proxy::out",
+      "third-party-interaction",
+      "third-party-interaction::private",
+      "third-party-interaction::public",
+      "user-interaction",
+      "user-interaction::both",
+      "user-interaction::private",
+      "user-interaction::public"
+    ]
+  },
+  { "name": "platforms", "values": ["cloud", "on-premise"] },
+  { "name": "languages", "values": ["angular", "cobol", "java", "javascript", "typescript", "unknown", "xml"] },
+  {
+    "name": "deployment_types",
+    "values": ["apigee-proxy", "container", "jboss", "mainframe", "mobile-markets", "none", "standalone", "static"]
+  }
 ]

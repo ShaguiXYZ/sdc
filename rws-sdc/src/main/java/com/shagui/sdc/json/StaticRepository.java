@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.shagui.sdc.json.model.ComponentArchitectureConfigModel;
 import com.shagui.sdc.json.model.ComponentParamsModel;
 import com.shagui.sdc.json.model.DataListModel;
 import com.shagui.sdc.json.model.DataLists;
@@ -38,5 +39,9 @@ public class StaticRepository {
 
 	public static List<ComponentParamsModel> componentParams() {
 		return config.componentParams();
+	}
+
+	public static ComponentArchitectureConfigModel componentArchitectureConfig() {
+		return config.componentArchitectureConfig();
 	}
 }
