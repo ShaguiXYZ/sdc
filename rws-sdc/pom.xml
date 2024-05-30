@@ -9,10 +9,11 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version>
+		<version>3.2.6</version>
 		<relativePath />
 	</parent>
 	<properties>
+		<basedir>C:\Users\Shagui\workspace\work\sdc\rws-sdc</basedir>
 		<java.version>17</java.version>
 		<jacoco.version>0.8.11</jacoco.version>
 		<maven.compiler.source>17</maven.compiler.source>
