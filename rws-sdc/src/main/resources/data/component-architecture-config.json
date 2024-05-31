@@ -12,8 +12,25 @@
       }
     },
     {
+      "metricName": "Critical Errors",
+      "type": "SONAR",
+      "params": {},
+      "values": {
+        "weight": 75,
+        "value": "0",
+        "goodValue": "0",
+        "perfectValue": "0"
+      }
+    },
+    {
       "metricName": "Code Lines",
       "type": "SONAR",
+      "params": {},
+      "values": {}
+    },
+    {
+      "metricName": "Code Lines",
+      "type": "GIT",
       "params": {},
       "values": {}
     },
@@ -25,17 +42,6 @@
         "weight": 10,
         "value": "100",
         "goodValue": "20",
-        "perfectValue": "0"
-      }
-    },
-    {
-      "metricName": "Critical Errors",
-      "type": "SONAR",
-      "params": {},
-      "values": {
-        "weight": 75,
-        "value": "0",
-        "goodValue": "0",
         "perfectValue": "0"
       }
     },
@@ -119,19 +125,6 @@
       }
     },
     {
-      "metricName": "Angular Version",
-      "type": "GIT_JSON",
-      "params": {
-        "PATH": "#{ngx_path}/package.json"
-      },
-      "values": {
-        "weight": 50,
-        "value": "15.0.0",
-        "goodValue": "16.0.0",
-        "perfectValue": "17.0.0"
-      }
-    },
-    {
       "metricName": "Deprecated Libraries",
       "type": "GIT_XML",
       "params": {
@@ -142,6 +135,19 @@
         "value": "false",
         "goodValue": "false",
         "perfectValue": "false"
+      }
+    },
+    {
+      "metricName": "Angular Version",
+      "type": "GIT_JSON",
+      "params": {
+        "PATH": "#{ngx_path}/package.json"
+      },
+      "values": {
+        "weight": 50,
+        "value": "15.0.0",
+        "goodValue": "16.0.0",
+        "perfectValue": "17.0.0"
       }
     },
     {
