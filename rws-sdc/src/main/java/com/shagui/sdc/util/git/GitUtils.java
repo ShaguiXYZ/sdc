@@ -87,9 +87,10 @@ public class GitUtils {
 					.orElseGet(() -> config.gitClient().repoFile(URI.create(uriWithParams)))) {
 				return Optional.ofNullable(UrlUtils.mapResponse(response, clazz));
 			} catch (Exception e) {
-				throw new SdcCustomException("Not git uri for. component '%s'".formatted(component.getName()), e);
+				throw new SdcCustomException(
+						"Error calling git uri '%s' for component '%s'".formatted(uri, component.getName()), e);
 			}
-		}).orElseThrow(() -> new SdcCustomException("Not git uri for. component '%s'".formatted(component.getName())));
+		}).orElseThrow(() -> new SdcCustomException("Not git uri for component '%s'".formatted(component.getName())));
 	}
 
 	private static Optional<String> authorization(UriModel uriModel) {
