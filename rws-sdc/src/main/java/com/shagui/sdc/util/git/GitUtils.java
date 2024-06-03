@@ -16,9 +16,6 @@ import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.util.ComponentUtils;
-import com.shagui.sdc.util.Ctes;
-import com.shagui.sdc.util.DictioraryReplacement;
 import com.shagui.sdc.util.UrlUtils;
 
 import feign.Response;
@@ -82,7 +79,7 @@ public class GitUtils {
 
 			String uriWithParams = params.map(addParams(uri, paramValues)).orElse(uri);
 
-			try (Response response = authorization(data).map(
+			try (Response response = UrlUtils.authorization(data).map(
 					authorizationHeader -> config.gitClient().repoFile(URI.create(uriWithParams), authorizationHeader))
 					.orElseGet(() -> config.gitClient().repoFile(URI.create(uriWithParams)))) {
 				return Optional.ofNullable(UrlUtils.mapResponse(response, clazz));
@@ -91,12 +88,6 @@ public class GitUtils {
 						"Error calling git uri '%s' for component '%s'".formatted(uri, component.getName()), e);
 			}
 		}).orElseThrow(() -> new SdcCustomException("Not git uri for component '%s'".formatted(component.getName())));
-	}
-
-	private static Optional<String> authorization(UriModel uriModel) {
-		Optional<String> authorization = UrlUtils.uriProperty(uriModel, Ctes.UriProperties.AUTHORIZATION);
-
-		return authorization.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
 	}
 
 	private static Function<String, String> addParams(String uri, Map<String, String> paramValues) {

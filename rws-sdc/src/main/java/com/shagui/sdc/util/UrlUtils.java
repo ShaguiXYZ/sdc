@@ -113,4 +113,10 @@ public class UrlUtils {
 				.filter(uri -> component.getUris().stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName())))
 				.findFirst();
 	}
+
+	public static Optional<String> authorization(UriModel uriModel) {
+		Optional<String> authorization = UrlUtils.uriProperty(uriModel, Ctes.UriProperties.AUTHORIZATION);
+
+		return authorization.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
+	}
 }

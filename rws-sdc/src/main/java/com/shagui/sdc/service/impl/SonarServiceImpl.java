@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.shagui.sdc.api.client.SonarClient;
 import com.shagui.sdc.api.dto.sonar.MeasureSonarDTO;
 import com.shagui.sdc.api.dto.sonar.MeasuresSonarDTO;
+import com.shagui.sdc.core.exception.SdcCustomException;
 import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.model.UriModel;
 import com.shagui.sdc.model.ComponentAnalysisModel;
@@ -57,21 +58,22 @@ public class SonarServiceImpl implements SonarService {
 
 	private Optional<MeasuresSonarDTO> getSonarClientMeasures(ComponentModel component,
 			List<MetricModel> sonarMetrics) {
-		Optional<String> sonarUri = uri(component);
-
-		if (sonarUri.isPresent()) {
-			String metrics = sonarMetrics.stream().map(MetricModel::getValue).collect(Collectors.joining(","));
-			Response response = sonarClient.measures(URI.create(sonarUri.get()), component.getName(), metrics);
-
-			return Optional.of(UrlUtils.mapResponse(response, MeasuresSonarDTO.class));
-		}
-
-		return Optional.empty();
-	}
-
-	private Optional<String> uri(ComponentModel component) {
 		Optional<UriModel> uriModel = UrlUtils.componentUri(component, UriType.SONAR);
 
-		return uriModel.map(UriModel::getApi);
+		return uriModel.map(uri -> {
+			String metrics = sonarMetrics.stream().map(MetricModel::getValue).collect(Collectors.joining(","));
+
+			try (Response response = UrlUtils.authorization(uri).map(
+					authorizationHeader -> sonarClient.measures(URI.create(uri.getApi()), component.getName(),
+							metrics, authorizationHeader))
+					.orElseGet(() -> sonarClient.measures(URI.create(uri.getApi()), component.getName(), metrics))) {
+
+				return Optional.ofNullable(UrlUtils.mapResponse(response, MeasuresSonarDTO.class));
+			} catch (Exception e) {
+				throw new SdcCustomException(
+						"Error calling sonar uri '%s' for component '%s'".formatted(uri, component.getName()), e);
+			}
+
+		}).orElseThrow(() -> new SdcCustomException("Not sonar uri for component '%s'".formatted(component.getName())));
 	}
 }
