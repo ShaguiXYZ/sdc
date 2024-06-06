@@ -10,10 +10,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.json.model.ComponentArchitectureConfigModel;
@@ -27,6 +29,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class StaticRepositoryConfig {
+	@Value("${sdc.json-schema.uris:data/uris.json}")
+	private String urisPath;
+
+	@Value("${sdc.json-schema.dictionary:#{null}}")
+	private String dictionaryPath;
+
+	@Value("${sdc.json-schema.datalists:data/datalists.json}")
+	private String datalistsPath;
+
+	@Value("${sdc.json-schema.component-params:data/component-params.json}")
+	private String componentParamsPath;
+
+	@Value("${sdc.json-schema.component-architecture-config:#{null}}")
+	private String componentArchitectureConfigPath;
+
 	private final ObjectMapper mapper;
 
 	private Map<String, UriModel> uris = new HashMap<>();
@@ -42,19 +59,19 @@ public class StaticRepositoryConfig {
 	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
-		this.uris = loadResource("data/uris.json", UriModel[].class).map(Arrays::asList)
+		this.uris = loadResource(urisPath, UriModel[].class).map(Arrays::asList)
 				.orElseGet(ArrayList::new).stream().collect(Collectors.toMap(UriModel::getName, u -> u));
 
-		this.dictionary = loadResource("data/dictionary.json", HashMap.class).orElseGet(HashMap::new);
+		this.dictionary = loadResource(dictionaryPath, HashMap.class).orElseGet(HashMap::new);
 
-		this.datalists = loadResource("data/datalists.json", DataListModel[].class).map(Arrays::asList)
+		this.datalists = loadResource(datalistsPath, DataListModel[].class).map(Arrays::asList)
 				.orElseGet(ArrayList::new);
 
-		this.componentParams = loadResource("data/component-params.json", ComponentParamsModel[].class)
+		this.componentParams = loadResource(componentParamsPath, ComponentParamsModel[].class)
 				.map(Arrays::asList)
 				.orElseGet(ArrayList::new);
 
-		this.componentArchitectureConfig = loadResource("data/component-architecture-config.json",
+		this.componentArchitectureConfig = loadResource(componentArchitectureConfigPath,
 				ComponentArchitectureConfigModel.class).orElseGet(ComponentArchitectureConfigModel::new);
 
 		StaticRepository.setConfig(this);
@@ -80,13 +97,17 @@ public class StaticRepositoryConfig {
 		return componentArchitectureConfig;
 	}
 
-	private <T> Optional<T> loadResource(@NonNull String resourcePath, Class<T> clazz) {
-		Resource resource = new ClassPathResource(resourcePath);
+	private <T> Optional<T> loadResource(String resourcePath, Class<T> clazz) {
+		if (StringUtils.hasText(resourcePath)) {
+			Resource resource = new ClassPathResource(resourcePath);
 
-		try (InputStream is = resource.getInputStream()) {
-			return Optional.of(mapper.readValue(is, clazz));
-		} catch (IOException | IllegalArgumentException e) {
-			log.error("{} not found.", resource.getFilename(), e);
+			try (InputStream is = resource.getInputStream()) {
+				return Optional.of(mapper.readValue(is, clazz));
+			} catch (IOException | IllegalArgumentException e) {
+				log.error("{} not found.", resource.getFilename(), e);
+				return Optional.empty();
+			}
+		} else {
 			return Optional.empty();
 		}
 	}
