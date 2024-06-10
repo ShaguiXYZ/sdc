@@ -31,7 +31,7 @@ export class SdcDepartmentsService {
         let departments: IDepartmentModel[] = [];
         const department = pageable.page.find(data => this.contextData?.department?.id === data.id);
 
-        if (filter?.trim().length) {
+        if (filter?.trim()) {
           departments = filterBy(pageable.page, ['id', 'name'], filter);
         } else {
           departments = pageable.page;
@@ -50,7 +50,7 @@ export class SdcDepartmentsService {
       .squads()
       .then(pageable => {
         const squads: ISquadModel[] = pageable.page.filter(squad => squad.department.id === department.id);
-        const squadsInView: ISquadModel[] = filter?.trim().length ? filterBy(squads, ['id', 'name'], filter) : squads;
+        const squadsInView: ISquadModel[] = filter?.trim() ? filterBy(squads, ['id', 'name'], filter) : squads;
 
         this.contextData = { ...this.contextData, department, squadFilter: filter };
         this.contextDataService.set(ContextDataInfo.DEPARTMENTS_DATA, this.contextData, { persistent: true });

@@ -204,11 +204,10 @@ public class ComponentUtils {
 				.filter(Objects::nonNull)
 				.collect(Collectors.toList());
 
-		List<Float> trend = IntStream.range(0, values.size() - 1)
-				.mapToObj(i -> values.get(i + 1) - values.get(i))
-				.collect(Collectors.toList());
+		Stream<Float> trend = IntStream.range(0, values.size() - 1)
+				.mapToObj(i -> values.get(i + 1) - values.get(i));
 
-		return trendAverage(trend.stream());
+		return trendAverage(trend);
 	}
 
 	private static Float calculateTrend(SquadModel squad) {

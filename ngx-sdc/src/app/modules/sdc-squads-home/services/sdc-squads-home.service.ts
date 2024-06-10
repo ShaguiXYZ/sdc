@@ -31,7 +31,7 @@ export class SdcSquadsService {
         let squads: ISquadModel[] = [];
         const squad = pageable.page.find(data => this.contextData?.squad?.id === data.id);
 
-        if (filter?.trim().length) {
+        if (filter?.trim()) {
           squads = filterBy(pageable.page, ['id', 'name'], filter);
         } else {
           squads = pageable.page;
