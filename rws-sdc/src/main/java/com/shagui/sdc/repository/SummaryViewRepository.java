@@ -14,20 +14,20 @@ import com.shagui.sdc.model.pk.SummaryViewPk;
 import com.shagui.sdc.util.jpa.JpaReadOnlyRepository;
 
 public interface SummaryViewRepository extends JpaReadOnlyRepository<SummaryViewModel, SummaryViewPk> {
-        @Query("""
-                        SELECT sm FROM SummaryViewModel sm \
-                        WHERE \
-                        (:name IS NULL OR LOWER(sm.name) LIKE %:name%) AND \
-                        (:types IS NULL OR sm.id.type IN :types) \
-                        """)
-        Page<SummaryViewModel> filter(String name, Set<SummaryType> types, Pageable pageable);
+    @Query("""
+            SELECT sm FROM SummaryViewModel sm
+            WHERE
+            (:name IS NULL OR LOWER(sm.name) LIKE %:name%) AND
+            (:types IS NULL OR sm.id.type IN :types)
+            """)
+    Page<SummaryViewModel> filter(String name, Set<SummaryType> types, Pageable pageable);
 
-        @Query("""
-                        SELECT sm FROM SummaryViewModel sm \
-                        WHERE \
-                        (:name IS NULL OR LOWER(sm.name) LIKE %:name%) AND \
-                        (:types IS NULL OR sm.id.type IN :types) \
-                        """)
-        public List<SummaryViewModel> filter(String name, Set<SummaryType> types, Sort sort);
+    @Query("""
+            SELECT sm FROM SummaryViewModel sm
+            WHERE
+            (:name IS NULL OR LOWER(sm.name) LIKE %:name%) AND
+            (:types IS NULL OR sm.id.type IN :types)
+            """)
+    public List<SummaryViewModel> filter(String name, Set<SummaryType> types, Sort sort);
 
 }

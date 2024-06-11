@@ -56,50 +56,50 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	 *         of a list
 	 */
 	@Query("""
-			SELECT cm FROM ComponentModel cm \
-			JOIN cm.tags t \
-			WHERE \
-			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
-			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
-			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND \
-			(:coverageMax IS NULL OR :coverageMax > cm.coverage) AND \
-			(t.name IN :tags) \
-			GROUP BY cm HAVING COUNT(DISTINCT t) = :tagsSize \
+			SELECT cm FROM ComponentModel cm
+			JOIN cm.tags t
+			WHERE
+			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND
+			(:squadId IS NULL OR cm.squad.id = :squadId) AND
+			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND
+			(:coverageMax IS NULL OR :coverageMax > cm.coverage) AND
+			(t.name IN :tags)
+			GROUP BY cm HAVING COUNT(DISTINCT t) = :tagsSize
 			""")
 	Page<ComponentModel> filter0(String name, Integer squadId, Set<String> tags, Float coverageMin,
 			Float coverageMax, Integer tagsSize, Pageable pageable);
 
 	@Query("""
-			SELECT cm FROM ComponentModel cm \
-			JOIN cm.tags t \
-			WHERE \
-			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
-			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
-			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND \
-			(:coverageMax IS NULL OR :coverageMax > cm.coverage) AND \
-			(t.name IN :tags) \
-			GROUP BY cm HAVING COUNT(DISTINCT t) = :tagsSize \
+			SELECT cm FROM ComponentModel cm
+			JOIN cm.tags t
+			WHERE
+			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND
+			(:squadId IS NULL OR cm.squad.id = :squadId) AND
+			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND
+			(:coverageMax IS NULL OR :coverageMax > cm.coverage) AND
+			(t.name IN :tags)
+			GROUP BY cm HAVING COUNT(DISTINCT t) = :tagsSize
 			""")
 	List<ComponentModel> filter0(String name, Integer squadId, Set<String> tags, Float coverageMin,
 			Float coverageMax, Integer tagsSize, Sort sort);
 
 	@Query("""
-			SELECT cm FROM ComponentModel cm \
-			WHERE \
-			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
-			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
-			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND \
-			(:coverageMax IS NULL OR :coverageMax > cm.coverage) \
+			SELECT cm FROM ComponentModel cm
+			WHERE
+			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND
+			(:squadId IS NULL OR cm.squad.id = :squadId) AND
+			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND
+			(:coverageMax IS NULL OR :coverageMax > cm.coverage)
 			""")
 	Page<ComponentModel> filter0(String name, Integer squadId, Float coverageMin, Float coverageMax, Pageable pageable);
 
 	@Query("""
-			SELECT cm FROM ComponentModel cm \
-			WHERE \
-			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND \
-			(:squadId IS NULL OR cm.squad.id = :squadId) AND \
-			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND \
-			(:coverageMax IS NULL OR :coverageMax > cm.coverage) \
+			SELECT cm FROM ComponentModel cm
+			WHERE
+			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND
+			(:squadId IS NULL OR cm.squad.id = :squadId) AND
+			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND
+			(:coverageMax IS NULL OR :coverageMax > cm.coverage)
 			""")
 	public List<ComponentModel> filter0(String name, Integer squadId, Float coverageMin, Float coverageMax, Sort sort);
 
