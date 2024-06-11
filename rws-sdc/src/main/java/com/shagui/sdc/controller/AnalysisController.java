@@ -1,5 +1,6 @@
 package com.shagui.sdc.controller;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -72,7 +73,7 @@ public class AnalysisController implements AnalysisRestApi {
 		MetricDTO metric = metricService.metric(metricName, metricType);
 
 		if (Mergeable.class.isAssignableFrom(metric.getValueType().clazz())) {
-			List<Date> lastTwelveMonths = DateUtils.getLastMounth(12);
+			List<Date> lastTwelveMonths = DateUtils.getLastMounth(-12);
 
 			return lastTwelveMonths.stream().flatMap(date -> {
 				PageData<MetricAnalysisDTO> pageData = analysisService.filterAnalysis(metric.getId(),

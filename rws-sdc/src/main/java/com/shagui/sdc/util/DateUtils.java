@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import com.shagui.sdc.util.collector.SdcCollectors;
+
 public class DateUtils {
 
     private DateUtils() {
@@ -32,6 +34,11 @@ public class DateUtils {
     }
 
     public static List<Date> getLastMounth(Date start, int n) {
+        // return reverse list if n is negative
+        if (n < 0) {
+            return getLastMounth(start, -n).stream().collect(SdcCollectors.toReversedList());
+        }
+
         return IntStream.rangeClosed(0, n - 1)
                 .mapToObj(i -> DateUtils.dateToLocalDate(start).minusMonths(i))
                 .map(LocalDate::atStartOfDay)
