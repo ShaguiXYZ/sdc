@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 @FeignClient(name = "security-service", url = "${services.rws-security}", primary = false)
 public interface SecurityClient {
 	@PostMapping("public/login")
-	SessionDTO login(@RequestParam("resource") String resource, @RequestParam("username") String username,
+	SessionDTO login(@RequestParam String resource, @RequestParam String username,
 			@RequestParam("password") String pwd);
 
 	@PutMapping("close")
@@ -30,7 +30,7 @@ public interface SecurityClient {
 	UserDTO findUser(
 			@RequestHeader(value = HttpServletRequestUtils.HEADER_AUTHORIZATION, required = true) String authorizationHeader,
 			@RequestHeader(value = HttpServletRequestUtils.HEADER_SESSION_ID, required = true) String sidHeader,
-			@PathVariable("userName") @Parameter(description = "Unser name (UID)") String userName);
+			@PathVariable @Parameter(description = "Unser name (UID)") String userName);
 
 	@GetMapping("ping")
 	UserDTO ping(

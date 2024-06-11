@@ -9,20 +9,20 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.6</version>
+		<version>3.3.0</version>
 		<relativePath />
 	</parent>
 	<properties>
 		<basedir>C:\Users\Shagui\workspace\work\sdc\rws-sdc</basedir>
 		<java.version>17</java.version>
-		<jacoco.version>0.8.11</jacoco.version>
+		<!-- <jacoco.version>0.8.12</jacoco.version> -->
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<maven.compiler.encoding>${project.build.sourceEncoding}</maven.compiler.encoding>
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
 		<maven.release-plugin.version>2.5.3</maven.release-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-cloud.version>2023.0.0</spring-cloud.version>
+		<spring-cloud.version>2023.0.2</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -163,7 +163,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.version}</version>
@@ -181,7 +181,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 	<profiles>
