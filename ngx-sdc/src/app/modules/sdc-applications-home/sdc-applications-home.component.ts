@@ -101,9 +101,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   }
 
   public squadChange(squad: number): void {
-    if (!hasValue(squad)) {
-      this.form.controls['squadId'].setValue('');
-    }
+    !hasValue(squad) && this.form.controls['squadId'].setValue('');
 
     this.applicationsService.populateData({
       metricState: this.form.controls['coverage'].value,
@@ -114,9 +112,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   }
 
   public coverageChange(metricState: MetricStates): void {
-    if (!metricState) {
-      this.form.controls['coverage'].setValue('');
-    }
+    !metricState && this.form.controls['coverage'].setValue('');
 
     this.applicationsService.populateData({
       metricState: metricState,
@@ -127,9 +123,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   }
 
   public tagsChange(tags: string[]): void {
-    if (!tags?.length) {
-      this.form.controls['tags'].setValue([]);
-    }
+    !tags?.length && this.form.controls['tags'].setValue([]);
 
     this.applicationsService.populateData({
       metricState: this.form.controls['coverage'].value,

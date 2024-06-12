@@ -36,14 +36,18 @@ public class DateUtils {
     public static List<Date> getLastMounth(Date start, int n) {
         // return reverse list if n is negative
         if (n < 0) {
-            return getLastMounth(start, -n).stream().collect(SdcCollectors.toReversedList());
+            return lastMounth(start, -n).collect(SdcCollectors.toReversedList());
         }
 
+        return lastMounth(start, n).toList();
+    }
+
+    private static Stream<Date> lastMounth(Date start, int n) {
         return IntStream.rangeClosed(0, n - 1)
                 .mapToObj(i -> DateUtils.dateToLocalDate(start).minusMonths(i))
                 .map(LocalDate::atStartOfDay)
                 .map(DateUtils::loacalDateTimeToInstant)
-                .map(Date::from).toList();
+                .map(Date::from);
     }
 
     private static LocalDate dateToLocalDate(Date date) {
