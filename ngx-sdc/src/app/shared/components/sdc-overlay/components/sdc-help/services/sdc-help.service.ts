@@ -40,9 +40,9 @@ export class SdcHelpService implements OnDestroy {
     return this.data$;
   }
 
-  public initialize = (): void => {
+  public initialize = async (): Promise<void> => {
     this.initAppendix();
-    this.importHelpConfig(this.appendix);
+    await this.importHelpConfig(this.appendix);
   };
 
   private initAppendix = (): void => {

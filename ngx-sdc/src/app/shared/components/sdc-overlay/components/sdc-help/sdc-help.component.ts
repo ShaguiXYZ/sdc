@@ -80,14 +80,14 @@ export class SdcHelpComponent implements OnInit, OnDestroy {
 
   constructor(private readonly helpService: SdcHelpService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.subscriptions.push(
       this.helpService.onDataChange().subscribe(config => {
         this.config = config;
       })
     );
 
-    this.helpService.initialize();
+    await this.helpService.initialize();
   }
 
   ngOnDestroy(): void {
