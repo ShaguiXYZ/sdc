@@ -1,5 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  Signal,
+  viewChild
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NxCardModule } from '@aposin/ng-aquila/card';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
@@ -50,8 +61,7 @@ export class SdcCoveragesComponent implements OnInit, OnDestroy {
   @Output()
   public selectCoverage: EventEmitter<ICoverageModel> = new EventEmitter();
 
-  @ViewChild('searchInput', { static: true })
-  private searchInput!: ElementRef;
+  private searchInput: Signal<ElementRef> = viewChild.required('searchInput');
   private subscription$!: Subscription;
 
   ngOnInit(): void {
@@ -68,7 +78,7 @@ export class SdcCoveragesComponent implements OnInit, OnDestroy {
   }
 
   private searchBoxConfig(): Subscription {
-    return fromEvent(this.searchInput.nativeElement, 'keyup')
+    return fromEvent(this.searchInput().nativeElement, 'keyup')
       .pipe(
         map(event => event),
         distinctUntilChanged(),
