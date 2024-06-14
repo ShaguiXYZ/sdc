@@ -36,7 +36,7 @@ export class SdcKeysComponent {
   onKeyDown(event: KeyboardEvent) {
     this.eventKeyActions(event);
 
-    // @howto: Detect platform
+    // @howto Detect platform
     if (navigator.userAgent.toLowerCase().includes('windows')) {
       this.handleWindowsKeyEvents(event);
     } else {

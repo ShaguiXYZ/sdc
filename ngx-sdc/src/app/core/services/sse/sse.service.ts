@@ -8,7 +8,7 @@ import { SseEventDTO, SseEventModel } from './models';
  * (SSE - is a technology where a browser receives automatic updates from a
  * server via HTTP connection)
  *
- * @howto: server-sent events client
+ * @howto server-sent events client
  */
 @Injectable({ providedIn: 'root' })
 export class SseService<T = any> {

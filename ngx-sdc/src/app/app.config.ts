@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(
       /**
-       * @howto: prevent ssr caching of http requests
+       * @howto prevent ssr caching of http requests
        *
        * ref: https://angular.io/guide/ssr#caching-http-requests
        */

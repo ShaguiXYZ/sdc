@@ -81,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
   }
 
-  // @howto: Detect the Closing of a Browser Tab
+  // @howto Detect the Closing of a Browser Tab
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
     event.preventDefault();
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
     event.stopPropagation();
   }
 
-  // @howto: animation on route change
+  // @howto animation on route change
   public prepareRoute = (outlet: RouterOutlet) => outlet.isActivated && outlet.activatedRouteData?.['animation'];
 
   public onClick(event: any) {

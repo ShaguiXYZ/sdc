@@ -17,7 +17,7 @@ import reactor.util.retry.Retry;
  * (SSE - is a technology where a browser receives automatic updates from a
  * server via HTTP connection)
  * 
- * @howto: server-sent events client
+ * @howto server-sent events client
  */
 @Slf4j
 @Service

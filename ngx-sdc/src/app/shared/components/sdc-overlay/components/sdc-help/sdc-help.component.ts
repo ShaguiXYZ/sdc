@@ -61,7 +61,7 @@ import { SdcHelpEntry } from './constants';
   standalone: true,
   imports: [CommonModule, NxHeadlineModule, TranslateModule, SdcHelpParagraphPipe],
   /**
-   * @howto: Remove the encapsulation to allow the styles to be applied to the parent component
+   * @howto Remove the encapsulation to allow the styles to be applied to the parent component
    *
    * ref: https://angular.io/api/core/ViewEncapsulation
    */

@@ -2,7 +2,7 @@ import { ApplicationRef, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { SESSION_THEME_KEY, Theme } from '../models';
 
-// @howto: service to handle theme changes
+// @howto service to handle theme changes
 @Injectable()
 export class ThemingService implements OnDestroy {
   public themeChange = new BehaviorSubject<Theme>('light');

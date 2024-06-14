@@ -10,7 +10,7 @@ export class SdcEventItemService {
   ) {}
 
   public navigateTo(componentId: number): void {
-    // @howto: navigation to the metrics page, even if you are already on it
+    // @howto navigation to the metrics page, even if you are already on it
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.routerService.toComponentById(componentId);
     });

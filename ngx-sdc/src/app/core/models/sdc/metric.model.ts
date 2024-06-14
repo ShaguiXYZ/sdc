@@ -11,7 +11,7 @@ export enum ValueType {
 }
 
 /**
- * @howto: use this type to define a variable that can hold any of the values in the enum
+ * @howto use this type to define a variable that can hold any of the values in the enum
  */
 const EVALUABLEVALUETYPE = [ValueType.NUMERIC, ValueType.BOOLEAN, ValueType.VERSION] as const;
 export type EvaluableValueType = (typeof EVALUABLEVALUETYPE)[number];

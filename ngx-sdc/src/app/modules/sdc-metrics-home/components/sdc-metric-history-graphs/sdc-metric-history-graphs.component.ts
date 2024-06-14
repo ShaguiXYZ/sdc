@@ -104,7 +104,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     showFactorChart?.['goodValue'] && this.addFactorChartData(data, analysis, MetricStates.ACCEPTABLE, 'goodValue');
     showFactorChart?.['perfectValue'] && this.addFactorChartData(data, analysis, MetricStates.PERFECT, 'perfectValue');
 
-    // @howto: disable factor chart inputs if there is no data for that factor
+    // @howto disable factor chart inputs if there is no data for that factor
     // Object.keys(this.availableFactorCharts).forEach(value => {
     //   const inputElement = $.get(`.factor-${value} input`) as HTMLInputElement;
     //

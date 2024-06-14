@@ -15,7 +15,7 @@ import reactor.core.publisher.Sinks;
  * (SSE - is a technology where a browser receives automatic updates from a
  * server via HTTP connection)
  * 
- * @howto: server-sent events service
+ * @howto server-sent events service
  */
 @Service
 public class SseServiceImpl implements SseService {
