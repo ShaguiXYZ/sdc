@@ -7,7 +7,6 @@ import { ContextDataService, StorageService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
 import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
 import { IAppConfigurationModel } from './core/models/sdc';
-import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 import { routingAnimation } from './shared/animations';
 import { SdcAppFooterComponent, SdcOverlayComponent } from './shared/components';
 import { SdcOverlayService } from './shared/components/sdc-overlay/services';
@@ -51,7 +50,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptions$: Subscription[] = [];
 
   constructor(
-    private readonly appConfiguration: AppConfigurationService,
     private readonly contextDataService: ContextDataService,
     private readonly overlayService: SdcOverlayService,
     private readonly storageService: StorageService,
@@ -59,14 +57,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.appConfiguration.appConfiguracions().then(config => {
-      this.contextDataService.set<IAppConfigurationModel>(
-        ContextDataInfo.APP_CONFIG,
-        { ...config, title: '- S D C -' },
-        { persistent: true, referenced: false }
-      );
-    });
-
     this.subscriptions$.push(
       this.contextDataService.onDataChange<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG).subscribe(config => {
         this.title.setTitle(config.title);

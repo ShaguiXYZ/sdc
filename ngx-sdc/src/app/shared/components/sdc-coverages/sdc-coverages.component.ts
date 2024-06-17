@@ -61,7 +61,7 @@ export class SdcCoveragesComponent implements OnInit, OnDestroy {
   @Output()
   public selectCoverage: EventEmitter<ICoverageModel> = new EventEmitter();
 
-  private searchInput: Signal<ElementRef> = viewChild.required('searchInput');
+  private $searchInput: Signal<ElementRef> = viewChild.required('searchInput');
   private subscription$!: Subscription;
 
   ngOnInit(): void {
@@ -78,7 +78,7 @@ export class SdcCoveragesComponent implements OnInit, OnDestroy {
   }
 
   private searchBoxConfig(): Subscription {
-    return fromEvent(this.searchInput().nativeElement, 'keyup')
+    return fromEvent(this.$searchInput().nativeElement, 'keyup')
       .pipe(
         map(event => event),
         distinctUntilChanged(),
