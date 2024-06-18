@@ -10,7 +10,7 @@ import { IAppConfigurationModel } from './core/models/sdc';
 import { routingAnimation } from './shared/animations';
 import { SdcAppFooterComponent, SdcOverlayComponent } from './shared/components';
 import { SdcOverlayService } from './shared/components/sdc-overlay/services';
-import { ContextDataInfo } from './shared/constants';
+import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from './shared/constants';
 
 @Component({
   selector: 'app-root',
@@ -63,8 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.storageService.retrieve(ContextDataInfo.SQUADS_DATA);
-    this.storageService.retrieve(ContextDataInfo.DEPARTMENTS_DATA);
+    retrieveAppContextData(this.storageService);
   }
 
   ngOnDestroy(): void {
@@ -75,8 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
     event.preventDefault();
-    this.storageService.create(ContextDataInfo.SQUADS_DATA);
-    this.storageService.create(ContextDataInfo.DEPARTMENTS_DATA);
+    storageAppContextData(this.storageService);
   }
 
   @HostListener('window:popstate', ['$event'])

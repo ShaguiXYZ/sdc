@@ -57,10 +57,10 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   private subscription$: Array<Subscription> = [];
 
   constructor(
+    private readonly applicationsService: SdcApplicationsHomeService,
     private readonly contextDataService: ContextDataService,
     private readonly fb: FormBuilder,
-    private readonly routerService: SdcRouteService,
-    private readonly applicationsService: SdcApplicationsHomeService
+    private readonly routerService: SdcRouteService
   ) {}
 
   ngOnInit(): void {
