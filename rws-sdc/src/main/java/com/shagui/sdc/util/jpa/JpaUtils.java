@@ -18,9 +18,4 @@ public class JpaUtils {
 
 		return StringUtils.hasText(toFind) ? "%" + toFind + "%" : null;
 	}
-
-	public static String jpaStringMask(String value) {
-		// Repalce all spaces with % to allow for partial matches
-		return StringUtils.hasText(value) ? value.toLowerCase().replaceAll("\\s+", "%") : value;
-	}
 }

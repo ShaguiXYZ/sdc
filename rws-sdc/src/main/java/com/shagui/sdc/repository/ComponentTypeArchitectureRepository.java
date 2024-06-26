@@ -21,13 +21,13 @@ public interface ComponentTypeArchitectureRepository extends JpaRepository<Compo
             String architecture);
 
     @Query("""
-            SELECT cta FROM ComponentTypeArchitectureModel cta WHERE \
-            (:componentType IS NULL OR LOWER(cta.componentType) LIKE (:componentType)) AND \
-            (:architecture IS NULL OR LOWER(cta.architecture) LIKE (:architecture)) AND \
-            (:network IS NULL OR LOWER(cta.network) LIKE (:network)) AND \
-            (:deploymentType IS NULL OR LOWER(cta.deploymentType) LIKE (:deploymentType)) AND \
-            (:platform IS NULL OR LOWER(cta.platform) LIKE (:platform)) AND \
-            (:language IS NULL OR LOWER(cta.language) LIKE (:language)) \
+            SELECT cta FROM ComponentTypeArchitectureModel cta WHERE
+            (:componentType IS NULL OR LOWER(cta.componentType) LIKE (:componentType)) AND
+            (:architecture IS NULL OR LOWER(cta.architecture) LIKE (:architecture)) AND
+            (:network IS NULL OR LOWER(cta.network) LIKE (:network)) AND
+            (:deploymentType IS NULL OR LOWER(cta.deploymentType) LIKE (:deploymentType)) AND
+            (:platform IS NULL OR LOWER(cta.platform) LIKE (:platform)) AND
+            (:language IS NULL OR LOWER(cta.language) LIKE (:language))
             ORDER BY cta.componentType, cta.architecture, cta.network, cta.deploymentType, cta.architecture, cta.language\
             """)
     List<ComponentTypeArchitectureModel> findBy(String componentType, String architecture, String network,

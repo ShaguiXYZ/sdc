@@ -35,19 +35,19 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	default Page<ComponentModel> filter(String name, Integer squadId, Set<String> tags,
 			Float coverageMin, Float coverageMax, Pageable pageable) {
 		if (!CollectionUtils.isEmpty(tags)) {
-			return filter0(name, squadId, tags, coverageMin, coverageMax, tags.size(), pageable);
+			return filter0(JpaUtils.contains(name), squadId, tags, coverageMin, coverageMax, tags.size(), pageable);
 		}
 
-		return filter0(name, squadId, coverageMin, coverageMax, pageable);
+		return filter0(JpaUtils.contains(name), squadId, coverageMin, coverageMax, pageable);
 	}
 
 	default List<ComponentModel> filter(String name, Integer squadId, Set<String> tags,
 			Float coverageMin, Float coverageMax, Sort sort) {
 		if (!CollectionUtils.isEmpty(tags)) {
-			return filter0(name, squadId, tags, coverageMin, coverageMax, tags.size(), sort);
+			return filter0(JpaUtils.contains(name), squadId, tags, coverageMin, coverageMax, tags.size(), sort);
 		}
 
-		return filter0(name, squadId, coverageMin, coverageMax, sort);
+		return filter0(JpaUtils.contains(name), squadId, coverageMin, coverageMax, sort);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			SELECT cm FROM ComponentModel cm
 			JOIN cm.tags t
 			WHERE
-			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND
+			(:name IS NULL OR LOWER(cm.name) LIKE :name) AND
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND
 			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND
 			(:coverageMax IS NULL OR :coverageMax > cm.coverage) AND
@@ -73,7 +73,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 			SELECT cm FROM ComponentModel cm
 			JOIN cm.tags t
 			WHERE
-			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND
+			(:name IS NULL OR LOWER(cm.name) LIKE :name) AND
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND
 			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND
 			(:coverageMax IS NULL OR :coverageMax > cm.coverage) AND
@@ -86,7 +86,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	@Query("""
 			SELECT cm FROM ComponentModel cm
 			WHERE
-			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND
+			(:name IS NULL OR LOWER(cm.name) LIKE :name) AND
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND
 			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND
 			(:coverageMax IS NULL OR :coverageMax > cm.coverage)
@@ -96,7 +96,7 @@ public interface ComponentRepository extends JpaRepository<ComponentModel, Integ
 	@Query("""
 			SELECT cm FROM ComponentModel cm
 			WHERE
-			(:name IS NULL OR LOWER(cm.name) LIKE %:name%) AND
+			(:name IS NULL OR LOWER(cm.name) LIKE :name) AND
 			(:squadId IS NULL OR cm.squad.id = :squadId) AND
 			(:coverageMin IS NULL OR :coverageMin <= cm.coverage) AND
 			(:coverageMax IS NULL OR :coverageMax > cm.coverage)

@@ -10,9 +10,9 @@ import com.shagui.sdc.model.MetricValuesModel;
 
 public interface MetricValueRepository extends JpaRepository<MetricValuesModel, Integer> {
     @Query("""
-            SELECT mv FROM MetricValuesModel mv \
-            WHERE mv.metric.id = :metricId AND mv.componentTypeArchitecture.id = :componentTypeArchitectureId AND mv.metricValueDate <= :date \
-            ORDER BY mv.metricValueDate DESC\
+            SELECT mv FROM MetricValuesModel mv
+            WHERE mv.metric.id = :metricId AND mv.componentTypeArchitecture.id = :componentTypeArchitectureId AND mv.metricValueDate <= :date
+            ORDER BY mv.metricValueDate DESC
             """)
     List<MetricValuesModel> metricValuesByDate(int metricId, int componentTypeArchitectureId, Timestamp date);
 }

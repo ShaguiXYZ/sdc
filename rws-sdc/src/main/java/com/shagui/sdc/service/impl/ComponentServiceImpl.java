@@ -71,7 +71,7 @@ public class ComponentServiceImpl implements ComponentService {
 	@Override
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Range range) {
 		return componentRepository.repository()
-				.filter(JpaUtils.jpaStringMask(name), squadId, tags, range.getMin(), range.getMax(),
+				.filter(JpaUtils.contains(name), squadId, tags, range.getMin(), range.getMax(),
 						coverageWithNameSort())
 				.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
 	}
@@ -80,7 +80,7 @@ public class ComponentServiceImpl implements ComponentService {
 	public PageData<ComponentDTO> filter(String name, Integer squadId, Set<String> tags, Range range,
 			RequestPageInfo pageInfo) {
 		Page<ComponentModel> models = componentRepository.repository()
-				.filter(JpaUtils.jpaStringMask(name), squadId, tags, range.getMin(), range.getMax(),
+				.filter(JpaUtils.contains(name), squadId, tags, range.getMin(), range.getMax(),
 						pageInfo.getPageable(coverageWithNameSort()));
 
 		return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(models));

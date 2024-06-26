@@ -30,7 +30,7 @@ public class SummaryViewServiceImpl implements SummaryViewService {
 
     @Override
     public PageData<SummaryViewDTO> filter(String name, Set<SummaryType> types) {
-        List<SummaryViewModel> models = summaryViewRepository.repository().filter(JpaUtils.jpaStringMask(name), types,
+        List<SummaryViewModel> models = summaryViewRepository.repository().filter(JpaUtils.contains(name), types,
                 Sort.by("name"));
 
         return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable());
@@ -39,7 +39,7 @@ public class SummaryViewServiceImpl implements SummaryViewService {
     @Override
     public PageData<SummaryViewDTO> filter(String name, Set<SummaryType> types, RequestPageInfo pageInfo) {
         Page<SummaryViewModel> models = summaryViewRepository.repository()
-                .filter(JpaUtils.jpaStringMask(name), types, pageInfo.getPageable(Sort.by("name")));
+                .filter(JpaUtils.contains(name), types, pageInfo.getPageable(Sort.by("name")));
 
         return models.stream().map(Mapper::parse).collect(SdcCollectors.toPageable(models));
     }
