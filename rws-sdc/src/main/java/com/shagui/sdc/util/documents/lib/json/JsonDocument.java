@@ -107,8 +107,8 @@ public class JsonDocument implements SdcDocument {
 			} else {
 				// Moving cursor in a JSON Object
 				String name;
-				for (parser.nextToken(), name = parser.getCurrentName(); !this.key.equals(name); parser
-						.nextToken(), name = parser.getCurrentName()) {
+				for (parser.nextToken(), name = parser.currentName(); !this.key.equals(name); parser
+						.nextToken(), name = parser.currentName()) {
 					JSONKey.skipToNext(parser);
 
 					if (name == null)
