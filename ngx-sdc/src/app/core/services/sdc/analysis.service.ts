@@ -67,10 +67,7 @@ export class AnalysisService {
     page: number = 0,
     ps: number = METRIC_HISTORY_ELEMENTS
   ): Promise<IPageable<IMetricAnalysisModel>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('page', String(page));
-    httpParams = httpParams.append('ps', String(ps));
+    let httpParams = new HttpParams().appendAll({ page, ps });
 
     return firstValueFrom(
       this.http
@@ -102,9 +99,7 @@ export class AnalysisService {
     squadId?: number,
     departmentId?: number
   ): Promise<IPageable<IMetricAnalysisModel>> {
-    let httpParams = new HttpParams();
-    httpParams = httpParams.append('metricName', metricName);
-    httpParams = httpParams.append('metricType', metricType);
+    let httpParams = new HttpParams().appendAll({ metricName, metricType });
 
     if (hasValue(componentId)) {
       httpParams = httpParams.append('componentId', String(componentId));

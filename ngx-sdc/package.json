@@ -34,7 +34,6 @@
     "@ngx-translate/http-loader": "8.0.0",
     "@shagui/ng-shagui": "18.0.2",
     "echarts": "5.5.0",
-    "express": "4.19.2",
     "iban": "0.0.14",
     "ngx-echarts": "17.1.0",
     "rxjs": "7.8.1",

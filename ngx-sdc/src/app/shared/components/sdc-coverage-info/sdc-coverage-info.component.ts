@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { BACKGROUND_CHART_COLOR } from '../../constants';
@@ -28,11 +28,6 @@ export class SdcCoverageInfoComponent {
 
   @Output()
   public selectCoverage: EventEmitter<ICoverageModel> = new EventEmitter();
-
-  private observer!: IntersectionObserver;
-  private coverageChartVisible = false;
-
-  constructor(private readonly element: ElementRef) {}
 
   public onClick() {
     this.selectCoverage.emit(this.coverage);

@@ -149,10 +149,7 @@ export class ComponentService {
     page: number = 0,
     ps: number = METRIC_HISTORY_ELEMENTS
   ): Promise<IHistoricalCoverage<IComponentModel>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('page', String(page));
-    httpParams = httpParams.append('ps', String(ps));
+    let httpParams = new HttpParams().appendAll({ page, ps });
 
     return firstValueFrom(
       this.http
