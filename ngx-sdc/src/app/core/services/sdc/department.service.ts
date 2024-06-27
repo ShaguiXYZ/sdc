@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CacheService, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CacheService, DataInfo, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ICoverageModel, IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
 import { L_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';
-import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class DepartmentService {
@@ -49,6 +49,27 @@ export class DepartmentService {
             };
 
             return result;
+          })
+        )
+    );
+  }
+
+  public updateDeparments(onError?: DataInfo<(error: any) => void>): Promise<IDepartmentModel[]> {
+    return firstValueFrom(
+      this.http
+        .post<undefined, IDepartmentDTO[]>(`${this._urlDepartments}/departments/update`, undefined, {
+          responseStatusMessage: {
+            [HttpStatus.notFound]: { text: this.translate.instant('Error.404') },
+            [HttpStatus.locked]: { text: this.translate.instant('Error.423'), fn: onError?.[HttpStatus.locked] },
+            [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
+          },
+          procesingMessage: { text: this.translate.instant('Notifications.UpdatingServerInfo') },
+          successMessage: { text: this.translate.instant('Notifications.ServerInfoUpdated') }
+        })
+        .pipe(
+          map(res => {
+            const dto = res as IDepartmentDTO[];
+            return dto.map(IDepartmentModel.fromDTO);
           })
         )
     );

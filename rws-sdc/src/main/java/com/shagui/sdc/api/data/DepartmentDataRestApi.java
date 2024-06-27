@@ -3,7 +3,7 @@ package com.shagui.sdc.api.data;
 import java.util.List;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,22 +16,22 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = { "/api/data" }, produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface DepartmentDataRestApi {
 	@Operation(summary = "Update department data", description = "Update department data")
-	@PatchMapping("department")
+	@PostMapping("data/department")
 	DepartmentDTO department(@RequestBody DepartmentInput data);
 
 	@Operation(summary = "Update departments data", description = "Update departments data")
-	@PatchMapping("departments")
+	@PostMapping("data/departments")
 	List<DepartmentDTO> departments(@RequestBody List<DepartmentInput> data);
 
 	@Operation(summary = "Update departments data from default json", description = "Update departments data")
-	@PatchMapping("jsonDefaultDepartments")
+	@PostMapping("data/jsonDefaultDepartments")
 	List<DepartmentDTO> jsonDepartments();
 
 	@Operation(summary = "Update departments data from provided json", description = "Update departments data")
-	@PatchMapping("jsonDepartments")
+	@PostMapping("data/jsonDepartments")
 	List<DepartmentDTO> jsonDepartments(
 			@RequestParam(required = true, defaultValue = "data/departments-squads.json") @Parameter(description = "departments file path") String path);
 }

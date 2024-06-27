@@ -3,14 +3,14 @@ import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { TranslateModule } from '@ngx-translate/core';
-import { ContextDataService } from '@shagui/ng-shagui/core';
+import { ContextDataService, StorageService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
 import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
 import { IAppConfigurationModel } from './core/models/sdc';
 import { routingAnimation } from './shared/animations';
 import { SdcAppFooterComponent, SdcOverlayComponent } from './shared/components';
 import { SdcOverlayService } from './shared/components/sdc-overlay/services';
-import { ContextDataInfo } from './shared/constants';
+import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from './shared/constants';
 
 @Component({
   selector: 'app-root',
@@ -52,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly contextDataService: ContextDataService,
     private readonly overlayService: SdcOverlayService,
+    private readonly storageService: StorageService,
     private readonly title: Title
   ) {}
 
@@ -61,6 +62,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .onDataChange<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG)
         .subscribe(config => this.title.setTitle(config.title))
     );
+
+    retrieveAppContextData(this.storageService);
   }
 
   ngOnDestroy(): void {
@@ -71,6 +74,8 @@ export class AppComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
     event.preventDefault();
+
+    storageAppContextData(this.storageService);
   }
 
   @HostListener('window:popstate', ['$event'])

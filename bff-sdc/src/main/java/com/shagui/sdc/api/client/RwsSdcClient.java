@@ -125,4 +125,7 @@ public interface RwsSdcClient {
 	@GetMapping("uri/component/{componentId}/type/{type}")
 	UriDTO componentUri(@PathVariable(required = true) @Parameter(description = "Component Id") int componentId,
 			@PathVariable(required = true) @Parameter(description = "Uri Type") String type);
+
+	@PostMapping("data/jsonDefaultDepartments")
+	List<DepartmentDTO> updateDepartments();
 }

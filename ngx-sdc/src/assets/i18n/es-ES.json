@@ -1,12 +1,16 @@
 {
   "Alerts": {
+    "ClearEvents": {
+      "Title": "¿ Seguro ?",
+      "Description": "¿ Quieres borrar todos los eventos ?"
+    },
     "RunProcess": {
       "Title": "¿ Seguro ?",
       "Description": "¿ Quieres proceder con el análisis del componente ?"
     },
-    "ClearEvents": {
+    "UpdateDepartments": {
       "Title": "¿ Seguro ?",
-      "Description": "¿ Quieres borrar todos los eventos ?"
+      "Description": "¿ Quieres actualizar los departamentos desde CMDB ?"
     }
   },
   "ComplianceCard": {
@@ -123,10 +127,13 @@
     "Success": "Ok",
     "TagAdded": "Tag añadido",
     "TagRemoved": "Tag eliminado",
-    "Unauthorized": "No autorizado"
+    "Unauthorized": "No autorizado",
+    "UpdatingServerInfo": "Actualizando información del servidor",
+    "ServerInfoUpdated": "Información del servidor actualizada"
   },
   "Tooltip": {
     "ClearSearchForm": "Limpiar formulario de búsqueda",
-    "RunProcess": "Analiza {{name}}"
+    "RunProcess": "Analiza {{name}}",
+    "UpdateServerDepartments": "Actualizar departamentos del servidor"
   }
 }

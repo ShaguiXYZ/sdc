@@ -18,11 +18,11 @@ export class SdcMetricsHomeService implements OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private readonly dateService: DateService,
-    private readonly departmentService: DepartmentService,
     private readonly analysisService: AnalysisService,
     private readonly componentService: ComponentService,
     private readonly contextDataService: ContextDataService,
+    private readonly dateService: DateService,
+    private readonly departmentService: DepartmentService,
     private readonly overlayService: SdcOverlayService,
     private readonly securityService: SecurityService,
     private readonly squadService: SquadService,

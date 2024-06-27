@@ -2,10 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
+import { AlertService } from 'src/app/core/components';
 import { ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { IfRoleDirective } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants';
@@ -20,12 +23,14 @@ import { SdcDepartmentsService } from './services';
   providers: [SdcDepartmentsService],
   standalone: true,
   imports: [
+    CommonModule,
+    IfRoleDirective,
     SdcComplianceBarCardsComponent,
     SdcCoveragesComponent,
     SdcDepartmentSummaryComponent,
-    CommonModule,
     NxHeadlineModule,
     NxLinkModule,
+    NxTooltipModule,
     TranslateModule
   ]
 })
@@ -35,6 +40,7 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
   private summary$!: Subscription;
 
   constructor(
+    private readonly alertService: AlertService,
     private readonly contextDataService: ContextDataService,
     private readonly departmentService: SdcDepartmentsService,
     private readonly routerService: SdcRouteService
@@ -67,15 +73,26 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
     this.squadsByDepartmernt(this.departmentsData?.department, filter);
   }
 
-  public onClickDepartment(event: ICoverageModel) {
+  public onClickDepartment(event: ICoverageModel): void {
     this.squadsByDepartmernt(event, this.departmentsData?.squadFilter);
   }
 
-  public onClickSquad(squad: ICoverageModel) {
+  public onClickSquad(squad: ICoverageModel): void {
     this.routerService.toSquad(squad as ISquadModel);
   }
 
-  private squadsByDepartmernt(department?: IDepartmentModel, filter?: string) {
+  public onReloadDepartments(): void {
+    this.alertService.confirm(
+      {
+        title: 'Alerts.UpdateDepartments.Title',
+        text: 'Alerts.UpdateDepartments.Description'
+      },
+      this.departmentService.updateRemoteDepartments,
+      { okText: 'Label.Yes', cancelText: 'Label.No' }
+    );
+  }
+
+  private squadsByDepartmernt(department?: IDepartmentModel, filter?: string): void {
     if (department) {
       this.departmentService.availableSquads(department, filter);
     }

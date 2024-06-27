@@ -1,5 +1,7 @@
 package com.shagui.sdc.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shagui.sdc.api.DepartmentRestApi;
@@ -28,4 +30,8 @@ public class DepartmentController implements DepartmentRestApi {
 		return Mapper.parse(departmentService.departments(page), DepartmentView.class);
 	}
 
+	@Override
+	public List<DepartmentView> updateDepartments() {
+		return Mapper.parse(departmentService.updateDepartments(), DepartmentView.class);
+	}
 }

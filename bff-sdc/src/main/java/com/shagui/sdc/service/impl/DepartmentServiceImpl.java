@@ -1,5 +1,7 @@
 package com.shagui.sdc.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.client.RwsSdcClient;
@@ -22,5 +24,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public PageData<DepartmentDTO> departments(Integer page) {
 		return rwsSdcClient.departments(page);
+	}
+
+	@Override
+	public List<DepartmentDTO> updateDepartments() {
+		return rwsSdcClient.updateDepartments();
 	}
 }

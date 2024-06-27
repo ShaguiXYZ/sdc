@@ -44,7 +44,13 @@ rest:
     cors:
       allowed-origins: '*'
       allowed-headers: '*'
-      allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+      allowed-methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+        - OPTIONS
       max-age: 3600
 
 management:

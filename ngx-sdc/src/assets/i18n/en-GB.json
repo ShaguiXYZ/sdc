@@ -7,6 +7,10 @@
     "ClearEvents": {
       "Title": "Are you sure ?",
       "Description": "Do you want to delete all events ?"
+    },
+    "UpdateDepartments": {
+      "Title": "Are you sure ?",
+      "Description": "Do you want to update the departments from CMDB ?"
     }
   },
   "ComplianceCard": {
@@ -123,10 +127,13 @@
     "Success": "Success",
     "TagAdded": "Tag added",
     "TagRemoved": "Tag removed",
-    "Unauthorized": "Unauthorized"
+    "Unauthorized": "Unauthorized",
+    "UpdatingServerInfo": "Updating server info",
+    "ServerInfoUpdated": "Server info updated"
   },
   "Tooltip": {
     "ClearSearchForm": "Clear search form",
-    "RunProcess": "Analize {{name}}"
+    "RunProcess": "Analize {{name}}",
+    "UpdateServerDepartments": "Update server departments"
   }
 }

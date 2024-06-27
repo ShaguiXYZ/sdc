@@ -8,7 +8,19 @@
       </div>
     }
     <div class="coverages" [ngClass]="{ 'no-data-loaded': !departmentsData.department }">
-      <div [ngClass]="{ 'nx-margin-3xs width-50': departmentsData.department, 'width-100': !departmentsData.department }">
+      <div
+        class="departments"
+        [ngClass]="{ 'nx-margin-3xs width-50': departmentsData.department, 'width-100': !departmentsData.department }"
+      >
+        <div
+          *ifRole="['ADMIN']"
+          class="sdc-op reload-departments"
+          [nxTooltip]="'Tooltip.UpdateServerDepartments' | translate"
+          nxTooltipPosition="left"
+          (click)="onReloadDepartments()"
+        >
+          <em class="fa-solid fa-arrows-spin"></em>
+        </div>
         <sdc-coverages
           [coverages]="departmentsData.departments"
           [filter]="departmentsData.departmentFilter"

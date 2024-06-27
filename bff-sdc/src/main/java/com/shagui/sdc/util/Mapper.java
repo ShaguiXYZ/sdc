@@ -1,5 +1,7 @@
 package com.shagui.sdc.util;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 
 import com.shagui.sdc.api.domain.CastFactory;
@@ -21,6 +23,10 @@ public class Mapper {
 		error.setMessage(ex.getMessage());
 
 		return error;
+	}
+
+	public static <V, D> List<V> parse(List<D> source, Class<V> clazz) {
+		return source.stream().map(CastFactory.getInstance(clazz)::parse).toList();
 	}
 
 	public static <V, D> PageData<V> parse(PageData<D> source, Class<V> clazz) {
