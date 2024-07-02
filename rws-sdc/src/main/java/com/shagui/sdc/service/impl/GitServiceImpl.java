@@ -1,6 +1,5 @@
 package com.shagui.sdc.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,23 +27,18 @@ public class GitServiceImpl implements GitService {
 
 	@Override
 	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
-		List<ComponentAnalysisModel> analysisList = new ArrayList<>();
 		List<MetricModel> gitMetrics = metrics(component);
 
-		if (!gitMetrics.isEmpty()) {
-			analysisList = gitMetrics.parallelStream().map(metric -> {
-				try {
-					return MetricLibrary.Library.valueOf(metric.getValue().toUpperCase())
-							.apply(new ServiceDataDTO(workflowId, component, metric))
-							.map(value -> new ComponentAnalysisModel(component, metric, value)).orElse(null);
-				} catch (SdcCustomException e) {
-					sseService.emitError(EventFactory.event(workflowId, e).referencedBy(component, metric));
-					return null;
-				}
-			}).filter(Objects::nonNull).toList();
-		}
-
-		return analysisList;
+		return gitMetrics.parallelStream().map(metric -> {
+			try {
+				return MetricLibrary.Library.valueOf(metric.getValue().toUpperCase())
+						.apply(new ServiceDataDTO(workflowId, component, metric))
+						.map(value -> new ComponentAnalysisModel(component, metric, value)).orElse(null);
+			} catch (SdcCustomException e) {
+				sseService.emitError(EventFactory.event(workflowId, e).referencedBy(component, metric));
+				return null;
+			}
+		}).filter(Objects::nonNull).toList();
 	}
 
 	private static class MetricLibrary {

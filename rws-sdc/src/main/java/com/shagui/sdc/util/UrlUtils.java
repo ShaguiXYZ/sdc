@@ -89,7 +89,7 @@ public class UrlUtils {
 	}
 
 	public static Optional<UriModel> componentUri(ComponentModel component, UriType type) {
-		return Optional.ofNullable(uriModel(component, type).map(data -> {
+		return uriModel(component, type).map(data -> {
 			UriModel uri = config.getObjectMapper().convertValue(data, UriModel.class);
 			Replacement replacement = DictioraryReplacement.getInstance(ComponentUtils.dictionaryOf(component), true);
 
@@ -97,7 +97,7 @@ public class UrlUtils {
 			uri.setUrl(replacement.replace(data.getUrl()));
 
 			return uri;
-		}).orElse(null));
+		});
 	}
 
 	public static Optional<String> uriProperty(UriModel uri, String key) {

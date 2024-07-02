@@ -11,11 +11,11 @@ import com.shagui.sdc.core.exception.SdcCustomException;
 @FunctionalInterface
 public interface CastTo<T> {
 
-	public Class<T> targetClass();
+	public Class<T> clazz();
 
 	default T parse(@NonNull Object source) {
 		try {
-			Constructor<T> constructor = targetClass().getConstructor(source.getClass());
+			Constructor<T> constructor = clazz().getConstructor(source.getClass());
 			return constructor.newInstance(source);
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
@@ -25,7 +25,7 @@ public interface CastTo<T> {
 
 	private T parseNoArgsConstructor(@NonNull Object source) {
 		try {
-			Constructor<T> constructor = targetClass().getConstructor();
+			Constructor<T> constructor = clazz().getConstructor();
 			T target = constructor.newInstance();
 
 			if (null != target) {
