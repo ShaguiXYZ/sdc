@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { AppUrls } from 'src/app/shared/config/routing';
 import { ContextDataInfo } from 'src/app/shared/constants';
-import { ApplicationsContextData } from 'src/app/shared/models';
+import { ApplicationsContextData, SdcDepartmentsContextData, SdcMetricsContextData, SdcSquadsContextData } from 'src/app/shared/models';
 import { IComponentModel, IDepartmentModel, ISquadModel } from '../../models/sdc';
 import { ComponentService } from './component.service';
 import { DepartmentService } from './department.service';
@@ -32,23 +32,30 @@ export class SdcRouteService {
   };
 
   public toApplications = (applications: Partial<ApplicationsContextData>): void => {
-    this.contextDataService.set(ContextDataInfo.APPLICATIONS_DATA, applications);
-    this.router.navigate([AppUrls.applications]);
+    const contextData: Partial<ApplicationsContextData> = { ...applications };
+
+    this.navigateTo(AppUrls.applications, ContextDataInfo.APPLICATIONS_DATA, contextData);
   };
 
   public toComponent = (component: IComponentModel): void => {
-    this.navigateTo(AppUrls.metrics, ContextDataInfo.METRICS_DATA, { component });
+    const contextData: SdcMetricsContextData = { component };
+
+    this.navigateTo(AppUrls.metrics, ContextDataInfo.METRICS_DATA, contextData);
   };
 
   public toDepartment = (department: IDepartmentModel): void => {
-    this.navigateTo(AppUrls.departments, ContextDataInfo.DEPARTMENTS_DATA, { department });
+    const contextData: SdcDepartmentsContextData = { department };
+
+    this.navigateTo(AppUrls.departments, ContextDataInfo.DEPARTMENTS_DATA, contextData);
   };
 
   public toSquad = (squad: ISquadModel): void => {
-    this.navigateTo(AppUrls.squads, ContextDataInfo.SQUADS_DATA, { squad });
+    const contextData: SdcSquadsContextData = { squad };
+
+    this.navigateTo(AppUrls.squads, ContextDataInfo.SQUADS_DATA, contextData);
   };
 
-  private navigateTo = (url: string, contextName: ContextDataInfo, contextData: any): void => {
+  private navigateTo = <T = any>(url: string, contextName: ContextDataInfo, contextData: T): void => {
     this.router.navigateByUrl(`/${AppUrls.routing}`, { skipLocationChange: true }).then(() => {
       this.contextDataService.set(contextName, contextData);
       this.router.navigate([url]);

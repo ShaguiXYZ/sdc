@@ -88,7 +88,7 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
     this.subscription$.forEach(subscription => subscription.unsubscribe());
   }
 
-  public complianceClicked(component: IComponentModel): void {
+  public componentClicked(component: IComponentModel): void {
     this.routerService.toComponent(component);
   }
 

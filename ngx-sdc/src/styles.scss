@@ -2,14 +2,14 @@
 /**
   Themes
 */
-@import 'themes/dark';
-@import 'themes/light';
-
 @import '@angular/cdk/overlay-prebuilt.css';
 @import '@angular/cdk/a11y-prebuilt.css';
 
 @import 'core-colors';
 @import 'core-globals';
+
+@import 'themes/dark';
+@import 'themes/light';
 
 :root {
   // color-scheme: light dark;

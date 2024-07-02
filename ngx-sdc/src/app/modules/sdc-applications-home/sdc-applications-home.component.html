@@ -10,7 +10,7 @@
             [showFilter]="true"
             (valueChange)="squadChange($event)"
           >
-            <nx-dropdown-item></nx-dropdown-item>
+            <nx-dropdown-item />
             @for (item of squads; track item.id) {
               <nx-dropdown-item [value]="item.id">
                 {{ item.name }}
@@ -25,7 +25,7 @@
             [filterPlaceholder]="'Dropdown.Filter.Coverage' | translate"
             (valueChange)="coverageChange($event)"
           >
-            <nx-dropdown-item></nx-dropdown-item>
+            <nx-dropdown-item />
             @for (item of coverages; track item.key) {
               <nx-dropdown-item [value]="item.key">
                 <em class="fa-solid fa-circle nx-margin-right-2xs {{ item.style }}"></em>
@@ -86,7 +86,7 @@
   @if (applicationsInfo) {
     <sdc-compliance-bar-cards
       [components]="applicationsInfo.components"
-      (clickLink)="complianceClicked($event)"
+      (clickLink)="componentClicked($event)"
       (clickSquad)="squadClicked($event)"
       (clickDepartment)="departmentClicked($event)"
     />
