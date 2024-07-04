@@ -49,43 +49,18 @@ public class UrlUtils {
 	}
 
 	public static <T> T mapResponse(Response response, Class<T> clazz) {
-		if (response.status() >= 400) {
-			throw new SdcCustomException(
-					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
-		}
-
 		JavaType type = config.getObjectMapper().getTypeFactory().constructType(clazz);
 		return mapResponse(response, type);
 	}
 
 	public static <C extends Collection<T>, T> C mapResponse(Response response, Class<C> collectionClass,
 			Class<T> clazz) {
-		if (response.status() >= 400) {
-			response.close();
-
-			throw new SdcCustomException(
-					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
-		}
-
 		JavaType type = config.getObjectMapper().getTypeFactory().constructCollectionType(collectionClass, clazz);
 		return mapResponse(response, type);
 	}
 
 	public static <T> T mapResponse(Response response, JavaType type) {
-		if (response.status() >= 400) {
-			response.close();
-
-			throw new SdcCustomException(HttpStatus.resolve(response.status()),
-					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
-		}
-
-		try (InputStream bodyIs = response.body().asInputStream()) {
-			return config.getObjectMapper().readValue(bodyIs, type);
-		} catch (IOException ex) {
-			response.close();
-
-			throw new SdcCustomException("error mapping response to %s".formatted(type.getTypeName()));
-		}
+		return responseToType(response, type);
 	}
 
 	public static Optional<UriModel> componentUri(ComponentModel component, UriType type) {
@@ -103,6 +78,24 @@ public class UrlUtils {
 	public static Optional<String> uriProperty(UriModel uri, String key) {
 		return uri.getProperties().stream().filter(data -> data.getName().equals(key))
 				.map(RequestPropertiesModel::getValue).findFirst();
+	}
+
+	private static <T> T responseToType(Response response, JavaType type) {
+		try (InputStream bodyIs = statusResponse(response).body().asInputStream()) {
+			return config.getObjectMapper().readValue(bodyIs, type);
+		} catch (IOException ex) {
+			throw new SdcCustomException(HttpStatus.resolve(response.status()),
+					"error mapping response to %s".formatted(type.getTypeName()));
+		}
+	}
+
+	private static Response statusResponse(Response response) {
+		if (response.status() >= 400) {
+			throw new SdcCustomException(HttpStatus.resolve(response.status()),
+					STATUS_MESSAGE.formatted(response.status(), response.request().url()));
+		}
+
+		return response;
 	}
 
 	private static Optional<UriModel> uriModel(ComponentModel component, UriType type) {

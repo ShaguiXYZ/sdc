@@ -10,10 +10,8 @@ public class CustomAnalysisFunctions {
     }
 
     // Metric library fn's
-    public static final Function<ServiceDataDTO, Optional<String>> callAnalysis = serviceData -> {
-        // Default custom analysis function
-        return Optional.of("");
-    };
+    // Default custom analysis function
+    public static final Function<ServiceDataDTO, Optional<String>> callAnalysis = serviceData -> Optional.of("");
 
     public static final Function<ServiceDataDTO, Optional<String>> notDataFound = serviceData -> Optional
             .of("Not data found");
