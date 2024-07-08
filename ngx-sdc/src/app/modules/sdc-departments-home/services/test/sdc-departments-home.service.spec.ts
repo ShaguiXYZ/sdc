@@ -1,9 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { ContextDataService } from '@shagui/ng-shagui/core';
 import { DepartmentServiceMock } from 'src/app/core/mock/services/sdc/department-service.mock';
 import { SquadServiceMock } from 'src/app/core/mock/services/sdc/squad-service.mock';
 import { IDepartmentModel, IPageable, ISquadModel } from 'src/app/core/models/sdc';
-import { ContextDataService } from 'src/app/core/services';
 import { DepartmentService, SquadService } from 'src/app/core/services/sdc';
 import { SdcDepartmentsService } from '../sdc-departments-home.service';
 import { DepartmentContextDataServiceMock } from './mock/context-data-service.mock';

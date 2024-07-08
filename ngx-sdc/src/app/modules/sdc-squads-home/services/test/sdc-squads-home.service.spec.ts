@@ -1,12 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { SdcSquadsService } from '../sdc-squads-home.service';
-import { ContextDataService } from 'src/app/core/services';
-import { ComponentService } from 'src/app/core/services/sdc/component.service';
-import { SquadService } from 'src/app/core/services/sdc';
-import { IComponentModel, ICoverageModel, IPageable, ISquadModel } from 'src/app/core/models/sdc';
+import { ContextDataService } from '@shagui/ng-shagui/core';
 import { ComponentServiceMock } from 'src/app/core/mock/services/sdc/component-service.mock';
 import { SquadServiceMock } from 'src/app/core/mock/services/sdc/squad-service.mock';
+import { IComponentModel, ICoverageModel, IPageable, ISquadModel } from 'src/app/core/models/sdc';
+import { SquadService } from 'src/app/core/services/sdc';
+import { ComponentService } from 'src/app/core/services/sdc/component.service';
+import { SdcSquadsService } from '../sdc-squads-home.service';
 import { SquadContextDataServiceMock } from './mock/context-data-service.mock';
 
 describe(`SdcSquadsService`, () => {

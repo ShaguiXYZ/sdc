@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpService } from '@shagui/ng-shagui/core';
 import { of } from 'rxjs';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 import { IDepartmentDTO, IPageable } from 'src/app/core/models/sdc';
-import { HttpService } from '../../http';
 import { DepartmentService } from '../department.service';
 
 const pageDepartment: IPageable<IDepartmentDTO> = {

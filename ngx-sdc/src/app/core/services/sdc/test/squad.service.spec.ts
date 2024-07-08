@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpService } from '@shagui/ng-shagui/core';
 import { of } from 'rxjs';
+import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 import { IPageable, ISquadDTO } from 'src/app/core/models/sdc';
 import { SquadService } from '../squad.service';
-import { HttpService } from '../../http';
-import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 
 const pageSquad: IPageable<ISquadDTO> = {
   paging: { pageIndex: 0, pageSize: 1, pages: 1, elements: 1 },

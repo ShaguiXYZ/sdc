@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { emptyFn } from 'src/app/core/lib';
+import { emptyFn } from '@shagui/ng-shagui/core';
 import { AnalysisServiceMock } from 'src/app/core/mock/services/sdc/analysis-service.mock';
 import { AnalysisType } from 'src/app/core/models/sdc/analysis-type.model';
 import { IMetricModel } from 'src/app/core/models/sdc/metric.model';

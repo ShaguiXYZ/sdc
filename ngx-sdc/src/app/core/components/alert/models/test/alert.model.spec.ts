@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { ButtonModel } from '@shagui/ng-shagui/core';
 import { AlertModel } from '..';
-import { ButtonModel } from '../../../../models';
 
 describe(`AlertModel`, () => {
   let model: any;

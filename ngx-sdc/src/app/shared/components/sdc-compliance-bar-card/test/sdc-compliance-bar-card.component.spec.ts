@@ -4,9 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { emptyFn } from 'src/app/core/lib';
-import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card.component';
+import { emptyFn } from '@shagui/ng-shagui/core';
 import { componentModelMock } from 'src/app/core/mock/model/component-model.mock';
+import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card.component';
 
 describe('SdcComplianceBarCardComponent', () => {
   let component: SdcComplianceBarCardComponent;

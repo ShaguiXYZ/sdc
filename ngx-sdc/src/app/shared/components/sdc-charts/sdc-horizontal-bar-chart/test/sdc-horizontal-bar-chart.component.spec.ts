@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { emptyFn } from 'src/app/core/lib';
-import { SdcHorizontalBarChartComponent } from '../sdc-horizontal-bar-chart.component';
+import { emptyFn } from '@shagui/ng-shagui/core';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { SdcHorizontalBarChartComponent } from '../sdc-horizontal-bar-chart.component';
 
 describe('SdcHorizontalBarChartComponent', () => {
   let component: SdcHorizontalBarChartComponent;

@@ -1,9 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { ContextDataService, HttpService } from '@shagui/ng-shagui/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
-import { ContextDataService } from '../..';
-import { HttpService } from '../../http';
 import { ISessionModel } from '../models';
 import { SecurityService } from '../security.service';
 import { SecurityContextDataServiceMock, user } from './mock/context-data-service.mock';

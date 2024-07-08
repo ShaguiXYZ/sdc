@@ -4,8 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { emptyFn } from '@shagui/ng-shagui/core';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { emptyFn } from 'src/app/core/lib';
 import { DateService } from 'src/app/core/services';
 import { MetricStates } from 'src/app/shared/lib';
 import { IStateCount } from 'src/app/shared/models';

@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { emptyFn } from 'src/app/core/lib';
 import { NotificationComponent } from '../notification.component';
-import { NotificationService } from '../services';
-import { NotificationServiceMock, notification } from './service/notification-service.mock';
+import { emptyFn, NotificationService } from '@shagui/ng-shagui/core';
+import { NotificationServiceMock } from 'src/app/core/mock/services/notification-service.mock';
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;
@@ -25,7 +24,7 @@ describe('NotificationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NotificationComponent);
     component = fixture.componentInstance;
-    component.notifications = [notification];
+    component.notifications = [{ id: '1', description: 'test', title: 'test', type: 'regular', timeout: 1000, closable: true }];
     fixture.detectChanges();
     initServices();
   });

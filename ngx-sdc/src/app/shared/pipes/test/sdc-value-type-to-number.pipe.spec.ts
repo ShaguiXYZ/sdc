@@ -1,9 +1,9 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { ContextDataService } from '@shagui/ng-shagui/core';
+import { ContextDataServiceMock } from 'src/app/core/mock/services';
 import { ValueType } from 'src/app/core/models/sdc';
 import { SdcValueTypeToNumberPipe } from '../sdc-value-type-to-number.pipe';
-import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ContextDataService } from 'src/app/core/services';
-import { ContextDataServiceMock } from 'src/app/core/mock/services';
 
 describe('SdcValueTypeToNumberPipe', () => {
   let contextDataServiceMock: any;

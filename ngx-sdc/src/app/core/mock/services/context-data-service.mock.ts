@@ -1,5 +1,4 @@
-import { DataInfo } from '../../models';
-import { CacheData } from '../../services/context-data';
+import { CacheData, DataInfo } from '@shagui/ng-shagui/core';
 
 export class ContextDataServiceMock {
   cache: DataInfo<CacheData> = {};

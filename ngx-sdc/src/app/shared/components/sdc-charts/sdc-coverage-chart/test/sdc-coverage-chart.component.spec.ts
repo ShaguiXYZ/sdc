@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { emptyFn } from '@shagui/ng-shagui/core';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { emptyFn } from 'src/app/core/lib';
 import { SdcCoverageChartComponent } from '../sdc-coverage-chart.component';
 
 describe('SdcCoverageChartComponent', () => {

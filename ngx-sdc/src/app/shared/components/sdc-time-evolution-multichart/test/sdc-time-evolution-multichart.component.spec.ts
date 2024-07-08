@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DataInfo } from '@shagui/ng-shagui/core';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { DataInfo } from 'src/app/core/models';
 import { ValueType } from 'src/app/core/models/sdc';
 import { SdcChartData } from 'src/app/shared/models';
 import { ChartConfig } from '../../sdc-charts';

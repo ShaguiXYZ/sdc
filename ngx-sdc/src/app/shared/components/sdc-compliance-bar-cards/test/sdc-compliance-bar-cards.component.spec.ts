@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SpyLocation } from '@angular/common/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { emptyFn } from 'src/app/core/lib';
+import { emptyFn } from '@shagui/ng-shagui/core';
 import { componentModelMock } from 'src/app/core/mock/model/component-model.mock';
 import { SdcComplianceBarCardsComponent } from '../sdc-compliance-bar-cards.component';
 

@@ -4,9 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { emptyFn } from 'src/app/core/lib';
-import { SdcDepartmentSummaryComponent } from '../sdc-department-summary.component';
+import { emptyFn } from '@shagui/ng-shagui/core';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { SdcDepartmentSummaryComponent } from '../sdc-department-summary.component';
 
 describe('SdcDepartmentSummaryComponent', () => {
   let component: SdcDepartmentSummaryComponent;
