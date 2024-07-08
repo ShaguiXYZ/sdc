@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService, HttpStatus } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
@@ -10,10 +10,9 @@ import { _CONFIGURATION_CACHE_ID_ } from './constants';
 export class AppConfigurationService {
   private _urlConfiguration = `${environment.baseUrl}/api/configurations`;
 
-  constructor(
-    private readonly http: HttpService,
-    private readonly translate: TranslateService
-  ) {}
+  private readonly http = inject(HttpService);
+
+  constructor(private readonly translate: TranslateService) {}
 
   public appConfiguracions(): Promise<IAppConfigurationModel> {
     return firstValueFrom(

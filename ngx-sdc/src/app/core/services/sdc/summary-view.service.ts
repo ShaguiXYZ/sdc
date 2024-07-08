@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { HttpService, hasValue } from '@shagui/ng-shagui/core';
+import { inject, Injectable } from '@angular/core';
+import { hasValue, HttpService } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IPageable, ISummaryViewDTO, ISummaryViewModel, SummaryViewType } from '../../models/sdc';
@@ -9,7 +9,7 @@ import { IPageable, ISummaryViewDTO, ISummaryViewModel, SummaryViewType } from '
 export class SummaryViewService {
   private _urlSummaryView = `${environment.baseUrl}/api/summary`;
 
-  constructor(private readonly http: HttpService) {}
+  private readonly http = inject(HttpService);
 
   getSummaryViews(name: string, types: SummaryViewType[] = [], page?: number, ps?: number): Promise<IPageable<ISummaryViewModel>> {
     let httpParams = new HttpParams();

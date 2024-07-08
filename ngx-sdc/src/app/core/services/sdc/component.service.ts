@@ -1,23 +1,22 @@
 import { HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CacheService, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
+import { CacheService, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
 import { IComponentDTO, IComponentModel, ICoverageModel, IMetricDTO, IMetricModel, IPageable } from '../../models/sdc';
 import { IHistoricalCoverage } from '../../models/sdc/historical-coverage.model';
-import { XS_EXPIRATON_TIME, _COMPONENT_CACHE_ID_ } from './constants';
+import { _COMPONENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class ComponentService {
   private _urlComponents = `${environment.baseUrl}/api`;
 
-  constructor(
-    private readonly cache: CacheService,
-    private readonly http: HttpService,
-    private readonly translate: TranslateService
-  ) {}
+  private readonly cache = inject(CacheService);
+  private readonly http = inject(HttpService);
+
+  constructor(private readonly translate: TranslateService) {}
 
   public component(componentId: number): Promise<IComponentModel> {
     return firstValueFrom(
@@ -39,7 +38,7 @@ export class ComponentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Notifications.ComponentsNotFound') }
           },
-          cache: { id: this.squadCacheId(squadId), ttl: XS_EXPIRATON_TIME }
+          cache: { id: this.squadCacheId(squadId), ttl: TTL.XS }
         })
         .pipe(
           map(res => {

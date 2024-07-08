@@ -1,22 +1,21 @@
 import { HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { CacheService, DataInfo, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
+import { inject, Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CacheService, DataInfo, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
 import { AnalysisType, ICoverageModel, IMetricAnalysisDTO, IMetricAnalysisModel, IPageable } from '../../models/sdc';
-import { L_EXPIRATON_TIME, XL_EXPIRATON_TIME, _METRICS_CACHE_ID_ } from './constants';
-import { TranslateService } from '@ngx-translate/core';
+import { _METRICS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class AnalysisService {
   private _urlAnalysis = `${environment.baseUrl}/api/analysis`;
 
-  constructor(
-    private readonly cache: CacheService,
-    private readonly http: HttpService,
-    private readonly translate: TranslateService
-  ) {}
+  private readonly cache = inject(CacheService);
+  private readonly http = inject(HttpService);
+
+  constructor(private readonly translate: TranslateService) {}
 
   public componentAnalysis(componentId: number): Promise<IPageable<IMetricAnalysisModel>> {
     return firstValueFrom(
@@ -25,7 +24,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Notifications.AnalysisNotFound') }
           },
-          cache: { id: this.analysisCacheId(componentId), ttl: L_EXPIRATON_TIME }
+          cache: { id: this.analysisCacheId(componentId), ttl: TTL.L }
         })
         .pipe(
           map(res => {
@@ -48,7 +47,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Notifications.AnalysisNotFound') }
           },
-          cache: { id: this.analysisCacheId(componentId, metricId), ttl: L_EXPIRATON_TIME }
+          cache: { id: this.analysisCacheId(componentId, metricId), ttl: TTL.L }
         })
         .pipe(
           map(res => {
@@ -76,7 +75,7 @@ export class AnalysisService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Notifications.MetricAbalysisNotFound') }
           },
-          cache: { id: this.historyCacheId(componentId, metricId), ttl: L_EXPIRATON_TIME }
+          cache: { id: this.historyCacheId(componentId, metricId), ttl: TTL.L }
         })
         .pipe(
           map(res => {
@@ -119,7 +118,7 @@ export class AnalysisService {
           clientOptions: { params: httpParams },
           cache: {
             id: this.annualSumCacheId(metricName, metricType, componentId, squadId, departmentId),
-            ttl: XL_EXPIRATON_TIME
+            ttl: TTL.XL
           }
         })
         .pipe(

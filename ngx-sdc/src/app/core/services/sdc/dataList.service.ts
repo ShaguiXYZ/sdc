@@ -1,20 +1,20 @@
-import { Injectable } from '@angular/core';
-import { HttpService } from '@shagui/ng-shagui/core';
-import { Observable, firstValueFrom, map } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { HttpService, TTL } from '@shagui/ng-shagui/core';
+import { firstValueFrom, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { XXL_EXPIRATON_TIME, _DATA_LIST_CACHE_ID_ } from './constants';
+import { _DATA_LIST_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class DataListService {
   private _urlDataLists = `${environment.baseUrl}/api`;
 
-  constructor(private readonly http: HttpService) {}
+  private readonly http = inject(HttpService);
 
   public availableDataLists(): Promise<string[]> {
     return firstValueFrom(
       this.http
         .get<string[]>(`${this._urlDataLists}/datalists`, {
-          cache: { id: this.dataListCacheId(), ttl: XXL_EXPIRATON_TIME }
+          cache: { id: this.dataListCacheId(), ttl: TTL.XXL }
         })
         .pipe(map(res => res as string[]))
     );
@@ -23,7 +23,7 @@ export class DataListService {
   public dataListValues(key: string): Observable<string[]> {
     return this.http
       .get<string[]>(`${this._urlDataLists}/datalist/${key}`, {
-        cache: { id: this.dataListCacheId(key), ttl: XXL_EXPIRATON_TIME }
+        cache: { id: this.dataListCacheId(key), ttl: TTL.XXL }
       })
       .pipe(map(res => res as string[]));
   }

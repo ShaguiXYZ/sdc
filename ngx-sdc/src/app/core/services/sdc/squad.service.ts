@@ -1,20 +1,19 @@
-import { Injectable } from '@angular/core';
-import { CacheService, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
+import { inject, Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CacheService, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ICoverageModel, IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
-import { S_EXPIRATON_TIME, _SQUADS_CACHE_ID_ } from './constants';
-import { TranslateService } from '@ngx-translate/core';
+import { _SQUADS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class SquadService {
   private _urlSquads = `${environment.baseUrl}/api`;
 
-  constructor(
-    private readonly cache: CacheService,
-    private readonly http: HttpService,
-    private readonly translate: TranslateService
-  ) {}
+  private readonly cache = inject(CacheService);
+  private readonly http = inject(HttpService);
+
+  constructor(private readonly translate: TranslateService) {}
 
   public squad(id: number): Promise<ISquadModel> {
     return firstValueFrom(
@@ -35,7 +34,7 @@ export class SquadService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Notifications.SquadsNotFound') }
           },
-          cache: { id: _SQUADS_CACHE_ID_, ttl: S_EXPIRATON_TIME }
+          cache: { id: _SQUADS_CACHE_ID_, ttl: TTL.S }
         })
         .pipe(
           map(res => {

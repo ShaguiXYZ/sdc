@@ -1,21 +1,20 @@
 import { HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CacheService, DataInfo, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
+import { CacheService, DataInfo, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IPageable, ITagDTO, ITagModel } from '../../models/sdc';
-import { XS_EXPIRATON_TIME, _TAGS_CACHE_ID_ } from './constants';
+import { _TAGS_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
   private _urlTags = `${environment.baseUrl}/api`;
 
-  constructor(
-    private readonly cache: CacheService,
-    private readonly http: HttpService,
-    private readonly translate: TranslateService
-  ) {}
+  private readonly cache = inject(CacheService);
+  private readonly http = inject(HttpService);
+
+  constructor(private readonly translate: TranslateService) {}
 
   public tags(page?: number, ps?: number): Promise<IPageable<ITagModel>> {
     let httpParams = new HttpParams();
@@ -35,7 +34,7 @@ export class TagService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Notifications.TagNotFound') }
           },
-          cache: { id: _TAGS_CACHE_ID_, ttl: XS_EXPIRATON_TIME }
+          cache: { id: _TAGS_CACHE_ID_, ttl: TTL.XS }
         })
         .pipe(
           map(res => {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { AppUrls } from 'src/app/shared/config/routing';
@@ -11,8 +11,9 @@ import { SquadService } from './squad.service';
 
 @Injectable({ providedIn: 'root' })
 export class SdcRouteService {
+  private readonly contextDataService = inject(ContextDataService);
+
   constructor(
-    private readonly contextDataService: ContextDataService,
     private readonly componentService: ComponentService,
     private readonly squadService: SquadService,
     private readonly departmentService: DepartmentService,

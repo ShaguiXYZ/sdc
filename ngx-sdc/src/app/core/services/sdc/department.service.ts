@@ -1,20 +1,19 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CacheService, DataInfo, HttpService, HttpStatus, hasValue } from '@shagui/ng-shagui/core';
+import { CacheService, DataInfo, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ICoverageModel, IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
-import { L_EXPIRATON_TIME, _DEPARTMENT_CACHE_ID_ } from './constants';
+import { _DEPARTMENT_CACHE_ID_ } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class DepartmentService {
   private _urlDepartments = `${environment.baseUrl}/api`;
 
-  constructor(
-    private readonly cache: CacheService,
-    private readonly http: HttpService,
-    private readonly translate: TranslateService
-  ) {}
+  private readonly cache = inject(CacheService);
+  private readonly http = inject(HttpService);
+
+  constructor(private readonly translate: TranslateService) {}
 
   public department(id: number): Promise<IDepartmentModel> {
     return firstValueFrom(
@@ -35,7 +34,7 @@ export class DepartmentService {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Notifications.DepartmentsNotFound') }
           },
-          cache: { id: _DEPARTMENT_CACHE_ID_, ttl: L_EXPIRATON_TIME }
+          cache: { id: _DEPARTMENT_CACHE_ID_, ttl: TTL.L }
         })
         .pipe(
           map(res => {

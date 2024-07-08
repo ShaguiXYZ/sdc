@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NxButtonModule } from '@aposin/ng-aquila/button';
 import { NxMessageModule } from '@aposin/ng-aquila/message';
 import { NotificationModel, NotificationService } from '@shagui/ng-shagui/core';
@@ -17,7 +17,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private notificationSubscription!: Subscription;
   private closeNotificationSubscription!: Subscription;
 
-  constructor(private notificationService: NotificationService) {}
+  private notificationService = inject(NotificationService);
 
   ngOnInit(): void {
     this.notificationSubscription = this.notificationService.onNotification().subscribe(notification => {
