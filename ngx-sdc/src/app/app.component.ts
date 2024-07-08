@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
@@ -49,10 +49,11 @@ import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from '
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions$: Subscription[] = [];
 
+  private readonly contextDataService = inject(ContextDataService);
+  private readonly storageService = inject(StorageService);
+
   constructor(
-    private readonly contextDataService: ContextDataService,
     private readonly overlayService: SdcOverlayService,
-    private readonly storageService: StorageService,
     private readonly title: Title
   ) {}
 

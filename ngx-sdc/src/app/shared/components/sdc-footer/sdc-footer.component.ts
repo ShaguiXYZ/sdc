@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { SwitchThemeComponent } from 'src/app/core/components/header/components';
@@ -37,7 +37,7 @@ import { SdcSseEventComponent } from '../sdc-sse-event';
   standalone: true
 })
 export class SdcAppFooterComponent {
-  constructor(private readonly contextDataService: ContextDataService) {}
+  private readonly contextDataService = inject(ContextDataService);
 
   public get appConfig(): IAppConfigurationModel | undefined {
     return this.contextDataService.get<IAppConfigurationModel>(ContextDataInfo.APP_CONFIG);

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
 import { LoadingService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
@@ -17,10 +17,9 @@ export class LoadingComponent implements OnInit, OnDestroy {
   private templateLoadingDialogRef!: NxModalRef<any>;
   private loadingObs!: Subscription;
 
-  constructor(
-    private dialogService: NxDialogService,
-    private loadingService: LoadingService
-  ) {}
+  private readonly loadingService = inject(LoadingService);
+
+  constructor(private dialogService: NxDialogService) {}
 
   ngOnInit(): void {
     this.loadingObs = this.loadingService.uiShowLoading.subscribe((show: boolean) => {
