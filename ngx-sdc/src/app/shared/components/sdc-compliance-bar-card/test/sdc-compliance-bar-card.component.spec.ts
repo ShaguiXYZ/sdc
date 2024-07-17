@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -14,10 +14,10 @@ describe('SdcComplianceBarCardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [SdcComplianceBarCardComponent, HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: []
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [SdcComplianceBarCardComponent, RouterTestingModule, TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
       .compileComponents()
       .catch(emptyFn);
   }));

@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -15,9 +15,10 @@ describe('SdcStateCountComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [SdcStateCountComponent, HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [SdcStateCountComponent, RouterTestingModule, TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
       .compileComponents()
       .catch(emptyFn);
   }));

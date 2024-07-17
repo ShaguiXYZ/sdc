@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -19,18 +19,15 @@ describe('SdcSquadSummaryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SdcSquadSummaryComponent,
-        HttpClientModule,
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [SdcSquadSummaryComponent,
         RouterTestingModule,
         TranslateModule.forRoot(),
         NgxEchartsModule.forRoot({
-          echarts: () => import('echarts')
-        })
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [DateService, { provide: SdcSquadSummaryService, useClass: SdcSquadSummaryServiceMock }]
-    })
+            echarts: () => import('echarts')
+        })],
+    providers: [DateService, { provide: SdcSquadSummaryService, useClass: SdcSquadSummaryServiceMock }, provideHttpClient(withInterceptorsFromDi())]
+})
       .compileComponents()
       .catch(emptyFn);
   }));

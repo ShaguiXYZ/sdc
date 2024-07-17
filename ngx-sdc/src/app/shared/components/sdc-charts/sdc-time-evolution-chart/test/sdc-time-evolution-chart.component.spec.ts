@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -12,16 +12,14 @@ describe('SdcBreadcrumbComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SdcTimeEvolutionChartComponent,
-        HttpClientModule,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [SdcTimeEvolutionChartComponent,
         RouterTestingModule,
         NgxEchartsModule.forRoot({
-          echarts: () => import('echarts')
-        })
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+            echarts: () => import('echarts')
+        })],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+}).compileComponents();
   }));
 
   beforeEach(() => {

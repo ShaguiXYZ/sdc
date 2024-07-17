@@ -18,7 +18,7 @@ import { SdcHelpEntry } from './constants';
         <article class="help-index sdc-scrollable">
           <header class="help-header" nxHeadline="subsection-medium" [innerHtml]="config.labels['indexTitle']"></header>
           <section class="help-index-items">
-            @for (page of config.pages; track page) {
+            @for (page of config.pages; track page.key) {
               <div
                 class="help-index-item"
                 [ngClass]="{ active: page.key === config.page }"
