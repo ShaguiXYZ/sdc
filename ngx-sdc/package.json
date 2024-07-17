@@ -9,11 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "coverage": "ng test --no-watch --code-coverage",
-    "lint": "ng lint",
-    "dev:ssr": "ng run ngx-sdc:serve-ssr",
-    "serve:ssr": "node dist/ngx-sdc/server/main.js",
-    "build:ssr": "ng build && ng run ngx-sdc:server",
-    "prerender": "ng run ngx-sdc:prerender"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
