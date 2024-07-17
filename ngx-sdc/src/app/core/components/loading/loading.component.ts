@@ -19,16 +19,12 @@ export class LoadingComponent implements OnInit, OnDestroy {
 
   private readonly loadingService = inject(LoadingService);
 
-  constructor(private dialogService: NxDialogService) {}
+  constructor(private readonly dialogService: NxDialogService) {}
 
   ngOnInit(): void {
-    this.loadingObs = this.loadingService.uiShowLoading.subscribe((show: boolean) => {
-      if (show) {
-        this.openLoadingModal();
-      } else {
-        this.closeLoadingModal();
-      }
-    });
+    this.loadingObs = this.loadingService.uiShowLoading.subscribe((show: boolean) =>
+      show ? this.openLoadingModal() : this.closeLoadingModal()
+    );
   }
 
   ngOnDestroy(): void {

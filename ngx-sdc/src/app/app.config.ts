@@ -22,7 +22,7 @@ const SdcLanguages = {
   ['esES']: 'es-ES'
 };
 
-const iniSettings = (appConfiguration: AppConfigurationService, contextDataService: ContextDataService) => {
+const iniSettings = (appConfiguration: AppConfigurationService, contextDataService: ContextDataService): (() => Promise<any>) => {
   return async (): Promise<any> => {
     const config = await appConfiguration.appConfiguracions();
 
