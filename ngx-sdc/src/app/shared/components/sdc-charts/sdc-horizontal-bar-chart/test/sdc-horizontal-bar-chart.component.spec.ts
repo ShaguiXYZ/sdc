@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -13,16 +13,14 @@ describe('SdcHorizontalBarChartComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SdcHorizontalBarChartComponent,
-        HttpClientModule,
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [SdcHorizontalBarChartComponent,
         RouterTestingModule,
         NgxEchartsModule.forRoot({
-          echarts: () => import('echarts')
-        })
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+            echarts: () => import('echarts')
+        })],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
       .compileComponents()
       .catch(emptyFn);
   }));

@@ -1,5 +1,5 @@
 /* eslint max-classes-per-file: 0 */
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -15,10 +15,10 @@ describe('SdcCoveragesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [SdcCoveragesComponent, HttpClientModule, RouterTestingModule, TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [{ provide: Location, useClass: SpyLocation }]
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [SdcCoveragesComponent, RouterTestingModule, TranslateModule.forRoot()],
+    providers: [{ provide: Location, useClass: SpyLocation }, provideHttpClient(withInterceptorsFromDi())]
+})
       .compileComponents()
       .catch(emptyFn);
   }));
