@@ -49,8 +49,6 @@ import { SdcEventItemService } from './services';
   imports: [CommonModule, NxLinkModule]
 })
 export class SdcEventItemComponent implements OnDestroy {
-  public fadeOut = false;
-
   @Input()
   public event!: SseEventModel<SdcEventReference>;
 
@@ -68,6 +66,8 @@ export class SdcEventItemComponent implements OnDestroy {
 
   @Output()
   public onReadEvent: EventEmitter<SseEventModel<SdcEventReference>> = new EventEmitter();
+
+  public fadeOut = false;
 
   private _timeout?: NodeJS.Timeout;
   private fadeOutTimeout?: NodeJS.Timeout;

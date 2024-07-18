@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, EventEmitter, OnDestroy, Output, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[inView]',
+  selector: '[nxInView]',
   exportAs: 'intersection',
   standalone: true
 })

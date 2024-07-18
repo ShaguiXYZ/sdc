@@ -7,7 +7,7 @@ import { SdcValueTypeToNumberPipe } from '../sdc-value-type-to-number.pipe';
 
 describe('SdcValueTypeToNumberPipe', () => {
   let contextDataServiceMock: any;
-  let pipe: SdcValueTypeToNumberPipe;
+  let _pipe: SdcValueTypeToNumberPipe;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -17,23 +17,23 @@ describe('SdcValueTypeToNumberPipe', () => {
 
     contextDataServiceMock = TestBed.inject(ContextDataService);
 
-    pipe = new SdcValueTypeToNumberPipe(contextDataServiceMock);
+    _pipe = new SdcValueTypeToNumberPipe(contextDataServiceMock);
   });
 
   it('should transform a string to a number', () => {
-    expect(pipe.transform('1', ValueType.NUMERIC)).toBe(1);
+    expect(_pipe.transform('1', ValueType.NUMERIC)).toBe(1);
   });
 
   it('should transform a string to a version', () => {
-    expect(pipe.transform('0.0.1', ValueType.VERSION)).toBe(0.000001);
+    expect(_pipe.transform('0.0.1', ValueType.VERSION)).toBe(0.000001);
   });
 
   it('should transform a string to a version case one', () => {
-    expect(pipe.transform('false', ValueType.BOOLEAN)).toBe(0);
+    expect(_pipe.transform('false', ValueType.BOOLEAN)).toBe(0);
   });
 
   it('should transform a string to a version case two', () => {
-    expect(pipe.transform('true', ValueType.BOOLEAN)).toBe(1);
+    expect(_pipe.transform('true', ValueType.BOOLEAN)).toBe(1);
   });
 
   describe('constructor', () => {

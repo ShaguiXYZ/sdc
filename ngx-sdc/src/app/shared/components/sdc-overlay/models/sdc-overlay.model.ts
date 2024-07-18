@@ -1,9 +1,9 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable @typescript-eslint/no-namespace */
 export type OverlayItemStatus = 'open' | 'closed';
 
 export namespace OverlayItemStatus {
-  export const toggle = (state: OverlayItemStatus): OverlayItemStatus => {
-    return state === 'open' ? 'closed' : 'open';
-  };
+  export const toggle = (state: OverlayItemStatus): OverlayItemStatus => (state === 'open' ? 'closed' : 'open');
 }
 
 export interface OverlayState {

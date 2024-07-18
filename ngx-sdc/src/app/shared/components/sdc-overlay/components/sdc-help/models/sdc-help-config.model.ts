@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable @typescript-eslint/no-namespace */
 import { DataInfo } from '@shagui/ng-shagui/core';
 import { SdcHelpEntry } from '../constants';
 import { SdcHelpBodyModel } from './sdc-help.model';

@@ -12,17 +12,17 @@ import { ChartConfig, ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRe
   imports: [SdcTimeEvolutionChartComponent, CommonModule]
 })
 export class SdcTimeEvolutionMultichartComponent {
-  public metricChartConfig: ChartConfig = { axis: {}, data: [] };
-
   @Input()
   public size: ChartSize = {};
+
+  public metricChartConfig: ChartConfig = { axis: {}, data: [] };
+
+  private graphData: DataInfo<number[]> = {};
 
   @Input()
   public set data(value: SdcChartData) {
     this.metricChartConfig = this.toChartconfig(value);
   }
-
-  private graphData: DataInfo<number[]> = {};
 
   private toChartconfig(value: SdcChartData): ChartConfig {
     const data: string[] = value.graph.map(v => v.data);
@@ -30,10 +30,10 @@ export class SdcTimeEvolutionMultichartComponent {
 
     return {
       axis: { xAxis: value.graph.map(v => v.axis) },
-      data: Object.entries(this.graphData).map(([name, value]) => ({
+      data: Object.entries(this.graphData).map(([name, values]) => ({
         name,
         smooth: true,
-        values: value.map(graphValue => ({
+        values: values.map(graphValue => ({
           value: graphValue
         }))
       })),
@@ -42,7 +42,8 @@ export class SdcTimeEvolutionMultichartComponent {
     };
   }
 
-  private groupDataInfo = (data: DataInfo<any>[]): DataInfo<any[]> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private groupDataInfo = (data: DataInfo<any>[]): DataInfo<number[]> => {
     let graphIndex = 0;
 
     return data.reduce((previous, current) => {

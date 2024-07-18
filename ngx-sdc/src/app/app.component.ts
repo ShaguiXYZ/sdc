@@ -21,7 +21,7 @@ import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from '
       <nx-alert />
       <nx-notification />
       <sdc-overlay />
-      <article class="app-content sdc-scrollable-body" (click)="onClick($event)">
+      <article class="app-content sdc-scrollable-body" (click)="onClick()">
         <header nxLayout="grid maxwidth nogutters">
           <nx-header [headerTitle]="'Header.Title' | translate" [title]="'Header.Description' | translate" />
         </header>
@@ -87,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // @howto animation on route change
   public prepareRoute = (outlet: RouterOutlet) => outlet.isActivated && outlet.activatedRouteData?.['animation'];
 
-  public onClick(event: any) {
+  public onClick() {
     this.overlayService.defaultOverlayState();
   }
 }

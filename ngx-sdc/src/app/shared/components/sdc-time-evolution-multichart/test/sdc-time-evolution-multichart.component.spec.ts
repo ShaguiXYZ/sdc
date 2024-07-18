@@ -68,7 +68,7 @@ describe('SdcTimeEvolutionMultichartComponent', () => {
   });
 
   it('should group DataInfo', () => {
-    const dataInfo: DataInfo<any>[] = [
+    const dataInfo: DataInfo<number>[] = [
       {
         axis1: 11,
         axis2: 21

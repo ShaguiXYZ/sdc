@@ -42,7 +42,7 @@ export class SdcValueTypeToNumberPipe implements PipeTransform {
     let decimalPart = '';
 
     segments?.forEach(segment => {
-      const padSegment = isNumeric(segment) ? segment.padStart(this.DEC_SUB, '0') : ''.padStart(this.DEC_SUB, '0');
+      const padSegment = isNumeric(segment) ? String(segment).padStart(this.DEC_SUB, '0') : ''.padStart(this.DEC_SUB, '0');
       decimalPart = `${decimalPart}${padSegment}`;
     });
 

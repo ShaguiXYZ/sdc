@@ -9,11 +9,13 @@
         "createDefaultProgram": true
       },
       "extends": [
-        "plugin:@angular-eslint/ng-cli-compat",
-        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
         "prettier"
       ],
+      "plugins": ["@angular-eslint", "@typescript-eslint", "prettier", "prefer-arrow", "deprecation", "import"],
       "rules": {
         "@angular-eslint/component-class-suffix": [
           "error",
