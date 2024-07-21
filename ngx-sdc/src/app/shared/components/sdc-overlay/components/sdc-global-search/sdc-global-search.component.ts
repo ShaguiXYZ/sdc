@@ -58,6 +58,9 @@ import { SdcGlobalSearchService } from './services';
   imports: [CommonModule, NxCheckboxModule, SdcCoverageChartComponent, SdcTagComponent, TranslateModule]
 })
 export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
+  @ViewChild('searchInput', { static: true })
+  private searchInput!: ElementRef;
+
   public BACKGROUND_CHART_COLOR = BACKGROUND_CHART_COLOR;
   public data$: Subject<ISummaryViewModel[]>;
   public elementTypes: SummaryViewType[] = Object.values(SummaryViewType);
@@ -68,21 +71,10 @@ export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
   };
 
   private _state: OverlayItemStatus = 'closed';
-
-  @ViewChild('searchInput', { static: true })
-  private searchInput!: ElementRef;
   private subscription$: Array<Subscription> = [];
 
   constructor(private readonly globalSearchService: SdcGlobalSearchService) {
     this.data$ = this.globalSearchService.onDataChange();
-  }
-
-  ngOnInit(): void {
-    this.subscription$.push(this.searchBoxConfig());
-  }
-
-  ngOnDestroy(): void {
-    this.subscription$.forEach(subscription => subscription.unsubscribe());
   }
 
   public get state(): OverlayItemStatus {
@@ -92,6 +84,14 @@ export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
   public set state(value: OverlayItemStatus) {
     this._state = value;
     setTimeout(() => this._state === 'open' && $('.sdc-search-input input')?.focus(), 300);
+  }
+
+  ngOnInit(): void {
+    this.subscription$.push(this.searchBoxConfig());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.forEach(subscription => subscription.unsubscribe());
   }
 
   public toggleType(type: SummaryViewType): void {

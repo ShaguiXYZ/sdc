@@ -21,12 +21,12 @@ export class SdcStateCountComponent implements OnInit {
 
   public stateStyle!: string;
 
-  ngOnInit(): void {
-    this.stateStyle = styleByMetricState(this.stateCount.state);
-  }
-
   public get metricConfig(): MetricConfig {
     return MetricState[this.stateCount.state];
+  }
+
+  ngOnInit(): void {
+    this.stateStyle = styleByMetricState(this.stateCount.state);
   }
 
   public onClick(): void {

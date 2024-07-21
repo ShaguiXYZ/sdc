@@ -24,16 +24,16 @@ export class SdcHelpService implements OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
   public get appendix(): keyof DataInfo<SdcHelpEntryModel, SdcHelpEntry> {
     return this._appendix;
   }
   public set appendix(value: keyof DataInfo<SdcHelpEntryModel, SdcHelpEntry>) {
     this._appendix = value;
     this.importHelpConfig(this.appendix);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   public onDataChange(): Subject<SdcHelpConfig> {

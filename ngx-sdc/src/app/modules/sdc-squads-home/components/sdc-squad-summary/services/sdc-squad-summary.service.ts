@@ -9,6 +9,7 @@ import { ServiceSummaryModel } from '../models';
 
 @Injectable()
 export class SdcSquadSummaryService {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private tabActions: { fn: (param?: any) => void }[] = [];
   private data$: Subject<Partial<ServiceSummaryModel>> = new Subject();
 
@@ -19,7 +20,7 @@ export class SdcSquadSummaryService {
     this.tabActions = [{ fn: emptyFn }, { fn: this.languageDistribution }];
   }
 
-  public tabFn(index: number, param?: any) {
+  public tabFn(index: number, param?: unknown): void {
     this.tabActions[index]?.fn(param);
   }
 

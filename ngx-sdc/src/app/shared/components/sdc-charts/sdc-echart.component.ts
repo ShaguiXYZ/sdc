@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
 import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -36,13 +36,10 @@ import { ChartSize, SdcChartSize } from './models';
   imports: [CommonModule, NgxEchartsModule]
 })
 export class SdcEchartComponent {
-  public styleSize: DataInfo<string | number> = {};
-
   @Input()
   public options: EChartsOption = {};
 
-  @Output()
-  public onClick: EventEmitter<any> = new EventEmitter();
+  public styleSize: DataInfo<string | number> = {};
 
   @Input()
   public set size(value: ChartSize) {

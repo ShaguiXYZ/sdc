@@ -66,7 +66,7 @@ export class AnalysisService {
     page: number = 0,
     ps: number = METRIC_HISTORY_ELEMENTS
   ): Promise<IPageable<IMetricAnalysisModel>> {
-    let httpParams = new HttpParams().appendAll({ page, ps });
+    const httpParams = new HttpParams().appendAll({ page, ps });
 
     return firstValueFrom(
       this.http
@@ -135,7 +135,7 @@ export class AnalysisService {
     );
   }
 
-  public analize(componentId: number, onError?: DataInfo<(error: any) => void>): Promise<IPageable<IMetricAnalysisModel>> {
+  public analize(componentId: number, onError?: DataInfo<(error: unknown) => void>): Promise<IPageable<IMetricAnalysisModel>> {
     return firstValueFrom(
       this.http
         .post<undefined, IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}`, undefined, {

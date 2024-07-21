@@ -53,7 +53,7 @@ export class DepartmentService {
     );
   }
 
-  public updateDeparments(onError?: DataInfo<(error: any) => void>): Promise<IDepartmentModel[]> {
+  public updateDeparments(onError?: DataInfo<(error: unknown) => void>): Promise<IDepartmentModel[]> {
     return firstValueFrom(
       this.http
         .post<undefined, IDepartmentDTO[]>(`${this._urlDepartments}/departments/update`, undefined, {

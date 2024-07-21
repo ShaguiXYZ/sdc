@@ -51,6 +51,32 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
     private readonly translateService: TranslateService
   ) {}
 
+  public get department(): IDepartmentModel {
+    return this._department;
+  }
+
+  public get selectedTabIndex() {
+    return this._selectedTabIndex;
+  }
+
+  @Input()
+  public set department(value: IDepartmentModel) {
+    this._department = value;
+    this.selectedTabIndex = this._selectedTabIndex;
+  }
+
+  @Input()
+  public set squads(values: ISquadModel[]) {
+    this._squads = values;
+    this.chartConfig = this.stateCounts(this._squads);
+  }
+
+  @Input()
+  public set selectedTabIndex(index: number) {
+    this._selectedTabIndex = index;
+    this.departmentSummaryService.tabFn(this.selectedTabIndex, this.department.id);
+  }
+
   ngOnInit(): void {
     this.data$ = this.departmentSummaryService.onDataChange().subscribe(data => {
       this.serviceSummaryData = { ...this.serviceSummaryData, ...data };
@@ -64,30 +90,6 @@ export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.data$.unsubscribe();
-  }
-
-  public get department(): IDepartmentModel {
-    return this._department;
-  }
-  @Input()
-  public set department(value: IDepartmentModel) {
-    this._department = value;
-    this.selectedTabIndex = this._selectedTabIndex;
-  }
-
-  @Input()
-  public set squads(values: ISquadModel[]) {
-    this._squads = values;
-    this.chartConfig = this.stateCounts(this._squads);
-  }
-
-  public get selectedTabIndex() {
-    return this._selectedTabIndex;
-  }
-  @Input()
-  public set selectedTabIndex(index: number) {
-    this._selectedTabIndex = index;
-    this.departmentSummaryService.tabFn(this.selectedTabIndex, this.department.id);
   }
 
   private stateCounts(squads: ISquadModel[]): ChartConfig {

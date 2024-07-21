@@ -13,8 +13,8 @@ import { Subscription } from 'rxjs';
 })
 export class LoadingComponent implements OnInit, OnDestroy {
   @ViewChild('loadingBody')
-  private templateLoadingRef!: TemplateRef<any>;
-  private templateLoadingDialogRef!: NxModalRef<any>;
+  private templateLoadingRef!: TemplateRef<void>;
+  private templateLoadingDialogRef!: NxModalRef<void>;
   private loadingObs!: Subscription;
 
   private readonly loadingService = inject(LoadingService);

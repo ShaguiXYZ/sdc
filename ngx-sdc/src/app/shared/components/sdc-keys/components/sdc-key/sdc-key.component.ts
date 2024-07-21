@@ -37,13 +37,13 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [CommonModule, TranslateModule]
 })
 export class SdcKeyComponent {
+  @Input()
+  public label!: string;
+
   public svgKey!: string;
 
   @Input()
   public set key(value: string) {
     this.svgKey = value && `url('assets/images/ctrl-${value.toLowerCase()}.svg')`;
   }
-
-  @Input()
-  public label!: string;
 }

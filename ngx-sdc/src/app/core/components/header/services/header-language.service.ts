@@ -22,12 +22,12 @@ export class HeaderLanguageService implements OnDestroy {
     });
   }
 
-  public ngOnDestroy() {
-    this.language$.unsubscribe();
-  }
-
   get info(): ILanguageHeader {
     return this._languageInfo;
+  }
+
+  public ngOnDestroy() {
+    this.language$.unsubscribe();
   }
 
   public onLanguageChange(): Observable<ILanguageHeader> {

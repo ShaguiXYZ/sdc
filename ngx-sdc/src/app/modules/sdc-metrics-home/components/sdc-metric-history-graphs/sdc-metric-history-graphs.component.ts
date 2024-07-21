@@ -22,15 +22,6 @@ import { SdcMetricHistoryGraphsService } from './services';
   imports: [CommonModule, NxCopytextModule, NxCheckboxModule, SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, TranslateModule]
 })
 export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
-  public availableFactorCharts: { [key in AnalysisFactor]: boolean } = {
-    expectedValue: false,
-    goodValue: false,
-    perfectValue: false
-  };
-  public availableFactorChartsKeys: AnalysisFactor[] = Object.keys(this.availableFactorCharts) as AnalysisFactor[];
-  public metricChartConfig!: ChartConfig;
-  public metricsData?: MetricsHistoryDataModel;
-
   @Input()
   public componentId!: number;
 
@@ -39,6 +30,15 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
 
   @Output()
   public selectedAnalysisChange: EventEmitter<IMetricAnalysisModel> = new EventEmitter();
+
+  public availableFactorCharts: { [key in AnalysisFactor]: boolean } = {
+    expectedValue: false,
+    goodValue: false,
+    perfectValue: false
+  };
+  public availableFactorChartsKeys: AnalysisFactor[] = Object.keys(this.availableFactorCharts) as AnalysisFactor[];
+  public metricChartConfig!: ChartConfig;
+  public metricsData?: MetricsHistoryDataModel;
 
   private data$!: Subscription;
 
@@ -96,9 +96,9 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
       }
     ];
 
-    this.availableFactorCharts.expectedValue = analysis?.some(data => data.analysisValues.expectedValue);
-    this.availableFactorCharts.goodValue = analysis?.some(data => data.analysisValues.goodValue);
-    this.availableFactorCharts.perfectValue = analysis?.some(data => data.analysisValues.perfectValue);
+    this.availableFactorCharts.expectedValue = analysis?.some(value => value.analysisValues.expectedValue);
+    this.availableFactorCharts.goodValue = analysis?.some(value => value.analysisValues.goodValue);
+    this.availableFactorCharts.perfectValue = analysis?.some(value => value.analysisValues.perfectValue);
 
     showFactorChart?.['expectedValue'] && this.addFactorChartData(data, analysis, MetricStates.WITH_RISK, 'expectedValue');
     showFactorChart?.['goodValue'] && this.addFactorChartData(data, analysis, MetricStates.ACCEPTABLE, 'goodValue');

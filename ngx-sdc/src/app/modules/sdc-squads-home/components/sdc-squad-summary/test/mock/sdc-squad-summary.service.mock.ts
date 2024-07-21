@@ -1,7 +1,9 @@
 export class SdcSquadSummaryServiceMock {
-  public onDataChange(): any {
+  public onDataChange(): unknown {
     return {
-      subscribe: () => {}
+      subscribe: () => {
+        // mock function
+      }
     };
   }
 }

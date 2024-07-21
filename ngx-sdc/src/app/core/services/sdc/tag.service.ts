@@ -72,10 +72,10 @@ export class TagService {
     );
   }
 
-  public addTag(componentId: number, name: string, onError?: DataInfo<(error: any) => void>): Promise<ITagModel> {
+  public addTag(componentId: number, name: string, onError?: DataInfo<(error: unknown) => void>): Promise<ITagModel> {
     return firstValueFrom(
       this.http
-        .post<ITagDTO, any>(`${this._urlTags}/tag/create/${componentId}/${name}`, undefined, {
+        .post<ITagDTO, unknown>(`${this._urlTags}/tag/create/${componentId}/${name}`, undefined, {
           responseStatusMessage: {
             [HttpStatus.notFound]: { text: this.translate.instant('Error.404') },
             [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
@@ -86,7 +86,7 @@ export class TagService {
     );
   }
 
-  public removeTag(componentId: number, name: string, onError?: DataInfo<(error: any) => void>): Promise<void> {
+  public removeTag(componentId: number, name: string, onError?: DataInfo<(error: unknown) => void>): Promise<void> {
     return firstValueFrom(
       this.http
         .delete(`${this._urlTags}/tag/delete/${componentId}/${name}`, {

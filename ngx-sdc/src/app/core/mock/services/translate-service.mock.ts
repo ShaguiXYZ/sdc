@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Observable } from 'rxjs';
 
 export class TranslateServiceMock {
   private lang = '';
 
   get(key: string) {
-    return new Observable<any>();
+    return new Observable<unknown>();
   }
 
   instant(key: string): string {
@@ -15,7 +16,7 @@ export class TranslateServiceMock {
     this.lang = lang;
   }
 
-  stream(key: string | Array<string>, interpolateParams?: object): Observable<string | any> {
+  stream(key: string | Array<string>, interpolateParams?: object): Observable<string | undefined> {
     return new Observable<string>();
   }
 }

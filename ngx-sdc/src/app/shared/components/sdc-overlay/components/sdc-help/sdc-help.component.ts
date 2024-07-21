@@ -71,11 +71,12 @@ export class SdcHelpComponent implements OnInit, OnDestroy {
   @Input()
   public state: OverlayItemStatus = 'closed';
 
+  @ViewChild('helpData')
+  private helpData!: ElementRef;
+
   public config?: SdcHelpConfig;
   public index: string[] = [];
 
-  @ViewChild('helpData')
-  private helpData!: ElementRef;
   private subscriptions: Subscription[] = [];
 
   constructor(private readonly helpService: SdcHelpService) {}

@@ -27,8 +27,8 @@ export class SdcCoverageChartComponent implements OnInit {
 
   private _coverage!: ICoverageModel;
 
-  ngOnInit(): void {
-    this.echartsOptions = this.chartOptions(this._coverage);
+  public get styleSize(): DataInfo<number> {
+    return { 'height.px': this.size, 'width.px': this.size };
   }
 
   @Input()
@@ -37,8 +37,8 @@ export class SdcCoverageChartComponent implements OnInit {
     this.echartsOptions = this.chartOptions(value);
   }
 
-  public get styleSize(): DataInfo<number> {
-    return { 'height.px': this.size, 'width.px': this.size };
+  ngOnInit(): void {
+    this.echartsOptions = this.chartOptions(this._coverage);
   }
 
   private chartOptions(value: ICoverageModel): EChartsOption {

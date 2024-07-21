@@ -1,9 +1,9 @@
-import { Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SecurityService } from '../security.service';
 
 @Directive({
-  selector: '[ifRole]',
+  selector: '[nxIfRole]',
   standalone: true
 })
 export class IfRoleDirective implements OnDestroy {
@@ -11,7 +11,7 @@ export class IfRoleDirective implements OnDestroy {
   private security$: Subscription;
 
   constructor(
-    private readonly templateRef: TemplateRef<any>,
+    private readonly templateRef: TemplateRef<ElementRef>,
     private readonly viewContainer: ViewContainerRef,
     private readonly securityService: SecurityService
   ) {
@@ -19,7 +19,7 @@ export class IfRoleDirective implements OnDestroy {
   }
 
   @Input()
-  set ifRole(roles: string[] | undefined) {
+  set nxIfRole(roles: string[] | undefined) {
     this.roles = roles ?? [];
     this.checkRoles();
   }
@@ -32,6 +32,7 @@ export class IfRoleDirective implements OnDestroy {
     const userRoles = this.securityService.user?.authorities ?? [];
     const shouldShow = !this.roles?.length || this.roles.some(role => userRoles.includes(role));
 
-    shouldShow ? this.viewContainer.createEmbeddedView(this.templateRef) : this.viewContainer.clear();
+    if (shouldShow) this.viewContainer.createEmbeddedView(this.templateRef);
+    else this.viewContainer.clear();
   }
 }

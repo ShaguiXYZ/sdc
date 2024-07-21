@@ -19,6 +19,9 @@ import { SdcStateCountComponent } from './components';
   imports: [CommonModule, SdcStateCountComponent]
 })
 export class SdcComponentsStateCountComponent {
+  @Output()
+  public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
+
   public _components!: ICoverageModel[];
   public counts: IStateCount[] = [];
 
@@ -30,9 +33,6 @@ export class SdcComponentsStateCountComponent {
     this._components = value;
     this.counts = this.stateCounts();
   }
-
-  @Output()
-  public clickStateCount: EventEmitter<IStateCount> = new EventEmitter();
 
   public onClick(event: IStateCount): void {
     this.clickStateCount.emit(event);

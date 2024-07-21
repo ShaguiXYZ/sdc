@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Observable } from 'rxjs';
 
 export class LanguageServiceMock {

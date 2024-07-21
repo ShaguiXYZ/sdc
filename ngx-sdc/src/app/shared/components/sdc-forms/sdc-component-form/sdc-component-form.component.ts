@@ -79,7 +79,7 @@ export class SdcComponentFormComponent implements OnInit, OnDestroy {
       uris: new FormGroup({})
     });
 
-    this.subscriptions$.push(this.form.valueChanges.subscribe(data => emptyFn()));
+    this.subscriptions$.push(this.form.valueChanges.subscribe(emptyFn));
   }
 
   private componentTypeArchitectureValidator =

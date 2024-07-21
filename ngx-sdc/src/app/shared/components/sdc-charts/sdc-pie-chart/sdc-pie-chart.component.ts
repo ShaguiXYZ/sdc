@@ -14,24 +14,24 @@ import { SdcEchartComponent } from '../sdc-echart.component';
   imports: [CommonModule, SdcEchartComponent, NxHeadlineModule]
 })
 export class SdcPieChartComponent implements OnInit {
-  public echartsOptions: EChartsOption = {};
-
   @Input()
   public title?: string;
 
   @Input()
   public size: ChartSize = {};
 
-  private _data!: string;
+  public echartsOptions: EChartsOption = {};
 
-  ngOnInit(): void {
-    this.echartsOptions = this.chartOptions(this._data);
-  }
+  private _data!: string;
 
   @Input()
   public set data(value: string) {
     this._data = value;
     this.echartsOptions = this.chartOptions(value);
+  }
+
+  ngOnInit(): void {
+    this.echartsOptions = this.chartOptions(this._data);
   }
 
   private chartOptions(chartData: string): EChartsOption {

@@ -37,16 +37,16 @@ import { HeaderLanguageService } from './services';
   ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  public navigation!: INavigation;
-  public languageInfo!: ILanguageHeader;
-  public logo?: string;
-  public themeSwitcher = false;
-
   @Input()
   public headerTitle?: string;
 
   @Input()
   public title = '';
+
+  public navigation!: INavigation;
+  public languageInfo!: ILanguageHeader;
+  public logo?: string;
+  public themeSwitcher = false;
 
   private language$!: Subscription;
 

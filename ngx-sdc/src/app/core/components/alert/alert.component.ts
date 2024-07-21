@@ -16,12 +16,13 @@ import { AlertService } from './services';
   imports: [CommonModule, NxButtonModule, NxCopytextModule, NxHeadlineModule, NxModalModule]
 })
 export class AlertComponent implements OnInit, OnDestroy {
+  @ViewChild('alertBody')
+  private templateAlertRef!: TemplateRef<void>;
+
   public alert?: AlertModel;
   public alertSubscription!: Subscription;
 
-  @ViewChild('alertBody')
-  private templateAlertRef!: TemplateRef<any>;
-  private templateAlertDialogRef!: NxModalRef<any>;
+  private templateAlertDialogRef!: NxModalRef<void>;
 
   constructor(
     private dialogService: NxDialogService,
@@ -47,7 +48,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   public openDetailsModal(): void {
-    this.templateAlertDialogRef = this.dialogService.open(this.templateAlertRef);
+    this.templateAlertDialogRef = this.dialogService.open<void>(this.templateAlertRef);
   }
 
   public closeDetailsModal(): void {

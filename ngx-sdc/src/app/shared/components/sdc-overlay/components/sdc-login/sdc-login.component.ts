@@ -24,6 +24,15 @@ export class SdcLoginComponent implements OnInit, OnDestroy {
 
   constructor(private readonly loginService: SdcLoginService) {}
 
+  public get state(): string {
+    return this._state;
+  }
+  @Input()
+  public set state(value: OverlayItemStatus) {
+    this._state = value;
+    this.form && this.resetForm();
+  }
+
   ngOnInit(): void {
     this.subcriptions.push(
       this.loginService.onDataChange().subscribe(data => {
@@ -36,15 +45,6 @@ export class SdcLoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subcriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
-  public get state(): string {
-    return this._state;
-  }
-  @Input()
-  public set state(value: OverlayItemStatus) {
-    this._state = value;
-    this.form && this.resetForm();
   }
 
   public login(): void {

@@ -11,13 +11,13 @@ import { SseEventDTO, SseEventModel } from './models';
  * @howto server-sent events client
  */
 @Injectable({ providedIn: 'root' })
-export class SseService<T = any> {
+export class SseService {
   private _urlEvents = `${environment.baseUrl}/api`;
 
   constructor(private readonly _zone: NgZone) {}
 
-  onEvent(): Observable<SseEventModel<T>> {
-    return new Observable<SseEventDTO<T>>(observer => {
+  onEvent(): Observable<SseEventModel> {
+    return new Observable<SseEventDTO>(observer => {
       const eventSource = this.getEventSource();
 
       eventSource.onmessage = event => this._zone.run(() => observer.next(SseEventModel.fromDTO(JSON.parse(event.data))));

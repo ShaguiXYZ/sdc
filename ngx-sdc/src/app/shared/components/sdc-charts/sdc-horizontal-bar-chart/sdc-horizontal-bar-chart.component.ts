@@ -12,13 +12,13 @@ import { SdcEchartComponent } from '../sdc-echart.component';
   imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcHorizontalBarChartComponent {
-  public echartsOptions: EChartsOption = {};
-
   @Input()
   public name!: string;
 
   @Input()
   public size: ChartSize = {};
+
+  public echartsOptions: EChartsOption = {};
 
   @Input()
   set config(value: ChartConfig) {

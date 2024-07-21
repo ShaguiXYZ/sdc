@@ -13,7 +13,7 @@
         [ngClass]="{ 'nx-margin-3xs width-50': departmentsData.department, 'width-100': !departmentsData.department }"
       >
         <div
-          *ifRole="['ADMIN']"
+          *nxIfRole="['ADMIN']"
           class="sdc-op reload-departments"
           [nxTooltip]="'Tooltip.UpdateServerDepartments' | translate"
           nxTooltipPosition="left"

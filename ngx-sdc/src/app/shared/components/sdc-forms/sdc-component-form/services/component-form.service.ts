@@ -5,9 +5,8 @@ import { ComponentService, DataListService } from 'src/app/core/services/sdc';
 
 @Injectable()
 export class ComponentFormService {
-  private emptyObservableFn = () => of([]);
-  private dynamicBackendOptions?: { [key: string]: (term: string) => Observable<string[]> };
   private data$: Subject<Partial<IComponentModel>> = new Subject();
+  private dynamicBackendOptions?: { [key: string]: (term: string) => Observable<string[]> };
 
   constructor(
     private readonly dataListService: DataListService,
@@ -32,9 +31,11 @@ export class ComponentFormService {
     this.componentService.component(id).then(data => this.data$.next(data));
   }
 
-  public saveComponent(value: any): void {
+  public saveComponent(value: unknown): void {
     console.log('saveComponent', value);
   }
+
+  private emptyObservableFn = () => of([]);
 
   private dataListValues = async (): Promise<{ [datalist: string]: (key: string) => Observable<string[]> }> => {
     const data = await this.dataListService.availableDataLists();

@@ -23,11 +23,11 @@ import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
 export class SdcTrendComponent {
   private _trend!: number;
 
+  public get trend(): number {
+    return this._trend;
+  }
   @Input()
   public set trend(value: number) {
     this._trend = Math.round(value * 100) / 100;
-  }
-  public get trend(): number {
-    return this._trend;
   }
 }

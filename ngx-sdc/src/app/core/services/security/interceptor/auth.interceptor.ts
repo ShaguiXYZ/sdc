@@ -8,7 +8,7 @@ import { CONTEXT_WORKFLOW_ID, HEADER_AUTHORIZATION, HEADER_SESSION_ID, HEADER_WO
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private securityService: SecurityService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<unknown>, next: HttpHandler) {
     /**
      * Overwriting all headers
      */

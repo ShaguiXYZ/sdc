@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable @typescript-eslint/no-namespace */
 export enum UriType {
   GIT = 'GIT',
   SONAR = 'SONAR'

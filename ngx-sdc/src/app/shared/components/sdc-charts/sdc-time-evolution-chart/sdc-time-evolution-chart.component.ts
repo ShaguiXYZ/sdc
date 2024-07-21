@@ -14,10 +14,10 @@ import { SdcEchartComponent } from '../sdc-echart.component';
   imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcTimeEvolutionChartComponent {
-  public echartsOptions: EChartsOption = {};
-
   @Input()
   public size: ChartSize = {};
+
+  public echartsOptions: EChartsOption = {};
 
   @Input()
   set config(value: ChartConfig) {
@@ -55,7 +55,7 @@ export class SdcTimeEvolutionChartComponent {
       };
     });
 
-    let options: DataInfo<any> = {
+    let options: DataInfo<unknown> = {
       animation: false,
       tooltip: {
         axisPointer: {

@@ -79,11 +79,11 @@ export class SdcDepartmentsService {
       .catch(console.error);
   };
 
-  private onUnauthorizedError = (error: any): void => {
+  private onUnauthorizedError = (): void => {
     this.overlayService.toggleLogin();
   };
 
-  private onLockedError = (error: any): void => {
+  private onLockedError = (error: unknown): void => {
     console.log('onLockedError', error);
   };
 }

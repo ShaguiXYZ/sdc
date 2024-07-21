@@ -45,6 +45,9 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
   ]
 })
 export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
+  @ViewChild('searchInput', { static: true })
+  private searchInput!: ElementRef;
+
   public elementsByPage!: number;
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
@@ -52,8 +55,6 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   public coverages: { key: string; label: string; style: string }[] = [];
   public applicationsInfo?: SdcApplicationsDataModel;
 
-  @ViewChild('searchInput', { static: true })
-  private searchInput!: ElementRef;
   private subscription$: Array<Subscription> = [];
 
   constructor(

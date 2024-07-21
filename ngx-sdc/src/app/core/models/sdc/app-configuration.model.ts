@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable @typescript-eslint/no-namespace */
 import packageInfo from 'package.json';
 
 export interface IAnalysisConfig {

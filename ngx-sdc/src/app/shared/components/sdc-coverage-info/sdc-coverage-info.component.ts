@@ -15,8 +15,6 @@ import { SdcTrendComponent } from '../sdc-trend';
   imports: [CommonModule, NxCopytextModule, SdcCoverageChartComponent, SdcTrendComponent]
 })
 export class SdcCoverageInfoComponent {
-  public BACKGROUND_CHART_COLOR = BACKGROUND_CHART_COLOR;
-
   @Input()
   public coverage!: ICoverageModel;
 
@@ -28,6 +26,8 @@ export class SdcCoverageInfoComponent {
 
   @Output()
   public selectCoverage: EventEmitter<ICoverageModel> = new EventEmitter();
+
+  public BACKGROUND_CHART_COLOR = BACKGROUND_CHART_COLOR;
 
   public onClick() {
     this.selectCoverage.emit(this.coverage);

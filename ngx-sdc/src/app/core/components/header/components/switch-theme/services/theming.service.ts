@@ -21,10 +21,6 @@ export class ThemingService implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.darkThemeMq.removeEventListener('change', this.darkThemeMqListener.bind(this));
-  }
-
   public get theme(): Theme {
     return this._theme;
   }
@@ -38,6 +34,10 @@ export class ThemingService implements OnDestroy {
     localStorage.setItem(SESSION_THEME_KEY, JSON.stringify({ active: this.theme }));
 
     this.themeChange.next(this.theme);
+  }
+
+  ngOnDestroy(): void {
+    this.darkThemeMq.removeEventListener('change', this.darkThemeMqListener.bind(this));
   }
 
   private darkThemeMqListener = (e: MediaQueryListEvent): void => {

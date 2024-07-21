@@ -56,7 +56,7 @@ export class SdcRouteService {
     this.navigateTo(AppUrls.squads, ContextDataInfo.SQUADS_DATA, contextData);
   };
 
-  private navigateTo = <T = any>(url: string, contextName: ContextDataInfo, contextData: T): void => {
+  private navigateTo = <T = unknown>(url: string, contextName: ContextDataInfo, contextData: T): void => {
     this.router.navigateByUrl(`/${AppUrls.routing}`, { skipLocationChange: true }).then(() => {
       this.contextDataService.set(contextName, contextData);
       this.router.navigate([url]);

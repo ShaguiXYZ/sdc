@@ -4,7 +4,6 @@ import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateService } from '@ngx-translate/core';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService, copyToClipboard } from '@shagui/ng-shagui/core';
 import { SseEventModel } from 'src/app/core/services';
-import { SdcEventReference } from 'src/app/shared/models';
 import { SdcEventItemService } from './services';
 
 @Component({
@@ -15,10 +14,14 @@ import { SdcEventItemService } from './services';
       <header>
         <span class="title {{ event.type.toLocaleLowerCase() }}">{{ event.type }}</span>
         @if (readable) {
-          <em class="sdc-op fa-regular" [ngClass]="{ 'fa-circle-check': event.read, 'fa-circle': !event.read }" (click)="readEvent()"></em>
+          <em
+            class="sdc-op fa-regular"
+            [ngClass]="{ 'fa-circle-check': event.read, 'fa-circle': !event.read }"
+            (click)="onReadEvent()"
+          ></em>
         }
         @if (closable) {
-          <em class="sdc-op fa-regular fa-circle-xmark" (click)="removeEvent()"></em>
+          <em class="sdc-op fa-regular fa-circle-xmark" (click)="onRemoveEvent()"></em>
         }
       </header>
       <section>
@@ -50,7 +53,7 @@ import { SdcEventItemService } from './services';
 })
 export class SdcEventItemComponent implements OnDestroy {
   @Input()
-  public event!: SseEventModel<SdcEventReference>;
+  public event!: SseEventModel;
 
   @Input()
   public closable = true;
@@ -62,10 +65,10 @@ export class SdcEventItemComponent implements OnDestroy {
   public readable = true;
 
   @Output()
-  public onRemoveEvent: EventEmitter<SseEventModel<SdcEventReference>> = new EventEmitter();
+  public removeEvent: EventEmitter<SseEventModel> = new EventEmitter();
 
   @Output()
-  public onReadEvent: EventEmitter<SseEventModel<SdcEventReference>> = new EventEmitter();
+  public readEvent: EventEmitter<SseEventModel> = new EventEmitter();
 
   public fadeOut = false;
 
@@ -78,35 +81,35 @@ export class SdcEventItemComponent implements OnDestroy {
     private readonly translateService: TranslateService
   ) {}
 
-  ngOnDestroy(): void {
-    this._timeout && clearTimeout(this._timeout);
-    this.fadeOutTimeout && clearTimeout(this.fadeOutTimeout);
-  }
-
   @Input()
   public set timeout(value: number) {
     this._timeout && clearTimeout(this._timeout);
 
     if (value) {
       this._timeout = setTimeout(() => {
-        this.removeEvent();
+        this.onRemoveEvent();
       }, value);
     }
+  }
+
+  ngOnDestroy(): void {
+    this._timeout && clearTimeout(this._timeout);
+    this.fadeOutTimeout && clearTimeout(this.fadeOutTimeout);
   }
 
   public onClickComponent(): void {
     this.event.reference?.componentId && this.eventItemService.navigateTo(this.event.reference.componentId);
   }
 
-  public readEvent(): void {
-    this.onReadEvent.emit(this.event);
+  public onReadEvent(): void {
+    this.readEvent.emit(this.event);
   }
 
-  public removeEvent(): void {
+  public onRemoveEvent(): void {
     this.fadeOut = true;
 
     this.fadeOutTimeout = setTimeout(() => {
-      this.onRemoveEvent.emit(this.event);
+      this.removeEvent.emit(this.event);
     }, 700);
   }
 

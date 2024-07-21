@@ -53,14 +53,15 @@ import { SdcMetricsHomeService } from './services';
   ]
 })
 export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
+  @ViewChild('metricsCards')
+  private templateRef!: TemplateRef<{ component: IComponentModel }>;
+
   public metricsData?: MetricsDataModel;
   public historicalChartConfig!: ChartConfig;
   public lastLanguageDistribution?: string;
 
-  @ViewChild('metricsCards')
-  private templateRef!: TemplateRef<any>;
   private data$!: Subscription;
-  private metricsCardsDialogRef?: NxModalRef<SdcMetricsCardsComponent>;
+  private metricsCardsDialogRef?: NxModalRef<{ component: IComponentModel }>;
 
   constructor(
     private readonly alertService: AlertService,

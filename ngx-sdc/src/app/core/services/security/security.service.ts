@@ -26,13 +26,15 @@ export class SecurityService {
   public get session(): ISessionModel {
     return this.getSecurityInfo()?.session;
   }
-  public set session(session: ISessionModel) {
-    this.setSecurityInfo({ ...this.getSecurityInfo(), session });
-  }
 
   public get user(): IUserModel {
     return this.getSecurityInfo()?.user;
   }
+
+  public set session(session: ISessionModel) {
+    this.setSecurityInfo({ ...this.getSecurityInfo(), session });
+  }
+
   public set user(user: IUserModel) {
     const securityInfo = this.getSecurityInfo();
 

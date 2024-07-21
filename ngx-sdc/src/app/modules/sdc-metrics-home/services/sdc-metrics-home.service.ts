@@ -11,9 +11,9 @@ import { MetricsDataModel } from '../models';
 
 @Injectable()
 export class SdcMetricsHomeService implements OnDestroy {
+  private tabActions: { fn: () => void }[] = [];
   private metricContextData!: SdcMetricsContextData;
   private metricData!: MetricsDataModel;
-  private tabActions: { fn: () => void }[] = [];
   private data$: Subject<MetricsDataModel> = new Subject();
   private subscriptions: Subscription[] = [];
 
@@ -36,10 +36,6 @@ export class SdcMetricsHomeService implements OnDestroy {
     this.tabActions = [{ fn: emptyFn }, { fn: this.languageDistribution }];
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
   public set metricAnalysisSeleted(analysis: IMetricAnalysisModel) {
     this.metricContextData.selected = analysis;
     this.contextDataService.set(ContextDataInfo.METRICS_DATA, this.metricContextData);
@@ -50,6 +46,10 @@ export class SdcMetricsHomeService implements OnDestroy {
 
     this.metricContextData.selectedTabIndex = index;
     this.contextDataService.set(ContextDataInfo.METRICS_DATA, this.metricContextData);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   public async loadInitData(): Promise<MetricsDataModel> {
@@ -116,8 +116,8 @@ export class SdcMetricsHomeService implements OnDestroy {
       .addTag(this.metricData.component.id, tag.name, {
         [HttpStatus.unauthorized]: this.onUnauthorizedError
       })
-      .then(tag => {
-        this.metricData.tags = [...(this.metricData.tags ?? []), tag];
+      .then(data => {
+        this.metricData.tags = [...(this.metricData.tags ?? []), data];
         this.data$.next(this.metricData);
       });
   }
@@ -162,11 +162,11 @@ export class SdcMetricsHomeService implements OnDestroy {
     });
   };
 
-  private onUnauthorizedError = (error: any): void => {
+  private onUnauthorizedError = (): void => {
     this.overlayService.toggleLogin();
   };
 
-  private onLockedError = (error: any): void => {
+  private onLockedError = (error: unknown): void => {
     console.log('onLockedError', error);
   };
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { ContextConfig, ContextDataService, NX_CONTEX_CONFIG } from '@shagui/ng-shagui/core';

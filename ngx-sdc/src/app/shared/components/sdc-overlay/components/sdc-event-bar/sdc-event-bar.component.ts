@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components';
 import { SseEventModel } from 'src/app/core/services';
-import { SdcEventReference } from 'src/app/shared/models';
 import { OverlayItemStatus } from '../../models';
 import { SdcEventItemComponent } from './components';
 import { DEFAULT_TIMEOUT_EVENT } from './constants';
@@ -34,8 +33,8 @@ import { SdcEventBarService } from './services';
                 <sdc-event-item
                   [event]="event"
                   [timeout]="event.read ? DEFAULT_TIMEOUT_EVENT : 0"
-                  (onReadEvent)="onReadEvent($event)"
-                  (onRemoveEvent)="onRemoveEvent($event)"
+                  (readEvent)="onReadEvent($event)"
+                  (removeEvent)="onRemoveEvent($event)"
                 />
               </div>
             } @placeholder {
@@ -71,6 +70,16 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
     private readonly eventBarService: SdcEventBarService
   ) {}
 
+  public get state(): OverlayItemStatus {
+    return this._state;
+  }
+  @Input()
+  public set state(value: OverlayItemStatus) {
+    this._state = value;
+
+    this.controlEmptyEvents();
+  }
+
   ngOnInit(): void {
     this.subscriptions$.push(
       this.eventBarService.onDataChange().subscribe(events => {
@@ -88,21 +97,11 @@ export class SdcEventBarComponent implements OnInit, OnDestroy {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
   }
 
-  public get state(): OverlayItemStatus {
-    return this._state;
-  }
-  @Input()
-  public set state(value: OverlayItemStatus) {
-    this._state = value;
-
-    this.controlEmptyEvents();
-  }
-
-  public onRemoveEvent(event: SseEventModel<SdcEventReference>): void {
+  public onRemoveEvent(event: SseEventModel): void {
     this.eventBarService.removeEvent(event);
   }
 
-  public onReadEvent(event: SseEventModel<SdcEventReference>): void {
+  public onReadEvent(event: SseEventModel): void {
     this.eventBarService.readEvent(event);
   }
 

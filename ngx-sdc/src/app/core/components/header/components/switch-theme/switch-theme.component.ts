@@ -17,19 +17,19 @@ export class SwitchThemeComponent implements OnInit {
 
   constructor(private temingService: ThemingService) {}
 
-  ngOnInit(): void {
-    this.temingService.themeChange.subscribe((theme: Theme) => {
-      this.theme = theme;
-      this.themeChange.emit(this.theme);
-    });
-  }
-
   public get theme(): Theme {
     return this.temingService.theme;
   }
   @Input()
   public set theme(value: Theme) {
     this.temingService.theme = value;
+  }
+
+  ngOnInit(): void {
+    this.temingService.themeChange.subscribe((theme: Theme) => {
+      this.theme = theme;
+      this.themeChange.emit(this.theme);
+    });
   }
 
   public switchTheme(): void {

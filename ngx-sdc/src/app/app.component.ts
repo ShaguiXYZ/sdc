@@ -57,6 +57,19 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly title: Title
   ) {}
 
+  // @howto Detect the Closing of a Browser Tab
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
+    event.preventDefault();
+
+    storageAppContextData(this.storageService);
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: PopStateEvent) {
+    event.stopPropagation();
+  }
+
   ngOnInit(): void {
     this.subscriptions$.push(
       this.contextDataService
@@ -69,19 +82,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions$.forEach(subscription => subscription.unsubscribe());
-  }
-
-  // @howto Detect the Closing of a Browser Tab
-  @HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler(event: { preventDefault: () => void; returnValue: string }) {
-    event.preventDefault();
-
-    storageAppContextData(this.storageService);
-  }
-
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event: PopStateEvent) {
-    event.stopPropagation();
   }
 
   // @howto animation on route change

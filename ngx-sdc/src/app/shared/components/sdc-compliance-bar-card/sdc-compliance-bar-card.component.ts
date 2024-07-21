@@ -5,7 +5,7 @@ import { NxCardModule } from '@aposin/ng-aquila/card';
 import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService, copyToClipboard } from '@shagui/ng-shagui/core';
+import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService, copyToClipboard, hasValue } from '@shagui/ng-shagui/core';
 import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { styleByCoverage } from '../../lib';
 import { SdcTrendComponent } from '../sdc-trend';
@@ -19,13 +19,6 @@ import { SdcTrendComponent } from '../sdc-trend';
   imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, SdcTrendComponent, TranslateModule]
 })
 export class SdcComplianceBarCardComponent {
-  public barCoverage?: number;
-  public coverage?: number;
-  public coverageStyle?: string;
-  public date?: number;
-
-  private _component!: IComponentModel;
-
   @Input()
   public showMore = true;
 
@@ -38,11 +31,31 @@ export class SdcComplianceBarCardComponent {
   @Input()
   public hideBorder = false;
 
+  @Output()
+  public clickLink: EventEmitter<IComponentModel> = new EventEmitter();
+
+  @Output()
+  public clickSquad: EventEmitter<ISquadModel> = new EventEmitter();
+
+  @Output()
+  public clickDepartment: EventEmitter<IDepartmentModel> = new EventEmitter();
+
+  public barCoverage?: number;
+  public coverage?: number;
+  public coverageStyle?: string;
+  public date?: number;
+  public hasValue = hasValue;
+
+  private _component!: IComponentModel;
+
   constructor(
     private readonly notificationService: NotificationService,
     private readonly translateService: TranslateService
   ) {}
 
+  get component(): IComponentModel {
+    return this._component;
+  }
   @Input()
   set component(value: IComponentModel) {
     this._component = value;
@@ -53,18 +66,6 @@ export class SdcComplianceBarCardComponent {
       this.barCoverage = this.coverage / 100;
     }
   }
-  get component(): IComponentModel {
-    return this._component;
-  }
-
-  @Output()
-  public clickLink: EventEmitter<IComponentModel> = new EventEmitter();
-
-  @Output()
-  public clickSquad: EventEmitter<ISquadModel> = new EventEmitter();
-
-  @Output()
-  public clickDepartment: EventEmitter<IDepartmentModel> = new EventEmitter();
 
   public onClickShwoMore() {
     this.clickLink.emit(this.component);

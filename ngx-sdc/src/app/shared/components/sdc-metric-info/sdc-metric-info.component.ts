@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { hasValue } from '@shagui/ng-shagui/core';
-import { AnalysisType, IMetricAnalysisModel, IUriModel, UriType, iconByType, uriTypeByAnalysisType } from 'src/app/core/models/sdc';
+import { AnalysisType, IMetricAnalysisModel, IUriModel, iconByType, uriTypeByAnalysisType } from 'src/app/core/models/sdc';
 import { MetricStates, stateByCoverage, styleByCoverage } from '../../lib';
 import { SdcMetricInfoService } from './services';
 
@@ -26,15 +26,6 @@ export class SdcMetricInfoComponent {
 
   constructor(private readonly metricInfoService: SdcMetricInfoService) {}
 
-  public get analysis(): IMetricAnalysisModel {
-    return this._analysis;
-  }
-  @Input()
-  public set analysis(value: IMetricAnalysisModel) {
-    this._analysis = value;
-    this.style = styleByCoverage(this.analysis.coverage);
-  }
-
   get icon(): string {
     return hasValue(this.analysis?.coverage)
       ? {
@@ -48,6 +39,15 @@ export class SdcMetricInfoComponent {
 
   get analysisIcon(): string {
     return iconByType(this.analysis.metric.type);
+  }
+
+  public get analysis(): IMetricAnalysisModel {
+    return this._analysis;
+  }
+  @Input()
+  public set analysis(value: IMetricAnalysisModel) {
+    this._analysis = value;
+    this.style = styleByCoverage(this.analysis.coverage);
   }
 
   public onClick() {
