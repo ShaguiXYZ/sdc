@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ButtonConfig } from '@shagui/ng-shagui/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { LanguageService } from 'src/app/core/services';
-import { ILanguageHeader } from '../models';
+import { ILanguageHeader, LanguageButtonOption } from '../models';
 
 @Injectable()
 export class HeaderLanguageService implements OnDestroy {
@@ -16,10 +16,7 @@ export class HeaderLanguageService implements OnDestroy {
     this._languageInfo.currentLanguage = this.languageService.getLangKey();
     this.languageOptions();
 
-    this.language$ = this.languageService.asObservable().subscribe(key => {
-      this._languageInfo.currentLanguage = key;
-      this.languageOptions();
-    });
+    this.language$ = this.languageService.asObservable().subscribe(key => (this._languageInfo.currentLanguage = key));
   }
 
   get info(): ILanguageHeader {
@@ -38,18 +35,17 @@ export class HeaderLanguageService implements OnDestroy {
     this._languageInfo.languageButtons = [];
     const languageKeys = Object.keys(this.languageService.getLanguages());
 
-    languageKeys
-      .filter(lang => lang !== this._languageInfo.currentLanguage)
-      .forEach(language => {
-        const languageButton = new ButtonConfig(`Language.${language}`);
+    languageKeys.forEach(language => {
+      const languageButton = new ButtonConfig(`Language.${language}`);
 
-        languageButton.options = {
-          language
-        };
+      languageButton.options = {
+        language
+      };
 
-        languageButton.callback = (options: any) => this.languageService.i18n(options.language);
-        this._languageInfo.languageButtons = this._languageInfo.languageButtons.concat(languageButton);
-      });
+      languageButton.callback = (options: LanguageButtonOption) => this.languageService.i18n(options.language);
+      languageButton.isVisible = () => language !== this._languageInfo.currentLanguage;
+      this._languageInfo.languageButtons = this._languageInfo.languageButtons.concat(languageButton);
+    });
 
     this.languageChange$.next(this._languageInfo);
   }
