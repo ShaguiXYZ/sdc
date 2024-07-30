@@ -46,7 +46,7 @@ describe('SecurityService', () => {
   });
 
   it('should call put http service when logout is called case one', () => {
-    spyOn(sessionStorage, 'removeItem').and.callFake(() => {
+    spyOn(localStorage, 'removeItem').and.callFake(() => {
       /* Mock method */
     });
     spies.contextData.get.and.returnValue(null);
@@ -56,10 +56,10 @@ describe('SecurityService', () => {
   });
 
   it('should not call put http service when logout is called', () => {
-    spyOn(sessionStorage, 'removeItem').and.callFake(() => {
+    spyOn(localStorage, 'removeItem').and.callFake(() => {
       /* Mock method */
     });
-    service.getSecurityInfo = () => undefined as unknown as ISessionModel;
+    service.getSecurityInfo = () => null;
     service.logout();
     expect(spies.http.put).not.toHaveBeenCalled();
   });
