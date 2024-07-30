@@ -1,7 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { TranslateService } from '@ngx-translate/core';
 import { ContextDataService, HttpService } from '@shagui/ng-shagui/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { TranslateServiceMock } from 'src/app/core/mock/services';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 import { ISessionModel } from '../models';
 import { SecurityService } from '../security.service';
@@ -18,7 +20,8 @@ describe('SecurityService', () => {
       providers: [
         SecurityService,
         { provide: HttpService, useClass: HttpServiceMock },
-        { provide: ContextDataService, useClass: SecurityContextDataServiceMock }
+        { provide: ContextDataService, useClass: SecurityContextDataServiceMock },
+        { provide: TranslateService, useClass: TranslateServiceMock }
       ]
     });
 
@@ -42,33 +45,23 @@ describe('SecurityService', () => {
     expect(spies.http.get).toHaveBeenCalled();
   });
 
-  it('should call _put http service when logout is called case one', () => {
+  it('should call put http service when logout is called case one', () => {
     spyOn(sessionStorage, 'removeItem').and.callFake(() => {
       /* Mock method */
     });
     spies.contextData.get.and.returnValue(null);
-    spies.http._put.and.returnValue(of({}));
+    spies.http.put.and.returnValue(of({}));
     service.logout();
-    expect(spies.http._put).toHaveBeenCalled();
+    expect(spies.http.put).toHaveBeenCalled();
   });
 
   it('should not call put http service when logout is called', () => {
     spyOn(sessionStorage, 'removeItem').and.callFake(() => {
       /* Mock method */
     });
-    service.securityInfo = () => ({});
+    service.getSecurityInfo = () => undefined as unknown as ISessionModel;
     service.logout();
     expect(spies.http.put).not.toHaveBeenCalled();
-  });
-
-  it('should call _put http service when logout is called case two', () => {
-    spyOn(sessionStorage, 'removeItem').and.callFake(() => {
-      /* Mock method */
-    });
-    spies.contextData.get.and.returnValue(null);
-    spies.http._put.and.returnValue(throwError(() => new Error()));
-    service.logout();
-    expect(spies.http._put).toHaveBeenCalled();
   });
 
   it('should get the session when get session is called', () => {
@@ -80,14 +73,14 @@ describe('SecurityService', () => {
   });
 
   it('should throw a error when set user is called and securityInfo is not defined', () => {
-    service.securityInfo = () => undefined;
+    service.getSecurityInfo = () => undefined;
     expect(() => {
       service.user = user;
     }).toThrow(new Error('Not valid token returned'));
   });
 
-  it('should return a Observable when onSignIn is called', () => {
-    const result: Observable<ISessionModel> = service.onSignIn();
+  it('should return a Observable when onSignInOut is called', () => {
+    const result: Observable<ISessionModel> = service.onSignInOut();
     expect(result).not.toBeNull();
   });
 
@@ -103,8 +96,7 @@ describe('SecurityService', () => {
     spies = {
       http: {
         get: spyOn(services.http, 'get'),
-        put: spyOn(services.http, 'put'),
-        _put: spyOn(services.http, '_put')
+        put: spyOn(services.http, 'put')
       },
       contextData: {
         set: spyOn(services.contextData, 'set'),

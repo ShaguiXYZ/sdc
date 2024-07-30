@@ -20,7 +20,7 @@ import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from '
       <nx-loading />
       <nx-alert />
       <nx-notification />
-      <sdc-overlay />
+      <nx-overlay />
       <article class="app-content sdc-scrollable-body" (click)="onClick()">
         <header nxLayout="grid maxwidth nogutters">
           <nx-header [headerTitle]="'Header.Title' | translate" [title]="'Header.Description' | translate" />

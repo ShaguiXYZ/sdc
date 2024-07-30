@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from '@shagui/ng-shagui/core';
 import { of } from 'rxjs';
+import { TranslateServiceMock } from 'src/app/core/mock/services';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 import { IPageable, ISquadDTO } from 'src/app/core/models/sdc';
 import { SquadService } from '../squad.service';
@@ -17,7 +19,10 @@ let spies: any;
 describe('SquadService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: HttpService, useClass: HttpServiceMock }]
+      providers: [
+        { provide: HttpService, useClass: HttpServiceMock },
+        { provide: TranslateService, useClass: TranslateServiceMock }
+      ]
     });
     service = TestBed.inject(SquadService);
     initServices();

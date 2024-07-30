@@ -33,7 +33,7 @@ describe('NotificationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call closeNotification when close is called', () => {
+  it('should call onCloseNotification when close is called', () => {
     component.close('');
     expect(spies.notificationService.closeNotification).toHaveBeenCalled();
   });

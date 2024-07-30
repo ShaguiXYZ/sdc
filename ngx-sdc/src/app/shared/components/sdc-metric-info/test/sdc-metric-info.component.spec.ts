@@ -4,10 +4,16 @@ import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { emptyFn } from '@shagui/ng-shagui/core';
 import { AnalysisServiceMock } from 'src/app/core/mock/services/sdc/analysis-service.mock';
+import { UriServiceMock } from 'src/app/core/mock/services/sdc/uri-service.mock';
 import { AnalysisType } from 'src/app/core/models/sdc/analysis-type.model';
 import { IMetricModel } from 'src/app/core/models/sdc/metric.model';
+import { UriService } from 'src/app/core/services/sdc';
 import { AnalysisService } from 'src/app/core/services/sdc/analysis.service';
 import { SdcMetricInfoComponent } from '../sdc-metric-info.component';
+
+const SdcMetricInfoServiceMock = {
+  componentUriByType: () => Promise.resolve({ url: '' })
+};
 
 describe('SdcMetricInfoComponent', () => {
   let component: SdcMetricInfoComponent;
@@ -17,7 +23,10 @@ describe('SdcMetricInfoComponent', () => {
     TestBed.configureTestingModule({
       imports: [SdcMetricInfoComponent, CommonModule],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [{ provide: AnalysisService, useClass: AnalysisServiceMock }]
+      providers: [
+        { provide: AnalysisService, useClass: AnalysisServiceMock },
+        { provide: UriService, useClass: UriServiceMock }
+      ]
     })
       .compileComponents()
       .catch(emptyFn);

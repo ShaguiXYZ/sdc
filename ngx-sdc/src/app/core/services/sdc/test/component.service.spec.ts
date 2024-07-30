@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { TranslateService } from '@ngx-translate/core';
 import { CacheService, HttpService } from '@shagui/ng-shagui/core';
 import { of } from 'rxjs';
+import { TranslateServiceMock } from 'src/app/core/mock/services';
 import { CacheServiceMock } from 'src/app/core/mock/services/cache-service.mock';
 import { HttpServiceMock } from 'src/app/core/mock/services/http-service.mock';
 import { AnalysisType, IComponentDTO, IMetricDTO, IPageable, IPaging } from 'src/app/core/models/sdc';
@@ -25,7 +27,8 @@ describe('ComponentService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: HttpService, useClass: HttpServiceMock },
-        { provide: CacheService, useClass: CacheServiceMock }
+        { provide: CacheService, useClass: CacheServiceMock },
+        { provide: TranslateService, useClass: TranslateServiceMock }
       ]
     });
     service = TestBed.inject(ComponentService);

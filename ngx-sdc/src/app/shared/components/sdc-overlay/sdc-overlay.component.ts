@@ -7,7 +7,7 @@ import { SdcOverlayModel } from './models';
 import { SdcOverlayService } from './services';
 
 @Component({
-  selector: 'sdc-overlay',
+  selector: 'nx-overlay',
   styleUrls: ['./sdc-overlay.component.scss'],
   template: `
     @defer {
