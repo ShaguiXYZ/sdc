@@ -33,6 +33,7 @@ spring:
   sql:
     init:
       mode: embedded
+
 springdoc:
   swagger-ui:
     enabled: true
@@ -46,13 +47,27 @@ springdoc:
 rest:
   security:
     enabled: true
+    issuerUri: http://localhost:9092/rws-security
     api-matcher:
+      - api: /api/analysis/**
+        roles:
+          - ADMIN
+          - ROLE_ADMIN
       - api: /api/**
+      - api: /api/sse/**
+        public: true
       - api: /api/public/**
         public: true
       - api: /v3/api-docs/**
-      - api: /v3/api-docs/**
+      - api: /swagger.json
+      - api: /swagger-ui.html
+      - api: /swagger-ui/**
+        public: true
+      - api: /swagger-resources/**
+        public: true
       - api: /webjars/**
+      - api: /h2-console/**
+      - api: /h2-ui/**
     cors:
       allowed-origins: '*'
       allowed-headers: '*'
@@ -76,8 +91,6 @@ management:
   endpoint:
     health:
       show-details: always
-    # promoetheus:
-    #   show-details: always
     shutdown:
       enabled: false
 

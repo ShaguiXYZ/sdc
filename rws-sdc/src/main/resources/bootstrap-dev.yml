@@ -8,34 +8,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: none
-    # properties:
-    #   hibernate:
-    #     dialect: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     change-log: classpath:/db/changelog/postgresql/changelogMaster.xml
     contexts: ${spring.profiles.active}
     dropFirst: false
 server:
   port: 9090
-
-rest:
-  security:
-    issuerUri: http://localhost:9092/rws-security
-
-sdc:
-  json-schema:
-    uris: data/uris.json
-    # dictionary: data/dictionary.json
-    datalists: data/datalists.json
-    component-params: data/component-params.json
-    # component-architecture-config: data/component-architecture-config.json
-  dictionary:
-    secret:
-      git-authorization-type: token
-      git-authorization: ${git.token}
-  document:
-    pom:
-      deprecated-libs:
-        - group-id: com.mysql
-          artifact-id: mysql-connector-j
-        - group-id: group-lib2
