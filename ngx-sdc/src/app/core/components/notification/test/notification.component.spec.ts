@@ -1,9 +1,8 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NotificationComponent } from '../notification.component';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { emptyFn, NotificationService } from '@shagui/ng-shagui/core';
 import { NotificationServiceMock } from 'src/app/core/mock/services/notification-service.mock';
+import { NotificationComponent } from '../notification.component';
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;

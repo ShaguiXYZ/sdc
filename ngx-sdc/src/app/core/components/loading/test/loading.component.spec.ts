@@ -1,11 +1,10 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NxDialogService, NxModalModule } from '@aposin/ng-aquila/modal';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingService, emptyFn } from '@shagui/ng-shagui/core';
 import { NxDialogServiceMock } from 'src/app/core/mock/services/dialog-service.mock';
+import { LoadingServiceMock } from 'src/app/core/mock/services/loading-service.mock';
 import { LoadingComponent } from '../loading.component';
-import { LoadingServiceMock } from './service/loading-service.mock';
 
 describe('LoadingComponent', () => {
   let component: LoadingComponent;
@@ -16,7 +15,6 @@ describe('LoadingComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [LoadingComponent, NxModalModule.forRoot(), TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: LoadingService, useClass: LoadingServiceMock },
         { provide: NxDialogService, useClass: NxDialogServiceMock }
@@ -33,6 +31,15 @@ describe('LoadingComponent', () => {
     initServices();
   });
 
+  it('should create the loading component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should show loading dialog when loading service emits true', () => {
+    spies.loadingService.asObservableNotification.and.returnValue(true);
+    expect(services.dialogService.open).toHaveBeenCalled();
+  });
+
   const initServices = () => {
     services = {
       dialogService: TestBed.inject(NxDialogService),
@@ -45,12 +52,8 @@ describe('LoadingComponent', () => {
   const initSpies = () => {
     spies = {
       loadingService: {
-        uiShowLoading: spyOn(services.loadingService, 'uiShowLoading')
+        asObservableNotification: spyOn(services.loadingService, 'asObservable')
       }
     };
   };
-
-  it('should create the sdc loading component', () => {
-    expect(component).toBeTruthy();
-  });
 });

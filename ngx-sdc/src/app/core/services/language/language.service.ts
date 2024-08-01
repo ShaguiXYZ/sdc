@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
-import { EventEmitter, Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Languages, NX_LANGUAGE_CONFIG, SESSION_LANGUAGE_KEY } from './constants';
 import { LanguageConfig } from './models';
 
@@ -9,7 +9,7 @@ import { LanguageConfig } from './models';
   providedIn: 'root'
 })
 export class LanguageService {
-  private languageChange$: EventEmitter<string> = new EventEmitter();
+  private languageChange$ = new Subject<string>();
 
   constructor(
     @Optional() @Inject(NX_LANGUAGE_CONFIG) private languageConfig: LanguageConfig,
@@ -29,7 +29,7 @@ export class LanguageService {
       this.translateService.setDefaultLang(value);
       this.document.documentElement.lang = value;
 
-      this.languageChange$.emit(key);
+      this.languageChange$.next(key);
     }
 
     localStorage.setItem(SESSION_LANGUAGE_KEY, JSON.stringify(this.languageConfig));
