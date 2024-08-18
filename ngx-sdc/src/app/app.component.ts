@@ -5,7 +5,7 @@ import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService, StorageService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
-import { AlertComponent, HeaderComponent, LoadingComponent, NotificationComponent } from './core/components';
+import { HeaderComponent } from './core/components';
 import { IAppConfigurationModel } from './core/models/sdc';
 import { routingAnimation } from './shared/animations';
 import { SdcAppFooterComponent, SdcOverlayComponent } from './shared/components';
@@ -17,9 +17,6 @@ import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from '
   styleUrls: ['./app.component.scss'],
   template: `
     <main>
-      <nx-loading />
-      <nx-alert />
-      <nx-notification />
       <nx-overlay />
       <article class="app-content sdc-scrollable-body" (click)="onClick()">
         <header nxLayout="grid maxwidth nogutters">
@@ -34,17 +31,7 @@ import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from '
   `,
   animations: [routingAnimation],
   standalone: true,
-  imports: [
-    AlertComponent,
-    HeaderComponent,
-    LoadingComponent,
-    NotificationComponent,
-    NxGridModule,
-    RouterOutlet,
-    SdcAppFooterComponent,
-    SdcOverlayComponent,
-    TranslateModule
-  ]
+  imports: [HeaderComponent, NxGridModule, RouterOutlet, SdcAppFooterComponent, SdcOverlayComponent, TranslateModule]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions$: Subscription[] = [];

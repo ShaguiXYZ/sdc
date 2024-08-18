@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { NxGridModule } from '@aposin/ng-aquila/grid';
 import { Subscription } from 'rxjs';
+import { AlertComponent, LoadingComponent, NotificationComponent } from 'src/app/core/components';
 import { SdcEventBarComponent, SdcGlobalSearchComponent, SdcHelpComponent, SdcLoginComponent } from './components';
 import { SdcOverlayModel } from './models';
 import { SdcOverlayService } from './services';
@@ -10,6 +11,10 @@ import { SdcOverlayService } from './services';
   selector: 'nx-overlay',
   styleUrls: ['./sdc-overlay.component.scss'],
   template: `
+    <nx-loading />
+    <nx-alert />
+    <nx-notification />
+
     @defer {
       <div nxLayout="grid maxwidth nogutters" class="overlay-items">
         <div nxLayout="grid maxwidth nogutters" class="event-bar overlay-item">
@@ -30,7 +35,17 @@ import { SdcOverlayService } from './services';
     }
   `,
   standalone: true,
-  imports: [CommonModule, NxGridModule, SdcEventBarComponent, SdcGlobalSearchComponent, SdcHelpComponent, SdcLoginComponent]
+  imports: [
+    CommonModule,
+    AlertComponent,
+    LoadingComponent,
+    NotificationComponent,
+    NxGridModule,
+    SdcEventBarComponent,
+    SdcGlobalSearchComponent,
+    SdcHelpComponent,
+    SdcLoginComponent
+  ]
 })
 export class SdcOverlayComponent implements OnDestroy {
   public overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;
