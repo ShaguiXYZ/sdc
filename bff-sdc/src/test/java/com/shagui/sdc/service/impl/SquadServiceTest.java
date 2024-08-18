@@ -50,7 +50,7 @@ class SquadServiceTest {
 	void departmentSquadsTest() {
 		PageData<SquadDTO> value = new PageData<SquadDTO>();
 		when(rwsSdcClient.squadsByDepartment(anyInt(), anyInt())).thenReturn(value);
-		PageData<SquadDTO> result = squadService.departmentSquads(1, 1);
+		PageData<SquadDTO> result = squadService.squadsByDepartment(1, 1);
 
 		assertEquals(result, value);
 

@@ -43,10 +43,8 @@ class SquadsServiceImplTest {
 
 	@Test
 	void constructorTest() {
-
-		SquadServiceImpl service = new SquadServiceImpl(squadRepositoryMock);
-		assertNotNull(service);
-
+		SquadServiceImpl newService = new SquadServiceImpl(squadRepositoryMock);
+		assertNotNull(newService);
 	}
 
 	@Test

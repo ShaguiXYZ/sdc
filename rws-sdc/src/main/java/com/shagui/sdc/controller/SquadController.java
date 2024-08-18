@@ -39,4 +39,18 @@ public class SquadController implements SquadRestApi {
 			return squadService.findByDepartment(departmentId, new RequestPageInfo(page, ps));
 		}
 	}
+
+	@Override
+	public PageData<SquadDTO> squadsByCompany(int companyId, Integer page, Integer ps) {
+		if (page == null) {
+			return squadService.findByCompany(companyId);
+		} else {
+			return squadService.findByCompany(companyId, new RequestPageInfo(page, ps));
+		}
+	}
+
+	@Override
+	public Long countWithCoverage() {
+		return squadService.countWithCoverage();
+	}
 }

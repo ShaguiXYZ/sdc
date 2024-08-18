@@ -28,6 +28,12 @@ public interface DepartmentRestApi {
 	PageData<DepartmentView> departments(
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page);
 
+	@Operation(summary = "Retrieve available departments by company")
+	@GetMapping("departments/company/{companyId}")
+	PageData<DepartmentView> departmentsByCompany(
+			@PathVariable @Parameter(description = "Company identifier") int companyId,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page);
+
 	@Operation(summary = "Update departments")
 	@PostMapping("departments/update")
 	List<DepartmentView> updateDepartments();

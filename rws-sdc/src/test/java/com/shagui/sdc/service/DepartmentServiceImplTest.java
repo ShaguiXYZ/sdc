@@ -37,10 +37,8 @@ class DepartmentServiceImplTest {
 
 	@Test
 	void constructorTest() {
-
-		DepartmentServiceImpl service = new DepartmentServiceImpl(departmentRepositoryMock);
-		assertNotNull(service);
-
+		DepartmentServiceImpl newService = new DepartmentServiceImpl(departmentRepositoryMock);
+		assertNotNull(newService);
 	}
 
 	@Test
@@ -51,7 +49,7 @@ class DepartmentServiceImplTest {
 		DepartmentDTO result = service.findById(1);
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void findAllTest() {
 

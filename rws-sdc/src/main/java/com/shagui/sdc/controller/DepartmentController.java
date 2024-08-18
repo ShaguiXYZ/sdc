@@ -31,4 +31,12 @@ public class DepartmentController implements DepartmentRestApi {
 		}
 	}
 
+	@Override
+	public PageData<DepartmentDTO> departmentsByCompany(int companyId, Integer page, Integer ps) {
+		if (page == null) {
+			return departmentService.findByCompany(companyId);
+		} else {
+			return departmentService.findByCompany(companyId, new RequestPageInfo(page, ps));
+		}
+	}
 }

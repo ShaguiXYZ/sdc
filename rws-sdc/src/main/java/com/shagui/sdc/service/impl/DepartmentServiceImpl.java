@@ -18,7 +18,7 @@ import com.shagui.sdc.util.jpa.JpaCommonRepository;
 public class DepartmentServiceImpl implements DepartmentService {
 	private JpaCommonRepository<DepartmentRepository, DepartmentModel, Integer> departmentRepository;
 
-	public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
+	public DepartmentServiceImpl(final DepartmentRepository departmentRepository) {
 		this.departmentRepository = () -> departmentRepository;
 	}
 
@@ -36,6 +36,21 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public PageData<DepartmentDTO> findAll(RequestPageInfo pageInfo) {
 		return departmentRepository.findAll(pageInfo).stream().map(Mapper::parse)
+				.sorted(Comparator.comparing(DepartmentDTO::getName)).collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public PageData<DepartmentDTO> findByCompany(int companyId) {
+		return departmentRepository.repository().findByCompany_Id(companyId).stream()
+				.map(Mapper::parse)
+				.sorted(Comparator.comparing(DepartmentDTO::getName)).collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public PageData<DepartmentDTO> findByCompany(int companyId, RequestPageInfo pageInfo) {
+		return departmentRepository.repository()
+				.findByCompany_Id(companyId, pageInfo.getPageable())
+				.stream().map(Mapper::parse)
 				.sorted(Comparator.comparing(DepartmentDTO::getName)).collect(SdcCollectors.toPageable());
 	}
 }

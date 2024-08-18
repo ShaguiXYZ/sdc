@@ -93,14 +93,24 @@ public interface RwsSdcClient {
 	@GetMapping("public/departments")
 	PageData<DepartmentDTO> departments(@RequestParam(required = false) Integer page);
 
+	@GetMapping("public/departments/company/{companyId}")
+	PageData<DepartmentDTO> departmentsByCompany(@PathVariable int companyId,
+			@RequestParam(required = false) Integer page);
+
 	@GetMapping("public/squad/{squadId}")
 	SquadDTO squad(@PathVariable int squadId);
 
 	@GetMapping("public/squads")
 	PageData<SquadDTO> squads(@RequestParam(required = false) Integer page);
 
-	@GetMapping("public/squads/{departmentId}")
+	@GetMapping("public/squads/department/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(@PathVariable int departmentId, @RequestParam(required = false) Integer page);
+
+	@GetMapping("public/squads/company/{companyId}")
+	PageData<SquadDTO> squadsByCompany(@PathVariable int companyId, @RequestParam(required = false) Integer page);
+
+	@GetMapping("public/squads/coverage")
+	Long countWithCoverage();
 
 	@GetMapping("public/summary/filter")
 	PageData<SummaryViewDTO> summaryFilter(

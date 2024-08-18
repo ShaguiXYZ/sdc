@@ -19,13 +19,13 @@ import com.shagui.sdc.api.dto.DepartmentDTO;
 import com.shagui.sdc.service.DepartmentService;
 
 class DepartmentControllerTest {
-	
+
 	@InjectMocks
 	private DepartmentController controller;
-	
+
 	@Mock
 	private DepartmentService departmentService;
-	
+
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
@@ -33,27 +33,27 @@ class DepartmentControllerTest {
 
 	@Test
 	void findByIdTest() {
-		
+
 		when(departmentService.findById(anyInt())).thenReturn(new DepartmentDTO());
 		DepartmentDTO result = controller.department(1);
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void findAllPageNullTest() {
-		
+
 		PageData<DepartmentDTO> departmentDto = new PageData<DepartmentDTO>(new ArrayList<DepartmentDTO>());
-		
+
 		when(departmentService.findAll()).thenReturn(departmentDto);
 		PageData<DepartmentDTO> result = controller.departments(null, 1);
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	void findAllPageNotNullTest() {
-		
+
 		PageData<DepartmentDTO> departmentDto = new PageData<DepartmentDTO>(new ArrayList<DepartmentDTO>());
-		
+
 		when(departmentService.findAll(any(RequestPageInfo.class))).thenReturn(departmentDto);
 		PageData<DepartmentDTO> result = controller.departments(1, 1);
 		assertNotNull(result);

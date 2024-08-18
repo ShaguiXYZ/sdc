@@ -55,4 +55,25 @@ public class SquadServiceImpl implements SquadService {
 		return squads.stream().map(Mapper::parse).sorted(Comparator.comparing(SquadDTO::getName))
 				.collect(SdcCollectors.toPageable(squads));
 	}
+
+	@Override
+	public PageData<SquadDTO> findByCompany(int companyId) {
+		return squadRepository.repository().findByDepartment_Company_Id(companyId)
+				.stream()
+				.map(Mapper::parse)
+				.sorted(Comparator.comparing(SquadDTO::getName)).collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public PageData<SquadDTO> findByCompany(int companyId, RequestPageInfo pageInfo) {
+		return squadRepository.repository()
+				.findByDepartment_Company_Id(companyId, pageInfo.getPageable())
+				.stream().map(Mapper::parse)
+				.sorted(Comparator.comparing(SquadDTO::getName)).collect(SdcCollectors.toPageable());
+	}
+
+	@Override
+	public Long countWithCoverage() {
+		return squadRepository.repository().countWithCoverage();
+	}
 }

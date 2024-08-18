@@ -10,4 +10,8 @@ public interface DepartmentService {
 	PageData<DepartmentDTO> findAll();
 
 	PageData<DepartmentDTO> findAll(RequestPageInfo pageInfo);
+
+	PageData<DepartmentDTO> findByCompany(int companyId);
+
+	PageData<DepartmentDTO> findByCompany(int companyId, RequestPageInfo pageInfo);
 }

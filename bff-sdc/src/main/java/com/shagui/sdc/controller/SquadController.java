@@ -29,7 +29,17 @@ public class SquadController implements SquadRestApi {
 	}
 
 	@Override
-	public PageData<SquadView> departmentSquads(int departmentId, Integer page) {
-		return Mapper.parse(squadService.departmentSquads(departmentId, page), SquadView.class);
+	public PageData<SquadView> squadsByDepartment(int departmentId, Integer page) {
+		return Mapper.parse(squadService.squadsByDepartment(departmentId, page), SquadView.class);
+	}
+
+	@Override
+	public PageData<SquadView> squadsByCompany(int companyId, Integer page) {
+		return Mapper.parse(squadService.squadsByCompany(companyId, page), SquadView.class);
+	}
+
+	@Override
+	public Long countWithCoverage() {
+		return squadService.countWithCoverage();
 	}
 }

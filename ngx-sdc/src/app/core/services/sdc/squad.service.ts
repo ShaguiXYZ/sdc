@@ -54,5 +54,9 @@ export class SquadService {
     );
   }
 
+  public countWithCoverage(): Promise<number> {
+    return firstValueFrom(this.http.get<number>(`${this._urlSquads}/squads/coverage`).pipe(map(res => res as number)));
+  }
+
   public clearCache = () => this.cache.delete(_SQUADS_CACHE_ID_);
 }

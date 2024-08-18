@@ -10,5 +10,7 @@ public interface DepartmentService {
 
 	PageData<DepartmentDTO> departments(Integer page);
 
+	PageData<DepartmentDTO> departmentsByCompany(int companyId, Integer page);
+
 	List<DepartmentDTO> updateDepartments();
 }

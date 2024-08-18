@@ -45,13 +45,13 @@ class JpaCommonRepositoryTest {
 		assertNotNull(result);
 	}
 
-	@Test 
-	void findAllTest() { 
-		
-		when(jpaRespository.findAll(any(Pageable.class))).thenReturn(mockPAge); 
-		
-		Iterable<ModelMock> result = jpaCommonRepository.findAll(RwsTestUtils.requestPageInfo()); 
-		assertNotNull(result); 
+	@Test
+	void findAllTest() {
+
+		when(jpaRespository.findAll(any(Pageable.class))).thenReturn(mockPAge);
+
+		Iterable<ModelMock> result = jpaCommonRepository.findAll(RwsTestUtils.requestPageInfo());
+		assertNotNull(result);
 	}
 
 	@Test

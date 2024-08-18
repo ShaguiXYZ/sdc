@@ -25,4 +25,11 @@ public interface DepartmentRestApi {
 	PageData<DepartmentDTO> departments(
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
+
+	@Operation(summary = "Retrieve available departments by company")
+	@GetMapping("public/departments/company/{companyId}")
+	PageData<DepartmentDTO> departmentsByCompany(
+			@PathVariable @Parameter(description = "Company identifier") int companyId,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 }

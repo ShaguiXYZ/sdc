@@ -31,6 +31,11 @@ public class DepartmentController implements DepartmentRestApi {
 	}
 
 	@Override
+	public PageData<DepartmentView> departmentsByCompany(int companyId, Integer page) {
+		return Mapper.parse(departmentService.departmentsByCompany(companyId, page), DepartmentView.class);
+	}
+
+	@Override
 	public List<DepartmentView> updateDepartments() {
 		return Mapper.parse(departmentService.updateDepartments(), DepartmentView.class);
 	}

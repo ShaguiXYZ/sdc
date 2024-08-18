@@ -26,10 +26,21 @@ public interface SquadRestApi {
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
 
-	@Operation(summary = "Retrieve available squads")
-	@GetMapping("public/squads/{departmentId}")
+	@Operation(summary = "Retrieve available squads by department")
+	@GetMapping("public/squads/department/{departmentId}")
 	PageData<SquadDTO> squadsByDepartment(
 			@PathVariable @Parameter(description = "Department identifier") int departmentId,
 			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
 			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
+
+	@Operation(summary = "Retrieve available squads by company")
+	@GetMapping("public/squads/company/{companyId}")
+	PageData<SquadDTO> squadsByCompany(
+			@PathVariable @Parameter(description = "Company identifier") int companyId,
+			@RequestParam(required = false) @Parameter(description = "Page number") Integer page,
+			@RequestParam(required = false) @Parameter(description = "Page size") Integer ps);
+
+	@Operation(summary = "Retrieve squads with coverage")
+	@GetMapping("public/squads/coverage")
+	Long countWithCoverage();
 }

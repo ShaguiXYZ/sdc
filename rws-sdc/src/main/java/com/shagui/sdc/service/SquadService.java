@@ -11,7 +11,13 @@ public interface SquadService {
 
 	PageData<SquadDTO> findAll(RequestPageInfo pageInfo);
 
+	Long countWithCoverage();
+
 	PageData<SquadDTO> findByDepartment(int department);
 
 	PageData<SquadDTO> findByDepartment(int departmentId, RequestPageInfo pageInfo);
+
+	PageData<SquadDTO> findByCompany(int companyId);
+
+	PageData<SquadDTO> findByCompany(int companyId, RequestPageInfo pageInfo);
 }

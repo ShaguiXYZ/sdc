@@ -8,5 +8,9 @@ public interface SquadService {
 
 	PageData<SquadDTO> squads(Integer page);
 
-	PageData<SquadDTO> departmentSquads(int departmentId, Integer page);
+	PageData<SquadDTO> squadsByDepartment(int departmentId, Integer page);
+
+	PageData<SquadDTO> squadsByCompany(int companyId, Integer page);
+
+	Long countWithCoverage();
 }

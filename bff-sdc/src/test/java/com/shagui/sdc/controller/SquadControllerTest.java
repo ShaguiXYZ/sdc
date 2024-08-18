@@ -50,9 +50,9 @@ class SquadControllerTest {
 
 	@Test
 	void departmentSquads() {
-		when(squadService.departmentSquads(anyInt(),any())).thenReturn(DataUtils.createEmptyPageData());
-		PageData<SquadView> result = squadController.departmentSquads(DataUtils.DEFAULT_SQUAD_ID, null);
-		assertNotNull(result);		
+		when(squadService.squadsByDepartment(anyInt(), any())).thenReturn(DataUtils.createEmptyPageData());
+		PageData<SquadView> result = squadController.squadsByDepartment(DataUtils.DEFAULT_DEPARTMENT_ID, null);
+		assertNotNull(result);
 	}
 
 }

@@ -27,6 +27,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
+	public PageData<DepartmentDTO> departmentsByCompany(int companyId, Integer page) {
+		return rwsSdcClient.departmentsByCompany(companyId, page);
+	}
+
+	@Override
 	public List<DepartmentDTO> updateDepartments() {
 		return rwsSdcClient.updateDepartments();
 	}

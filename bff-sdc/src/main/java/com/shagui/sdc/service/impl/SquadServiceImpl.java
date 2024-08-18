@@ -25,8 +25,17 @@ public class SquadServiceImpl implements SquadService {
 	}
 
 	@Override
-	public PageData<SquadDTO> departmentSquads(int departmentId, Integer page) {
+	public PageData<SquadDTO> squadsByDepartment(int departmentId, Integer page) {
 		return rwsSdcClient.squadsByDepartment(departmentId, page);
 	}
 
+	@Override
+	public PageData<SquadDTO> squadsByCompany(int companyId, Integer page) {
+		return rwsSdcClient.squadsByCompany(companyId, page);
+	}
+
+	@Override
+	public Long countWithCoverage() {
+		return rwsSdcClient.countWithCoverage();
+	}
 }
