@@ -8,9 +8,9 @@
       <section class="coverage-info {{ coverageStyle }} nx-margin-bottom-xs sdc-center">
         <nx-progressbar [value]="barCoverage"></nx-progressbar>
         <span class="coverage">{{ coverage }}%</span>
-        @if (!!component.trend) {
-          <sdc-trend class="nx-margin-left-2xs" [trend]="component.trend!" />
-        }
+        <!-- @if (!!component.trend) { -->
+        <sdc-trend class="nx-margin-left-2xs" [trend]="component.trend!" />
+        <!-- } -->
       </section>
     }
 

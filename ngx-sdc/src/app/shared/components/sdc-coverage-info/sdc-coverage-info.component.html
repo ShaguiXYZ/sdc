@@ -11,10 +11,10 @@
       <p nxCopytext="normal" class="name nx-margin-bottom-3xs">{{ coverage.name }}</p>
       <p nxCopytext="small">ID {{ coverage.id }}</p>
     </div>
-    @if (!!coverage.trend) {
-      <div class="coverage-trend nx-margin-right-2xs">
-        <sdc-trend [trend]="coverage.trend!" />
-      </div>
-    }
+    <!-- @if (!!coverage.trend) { -->
+    <div class="coverage-trend nx-margin-right-2xs">
+      <sdc-trend [trend]="coverage.trend!" />
+    </div>
+    <!-- } -->
   </article>
 }
