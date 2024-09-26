@@ -31,11 +31,11 @@
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/@aposin/ng-aquila/css/utilities.css",
-              "src/app/core/styles/normalize.css",
+              "src/styles/normalize.css",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles", "src/app/core/styles"]
+              "includePaths": ["src/styles"]
             },
             "scripts": []
           },
@@ -124,7 +124,7 @@
             "assets": ["src/assets", "src/favicon.ico", "src/.htaccess"],
             "styles": ["src/styles.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles", "src/app/core/styles"]
+              "includePaths": ["src/styles"]
             },
             "scripts": []
           }
@@ -142,7 +142,7 @@
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles", "src/app/core/styles"]
+              "includePaths": ["src/styles"]
             },
             "inlineStyleLanguage": "scss"
           },

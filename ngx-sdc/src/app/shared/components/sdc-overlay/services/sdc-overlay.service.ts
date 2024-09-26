@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OverlayItemStatus, SdcOverlayModel } from '../models';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class SdcOverlayService {
   };
 
   private overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;
-  private data$: Subject<SdcOverlayModel> = new Subject<SdcOverlayModel>();
+  private data$: BehaviorSubject<SdcOverlayModel> = new BehaviorSubject<SdcOverlayModel>(this.overlayModel);
 
   public onDataChange(): Observable<SdcOverlayModel> {
     return this.data$.asObservable();

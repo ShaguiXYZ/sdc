@@ -78,7 +78,12 @@
             </header>
           </nx-expansion-panel-title>
         </nx-expansion-panel-header>
-        <nx-tab-group class="tiny-tabs" [selectedIndex]="metricsData.selectedTabIndex" (selectedIndexChange)="onTabChage($event)">
+        <nx-tab-group
+          class="tiny-tabs"
+          [mobileAccordion]="false"
+          [selectedIndex]="metricsData.selectedTabIndex"
+          (selectedIndexChange)="onTabChage($event)"
+        >
           <nx-tab [label]="'Label.MetricsHistoryGraphs' | translate">
             @if (metricsData.component) {
               <sdc-metric-history-graphs

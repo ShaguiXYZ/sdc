@@ -5,5 +5,6 @@
     "**/package-lock.json": true,
     "**/rws-**/db": true
   },
+  "java.jdt.ls.java.home": "C:/Program Files/Java/jdk-17.0.1",
   "eslint.workingDirectories": ["./bff-sdc", "./ngx-sdc", "./rws-sdc"]
 }

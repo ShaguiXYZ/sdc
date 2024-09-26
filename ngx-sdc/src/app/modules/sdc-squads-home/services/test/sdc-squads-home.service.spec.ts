@@ -10,9 +10,6 @@ import { SdcSquadsService } from '../sdc-squads-home.service';
 import { SquadContextDataServiceMock } from './mock/context-data-service.mock';
 
 describe(`SdcSquadsService`, () => {
-  let service: any;
-  let services: any;
-  let spies: any;
   const coverage: ICoverageModel = { id: 1, name: '', coverage: 1 };
   const pageSquad: IPageable<ISquadModel> = {
     paging: { pageIndex: 0, pageSize: 1, pages: 1, elements: 1 },
@@ -22,6 +19,10 @@ describe(`SdcSquadsService`, () => {
     paging: { pageIndex: 0, pageSize: 1, pages: 1, elements: 1 },
     page: [{ id: 1, name: '', coverage: 1, squad: { department: { id: 1, name: '' }, id: 1, name: '' } }]
   };
+
+  let service: any;
+  let services: any;
+  let spies: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
