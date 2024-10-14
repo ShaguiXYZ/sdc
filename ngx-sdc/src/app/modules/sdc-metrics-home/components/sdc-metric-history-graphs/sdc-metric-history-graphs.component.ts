@@ -80,7 +80,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
 
     return {
       axis: {
-        xAxis: analysis?.map(value => this.dateService.dateFormat(value.analysisDate))
+        xAxis: analysis?.map(value => this.dateService.format(value.analysisDate))
       },
       data: [],
       options: { showVisualMap: true },

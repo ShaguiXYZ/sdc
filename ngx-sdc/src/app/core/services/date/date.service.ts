@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { dateFormat } from '@shagui/ng-shagui/core';
 import { LanguageService } from '../language';
 
 @Injectable({
@@ -7,5 +8,5 @@ import { LanguageService } from '../language';
 export class DateService {
   private readonly languageService = inject(LanguageService);
 
-  public dateFormat = (timestamp: number): string => new Intl.DateTimeFormat(this.languageService.getLang()).format(new Date(timestamp));
+  public format = (timestamp: number): string => dateFormat(timestamp, this.languageService.getLang());
 }

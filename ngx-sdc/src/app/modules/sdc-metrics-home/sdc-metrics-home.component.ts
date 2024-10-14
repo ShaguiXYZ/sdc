@@ -153,7 +153,7 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
 
     this.historicalChartConfig = {
       axis: {
-        xAxis: analysis?.map(data => this.dateService.dateFormat(data.analysisDate))
+        xAxis: analysis?.map(data => this.dateService.format(data.analysisDate))
       },
       data: [
         {

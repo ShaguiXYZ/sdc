@@ -35,7 +35,7 @@ export class SdcDepartmentSummaryService {
         this.data$.next({
           languageDistribution: {
             graph: summary.page.map(analysis => ({
-              axis: this.dateService.dateFormat(analysis.analysisDate),
+              axis: this.dateService.format(analysis.analysisDate),
               data: analysis.analysisValues.metricValue
             })),
             legendPosition: 'bottom',

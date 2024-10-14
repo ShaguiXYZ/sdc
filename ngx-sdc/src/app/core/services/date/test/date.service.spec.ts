@@ -19,7 +19,7 @@ describe('DateService', () => {
     const service: DateService = TestBed.inject(DateService);
     const timestamp = 1628772000000; // August 12, 2021 12:00:00 AM UTC
     const expectedDateString = '8/12/2021'; // Assuming en-US locale
-    const dateString = service.dateFormat(timestamp);
+    const dateString = service.format(timestamp);
 
     expect(dateString).toEqual(expectedDateString);
   });

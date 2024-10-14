@@ -149,7 +149,7 @@ export class SdcMetricsHomeService implements OnDestroy {
         this.analysisService.metricHistory(this.metricData.component.id, metricAnalysis.metric.id).then(history => {
           this.metricData.languageDistribution = {
             graph: history.page.map(analysis => ({
-              axis: this.dateService.dateFormat(analysis.analysisDate),
+              axis: this.dateService.format(analysis.analysisDate),
               data: analysis.analysisValues.metricValue
             })),
             legendPosition: 'bottom',
