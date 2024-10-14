@@ -4,6 +4,7 @@ server:
 services:
   rws-security: http://localhost:9092/rws-security
   rws-sdc: http://localhost:9090/rws-sdc/api
+  # server side events
   sse:
     url: http://localhost:9090/rws-sdc/api
     timeout: 30000
