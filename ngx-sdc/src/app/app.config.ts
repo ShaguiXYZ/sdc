@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideClientHydration, withNoHttpTransferCache } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -10,7 +10,7 @@ import { routes } from './app.routes';
 import { NX_HEADER_CONFIG } from './core/components';
 import { APP_NAME } from './core/constants';
 import { IAppConfigurationModel } from './core/models/sdc';
-import { AuthInterceptor, NX_LANGUAGE_CONFIG } from './core/services';
+import { authInterceptor, NX_LANGUAGE_CONFIG } from './core/services';
 import { AppConfigurationService } from './core/services/sdc/app-configuration.service';
 import { SDC_HEADER_MENU } from './shared/config/menu';
 import { AppUrls, urls } from './shared/config/routing';
@@ -43,7 +43,7 @@ export const appConfig: ApplicationConfig = {
       TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG)
     ),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(routes),
     provideClientHydration(
       /**
@@ -68,7 +68,6 @@ export const appConfig: ApplicationConfig = {
       useValue: { appName: APP_NAME.toUpperCase(), urls, home: AppUrls.squads, cache: { schedulerPeriod: SCHEDULER_PERIOD } }
     },
     { provide: NX_LANGUAGE_CONFIG, useValue: { languages: SdcLanguages } },
-    { provide: NX_HEADER_CONFIG, useValue: { logo: 'assets/images/header-logo.svg', navigation: SDC_HEADER_MENU, themeSwitcher: false } },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: NX_HEADER_CONFIG, useValue: { logo: 'assets/images/header-logo.svg', navigation: SDC_HEADER_MENU, themeSwitcher: false } }
   ]
 };
