@@ -8,7 +8,7 @@ export const authGuard = (route: ActivatedRouteSnapshot, state: RouterStateSnaps
   const contextData: ContextDataService = inject(ContextDataService);
   const securityService: SecurityService = inject(SecurityService);
 
-  const securityInfo = contextData.get(CONTEXT_SECURITY_KEY);
+  const securityInfo = contextData.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
 
   if (ISecurityModel.isLogged(securityInfo)) {
     // logged in so return true
@@ -26,7 +26,7 @@ export const publicGuard = (route: ActivatedRouteSnapshot, state: RouterStateSna
   const contextData: ContextDataService = inject(ContextDataService);
   const router: Router = inject(Router);
 
-  const securityInfo = contextData.get(CONTEXT_SECURITY_KEY);
+  const securityInfo = contextData.get<ISecurityModel>(CONTEXT_SECURITY_KEY);
 
   if (ISecurityModel.isLogged(securityInfo)) {
     return router.createUrlTree([contextConfig.home]);

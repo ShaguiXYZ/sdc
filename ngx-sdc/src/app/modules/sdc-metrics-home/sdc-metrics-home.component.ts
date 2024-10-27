@@ -9,7 +9,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components/alert';
-import { IComponentModel, IDepartmentModel, IMetricAnalysisModel, ISquadModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
+import {
+  AppConfigurationModel,
+  IComponentModel,
+  IDepartmentModel,
+  IMetricAnalysisModel,
+  ISquadModel,
+  ITagModel,
+  ValueType
+} from 'src/app/core/models/sdc';
 import { IHistoricalCoverage } from 'src/app/core/models/sdc/historical-coverage.model';
 import { DateService, IfRoleDirective } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
@@ -142,8 +150,10 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
         this.metricsData.languageDistribution.graph?.[this.metricsData.languageDistribution.graph.length - 1].data) ||
       undefined;
 
+    const appConfig = this.contextDataService.get<AppConfigurationModel>(ContextDataInfo.APP_CONFIG);
+
     this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
-      ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+      ...appConfig,
       title: `Metrics | ${this.metricsData.component.name ?? ''}`
     });
   };

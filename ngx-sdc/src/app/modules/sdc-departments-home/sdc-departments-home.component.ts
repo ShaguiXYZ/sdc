@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/components';
-import { ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { AppConfigurationModel, ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { IfRoleDirective } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
@@ -50,8 +50,10 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
     this.summary$ = this.departmentService.onDataChange().subscribe(data => {
       this.departmentsData = { ...this.departmentsData, ...data };
 
+      const appConfig = this.contextDataService.get<AppConfigurationModel>(ContextDataInfo.APP_CONFIG);
+
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
-        ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+        ...appConfig,
         title: `Departments | ${this.departmentsData?.department?.name ?? ''}`
       });
     });

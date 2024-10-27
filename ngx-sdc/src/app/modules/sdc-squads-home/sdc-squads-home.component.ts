@@ -5,7 +5,7 @@ import { NxLinkModule } from '@aposin/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
-import { IComponentModel, ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
+import { AppConfigurationModel, IComponentModel, ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants';
@@ -47,8 +47,10 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
       this.squadsData = { ...this.squadsData, ...data };
       this.worstComponents = this.squadsData?.components ? this.squadsData.components.slice(0, 3) : [];
 
+      const appConfig = this.contextDataService.get<AppConfigurationModel>(ContextDataInfo.APP_CONFIG);
+
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
-        ...this.contextDataService.get(ContextDataInfo.APP_CONFIG),
+        ...appConfig,
         title: `Squads | ${this.squadsData?.squad?.name ?? ''}`
       });
     });
