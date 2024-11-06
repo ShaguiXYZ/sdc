@@ -1,6 +1,7 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CacheService, DataInfo, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
+import { CacheService, DataInfo, hasValue, HttpService, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ICoverageModel, IDepartmentDTO, IDepartmentModel, IPageable } from '../../models/sdc';
@@ -20,7 +21,7 @@ export class DepartmentService {
       this.http
         .get<IDepartmentDTO>(`${this._urlDepartments}/department/${id}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.DepartmentNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.DepartmentNotFound') }
           }
         })
         .pipe(map(res => IDepartmentModel.fromDTO(res as IDepartmentDTO)))
@@ -32,7 +33,7 @@ export class DepartmentService {
       this.http
         .get<IPageable<IDepartmentDTO>>(`${this._urlDepartments}/departments`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.DepartmentsNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.DepartmentsNotFound') }
           },
           cache: { id: _DEPARTMENT_CACHE_ID_, ttl: TTL.L }
         })
@@ -58,9 +59,9 @@ export class DepartmentService {
       this.http
         .post<undefined, IDepartmentDTO[]>(`${this._urlDepartments}/departments/update`, undefined, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Error.404') },
-            [HttpStatus.locked]: { text: this.translate.instant('Error.423'), fn: onError?.[HttpStatus.locked] },
-            [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Error.404') },
+            [HttpStatusCode.Locked]: { text: this.translate.instant('Error.423'), fn: onError?.[HttpStatusCode.Locked] },
+            [HttpStatusCode.Unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatusCode.Unauthorized] }
           },
           procesingMessage: { text: this.translate.instant('Notifications.UpdatingServerInfo') },
           successMessage: { text: this.translate.instant('Notifications.ServerInfoUpdated') }

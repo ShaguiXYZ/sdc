@@ -1,7 +1,7 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CacheService, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
+import { CacheService, hasValue, HttpService, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map, tap } from 'rxjs';
 import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
@@ -23,7 +23,7 @@ export class ComponentService {
       this.http
         .get<IComponentDTO>(`${this._urlComponents}/component/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.ComponentNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.ComponentNotFound') }
           }
         })
         .pipe(map(res => IComponentModel.fromDTO(res as IComponentDTO)))
@@ -36,7 +36,7 @@ export class ComponentService {
         .get<IPageable<IComponentDTO>>(`${this._urlComponents}/components/squad/${squadId}`, {
           showLoading: true,
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.ComponentsNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.ComponentsNotFound') }
           },
           cache: { id: this.squadCacheId(squadId), ttl: TTL.XS }
         })
@@ -100,7 +100,7 @@ export class ComponentService {
           showLoading,
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.ComponentsNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.ComponentsNotFound') }
           }
         })
         .pipe(
@@ -122,7 +122,7 @@ export class ComponentService {
       this.http
         .get<IPageable<IMetricDTO>>(`${this._urlComponents}/component/${componentId}/metrics`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.MetricsNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.MetricsNotFound') }
           }
         })
         .pipe(
@@ -155,7 +155,7 @@ export class ComponentService {
         .get<IHistoricalCoverage<IComponentDTO>>(`${this._urlComponents}/component/historical/${componentId}`, {
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.HistoricalNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.HistoricalNotFound') }
           }
         })
         .pipe(

@@ -1,7 +1,7 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CacheService, DataInfo, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
+import { CacheService, DataInfo, hasValue, HttpService, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { METRIC_HISTORY_ELEMENTS } from 'src/app/shared/constants';
 import { environment } from 'src/environments/environment';
@@ -22,7 +22,7 @@ export class AnalysisService {
       this.http
         .get<IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/get/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.AnalysisNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.AnalysisNotFound') }
           },
           cache: { id: this.analysisCacheId(componentId), ttl: TTL.L }
         })
@@ -45,7 +45,7 @@ export class AnalysisService {
       this.http
         .get<IMetricAnalysisDTO>(`${this._urlAnalysis}/get/${componentId}/${metricId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.AnalysisNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.AnalysisNotFound') }
           },
           cache: { id: this.analysisCacheId(componentId, metricId), ttl: TTL.L }
         })
@@ -73,7 +73,7 @@ export class AnalysisService {
         .get<IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}/${metricId}`, {
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.MetricAbalysisNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.MetricAbalysisNotFound') }
           },
           cache: { id: this.historyCacheId(componentId, metricId), ttl: TTL.L }
         })
@@ -140,9 +140,9 @@ export class AnalysisService {
       this.http
         .post<undefined, IPageable<IMetricAnalysisDTO>>(`${this._urlAnalysis}/${componentId}`, undefined, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Error.404') },
-            [HttpStatus.locked]: { text: this.translate.instant('Error.423'), fn: onError?.[HttpStatus.locked] },
-            [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Error.404') },
+            [HttpStatusCode.Locked]: { text: this.translate.instant('Error.423'), fn: onError?.[HttpStatusCode.Locked] },
+            [HttpStatusCode.Unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatusCode.Unauthorized] }
           },
           procesingMessage: { text: this.translate.instant('Notifications.AnalyzingComponent') },
           successMessage: { text: this.translate.instant('Notifications.ComponentAnalized') }

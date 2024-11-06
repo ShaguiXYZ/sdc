@@ -1,6 +1,7 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { HttpService, HttpStatus } from '@shagui/ng-shagui/core';
+import { HttpService } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IAppConfigurationDTO, IAppConfigurationModel } from '../../models/sdc';
@@ -19,7 +20,7 @@ export class AppConfigurationService {
       this.http
         .get<IAppConfigurationDTO>(`${this._urlConfiguration}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.ConfigurationNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.ConfigurationNotFound') }
           },
           cache: this.configurationCacheId()
         })

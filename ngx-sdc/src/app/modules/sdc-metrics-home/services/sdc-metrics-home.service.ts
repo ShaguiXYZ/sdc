@@ -1,5 +1,6 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { ContextDataService, HttpStatus, emptyFn } from '@shagui/ng-shagui/core';
+import { ContextDataService, emptyFn } from '@shagui/ng-shagui/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { IMetricAnalysisModel, ITagModel, ValueType } from 'src/app/core/models/sdc';
 import { DateService, SecurityService } from 'src/app/core/services';
@@ -84,8 +85,8 @@ export class SdcMetricsHomeService implements OnDestroy {
   public analyze = (): void => {
     this.analysisService
       .analize(this.metricData.component.id, {
-        [HttpStatus.unauthorized]: this.onUnauthorizedError,
-        [HttpStatus.locked]: this.onLockedError
+        [HttpStatusCode.Unauthorized]: this.onUnauthorizedError,
+        [HttpStatusCode.Locked]: this.onLockedError
       })
       .then(analysis => {
         if (analysis.page.length) {
@@ -114,7 +115,7 @@ export class SdcMetricsHomeService implements OnDestroy {
   public addTag(tag: ITagModel): void {
     this.tagService
       .addTag(this.metricData.component.id, tag.name, {
-        [HttpStatus.unauthorized]: this.onUnauthorizedError
+        [HttpStatusCode.Unauthorized]: this.onUnauthorizedError
       })
       .then(data => {
         this.metricData.tags = [...(this.metricData.tags ?? []), data];
@@ -125,7 +126,7 @@ export class SdcMetricsHomeService implements OnDestroy {
   public removeTag(tag: ITagModel): void {
     this.tagService
       .removeTag(this.metricData.component.id, tag.name, {
-        [HttpStatus.unauthorized]: this.onUnauthorizedError
+        [HttpStatusCode.Unauthorized]: this.onUnauthorizedError
       })
       .then(() => {
         this.metricData.tags = this.metricData.tags?.filter(t => t.name !== tag.name);

@@ -1,5 +1,6 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ContextDataService, HttpStatus, filterBy } from '@shagui/ng-shagui/core';
+import { ContextDataService, filterBy } from '@shagui/ng-shagui/core';
 import { Observable, Subject } from 'rxjs';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { DepartmentService, SquadService } from 'src/app/core/services/sdc';
@@ -67,9 +68,9 @@ export class SdcDepartmentsService {
   public updateRemoteDepartments = (): void => {
     this.departmentService
       .updateDeparments({
-        [HttpStatus.unauthorized]: this.onUnauthorizedError,
-        [HttpStatus.forbidden]: this.onUnauthorizedError,
-        [HttpStatus.locked]: this.onLockedError
+        [HttpStatusCode.Unauthorized]: this.onUnauthorizedError,
+        [HttpStatusCode.Forbidden]: this.onUnauthorizedError,
+        [HttpStatusCode.Locked]: this.onLockedError
       })
       .then(departments => {
         console.log('Departments updated', departments);

@@ -1,7 +1,7 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CacheService, DataInfo, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
+import { CacheService, DataInfo, hasValue, HttpService, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IPageable, ITagDTO, ITagModel } from '../../models/sdc';
@@ -32,7 +32,7 @@ export class TagService {
         .get<IPageable<ITagDTO>>(`${this._urlTags}/tags`, {
           clientOptions: { params: httpParams },
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.TagNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.TagNotFound') }
           },
           cache: { id: _TAGS_CACHE_ID_, ttl: TTL.XS }
         })
@@ -55,7 +55,7 @@ export class TagService {
       this.http
         .get<IPageable<ITagDTO>>(`${this._urlTags}/tags/component/${componentId}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.TagNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.TagNotFound') }
           }
         })
         .pipe(
@@ -77,8 +77,8 @@ export class TagService {
       this.http
         .post<ITagDTO, unknown>(`${this._urlTags}/tag/create/${componentId}/${name}`, undefined, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Error.404') },
-            [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Error.404') },
+            [HttpStatusCode.Unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatusCode.Unauthorized] }
           },
           successMessage: { text: this.translate.instant('Notifications.TagAdded') }
         })
@@ -91,8 +91,8 @@ export class TagService {
       this.http
         .delete(`${this._urlTags}/tag/delete/${componentId}/${name}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.TagError') },
-            [HttpStatus.unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatus.unauthorized] }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.TagError') },
+            [HttpStatusCode.Unauthorized]: { text: this.translate.instant('Error.401'), fn: onError?.[HttpStatusCode.Unauthorized] }
           },
           successMessage: { text: this.translate.instant('Notifications.TagRemoved') }
         })

@@ -1,6 +1,7 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CacheService, hasValue, HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
+import { CacheService, hasValue, HttpService, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ICoverageModel, IDepartmentModel, IPageable, ISquadDTO, ISquadModel } from '../../models/sdc';
@@ -20,7 +21,7 @@ export class SquadService {
       this.http
         .get<ISquadDTO>(`${this._urlSquads}/squad/${id}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.SquadNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.SquadNotFound') }
           }
         })
         .pipe(map(res => ISquadModel.fromDTO(res as ISquadDTO)))
@@ -32,7 +33,7 @@ export class SquadService {
       this.http
         .get<IPageable<ISquadDTO>>(`${this._urlSquads}/squads`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.SquadsNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.SquadsNotFound') }
           },
           cache: { id: _SQUADS_CACHE_ID_, ttl: TTL.S }
         })

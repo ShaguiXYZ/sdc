@@ -1,6 +1,7 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { HttpService, HttpStatus, TTL } from '@shagui/ng-shagui/core';
+import { HttpService, TTL } from '@shagui/ng-shagui/core';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUriDTO, IUriModel, UriType } from '../../models/sdc';
@@ -19,7 +20,7 @@ export class UriService {
       this.http
         .get<IUriDTO>(`${this._urlUris}/uri/component/${componentId}/type/${type}`, {
           responseStatusMessage: {
-            [HttpStatus.notFound]: { text: this.translate.instant('Notifications.UriNotFound') }
+            [HttpStatusCode.NotFound]: { text: this.translate.instant('Notifications.UriNotFound') }
           },
           cache: { id: this.uriCacheId(componentId, type), ttl: TTL.XS }
         })

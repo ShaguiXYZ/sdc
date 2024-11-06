@@ -6,9 +6,10 @@ import { SecurityError } from '../../errors';
 import { CONTEXT_SECURITY_KEY } from './constants';
 import { ISecurityModel, ISessionDTO, ISessionModel, IUserDTO, IUserModel } from './models';
 
-import { ContextDataService, HttpService, HttpStatus } from '@shagui/ng-shagui/core';
-import packageInfo from 'package.json';
+import { HttpStatusCode } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
+import { ContextDataService, HttpService } from '@shagui/ng-shagui/core';
+import packageInfo from 'package.json';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +95,7 @@ export class SecurityService {
         this.http
           .put<ISessionDTO>(`${this._urlSecurity}/logout`, undefined, {
             responseStatusMessage: {
-              [HttpStatus.unauthorized]: { fn: this.forceLogout }
+              [HttpStatusCode.Unauthorized]: { fn: this.forceLogout }
             }
           })
           .pipe(
