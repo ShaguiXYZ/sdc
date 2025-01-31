@@ -9,11 +9,10 @@ import { AlertModel } from './models';
 import { AlertService } from './services';
 
 @Component({
-  selector: 'nx-alert',
-  styleUrls: ['./alert.component.scss'],
-  templateUrl: './alert.component.html',
-  standalone: true,
-  imports: [CommonModule, NxButtonModule, NxCopytextModule, NxHeadlineModule, NxModalModule]
+    selector: 'nx-alert',
+    styleUrls: ['./alert.component.scss'],
+    templateUrl: './alert.component.html',
+    imports: [CommonModule, NxButtonModule, NxCopytextModule, NxHeadlineModule, NxModalModule]
 })
 export class AlertComponent implements OnInit, OnDestroy {
   @ViewChild('alertBody')

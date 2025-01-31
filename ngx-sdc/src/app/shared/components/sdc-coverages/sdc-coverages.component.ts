@@ -23,21 +23,20 @@ import { ICoverageModel } from 'src/app/core/models/sdc';
 import { SdcCoverageInfoComponent } from '../sdc-coverage-info';
 
 @Component({
-  selector: 'sdc-coverages',
-  styleUrls: ['./sdc-coverages.component.scss'],
-  templateUrl: './sdc-coverages.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    NxCardModule,
-    NxHeadlineModule,
-    NxInputModule,
-    NxSpinnerModule,
-    TranslateModule,
-    SdcCoverageInfoComponent
-  ]
+    selector: 'sdc-coverages',
+    styleUrls: ['./sdc-coverages.component.scss'],
+    templateUrl: './sdc-coverages.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        FormsModule,
+        NxCardModule,
+        NxHeadlineModule,
+        NxInputModule,
+        NxSpinnerModule,
+        TranslateModule,
+        SdcCoverageInfoComponent
+    ]
 })
 export class SdcCoveragesComponent implements OnInit, OnDestroy {
   @Input()

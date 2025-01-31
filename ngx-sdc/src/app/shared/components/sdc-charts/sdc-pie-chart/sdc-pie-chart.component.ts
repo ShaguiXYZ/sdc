@@ -7,11 +7,10 @@ import { ChartSize } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
-  selector: 'sdc-pie-chart',
-  template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, SdcEchartComponent, NxHeadlineModule]
+    selector: 'sdc-pie-chart',
+    template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, SdcEchartComponent, NxHeadlineModule]
 })
 export class SdcPieChartComponent implements OnInit {
   @Input()

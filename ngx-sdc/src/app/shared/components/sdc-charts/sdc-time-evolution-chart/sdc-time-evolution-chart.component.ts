@@ -7,11 +7,10 @@ import { ChartConfig, ChartData, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
-  selector: 'sdc-time-evolution-chart',
-  template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, SdcEchartComponent]
+    selector: 'sdc-time-evolution-chart',
+    template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcTimeEvolutionChartComponent {
   @Input()

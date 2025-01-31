@@ -13,9 +13,9 @@ import { SdcOverlayService } from './shared/components/sdc-overlay/services';
 import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from './shared/constants';
 
 @Component({
-  selector: 'app-root',
-  styleUrls: ['./app.component.scss'],
-  template: `
+    selector: 'app-root',
+    styleUrls: ['./app.component.scss'],
+    template: `
     <main>
       <nx-overlay />
       <article class="app-content sdc-scrollable-body" (click)="onClick()">
@@ -29,9 +29,8 @@ import { ContextDataInfo, retrieveAppContextData, storageAppContextData } from '
       <sdc-footer />
     </main>
   `,
-  animations: [routingAnimation],
-  standalone: true,
-  imports: [HeaderComponent, NxGridModule, RouterOutlet, SdcAppFooterComponent, SdcOverlayComponent, TranslateModule]
+    animations: [routingAnimation],
+    imports: [HeaderComponent, NxGridModule, RouterOutlet, SdcAppFooterComponent, SdcOverlayComponent, TranslateModule]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions$: Subscription[] = [];

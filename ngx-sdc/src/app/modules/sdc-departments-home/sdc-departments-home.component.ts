@@ -17,22 +17,21 @@ import { SdcDepartmentsDataModel } from './models';
 import { SdcDepartmentsService } from './services';
 
 @Component({
-  selector: 'sdc-departments-home',
-  styleUrls: ['./sdc-departments-home.component.scss'],
-  templateUrl: './sdc-departments-home.component.html',
-  providers: [SdcDepartmentsService],
-  standalone: true,
-  imports: [
-    CommonModule,
-    IfRoleDirective,
-    SdcComplianceBarCardsComponent,
-    SdcCoveragesComponent,
-    SdcDepartmentSummaryComponent,
-    NxHeadlineModule,
-    NxLinkModule,
-    NxTooltipModule,
-    TranslateModule
-  ]
+    selector: 'sdc-departments-home',
+    styleUrls: ['./sdc-departments-home.component.scss'],
+    templateUrl: './sdc-departments-home.component.html',
+    providers: [SdcDepartmentsService],
+    imports: [
+        CommonModule,
+        IfRoleDirective,
+        SdcComplianceBarCardsComponent,
+        SdcCoveragesComponent,
+        SdcDepartmentSummaryComponent,
+        NxHeadlineModule,
+        NxLinkModule,
+        NxTooltipModule,
+        TranslateModule
+    ]
 })
 export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
   public departmentsData!: SdcDepartmentsDataModel;

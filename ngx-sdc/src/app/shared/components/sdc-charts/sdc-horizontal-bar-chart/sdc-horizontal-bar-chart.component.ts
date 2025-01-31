@@ -5,11 +5,10 @@ import { ChartConfig, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
-  selector: 'sdc-horizontal-bar-chart',
-  template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, SdcEchartComponent]
+    selector: 'sdc-horizontal-bar-chart',
+    template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcHorizontalBarChartComponent {
   @Input()

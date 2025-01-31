@@ -8,9 +8,9 @@ import { SdcOverlayModel } from './models';
 import { SdcOverlayService } from './services';
 
 @Component({
-  selector: 'nx-overlay',
-  styleUrls: ['./sdc-overlay.component.scss'],
-  template: `
+    selector: 'nx-overlay',
+    styleUrls: ['./sdc-overlay.component.scss'],
+    template: `
     <nx-loading />
     <nx-alert />
     <nx-notification />
@@ -34,18 +34,17 @@ import { SdcOverlayService } from './services';
       </div>
     }
   `,
-  standalone: true,
-  imports: [
-    CommonModule,
-    AlertComponent,
-    LoadingComponent,
-    NotificationComponent,
-    NxGridModule,
-    SdcEventBarComponent,
-    SdcGlobalSearchComponent,
-    SdcHelpComponent,
-    SdcLoginComponent
-  ]
+    imports: [
+        CommonModule,
+        AlertComponent,
+        LoadingComponent,
+        NotificationComponent,
+        NxGridModule,
+        SdcEventBarComponent,
+        SdcGlobalSearchComponent,
+        SdcHelpComponent,
+        SdcLoginComponent
+    ]
 })
 export class SdcOverlayComponent implements OnDestroy {
   public overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;

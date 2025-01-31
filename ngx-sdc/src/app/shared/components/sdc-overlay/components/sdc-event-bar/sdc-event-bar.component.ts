@@ -11,9 +11,9 @@ import { SdcEventBarData } from './models';
 import { SdcEventBarService } from './services';
 
 @Component({
-  selector: 'sdc-event-bar',
-  styleUrls: ['./sdc-event-bar.component.scss'],
-  template: `
+    selector: 'sdc-event-bar',
+    styleUrls: ['./sdc-event-bar.component.scss'],
+    template: `
     <div class="event-content {{ state }}">
       @if (eventBarData.events.length) {
         <header class="event-bar-options">
@@ -52,9 +52,8 @@ import { SdcEventBarService } from './services';
       }
     </div>
   `,
-  providers: [SdcEventBarService],
-  standalone: true,
-  imports: [CommonModule, SdcEventItemComponent, TranslateModule]
+    providers: [SdcEventBarService],
+    imports: [CommonModule, SdcEventItemComponent, TranslateModule]
 })
 export class SdcEventBarComponent implements OnInit, OnDestroy {
   public DEFAULT_TIMEOUT_EVENT = DEFAULT_TIMEOUT_EVENT;

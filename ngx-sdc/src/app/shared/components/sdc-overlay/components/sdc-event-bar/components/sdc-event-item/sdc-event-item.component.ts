@@ -7,9 +7,9 @@ import { SseEventModel } from 'src/app/core/services';
 import { SdcEventItemService } from './services';
 
 @Component({
-  selector: 'sdc-event-item',
-  styleUrls: ['./sdc-event-item.component.scss'],
-  template: `
+    selector: 'sdc-event-item',
+    styleUrls: ['./sdc-event-item.component.scss'],
+    template: `
     <article class="event-item" [class.fade-out]="fadeOut">
       <header>
         <span class="title {{ event.type.toLocaleLowerCase() }}">{{ event.type }}</span>
@@ -47,9 +47,8 @@ import { SdcEventItemService } from './services';
       </section>
     </article>
   `,
-  standalone: true,
-  providers: [SdcEventItemService],
-  imports: [CommonModule, NxLinkModule]
+    providers: [SdcEventItemService],
+    imports: [CommonModule, NxLinkModule]
 })
 export class SdcEventItemComponent implements OnDestroy {
   @Input()

@@ -4,12 +4,11 @@ import { Theme } from './models';
 import { ThemingService } from './services';
 
 @Component({
-  selector: 'nx-switch-theme',
-  templateUrl: './switch-theme.component.html',
-  styleUrls: ['./switch-theme.component.scss'],
-  providers: [ThemingService],
-  standalone: true,
-  imports: [NxSwitcherModule]
+    selector: 'nx-switch-theme',
+    templateUrl: './switch-theme.component.html',
+    styleUrls: ['./switch-theme.component.scss'],
+    providers: [ThemingService],
+    imports: [NxSwitcherModule]
 })
 export class SwitchThemeComponent implements OnInit {
   @Output()

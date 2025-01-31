@@ -11,12 +11,11 @@ import { styleByCoverage } from '../../lib';
 import { SdcTrendComponent } from '../sdc-trend';
 
 @Component({
-  selector: 'sdc-compliance-bar-card',
-  styleUrls: ['./sdc-compliance-bar-card.component.scss'],
-  templateUrl: './sdc-compliance-bar-card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, SdcTrendComponent, TranslateModule]
+    selector: 'sdc-compliance-bar-card',
+    styleUrls: ['./sdc-compliance-bar-card.component.scss'],
+    templateUrl: './sdc-compliance-bar-card.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, SdcTrendComponent, TranslateModule]
 })
 export class SdcComplianceBarCardComponent {
   @Input()

@@ -7,9 +7,9 @@ import { IUserModel, SecurityService } from 'src/app/core/services';
 import { SdcOverlayService } from '../sdc-overlay/services';
 
 @Component({
-  selector: 'sdc-log-in-out',
-  styleUrls: ['./sdc-log-in-out.component.scss'],
-  template: `
+    selector: 'sdc-log-in-out',
+    styleUrls: ['./sdc-log-in-out.component.scss'],
+    template: `
     <div
       class="sdc-log-in-out sdc-user"
       [ngClass]="{ 'sdc-user': user, 'sdc-not-user': !user }"
@@ -44,8 +44,7 @@ import { SdcOverlayService } from '../sdc-overlay/services';
       }
     </nx-popover>
   `,
-  imports: [CommonModule, NxCopytextModule, NxPopoverModule, TranslateModule],
-  standalone: true
+    imports: [CommonModule, NxCopytextModule, NxPopoverModule, TranslateModule]
 })
 export class SdcLogInOutComponent implements OnInit {
   public user?: IUserModel;

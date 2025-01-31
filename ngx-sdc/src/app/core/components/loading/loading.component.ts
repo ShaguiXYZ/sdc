@@ -5,11 +5,10 @@ import { LoadingService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'nx-loading',
-  styleUrls: ['./loading.component.scss'],
-  templateUrl: './loading.component.html',
-  standalone: true,
-  imports: [CommonModule, NxModalModule]
+    selector: 'nx-loading',
+    styleUrls: ['./loading.component.scss'],
+    templateUrl: './loading.component.html',
+    imports: [CommonModule, NxModalModule]
 })
 export class LoadingComponent implements OnInit, OnDestroy {
   @ViewChild('loadingBody')

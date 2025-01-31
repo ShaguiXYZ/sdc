@@ -8,12 +8,11 @@ import { SdcLoginModel } from './models';
 import { SdcLoginService } from './services';
 
 @Component({
-  selector: 'sdc-login',
-  styleUrls: ['./sdc-login.component.scss'],
-  templateUrl: './sdc-login.component.html',
-  providers: [SdcLoginService],
-  standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule]
+    selector: 'sdc-login',
+    styleUrls: ['./sdc-login.component.scss'],
+    templateUrl: './sdc-login.component.html',
+    providers: [SdcLoginService],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class SdcLoginComponent implements OnInit, OnDestroy {
   public loginData: SdcLoginModel = { authenticating: false };

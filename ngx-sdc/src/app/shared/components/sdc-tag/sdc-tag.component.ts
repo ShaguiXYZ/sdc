@@ -4,12 +4,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ITagModel } from 'src/app/core/models/sdc';
 
 @Component({
-  selector: 'sdc-tag',
-  styleUrls: ['./sdc-tag.component.scss'],
-  templateUrl: './sdc-tag.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, TranslateModule]
+    selector: 'sdc-tag',
+    styleUrls: ['./sdc-tag.component.scss'],
+    templateUrl: './sdc-tag.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, TranslateModule]
 })
 export class SdcTagComponent implements OnInit {
   @Input()

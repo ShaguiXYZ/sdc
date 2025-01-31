@@ -13,9 +13,9 @@ import { OverlayItemStatus } from '../../models';
 import { SdcGlobalSearchService } from './services';
 
 @Component({
-  selector: 'sdc-global-search',
-  styleUrls: ['./sdc-global-search.component.scss'],
-  template: `
+    selector: 'sdc-global-search',
+    styleUrls: ['./sdc-global-search.component.scss'],
+    template: `
     <div class="sdc-search-content  {{ state }}">
       <div class="sdc-search-form">
         <div class="inp-border sdc-search-input">
@@ -52,10 +52,9 @@ import { SdcGlobalSearchService } from './services';
       </div>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [SdcGlobalSearchService],
-  standalone: true,
-  imports: [CommonModule, NxCheckboxModule, SdcCoverageChartComponent, SdcTagComponent, TranslateModule]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [SdcGlobalSearchService],
+    imports: [CommonModule, NxCheckboxModule, SdcCoverageChartComponent, SdcTagComponent, TranslateModule]
 })
 export class SdcGlobalSearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true })

@@ -10,9 +10,9 @@ import { SdcLogInOutComponent } from '../sdc-log-in-out';
 import { SdcSseEventComponent } from '../sdc-sse-event';
 
 @Component({
-  selector: 'sdc-footer',
-  styleUrls: ['./sdc-footer.component.scss'],
-  template: `
+    selector: 'sdc-footer',
+    styleUrls: ['./sdc-footer.component.scss'],
+    template: `
     <footer nxLayout="grid maxwidth nogutters">
       <div class="sdc-footer-content">
         <div class="sdc-footer-info">
@@ -33,8 +33,7 @@ import { SdcSseEventComponent } from '../sdc-sse-event';
       </div>
     </footer>
   `,
-  imports: [CommonModule, NxGridModule, SdcKeysComponent, SdcLogInOutComponent, SdcSseEventComponent, SwitchThemeComponent],
-  standalone: true
+    imports: [CommonModule, NxGridModule, SdcKeysComponent, SdcLogInOutComponent, SdcSseEventComponent, SwitchThemeComponent]
 })
 export class SdcAppFooterComponent {
   private readonly contextDataService = inject(ContextDataService);

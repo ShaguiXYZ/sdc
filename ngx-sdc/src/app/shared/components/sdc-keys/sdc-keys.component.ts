@@ -4,9 +4,9 @@ import { SdcOverlayService } from '../sdc-overlay/services';
 import { SdcKeyComponent } from './components';
 
 @Component({
-  selector: 'sdc-keys',
-  styles: [
-    `
+    selector: 'sdc-keys',
+    styles: [
+        `
       .sdc-keys-content {
         display: flex;
         flex-direction: column;
@@ -18,16 +18,15 @@ import { SdcKeyComponent } from './components';
         }
       }
     `
-  ],
-  template: `
+    ],
+    template: `
     <div class="sdc-keys-content" (click)="toggleGlobalSearch()">
       <div class="selected-key">
         <sdc-key key="K" label="Label.Ctrl.K"></sdc-key>
       </div>
     </div>
   `,
-  standalone: true,
-  imports: [SdcKeyComponent]
+    imports: [SdcKeyComponent]
 })
 export class SdcKeysComponent {
   constructor(private readonly overlayService: SdcOverlayService) {}

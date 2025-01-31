@@ -6,9 +6,9 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { ChartSize, SdcChartSize } from './models';
 
 @Component({
-  selector: 'sdc-echart',
-  styles: [
-    `
+    selector: 'sdc-echart',
+    styles: [
+        `
       :host {
         display: block;
         height: 100%;
@@ -20,8 +20,8 @@ import { ChartSize, SdcChartSize } from './models';
         width: 100%;
       }
     `
-  ],
-  template: `
+    ],
+    template: `
     @defer {
       <div echarts [options]="options" [ngStyle]="styleSize"></div>
     } @placeholder (minimum 300ms) {
@@ -31,9 +31,8 @@ import { ChartSize, SdcChartSize } from './models';
       <div class="sdc-loading" [ngStyle]="styleSize"></div>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, NgxEchartsModule]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, NgxEchartsModule]
 })
 export class SdcEchartComponent {
   @Input()
