@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { EChartsOption } from 'echarts';
+import type { EChartsCoreOption } from 'echarts/core';
 import { ChartConfig, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
-    selector: 'sdc-horizontal-bar-chart',
-    template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, SdcEchartComponent]
+  selector: 'sdc-horizontal-bar-chart',
+  template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcHorizontalBarChartComponent {
   @Input()
@@ -17,14 +17,14 @@ export class SdcHorizontalBarChartComponent {
   @Input()
   public size: ChartSize = {};
 
-  public echartsOptions: EChartsOption = {};
+  public echartsOptions: EChartsCoreOption = {};
 
   @Input()
   set config(value: ChartConfig) {
     this.echartsOptions = this.chartOptions(value);
   }
 
-  private chartOptions(chartConfig: ChartConfig): EChartsOption {
+  private chartOptions(chartConfig: ChartConfig): EChartsCoreOption {
     const yAxis = chartConfig.axis?.yAxis;
     const data =
       chartConfig.data
@@ -37,7 +37,7 @@ export class SdcHorizontalBarChartComponent {
           }
         })) || [];
 
-    const echartsOptions: EChartsOption = {
+    const echartsOptions: EChartsCoreOption = {
       animation: false,
       grid: {
         left: '5%',
@@ -61,7 +61,7 @@ export class SdcHorizontalBarChartComponent {
       }
     };
 
-    echartsOptions.series = [
+    echartsOptions['series'] = [
       {
         type: 'bar',
         data

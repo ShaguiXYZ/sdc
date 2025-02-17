@@ -23,7 +23,6 @@ import { DateService, IfRoleDirective } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import {
   SdcComplianceBarCardComponent,
-  SdcMetricInfoComponent,
   SdcMetricsCardsComponent,
   SdcTagsComponent,
   SdcTimeEvolutionMultichartComponent
@@ -36,28 +35,27 @@ import { MetricsDataModel } from './models';
 import { SdcMetricsHomeService } from './services';
 
 @Component({
-    selector: 'sdc-metrics-home',
-    styleUrls: ['./sdc-metrics-home.component.scss'],
-    templateUrl: './sdc-metrics-home.component.html',
-    providers: [SdcMetricsHomeService, TitleCasePipe],
-    imports: [
-        CommonModule,
-        IfRoleDirective,
-        SdcComplianceBarCardComponent,
-        SdcMetricHistoryGraphsComponent,
-        SdcMetricInfoComponent,
-        SdcMetricsCardsComponent,
-        SdcPieChartComponent,
-        SdcTagsComponent,
-        SdcTimeEvolutionChartComponent,
-        SdcTimeEvolutionMultichartComponent,
-        NxAccordionModule,
-        NxButtonModule,
-        NxModalModule,
-        NxTabsModule,
-        NxTooltipModule,
-        TranslateModule
-    ]
+  selector: 'sdc-metrics-home',
+  styleUrls: ['./sdc-metrics-home.component.scss'],
+  templateUrl: './sdc-metrics-home.component.html',
+  providers: [SdcMetricsHomeService, TitleCasePipe],
+  imports: [
+    CommonModule,
+    IfRoleDirective,
+    SdcComplianceBarCardComponent,
+    SdcMetricHistoryGraphsComponent,
+    SdcMetricsCardsComponent,
+    SdcPieChartComponent,
+    SdcTagsComponent,
+    SdcTimeEvolutionChartComponent,
+    SdcTimeEvolutionMultichartComponent,
+    NxAccordionModule,
+    NxButtonModule,
+    NxModalModule,
+    NxTabsModule,
+    NxTooltipModule,
+    TranslateModule
+  ]
 })
 export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   @ViewChild('metricsCards')

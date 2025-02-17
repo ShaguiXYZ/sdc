@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
-import { EChartsOption } from 'echarts';
+import type { EChartsCoreOption } from 'echarts/core';
 import { stringGraphToRecord } from '../lib';
 import { ChartSize } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
 
 @Component({
-    selector: 'sdc-pie-chart',
-    template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, SdcEchartComponent, NxHeadlineModule]
+  selector: 'sdc-pie-chart',
+  template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, SdcEchartComponent, NxHeadlineModule]
 })
 export class SdcPieChartComponent implements OnInit {
   @Input()
@@ -19,7 +19,7 @@ export class SdcPieChartComponent implements OnInit {
   @Input()
   public size: ChartSize = {};
 
-  public echartsOptions: EChartsOption = {};
+  public echartsOptions: EChartsCoreOption = {};
 
   private _data!: string;
 
@@ -33,10 +33,10 @@ export class SdcPieChartComponent implements OnInit {
     this.echartsOptions = this.chartOptions(this._data);
   }
 
-  private chartOptions(chartData: string): EChartsOption {
+  private chartOptions(chartData: string): EChartsCoreOption {
     const records = stringGraphToRecord(chartData);
 
-    const option: EChartsOption = {
+    const option: EChartsCoreOption = {
       grid: {
         left: '2%',
         right: '2%',
@@ -69,7 +69,7 @@ export class SdcPieChartComponent implements OnInit {
     };
 
     if (this.title) {
-      option.title = {
+      option['title'] = {
         text: this.title,
         left: 'center'
       };

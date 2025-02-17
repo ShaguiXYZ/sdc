@@ -5,7 +5,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService, NX_CONTEX_CONFIG } from '@shagui/ng-shagui/core';
-import { NgxEchartsModule } from 'ngx-echarts';
 import { routes } from './app.routes';
 import { NX_HEADER_CONFIG } from './core/components';
 import { APP_NAME } from './core/constants';
@@ -36,12 +35,7 @@ const iniSettings =
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    importProvidersFrom(
-      NgxEchartsModule.forRoot({
-        echarts: () => import('echarts')
-      }),
-      TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG)
-    ),
+    importProvidersFrom(TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG)),
     provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(routes),

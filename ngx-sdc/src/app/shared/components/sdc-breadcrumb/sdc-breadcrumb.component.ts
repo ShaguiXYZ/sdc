@@ -7,10 +7,10 @@ import { ContextDataInfo } from '../../constants/context-data';
 import { IBreadcrumbConfigModel } from './models';
 
 @Component({
-    selector: 'sdc-breadcrumb',
-    styleUrls: ['./sdc-breadcrumb.component.scss'],
-    templateUrl: './sdc-breadcrumb.component.html',
-    imports: [CommonModule, NxBreadcrumbModule, SdcBreadcrumbComponent, TranslateModule]
+  selector: 'sdc-breadcrumb',
+  styleUrls: ['./sdc-breadcrumb.component.scss'],
+  templateUrl: './sdc-breadcrumb.component.html',
+  imports: [CommonModule, NxBreadcrumbModule, TranslateModule]
 })
 export class SdcBreadcrumbComponent implements OnInit {
   public breadcrumbConfig?: IBreadcrumbConfigModel;
