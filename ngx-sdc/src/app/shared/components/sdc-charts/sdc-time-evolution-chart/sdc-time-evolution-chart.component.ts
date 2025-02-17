@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
-import { EChartsOption } from 'echarts';
+import type { EChartsCoreOption } from 'echarts/core';
 import { legendPosition } from '../lib';
 import { ChartConfig, ChartData, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
@@ -10,21 +10,20 @@ import { SdcEchartComponent } from '../sdc-echart.component';
   selector: 'sdc-time-evolution-chart',
   template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcTimeEvolutionChartComponent {
   @Input()
   public size: ChartSize = {};
 
-  public echartsOptions: EChartsOption = {};
+  public echartsOptions: EChartsCoreOption = {};
 
   @Input()
   set config(value: ChartConfig) {
     this.echartsOptions = this.chartOptions(value);
   }
 
-  private chartOptions(chartConfig: ChartConfig): EChartsOption {
+  private chartOptions(chartConfig: ChartConfig): EChartsCoreOption {
     const xAxis: string[] = chartConfig.axis.xAxis ?? [];
     const chartData: ChartData[] = chartConfig.data.filter(data => Array.isArray(data.values));
     const legendPos = chartConfig.options?.legendPosition;
@@ -86,9 +85,9 @@ export class SdcTimeEvolutionChartComponent {
       options['visualMap'] = chartDataConfig.map(dataConfig => dataConfig.visualMap);
     }
 
-    const echartsOptions: EChartsOption = options;
+    const echartsOptions: EChartsCoreOption = options;
 
-    echartsOptions.series = chartDataConfig.map(dataConfig => ({
+    echartsOptions['series'] = chartDataConfig.map(dataConfig => ({
       data: dataConfig.serie.data,
       lineStyle: {
         type: dataConfig.serie.lineStyle

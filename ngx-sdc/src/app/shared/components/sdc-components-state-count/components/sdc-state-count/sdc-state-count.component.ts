@@ -6,11 +6,10 @@ import { MetricConfig, MetricState, styleByMetricState } from 'src/app/shared/li
 import { IStateCount } from 'src/app/shared/models';
 
 @Component({
-  selector: 'sdc-state-count',
-  styleUrls: ['./sdc-state-count.component.scss'],
-  templateUrl: './sdc-state-count.component.html',
-  standalone: true,
-  imports: [CommonModule, NxLinkModule, TranslateModule]
+    selector: 'sdc-state-count',
+    styleUrls: ['./sdc-state-count.component.scss'],
+    templateUrl: './sdc-state-count.component.html',
+    imports: [CommonModule, NxLinkModule, TranslateModule]
 })
 export class SdcStateCountComponent implements OnInit {
   @Input()

@@ -5,12 +5,11 @@ import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/mod
 import { SdcComplianceBarCardComponent } from '../sdc-compliance-bar-card/sdc-compliance-bar-card.component';
 
 @Component({
-  selector: 'sdc-compliance-bar-cards',
-  styleUrls: ['./sdc-compliance-bar-cards.component.scss'],
-  templateUrl: './sdc-compliance-bar-cards.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, SdcComplianceBarCardComponent, TranslateModule]
+    selector: 'sdc-compliance-bar-cards',
+    styleUrls: ['./sdc-compliance-bar-cards.component.scss'],
+    templateUrl: './sdc-compliance-bar-cards.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, SdcComplianceBarCardComponent, TranslateModule]
 })
 export class SdcComplianceBarCardsComponent {
   @Input()

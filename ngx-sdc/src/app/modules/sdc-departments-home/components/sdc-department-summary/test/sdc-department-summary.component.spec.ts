@@ -1,11 +1,11 @@
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { emptyFn } from '@shagui/ng-shagui/core';
-import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts/core';
+import { provideEchartsCore } from 'ngx-echarts';
 import { SdcDepartmentSummaryComponent } from '../sdc-department-summary.component';
 
 describe('SdcDepartmentSummaryComponent', () => {
@@ -14,15 +14,10 @@ describe('SdcDepartmentSummaryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [SdcDepartmentSummaryComponent,
-        RouterTestingModule,
-        TranslateModule.forRoot(),
-        NgxEchartsModule.forRoot({
-            echarts: () => import('echarts')
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-})
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [SdcDepartmentSummaryComponent, RouterTestingModule, TranslateModule.forRoot(), provideEchartsCore({ echarts })],
+      providers: [provideHttpClient(withInterceptorsFromDi())]
+    })
       .compileComponents()
       .catch(emptyFn);
   }));

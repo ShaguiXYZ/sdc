@@ -12,20 +12,19 @@ import { ServiceSummaryModel } from './models';
 import { SdcSquadSummaryService } from './services';
 
 @Component({
-  selector: 'sdc-squad-summary',
-  styleUrls: ['./sdc-squad-summary.component.scss'],
-  templateUrl: './sdc-squad-summary.component.html',
-  providers: [SdcSquadSummaryService],
-  standalone: true,
-  imports: [
-    SdcComponentsStateCountComponent,
-    SdcCoverageChartComponent,
-    SdcPieChartComponent,
-    SdcTimeEvolutionMultichartComponent,
-    CommonModule,
-    NxTabsModule,
-    TranslateModule
-  ]
+    selector: 'sdc-squad-summary',
+    styleUrls: ['./sdc-squad-summary.component.scss'],
+    templateUrl: './sdc-squad-summary.component.html',
+    providers: [SdcSquadSummaryService],
+    imports: [
+        SdcComponentsStateCountComponent,
+        SdcCoverageChartComponent,
+        SdcPieChartComponent,
+        SdcTimeEvolutionMultichartComponent,
+        CommonModule,
+        NxTabsModule,
+        TranslateModule
+    ]
 })
 export class SdcSquadSummaryComponent implements OnInit, OnDestroy {
   @Input()

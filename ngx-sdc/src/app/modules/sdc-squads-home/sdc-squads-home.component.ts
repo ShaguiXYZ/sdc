@@ -15,20 +15,19 @@ import { SdcSquadsDataModel } from './models';
 import { SdcSquadsService } from './services';
 
 @Component({
-  selector: 'sdc-squads-home',
-  styleUrls: ['./sdc-squads-home.component.scss'],
-  templateUrl: './sdc-squads-home.component.html',
-  providers: [SdcSquadsService],
-  standalone: true,
-  imports: [
-    SdcComplianceBarCardsComponent,
-    SdcCoveragesComponent,
-    SdcSquadSummaryComponent,
-    CommonModule,
-    NxHeadlineModule,
-    NxLinkModule,
-    TranslateModule
-  ]
+    selector: 'sdc-squads-home',
+    styleUrls: ['./sdc-squads-home.component.scss'],
+    templateUrl: './sdc-squads-home.component.html',
+    providers: [SdcSquadsService],
+    imports: [
+        SdcComplianceBarCardsComponent,
+        SdcCoveragesComponent,
+        SdcSquadSummaryComponent,
+        CommonModule,
+        NxHeadlineModule,
+        NxLinkModule,
+        TranslateModule
+    ]
 })
 export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   public squadsData!: SdcSquadsDataModel;

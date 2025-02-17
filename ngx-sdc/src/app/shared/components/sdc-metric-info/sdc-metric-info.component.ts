@@ -6,12 +6,11 @@ import { MetricStates, stateByCoverage, styleByCoverage } from '../../lib';
 import { SdcMetricInfoService } from './services';
 
 @Component({
-  selector: 'sdc-metric-info',
-  styleUrls: ['./sdc-metric-info.component.scss'],
-  templateUrl: './sdc-metric-info.component.html',
-  providers: [SdcMetricInfoService],
-  standalone: true,
-  imports: [CommonModule]
+    selector: 'sdc-metric-info',
+    styleUrls: ['./sdc-metric-info.component.scss'],
+    templateUrl: './sdc-metric-info.component.html',
+    providers: [SdcMetricInfoService],
+    imports: [CommonModule]
 })
 export class SdcMetricInfoComponent {
   @Input()

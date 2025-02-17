@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
-import { EChartsOption } from 'echarts';
+import type { EChartsCoreOption } from 'echarts/core';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { SdcEchartComponent } from '../sdc-echart.component';
@@ -10,7 +10,6 @@ import { SdcEchartComponent } from '../sdc-echart.component';
   selector: 'sdc-coverage-chart',
   template: `<sdc-echart [options]="echartsOptions" [size]="size" />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [CommonModule, SdcEchartComponent]
 })
 export class SdcCoverageChartComponent implements OnInit {
@@ -23,7 +22,7 @@ export class SdcCoverageChartComponent implements OnInit {
   @Input()
   public backgroundColor!: string;
 
-  public echartsOptions: EChartsOption = {};
+  public echartsOptions: EChartsCoreOption = {};
 
   private _coverage!: ICoverageModel;
 
@@ -41,13 +40,13 @@ export class SdcCoverageChartComponent implements OnInit {
     this.echartsOptions = this.chartOptions(this._coverage);
   }
 
-  private chartOptions(value: ICoverageModel): EChartsOption {
+  private chartOptions(value: ICoverageModel): EChartsCoreOption {
     const center = this.size / 2;
     const coverage = value.coverage ?? 0;
     const name = value.name.trim() ? [`${Math.floor(coverage)}%`, value.name].join('\n') : `${Math.floor(coverage)}%`;
     const color = MetricState[stateByCoverage(coverage)].color;
 
-    const option: EChartsOption = {
+    const option: EChartsCoreOption = {
       animation: this.animation,
       series: [
         {

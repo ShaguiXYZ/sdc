@@ -9,11 +9,10 @@ import { SdcTagComponent } from '../sdc-tag/sdc-tag.component';
 import { ViewType, defaultViewType } from './models';
 
 @Component({
-  selector: 'sdc-tags',
-  styleUrls: ['./sdc-tags.component.scss'],
-  templateUrl: './sdc-tags.component.html',
-  standalone: true,
-  imports: [CommonModule, FormsModule, NxFormfieldModule, NxInputModule, ReactiveFormsModule, SdcTagComponent, TranslateModule]
+    selector: 'sdc-tags',
+    styleUrls: ['./sdc-tags.component.scss'],
+    templateUrl: './sdc-tags.component.html',
+    imports: [CommonModule, FormsModule, NxFormfieldModule, NxInputModule, ReactiveFormsModule, SdcTagComponent, TranslateModule]
 })
 export class SdcTagsComponent implements OnInit {
   @Input()

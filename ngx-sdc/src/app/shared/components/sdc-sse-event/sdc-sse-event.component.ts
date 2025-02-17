@@ -7,9 +7,9 @@ import { Subscription } from 'rxjs';
 import { SdcSseEventService } from './services';
 
 @Component({
-  selector: 'sdc-sse-event',
-  styleUrls: ['./sdc-sse-event.component.scss'],
-  template: `
+    selector: 'sdc-sse-event',
+    styleUrls: ['./sdc-sse-event.component.scss'],
+    template: `
     <div
       class="num-events sdc-center"
       [ngClass]="{ pulse: unread, 'has-messages': count }"
@@ -20,9 +20,8 @@ import { SdcSseEventService } from './services';
       {{ count }}
     </div>
   `,
-  providers: [SdcSseEventService],
-  standalone: true,
-  imports: [CommonModule, NxTooltipModule, TranslateModule]
+    providers: [SdcSseEventService],
+    imports: [CommonModule, NxTooltipModule, TranslateModule]
 })
 export class SdcSseEventComponent implements OnInit, OnDestroy {
   public count = 0;

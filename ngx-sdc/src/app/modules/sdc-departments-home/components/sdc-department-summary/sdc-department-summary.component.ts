@@ -18,21 +18,20 @@ import { ServiceSummaryModel } from './models';
 import { SdcDepartmentSummaryService } from './services';
 
 @Component({
-  selector: 'sdc-department-summary',
-  styleUrls: ['./sdc-department-summary.component.scss'],
-  templateUrl: './sdc-department-summary.component.html',
-  providers: [SdcDepartmentSummaryService, TitleCasePipe],
-  standalone: true,
-  imports: [
-    CommonModule,
-    NxHeadlineModule,
-    NxTabsModule,
-    SdcCoverageChartComponent,
-    SdcHorizontalBarChartComponent,
-    SdcPieChartComponent,
-    SdcTimeEvolutionMultichartComponent,
-    TranslateModule
-  ]
+    selector: 'sdc-department-summary',
+    styleUrls: ['./sdc-department-summary.component.scss'],
+    templateUrl: './sdc-department-summary.component.html',
+    providers: [SdcDepartmentSummaryService, TitleCasePipe],
+    imports: [
+        CommonModule,
+        NxHeadlineModule,
+        NxTabsModule,
+        SdcCoverageChartComponent,
+        SdcHorizontalBarChartComponent,
+        SdcPieChartComponent,
+        SdcTimeEvolutionMultichartComponent,
+        TranslateModule
+    ]
 })
 export class SdcDepartmentSummaryComponent implements OnInit, OnDestroy {
   public readonly BACKGROUND_DEPARTMENT_COLOR = BACKGROUND_DEPARTMENT_COLOR;

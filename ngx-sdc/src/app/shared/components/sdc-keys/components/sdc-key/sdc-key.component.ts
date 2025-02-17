@@ -3,9 +3,9 @@ import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'sdc-key',
-  styles: [
-    `
+    selector: 'sdc-key',
+    styles: [
+        `
       .sdc-key-content {
         display: flex;
         justify-content: center;
@@ -26,15 +26,14 @@ import { TranslateModule } from '@ngx-translate/core';
         }
       }
     `
-  ],
-  template: `
+    ],
+    template: `
     <div class="sdc-key-content">
       <div class="sdc-key" [style.backgroundImage]="svgKey"></div>
       <span class="sdc-key-label">{{ label | translate }}</span>
     </div>
   `,
-  standalone: true,
-  imports: [CommonModule, TranslateModule]
+    imports: [CommonModule, TranslateModule]
 })
 export class SdcKeyComponent {
   @Input()

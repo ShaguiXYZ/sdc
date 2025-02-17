@@ -10,7 +10,7 @@ import { AlertService } from 'src/app/core/components';
 import { AppConfigurationModel, ICoverageModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';
 import { IfRoleDirective } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
-import { SdcComplianceBarCardsComponent, SdcCoveragesComponent } from 'src/app/shared/components';
+import { SdcCoveragesComponent } from 'src/app/shared/components';
 import { ContextDataInfo } from 'src/app/shared/constants';
 import { SdcDepartmentSummaryComponent } from './components';
 import { SdcDepartmentsDataModel } from './models';
@@ -21,11 +21,9 @@ import { SdcDepartmentsService } from './services';
   styleUrls: ['./sdc-departments-home.component.scss'],
   templateUrl: './sdc-departments-home.component.html',
   providers: [SdcDepartmentsService],
-  standalone: true,
   imports: [
     CommonModule,
     IfRoleDirective,
-    SdcComplianceBarCardsComponent,
     SdcCoveragesComponent,
     SdcDepartmentSummaryComponent,
     NxHeadlineModule,

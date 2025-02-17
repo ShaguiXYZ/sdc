@@ -10,8 +10,7 @@ import { IBreadcrumbConfigModel } from './models';
   selector: 'sdc-breadcrumb',
   styleUrls: ['./sdc-breadcrumb.component.scss'],
   templateUrl: './sdc-breadcrumb.component.html',
-  standalone: true,
-  imports: [CommonModule, NxBreadcrumbModule, SdcBreadcrumbComponent, TranslateModule]
+  imports: [CommonModule, NxBreadcrumbModule, TranslateModule]
 })
 export class SdcBreadcrumbComponent implements OnInit {
   public breadcrumbConfig?: IBreadcrumbConfigModel;

@@ -23,7 +23,6 @@ import { DateService, IfRoleDirective } from 'src/app/core/services';
 import { SdcRouteService } from 'src/app/core/services/sdc';
 import {
   SdcComplianceBarCardComponent,
-  SdcMetricInfoComponent,
   SdcMetricsCardsComponent,
   SdcTagsComponent,
   SdcTimeEvolutionMultichartComponent
@@ -40,13 +39,11 @@ import { SdcMetricsHomeService } from './services';
   styleUrls: ['./sdc-metrics-home.component.scss'],
   templateUrl: './sdc-metrics-home.component.html',
   providers: [SdcMetricsHomeService, TitleCasePipe],
-  standalone: true,
   imports: [
     CommonModule,
     IfRoleDirective,
     SdcComplianceBarCardComponent,
     SdcMetricHistoryGraphsComponent,
-    SdcMetricInfoComponent,
     SdcMetricsCardsComponent,
     SdcPieChartComponent,
     SdcTagsComponent,

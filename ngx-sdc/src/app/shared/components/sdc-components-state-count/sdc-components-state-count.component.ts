@@ -6,17 +6,16 @@ import { IStateCount } from '../../models';
 import { SdcStateCountComponent } from './components';
 
 @Component({
-  selector: 'sdc-components-state-count',
-  template: `
+    selector: 'sdc-components-state-count',
+    template: `
     @for (count of counts; track count.state) {
       <div [ngClass]="{ 'nx-margin-bottom-2xs': !$last }">
         <sdc-state-count [stateCount]="count" (clickStateCount)="onClick($event)"></sdc-state-count>
       </div>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, SdcStateCountComponent]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, SdcStateCountComponent]
 })
 export class SdcComponentsStateCountComponent {
   @Output()

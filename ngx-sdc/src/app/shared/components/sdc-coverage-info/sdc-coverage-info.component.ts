@@ -7,12 +7,11 @@ import { SdcCoverageChartComponent } from '../sdc-charts';
 import { SdcTrendComponent } from '../sdc-trend';
 
 @Component({
-  selector: 'sdc-coverage-info',
-  styleUrls: ['./sdc-coverage-info.component.scss'],
-  templateUrl: './sdc-coverage-info.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, NxCopytextModule, SdcCoverageChartComponent, SdcTrendComponent]
+    selector: 'sdc-coverage-info',
+    styleUrls: ['./sdc-coverage-info.component.scss'],
+    templateUrl: './sdc-coverage-info.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, NxCopytextModule, SdcCoverageChartComponent, SdcTrendComponent]
 })
 export class SdcCoverageInfoComponent {
   @Input()

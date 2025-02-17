@@ -14,12 +14,11 @@ import { MetricsHistoryDataModel } from './models';
 import { SdcMetricHistoryGraphsService } from './services';
 
 @Component({
-  selector: 'sdc-metric-history-graphs',
-  styleUrls: ['./sdc-metric-history-graphs.component.scss'],
-  templateUrl: './sdc-metric-history-graphs.component.html',
-  providers: [SdcMetricHistoryGraphsService, SdcValueTypeToNumberPipe],
-  standalone: true,
-  imports: [CommonModule, NxCopytextModule, NxCheckboxModule, SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, TranslateModule]
+    selector: 'sdc-metric-history-graphs',
+    styleUrls: ['./sdc-metric-history-graphs.component.scss'],
+    templateUrl: './sdc-metric-history-graphs.component.html',
+    providers: [SdcMetricHistoryGraphsService, SdcValueTypeToNumberPipe],
+    imports: [CommonModule, NxCopytextModule, NxCheckboxModule, SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, TranslateModule]
 })
 export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   @Input()

@@ -1,9 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
-import { EChartsOption } from 'echarts';
-import { NgxEchartsModule } from 'ngx-echarts';
+import { BarChart, LineChart, PieChart } from 'echarts/charts';
+import { GridComponent, LegendComponent, TitleComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
+import type { EChartsCoreOption } from 'echarts/core';
+import * as echarts from 'echarts/core';
+import { CanvasRenderer } from 'echarts/renderers';
+import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 import { ChartSize, SdcChartSize } from './models';
+
+echarts.use([
+  BarChart,
+  LineChart,
+  PieChart,
+  GridComponent,
+  LegendComponent,
+  TitleComponent,
+  TooltipComponent,
+  VisualMapComponent,
+  CanvasRenderer
+]);
 
 @Component({
   selector: 'sdc-echart',
@@ -32,12 +48,12 @@ import { ChartSize, SdcChartSize } from './models';
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, NgxEchartsModule]
+  imports: [CommonModule, NgxEchartsDirective],
+  providers: [provideEchartsCore({ echarts })]
 })
 export class SdcEchartComponent {
   @Input()
-  public options: EChartsOption = {};
+  public options: EChartsCoreOption = {};
 
   public styleSize: DataInfo<string | number> = {};
 

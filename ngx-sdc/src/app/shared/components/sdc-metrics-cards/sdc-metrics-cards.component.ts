@@ -6,11 +6,10 @@ import { AnalysisService } from 'src/app/core/services/sdc';
 import { SdcMetricInfoComponent } from '../sdc-metric-info';
 
 @Component({
-  selector: 'sdc-metrics-cards',
-  templateUrl: './sdc-metrics-cards.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [SdcMetricInfoComponent, CommonModule, TranslateModule]
+    selector: 'sdc-metrics-cards',
+    templateUrl: './sdc-metrics-cards.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [SdcMetricInfoComponent, CommonModule, TranslateModule]
 })
 export class SdcMetricsCardsComponent implements OnInit {
   @Input()

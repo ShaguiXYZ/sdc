@@ -10,9 +10,9 @@ import { SdcHelpService } from './services';
 import { SdcHelpEntry } from './constants';
 
 @Component({
-  selector: 'sdc-help',
-  styleUrls: ['./sdc-help.component.scss', './assets/styles/sdc-help-data.scss'],
-  template: `
+    selector: 'sdc-help',
+    styleUrls: ['./sdc-help.component.scss', './assets/styles/sdc-help-data.scss'],
+    template: `
     @if (config) {
       <div class="sdc-help-content  {{ state }}">
         <article class="help-index sdc-scrollable">
@@ -58,14 +58,13 @@ import { SdcHelpEntry } from './constants';
       </div>
     }
   `,
-  standalone: true,
-  imports: [CommonModule, NxHeadlineModule, TranslateModule, SdcHelpParagraphPipe],
-  /**
-   * @howto Remove the encapsulation to allow the styles to be applied to the parent component
-   *
-   * ref: https://angular.io/api/core/ViewEncapsulation
-   */
-  encapsulation: ViewEncapsulation.None
+    imports: [CommonModule, NxHeadlineModule, TranslateModule, SdcHelpParagraphPipe],
+    /**
+     * @howto Remove the encapsulation to allow the styles to be applied to the parent component
+     *
+     * ref: https://angular.io/api/core/ViewEncapsulation
+     */
+    encapsulation: ViewEncapsulation.None
 })
 export class SdcHelpComponent implements OnInit, OnDestroy {
   @Input()

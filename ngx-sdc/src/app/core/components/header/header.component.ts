@@ -19,22 +19,21 @@ import { HeaderLanguageService } from './services';
  * All the ids in NavParentItem and NavChildItem must be different among them.
  */
 @Component({
-  selector: 'nx-header',
-  styleUrls: ['./header.component.scss'],
-  templateUrl: './header.component.html',
-  providers: [HeaderLanguageService],
-  standalone: true,
-  imports: [
-    CommonModule,
-    NxButtonModule,
-    NxContextMenuModule,
-    NxHeaderModule,
-    NxLinkModule,
-    NxTooltipModule,
-    SwitchThemeComponent,
-    RouterModule,
-    TranslateModule
-  ]
+    selector: 'nx-header',
+    styleUrls: ['./header.component.scss'],
+    templateUrl: './header.component.html',
+    providers: [HeaderLanguageService],
+    imports: [
+        CommonModule,
+        NxButtonModule,
+        NxContextMenuModule,
+        NxHeaderModule,
+        NxLinkModule,
+        NxTooltipModule,
+        SwitchThemeComponent,
+        RouterModule,
+        TranslateModule
+    ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input()

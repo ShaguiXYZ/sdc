@@ -5,11 +5,10 @@ import { SdcChartData } from '../../models';
 import { ChartConfig, ChartSize, SdcTimeEvolutionChartComponent, stringGraphToRecord } from '../sdc-charts';
 
 @Component({
-  selector: 'sdc-time-evolution-multichart',
-  template: `<sdc-time-evolution-chart [config]="metricChartConfig" [size]="size" />`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [SdcTimeEvolutionChartComponent, CommonModule]
+    selector: 'sdc-time-evolution-multichart',
+    template: `<sdc-time-evolution-chart [config]="metricChartConfig" [size]="size" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [SdcTimeEvolutionChartComponent, CommonModule]
 })
 export class SdcTimeEvolutionMultichartComponent {
   @Input()
