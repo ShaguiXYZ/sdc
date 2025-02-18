@@ -1,5 +1,5 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
 import { provideClientHydration, withNoHttpTransferCache } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
@@ -21,21 +21,23 @@ const SdcLanguages = {
   ['esES']: 'es-ES'
 };
 
-const iniSettings =
-  (appConfiguration: AppConfigurationService, contextDataService: ContextDataService): (() => Promise<void>) =>
-  async (): Promise<void> => {
-    const config = await appConfiguration.appConfiguracions();
+const appInitializer = async (): Promise<void> => {
+  const appConfiguration = inject(AppConfigurationService);
+  const contextDataService = inject(ContextDataService);
 
-    contextDataService.set<IAppConfigurationModel>(
-      ContextDataInfo.APP_CONFIG,
-      { ...config, title: '- S D C -' },
-      { persistent: true, referenced: false }
-    );
-  };
+  const config = await appConfiguration.appConfiguracions();
+
+  contextDataService.set<IAppConfigurationModel>(
+    ContextDataInfo.APP_CONFIG,
+    { ...config, title: '- S D C -' },
+    { persistent: true, referenced: false }
+  );
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG)),
+    provideAppInitializer(appInitializer),
     provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(routes),
@@ -51,12 +53,12 @@ export const appConfig: ApplicationConfig = {
       // })
     ),
     // @howto initialize the app configuration
-    {
-      provide: APP_INITIALIZER,
-      useFactory: iniSettings,
-      deps: [AppConfigurationService, ContextDataService],
-      multi: true
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: iniSettings,
+    //   deps: [AppConfigurationService, ContextDataService],
+    //   multi: true
+    // },
     {
       provide: NX_CONTEX_CONFIG,
       useValue: { appName: APP_NAME.toUpperCase(), urls, home: AppUrls.squads, cache: { schedulerPeriod: SCHEDULER_PERIOD } }
