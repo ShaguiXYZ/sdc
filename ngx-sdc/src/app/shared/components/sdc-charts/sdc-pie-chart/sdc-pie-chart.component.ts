@@ -1,10 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { PieChart } from 'echarts/charts';
 import type { EChartsCoreOption } from 'echarts/core';
+import * as echarts from 'echarts/core';
 import { stringGraphToRecord } from '../lib';
 import { ChartSize } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
+
+echarts.use([PieChart]);
 
 @Component({
   selector: 'sdc-pie-chart',

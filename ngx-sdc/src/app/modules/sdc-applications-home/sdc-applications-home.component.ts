@@ -24,24 +24,24 @@ const myPaginationTexts: Partial<IPaginationTexts> = {
 };
 
 @Component({
-    selector: 'sdc-applications-home',
-    styleUrls: ['./sdc-applications-home.component.scss'],
-    templateUrl: './sdc-applications-home.component.html',
-    providers: [SdcApplicationsHomeService, { provide: NX_PAGINATION_TEXTS, useValue: myPaginationTexts }],
-    imports: [
-        CommonModule,
-        FormsModule,
-        NxDropdownModule,
-        NxFormfieldModule,
-        NxInputModule,
-        NxPaginationModule,
-        NxRadioToggleModule,
-        NxTooltipModule,
-        ReactiveFormsModule,
-        SdcComplianceBarCardsComponent,
-        SdcTagComponent,
-        TranslateModule
-    ]
+  selector: 'sdc-applications-home',
+  styleUrls: ['./sdc-applications-home.component.scss'],
+  templateUrl: './sdc-applications-home.component.html',
+  providers: [SdcApplicationsHomeService, { provide: NX_PAGINATION_TEXTS, useValue: myPaginationTexts }],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NxDropdownModule,
+    NxFormfieldModule,
+    NxInputModule,
+    NxPaginationModule,
+    NxRadioToggleModule,
+    NxTooltipModule,
+    ReactiveFormsModule,
+    SdcComplianceBarCardsComponent,
+    SdcTagComponent,
+    TranslateModule
+  ]
 })
 export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true })

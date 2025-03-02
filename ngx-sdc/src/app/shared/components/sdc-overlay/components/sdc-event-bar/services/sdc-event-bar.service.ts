@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subject, Subscription } from 'rxjs';
 import { SseEventModel } from 'src/app/core/services';
@@ -12,10 +12,10 @@ export class SdcEventBarService implements OnDestroy {
   private subscriptions$: Subscription[] = [];
   private data$: Subject<Partial<SdcEventBarData>> = new Subject();
 
-  constructor(
-    private readonly contextDataService: ContextDataService,
-    private readonly overlayService: SdcOverlayService
-  ) {
+  private readonly contextDataService = inject(ContextDataService);
+  private readonly overlayService = inject(SdcOverlayService);
+
+  constructor() {
     this.subscriptions$.push(
       this.contextDataService.onDataChange<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA).subscribe(contextData => {
         this.data$.next({ events: contextData.events.filter(event => event.type === 'ERROR') });

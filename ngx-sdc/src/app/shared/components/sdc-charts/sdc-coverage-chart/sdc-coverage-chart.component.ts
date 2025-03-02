@@ -1,10 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
+import { PieChart } from 'echarts/charts';
 import type { EChartsCoreOption } from 'echarts/core';
+import * as echarts from 'echarts/core';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { MetricState, stateByCoverage } from 'src/app/shared/lib';
 import { SdcEchartComponent } from '../sdc-echart.component';
+
+echarts.use([PieChart]);
 
 @Component({
   selector: 'sdc-coverage-chart',

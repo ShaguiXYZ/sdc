@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { BarChart } from 'echarts/charts';
 import type { EChartsCoreOption } from 'echarts/core';
+import * as echarts from 'echarts/core';
 import { ChartConfig, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
+
+echarts.use([BarChart]);
 
 @Component({
   selector: 'sdc-horizontal-bar-chart',

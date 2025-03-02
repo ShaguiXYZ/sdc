@@ -1,0 +1,32 @@
+<article class="event-item" [class.fade-out]="fadeOut">
+  <header>
+    <span class="title {{ event.type.toLocaleLowerCase() }}">{{ event.type }}</span>
+    @if (readable) {
+      <em class="sdc-op fa-regular" [ngClass]="{ 'fa-circle-check': event.read, 'fa-circle': !event.read }" (click)="onReadEvent()"></em>
+    }
+    @if (closable) {
+      <em class="sdc-op fa-regular fa-circle-xmark" (click)="onRemoveEvent()"></em>
+    }
+  </header>
+  <section>
+    <div class="sdc-event-item__date">{{ event.date | date: 'medium' }}</div>
+    <div class="sdc-event-item__message">
+      {{ event.message }}
+      @if (copyable) {
+        <em class="sdc-op copy-event fa-regular fa-copy" (click)="copyToClipboard()"></em>
+      }
+    </div>
+    @if (event.reference) {
+      <div class="sdc-event-item__reference">
+        <nx-link>
+          <a (click)="onClickComponent()"
+            ><span>{{ event.reference.componentName }}</span></a
+          >
+        </nx-link>
+        @if (event.reference.metricName) {
+          <span class="sdc-event-item__metric">({{ event.reference.metricName }})</span>
+        }
+      </div>
+    }
+  </section>
+</article>

@@ -1,0 +1,37 @@
+<div class="event-content {{ state }}">
+  @if (events().length) {
+    <header class="event-bar-options">
+      <div class="event-bar-options__left">
+        <em class="sdc-op fa-solid fa-chevron-down" (click)="close()"></em>
+      </div>
+      <div class="event-bar-options__end">
+        <em class="sdc-op fa-solid fa-check-double" (click)="markAllAsRead()"></em>
+        <!-- <em class="sdc-op fa-regular fa-trash-can" (click)="clearEvents()"></em> -->
+      </div>
+    </header>
+
+    <article class="event-bar-items" [class.sdc-scrollable]="state === 'open'">
+      @for (event of events(); track event.id) {
+        @defer (on viewport) {
+          <div class="reveal event-item">
+            <sdc-event-item
+              [event]="event"
+              [timeout]="event.read ? DEFAULT_TIMEOUT_EVENT : 0"
+              (readEvent)="onReadEvent($event)"
+              (removeEvent)="onRemoveEvent($event)"
+            />
+          </div>
+        } @placeholder {
+          <div class="placeholder"></div>
+        }
+      }
+    </article>
+  } @else {
+    <sdc-event-item
+      [event]="{ type: 'INFO', message: 'Label.NoEventsAvailables' | translate, date: now }"
+      [copyable]="false"
+      [closable]="false"
+      [readable]="false"
+    />
+  }
+</div>

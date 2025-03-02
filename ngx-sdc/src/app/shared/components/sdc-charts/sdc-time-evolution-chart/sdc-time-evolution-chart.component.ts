@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
+import { LineChart } from 'echarts/charts';
+import { GridComponent, LegendComponent } from 'echarts/components';
 import type { EChartsCoreOption } from 'echarts/core';
+import * as echarts from 'echarts/core';
 import { legendPosition } from '../lib';
 import { ChartConfig, ChartData, ChartSize, ChartValue } from '../models';
 import { SdcEchartComponent } from '../sdc-echart.component';
+
+echarts.use([LineChart, GridComponent, LegendComponent]);
 
 @Component({
   selector: 'sdc-time-evolution-chart',

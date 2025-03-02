@@ -52,13 +52,6 @@ export const appConfig: ApplicationConfig = {
       //   filter: req => req.method === 'GET'
       // })
     ),
-    // @howto initialize the app configuration
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: iniSettings,
-    //   deps: [AppConfigurationService, ContextDataService],
-    //   multi: true
-    // },
     {
       provide: NX_CONTEX_CONFIG,
       useValue: { appName: APP_NAME.toUpperCase(), urls, home: AppUrls.squads, cache: { schedulerPeriod: SCHEDULER_PERIOD } }

@@ -1,25 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, signal, WritableSignal } from '@angular/core';
 import { DataInfo } from '@shagui/ng-shagui/core';
-import { BarChart, LineChart, PieChart } from 'echarts/charts';
-import { GridComponent, LegendComponent, TitleComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
+import { TitleComponent, TooltipComponent, VisualMapComponent } from 'echarts/components';
 import type { EChartsCoreOption } from 'echarts/core';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 import { ChartSize, SdcChartSize } from './models';
 
-echarts.use([
-  BarChart,
-  LineChart,
-  PieChart,
-  GridComponent,
-  LegendComponent,
-  TitleComponent,
-  TooltipComponent,
-  VisualMapComponent,
-  CanvasRenderer
-]);
+echarts.use([TitleComponent, TooltipComponent, VisualMapComponent, CanvasRenderer]);
 
 @Component({
   selector: 'sdc-echart',
@@ -38,8 +27,8 @@ echarts.use([
     `
   ],
   template: `
-    @defer {
-      <div echarts [options]="options" [ngStyle]="styleSize"></div>
+    @defer (on viewport; when !! _options()) {
+      <div echarts [options]="_options()" [ngStyle]="styleSize"></div>
     } @placeholder (minimum 300ms) {
       <!-- placeholder -->
       <div class="placeholder" [ngStyle]="styleSize"></div>
@@ -52,13 +41,16 @@ echarts.use([
   providers: [provideEchartsCore({ echarts })]
 })
 export class SdcEchartComponent {
-  @Input()
-  public options: EChartsCoreOption = {};
-
+  public _options: WritableSignal<EChartsCoreOption | null> = signal<EChartsCoreOption | null>(null);
   public styleSize: DataInfo<string | number> = {};
 
   @Input()
   public set size(value: ChartSize) {
     this.styleSize = new SdcChartSize(value).styleSize;
+  }
+
+  @Input()
+  public set options(value: EChartsCoreOption) {
+    this._options.set(value);
   }
 }
