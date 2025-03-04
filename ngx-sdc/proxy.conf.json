@@ -1,0 +1,12 @@
+[
+  {
+    "context": ["/api"],
+    "target": "ttp://localhost:8080/bff-sdc",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": "/api"
+    }
+  }
+]
