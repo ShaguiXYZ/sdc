@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,12 @@ public class ComponentHistoricalCoveragePk implements Serializable {
 	@Column(name = "component_id")
 	private int componentId;
 
-	@CreationTimestamp
 	@Column(name = "historical_coverage_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date analysisDate;
+
+	@PrePersist
+	protected void onCreate() {
+		analysisDate = new Date();
+	}
 }

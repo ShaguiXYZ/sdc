@@ -1,5 +1,6 @@
 package com.shagui.sdc.util.documents.lib.xml.pom.data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -18,6 +19,7 @@ public class Dependency implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = -374123037204674526L;
 
 	private String groupId;

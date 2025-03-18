@@ -61,7 +61,7 @@ management:
     # promoetheus:
     #   show-details: always
     shutdown:
-      enabled: false
+      access: none
 # feign:
 #   client:
 #     config:

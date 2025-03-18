@@ -1,5 +1,6 @@
 package com.shagui.sdc.model.pk;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
@@ -16,6 +17,7 @@ public class ComponentTagPk implements Serializable {
     /**
      * 
      */
+    @Serial
     private static final long serialVersionUID = 8380578041243171512L;
 
     @Column(name = "component_id", nullable = false)

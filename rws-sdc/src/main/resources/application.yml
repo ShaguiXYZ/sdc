@@ -92,7 +92,7 @@ management:
     health:
       show-details: always
     shutdown:
-      enabled: false
+      access: none
 
 services:
   no-uri: http://no-uri
