@@ -15,10 +15,13 @@ import org.springframework.util.CollectionUtils;
 import com.shagui.sdc.api.dto.git.DependabotAlertDTO;
 import com.shagui.sdc.api.dto.sse.EventFactory;
 import com.shagui.sdc.core.exception.SdcCustomException;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
-import com.shagui.sdc.service.DependabotService;
+import com.shagui.sdc.model.MetricModel;
+import com.shagui.sdc.service.AnalysisInterface;
 import com.shagui.sdc.service.SseService;
+import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.git.GitUtils;
 
@@ -26,8 +29,13 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service(Ctes.AnalysisServicesTypes.DEPENDABOT)
-public class DependabotServiceImpl implements DependabotService {
+public class DependabotServiceImpl implements AnalysisInterface {
 	private final SseService sseService;
+
+	@Override
+	public List<MetricModel> metrics(ComponentModel component) {
+		return ComponentUtils.metricsByType(component, AnalysisType.DEPENDABOT);
+	}
 
 	@Override
 	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {

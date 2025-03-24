@@ -27,7 +27,7 @@ import com.shagui.sdc.util.git.GitUtilsConfig;
 
 class GitServiceImplTest {
 
-	private GitService gitService;
+	private GitServiceImpl gitService;
 
 	@Mock
 	private ComponentUtilsConfig componentConfig;

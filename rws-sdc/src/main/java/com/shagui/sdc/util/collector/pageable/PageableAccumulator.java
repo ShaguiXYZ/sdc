@@ -8,7 +8,7 @@ import com.shagui.sdc.api.domain.PageInfo;
 
 public class PageableAccumulator<T> {
 	private PageInfo paging;
-	private List<T> paginated = new ArrayList<>();
+	private final List<T> paginated = new ArrayList<>();
 
 	public PageableAccumulator(PageInfo paging) {
 		this.paging = paging;
@@ -19,9 +19,7 @@ public class PageableAccumulator<T> {
 	}
 
 	public PageableAccumulator<T> combine(PageableAccumulator<T> other) {
-		PageData<T> dto = other.finish();
-		this.paginated.addAll(dto.getPage());
-
+		this.paginated.addAll(other.paginated);
 		return this;
 	}
 
@@ -29,7 +27,6 @@ public class PageableAccumulator<T> {
 		if (paging == null) {
 			paging = new PageInfo(0, paginated.size(), 1, paginated.size());
 		}
-
 		return new PageData<>(paging, paginated);
 	}
 }

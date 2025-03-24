@@ -99,10 +99,10 @@ public class UrlUtils {
 	}
 
 	private static Optional<UriModel> uriModel(ComponentModel component, UriType type) {
-		Stream<Entry<String, UriModel>> uris = StaticRepository.uris().entrySet().stream()
+		Stream<Entry<String, UriModel>> urisByType = StaticRepository.uris().entrySet().stream()
 				.filter(entry -> entry.getValue().getType().equals(type));
 
-		return uris.map(Entry::getValue)
+		return urisByType.map(Entry::getValue)
 				.filter(uri -> component.getUris().stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName())))
 				.findFirst();
 	}

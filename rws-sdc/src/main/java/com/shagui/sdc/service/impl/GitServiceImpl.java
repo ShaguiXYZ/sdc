@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import com.shagui.sdc.api.dto.ServiceDataDTO;
 import com.shagui.sdc.api.dto.sse.EventFactory;
 import com.shagui.sdc.core.exception.SdcCustomException;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.service.GitService;
+import com.shagui.sdc.service.AnalysisInterface;
 import com.shagui.sdc.service.SseService;
+import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.git.lib.GitLib;
 
@@ -22,8 +24,13 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service(Ctes.AnalysisServicesTypes.GIT)
-public class GitServiceImpl implements GitService {
+public class GitServiceImpl implements AnalysisInterface {
 	private final SseService sseService;
+
+	@Override
+	public List<MetricModel> metrics(ComponentModel component) {
+		return ComponentUtils.metricsByType(component, AnalysisType.GIT);
+	}
 
 	@Override
 	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {

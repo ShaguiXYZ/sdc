@@ -1,13 +1,18 @@
 package com.shagui.sdc.service.impl;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
+import com.shagui.sdc.model.ComponentModel;
+import com.shagui.sdc.model.MetricModel;
 import com.shagui.sdc.service.GitDocumentService;
+import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.documents.SdcDocument;
 import com.shagui.sdc.util.documents.data.DocumentServiceDataDTO;
@@ -19,6 +24,11 @@ public final class GitXmlServiceImpl extends GitDocumentService {
 	@Override
 	protected Class<? extends SdcDocument> documentOf() {
 		return XmlDocument.class;
+	}
+
+	@Override
+	public List<MetricModel> metrics(ComponentModel component) {
+		return ComponentUtils.metricsByType(component, AnalysisType.GIT_XML);
 	}
 
 	@Override
