@@ -15,12 +15,12 @@ public class Numeric implements Comparable<Numeric> {
 		return value.compareTo(o.value);
 	}
 
-	private Float cast(String toCast) {
-		return Float.valueOf(toCast);
-	}
-
 	@Override
 	public String toString() {
 		return String.valueOf(value);
+	}
+
+	private Float cast(String toCast) {
+		return Float.valueOf(toCast);
 	}
 }

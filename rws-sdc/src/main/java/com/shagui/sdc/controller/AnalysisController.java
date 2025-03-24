@@ -104,6 +104,16 @@ public class AnalysisController implements AnalysisRestApi {
 		return analysisService.analysis(componentId);
 	}
 
+	/**
+	 * Merges a list of MetricAnalysisDTO objects into a single instance of the
+	 * specified class.
+	 *
+	 * @param <T>   the type of the class that extends Mergeable
+	 * @param page  the list of MetricAnalysisDTO objects to be merged
+	 * @param clazz the class of the type T
+	 * @return a single instance of type T that is the result of merging all the
+	 *         MetricAnalysisDTO objects
+	 */
 	private <T extends Mergeable<T>> T merge(List<MetricAnalysisDTO> page, Class<T> clazz) {
 		return page.stream()
 				.map(data -> ValidationsUtils.cast(data.getAnalysisValues().getMetricValue(), clazz))

@@ -28,14 +28,14 @@ public class Version implements Comparable<Version> {
 		return result.isPresent() ? result.get() : 0;
 	}
 
+	@Override
+	public String toString() {
+		return str;
+	}
+
 	private List<Integer> cast(String toCast) {
 		String version = toCast.replaceAll("[^0-9.]", "");
 		return Arrays.stream(version.split("\\."))
 				.map(item -> SdcStringUtils.isNumeric(item) ? Integer.valueOf(item) : 0).toList();
-	}
-
-	@Override
-	public String toString() {
-		return str;
 	}
 }

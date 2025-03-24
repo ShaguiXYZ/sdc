@@ -16,7 +16,6 @@ import com.shagui.sdc.api.dto.git.ContentDTO;
 import com.shagui.sdc.api.dto.sse.EventFactory;
 import com.shagui.sdc.api.dto.sse.EventType;
 import com.shagui.sdc.core.exception.SdcCustomException;
-import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.ComponetTypeArchitectureMetricPropertiesModel;
@@ -31,8 +30,6 @@ import com.shagui.sdc.util.UrlUtils;
 import com.shagui.sdc.util.documents.SdcDocument;
 import com.shagui.sdc.util.documents.SdcDocumentFactory;
 import com.shagui.sdc.util.documents.data.DocumentServiceDataDTO;
-import com.shagui.sdc.util.documents.lib.json.JsonDocument;
-import com.shagui.sdc.util.documents.lib.xml.XmlDocument;
 import com.shagui.sdc.util.git.GitUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -71,21 +68,6 @@ public abstract class GitDocumentService implements AnalysisInterface {
 						return null;
 					}
 				}).filter(Objects::nonNull).flatMap(List::stream).toList();
-	}
-
-	@Override
-	public List<MetricModel> metrics(ComponentModel component) {
-		return ComponentUtils.metricsByType(component, type());
-	}
-
-	private AnalysisType type() {
-		if (documentOf().isAssignableFrom(JsonDocument.class)) {
-			return AnalysisType.GIT_JSON;
-		} else if (documentOf().isAssignableFrom(XmlDocument.class)) {
-			return AnalysisType.GIT_XML;
-		} else {
-			throw new SdcCustomException("Unsupported document format");
-		}
 	}
 
 	private List<ComponentAnalysisModel> getResponse(String workflowId, ComponentModel component,

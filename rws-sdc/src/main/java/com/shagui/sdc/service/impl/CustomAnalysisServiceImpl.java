@@ -7,16 +7,22 @@ import java.util.function.Function;
 import org.springframework.stereotype.Service;
 
 import com.shagui.sdc.api.dto.ServiceDataDTO;
+import com.shagui.sdc.enums.AnalysisType;
 import com.shagui.sdc.model.ComponentAnalysisModel;
 import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.model.MetricModel;
-import com.shagui.sdc.service.CustomAnalysisService;
+import com.shagui.sdc.service.AnalysisInterface;
+import com.shagui.sdc.util.ComponentUtils;
 import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.DictioraryReplacement;
 import com.shagui.sdc.util.analysis.CustomAnalysisFunctions;
 
 @Service(Ctes.AnalysisServicesTypes.CUSTOM)
-public class CustomAnalysisServiceImpl implements CustomAnalysisService {
+public class CustomAnalysisServiceImpl implements AnalysisInterface {
+    @Override
+    public List<MetricModel> metrics(ComponentModel component) {
+        return ComponentUtils.metricsByType(component, AnalysisType.CUSTOM);
+    }
 
     @Override
     public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {

@@ -4,8 +4,7 @@ import { IAppConfigurationModel, ValueType } from 'src/app/core/models/sdc';
 import { ContextDataInfo } from '../constants';
 
 @Pipe({
-    name: 'sdcValueTypeToNumber',
-    standalone: false
+  name: 'sdcValueTypeToNumber'
 })
 export class SdcValueTypeToNumberPipe implements PipeTransform {
   private DEC_SUB = 3;
