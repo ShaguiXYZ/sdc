@@ -22,10 +22,11 @@ public class ContentDTO {
 	private String type;
 	private String content;
 	private String encoding;
-	
+
 	public String getDecodedContent() {
+		// @howto decode base64 content
 		byte[] bytesEncoded = Base64.decodeBase64(content.getBytes());
-		
+
 		return new String(bytesEncoded);
 	}
 }

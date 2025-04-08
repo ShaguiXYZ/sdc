@@ -33,10 +33,8 @@ public final class GitXmlServiceImpl extends GitDocumentService {
 
 	@Override
 	protected ComponentAnalysisModel executeMetricFn(String fn, DocumentServiceDataDTO data) {
-
 		if (isServiceFn(fn)) {
-			String value = MetricLibrary.Library.valueOf(fn.toUpperCase())
-					.apply(data);
+			String value = MetricLibrary.Library.valueOf(fn.toUpperCase()).apply(data);
 
 			return new ComponentAnalysisModel(data.getComponent(), data.getMetric(), value);
 		}

@@ -27,7 +27,7 @@ echarts.use([TitleComponent, TooltipComponent, VisualMapComponent, CanvasRendere
     `
   ],
   template: `
-    @defer (on viewport; when !! _options()) {
+    @defer (on viewport; when !!_options()) {
       <div echarts [options]="_options()" [ngStyle]="styleSize"></div>
     } @placeholder (minimum 300ms) {
       <!-- placeholder -->

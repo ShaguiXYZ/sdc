@@ -53,26 +53,24 @@ public abstract class GitDocumentService implements AnalysisInterface {
 	public List<ComponentAnalysisModel> analyze(String workflowId, ComponentModel component) {
 		Map<String, List<MetricModel>> metricsByPath = metricsByPath(workflowId, component);
 
-		return metricsByPath.entrySet().parallelStream()
-				.map(entry -> {
-					try {
-						return GitUtils
-								.retrieveGitData(component, "contents/%s".formatted(entry.getKey()),
-										Optional.empty(), ContentDTO.class)
-								.map(data -> getResponse(workflowId, component, entry.getValue(), sdcDocument(data)))
-								.orElseThrow(() -> new SdcCustomException(
-										"Not git info for component '%s'".formatted(component.getName())));
-					} catch (SdcCustomException ex) {
-						config.sseService().emitError(EventFactory.event(workflowId, ex).referencedBy(component));
+		return metricsByPath.entrySet().parallelStream().map(entry -> {
+			try {
+				return GitUtils.retrieveGitData(component, "contents/%s".formatted(entry.getKey()),
+						Optional.empty(), ContentDTO.class)
+						.map(data -> getResponse(workflowId, component, entry.getValue(), sdcDocument(data)))
+						.orElseThrow(() -> new SdcCustomException(
+								"Not git info for component '%s'".formatted(component.getName())));
+			} catch (SdcCustomException ex) {
+				config.sseService().emitError(EventFactory.event(workflowId, ex).referencedBy(component));
 
-						return null;
-					}
-				}).filter(Objects::nonNull).flatMap(List::stream).toList();
+				return null;
+			}
+		}).filter(Objects::nonNull).flatMap(List::stream).toList();
 	}
 
 	private List<ComponentAnalysisModel> getResponse(String workflowId, ComponentModel component,
-			List<MetricModel> metrics, SdcDocument docuemnt) {
-		return metrics.stream().map(execute(workflowId, component, docuemnt)).toList();
+			List<MetricModel> metrics, SdcDocument document) {
+		return metrics.stream().map(execute(workflowId, component, document)).toList();
 	}
 
 	private SdcDocument sdcDocument(ContentDTO gitData) {
