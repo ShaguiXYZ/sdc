@@ -17,6 +17,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents the historical coverage data for a component at a specific
+ * analysis date.
+ * 
+ * Relationships:
+ * - Many-to-One with ComponentModel: Each historical coverage entry is linked
+ * to a specific component.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

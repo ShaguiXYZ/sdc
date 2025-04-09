@@ -14,6 +14,15 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the properties of metrics associated with a specific component
+ * type architecture.
+ * 
+ * Relationships:
+ * - Many-to-One with MetricModel: Links this property to a specific metric.
+ * - Many-to-One with ComponentTypeArchitectureModel: Links this property to a
+ * specific component type architecture.
+ */
 @Getter
 @Setter
 @Entity

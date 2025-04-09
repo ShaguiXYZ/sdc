@@ -14,9 +14,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+/**
+ * Represents a tag associated with a specific component, including ownership
+ * and analysis details.
+ * 
+ * Relationships:
+ * - Many-to-One with ComponentModel: Links this tag to a specific component.
+ * - Many-to-One with TagModel: Links this tag to a specific tag entity.
+ * - EmbeddedId with ComponentTagPk: Composite primary key for the tag.
+ */
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "component_tags")
 public class ComponentTagModel implements ModelInterface<ComponentTagPk> {

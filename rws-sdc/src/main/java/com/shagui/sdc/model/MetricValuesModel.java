@@ -19,6 +19,18 @@ import org.hibernate.annotations.CreationTimestamp;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the values of a metric for a specific component type architecture.
+ * 
+ * Includes attributes such as weight, expected value, good value, and perfect
+ * value.
+ * 
+ * Relationships:
+ * - Many-to-One with MetricModel: Each metric value is associated with a
+ * specific metric.
+ * - Many-to-One with ComponentTypeArchitectureModel: Each metric value is
+ * linked to a specific component type architecture.
+ */
 @Getter
 @Setter
 @Entity

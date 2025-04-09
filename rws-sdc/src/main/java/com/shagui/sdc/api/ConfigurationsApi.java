@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 @Headers("Content-Type: application/json;charset=UTF-8")
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface ConfigurationsApi {
-    @Operation(summary = "Retrieve application configurations")
+    @Operation(summary = "Retrieve application configurations", description = "Fetches the current application configurations.")
     @GetMapping("public/configurations")
     SdcConfig configurations();
 }

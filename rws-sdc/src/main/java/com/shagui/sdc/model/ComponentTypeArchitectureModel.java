@@ -20,6 +20,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents the architecture of a specific component type, including its
+ * deployment and platform details.
+ * 
+ * Relationships:
+ * - One-to-Many with ComponentModel: Links this architecture to multiple
+ * components.
+ * - Many-to-Many with MetricModel: Links this architecture to multiple metrics.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

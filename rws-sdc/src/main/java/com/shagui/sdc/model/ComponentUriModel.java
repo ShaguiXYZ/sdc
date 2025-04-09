@@ -14,6 +14,13 @@ import com.shagui.sdc.model.pk.ComponentUriPk;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a URI associated with a specific component.
+ * 
+ * Relationships:
+ * - Many-to-One with ComponentModel: Links this URI to a specific component.
+ * - EmbeddedId with ComponentUriPk: Composite primary key for the URI.
+ */
 @Getter
 @Setter
 @Entity

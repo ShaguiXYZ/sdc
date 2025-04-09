@@ -13,22 +13,50 @@ import java.util.stream.Collectors;
 
 import com.shagui.sdc.core.exception.SdcCustomException;
 
+/**
+ * The {@code DictioraryReplacement} class provides utility methods and nested
+ * classes
+ * for performing dictionary-based string replacements. It allows users to
+ * replace
+ * placeholders in strings with corresponding values from a dictionary.
+ *
+ * <p>
+ * The main functionality is provided by the nested {@code Replacement} class,
+ * which supports both strict and non-strict replacement modes. Additionally,
+ * the
+ * {@code DictionaryPattern} class is used internally to generate regex patterns
+ * for matching placeholders in strings.
+ */
 public class DictioraryReplacement {
 	private DictioraryReplacement() {
+		// Prevent instantiation
 	}
 
+	/**
+	 * Creates a new {@code Replacement} instance with the given dictionary.
+	 *
+	 * @param dictionary the dictionary containing key-value pairs for replacements
+	 * @return a {@code Replacement} instance
+	 */
 	public static Replacement getInstance(Map<String, String> dictionary) {
 		return getInstance(dictionary, false);
 	}
 
+	/**
+	 * Creates a new {@code Replacement} instance with the given dictionary and
+	 * strict mode.
+	 *
+	 * @param dictionary the dictionary containing key-value pairs for replacements
+	 * @param strict     whether to enable strict mode (throws an exception if a key
+	 *                   is not found)
+	 * @return a {@code Replacement} instance
+	 */
 	public static Replacement getInstance(Map<String, String> dictionary, boolean strict) {
 		return new Replacement(dictionary, strict);
 	}
 
 	/**
-	 * Extracts a substring from the input string that matches the pattern.
-	 * The pattern looks for a word that is preceded by a '#' character and followed
-	 * by a '{' character.
+	 * Extracts a function name from a string using regex.
 	 *
 	 * @param value the input string to search within
 	 * @return an Optional containing the matched substring if found, otherwise an
@@ -45,6 +73,15 @@ public class DictioraryReplacement {
 		return value(null, key);
 	}
 
+	/**
+	 * Extracts a value from a string based on a key and optional characters.
+	 *
+	 * @param fn    the function name to include in the pattern (optional)
+	 * @param key   the key to search for
+	 * @param chars additional acceptable characters for the pattern
+	 * @return an {@code Optional} containing the matched value, or an empty
+	 *         {@code Optional} if no match is found
+	 */
 	public static Optional<String> value(String fn, String key, Character... chars) {
 		Pattern p = Pattern.compile(DictionaryPattern.pattern(fn, chars));
 		Matcher m = p.matcher(key);

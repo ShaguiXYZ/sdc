@@ -17,12 +17,12 @@ import io.swagger.v3.oas.annotations.Parameter;
 @Headers("Content-Type: application/json;charset=UTF-8")
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface UriRestApi {
-	@Operation(summary = "Retrieves the available uris")
+	@Operation(summary = "Retrieve available URIs", description = "Fetches a list of all available URIs.")
 	@GetMapping("public/uris")
 	List<UriModel> uris();
 
-	@Operation(summary = "Retrieves the available uri for a component and type")
+	@Operation(summary = "Retrieve URI for a component and type", description = "Fetches a specific URI for a given component and type.")
 	@GetMapping("uri/component/{componentId}/type/{type}")
-	UriModel componentUri(@PathVariable(required = true) @Parameter(description = "Component Id") int componentId,
-			@PathVariable(required = true) @Parameter(description = "Uri Type") UriType type);
+	UriModel componentUri(@PathVariable(required = true) @Parameter(description = "Component ID") int componentId,
+			@PathVariable(required = true) @Parameter(description = "URI Type") UriType type);
 }

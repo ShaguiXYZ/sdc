@@ -23,6 +23,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents a department entity that belongs to a company and contains
+ * multiple squads.
+ * 
+ * Departments are organizational units with attributes such as coverage and
+ * trend.
+ * 
+ * Relationships:
+ * - Many-to-One with CompanyModel: Each department belongs to a single company.
+ * - One-to-Many with SquadModel: A department can contain multiple squads.
+ */
 @Getter
 @Setter
 @Entity

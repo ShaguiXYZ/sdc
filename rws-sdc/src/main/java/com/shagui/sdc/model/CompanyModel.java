@@ -15,6 +15,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents a company entity that contains multiple departments.
+ * 
+ * Companies are the top-level organizational units.
+ * 
+ * Relationships:
+ * - One-to-Many with DepartmentModel: A company can contain multiple
+ * departments.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

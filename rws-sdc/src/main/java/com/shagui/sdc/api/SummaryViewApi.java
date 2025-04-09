@@ -13,10 +13,12 @@ import com.shagui.sdc.enums.SummaryType;
 
 import feign.Headers;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Operation;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface SummaryViewApi {
+    @Operation(summary = "Filter summaries", description = "Filters summaries based on name, types, and pagination parameters.")
     @GetMapping("public/summary/filter")
     PageData<SummaryViewDTO> filter(
             @RequestParam(required = false) @Parameter(description = "Summary name") String name,

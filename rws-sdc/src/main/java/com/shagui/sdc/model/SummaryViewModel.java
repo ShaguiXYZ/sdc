@@ -10,6 +10,15 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a summary view entity that provides aggregated data for a specific
+ * entity.
+ * 
+ * This entity is immutable and identified by a composite key.
+ * 
+ * Relationships:
+ * - None explicitly defined, but uses a composite key for identification.
+ */
 @Getter
 @Setter
 @Entity

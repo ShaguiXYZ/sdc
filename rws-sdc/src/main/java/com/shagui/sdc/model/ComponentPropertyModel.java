@@ -15,6 +15,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents a property of a component.
+ * 
+ * Each property is associated with a specific component and has a unique name
+ * within that component.
+ * 
+ * Properties can store additional metadata or configuration for the component.
+ * 
+ * Relationships:
+ * - Many-to-One with ComponentModel: Each property belongs to a single
+ * component.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

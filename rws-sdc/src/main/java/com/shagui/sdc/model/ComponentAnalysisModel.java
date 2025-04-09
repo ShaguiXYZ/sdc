@@ -17,6 +17,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents the analysis data for a component and a metric at a specific
+ * analysis date.
+ * 
+ * Includes attributes such as metric value, expected value, and blocker status.
+ * 
+ * Relationships:
+ * - Many-to-One with ComponentModel: Each analysis entry is linked to a
+ * specific component.
+ * - Many-to-One with MetricModel: Each analysis entry is linked to a specific
+ * metric.
+ * - Many-to-One with ComponentTypeArchitectureModel: Each analysis entry is
+ * linked to a specific component type architecture.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

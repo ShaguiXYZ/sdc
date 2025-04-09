@@ -23,12 +23,12 @@ import io.swagger.v3.oas.annotations.Parameter;
 @Headers("Content-Type: application/json;charset=UTF-8")
 @RequestMapping(path = { "/api" }, produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface AnalysisRestApi {
-	@Operation(summary = "Retrieve last component analysis")
+	@Operation(summary = "Retrieve last component analysis", description = "Fetches the latest analysis for a given component ID.")
 	@GetMapping("public/analysis/get/{componentId}")
 	PageData<MetricAnalysisDTO> analysis(
 			@PathVariable @Parameter(description = "Component identifier") int componentId);
 
-	@Operation(summary = "Retrieve last component analysis metric")
+	@Operation(summary = "Retrieve last component analysis metric", description = "Fetches the latest analysis for a specific metric of a component.")
 	@GetMapping("public/analysis/get/{componentId}/{metricId}")
 	MetricAnalysisDTO analysis(@PathVariable @Parameter(description = "Component identifier") int componentId,
 			@PathVariable @Parameter(description = "Metric identifier") int metricId);

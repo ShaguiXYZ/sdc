@@ -17,6 +17,16 @@ import com.shagui.sdc.enums.MetricValueType;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a metric entity with attributes such as name, value, type, and
+ * validation.
+ * 
+ * Metrics can be associated with component type architectures.
+ * 
+ * Relationships:
+ * - None explicitly defined in this class, but metrics can be linked to
+ * component type architectures.
+ */
 @Getter
 @Setter
 @Entity

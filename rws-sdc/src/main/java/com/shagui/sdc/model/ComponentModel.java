@@ -25,6 +25,22 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a component entity that belongs to a squad and a component type
+ * architecture.
+ * 
+ * Components can have properties, URIs, tags, and historical coverage data.
+ * 
+ * Relationships:
+ * - Many-to-One with SquadModel: Each component belongs to a single squad.
+ * - Many-to-One with ComponentTypeArchitectureModel: Each component is linked
+ * to a specific component type architecture.
+ * - One-to-Many with ComponentPropertyModel: A component can have multiple
+ * properties.
+ * - One-to-Many with ComponentUriModel: A component can have multiple URIs.
+ * - Many-to-Many with TagModel: A component can be associated with multiple
+ * tags.
+ */
 @Getter
 @Setter
 @Entity

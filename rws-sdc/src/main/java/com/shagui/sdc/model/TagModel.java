@@ -20,6 +20,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents a tag entity that can be associated with multiple components.
+ * 
+ * Tags are used to categorize or label components.
+ * 
+ * Relationships:
+ * - Many-to-Many with ComponentModel: Tags can be linked to multiple
+ * components.
+ */
 @NoArgsConstructor
 @Getter
 @Setter

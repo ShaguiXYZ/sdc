@@ -22,6 +22,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents a squad entity that belongs to a department and contains multiple
+ * components.
+ * 
+ * Squads are organizational units with attributes such as coverage and trend.
+ * 
+ * Relationships:
+ * - Many-to-One with DepartmentModel: Each squad belongs to a single
+ * department.
+ * - One-to-Many with ComponentModel: A squad can contain multiple components.
+ */
 @Getter
 @Setter
 @Entity
