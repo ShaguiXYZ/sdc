@@ -10,8 +10,8 @@ application:
       # precision: 5
       trend-deep: 10
       trend-heat: 0.4
-    view:
-      elements-by-page: 6
+    # view:
+    #   elements-by-page: 5
     security:
       enabled: ${rest.security.enabled}
 
@@ -33,6 +33,8 @@ spring:
   sql:
     init:
       mode: embedded
+  jpa:
+    open-in-view: true
 
 springdoc:
   swagger-ui:

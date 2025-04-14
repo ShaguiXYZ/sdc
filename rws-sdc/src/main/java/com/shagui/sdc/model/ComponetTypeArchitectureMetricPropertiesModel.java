@@ -1,5 +1,7 @@
 package com.shagui.sdc.model;
 
+import com.shagui.sdc.util.jpa.ModelInterface;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

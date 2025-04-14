@@ -16,6 +16,6 @@ public class SummaryViewPk implements Serializable {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "element_type")
+    @Column(name = "element_type", nullable = false)
     private SummaryType type;
 }

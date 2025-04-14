@@ -3,6 +3,7 @@ package com.shagui.sdc.model;
 import java.util.Date;
 
 import com.shagui.sdc.model.pk.ComponentAnalysisPk;
+import com.shagui.sdc.util.jpa.ModelInterface;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -18,18 +19,73 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Represents the analysis data for a component and a metric at a specific
- * analysis date.
+ * Represents the analysis of a component with respect to a specific metric.
+ * This entity is mapped to the "component_analysis" table in the database.
+ * It contains information about the component, the metric being analyzed,
+ * the analysis value, and other related metadata.
  * 
- * Includes attributes such as metric value, expected value, and blocker status.
+ * <p>
+ * This class uses JPA annotations for ORM mapping and Lombok annotations
+ * for generating boilerplate code such as getters, setters, and constructors.
+ * </p>
  * 
+ * <p>
+ * The primary key for this entity is a composite key represented by
+ * {@link ComponentAnalysisPk}, which includes the component ID, metric ID,
+ * and analysis date.
+ * </p>
+ * 
+ * <p>
+ * Transient fields are used for additional computed or temporary values
+ * that are not persisted in the database.
+ * </p>
+ * 
+ * <p>
  * Relationships:
- * - Many-to-One with ComponentModel: Each analysis entry is linked to a
- * specific component.
- * - Many-to-One with MetricModel: Each analysis entry is linked to a specific
- * metric.
- * - Many-to-One with ComponentTypeArchitectureModel: Each analysis entry is
- * linked to a specific component type architecture.
+ * <ul>
+ * <li>{@link ComponentTypeArchitectureModel}: Represents the architecture type
+ * of the component.</li>
+ * <li>{@link ComponentModel}: Represents the component being analyzed.</li>
+ * <li>{@link MetricModel}: Represents the metric being analyzed.</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * Constructors:
+ * <ul>
+ * <li>A no-argument constructor is provided by Lombok's
+ * {@code @NoArgsConstructor} annotation.</li>
+ * <li>A parameterized constructor is available for initializing the model with
+ * a component, metric, and value.</li>
+ * <li>An extended constructor allows initialization with additional details
+ * such as analysis date and blocker status.</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <ul>
+ * <li>{@code id}: Composite primary key for the entity.</li>
+ * <li>{@code metricValue}: The value of the metric for the component.</li>
+ * <li>{@code blocker}: Indicates whether the analysis result is a blocker.</li>
+ * <li>{@code componentTypeArchitecture}: The architecture type of the
+ * component.</li>
+ * <li>{@code component}: The component being analyzed.</li>
+ * <li>{@code metric}: The metric being analyzed.</li>
+ * <li>{@code expectedValue}, {@code goodValue}, {@code perfectValue}: Transient
+ * fields for additional analysis values.</li>
+ * <li>{@code weight}: Transient field representing the weight of the
+ * metric.</li>
+ * <li>{@code coverage}: Transient field representing the coverage value.</li>
+ * </ul>
+ * </p>
+ * 
+ * @author Shagui
+ * @version 1.0
+ * @see ComponentAnalysisPk
+ * @see ComponentTypeArchitectureModel
+ * @see ComponentModel
+ * @see MetricModel
  */
 @Getter
 @Setter
@@ -40,23 +96,24 @@ public class ComponentAnalysisModel implements ModelInterface<ComponentAnalysisP
 	@EmbeddedId
 	private ComponentAnalysisPk id;
 
-	@Column(name = "value")
+	@Column(name = "value", nullable = true, length = 255)
 	private String metricValue;
 
+	@Column(nullable = false)
 	private boolean blocker;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "component_type_architecture_id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "component_type_architecture_id", nullable = false)
 	private ComponentTypeArchitectureModel componentTypeArchitecture;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@MapsId("componentId")
-	@JoinColumn(name = "component_id")
+	@JoinColumn(name = "component_id", nullable = false)
 	private ComponentModel component;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@MapsId("metricId")
-	@JoinColumn(name = "metric_id")
+	@JoinColumn(name = "metric_id", nullable = false)
 	private MetricModel metric;
 
 	@Transient

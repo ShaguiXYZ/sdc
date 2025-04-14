@@ -1,4 +1,4 @@
-package com.shagui.sdc.model;
+package com.shagui.sdc.util.jpa;
 
 /**
  * A generic interface for all model entities, providing methods to get and set

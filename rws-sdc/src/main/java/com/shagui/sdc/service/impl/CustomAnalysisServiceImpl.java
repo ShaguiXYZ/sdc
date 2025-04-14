@@ -17,11 +17,11 @@ import com.shagui.sdc.util.Ctes;
 import com.shagui.sdc.util.DictioraryReplacement;
 import com.shagui.sdc.util.analysis.CustomAnalysisFunctions;
 
-@Service(Ctes.AnalysisServicesTypes.CUSTOM)
+@Service(Ctes.AnalysisServicesTypes.REMOTE)
 public class CustomAnalysisServiceImpl implements AnalysisInterface {
     @Override
     public List<MetricModel> metrics(ComponentModel component) {
-        return ComponentUtils.metricsByType(component, AnalysisType.CUSTOM);
+        return ComponentUtils.metricsByType(component, AnalysisType.REMOTE);
     }
 
     @Override
