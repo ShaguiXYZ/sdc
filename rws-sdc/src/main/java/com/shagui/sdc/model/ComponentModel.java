@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.shagui.sdc.util.jpa.JpaExpirableData;
+import com.shagui.sdc.util.jpa.ModelInterface;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,20 +27,85 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents a component entity that belongs to a squad and a component type
- * architecture.
+ * Represents a component entity in the system.
+ * This entity is mapped to the "components" table in the database and includes
+ * various attributes and relationships to other entities.
  * 
- * Components can have properties, URIs, tags, and historical coverage data.
+ * <p>
+ * The table has a unique constraint on the combination of "squad_id" and
+ * "name".
+ * </p>
  * 
- * Relationships:
- * - Many-to-One with SquadModel: Each component belongs to a single squad.
- * - Many-to-One with ComponentTypeArchitectureModel: Each component is linked
- * to a specific component type architecture.
- * - One-to-Many with ComponentPropertyModel: A component can have multiple
- * properties.
- * - One-to-Many with ComponentUriModel: A component can have multiple URIs.
- * - Many-to-Many with TagModel: A component can be associated with multiple
+ * <p>
+ * This class includes fields for component metadata, relationships to other
+ * entities, and additional attributes such as expiry date, analysis date, and
  * tags.
+ * </p>
+ * 
+ * <p>
+ * Relationships:
+ * <ul>
+ * <li>Many-to-One with {@link ComponentTypeArchitectureModel}</li>
+ * <li>Many-to-One with {@link SquadModel}</li>
+ * <li>One-to-Many with {@link ComponentPropertyModel}</li>
+ * <li>One-to-Many with {@link ComponentUriModel}</li>
+ * <li>One-to-Many with {@link ComponentHistoricalCoverageModel}</li>
+ * <li>Many-to-Many with {@link TagModel}</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <ul>
+ * <li><b>id</b>: Primary key, auto-generated.</li>
+ * <li><b>name</b>: Name of the component, cannot be null.</li>
+ * <li><b>coverage</b>: Coverage percentage of the component.</li>
+ * <li><b>trend</b>: Trend value associated with the component.</li>
+ * <li><b>blocked</b>: Indicates whether the component is blocked.</li>
+ * <li><b>expiryDate</b>: Expiry date of the component, stored as a timestamp
+ * with time zone.</li>
+ * <li><b>deleteUser</b>: User who marked the component for deletion, limited to
+ * 50 characters.</li>
+ * <li><b>analysisDate</b>: Date of the last analysis, stored as a timestamp
+ * with time zone.</li>
+ * <li><b>componentTypeArchitecture</b>: Reference to the component's type and
+ * architecture.</li>
+ * <li><b>squad</b>: Reference to the squad associated with the component.</li>
+ * <li><b>properties</b>: List of properties associated with the component.</li>
+ * <li><b>uris</b>: List of URIs associated with the component.</li>
+ * <li><b>historicalCoverage</b>: Historical coverage data for the
+ * component.</li>
+ * <li><b>tags</b>: List of tags associated with the component.</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * Annotations:
+ * <ul>
+ * <li>{@code @Getter} and {@code @Setter}: Automatically generate getter and
+ * setter methods.</li>
+ * <li>{@code @Entity}: Marks this class as a JPA entity.</li>
+ * <li>{@code @Table}: Specifies the table name and unique constraints.</li>
+ * <li>{@code @Id}: Marks the primary key field.</li>
+ * <li>{@code @GeneratedValue}: Specifies the generation strategy for the
+ * primary key.</li>
+ * <li>{@code @Column}: Configures column properties such as nullability and
+ * length.</li>
+ * <li>{@code @Temporal}: Specifies the temporal type for date fields.</li>
+ * <li>{@code @ManyToOne}, {@code @OneToMany}, {@code @ManyToMany}: Define
+ * relationships with other entities.</li>
+ * <li>{@code @JoinColumn} and {@code @JoinTable}: Configure join columns and
+ * tables for relationships.</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * Implements:
+ * <ul>
+ * <li>{@link ModelInterface} with Integer as the ID type.</li>
+ * <li>{@link JpaExpirableData} for handling expiry-related data.</li>
+ * </ul>
+ * </p>
  */
 @Getter
 @Setter
@@ -59,7 +125,7 @@ public class ComponentModel implements ModelInterface<Integer>, JpaExpirableData
 
 	private boolean blocked;
 
-	@Column(name = "delete_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "expiry_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date expiryDate;
 

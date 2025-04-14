@@ -8,7 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ViewConfig {
-    private int elementsByPage;
+
+    private Integer elementsByPage;
 
     public ViewConfig() {
         this.elementsByPage = Ctes.JPA.ELEMENTS_BY_PAGE;

@@ -1,6 +1,7 @@
 package com.shagui.sdc.model;
 
 import com.shagui.sdc.model.pk.ComponentTagPk;
+import com.shagui.sdc.util.jpa.ModelInterface;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;

@@ -18,6 +18,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 import com.shagui.sdc.util.jpa.JpaExpirableData;
+import com.shagui.sdc.util.jpa.ModelInterface;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,9 +37,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "departments")
-@NoArgsConstructor
 public class DepartmentModel implements ModelInterface<Integer>, JpaExpirableData {
 	@Id
 	private Integer id;

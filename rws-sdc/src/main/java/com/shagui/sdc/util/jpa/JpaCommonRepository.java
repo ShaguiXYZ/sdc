@@ -12,7 +12,6 @@ import org.springframework.lang.NonNull;
 
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
-import com.shagui.sdc.model.ModelInterface;
 import com.shagui.sdc.util.LockHolder;
 
 /**

@@ -2,6 +2,8 @@ package com.shagui.sdc.model;
 
 import java.util.List;
 
+import com.shagui.sdc.util.jpa.ModelInterface;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

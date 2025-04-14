@@ -255,4 +255,23 @@
 			);
 		</sql>
 	</changeSet>
+	<changeSet author="initial" id="20250413_00026">
+		<sql dbms="postgresql">
+			CREATE TABLE public.remote_metrics_config (
+				metric_id int4 NOT NULL,
+				uri varchar NOT NULL,
+				properties json NULL,
+				enabled boolean NOT NULL DEFAULT true,
+				created_at timestamp NOT NULL DEFAULT now(),
+				updated_at timestamp NOT NULL DEFAULT now(),
+				CONSTRAINT remote_metrics_config_pk PRIMARY KEY (metric_id),
+				CONSTRAINT remote_metrics_config_metrics_fk FOREIGN KEY (metric_id) REFERENCES public.metrics(id)
+			);
+		</sql>
+	</changeSet>
+	<changeSet author="initial" id="20250414_00027">
+		<sql dbms="postgresql">
+			ALTER TABLE component_historical_coverages RENAME COLUMN historical_coverage_vaue TO historical_coverage_value;
+		</sql>
+	</changeSet>
 </databaseChangeLog>

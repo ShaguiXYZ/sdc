@@ -1,6 +1,6 @@
 package com.shagui.sdc.test.utils;
 
-import com.shagui.sdc.model.ModelInterface;
+import com.shagui.sdc.util.jpa.ModelInterface;
 
 public class ModelMock implements ModelInterface<Integer> {
 	private Integer id;

@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 
 import com.shagui.sdc.api.domain.RequestPageInfo;
 import com.shagui.sdc.core.exception.JpaNotFoundException;
-import com.shagui.sdc.model.ModelInterface;
 
 /**
  * Common read-only repository interface for JPA entities.
