@@ -92,17 +92,21 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "port": 4205,
-            "buildTarget": "ngx-sdc:build"
+            "buildTarget": "ngx-sdc:build",
+            "hmr": false
           },
           "configurations": {
             "local": {
-              "buildTarget": "ngx-sdc:build:local"
+              "buildTarget": "ngx-sdc:build:local",
+              "hmr": false
             },
             "production": {
-              "buildTarget": "ngx-sdc:build:production"
+              "buildTarget": "ngx-sdc:build:production",
+              "hmr": false
             },
             "development": {
-              "buildTarget": "ngx-sdc:build:development"
+              "buildTarget": "ngx-sdc:build:development",
+              "hmr": false
             }
           },
           "defaultConfiguration": "development"
