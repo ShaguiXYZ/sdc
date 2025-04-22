@@ -32,9 +32,4 @@ public class DepartmentDataController implements DepartmentDataRestApi {
 	public List<DepartmentDTO> jsonDepartments() {
 		return dataMaintenanceService.jsonUpdateDepartments();
 	}
-
-	@Override
-	public List<DepartmentDTO> jsonDepartments(String path) {
-		return dataMaintenanceService.jsonUpdateDepartments(path);
-	}
 }

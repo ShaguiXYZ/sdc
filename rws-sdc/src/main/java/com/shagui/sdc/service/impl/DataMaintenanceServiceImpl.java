@@ -107,7 +107,14 @@ public class DataMaintenanceServiceImpl implements DataMaintenanceService {
 	@Transactional
 	@Override
 	public List<DepartmentDTO> jsonUpdateDepartments(String path) {
-		Resource resource = resourceLoader.getResource("classpath:" + path);
+		// GOOD: ensure that the filename has no path separators or parent directory
+		// references
+		if (path.contains("..") || path.contains("/") || path.contains("\\")) {
+			throw new IllegalArgumentException("Invalid filename");
+		}
+
+		// @howto load app resource from file name
+		Resource resource = resourceLoader.getResource("classpath:data/" + path);
 
 		try (InputStream is = resource.getInputStream()) {
 			DepartmentInput[] input = mapper.readValue(is, DepartmentInput[].class);
