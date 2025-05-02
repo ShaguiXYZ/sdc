@@ -1,6 +1,16 @@
 {
   "properties": [
     {
+      "name": "application.info.app.copyright",
+      "type": "java.lang.String",
+      "description": "A description for 'application.info.app.copyright'"
+    },
+    {
+      "name": "application.info.app.description",
+      "type": "java.lang.String",
+      "description": "A description for 'application.info.app.description'"
+    },
+    {
       "name": "application.info.app.name",
       "type": "java.lang.String",
       "description": "A description for 'application.info.app.name'"
@@ -11,29 +21,9 @@
       "description": "A description for 'application.info.app.version'"
     },
     {
-      "name": "application.info.app.description",
+      "name": "rest.security.api-matcher",
       "type": "java.lang.String",
-      "description": "A description for 'application.info.app.description'"
-    },
-    {
-      "name": "services.sonar.uri",
-      "type": "java.lang.String",
-      "description": "A description for 'services.sonar.uri'"
-    },
-    {
-      "name": "services.git.uri",
-      "type": "java.lang.String",
-      "description": "A description for 'services.git.uri'"
-    },
-    {
-      "name": "services.xml.default-xml-path",
-      "type": "java.lang.String",
-      "description": "A description for 'services.xml.default-xml-path'"
-    },
-    {
-      "name": "services.no-uri",
-      "type": "java.lang.String",
-      "description": "A description for 'services.no-uri'"
+      "description": "A description for 'rest.security.api-matcher'"
     },
     {
       "name": "rest.security.enabled",
@@ -46,9 +36,24 @@
       "description": "A description for 'rest.security.issuer-uri'"
     },
     {
-      "name": "application.info.app.copyright",
+      "name": "services.git.uri",
       "type": "java.lang.String",
-      "description": "A description for 'application.info.app.copyright'"
+      "description": "A description for 'services.git.uri'"
+    },
+    {
+      "name": "services.no-uri",
+      "type": "java.lang.String",
+      "description": "A description for 'services.no-uri'"
+    },
+    {
+      "name": "services.sonar.uri",
+      "type": "java.lang.String",
+      "description": "A description for 'services.sonar.uri'"
+    },
+    {
+      "name": "services.xml.default-xml-path",
+      "type": "java.lang.String",
+      "description": "A description for 'services.xml.default-xml-path'"
     }
   ]
 }

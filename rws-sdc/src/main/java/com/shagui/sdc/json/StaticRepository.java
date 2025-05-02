@@ -11,14 +11,13 @@ import com.shagui.sdc.json.model.DataLists;
 import com.shagui.sdc.json.model.UriModel;
 
 public class StaticRepository {
-
-	private StaticRepository() {
-	}
-
 	private static StaticRepositoryConfig config;
 
 	protected static void setConfig(StaticRepositoryConfig config) {
 		StaticRepository.config = config;
+	}
+
+	private StaticRepository() {
 	}
 
 	public static Map<String, UriModel> uris() {
