@@ -15,7 +15,7 @@ import packageInfo from 'package.json';
   providedIn: 'root'
 })
 export class SecurityService {
-  private _urlSecurity = `${environment.securityUrl}/api`;
+  private _urlSecurity = `${environment.securityUrl}/api/security`;
   private _SignInSignOut$: Subject<ISecurityModel | undefined> = new Subject();
 
   constructor(

@@ -14,7 +14,7 @@ import com.shagui.sdc.api.view.security.UserView;
 import feign.Headers;
 
 @Headers("Content-Type: application/json;charset=UTF-8")
-@RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = "/api/security", produces = { MediaType.APPLICATION_JSON_VALUE })
 public interface SecurityRestApi {
 	@PostMapping("login")
 	SessionView login(@RequestBody LoginViewModel login);

@@ -38,15 +38,15 @@ public class SecurityRestController implements SecurityRestApi {
 	}
 
 	@Override
+	public SessionView logout() {
+		return CastFactory.getInstance(SessionView.class).parse(securityClient.logout());
+	}
+
+	@Override
 	public UserView authUser() {
 		UserDTO user = securityClient.authUser();
 		UserDTO toReturnDto = securityClient.findUser(user.getUserName()).withAuthorities(user.getAuthorities());
 
 		return CastFactory.getInstance(UserView.class).parse(toReturnDto);
-	}
-
-	@Override
-	public SessionView logout() {
-		return CastFactory.getInstance(SessionView.class).parse(securityClient.logout());
 	}
 }

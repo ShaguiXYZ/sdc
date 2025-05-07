@@ -23,28 +23,38 @@ import reactor.core.publisher.Sinks;
 @Service
 public class SseServiceImpl implements SseService {
     private final Sinks.Many<EventFactory.EventDTO> sink;
-    private final Flux<Long> keepAliveFlux;
+    private final Flux<EventFactory.EventDTO> keepAliveFlux;
 
     public SseServiceImpl() {
         this.sink = Sinks.many().multicast().onBackpressureBuffer();
-        this.keepAliveFlux = Flux.interval(Duration.ofSeconds(30)); // Send keep alive every 30 seconds
-        // prevent memory leak
-        this.sink.asFlux().onBackpressureBuffer().subscribe();
+        this.keepAliveFlux = Flux.interval(Duration.ofSeconds(30))
+                .map(i -> createKeepAliveEvent());
     }
 
     @Override
     public Flux<EventFactory.EventDTO> asFlux() {
-        return Flux.merge(sink.asFlux(), keepAliveFlux.map(i -> EventFactory.event("", EventType.KEEP_ALIVE, "")));
+        // Combina eventos emitidos con eventos de "mantener vivo"
+        return Flux.merge(sink.asFlux(), keepAliveFlux);
     }
 
     @Override
     public void emitError(EventFactory.EventDTO event) {
-        if (event != null && EventType.ERROR.equals(event.getType())) {
-            if (StringUtils.hasText(event.getWorkflowId())) {
-                this.sink.tryEmitNext(event);
-            }
-
-            log.error("SSE: {}", event.getMessage());
+        if (event == null) {
+            log.warn("SSE: Intento de emitir un evento nulo.");
+            return;
         }
+
+        if (EventType.ERROR.equals(event.getType()) && StringUtils.hasText(event.getWorkflowId())) {
+            this.sink.tryEmitNext(event);
+            log.error("SSE Error emitido: WorkflowId={}, Mensaje={}", event.getWorkflowId(), event.getMessage());
+        } else {
+            log.warn("SSE: Evento no válido para emitir como error. Tipo={}, WorkflowId={}",
+                    event.getType(), event.getWorkflowId());
+        }
+    }
+
+    private EventFactory.EventDTO createKeepAliveEvent() {
+        // Crea un evento de tipo KEEP_ALIVE
+        return EventFactory.event("", EventType.KEEP_ALIVE, "");
     }
 }

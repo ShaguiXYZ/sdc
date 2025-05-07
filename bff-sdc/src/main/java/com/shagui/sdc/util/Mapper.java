@@ -1,7 +1,9 @@
 package com.shagui.sdc.util;
 
 import java.util.List;
+import java.util.Objects;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 
 import com.shagui.sdc.api.domain.CastFactory;
@@ -90,4 +92,49 @@ public class Mapper {
 
 		return target;
 	}
+
+	public static <S, T> void copyProperties(S source, T target) {
+		copyProperties(source, target, null);
+	}
+
+	/**
+	 * @howto Copies properties from a source object to a target object.
+	 *        If the `ignoreNull` parameter is set to `true`, properties with null
+	 *        values in the source object
+	 *        will not be copied to the target object.
+	 *
+	 * @param <S>        The type of the source object.
+	 * @param <T>        The type of the target object.
+	 * @param source     The source object from which properties are copied.
+	 * @param target     The target object to which properties are copied.
+	 * @param ignoreNull A Boolean flag indicating whether to ignore null properties
+	 *                   in the source object.
+	 *                   If `true`, null properties in the source object will not be
+	 *                   copied to the target object.
+	 *                   If `false` or `null`, all properties will be copied.
+	 */
+	public static <S, T> void copyProperties(S source, T target, Boolean ignoreNull) {
+		if (ignoreNull == null || !ignoreNull) {
+			BeanUtils.copyProperties(source, target);
+			return;
+		}
+
+		// Get all properties of the source object that are null
+		// and store their names in an array
+		// This is done using Java reflection to get the property descriptors of the
+		String[] nullPropertiesValues = List.of(BeanUtils.getPropertyDescriptors(source.getClass()))
+				.stream()
+				.map(pd -> {
+					try {
+						return pd.getReadMethod().invoke(source) == null ? pd.getName() : null;
+					} catch (Exception e) {
+						return null;
+					}
+				})
+				.filter(Objects::nonNull)
+				.toArray(String[]::new);
+
+		BeanUtils.copyProperties(source, target, nullPropertiesValues);
+	}
+
 }

@@ -23,7 +23,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// Enable CORS and disable CSRF
-		http = http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+		http = http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(csrf -> csrf.disable());
 		http.headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));
 
 		// Set permissions on endpoints

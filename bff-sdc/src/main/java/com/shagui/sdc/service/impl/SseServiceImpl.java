@@ -22,7 +22,7 @@ import reactor.core.publisher.Sinks;
 @Service
 public class SseServiceImpl implements SseService {
     private final Sinks.Many<EventDTO> sink;
-    private final Flux<Long> keepAliveFlux;
+    private final Flux<EventDTO> keepAliveFlux;
 
     /**
      * Initializes the SSE service with a multicast sink for event publishing
@@ -30,9 +30,8 @@ public class SseServiceImpl implements SseService {
      */
     public SseServiceImpl() {
         this.sink = Sinks.many().multicast().onBackpressureBuffer();
-        this.keepAliveFlux = Flux.interval(Duration.ofSeconds(30)); // Send keep alive every 30 seconds
-        // prevent memory leak
-        this.sink.asFlux().onBackpressureBuffer().subscribe();
+        this.keepAliveFlux = Flux.interval(Duration.ofSeconds(30))
+                .map(i -> createKeepAliveEvent());
     }
 
     /**
@@ -45,7 +44,7 @@ public class SseServiceImpl implements SseService {
      */
     @Override
     public Flux<EventDTO> asFlux() {
-        return Flux.merge(sink.asFlux(), keepAliveFlux.map(i -> EventDTO.of("", EventType.KEEP_ALIVE, "")));
+        return Flux.merge(sink.asFlux(), keepAliveFlux);
     }
 
     /**
@@ -56,8 +55,20 @@ public class SseServiceImpl implements SseService {
      */
     @Override
     public void emit(EventDTO event) {
-        if (event != null) {
-            this.sink.tryEmitNext(event);
+        if (event == null) {
+            // Log a warning if the event is null
+            System.out.println("Warning: Attempted to emit a null event.");
+            return;
         }
+        this.sink.tryEmitNext(event);
+    }
+
+    /**
+     * Creates a keep-alive event to maintain the SSE connection.
+     *
+     * @return a {@link EventDTO} of type KEEP_ALIVE
+     */
+    private EventDTO createKeepAliveEvent() {
+        return EventDTO.of("", EventType.KEEP_ALIVE, "");
     }
 }
