@@ -1,7 +1,9 @@
 package com.shagui.sdc.util;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -93,8 +95,18 @@ public class Mapper {
 		return target;
 	}
 
-	public static <S, T> void copyProperties(S source, T target) {
-		copyProperties(source, target, null);
+	/**
+	 * Copies non-null properties from the source object to the target object.
+	 * This method is useful for partially updating an object with values from
+	 * another object.
+	 *
+	 * @param <S>    The type of the source object.
+	 * @param <T>    The type of the target object.
+	 * @param source The source object containing the properties to copy.
+	 * @param target The target object to which the properties will be copied.
+	 */
+	public static <S, T> void parse(S source, T target) {
+		parse(source, target, false);
 	}
 
 	/**
@@ -113,8 +125,8 @@ public class Mapper {
 	 *                   copied to the target object.
 	 *                   If `false` or `null`, all properties will be copied.
 	 */
-	public static <S, T> void copyProperties(S source, T target, Boolean ignoreNull) {
-		if (ignoreNull == null || !ignoreNull) {
+	public static <S, T> void parse(S source, T target, boolean ignoreNull) {
+		if (!ignoreNull) {
 			BeanUtils.copyProperties(source, target);
 			return;
 		}
@@ -137,4 +149,38 @@ public class Mapper {
 		BeanUtils.copyProperties(source, target, propertiesWithNullValues);
 	}
 
+	/**
+	 * Patches properties of the target object with values from the source map.
+	 * 
+	 * @param <T>              The type of the target object.
+	 * @param target           The target object to be patched.
+	 * @param propertyValues   A map containing property names and their new values.
+	 * @param ignoreProperties An optional list of property names to ignore during
+	 *                         patching.
+	 */
+	public static <T> void parse(T target, Map<String, Object> propertyValues, String... ignoreProperties) {
+		if (propertyValues == null || propertyValues.isEmpty()) {
+			return;
+		}
+
+		// Convert ignoreProperties to a Set for faster lookup
+		var ignoredProperties = ignoreProperties != null ? Set.of(ignoreProperties) : Set.of();
+
+		propertyValues.forEach((propertyName, propertyValue) -> {
+			if (ignoredProperties.contains(propertyName)) {
+				return;
+			}
+
+			try {
+				// Use reflection to set the property value on the target object
+				var propertyDescriptor = BeanUtils.getPropertyDescriptor(target.getClass(), propertyName);
+
+				if (propertyDescriptor != null && propertyDescriptor.getWriteMethod() != null) {
+					propertyDescriptor.getWriteMethod().invoke(target, propertyValue);
+				}
+			} catch (Exception e) {
+				throw new RuntimeException("Failed to set property: " + propertyName, e);
+			}
+		});
+	}
 }
