@@ -43,12 +43,12 @@ export class SdcSseEventService implements OnDestroy {
 
   private eventObserver = (): Subscription =>
     this.sseService.onEvent().subscribe(event => {
-      const contextData = this.contextDataService.get<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA);
+      const overlayContextData = this.contextDataService.get<SdcOverlayContextData>(ContextDataInfo.OVERLAY_DATA);
 
-      contextData.events = [...contextData.events, event];
-      this.contextDataService.set(ContextDataInfo.OVERLAY_DATA, contextData);
+      overlayContextData.events = [...overlayContextData.events, event];
+      this.contextDataService.set(ContextDataInfo.OVERLAY_DATA, overlayContextData);
 
-      this.data$.next(contextData.events);
+      this.data$.next(overlayContextData.events);
     });
 
   private contextDataObserver = (): Subscription =>

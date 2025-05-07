@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CONTEXT_WORKFLOW_ID } from '../security';
-import { SseEventDTO, SseEventModel } from './models';
+import { SseEventModel } from './models';
 
 /**
  * (SSE - is a technology where a browser receives automatic updates from a
@@ -12,24 +12,34 @@ import { SseEventDTO, SseEventModel } from './models';
  */
 @Injectable({ providedIn: 'root' })
 export class SseService {
-  private _urlEvents = `${environment.baseUrl}/api`;
+  private readonly _urlEvents = `${environment.baseUrl}/api`;
+  private _eventSource?: EventSource;
 
   constructor(private readonly _zone: NgZone) {}
 
   onEvent(): Observable<SseEventModel> {
-    return new Observable<SseEventDTO>(observer => {
-      const eventSource = this.getEventSource();
+    return new Observable<SseEventModel>(observer => {
+      this._eventSource = this.createEventSource();
 
-      eventSource.onmessage = event => this._zone.run(() => observer.next(SseEventModel.fromDTO(JSON.parse(event.data))));
-      eventSource.onerror = error => this._zone.run(() => observer.error(error));
+      this._eventSource.onmessage = event => this._zone.run(() => observer.next(SseEventModel.fromDTO(JSON.parse(event.data))));
+      this._eventSource.onerror = error =>
+        this._zone.run(() => {
+          observer.error(error);
+          this.close(); // Ensure the connection is closed on error
+        });
     });
   }
 
   public close(): void {
-    this.getEventSource().close();
+    if (this._eventSource) {
+      this._eventSource.close();
+      this._eventSource = undefined;
+    }
   }
 
-  private getEventSource(): EventSource {
+  private createEventSource(): EventSource {
+    console.log(`SSE: ${this._urlEvents}/events/${CONTEXT_WORKFLOW_ID}`);
+
     return new EventSource(`${this._urlEvents}/events/${CONTEXT_WORKFLOW_ID}`);
   }
 }

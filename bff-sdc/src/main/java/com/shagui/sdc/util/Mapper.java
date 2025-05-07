@@ -122,7 +122,7 @@ public class Mapper {
 		// Get all properties of the source object that are null
 		// and store their names in an array
 		// This is done using Java reflection to get the property descriptors of the
-		String[] nullPropertiesValues = List.of(BeanUtils.getPropertyDescriptors(source.getClass()))
+		String[] propertiesWithNullValues = List.of(BeanUtils.getPropertyDescriptors(source.getClass()))
 				.stream()
 				.map(pd -> {
 					try {
@@ -134,7 +134,7 @@ public class Mapper {
 				.filter(Objects::nonNull)
 				.toArray(String[]::new);
 
-		BeanUtils.copyProperties(source, target, nullPropertiesValues);
+		BeanUtils.copyProperties(source, target, propertiesWithNullValues);
 	}
 
 }
