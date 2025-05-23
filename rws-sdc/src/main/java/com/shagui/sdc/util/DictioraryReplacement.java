@@ -15,9 +15,8 @@ import com.shagui.sdc.core.exception.SdcCustomException;
 
 /**
  * The {@code DictioraryReplacement} class provides utility methods and nested
- * classes
- * for performing dictionary-based string replacements. It allows users to
- * replace
+ * classes for performing dictionary-based string replacements. It allows users
+ * to replace
  * placeholders in strings with corresponding values from a dictionary.
  *
  * <p>
@@ -63,6 +62,16 @@ public class DictioraryReplacement {
 	 *         empty Optional
 	 */
 	public static Optional<String> fn(String value) {
+		/**
+		 * @howto: (?<=\\#)([\\w]*)(?=\\{):
+		 *         This regular expression matches a sequence of word characters
+		 *         ([\\w]*) that is preceded by a '#' character (using a positive
+		 *         lookbehind: (?<=\\#)) and followed by a '{' character (using a
+		 *         positive lookahead: (?=\\{)).
+		 * 
+		 *         It is used to extract function names or keys that appear in the
+		 *         format #functionName{.
+		 */
 		Pattern p = Pattern.compile("(?<=\\#)([\\w]*)(?=\\{)");
 		Matcher m = p.matcher(value);
 
