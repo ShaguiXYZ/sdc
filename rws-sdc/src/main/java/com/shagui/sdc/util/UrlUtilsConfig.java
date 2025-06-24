@@ -1,6 +1,7 @@
 package com.shagui.sdc.util;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.pattern.PathPatternParser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,6 +14,9 @@ import lombok.Getter;
 public class UrlUtilsConfig {
 	@Getter
 	private final ObjectMapper objectMapper;
+
+	@Getter
+	private final PathPatternParser pathPatternParser;
 
 	@PostConstruct
 	public void init() {

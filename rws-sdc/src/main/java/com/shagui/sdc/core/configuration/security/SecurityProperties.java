@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
 
 import com.shagui.sdc.api.client.SecurityClient;
 import com.shagui.sdc.api.dto.security.UserDTO;
+import com.shagui.sdc.util.UrlUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
@@ -79,14 +79,13 @@ public class SecurityProperties {
 			this.status = HttpStatus.UNAUTHORIZED;
 			return false;
 		}
-
 		List<String> allowedRoles = rolesByApi.entrySet().stream()
-				.filter(entry -> AntPathRequestMatcher.antMatcher(entry.getKey()).matches(request))
+				.filter(entry -> UrlUtils.matchesPath(request).test(entry.getKey()))
 				.flatMap(entry -> entry.getValue().stream()).toList();
 
 		if (CollectionUtils.isEmpty(allowedRoles)) {
 			this.status = HttpStatus.UNAUTHORIZED;
-			return noRoleApis.stream().anyMatch(exp -> AntPathRequestMatcher.antMatcher(exp).matches(request));
+			return noRoleApis.stream().anyMatch(UrlUtils.matchesPath(request));
 		} else {
 			this.status = HttpStatus.LOCKED;
 			return user.get().getAuthorities().stream()
@@ -95,7 +94,7 @@ public class SecurityProperties {
 	}
 
 	private boolean isPublicRequest(HttpServletRequest request) {
-		return publicApis.stream().anyMatch(exp -> AntPathRequestMatcher.antMatcher(exp).matches(request));
+		return publicApis.stream().anyMatch(UrlUtils.matchesPath(request));
 	}
 
 	@Getter()

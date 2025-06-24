@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 import org.mockito.Mock;
+import org.springframework.web.util.pattern.PathPatternParser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shagui.sdc.api.domain.RequestPageInfo;
@@ -124,7 +125,7 @@ public class RwsTestUtils {
 	}
 
 	public static UrlUtilsConfig urlUtilsConfig() {
-		return new UrlUtilsConfig(new ObjectMapper());
+		return new UrlUtilsConfig(new ObjectMapper(), new PathPatternParser());
 	}
 
 	public static MapperConfig mapperConfig() {

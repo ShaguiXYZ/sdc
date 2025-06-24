@@ -8,9 +8,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.server.PathContainer;
+import org.springframework.web.util.pattern.PathPattern;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.shagui.sdc.core.exception.SdcCustomException;
@@ -22,6 +25,7 @@ import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.util.DictioraryReplacement.Replacement;
 
 import feign.Response;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * The {@code UrlUtils} class provides utility methods for handling URLs, HTTP
@@ -173,6 +177,43 @@ public class UrlUtils {
 		Optional<String> authorization = UrlUtils.uriProperty(uriModel, Ctes.UriProperties.AUTHORIZATION);
 
 		return authorization.map(data -> DictioraryReplacement.getInstance(ComponentUtils.tokens()).replace(data, ""));
+	}
+
+	public static Predicate<String> matchesPath(HttpServletRequest request) {
+		final String requestPath = getRequestPath(request);
+
+		return pattern -> {
+			try {
+				String normalizedPattern = pattern.startsWith("/") ? pattern : "/" + pattern;
+				PathPattern pathPattern = config.getPathPatternParser().parse(normalizedPattern);
+				PathContainer pathContainer = PathContainer.parsePath(requestPath);
+
+				if (pathPattern.matches(pathContainer)) {
+					return true;
+				}
+
+				// Try original pattern only if different
+				return !pattern.equals(normalizedPattern)
+						&& config.getPathPatternParser().parse(pattern).matches(pathContainer);
+			} catch (Exception e) {
+				return false;
+			}
+		};
+	}
+
+	/**
+	 * Extracts the request path, removing the context path and ensuring a leading
+	 * '/'.
+	 */
+	private static String getRequestPath(HttpServletRequest request) {
+		String path = request.getRequestURI();
+		String contextPath = request.getContextPath();
+
+		if (contextPath != null && !contextPath.isEmpty() && path.startsWith(contextPath)) {
+			path = path.substring(contextPath.length());
+		}
+
+		return path.startsWith("/") ? path : "/" + path;
 	}
 
 	/**
