@@ -2,6 +2,7 @@ package com.shagui.sdc.util.documents.lib.xml.pom;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import com.shagui.sdc.util.documents.data.DocumentServiceDataDTO;
 import com.shagui.sdc.util.documents.lib.xml.XmlDocument;
@@ -22,9 +23,11 @@ public class PomLib {
 		List<Dependency> depencencies = ((XmlDocument) serviceData.getDocuemnt()).values("dependencies/dependency",
 				Dependency.class);
 
-		Boolean result = depencencies.stream()
-				.anyMatch(data -> config.properties().getDeprecatedLibs().stream().anyMatch(lib -> lib.equals(data)));
+		Boolean result = depencencies.stream().anyMatch(PomLib.isDeprecatedLibrary);
 
 		return result.toString();
 	};
+
+	private static Predicate<Dependency> isDeprecatedLibrary = dependency -> config.properties().getDeprecatedLibs()
+			.stream().anyMatch(lib -> lib.equals(dependency));
 }

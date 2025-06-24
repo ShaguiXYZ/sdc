@@ -72,7 +72,7 @@ public class AnalysisController implements AnalysisRestApi {
 		MetricDTO metric = metricService.metric(metricName, metricType);
 
 		if (Mergeable.class.isAssignableFrom(metric.getValueType().clazz())) {
-			List<Date> lastTwelveMonths = DateUtils.getLastMounth(-12);
+			List<Date> lastTwelveMonths = DateUtils.lastMounth(-12);
 
 			return lastTwelveMonths.stream().flatMap(date -> {
 				PageData<MetricAnalysisDTO> pageData = analysisService.filterAnalysis(metric.getId(),

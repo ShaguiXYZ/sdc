@@ -101,12 +101,12 @@ public class ComponentTypeArchitectureServiceImpl implements ComponentTypeArchit
 		MetricModel metric = metricRepository.repository().findByNameIgnoreCaseAndType(metricName, metricType)
 				.orElseThrow(() -> new SdcCustomException("Metric '%s' Not found".formatted(metricName)));
 
-		Stream<ComponentTypeArchitectureModel> componentTypeArchitectures = componentTypeArchitectures(componentType,
+		Stream<ComponentTypeArchitectureModel> componentTypeArchitectures$ = componentTypeArchitectures(componentType,
 				architecture).stream()
 				.filter(componentTypeArchitecture -> componentTypeArchitecture.getMetrics().stream()
 						.anyMatch(caMetric -> caMetric.getId().equals(metric.getId())));
 
-		return componentTypeArchitectures.map(componentTypeArchitecture -> {
+		return componentTypeArchitectures$.map(componentTypeArchitecture -> {
 			MetricValuesModel model = new MetricValuesModel();
 			model.setComponentTypeArchitecture(componentTypeArchitecture);
 			model.setMetric(metric);

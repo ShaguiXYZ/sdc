@@ -2,6 +2,7 @@ package com.shagui.sdc.util.validations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.shagui.sdc.api.dto.AnalysisValuesDTO;
 import com.shagui.sdc.enums.MetricState;
@@ -28,43 +29,35 @@ public class MetricValidations {
 
 	private static <T extends Comparable<T>> Float validate(AnalysisValuesDTO values, MetricValidation validation,
 			Class<T> clazz) {
-		Float coverage = null;
+		Stream<MetricControl<T>> coverage$ = null;
 		T value = ValidationsUtils.cast(values.getMetricValue(), clazz).orElse(null);
 		MetricValidation metricValidation = (value == null || validation == null) ? MetricValidation.NA : validation;
 		List<MetricControl<T>> control = controlValues(values, clazz);
 
 		switch (metricValidation) {
 			case EQ:
-				coverage = control.stream().filter(c -> c.getControl().compareTo(value) == 0)
-						.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+				coverage$ = control.stream().filter(c -> c.getControl().compareTo(value) == 0);
 				break;
 			case NEQ:
-				coverage = control.stream().filter(c -> c.getControl().compareTo(value) != 0)
-						.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+				coverage$ = control.stream().filter(c -> c.getControl().compareTo(value) != 0);
 				break;
 			case GT:
-				coverage = control.stream().filter(c -> c.getControl().compareTo(value) > 0)
-						.map(MetricControl::getCoverage)
-						.findFirst().orElse(MetricState.CRITICAL.coverage());
+				coverage$ = control.stream().filter(c -> c.getControl().compareTo(value) > 0);
 				break;
 			case LT:
-				coverage = control.stream().filter(c -> c.getControl().compareTo(value) < 0)
-						.map(MetricControl::getCoverage)
-						.findFirst().orElse(MetricState.CRITICAL.coverage());
+				coverage$ = control.stream().filter(c -> c.getControl().compareTo(value) < 0);
 				break;
 			case GTE:
-				coverage = control.stream().filter(c -> c.getControl().compareTo(value) >= 0)
-						.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+				coverage$ = control.stream().filter(c -> c.getControl().compareTo(value) >= 0);
 				break;
 			case LTE:
-				coverage = control.stream().filter(c -> c.getControl().compareTo(value) <= 0)
-						.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
+				coverage$ = control.stream().filter(c -> c.getControl().compareTo(value) <= 0);
 				break;
 			default:
 				return null;
 		}
 
-		return coverage;
+		return coverage$.map(MetricControl::getCoverage).findFirst().orElse(MetricState.CRITICAL.coverage());
 	}
 
 	private static <T extends Comparable<T>> List<MetricControl<T>> controlValues(AnalysisValuesDTO analysis,

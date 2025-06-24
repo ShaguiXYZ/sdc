@@ -23,7 +23,7 @@ class DateUtilsTest {
                 Date.from(startDate.plusDays(2).atStartOfDay(ZoneId.systemDefault()).toInstant()),
                 Date.from(startDate.plusDays(3).atStartOfDay(ZoneId.systemDefault()).toInstant()),
                 Date.from(startDate.plusDays(4).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        List<Date> actualDates = DateUtils.getDatesBetweenDates(
+        List<Date> actualDates = DateUtils.datesBetweenDates(
                 Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()),
                 Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         assertEquals(expectedDates, actualDates);
@@ -38,7 +38,7 @@ class DateUtilsTest {
                 Date.from(localleDate.minusMonths(0).atStartOfDay(ZoneId.systemDefault()).toInstant()),
                 Date.from(localleDate.minusMonths(1).atStartOfDay(ZoneId.systemDefault()).toInstant()),
                 Date.from(localleDate.minusMonths(2).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        List<Date> actualDates = DateUtils.getLastMounth(now, n);
+        List<Date> actualDates = DateUtils.lastMounth(now, n);
         assertEquals(expectedDates, actualDates);
     }
 

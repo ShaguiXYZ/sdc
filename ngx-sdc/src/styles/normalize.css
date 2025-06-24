@@ -1,6 +1,10 @@
 * {
   box-sizing: border-box;
-  min-width: 0;
+  /*
+    @howto The 'interpolate-size' property is a CSS feature that controls how size-related properties (like width, height, etc.)
+               are interpolated during transitions or animations.
+   */
+  interpolate-size: allow-keywords;
   position: relative;
 }
 
@@ -30,21 +34,20 @@ html {
   scroll-behavior: smooth;
 }
 
+body,
+:host {
+  background: var(--ui-background);
+  background-color: var(--ui-background);
+  color: var(--text-01);
+}
+
 body {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   line-height: 20px;
   margin: 0;
-  min-height: 100dvh;
-  padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body,
-:host {
-  background-color: var(--ui-background);
-  color: var(--text-01);
 }
 
 a {
