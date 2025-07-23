@@ -42,8 +42,7 @@ public interface SecurityClient {
 	}
 
 	default UserDTO findUser(String userName) {
-		return findUser(authorizationHeader(), sidHeader(),
-				userName);
+		return findUser(authorizationHeader(), sidHeader(), userName);
 	}
 
 	default SessionDTO logout() {

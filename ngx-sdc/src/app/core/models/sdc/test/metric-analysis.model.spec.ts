@@ -12,6 +12,10 @@ describe('Model: metric analysis', () => {
   };
   let analysisValues: IAnalysisValuesModel;
 
+  beforeEach(() => {
+    analysisValues = {} as IAnalysisValuesModel;
+  });
+
   it('should expect the model to be truthy', () => {
     model = new MetricAnalysisModel(1, 1, metric, metric.name, analysisValues, false);
 
