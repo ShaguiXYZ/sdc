@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnDestroy, Output } from '@angular/core';
-import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { NxLinkModule } from '@allianz/ng-aquila/link';
 import { TranslateService } from '@ngx-translate/core';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService, copyToClipboard } from '@shagui/ng-shagui/core';
 import { SseEventModel } from 'src/app/core/services';

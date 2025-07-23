@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { NxBadgeModule } from '@aposin/ng-aquila/badge';
-import { NxCardModule } from '@aposin/ng-aquila/card';
-import { NxLinkModule } from '@aposin/ng-aquila/link';
-import { NxProgressbarModule } from '@aposin/ng-aquila/progressbar';
+import { NxBadgeModule } from '@allianz/ng-aquila/badge';
+import { NxCardModule } from '@allianz/ng-aquila/card';
+import { NxLinkModule } from '@allianz/ng-aquila/link';
+import { NxProgressbarModule } from '@allianz/ng-aquila/progressbar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DEFAULT_TIMEOUT_NOTIFICATIONS, NotificationService, copyToClipboard, hasValue } from '@shagui/ng-shagui/core';
 import { IComponentModel, IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';

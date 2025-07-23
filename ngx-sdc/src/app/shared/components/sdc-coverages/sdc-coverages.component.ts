@@ -12,10 +12,10 @@ import {
   viewChild
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NxCardModule } from '@aposin/ng-aquila/card';
-import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
-import { NxInputModule } from '@aposin/ng-aquila/input';
-import { NxSpinnerModule } from '@aposin/ng-aquila/spinner';
+import { NxCardModule } from '@allianz/ng-aquila/card';
+import { NxHeadlineModule } from '@allianz/ng-aquila/headline';
+import { NxInputModule } from '@allianz/ng-aquila/input';
+import { NxSpinnerModule } from '@allianz/ng-aquila/spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';

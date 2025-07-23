@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { NxGridModule } from '@allianz/ng-aquila/grid';
 import { Subscription } from 'rxjs';
 import { AlertComponent, LoadingComponent, NotificationComponent } from 'src/app/core/components';
 import { SdcEventBarComponent, SdcGlobalSearchComponent, SdcHelpComponent, SdcLoginComponent } from './components';

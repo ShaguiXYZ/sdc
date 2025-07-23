@@ -1,10 +1,10 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NxAccordionModule } from '@aposin/ng-aquila/accordion';
-import { NxButtonModule } from '@aposin/ng-aquila/button';
-import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
-import { NxTabsModule } from '@aposin/ng-aquila/tabs';
-import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
+import { NxAccordionModule } from '@allianz/ng-aquila/accordion';
+import { NxButtonModule } from '@allianz/ng-aquila/button';
+import { NxDialogService, NxModalModule, NxModalRef } from '@allianz/ng-aquila/modal';
+import { NxTabsModule } from '@allianz/ng-aquila/tabs';
+import { NxTooltipModule } from '@allianz/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';

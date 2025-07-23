@@ -1,7 +1,7 @@
 import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
-import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { NxGridModule } from '@allianz/ng-aquila/grid';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService, StorageService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NxTabsModule } from '@aposin/ng-aquila/tabs';
+import { NxTabsModule } from '@allianz/ng-aquila/tabs';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IComponentModel, ISquadModel } from 'src/app/core/models/sdc';

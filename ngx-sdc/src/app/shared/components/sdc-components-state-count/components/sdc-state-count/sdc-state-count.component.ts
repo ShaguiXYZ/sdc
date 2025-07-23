@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { NxLinkModule } from '@allianz/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { MetricConfig, MetricState, styleByMetricState } from 'src/app/shared/lib';
 import { IStateCount } from 'src/app/shared/models';

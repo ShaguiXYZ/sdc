@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NxCheckboxModule } from '@aposin/ng-aquila/checkbox';
+import { NxCheckboxModule } from '@allianz/ng-aquila/checkbox';
 import { TranslateModule } from '@ngx-translate/core';
 import { $ } from '@shagui/ng-shagui/core';
 import { Subject, Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';

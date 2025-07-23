@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
-import { NxPopoverModule } from '@aposin/ng-aquila/popover';
+import { NxCopytextModule } from '@allianz/ng-aquila/copytext';
+import { NxPopoverModule } from '@allianz/ng-aquila/popover';
 import { TranslateModule } from '@ngx-translate/core';
 import { IUserModel, SecurityService } from 'src/app/core/services';
 import { SdcOverlayService } from '../sdc-overlay/services';

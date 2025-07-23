@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { NxHeadlineModule } from '@allianz/ng-aquila/headline';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { OverlayItemStatus } from '../../models';

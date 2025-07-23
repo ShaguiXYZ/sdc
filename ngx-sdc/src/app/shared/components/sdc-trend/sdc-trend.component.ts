@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
+import { NxTooltipModule } from '@allianz/ng-aquila/tooltip';
 
 @Component({
     selector: 'sdc-trend',

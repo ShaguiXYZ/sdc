@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NxDialogService, NxModalModule } from '@aposin/ng-aquila/modal';
+import { NxDialogService, NxModalModule } from '@allianz/ng-aquila/modal';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingService, emptyFn } from '@shagui/ng-shagui/core';
 import { NxDialogServiceMock } from 'src/app/core/mock/services/dialog-service.mock';

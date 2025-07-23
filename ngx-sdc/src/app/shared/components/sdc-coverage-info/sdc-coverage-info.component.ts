@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
+import { NxCopytextModule } from '@allianz/ng-aquila/copytext';
 import { ICoverageModel } from 'src/app/core/models/sdc';
 import { BACKGROUND_CHART_COLOR } from '../../constants';
 import { SdcCoverageChartComponent } from '../sdc-charts';

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NxDropdownModule } from '@aposin/ng-aquila/dropdown';
-import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
-import { NxInputModule } from '@aposin/ng-aquila/input';
-import { IPaginationTexts, NX_PAGINATION_TEXTS, NxPaginationModule } from '@aposin/ng-aquila/pagination';
-import { NxRadioToggleModule } from '@aposin/ng-aquila/radio-toggle';
-import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
+import { NxDropdownModule } from '@allianz/ng-aquila/dropdown';
+import { NxFormfieldModule } from '@allianz/ng-aquila/formfield';
+import { NxInputModule } from '@allianz/ng-aquila/input';
+import { IPaginationTexts, NX_PAGINATION_TEXTS, NxPaginationModule } from '@allianz/ng-aquila/pagination';
+import { NxRadioToggleModule } from '@allianz/ng-aquila/radio-toggle';
+import { NxTooltipModule } from '@allianz/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService, hasValue } from '@shagui/ng-shagui/core';
 import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';

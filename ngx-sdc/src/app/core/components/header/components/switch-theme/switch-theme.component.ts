@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NxSwitcherModule } from '@aposin/ng-aquila/switcher';
+import { NxSwitcherModule } from '@allianz/ng-aquila/switcher';
 import { Theme } from './models';
 import { ThemingService } from './services';
 
