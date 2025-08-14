@@ -1,20 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLoader, TranslateModuleConfig } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateModuleConfig } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
-export const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-
-export class CustomMissingTranslationHandler implements MissingTranslationHandler {
+class CustomMissingTranslationHandler implements MissingTranslationHandler {
   public handle(params: MissingTranslationHandlerParams): string {
     return `!${params.key}!`;
   }
 }
 
 export const TRANSLATE_MODULE_CONFIG: TranslateModuleConfig = {
-  loader: {
-    provide: TranslateLoader,
-    useFactory: createTranslateLoader,
-    deps: [HttpClient]
-  },
+  loader: provideTranslateHttpLoader({ prefix: './assets/i18n/', suffix: '.json' }),
   missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CustomMissingTranslationHandler }
 };
