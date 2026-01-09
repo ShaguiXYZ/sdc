@@ -2,11 +2,14 @@ package com.shagui.sdc.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,13 +48,9 @@ class DependabotServiceImplTest {
 		ReflectUtils.invoke(StaticRepository.class, "setConfig", staticRepositoryConfig);
 		ReflectUtils.invoke(UrlUtils.class, "setConfig", RwsTestUtils.urlUtilsConfig());
 
-		when(staticRepositoryConfig.uris().values()).thenReturn(new ArrayList<>() {
-			private static final long serialVersionUID = 1L;
-
-			{
-				add(RwsTestUtils.uriModelMock(UriType.GIT));
-			}
-		});
+		Map<String, Object> urisMap = new HashMap<>();
+		urisMap.put("uri_name", RwsTestUtils.uriModelMock(UriType.GIT));
+		doReturn(urisMap).when(staticRepositoryConfig).uris();
 	}
 
 	@Test

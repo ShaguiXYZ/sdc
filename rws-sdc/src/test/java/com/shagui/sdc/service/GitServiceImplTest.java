@@ -1,11 +1,14 @@
 package com.shagui.sdc.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +49,8 @@ class GitServiceImplTest {
 		MockitoAnnotations.openMocks(this);
 		gitService = new GitServiceImpl(sseService);
 
-		when(staticRepositoryConfig.uris().values()).thenReturn(new ArrayList<>());
+		Map<String, Object> urisMap = new HashMap<>();
+		doReturn(urisMap).when(staticRepositoryConfig).uris();
 		when(staticRepositoryConfig.datalists()).thenReturn(new ArrayList<>());
 		when(staticRepositoryConfig.componentParams()).thenReturn(new ArrayList<>());
 
