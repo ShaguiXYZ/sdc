@@ -63,6 +63,7 @@ class JpaCommonRepositoryTest {
 			}
 		});
 		when(jpaRespository.findById(any())).thenReturn(model);
+		when(jpaRespository.existsById(any())).thenReturn(true);
 		assertThrows(JpaNotFoundException.class, () -> jpaCommonRepository.create(model.get()));
 	}
 
@@ -90,6 +91,7 @@ class JpaCommonRepositoryTest {
 			}
 		});
 		when(jpaRespository.findById(any())).thenReturn(model);
+		when(jpaRespository.existsById(any())).thenReturn(true);
 		when(jpaRespository.save(any(ModelMock.class))).thenReturn(model.get());
 
 		ModelMock result = jpaCommonRepository.update(1, model.get());

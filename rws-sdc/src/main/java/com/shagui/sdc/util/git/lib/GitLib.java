@@ -19,17 +19,20 @@ public class GitLib {
 	public static final Function<ServiceDataDTO, Optional<String>> nclocLanguageDistribution = serviceData -> {
 		Map<String, Integer> data = languages(serviceData);
 
-		return data.isEmpty() ? Optional.empty()
-				: Optional.of(data.entrySet().stream()
-						.map(entry -> entry.getKey() + "=" + entry.getValue())
-						.collect(Collectors.joining(";")));
+		if (data.isEmpty()) {
+			return Optional.of("");
+		}
+
+		return Optional.of(data.entrySet().stream()
+				.map(entry -> entry.getKey() + "=" + entry.getValue())
+				.collect(Collectors.joining(";")));
 	};
 
 	public static final Function<ServiceDataDTO, Optional<String>> lines = serviceData -> {
 		Map<String, Integer> data = languages(serviceData);
 
 		if (data.isEmpty()) {
-			return Optional.empty();
+			return Optional.of("");
 		}
 
 		int totalLines = data.values().stream().mapToInt(Integer::intValue).sum();

@@ -72,6 +72,7 @@ class MetricServiceImplTest {
 		MetricModel model = RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric");
 		when(metricRepositoryMock.findById(any())).thenReturn(
 				Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric")));
+		when(metricRepositoryMock.existsById(any())).thenReturn(true);
 		when(metricRepositoryMock.save(any(MetricModel.class)))
 				.thenReturn(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric"));
 		MetricDTO result = service.update(1, Mapper.parse(model));

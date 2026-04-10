@@ -41,7 +41,7 @@ echarts.use([TitleComponent, TooltipComponent, VisualMapComponent, CanvasRendere
   providers: [provideEchartsCore({ echarts })]
 })
 export class SdcEchartComponent {
-  public _options: WritableSignal<EChartsCoreOption | null> = signal<EChartsCoreOption | null>(null);
+  public _options: WritableSignal<EChartsCoreOption> = signal<EChartsCoreOption>({});
   public styleSize: DataInfo<string | number> = {};
 
   @Input()

@@ -3,6 +3,9 @@ package com.shagui.sdc.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,7 +16,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
+import com.shagui.sdc.enums.UriType;
 import com.shagui.sdc.json.model.RequestPropertiesModel;
+import com.shagui.sdc.model.ComponentModel;
 import com.shagui.sdc.test.utils.ResponseBodyMock;
 import com.shagui.sdc.test.utils.RwsTestUtils;
 
@@ -51,6 +56,14 @@ class UrlUtilsTest {
 				ResponseBodyMock.class);
 
 		assertEquals(100, result.getId());
+	}
+
+	@Test
+	void componentUriReturnsEmptyWhenUrisAreMissing() {
+		ComponentModel component = mock(ComponentModel.class);
+		when(component.getUris()).thenReturn(null);
+
+		assertTrue(UrlUtils.componentUri(component, UriType.GIT).isEmpty());
 	}
 
 }

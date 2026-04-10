@@ -261,11 +261,17 @@ public class UrlUtils {
 	 *         found
 	 */
 	private static Optional<UriModel> uriModel(ComponentModel component, UriType type) {
+		if (component == null || component.getUris() == null || component.getUris().isEmpty()) {
+			return Optional.empty();
+		}
+
 		Stream<Entry<String, UriModel>> urisByType$ = StaticRepository.uris().entrySet().stream()
 				.filter(entry -> entry.getValue().getType().equals(type));
 
 		return urisByType$.map(Entry::getValue)
-				.filter(uri -> component.getUris().stream().anyMatch(u -> u.getId().getUriName().equals(uri.getName())))
+				.filter(uri -> component.getUris().stream()
+						.anyMatch(u -> u != null && u.getId() != null && u.getId().getUriName() != null
+								&& u.getId().getUriName().equals(uri.getName())))
 				.findFirst();
 	}
 }
