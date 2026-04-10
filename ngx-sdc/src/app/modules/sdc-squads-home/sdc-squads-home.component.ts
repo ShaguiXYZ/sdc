@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
-import { NxLinkModule } from '@aposin/ng-aquila/link';
+import { NxHeadlineModule } from '@allianz/ng-aquila/headline';
+import { NxLinkModule } from '@allianz/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { Subscription } from 'rxjs';

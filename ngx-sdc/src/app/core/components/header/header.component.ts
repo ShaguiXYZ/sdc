@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxButtonModule } from '@aposin/ng-aquila/button';
-import { NxContextMenuModule } from '@aposin/ng-aquila/context-menu';
-import { NxHeaderModule } from '@aposin/ng-aquila/header';
-import { NxLinkModule } from '@aposin/ng-aquila/link';
-import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
+import { NxButtonModule } from '@allianz/ng-aquila/button';
+import { NxContextMenuModule } from '@allianz/ng-aquila/context-menu';
+import { NxHeaderModule } from '@allianz/ng-aquila/header';
+import { NxLinkModule } from '@allianz/ng-aquila/link';
+import { NxTooltipModule } from '@allianz/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SwitchThemeComponent } from './components';

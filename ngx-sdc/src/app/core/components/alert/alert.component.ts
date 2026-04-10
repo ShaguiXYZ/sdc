@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NxButtonModule } from '@aposin/ng-aquila/button';
-import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
-import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
-import { NxDialogService, NxModalModule, NxModalRef } from '@aposin/ng-aquila/modal';
+import { NxButtonModule } from '@allianz/ng-aquila/button';
+import { NxCopytextModule } from '@allianz/ng-aquila/copytext';
+import { NxHeadlineModule } from '@allianz/ng-aquila/headline';
+import { NxDialogService, NxModalModule, NxModalRef } from '@allianz/ng-aquila/modal';
 import { Subscription } from 'rxjs';
 import { AlertModel } from './models';
 import { AlertService } from './services';

@@ -1,7 +1,7 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NxCheckboxModule } from '@aposin/ng-aquila/checkbox';
-import { NxCopytextModule } from '@aposin/ng-aquila/copytext';
+import { NxCheckboxModule } from '@allianz/ng-aquila/checkbox';
+import { NxCopytextModule } from '@allianz/ng-aquila/copytext';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AnalysisFactor, IMetricAnalysisModel } from 'src/app/core/models/sdc';

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NxFormfieldModule } from '@aposin/ng-aquila/formfield';
-import { NxInputModule } from '@aposin/ng-aquila/input';
+import { NxFormfieldModule } from '@allianz/ng-aquila/formfield';
+import { NxInputModule } from '@allianz/ng-aquila/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { ITagModel } from 'src/app/core/models/sdc';
 import { SdcTagComponent } from '../sdc-tag/sdc-tag.component';

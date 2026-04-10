@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { NxGridModule } from '@aposin/ng-aquila/grid';
+import { NxGridModule } from '@allianz/ng-aquila/grid';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { SwitchThemeComponent } from 'src/app/core/components/header/components';
 import { IAppConfigurationModel } from 'src/app/core/models/sdc';

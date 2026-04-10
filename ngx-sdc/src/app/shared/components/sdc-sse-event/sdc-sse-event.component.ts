@@ -1,7 +1,7 @@
 // create new component
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NxTooltipModule } from '@aposin/ng-aquila/tooltip';
+import { NxTooltipModule } from '@allianz/ng-aquila/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SdcSseEventService } from './services';

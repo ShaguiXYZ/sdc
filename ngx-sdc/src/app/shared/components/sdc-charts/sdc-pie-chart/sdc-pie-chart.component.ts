@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
+import { NxHeadlineModule } from '@allianz/ng-aquila/headline';
 import { PieChart } from 'echarts/charts';
 import type { EChartsCoreOption } from 'echarts/core';
 import * as echarts from 'echarts/core';

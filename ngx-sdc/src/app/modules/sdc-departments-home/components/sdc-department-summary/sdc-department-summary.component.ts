@@ -1,7 +1,7 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { NxHeadlineModule } from '@aposin/ng-aquila/headline';
-import { NxTabsModule } from '@aposin/ng-aquila/tabs';
+import { NxHeadlineModule } from '@allianz/ng-aquila/headline';
+import { NxTabsModule } from '@allianz/ng-aquila/tabs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IDepartmentModel, ISquadModel } from 'src/app/core/models/sdc';

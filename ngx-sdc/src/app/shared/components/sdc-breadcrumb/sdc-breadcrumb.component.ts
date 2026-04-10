@@ -1,6 +1,6 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NxBreadcrumbModule } from '@aposin/ng-aquila/breadcrumb';
+import { NxBreadcrumbModule } from '@allianz/ng-aquila/breadcrumb';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService } from '@shagui/ng-shagui/core';
 import { ContextDataInfo } from '../../constants/context-data';

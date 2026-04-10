@@ -12,11 +12,14 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.lang.reflect.Method;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.shagui.sdc.api.dto.ComponentTypeArchitectureDTO;
+import com.shagui.sdc.util.ComponentTypeArchitectureUtils;
 import com.shagui.sdc.api.dto.MetricPropertiesDTO;
 import com.shagui.sdc.api.dto.MetricValuesDTO;
 import com.shagui.sdc.api.dto.MetricValuesOutDTO;
@@ -51,90 +54,122 @@ class ComponentTypeArchitectureServiceTest {
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.openMocks(this);
+		try {
+			Method setConfig = ComponentTypeArchitectureUtils.class.getDeclaredMethod("setConfig",
+					com.shagui.sdc.util.ComponentTypeArchitectureUtilsConfig.class);
+			setConfig.setAccessible(true);
+			setConfig.invoke(null, new com.shagui.sdc.util.ComponentTypeArchitectureUtilsConfig(
+					componentTypeArchitectureRepositoryMock,
+					metricRepositoryMock,
+					componentTypeArchitectureMetricPropertiesRepository,
+					metricValueRepositoryMock));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Test
 	void componentTypeMetricsTest() {
 		MetricModel metricMock = RwsTestUtils.metricModelMock(1, AnalysisType.GIT, "metric name 1", "metric name 1");
 
-		when(metricRepositoryMock.findByNameIgnoreCaseAndType(anyString(), any(AnalysisType.class))).thenReturn(Optional.of(metricMock));
-		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString())).thenReturn(new ArrayList<>() {
-			private static final long serialVersionUID = 1L;
-
-			{
-				add(RwsTestUtils.componentTypeArchitectureModelMock());
-			}}
-		);
-		when(componentTypeArchitectureRepositoryMock.save(any(ComponentTypeArchitectureModel.class))).thenReturn(RwsTestUtils.componentTypeArchitectureModelMock());
-		when(componentTypeArchitectureMetricPropertiesRepository.findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString())).thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
-
-		List<ComponentTypeArchitectureDTO> result = service.componentTypeArchitectureMetrics("component-type-name", "architecture-name", new ArrayList<MetricPropertiesDTO>() {
-			private static final long serialVersionUID = 1L;
-
-			{
-				MetricPropertiesDTO data1 = new MetricPropertiesDTO();
-				data1.setMetricName(metricMock.getName());
-				data1.setType(metricMock.getType());
-				data1.setParams(new HashMap<>() {
+		when(metricRepositoryMock.findByNameIgnoreCaseAndType(anyString(), any(AnalysisType.class)))
+				.thenReturn(Optional.of(metricMock));
+		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString()))
+				.thenReturn(new ArrayList<>() {
 					private static final long serialVersionUID = 1L;
-	
+
 					{
-						put("param1", "value1");
-					}}
-				);
-				add(data1);
-			}}
-		);
-		
+						add(RwsTestUtils.componentTypeArchitectureModelMock());
+					}
+				});
+		when(componentTypeArchitectureRepositoryMock.save(any(ComponentTypeArchitectureModel.class)))
+				.thenReturn(RwsTestUtils.componentTypeArchitectureModelMock());
+		when(componentTypeArchitectureMetricPropertiesRepository
+				.findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(any(ComponentTypeArchitectureModel.class),
+						any(MetricModel.class), anyString()))
+				.thenReturn(Optional.of(RwsTestUtils.componetTypeArchitectureMetricPropertiesModelMock()));
+
+		List<ComponentTypeArchitectureDTO> result = service.componentTypeArchitectureMetrics("component-type-name",
+				"architecture-name", new ArrayList<MetricPropertiesDTO>() {
+					private static final long serialVersionUID = 1L;
+
+					{
+						MetricPropertiesDTO data1 = new MetricPropertiesDTO();
+						data1.setMetricName(metricMock.getName());
+						data1.setType(metricMock.getType());
+						data1.setParams(new HashMap<>() {
+							private static final long serialVersionUID = 1L;
+
+							{
+								put("param1", "value1");
+							}
+						});
+						add(data1);
+					}
+				});
+
 		assertNotNull(result);
 	}
 
 	@Test
 	void componentTypeMetricsNonPropertyPresentTest() {
 		MetricModel metricMock = RwsTestUtils.metricModelMock(1, AnalysisType.GIT, "metric name 1", "metric name 1");
-		
-		when(metricRepositoryMock.findByNameIgnoreCaseAndType(anyString(), any(AnalysisType.class))).thenReturn(Optional.of(metricMock));
-		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString())).thenReturn(new ArrayList<>() {
-			private static final long serialVersionUID = 1L;
 
-			{
-				add(RwsTestUtils.componentTypeArchitectureModelMock());
-			}}
-		);
-		when(componentTypeArchitectureRepositoryMock.save(any(ComponentTypeArchitectureModel.class))).thenReturn(RwsTestUtils.componentTypeArchitectureModelMock());
-		when(componentTypeArchitectureMetricPropertiesRepository.findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(any(ComponentTypeArchitectureModel.class), any(MetricModel.class), anyString())).thenReturn(Optional.empty());
+		when(metricRepositoryMock.findByNameIgnoreCaseAndType(anyString(), any(AnalysisType.class)))
+				.thenReturn(Optional.of(metricMock));
+		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString()))
+				.thenReturn(new ArrayList<>() {
+					private static final long serialVersionUID = 1L;
 
-		List<ComponentTypeArchitectureDTO> result = service.componentTypeArchitectureMetrics("component-type-name", "architecture-name", new ArrayList<MetricPropertiesDTO>() {
-			private static final long serialVersionUID = 1L;
+					{
+						add(RwsTestUtils.componentTypeArchitectureModelMock());
+					}
+				});
+		when(componentTypeArchitectureRepositoryMock.save(any(ComponentTypeArchitectureModel.class)))
+				.thenReturn(RwsTestUtils.componentTypeArchitectureModelMock());
+		when(componentTypeArchitectureMetricPropertiesRepository
+				.findByComponentTypeArchitectureAndMetricAndNameIgnoreCase(any(ComponentTypeArchitectureModel.class),
+						any(MetricModel.class), anyString()))
+				.thenReturn(Optional.empty());
 
-			{
-				MetricPropertiesDTO data1 = new MetricPropertiesDTO();
-				data1.setMetricName(metricMock.getName());
-				data1.setType(metricMock.getType());
-				data1.setParams(new HashMap<>());
-				add(data1);
-			}}
-		);
-		
+		List<ComponentTypeArchitectureDTO> result = service.componentTypeArchitectureMetrics("component-type-name",
+				"architecture-name", new ArrayList<MetricPropertiesDTO>() {
+					private static final long serialVersionUID = 1L;
+
+					{
+						MetricPropertiesDTO data1 = new MetricPropertiesDTO();
+						data1.setMetricName(metricMock.getName());
+						data1.setType(metricMock.getType());
+						data1.setParams(new HashMap<>());
+						add(data1);
+					}
+				});
+
 		assertNotNull(result);
 	}
 
 	@Test
 	void defineMetricValuesTest() {
-		when(metricRepositoryMock.findByNameIgnoreCaseAndType(anyString(), any(AnalysisType.class))).thenReturn(Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric")));
-		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString())).thenReturn(new ArrayList<>() {
-			private static final long serialVersionUID = 1L;
+		when(metricRepositoryMock.findByNameIgnoreCaseAndType(anyString(), any(AnalysisType.class))).thenReturn(
+				Optional.of(RwsTestUtils.metricModelMock(1, AnalysisType.GIT_XML, "metric name 1", "git metric")));
+		when(componentTypeArchitectureRepositoryMock.findByComponentTypeAndArchitecture(anyString(), anyString()))
+				.thenReturn(new ArrayList<>() {
+					private static final long serialVersionUID = 1L;
 
-			{
-				add(RwsTestUtils.componentTypeArchitectureModelMock());
-			}}
-		);
-		when(metricValueRepositoryMock.save(any(MetricValuesModel.class))).thenReturn(RwsTestUtils.metricValuesModelMock());
-		
-		List<MetricValuesOutDTO> result = service.defineMetricValues("componentType", "architecture", "metricName", AnalysisType.GIT, new MetricValuesDTO() {{
-			setGoodValue("1");
-		}});
+					{
+						add(RwsTestUtils.componentTypeArchitectureModelMock());
+					}
+				});
+		when(metricValueRepositoryMock.save(any(MetricValuesModel.class)))
+				.thenReturn(RwsTestUtils.metricValuesModelMock());
 
-		assertNotNull(result);		
+		List<MetricValuesOutDTO> result = service.defineMetricValues("componentType", "architecture", "metricName",
+				AnalysisType.GIT, new MetricValuesDTO() {
+					{
+						setGoodValue("1");
+					}
+				});
+
+		assertNotNull(result);
 	}
 }

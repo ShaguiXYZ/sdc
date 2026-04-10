@@ -104,8 +104,10 @@ class ComponentUtilsTest {
 		when(componentHistoricalCoverageRepository.save(any(ComponentHistoricalCoverageModel.class)))
 				.thenReturn(new ComponentHistoricalCoverageModel());
 		when(componentRepository.findById(anyInt())).thenReturn(Optional.of(RwsTestUtils.componentModelMock()));
+		when(componentRepository.existsById(anyInt())).thenReturn(true);
 		when(componentRepository.save(any(ComponentModel.class))).thenReturn(RwsTestUtils.componentModelMock());
 		when(squadRepository.findById(anyInt())).thenReturn(Optional.of(RwsTestUtils.squadModelMock()));
+		when(squadRepository.existsById(anyInt())).thenReturn(true);
 		when(squadRepository.save(any(SquadModel.class))).thenReturn(RwsTestUtils.squadModelMock());
 
 		ComponentUtils.updateRelatedComponentEntities(RwsTestUtils.componentModelMock(), true);

@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
+
+import { Inject, Injectable, LOCALE_ID, Optional, DOCUMENT } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { Languages, NX_LANGUAGE_CONFIG, SESSION_LANGUAGE_KEY } from './constants';
