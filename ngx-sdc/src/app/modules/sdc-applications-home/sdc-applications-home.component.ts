@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NxDropdownModule } from '@allianz/ng-aquila/dropdown';
 import { NxFormfieldModule } from '@allianz/ng-aquila/formfield';
 import { NxInputModule } from '@allianz/ng-aquila/input';
 import { IPaginationTexts, NX_PAGINATION_TEXTS, NxPaginationModule } from '@allianz/ng-aquila/pagination';
 import { NxRadioToggleModule } from '@allianz/ng-aquila/radio-toggle';
 import { NxTooltipModule } from '@allianz/ng-aquila/tooltip';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, OnDestroy, OnInit, signal, ViewChild, WritableSignal } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextDataService, hasValue } from '@shagui/ng-shagui/core';
-import { Subscription, debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
+import { debounceTime, distinctUntilChanged, fromEvent, map, Subscription } from 'rxjs';
 import { DEBOUNCE_TIME } from 'src/app/core/constants';
 import { IAppConfigurationModel, IComponentModel, IDepartmentModel, ISquadModel, ITagModel } from 'src/app/core/models/sdc';
 import { SdcRouteService } from 'src/app/core/services/sdc';
@@ -50,7 +50,11 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
   public elementsByPage!: number;
   public form!: FormGroup;
   public squads: ISquadModel[] = [];
-  public tags: { all: ITagModel[]; selected: ITagModel[]; availables: ITagModel[] } = { all: [], selected: [], availables: [] };
+  public tags: WritableSignal<{ all: ITagModel[]; selected: ITagModel[]; availables: ITagModel[] }> = signal({
+    all: [],
+    selected: [],
+    availables: []
+  });
   public coverages: { key: string; label: string; style: string }[] = [];
   public applicationsInfo?: SdcApplicationsDataModel;
 
@@ -80,8 +84,8 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
       this.searchBoxConfig()
     );
 
-    this.createForm();
     this.initialize().then(() => this.applicationsService.loadData());
+    this.createForm();
   }
 
   ngOnDestroy(): void {
@@ -200,14 +204,21 @@ export class SdcApplicationsHomeComponent implements OnInit, OnDestroy {
 
     this.coverages = coverages;
     this.squads = squads.page;
-    this.tags.all = tags.page;
-    this.tags.all.sort((a, b) => a.name.localeCompare(b.name));
+
+    this.tags.set({
+      ...this.tags(),
+      all: tags.page.sort((a, b) => a.name.localeCompare(b.name))
+    });
+
     this.groupTags();
   }
 
   private groupTags(): void {
-    this.tags.selected = this.tags.all.filter(tag => this.applicationsInfo?.tags?.includes(tag.name)) ?? [];
-    this.tags.availables = this.tags.all.filter(tag => !this.applicationsInfo?.tags?.includes(tag.name)) ?? [];
+    this.tags.set({
+      ...this.tags(),
+      selected: this.tags().all.filter(tag => this.applicationsInfo?.tags?.includes(tag.name)) ?? [],
+      availables: this.tags().all.filter(tag => !this.applicationsInfo?.tags?.includes(tag.name)) ?? []
+    });
   }
 
   private createForm(): void {

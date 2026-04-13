@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, signal, WritableSignal } from '@angular/core';
 import { NxGridModule } from '@allianz/ng-aquila/grid';
 import { Subscription } from 'rxjs';
 import { AlertComponent, LoadingComponent, NotificationComponent } from 'src/app/core/components';
@@ -8,9 +8,9 @@ import { SdcOverlayModel } from './models';
 import { SdcOverlayService } from './services';
 
 @Component({
-    selector: 'nx-overlay',
-    styleUrls: ['./sdc-overlay.component.scss'],
-    template: `
+  selector: 'nx-overlay',
+  styleUrls: ['./sdc-overlay.component.scss'],
+  template: `
     <nx-loading />
     <nx-alert />
     <nx-notification />
@@ -18,43 +18,43 @@ import { SdcOverlayService } from './services';
     @defer {
       <div nxLayout="grid maxwidth nogutters" class="overlay-items">
         <div nxLayout="grid maxwidth nogutters" class="event-bar overlay-item">
-          <sdc-event-bar [state]="overlayModel.eventBarState.status" />
+          <sdc-event-bar [state]="overlayModel().eventBarState.status" />
         </div>
         <div class="global-search overlay-item">
-          <sdc-global-search [state]="overlayModel.globalSearchState.status" />
+          <sdc-global-search [state]="overlayModel().globalSearchState.status" />
         </div>
         <div class="help overlay-item">
-          <sdc-help [state]="overlayModel.helpState.status" help="squads" />
+          <sdc-help [state]="overlayModel().helpState.status" help="squads" />
         </div>
-        @if (overlayModel.loginState.loaded) {
+        @if (overlayModel().loginState.loaded) {
           <div class="login overlay-item">
-            <sdc-login [state]="overlayModel.loginState.status" />
+            <sdc-login [state]="overlayModel().loginState.status" />
           </div>
         }
       </div>
     }
   `,
-    imports: [
-        CommonModule,
-        AlertComponent,
-        LoadingComponent,
-        NotificationComponent,
-        NxGridModule,
-        SdcEventBarComponent,
-        SdcGlobalSearchComponent,
-        SdcHelpComponent,
-        SdcLoginComponent
-    ]
+  imports: [
+    CommonModule,
+    AlertComponent,
+    LoadingComponent,
+    NotificationComponent,
+    NxGridModule,
+    SdcEventBarComponent,
+    SdcGlobalSearchComponent,
+    SdcHelpComponent,
+    SdcLoginComponent
+  ]
 })
 export class SdcOverlayComponent implements OnDestroy {
-  public overlayModel: SdcOverlayModel = SdcOverlayService.DEFAULT_OVERLAY_STATE;
+  public overlayModel: WritableSignal<SdcOverlayModel> = signal(SdcOverlayService.DEFAULT_OVERLAY_STATE);
 
   private subcriptions: Subscription[] = [];
 
   constructor(overlayService: SdcOverlayService) {
     this.subcriptions.push(
       overlayService.onDataChange().subscribe(data => {
-        this.overlayModel = { ...this.overlayModel, ...data };
+        this.overlayModel.set({ ...this.overlayModel(), ...data });
       })
     );
   }

@@ -15,10 +15,10 @@ describe('SdcCoveragesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [SdcCoveragesComponent, RouterTestingModule, TranslateModule.forRoot()],
-    providers: [{ provide: Location, useClass: SpyLocation }, provideHttpClient(withInterceptorsFromDi())]
-})
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [SdcCoveragesComponent, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [{ provide: Location, useClass: SpyLocation }, provideHttpClient(withInterceptorsFromDi())]
+    })
       .compileComponents()
       .catch(emptyFn);
   }));
@@ -34,6 +34,12 @@ describe('SdcCoveragesComponent', () => {
   });
 
   it('should select coverage', () => {
-    component.onClickCoverage({ id: 1, name: 'test' });
+    const coverage = { id: 1, name: 'test' } as any;
+    spyOn(component.selectCoverage, 'emit');
+
+    component.onClickCoverage(coverage);
+
+    expect(component.selected).toBe(coverage.id);
+    expect(component.selectCoverage.emit).toHaveBeenCalledWith(coverage);
   });
 });

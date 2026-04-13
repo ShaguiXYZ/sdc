@@ -19,15 +19,21 @@ describe('SdcSquadSummaryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [SdcSquadSummaryComponent,
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        SdcSquadSummaryComponent,
         RouterTestingModule,
         TranslateModule.forRoot(),
         NgxEchartsModule.forRoot({
-            echarts: () => import('echarts')
-        })],
-    providers: [DateService, { provide: SdcSquadSummaryService, useClass: SdcSquadSummaryServiceMock }, provideHttpClient(withInterceptorsFromDi())]
-})
+          echarts: () => import('echarts')
+        })
+      ],
+      providers: [
+        DateService,
+        { provide: SdcSquadSummaryService, useClass: SdcSquadSummaryServiceMock },
+        provideHttpClient(withInterceptorsFromDi())
+      ]
+    })
       .compileComponents()
       .catch(emptyFn);
   }));
@@ -48,7 +54,10 @@ describe('SdcSquadSummaryComponent', () => {
       count: 1,
       state: MetricStates.PERFECT
     };
+    spyOn(component.clickStateCount, 'emit');
 
     component.onClickStateCount(stateCount);
+
+    expect(component.clickStateCount.emit).toHaveBeenCalledWith(stateCount);
   });
 });

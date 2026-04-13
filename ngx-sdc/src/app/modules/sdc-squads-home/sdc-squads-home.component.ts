@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { NxHeadlineModule } from '@allianz/ng-aquila/headline';
 import { NxLinkModule } from '@allianz/ng-aquila/link';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,22 +15,22 @@ import { SdcSquadsDataModel } from './models';
 import { SdcSquadsService } from './services';
 
 @Component({
-    selector: 'sdc-squads-home',
-    styleUrls: ['./sdc-squads-home.component.scss'],
-    templateUrl: './sdc-squads-home.component.html',
-    providers: [SdcSquadsService],
-    imports: [
-        SdcComplianceBarCardsComponent,
-        SdcCoveragesComponent,
-        SdcSquadSummaryComponent,
-        CommonModule,
-        NxHeadlineModule,
-        NxLinkModule,
-        TranslateModule
-    ]
+  selector: 'sdc-squads-home',
+  styleUrls: ['./sdc-squads-home.component.scss'],
+  templateUrl: './sdc-squads-home.component.html',
+  providers: [SdcSquadsService],
+  imports: [
+    SdcComplianceBarCardsComponent,
+    SdcCoveragesComponent,
+    SdcSquadSummaryComponent,
+    CommonModule,
+    NxHeadlineModule,
+    NxLinkModule,
+    TranslateModule
+  ]
 })
 export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
-  public squadsData!: SdcSquadsDataModel;
+  public squadsData: WritableSignal<SdcSquadsDataModel> = signal({} as SdcSquadsDataModel);
   public worstComponents: IComponentModel[] = [];
 
   private summary$!: Subscription;
@@ -43,14 +43,14 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.summary$ = this.summaryService.onDataChange().subscribe((data: Partial<SdcSquadsDataModel>) => {
-      this.squadsData = { ...this.squadsData, ...data };
-      this.worstComponents = this.squadsData?.components ? this.squadsData.components.slice(0, 3) : [];
+      this.squadsData.set({ ...this.squadsData(), ...data });
+      this.worstComponents = this.squadsData()?.components ? this.squadsData().components.slice(0, 3) : [];
 
       const appConfig = this.contextDataService.get<AppConfigurationModel>(ContextDataInfo.APP_CONFIG);
 
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
         ...appConfig,
-        title: `Squads | ${this.squadsData?.squad?.name ?? ''}`
+        title: `Squads | ${this.squadsData()?.squad?.name ?? ''}`
       });
     });
 
@@ -73,7 +73,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
     if (this.squadsData) {
       const applicationsContextData: Partial<ApplicationsContextData> = {
         filter: {
-          squad: this.squadsData.squad?.id
+          squad: this.squadsData()?.squad?.id
         }
       };
 
@@ -82,7 +82,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
   }
 
   public onSearchSquadChanged(filter: string): void {
-    if (this.squadsData) {
+    if (this.squadsData()) {
       this.summaryService.availableSquads(filter);
     }
   }
@@ -95,7 +95,7 @@ export class SdcSquadsHomeComponent implements OnInit, OnDestroy {
     if (this.squadsData) {
       const applicationsContextData: Partial<ApplicationsContextData> = {
         filter: {
-          squad: this.squadsData.squad?.id,
+          squad: this.squadsData()?.squad?.id,
           metricState: event.state
         }
       };

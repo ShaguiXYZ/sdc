@@ -15,10 +15,10 @@ describe('SdcComplianceBarCardsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [SdcComplianceBarCardsComponent, RouterTestingModule, TranslateModule.forRoot()],
-    providers: [{ provide: Location, useClass: SpyLocation }, provideHttpClient(withInterceptorsFromDi())]
-})
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [SdcComplianceBarCardsComponent, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [{ provide: Location, useClass: SpyLocation }, provideHttpClient(withInterceptorsFromDi())]
+    })
       .compileComponents()
       .catch(emptyFn);
   }));
@@ -34,6 +34,10 @@ describe('SdcComplianceBarCardsComponent', () => {
   });
 
   it('should select coverage', () => {
+    spyOn(component.clickLink, 'emit');
+
     component.onClickShowMore(componentModelMock);
+
+    expect(component.clickLink.emit).toHaveBeenCalledWith(componentModelMock);
   });
 });

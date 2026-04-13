@@ -1,5 +1,5 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core';
 import { NxAccordionModule } from '@allianz/ng-aquila/accordion';
 import { NxButtonModule } from '@allianz/ng-aquila/button';
 import { NxDialogService, NxModalModule, NxModalRef } from '@allianz/ng-aquila/modal';
@@ -61,7 +61,7 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   @ViewChild('metricsCards')
   private templateRef!: TemplateRef<{ component: IComponentModel }>;
 
-  public metricsData?: MetricsDataModel;
+  public metricsData: WritableSignal<MetricsDataModel> = signal({} as MetricsDataModel);
   public historicalChartConfig!: ChartConfig;
   public lastLanguageDistribution?: string;
 
@@ -87,7 +87,7 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   }
 
   public onOpenPanel(): void {
-    if (!this.metricsData?.historical) {
+    if (!this.metricsData().historical) {
       this.metricsService.historicalComponentData();
     }
   }
@@ -114,7 +114,7 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   public openMetricsCards(): void {
     this.metricsCardsDialogRef = this.dialogService.open(this.templateRef, {
       appearance: 'expert',
-      data: { component: this.metricsData?.component }
+      data: { component: this.metricsData().component }
     });
   }
 
@@ -139,19 +139,19 @@ export class SdcMetricsHomeComponent implements OnInit, OnDestroy {
   }
 
   private populateData = (metricsData: MetricsDataModel): void => {
-    this.metricsData = metricsData;
-    this.applicationCoverageGraphConfig(this.metricsData.historical);
+    this.metricsData.set(metricsData);
+    this.applicationCoverageGraphConfig(metricsData.historical);
 
     this.lastLanguageDistribution =
-      (this.metricsData.languageDistribution?.graph.length &&
-        this.metricsData.languageDistribution.graph?.[this.metricsData.languageDistribution.graph.length - 1].data) ||
+      (metricsData.languageDistribution?.graph?.length &&
+        metricsData.languageDistribution.graph[metricsData.languageDistribution.graph.length - 1].data) ||
       undefined;
 
     const appConfig = this.contextDataService.get<AppConfigurationModel>(ContextDataInfo.APP_CONFIG);
 
     this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
       ...appConfig,
-      title: `Metrics | ${this.metricsData.component.name ?? ''}`
+      title: `Metrics | ${metricsData.component.name ?? ''}`
     });
   };
 

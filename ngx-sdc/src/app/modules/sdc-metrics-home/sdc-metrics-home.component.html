@@ -1,7 +1,7 @@
-@if (metricsData) {
+@if (metricsData().component) {
   <div class="nx-margin-y-2xs">
     <sdc-compliance-bar-card
-      [component]="metricsData.component"
+      [component]="metricsData().component"
       [showMore]="false"
       [hideBorder]="true"
       (clickDepartment)="departmentClicked($event)"
@@ -9,7 +9,7 @@
     />
     <sdc-tags
       *nxIfRole="['ADMIN', 'BUSINESS']"
-      [tags]="metricsData.tags || []"
+      [tags]="metricsData().tags ?? []"
       [removable]="true"
       viewType="scroll"
       (add)="onTagAdd($event)"
@@ -24,7 +24,7 @@
               <header>
                 {{ 'Label.ApplicationHistory' | translate }}
                 <span class="selected-date nx-margin-left-s"
-                  >{{ 'Label.SelectedDate' | translate }}: {{ metricsData.component.analysisDate | date }}</span
+                  >{{ 'Label.SelectedDate' | translate }}: {{ metricsData().component.analysisDate | date }}</span
                 >
               </header>
             </nx-expansion-panel-title>
@@ -32,18 +32,18 @@
           <div
             class="history-component"
             [ngClass]="{
-              'sdc-no-data': !metricsData.historical?.historical?.page?.length
+              'sdc-no-data': !metricsData().historical?.historical?.page?.length
             }"
           >
             <div class="application-graph">
-              @if (metricsData.historical?.historical?.page?.length) {
+              @if (metricsData().historical?.historical?.page?.length) {
                 <sdc-time-evolution-chart [config]="historicalChartConfig" [size]="{ height: 200 }" />
               }
             </div>
             <div class="chart-ops sdc-scrollable">
               <div
                 class="sdc-op"
-                [nxTooltip]="'Tooltip.ComponentMetrics' | translate: { name: metricsData.component.name }"
+                [nxTooltip]="'Tooltip.ComponentMetrics' | translate: { name: metricsData().component.name }"
                 nxTooltipPosition="left"
                 (click)="openMetricsCards()"
               >
@@ -52,7 +52,7 @@
               <div
                 *nxIfRole="['ADMIN']"
                 class="sdc-op"
-                [nxTooltip]="'Tooltip.RunProcess' | translate: { name: metricsData.component.name }"
+                [nxTooltip]="'Tooltip.RunProcess' | translate: { name: metricsData().component.name }"
                 nxTooltipPosition="left"
                 (click)="onRunProcess()"
               >
@@ -73,7 +73,7 @@
             <header>
               {{ 'Label.Metrics' | translate }}
               <span class="selected-date nx-margin-left-s"
-                >{{ 'Label.Coverage' | translate }}: {{ metricsData.component.coverage || 0 }} %</span
+                >{{ 'Label.Coverage' | translate }}: {{ metricsData().component.coverage || 0 }} %</span
               >
             </header>
           </nx-expansion-panel-title>
@@ -81,23 +81,21 @@
         <nx-tab-group
           class="tiny-tabs"
           [mobileAccordion]="false"
-          [selectedIndex]="metricsData.selectedTabIndex"
+          [selectedIndex]="metricsData().selectedTabIndex"
           (selectedIndexChange)="onTabChage($event)"
         >
           <nx-tab [label]="'Label.MetricsHistoryGraphs' | translate">
-            @if (metricsData.component) {
-              <sdc-metric-history-graphs
-                [componentId]="metricsData.component.id"
-                [selectedAnalysis]="metricsData.selectedAnalysis"
-                (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
-              />
-            }
+            <sdc-metric-history-graphs
+              [componentId]="metricsData().component.id"
+              [selectedAnalysis]="metricsData().selectedAnalysis"
+              (selectedAnalysisChange)="onMetricAnalysisSelected($event)"
+            />
           </nx-tab>
           <nx-tab [label]="'Label.ComponentLanguageDistribution' | translate" style="display: flex">
-            <div class="language-distribution" [ngClass]="{ 'sdc-no-data': !metricsData.languageDistribution }">
-              @if (metricsData.languageDistribution) {
+            <div class="language-distribution" [ngClass]="{ 'sdc-no-data': !metricsData().languageDistribution }">
+              @if (metricsData().languageDistribution) {
                 <div class="historical-language-distribution">
-                  <sdc-time-evolution-multichart [data]="metricsData.languageDistribution" />
+                  <sdc-time-evolution-multichart [data]="metricsData().languageDistribution!" />
                 </div>
                 <div class="actual-language-distribution">
                   @if (lastLanguageDistribution) {

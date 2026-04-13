@@ -1,11 +1,11 @@
-@if (squadsData) {
+@if (squadsData()) {
   <div class="summary-content nx-margin-y-2xs">
-    <div class="nx-margin-x-3xs" [ngClass]="{ 'nx-margin-bottom-3xs width-50': squadsData.squad, 'width-0': !squadsData.squad }">
-      @if (squadsData.squad) {
+    <div class="nx-margin-x-3xs" [ngClass]="{ 'nx-margin-bottom-3xs width-50': squadsData().squad, 'width-0': !squadsData().squad }">
+      @if (squadsData().squad) {
         <div class="nx-margin-bottom-2xs">
           <sdc-squad-summary
-            [components]="squadsData.components || []"
-            [squad]="squadsData.squad"
+            [components]="squadsData().components || []"
+            [squad]="squadsData().squad!"
             (clickStateCount)="onClickStateCount($event)"
           />
         </div>
@@ -28,12 +28,12 @@
     </div>
     <div
       class="coverages"
-      [ngClass]="{ 'nx-margin-bottom-3xs nx-margin-x-3xs width-50': squadsData.squad, 'no-data-loaded width-100': !squadsData.squad }"
+      [ngClass]="{ 'nx-margin-bottom-3xs nx-margin-x-3xs width-50': squadsData().squad, 'no-data-loaded width-100': !squadsData().squad }"
     >
       <sdc-coverages
-        [filter]="squadsData.filter"
-        [coverages]="squadsData.squads"
-        [selected]="squadsData.squad?.id"
+        [filter]="squadsData().filter"
+        [coverages]="squadsData().squads"
+        [selected]="squadsData().squad?.id"
         [title]="'Label.OtherSquads' | translate"
         (searchCoverageChanged)="onSearchSquadChanged($event)"
         (selectCoverage)="onClickSquad($event)"

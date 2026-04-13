@@ -1,30 +1,30 @@
-@if (metricsData) {
+@if (metricsData()) {
   <div class="evolution-content">
-    @if (metricsData.componentAnalysis) {
+    @if (metricsData().componentAnalysis) {
       <div class="metrics sdc-scrollable nx-margin-right-3xs">
-        @for (data of metricsData.componentAnalysis; track data.metric.id) {
+        @for (data of metricsData().componentAnalysis; track data.metric.id) {
           <sdc-metric-info
             [analysis]="data"
-            [selected]="metricsData.selectedAnalysis?.metric?.id === data.metric.id"
+            [selected]="metricsData().selectedAnalysis?.metric?.id === data.metric.id"
             (selectMetric)="loadGraphData($event)"
           />
         }
       </div>
     }
 
-    @if (metricsData.selectedAnalysis) {
+    @if (metricsData().selectedAnalysis) {
       <div class="evolution-graph">
         <header class="chart-header sdc-center">
           <p nxCopytext="medium">
             {{ 'Label.CurrentValue' | translate }}
-            {{ metricsData.selectedAnalysis.analysisValues.metricValue }}
+            {{ metricsData().selectedAnalysis?.analysisValues?.metricValue }}
           </p>
           <p nxCopytext="medium">
             {{ 'Label.OptimumValue' | translate }}
             {{
-              metricsData.selectedAnalysis.analysisValues.perfectValue ||
-                metricsData.selectedAnalysis.analysisValues.goodValue ||
-                metricsData.selectedAnalysis.analysisValues.expectedValue
+              metricsData().selectedAnalysis?.analysisValues?.perfectValue ||
+                metricsData().selectedAnalysis?.analysisValues?.goodValue ||
+                metricsData().selectedAnalysis?.analysisValues?.expectedValue
             }}
           </p>
         </header>
@@ -39,7 +39,7 @@
                 <nx-checkbox
                   class="factor-checkbox  factor-{{ factor }}"
                   id="factor-{{ $index }}"
-                  [checked]="metricsData.showFactorCharts && metricsData.showFactorCharts[factor]"
+                  [checked]="metricsData().showFactorCharts && metricsData().showFactorCharts?.[factor]"
                   (change)="toggleFactorChart(factor)"
                   [disabled]="!availableFactorCharts[factor]"
                 >

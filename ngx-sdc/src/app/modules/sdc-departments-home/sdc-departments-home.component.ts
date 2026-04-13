@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { NxHeadlineModule } from '@allianz/ng-aquila/headline';
 import { NxLinkModule } from '@allianz/ng-aquila/link';
 import { NxTooltipModule } from '@allianz/ng-aquila/tooltip';
@@ -33,7 +33,7 @@ import { SdcDepartmentsService } from './services';
   ]
 })
 export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
-  public departmentsData!: SdcDepartmentsDataModel;
+  public departmentsData: WritableSignal<SdcDepartmentsDataModel> = signal({} as SdcDepartmentsDataModel);
 
   private summary$!: Subscription;
 
@@ -46,13 +46,13 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.summary$ = this.departmentService.onDataChange().subscribe(data => {
-      this.departmentsData = { ...this.departmentsData, ...data };
+      this.departmentsData.set({ ...this.departmentsData(), ...data });
 
       const appConfig = this.contextDataService.get<AppConfigurationModel>(ContextDataInfo.APP_CONFIG);
 
       this.contextDataService.set(ContextDataInfo.APP_CONFIG, {
         ...appConfig,
-        title: `Departments | ${this.departmentsData?.department?.name ?? ''}`
+        title: `Departments | ${this.departmentsData()?.department?.name ?? ''}`
       });
     });
 
@@ -64,17 +64,17 @@ export class SdcDepartmentsHomeComponent implements OnInit, OnDestroy {
   }
 
   public onSearchDepartmentChanged(filter: string): void {
-    if (this.departmentsData) {
+    if (this.departmentsData()) {
       this.departmentService.availableDepartments(filter);
     }
   }
 
   public onSearchSquadChanged(filter: string): void {
-    this.squadsByDepartmernt(this.departmentsData?.department, filter);
+    this.squadsByDepartmernt(this.departmentsData()?.department, filter);
   }
 
   public onClickDepartment(event: ICoverageModel): void {
-    this.squadsByDepartmernt(event, this.departmentsData?.squadFilter);
+    this.squadsByDepartmernt(event, this.departmentsData()?.squadFilter);
   }
 
   public onClickSquad(squad: ICoverageModel): void {

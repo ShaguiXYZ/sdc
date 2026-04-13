@@ -35,7 +35,7 @@
           </nx-dropdown>
         </nx-formfield>
 
-        @if (tags.all.length) {
+        @if (tags().all.length) {
           <nx-formfield id="tags" class="nx-margin-right-2xs" [label]="'Label.Tags' | translate">
             <nx-dropdown
               formControlName="tags"
@@ -45,18 +45,18 @@
               [showFilter]="true"
               (valueChange)="tagsChange($event)"
             >
-              @if (tags.selected.length) {
-                <nx-dropdown-group>
-                  @for (item of tags.selected; track item.name) {
+              @if (tags().selected.length) {
+                <nx-dropdown-group [label]="'Label.SelectedTags' | translate">
+                  @for (item of tags().selected; track item.name) {
                     <nx-dropdown-item class="sdc-tag__dropdown-item" [value]="item.name">
                       <sdc-tag [data]="item"></sdc-tag>
                     </nx-dropdown-item>
                   }
                 </nx-dropdown-group>
               }
-              @if (tags.availables.length) {
-                <nx-dropdown-group>
-                  @for (item of tags.availables; track item.name) {
+              @if (tags().availables.length) {
+                <nx-dropdown-group [label]="'Label.AvailableTags' | translate">
+                  @for (item of tags().availables; track item.name) {
                     <nx-dropdown-item class="sdc-tag__dropdown-item" [value]="item.name">
                       <sdc-tag [data]="item"></sdc-tag>
                     </nx-dropdown-item>

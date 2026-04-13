@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { NxButtonModule } from '@allianz/ng-aquila/button';
 import { NxContextMenuModule } from '@allianz/ng-aquila/context-menu';
 import { NxHeaderModule } from '@allianz/ng-aquila/header';
 import { NxLinkModule } from '@allianz/ng-aquila/link';
 import { NxTooltipModule } from '@allianz/ng-aquila/tooltip';
+import { CommonModule } from '@angular/common';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SwitchThemeComponent } from './components';
-import { DEFAULT_HEADER_MENU, IHeaderConfig, ILanguageHeader, INavHeaderItem, INavigation, NX_HEADER_CONFIG } from './models';
+import { DEFAULT_HEADER_MENU, ILanguageHeader, INavHeaderItem, INavigation, NX_HEADER_CONFIG } from './models';
 import { HeaderLanguageService } from './services';
 
 /**
@@ -19,21 +19,21 @@ import { HeaderLanguageService } from './services';
  * All the ids in NavParentItem and NavChildItem must be different among them.
  */
 @Component({
-    selector: 'nx-header',
-    styleUrls: ['./header.component.scss'],
-    templateUrl: './header.component.html',
-    providers: [HeaderLanguageService],
-    imports: [
-        CommonModule,
-        NxButtonModule,
-        NxContextMenuModule,
-        NxHeaderModule,
-        NxLinkModule,
-        NxTooltipModule,
-        SwitchThemeComponent,
-        RouterModule,
-        TranslateModule
-    ]
+  selector: 'nx-header',
+  styleUrls: ['./header.component.scss'],
+  templateUrl: './header.component.html',
+  providers: [HeaderLanguageService],
+  imports: [
+    CommonModule,
+    NxButtonModule,
+    NxContextMenuModule,
+    NxHeaderModule,
+    NxLinkModule,
+    NxTooltipModule,
+    SwitchThemeComponent,
+    RouterModule,
+    TranslateModule
+  ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input()
@@ -49,10 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private language$!: Subscription;
 
-  constructor(
-    @Optional() @Inject(NX_HEADER_CONFIG) private config: IHeaderConfig,
-    private readonly languageService: HeaderLanguageService
-  ) {}
+  private readonly config = inject(NX_HEADER_CONFIG, { optional: true });
+  private readonly languageService = inject(HeaderLanguageService);
 
   ngOnInit() {
     this.navigation = this.config?.navigation ?? DEFAULT_HEADER_MENU;

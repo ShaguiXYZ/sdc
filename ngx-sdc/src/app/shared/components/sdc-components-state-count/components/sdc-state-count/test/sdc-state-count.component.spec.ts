@@ -15,10 +15,10 @@ describe('SdcStateCountComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [SdcStateCountComponent, RouterTestingModule, TranslateModule.forRoot()],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-})
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [SdcStateCountComponent, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [provideHttpClient(withInterceptorsFromDi())]
+    })
       .compileComponents()
       .catch(emptyFn);
   }));
@@ -39,6 +39,10 @@ describe('SdcStateCountComponent', () => {
   });
 
   it('should emit a state count', () => {
+    spyOn(component.clickStateCount, 'emit');
+
     component.onClick();
+
+    expect(component.clickStateCount.emit).toHaveBeenCalledWith(component.stateCount);
   });
 });

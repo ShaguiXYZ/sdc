@@ -16,10 +16,10 @@ describe('SdcComponentsStateCountComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [SdcComponentsStateCountComponent, RouterTestingModule, TranslateModule.forRoot()],
-    providers: [{ provide: Location, useClass: SpyLocation }, provideHttpClient(withInterceptorsFromDi())]
-})
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [SdcComponentsStateCountComponent, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [{ provide: Location, useClass: SpyLocation }, provideHttpClient(withInterceptorsFromDi())]
+    })
       .compileComponents()
       .catch(emptyFn);
   }));
@@ -36,6 +36,11 @@ describe('SdcComponentsStateCountComponent', () => {
   });
 
   it('should select coverage', () => {
-    component.onClick({ count: 1, state: MetricStates.PERFECT });
+    const stateCount = { count: 1, state: MetricStates.PERFECT };
+    spyOn(component.clickStateCount, 'emit');
+
+    component.onClick(stateCount);
+
+    expect(component.clickStateCount.emit).toHaveBeenCalledWith(stateCount);
   });
 });

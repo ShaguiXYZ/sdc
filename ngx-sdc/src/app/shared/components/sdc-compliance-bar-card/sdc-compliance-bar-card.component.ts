@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { NxBadgeModule } from '@allianz/ng-aquila/badge';
 import { NxCardModule } from '@allianz/ng-aquila/card';
 import { NxLinkModule } from '@allianz/ng-aquila/link';
@@ -11,11 +11,11 @@ import { styleByCoverage } from '../../lib';
 import { SdcTrendComponent } from '../sdc-trend';
 
 @Component({
-    selector: 'sdc-compliance-bar-card',
-    styleUrls: ['./sdc-compliance-bar-card.component.scss'],
-    templateUrl: './sdc-compliance-bar-card.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, SdcTrendComponent, TranslateModule]
+  selector: 'sdc-compliance-bar-card',
+  styleUrls: ['./sdc-compliance-bar-card.component.scss'],
+  templateUrl: './sdc-compliance-bar-card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, NxBadgeModule, NxCardModule, NxLinkModule, NxProgressbarModule, SdcTrendComponent, TranslateModule]
 })
 export class SdcComplianceBarCardComponent {
   @Input()
@@ -47,10 +47,8 @@ export class SdcComplianceBarCardComponent {
 
   private _component!: IComponentModel;
 
-  constructor(
-    private readonly notificationService: NotificationService,
-    private readonly translateService: TranslateService
-  ) {}
+  private readonly notificationService = inject(NotificationService);
+  private readonly translateService = inject(TranslateService);
 
   get component(): IComponentModel {
     return this._component;
@@ -58,7 +56,7 @@ export class SdcComplianceBarCardComponent {
   @Input()
   set component(value: IComponentModel) {
     this._component = value;
-    this.coverage = this._component.coverage && Math.round(this._component.coverage);
+    this.coverage = this._component?.coverage && Math.round(this._component.coverage);
 
     if (this.coverage) {
       this.coverageStyle = styleByCoverage(this.coverage);

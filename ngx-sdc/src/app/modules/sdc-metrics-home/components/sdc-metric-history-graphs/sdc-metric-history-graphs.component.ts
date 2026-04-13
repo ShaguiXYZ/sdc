@@ -1,5 +1,5 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, signal, WritableSignal } from '@angular/core';
 import { NxCheckboxModule } from '@allianz/ng-aquila/checkbox';
 import { NxCopytextModule } from '@allianz/ng-aquila/copytext';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -14,11 +14,11 @@ import { MetricsHistoryDataModel } from './models';
 import { SdcMetricHistoryGraphsService } from './services';
 
 @Component({
-    selector: 'sdc-metric-history-graphs',
-    styleUrls: ['./sdc-metric-history-graphs.component.scss'],
-    templateUrl: './sdc-metric-history-graphs.component.html',
-    providers: [SdcMetricHistoryGraphsService, SdcValueTypeToNumberPipe],
-    imports: [CommonModule, NxCopytextModule, NxCheckboxModule, SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, TranslateModule]
+  selector: 'sdc-metric-history-graphs',
+  styleUrls: ['./sdc-metric-history-graphs.component.scss'],
+  templateUrl: './sdc-metric-history-graphs.component.html',
+  providers: [SdcMetricHistoryGraphsService, SdcValueTypeToNumberPipe],
+  imports: [CommonModule, NxCopytextModule, NxCheckboxModule, SdcMetricInfoComponent, SdcTimeEvolutionChartComponent, TranslateModule]
 })
 export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   @Input()
@@ -37,26 +37,24 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   };
   public availableFactorChartsKeys: AnalysisFactor[] = Object.keys(this.availableFactorCharts) as AnalysisFactor[];
   public metricChartConfig!: ChartConfig;
-  public metricsData?: MetricsHistoryDataModel;
+  public metricsData: WritableSignal<MetricsHistoryDataModel> = signal({} as MetricsHistoryDataModel);
 
   private data$!: Subscription;
 
-  constructor(
-    private readonly dateService: DateService,
-    private readonly metricHistoryGraphsService: SdcMetricHistoryGraphsService,
-    private readonly titleCasePipe: TitleCasePipe,
-    private readonly translateService: TranslateService,
-    private readonly valueTypeToNumberPipe: SdcValueTypeToNumberPipe
-  ) {}
+  private readonly dateService = inject(DateService);
+  private readonly metricHistoryGraphsService = inject(SdcMetricHistoryGraphsService);
+  private readonly titleCasePipe = inject(TitleCasePipe);
+  private readonly translateService = inject(TranslateService);
+  private readonly valueTypeToNumberPipe = inject(SdcValueTypeToNumberPipe);
 
   ngOnInit(): void {
-    this.metricHistoryGraphsService.loadInitData(this.componentId, this.selectedAnalysis).then(data => (this.metricsData = data));
+    this.metricHistoryGraphsService.loadInitData(this.componentId, this.selectedAnalysis).then(data => this.metricsData.set(data));
 
     this.data$ = this.metricHistoryGraphsService.onDataChange().subscribe(metricsData => {
-      this.metricsData = metricsData;
+      this.metricsData.set(metricsData);
       this.metricChartConfig = {
         ...this.metricGraphConfig(),
-        data: this.chartData(this.metricsData?.historicalAnalysis ?? [], this.metricsData.showFactorCharts)
+        data: this.chartData(metricsData?.historicalAnalysis ?? [], metricsData.showFactorCharts)
       };
     });
   }
@@ -75,7 +73,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   }
 
   private metricGraphConfig(): ChartConfig {
-    const analysis = this.metricsData?.historicalAnalysis;
+    const analysis = this.metricsData().historicalAnalysis;
 
     return {
       axis: {
@@ -83,14 +81,14 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
       },
       data: [],
       options: { showVisualMap: true },
-      type: this.metricsData?.selectedAnalysis?.metric.valueType
+      type: this.metricsData().selectedAnalysis?.metric.valueType
     };
   }
 
   private chartData(analysis: IMetricAnalysisModel[], showFactorChart?: Record<AnalysisFactor, boolean>): Array<ChartData> {
     const data: Array<ChartData> = [
       {
-        name: this.metricsData?.selectedAnalysis?.metric.name,
+        name: this.metricsData().selectedAnalysis?.metric.name,
         values: analysis?.map(value => this.getChartDataValue(value)) ?? []
       }
     ];
@@ -119,7 +117,7 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
     return {
       color: value.metric.validation ? MetricState[stateByCoverage(value.coverage)].color : MetricState[DEFAULT_METRIC_STATE].color,
       value:
-        this.valueTypeToNumberPipe.transform(value.analysisValues.metricValue, this.metricsData?.selectedAnalysis?.metric.valueType) ?? 0
+        this.valueTypeToNumberPipe.transform(value.analysisValues.metricValue, this.metricsData().selectedAnalysis?.metric.valueType) ?? 0
     };
   }
 
@@ -142,7 +140,8 @@ export class SdcMetricHistoryGraphsComponent implements OnInit, OnDestroy {
   private getFactorChartDataValue(value: IMetricAnalysisModel, state: MetricStates, valueKey: AnalysisFactor): ChartValue {
     return {
       color: MetricState[state].color,
-      value: this.valueTypeToNumberPipe.transform(value.analysisValues[valueKey], this.metricsData?.selectedAnalysis?.metric.valueType) ?? 0
+      value:
+        this.valueTypeToNumberPipe.transform(value.analysisValues[valueKey], this.metricsData().selectedAnalysis?.metric.valueType) ?? 0
     };
   }
 }
