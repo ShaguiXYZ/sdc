@@ -15,8 +15,8 @@ describe('SdcDepartmentSummaryComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [SdcDepartmentSummaryComponent, RouterTestingModule, TranslateModule.forRoot(), provideEchartsCore({ echarts })],
-      providers: [provideHttpClient(withInterceptorsFromDi())]
+      imports: [SdcDepartmentSummaryComponent, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [provideHttpClient(withInterceptorsFromDi()), provideEchartsCore({ echarts })]
     })
       .compileComponents()
       .catch(emptyFn);

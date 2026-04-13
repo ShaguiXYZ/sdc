@@ -3,8 +3,7 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: './src',
-    files: ['**/*spec.ts'],
+    basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
@@ -24,6 +23,9 @@ module.exports = function (config) {
     },
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
+    },
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
     },
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/ngx-sdc'),

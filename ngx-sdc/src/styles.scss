@@ -2,14 +2,56 @@
 /**
   Themes
 */
-@import '@angular/cdk/overlay-prebuilt.css';
-@import '@angular/cdk/a11y-prebuilt.css';
+@use 'sass:map';
+@use '@allianz/ng-aquila/styles/theming' as nx;
 
-@import 'core-colors';
+@use '@angular/cdk/overlay-prebuilt.css';
+@use '@angular/cdk/a11y-prebuilt.css';
+
+@use 'core-colors';
+
 @import 'core-globals';
 
-@import 'themes/dark';
+/**
+  * @howto: register theme
+  * 1. create a theme file in themes folder, and export a map variable with $theme suffix, e.g. $light-theme
+  * 2. import the theme file here and register the theme to $nx-themes map with nx.nx-register-theme function
+  * 3. use the theme in html with data-theme attribute, e.g. <body data-theme="light">
+  */
 @import 'themes/light';
+@import 'themes/dark';
+
+$nx-themes: nx.$nx-themes;
+
+$nx-themes: nx.nx-register-theme($light-theme, light);
+$nx-themes: nx.nx-register-theme($dark-theme, dark, light);
+
+@function _nx-deep-find-value($theme, $key, $value) {
+  $parent-value: map.get($theme, $value);
+
+  @if $parent-value != null {
+    @return _nx-deep-find-value($theme, $value, $parent-value);
+  }
+
+  @return $value;
+}
+
+@mixin nx-build-theme($theme-name) {
+  $theme: map.get($nx-themes, $theme-name);
+
+  @each $name, $value in $theme {
+    $resolved: _nx-deep-find-value($theme, $name, $value);
+    #{"--" + $name}: #{$resolved};
+  }
+}
+
+[data-theme='light'] {
+  @include nx-build-theme(light);
+}
+
+[data-theme='dark'] {
+  @include nx-build-theme(dark);
+}
 
 :root {
   // color-scheme: light dark;
@@ -78,12 +120,12 @@
   // scrollbar-width: thin;
 
   &::-webkit-scrollbar {
-    background-color: $grey-lighter-color;
+    // background-color: $grey-lighter-color;
     width: 2px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $grey-dark-color;
+    // background-color: $grey-dark-color;
     border-radius: 5px;
   }
 }
